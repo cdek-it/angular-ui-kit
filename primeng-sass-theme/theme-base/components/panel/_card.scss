@@ -1,0 +1,41 @@
+.p-card {
+    overflow: hidden;
+
+    color: $cardTextColor;
+    font-size: $cardTextFontSize;
+
+    border-radius: $cardBorderRadius;
+    border: $cardBorder;
+
+    background: $cardBg;
+    box-shadow: $cardShadow;
+
+    &.p-card-no-shadow {
+        box-shadow: none;
+    }
+
+
+    .p-card-body {
+        padding: $cardBodyPadding;
+    }
+
+    .p-card-title {
+        font-size: $cardTitleFontSize;
+        font-weight: $cardTitleFontWeight;
+        margin-bottom: .25rem;
+    }
+
+    .p-card-subtitle {
+        font-size: $cardSubTitleFontSize;
+        font-weight: $cardSubTitleFontWeight;
+        color: $cardSubTitleColor;
+    }
+
+    .p-card-content {
+        padding: $cardContentPadding;
+    }
+
+    .p-card-footer {
+        padding: $cardFooterPadding;
+    }
+}

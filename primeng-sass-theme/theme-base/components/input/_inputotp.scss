@@ -1,0 +1,33 @@
+.p-inputotp {
+    display: flex;
+    align-items: center;
+    gap: $inlineSpacing;
+
+    &.error {
+        .p-inputotp-input {
+            border-color: $errorColor;
+        }
+    }
+}
+
+.p-inputotp-input {
+    font-size: $inputOptFontSize;
+    text-align: center;
+
+    width: 2 * nth($inputPadding, 2) + 1rem;
+
+    border: none;
+    border-bottom: $inputListBorder;
+    border-radius: 0;
+
+    background: transparent;
+
+    &:disabled,  &.p-disabled {
+        background: transparent;
+    }
+}
+
+.p-inputotp-input:enabled:focus {
+    box-shadow: none;
+}
+

@@ -1,0 +1,9 @@
+.p-inputtextarea {
+    padding: $inputPaddingLeftRight;
+    line-height: normal;
+}
+
+.p-icon-field .p-inputtextarea-icon.p-input-icon {
+    top: unset;
+    margin-top: 0.5rem;
+}

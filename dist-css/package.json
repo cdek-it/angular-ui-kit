@@ -1,0 +1,15 @@
+{
+    "name": "@cdek/primeng",
+    "version": "0.1.94",
+    "description": "",
+    "scripts": {},
+    "files": [
+        "css/**/*"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {}
+}

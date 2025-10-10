@@ -1,0 +1,77 @@
+%disabled {
+    color: $disabledButtonTextColor;
+    background-color: $disabledButtonBg;
+    border-color: $disabledButtonBorderColor;
+
+    .p-button-icon-left,
+    .p-button-icon-right {
+        color: $disabledButtonTextColor !important;
+    }
+}
+
+//theme
+.p-togglebutton {
+    &.p-button {
+        background: $toggleButtonBg;
+        border: $toggleButtonBorder;
+        color: $toggleButtonTextColor;
+        transition: $formElementTransition;
+        outline-color: transparent;
+        border-radius: $roundedButtonBorderRadius;
+
+        &:not(.p-disabled) {
+            &:hover {
+                @include button-hover($color-background: $toggleButtonHoverBg, $color-text: $toggleButtonHoverTextColor);
+
+                box-shadow: none;
+
+                & .p-button-icon-left,
+                .p-button-icon-right {
+                    color: $toggleButtonHoverTextColor;
+                }
+            }
+
+            &:focus-visible {
+                box-shadow: 0 0 0 3.5px $focusOutlineColor;
+            }
+        }
+
+        .p-button-icon-left,
+        .p-button-icon-right {
+            color: $toggleButtonIconColor;
+        }
+
+        // Классы при on состоянии тогла.
+        &.p-highlight {
+            background: $toggleButtonActiveBg;
+            border-color: $toggleButtonActiveBorderColor;
+            color: $toggleButtonActiveTextColor;
+
+            &:not(.p-disabled) {
+                &:hover {
+                    @include button-hover($color-background: $toggleButtonActiveHoverBg, $color-text: $toggleButtonActiveTextColor);
+
+                    box-shadow: none;
+
+                    & .p-button-icon-left,
+                    .p-button-icon-right {
+                        color: $toggleButtonIconActiveHoverColor;
+                    }
+                }
+
+                &:focus-visible {
+                    box-shadow: 0 0 0 3.5px $focusOutlineColor;
+                }
+            }
+
+            &.p-disabled {
+                @extend %disabled;
+            }
+
+            .p-button-icon-left,
+            .p-button-icon-right {
+                color: $toggleButtonIconActiveColor;
+            }
+        }
+    }
+}

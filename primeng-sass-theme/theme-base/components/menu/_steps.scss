@@ -1,0 +1,97 @@
+@use 'sass:math';
+
+.p-steps {
+    overflow: hidden;
+    overflow-x: auto;
+
+    .p-steps-item {
+        display: flex;
+        justify-content: center;
+        .p-menuitem-link {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: $inlineSpacing;
+
+            border-radius: 0;
+            padding: 0 $inlineSpacing;
+
+            background: $stepsItemBg;
+            transition: $listItemTransition;
+
+            z-index: 1;
+
+            .p-steps-number {
+                color: $stepsItemNumberColor;
+                font-weight: $stepsItemFontWeight;
+                border: $stepsItemBorder;
+                background: $stepsItemBg;
+                min-width: $stepsItemNumberWidth;
+                height: $stepsItemNumberHeight;
+                line-height: $stepsItemNumberHeight;
+                font-size: $stepsItemNumberFontSize;
+                z-index: 1;
+                border-radius: $stepsItemNumberBorderRadius;
+            }
+
+            .p-steps-title {
+                color: $stepsItemTextColor;
+                font-weight: $stepsItemFontWeight;
+            }
+
+            &:not(.p-disabled):focus-visible {
+                @include focused();
+            }
+        }
+
+        // В PrimeNg 17 в Steps первый шаг почему-то всегда содержит .p-highlight.
+        // Однако требуется, чтобы выделялся только текущий шаг.
+        // Поэтому выделяется последний шаг с классом .p-highlight.
+        &.p-highlight:not(:has(~ .p-highlight)) {
+            .p-steps-number {
+                background: $highlightBg;
+                color: $highlightTextColor;
+                border-color: transparent;
+            }
+
+            .p-steps-title {
+                color: $textColor;
+            }
+        }
+
+        &.p-disabled {
+            opacity: 1; // Костыль на прозрачность
+
+            .p-steps-number,
+            .p-steps-title {
+                opacity: $disabledOpacity;
+            }
+        }
+
+        &:before {
+            content:' ';
+            border-top: $divider;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            display: block;
+            position: absolute;
+        }
+
+        &:first-of-type {
+            justify-content: flex-start;
+
+            .p-menuitem-link {
+                padding-left: 0;
+            }
+        }
+
+        &:last-of-type {
+            justify-content: flex-end;
+
+            .p-menuitem-link {
+                padding-right: 0;
+            }
+        }
+    }
+}

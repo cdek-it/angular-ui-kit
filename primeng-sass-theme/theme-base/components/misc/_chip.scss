@@ -1,0 +1,67 @@
+@use 'sass:math';
+
+.p-chip {
+    height: $chipHeight;
+
+    color: $chipTextColor;
+
+    border-radius: $chipBorderRadius;
+    border: $chipBorder;
+
+    padding: $chipPadding;
+    background-color: $chipBg;
+    display: inline-flex;
+
+
+    &.p-disabled {
+        color: $disabledButtonTextColor;
+        border-color: $disabledButtonBorderColor;
+        background-color: $disabledButtonBg;
+    }
+
+    .p-chip-text {
+        line-height: 1.5;
+        margin-top: math.div(nth($inputPadding, 1), 2);
+        margin-bottom: math.div(nth($inputPadding, 1), 2);
+    }
+
+    .p-chip-icon {
+        margin-right: $inlineSpacing;
+    }
+
+    img {
+        width: 1.5 + nth($inputPadding, 1);
+        height: 1.5 + nth($inputPadding, 1);
+        margin-left: -1 * nth($inputPadding, 2);
+        margin-right: $inlineSpacing;
+    }
+
+    .p-chip-remove-icon {
+        border-radius: $borderRadius;
+        transition: $actionIconTransition;
+        margin-left: $inlineSpacing;
+
+        &:focus-visible {
+            @include focused();
+        }
+
+        &:focus {
+            outline: 0 none;
+        }
+    }
+}
+
+timescircleicon {
+    svg {
+         display: none!important;
+     }
+    &::after {
+         cursor: pointer;
+         mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2215%22%20viewBox%3D%220%200%2014%2015%22%20fill%3D%22none%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M3.0876%203.83754C3.31541%203.60974%203.68475%203.60974%203.91256%203.83754L7.00008%206.92506L10.0876%203.83754C10.3154%203.60974%2010.6848%203.60974%2010.9126%203.83754C11.1404%204.06535%2011.1404%204.43469%2010.9126%204.6625L7.82504%207.75002L10.9126%2010.8375C11.1404%2011.0653%2011.1404%2011.4347%2010.9126%2011.6625C10.6848%2011.8903%2010.3154%2011.8903%2010.0876%2011.6625L7.00008%208.57498L3.91256%2011.6625C3.68475%2011.8903%203.31541%2011.8903%203.0876%2011.6625C2.8598%2011.4347%202.8598%2011.0653%203.0876%2010.8375L6.17512%207.75002L3.0876%204.6625C2.8598%204.43469%202.8598%204.06535%203.0876%203.83754Z%22%20fill%3D%22currentColor%22%20fill-opacity%3D%220.8%22%2F%3E%3C%2Fsvg%3E") no-repeat;
+         height: 16px;
+         width: 16px;
+         background: $chipTextColor;
+         margin-left: $inlineSpacing;
+         content: "";
+     }
+ }

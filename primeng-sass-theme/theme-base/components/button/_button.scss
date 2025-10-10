@@ -1,0 +1,565 @@
+@mixin button-active($color-background: transparent, $color-text: transparent, $color-border: transparent) {
+    background: $color-background;
+    color: $color-text;
+    border-color: $color-border;
+
+    box-shadow: none;
+}
+
+@mixin button-hover($color-background: transparent, $color-text: transparent, $color-border: transparent) {
+    background: $color-background;
+    color: $color-text;
+    border-color: $color-border;
+
+    box-shadow: $buttonHoverShadow;
+}
+
+%disabled {
+    color: $disabledButtonTextColor;
+    background-color: $disabledButtonBg;
+    border-color: $disabledButtonBorderColor;
+}
+
+// Basic
+.p-button {
+    height: $buttonHeight;
+
+    display: flex;
+    gap: $inlineSpacing;
+
+    font-size: $fontSize;
+    font-weight: 700;
+    color: $buttonTextColor;
+
+    border: $buttonBorder;
+    border-radius: $borderRadius;
+
+    padding: $buttonPadding;
+    background: $buttonBg;
+
+    transition: $formElementTransition;
+
+    .p-button-label {
+        transition-duration: $transitionDuration;
+    }
+
+    .p-button-icon {
+        font-size: 1.25rem;
+    }
+
+    &.p-button-rounded {
+        border-radius: $roundedButtonBorderRadius;
+    }
+
+    &.p-button-icon-only {
+        flex-shrink: 0;
+        width: $buttonIconOnlyWidth;
+        padding: 0;
+
+        // Фикс выравнивания icon only кнопки, скрытие пустого псевдоэлемента.
+        &:after {
+            display: none;
+        }
+
+        .p-button-label {
+            display: none;
+        }
+    }
+
+    &.p-button-sm {
+        $height-icon: 1rem;
+
+        height: $buttonHeightSM;
+        font-size: calc($height-icon - .125rem);
+
+        padding: 0 0.75rem;
+
+        .p-button-icon {
+            font-size: $height-icon;
+        }
+
+        &.p-button-icon-only {
+            width: $buttonHeightSM;
+            padding: 0;
+        }
+    }
+
+    &.p-button-lg {
+        $height-icon: 1.5rem;
+
+        gap: 0.75rem;
+
+        height: $buttonHeightLG;
+        font-size: calc($height-icon - .25rem);
+
+        padding: 0 1.5rem;
+
+        .p-button-icon {
+            font-size: $height-icon;
+        }
+
+        &.p-button-icon-only {
+            width: $buttonHeightLG;
+            padding: 0;
+        }
+    }
+
+    &.p-disabled {
+        @extend %disabled;
+    }
+
+    &:not(.p-disabled):hover {
+        @include button-hover($color-background: $buttonHoverBg, $color-text: $buttonHoverTextColor);
+    }
+
+    &:not(.p-disabled):active {
+        @include button-active($color-background: $buttonActiveBg, $color-text: $buttonActiveTextColor);
+    }
+
+    &:focus-visible {
+        @include focused();
+    }
+}
+
+p-button {
+    &[size='xlarge'] {
+        .p-button{
+            $height-icon: 2rem;
+
+            gap: 0.75rem;
+
+            height: $buttonHeightXL;
+            font-size: calc($height-icon - .25rem);
+
+            padding: 0 1.5rem;
+
+            .p-button-icon {
+                font-size: $height-icon;
+            }
+
+            &.p-button-icon-only {
+                width: $buttonHeightXL;
+                padding: 0;
+            }
+        }
+    }
+}
+
+// Outlined
+.p-button-outlined {
+    background: $outlinedButtonBg;
+    color: $outlinedButtonTextColor;
+    border-color: $outlinedButtonBorderColor;
+
+    &:not(.p-disabled):hover {
+        @include button-hover(
+            $color-background: $outlinedButtonHoverBg,
+            $color-text: $outlinedButtonHoverTextColor,
+            $color-border: $outlinedButtonHoverBorderColor
+        );
+    }
+
+    &:not(.p-disabled):active {
+        @include button-active(
+            $color-background: $outlinedButtonActiveBg,
+            $color-text: $outlinedButtonActiveTextColor,
+            $color-border: $outlinedButtonActiveBorderColor
+        );
+    }
+}
+
+// Text
+.p-button-text {
+    background-color: $textButtonBg;
+    color: $textButtonTextColor;
+
+    &:not(.p-disabled):hover {
+        @include button-hover($color-background: $textButtonHoverBg, $color-text: $textButtonHoverTextColor);
+    }
+
+    &:not(.p-disabled):active {
+        @include button-active($color-background: $textButtonActiveBg, $color-text: $textButtonActiveTextColor);
+    }
+}
+
+.p-button-group {
+    display: flex;
+}
+
+// Fluid - растягивание по ширине родителя
+.p-fluid {
+    .p-button:not(.p-button-icon-only) {
+        width: 100%;
+    }
+    .p-button-group {
+        .p-button:not(.p-button-icon-only) {
+            flex: 1;
+        }
+    }
+}
+
+// Severity
+// Danger
+.p-button.p-button-danger,
+.p-button-group.p-button-danger > .p-button,
+.p-splitbutton.p-button-danger > .p-button,
+.p-fileupload-choose.p-button-danger {
+    color: $dangerButtonTextColor;
+    background: $dangerButtonBg;
+    border-color: $dangerButtonBorderColor;
+
+    &:not(.p-disabled) {
+        &:hover {
+            @include button-hover(
+                $color-background: $dangerButtonHoverBg,
+                $color-text: $dangerButtonHoverTextColor,
+                $color-border: $dangerButtonHoverBorderColor
+            );
+        }
+
+        &:active {
+            @include button-active(
+                $color-background: $dangerButtonActiveBg,
+                $color-text: $dangerButtonActiveTextColor,
+                $color-border: $dangerButtonActiveBorderColor
+            );
+        }
+
+        &.p-button-outlined {
+            background-color: $dangerOutlinedButtonBg;
+            color: $dangerOutlinedButtonTextColor;
+            border-color: $dangerOutlinedButtonBorderColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $dangerOutlinedButtonHoverBg,
+                    $color-text: $dangerOutlinedButtonHoverTextColor,
+                    $color-border: $dangerOutlinedButtonHoverBorderColor
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $dangerOutlinedButtonActiveBg,
+                    $color-text: $dangerOutlinedButtonActiveTextColor,
+                    $color-border: $dangerOutlinedButtonActiveBorderColor
+                );
+            }
+        }
+
+        &.p-button-text {
+            background-color: $dangerTextButtonBg;
+            color: $dangerTextButtonTextColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $dangerTextButtonHoverBg,
+                    $color-text: $dangerTextButtonHoverTextColor,
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $dangerOutlinedButtonActiveBg,
+                    $color-text: $dangerOutlinedButtonActiveTextColor,
+                );
+            }
+        }
+    }
+
+    &.p-disabled {
+        @extend %disabled;
+    }
+}
+
+// Warning
+.p-button.p-button-warning,
+.p-button-group.p-button-warning > .p-button,
+.p-splitbutton.p-button-warning > .p-button,
+.p-fileupload-choose.p-button-warning {
+    color: $warningButtonTextColor;
+    background: $warningButtonBg;
+    border-color: $warningButtonBorderColor;
+
+    &:not(.p-disabled) {
+        &:hover {
+            @include button-hover(
+                $color-background: $warningButtonHoverBg,
+                $color-text: $warningButtonHoverTextColor,
+                $color-border: $warningButtonHoverBorderColor
+            );
+        }
+
+        &:active {
+            @include button-active(
+                $color-background: $warningButtonActiveBg,
+                $color-text: $warningButtonActiveTextColor,
+                $color-border: $warningButtonActiveBorderColor
+            );
+        }
+
+        &.p-button-outlined {
+            background-color: $warningOutlinedButtonBg;
+            color: $warningOutlinedButtonTextColor;
+            border-color: $warningOutlinedButtonBorderColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $warningOutlinedButtonHoverBg,
+                    $color-text: $warningOutlinedButtonHoverTextColor,
+                    $color-border: $warningOutlinedButtonHoverBorderColor
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $warningOutlinedButtonActiveBg,
+                    $color-text: $warningOutlinedButtonActiveTextColor,
+                    $color-border: $warningOutlinedButtonActiveBorderColor
+                );
+            }
+        }
+
+        &.p-button-text {
+            background-color: $warningTextButtonBg;
+            color: $warningTextButtonTextColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $warningTextButtonHoverBg,
+                    $color-text: $warningTextButtonHoverTextColor,
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $warningTextButtonActiveBg,
+                    $color-text: $warningTextButtonActiveTextColor,
+                );
+            }
+        }
+    }
+
+    &.p-disabled {
+        @extend %disabled;
+    }
+}
+
+// Success
+.p-button.p-button-success,
+.p-button-group.p-button-success > .p-button,
+.p-splitbutton.p-button-success > .p-button,
+.p-fileupload-choose.p-button-success {
+    color: $successButtonTextColor;
+    background: $successButtonBg;
+    border-color: $successButtonBorderColor;
+
+    &:not(.p-disabled) {
+        &:hover {
+            @include button-hover(
+                $color-background: $successButtonHoverBg,
+                $color-text: $successButtonHoverTextColor,
+                $color-border: $successButtonHoverBorderColor
+            );
+        }
+
+        &:active {
+            @include button-active(
+                $color-background: $successButtonActiveBg,
+                $color-text: $successButtonActiveTextColor,
+                $color-border: $successButtonActiveBorderColor
+            );
+        }
+
+        &.p-button-outlined {
+            background-color: $successOutlinedButtonBg;
+            color: $successOutlinedButtonTextColor;
+            border-color: $successOutlinedButtonBorderColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $successOutlinedButtonHoverBg,
+                    $color-text: $successOutlinedButtonHoverTextColor,
+                    $color-border: $successOutlinedButtonHoverBorderColor
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $successOutlinedButtonActiveBg,
+                    $color-text: $successOutlinedButtonActiveTextColor,
+                    $color-border: $successOutlinedButtonActiveBorderColor
+                );
+            }
+        }
+
+        &.p-button-text {
+            background-color: $successTextButtonBg;
+            color: $successTextButtonTextColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $successTextButtonHoverBg,
+                    $color-text: $successTextButtonHoverTextColor,
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $successTextButtonActiveBg,
+                    $color-text: $successTextButtonActiveTextColor,
+                );
+            }
+        }
+    }
+
+    &.p-disabled {
+        @extend %disabled;
+    }
+}
+
+// Info
+.p-button.p-button-info,
+.p-button-group.p-button-info > .p-button,
+.p-splitbutton.p-button-info > .p-button,
+.p-fileupload-choose.p-button-info {
+    color: $infoButtonTextColor;
+    background: $infoButtonBg;
+    border-color: $infoButtonBorderColor;
+
+    &:not(.p-disabled) {
+        &:hover {
+            @include button-hover(
+                $color-background: $infoButtonHoverBg,
+                $color-text: $infoButtonHoverTextColor,
+                $color-border: $infoButtonHoverBorderColor
+            );
+        }
+
+        &:active {
+            @include button-active(
+                $color-background: $infoButtonActiveBg,
+                $color-text: $infoButtonActiveTextColor,
+                $color-border: $infoButtonActiveBorderColor
+            );
+        }
+
+        &.p-button-outlined {
+            background-color: $infoOutlinedButtonBg;
+            color: $infoOutlinedButtonTextColor;
+            border-color: $infoOutlinedButtonBorderColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $infoOutlinedButtonHoverBg,
+                    $color-text: $infoOutlinedButtonHoverTextColor,
+                    $color-border: $infoOutlinedButtonHoverBorderColor
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $infoOutlinedButtonActiveBg,
+                    $color-text: $infoOutlinedButtonActiveTextColor,
+                    $color-border: $infoOutlinedButtonActiveBorderColor
+                );
+            }
+        }
+
+        &.p-button-text {
+            background-color: $infoTextButtonBg;
+            color: $infoTextButtonTextColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $infoTextButtonHoverBg,
+                    $color-text: $infoTextButtonHoverTextColor,
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $infoTextButtonActiveBg,
+                    $color-text: $infoTextButtonActiveTextColor,
+                );
+            }
+        }
+    }
+
+    &.p-disabled {
+        @extend %disabled;
+    }
+}
+
+// Help
+.p-button.p-button-help,
+.p-button-group.p-button-help > .p-button,
+.p-splitbutton.p-button-help > .p-button,
+.p-fileupload-choose.p-button-help {
+    color: $helpButtonTextColor;
+    background: $helpButtonBg;
+    border-color: $helpButtonBorderColor;
+
+    &:not(.p-disabled) {
+        &:hover {
+            @include button-hover(
+                $color-background: $helpButtonHoverBg,
+                $color-text: $helpButtonHoverTextColor,
+                $color-border: $helpButtonHoverBorderColor
+            );
+        }
+
+        &:active {
+            @include button-active(
+                $color-background: $helpButtonActiveBg,
+                $color-text: $helpButtonActiveTextColor,
+                $color-border: $helpButtonActiveBorderColor
+            );
+        }
+
+        &.p-button-outlined {
+            background-color: $helpOutlinedButtonBg;
+            color: $helpOutlinedButtonTextColor;
+            border-color: $helpOutlinedButtonBorderColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $helpOutlinedButtonHoverBg,
+                    $color-text: $helpOutlinedButtonHoverTextColor,
+                    $color-border: $helpOutlinedButtonHoverBorderColor
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $helpOutlinedButtonActiveBg,
+                    $color-text: $helpOutlinedButtonActiveTextColor,
+                    $color-border: $helpOutlinedButtonActiveBorderColor
+                );
+            }
+        }
+
+        &.p-button-text {
+            background-color: $helpTextButtonBg;
+            color: $helpTextButtonTextColor;
+
+            &:hover {
+                @include button-hover(
+                    $color-background: $helpTextButtonHoverBg,
+                    $color-text: $helpTextButtonHoverTextColor,
+                );
+            }
+
+            &:active {
+                @include button-active(
+                    $color-background: $helpTextButtonActiveBg,
+                    $color-text: $helpTextButtonActiveTextColor,
+                );
+            }
+        }
+    }
+
+    &.p-disabled {
+        @extend %disabled;
+    }
+}

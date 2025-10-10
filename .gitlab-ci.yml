@@ -1,0 +1,53 @@
+image: docker.cdek.ru/node:cypress-browsers-16.18.0-chrome90-ff88
+include:
+  - project: 'architecture/ci-scripts'
+    ref: master
+    file: '.ci-base-k8s-frontend.yml'
+variables:
+  DEPLOY_APP: primeng-cdek
+  DEPLOY_FILE: .k8s/Deployfile.yml
+
+build-feature-package:
+    when: manual
+    stage: build
+    only:
+        - /^feature*/
+        - /^hotfix*/
+        - /^bugfix*/
+        - /^release*/
+    before_script:
+        - !reference [ '.ci-scripts', 'set_npmrc_registry' ]
+    script:
+        - npm ci
+        - npm run build-themes
+        - cd dist-css
+        - npm version --no-git-tag-version --force  $(node -p "require('./package.json').version")-development.${CI_COMMIT_SHORT_SHA}
+        - !reference [ '.ci-scripts', 'set_npmrc_publish' ]
+        - !reference [ '.ci-scripts', 'npm_publish' ]
+    tags:
+        - docker
+
+build-release-package:
+    stage: build
+    rules:
+        - if: '$CI_COMMIT_REF_NAME == "master" && $CI_COMMIT_TITLE !~ /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/'
+    before_script:
+        - !reference [ '.ci-scripts', 'set_npmrc_registry' ]
+    script:
+        - git config user.email "gitlab@cdek.ru"
+        - git config user.name "Gitlab"
+        - cd dist-css
+        - npm version -no-git-tag-version -force patch
+        - cd ..
+        - git add .
+        - git reset HEAD .npmrc
+        - git commit -m "Up Package Version"
+        - git push --push-option='ci.skip' -f https://$GITLAB_CI_USER:$PRIVATE_TOKEN@gitlab.cdek.ru/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME.git HEAD:$CI_COMMIT_REF_NAME
+        - npm ci
+        - npm run build-themes
+        - node s3-publish-themes.js $S3_PUBLISH_THEMES_ACCESS_KEY $S3_PUBLISH_THEMES_SECRET_KEY
+        - cd dist-css
+        - !reference [ '.ci-scripts', 'set_npmrc_publish' ]
+        - !reference [ '.ci-scripts', 'npm_publish' ]
+    tags:
+        - docker

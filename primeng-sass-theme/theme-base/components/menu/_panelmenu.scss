@@ -1,0 +1,152 @@
+.p-panelmenu {
+    &[data-pc-section="root"] {
+        display: flex;
+        flex-direction: column;
+        gap: $menuitemSpacing;
+    }
+    // Стиль заголовка
+    [data-pc-section="header"] {
+        padding: $menuitemPadding;
+
+        border-radius: $menuitemBorderRadius;
+        border: $menuitemBorder;
+
+        background-color: $menuitemBg;
+
+        .p-panelmenu-header-action {
+            display: flex;
+            gap: $inlineSpacing;
+        }
+
+        .p-panelmenu-header-link {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: $inlineSpacing;
+        }
+
+        .p-menuitem-text {
+            color: $menuitemTextColor;
+        }
+
+        .p-menuitem-icon {
+            color: $menuitemTextColor;
+        }
+
+        .p-submenu-icon {
+            color: $menuitemIconColor;
+        }
+    }
+    // Стиль не активного заголовка по наведению
+    [data-pc-section="header"][aria-expanded="false"]:not([data-p-disabled="true"]):hover {
+        cursor: pointer;
+
+        background-color: $menuitemHoverBg;
+
+        .p-menuitem-text {
+            color: $menuitemHoverTextColor;
+        }
+
+        .p-menuitem-icon {
+            color: $menuitemHoverTextColor;
+        }
+
+        .p-submenu-icon {
+            color: $menuitemHoverIconColor;
+        }
+    }
+
+    // Стиль активного заголовка
+    [data-pc-section="header"][aria-expanded="true"] {
+        background-color: $menuitemActiveBg;
+
+        .p-menuitem-text {
+            color: $menuitemActiveTextColor;
+        }
+
+        .p-menuitem-icon {
+            color: $menuitemActiveTextColor;
+        }
+
+        .p-submenu-icon {
+            color: $menuitemActiveIconColor;
+        }
+    }
+
+    // Стиль активного заголовка по наведению
+    [data-pc-section="header"][aria-expanded="true"]:not([data-p-disabled="true"]):hover {
+        cursor: pointer;
+
+        background-color: $menuitemActiveHoverBg;
+
+        .p-menuitem-text {
+            color: $menuitemActiveTextColor;
+        }
+
+        .p-menuitem-icon {
+            color: $menuitemActiveTextColor;
+        }
+
+        .p-submenu-icon {
+            color: $menuitemActiveIconColor;
+        }
+    }
+
+    // Стиль заголовка в состоянии disabled
+    [data-pc-section="header"][data-p-disabled="true"] {
+        background-color: $disabledButtonBg;
+        border-color: $disabledButtonBorderColor;
+
+        .p-menuitem-icon {
+            color: $disabledButtonTextColor;
+        }
+
+        .p-menuitem-text {
+            color: $disabledButtonTextColor;
+        }
+
+        .p-submenu-icon {
+            color: $disabledButtonTextColor;
+        }
+    }
+
+    [data-pc-section="menu"] {
+        padding: $overlayMenuPadding 0 0 $menuNodeChildrenPadding;
+    }
+
+    [data-pc-section="submenu"] {
+        padding: $overlayMenuPadding 0 0 $menuNodeChildrenPadding;
+    }
+
+    @include menuitem();
+    @include menuitem-separator();
+
+    // Фикс стиля disabled
+    .p-menuitem {
+        & > .p-menuitem-content:has(.p-disabled) {
+            pointer-events: none;
+            opacity: $disabledOpacity;
+
+            .p-menuitem-link {
+                pointer-events: none;
+
+                background-color: $disabledButtonBg;
+                border-color: $disabledButtonBorderColor;
+
+                opacity: 1;
+            }
+
+            .p-menuitem-icon {
+                color: $disabledButtonTextColor;
+            }
+
+            .p-menuitem-text {
+                color: $disabledButtonTextColor;
+            }
+
+            .p-submenu-icon {
+                color: $disabledButtonTextColor;
+            }
+        }
+    }
+}

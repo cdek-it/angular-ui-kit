@@ -1,0 +1,68 @@
+.p-tabmenu {
+    .p-tabmenu-nav {
+        background: $tabviewNavBg;
+        border-bottom: $tabviewNavBorder;
+
+        .p-tabmenuitem {
+            margin-right: $tabviewHeaderSpacing;
+
+            .p-menuitem-link {
+                background: $tabviewHeaderBg;
+                color: $tabviewHeaderTextColor;
+                font-weight: $tabviewHeaderFontWeight;
+
+                border-bottom: $tabviewHeaderBorder;
+
+                padding: $tabviewHeaderPadding;
+                margin: $tabviewHeaderMargin;
+
+                transition: $listItemTransition;
+
+                .p-menuitem-icon {
+                    margin-right: $inlineSpacing;
+                }
+
+                &:not(.p-disabled):focus-visible {
+                    @include focused-inset();
+                }
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                .p-menuitem-link {
+                    background: $tabviewHeaderHoverBg;
+                    border-color: $tabviewHeaderHoverBorderColor;
+                    color: $tabviewHeaderHoverTextColor;
+                }
+            }
+
+            &.p-highlight {
+                .p-menuitem-link {
+                    background: $tabviewHeaderActiveBg;
+                    border-color: $tabviewHeaderActiveBorderColor;
+                    color: $tabviewHeaderActiveTextColor;
+                }
+            }
+        }
+    }
+
+    .p-tabmenu-nav-btn.p-link {
+        background: $surface-ground;
+        color: $tabviewHeaderTextColor;
+        width: $buttonIconOnlyWidth;
+        box-shadow: 0px 0px 10px 50px var(--white-60);
+        border-radius: 0;
+
+        &:focus-visible {
+            @include focused-inset();
+        }
+
+        &:hover {
+            color: $tabviewHeaderActiveTextColor;
+        }
+    }
+
+    .p-tabmenu-nav-container > .p-tabmenu-nav-content > .p-tabmenu-nav {
+        white-space: nowrap;
+        width: max-content;
+    }
+}

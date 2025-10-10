@@ -1,0 +1,11 @@
+.p-scrollpanel {
+	.p-scrollpanel-bar {
+		background: $scrollPanelTrackBg;
+		border: $scrollPanelTrackBorder;
+		border-radius: $borderRadius;
+
+		&:focus-visible {
+			@include focused();
+		}
+	}
+}

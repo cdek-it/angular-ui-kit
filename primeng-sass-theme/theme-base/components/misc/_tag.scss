@@ -1,0 +1,53 @@
+@use 'sass:math';
+
+.p-tag {
+    height: $tagHeight;
+    
+    color: $badgeTextColor;
+    font-size: $tagFontSize;
+    font-weight: $badgeFontWeight;
+
+    padding: $tagPadding;
+    border-radius: $borderRadius;
+
+    background: $badgeBg;
+
+    &.p-tag-success {
+        background-color: $successButtonBg;
+        color: $successButtonTextColor;
+    }
+
+    &.p-tag-info {
+        background-color: $infoButtonBg;
+        color: $infoButtonTextColor;
+    }
+
+    &.p-tag-warning {
+        background-color: $warningButtonBg;
+        color: $warningButtonTextColor;
+    }
+
+    &.p-tag-danger {
+        background-color: $dangerButtonBg;
+        color: $dangerButtonTextColor;
+    }
+
+    &.p-tag-rounded {
+        border-radius: 100px;
+    }
+
+    &.p-tag-secondary {
+        background-color: $surface-border;
+        color: $textSecondaryColor;
+    }
+
+    .p-tag-icon {
+        margin-right: math.div($inlineSpacing, 2);
+        font-size: $tagFontSize;
+
+        &.p-icon {
+            width: $tagFontSize;
+            height: $tagFontSize;
+        }
+    }
+}

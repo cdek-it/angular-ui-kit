@@ -1,0 +1,73 @@
+@use "sass:math";
+
+.p-float-label label {
+    @apply body-regular-base-secondary-disabled; // TODO при отказе от tailwind внутри библиотеки, перейти на токены.
+    opacity: 0.6;
+}
+
+.p-float-label:has(input:focus) label,
+.p-float-label:has(input.p-filled) label,
+.p-float-label:has(input:-webkit-autofill) label,
+.p-float-label:has(textarea:focus) label,
+.p-float-label:has(textarea.p-filled) label,
+.p-float-label:has(.p-inputwrapper-focus) label,
+.p-float-label:has(.p-inputwrapper-filled) label {
+    @apply caption-secondary; // TODO при отказе от tailwind внутри библиотеки, перейти на токены.
+    opacity: 1;
+}
+
+.float-variant-in .p-float-label .p-inputtext,
+.float-variant-in .p-float-label .p-inputtextarea,
+.float-variant-in .p-float-label .p-select-label,
+.float-variant-in .p-float-label .p-multiselect-label-container,
+.float-variant-in .p-float-label .p-autocomplete-input-multiple,
+.float-variant-in .p-float-label .p-cascadeselect-label,
+.float-variant-in .p-float-label .p-treeselect-label {
+    padding-top: 1rem;
+    min-height: $buttonHeightXL;
+    line-height: normal;
+}
+
+.float-variant-in .p-float-label .p-inputtextarea {
+   padding-top: 2rem;
+}
+
+
+.float-variant-in .p-float-label:has(input:focus) label,
+.float-variant-in .p-float-label:has(input.p-filled) label,
+.float-variant-in .p-float-label:has(input:-webkit-autofill) label,
+.float-variant-in .p-float-label:has(textarea:focus) label,
+.float-variant-in .p-float-label:has(textarea.p-filled) label,
+.float-variant-in .p-float-label:has(.p-inputwrapper-focus) label,
+.float-variant-in .p-float-label:has(.p-inputwrapper-filled) label {
+    top: 1rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+.float-variant-in .p-float-label .p-inputtext.p-chips-multiple-container {
+    padding-top: 1.75rem;
+    padding-bottom: math.div($inlineSpacing, 2);
+}
+
+.p-float-label textarea ~ label {
+    top: 1.25rem;
+}
+
+.p-float-label:has(textarea:focus) label,
+.p-float-label:has(textarea.p-filled) label {
+    top: -0.75rem;
+}
+
+.float-variant-in .p-float-label textarea:focus,
+.float-variant-in .p-float-label textarea.p-filled {
+    padding-top: 2rem;
+}
+
+.p-float-label .p-dropdown .p-placeholder {
+    opacity: 0;
+}
+
+.float-variant-in .p-float-label .p-dropdown .p-inputtext {
+    padding-top: 2rem;
+}
