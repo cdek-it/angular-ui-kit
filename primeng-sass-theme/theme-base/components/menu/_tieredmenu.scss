@@ -1,0 +1,18 @@
+.p-tieredmenu {
+    display: flex;
+
+	[class*="root"] {
+		display: flex;
+		flex-direction: column;
+    }
+
+    [data-pc-section="menu"] {
+		border-radius: $borderRadius;
+		border: $overlayMenuBorder;
+        background-color: $overlayMenuBg;
+        box-shadow: $overlayMenuShadow;
+    }
+
+    @include menuitem();
+	@include menuitem-separator();
+}

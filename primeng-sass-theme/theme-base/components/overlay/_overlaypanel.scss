@@ -1,0 +1,70 @@
+@use 'sass:math';
+
+.p-overlaypanel {
+    background: $overlayContentBg;
+    color: $panelContentTextColor;
+    border: $overlayContentBorder;
+    border-radius: $borderRadius;
+    box-shadow: $overlayContainerShadow;
+
+    .p-overlaypanel-content {
+        padding: $panelContentPadding;
+    }
+
+    .p-overlaypanel-close {
+        background: $buttonBg;
+        color: $buttonTextColor;
+        width: $actionIconWidth;
+        height: $actionIconHeight;
+        transition: $actionIconTransition;
+        border-radius: $actionIconBorderRadius;
+        position: absolute;
+        top: math.div(-1 * $actionIconWidth, 2);
+        right: math.div(-1 * $actionIconWidth, 2);
+
+        &:enabled:hover {
+            background: $buttonHoverBg;
+            color: $buttonHoverTextColor;
+        }
+    }
+
+    &:after {
+        border: solid transparent;
+        border-color: transparent;
+        border-bottom-color: $overlayContentBg;
+        border-width: 6px;
+    }
+
+    &:before {
+        border: solid transparent;
+        border-width: 8px;
+
+        @if (nth($overlayContentBorder, 2) == 'none') {
+            border-color: transparent;
+            border-bottom-color: $overlayContentBorderColor;
+        }
+        @else {
+            border-color: transparent;
+            border-bottom-color: $overlayContentBorderColor;
+        }
+    }
+
+    &.p-overlaypanel-flipped {
+        margin-top: -7px!important;
+        &:after {
+            border-top-color: $overlayContentBg;
+            border-bottom-color: transparent;
+        }
+
+        &:before {
+            @if (nth($overlayContentBorder, 2) == 'none') {
+                border-top-color: $overlayContentBorder;
+                border-bottom-color: transparent;
+            }
+            @else {
+                border-top-color: nth($overlayContentBorder, 3);
+                border-bottom-color: transparent;
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+// dpi
+@media only screen and (min-resolution: 100dpi) and (max-resolution: 199dpi) {
+    html, body {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-resolution: 200dpi) and (max-resolution: 499dpi) {
+    html, body {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-resolution: 500dpi) {
+    html, body {
+        font-size: 16px;
+    }
+}

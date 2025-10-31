@@ -1,0 +1,659 @@
+// @import 'primeflex/primeflex.scss';
+
+// leading-auto эквивалентно line-height: auto из в рамках Figma
+// при разборе стилей типографики text-4xl/font-bold/leading/no-underline
+// leading === leading-auto
+
+@layer utilities {
+    // Typography
+    // Title
+    .title-h1 {
+        @apply text-4xl font-bold leading-auto no-underline text-color;
+    }
+    .title-h2 {
+        @apply text-2xl font-bold leading-auto no-underline text-color;
+    }
+    .title-h3 {
+        @apply text-xl font-bold leading-auto no-underline text-color;
+    }
+    .title-h4 {
+        @apply text-lg font-bold leading-auto no-underline text-color;
+    }
+    .title-h5 {
+        @apply text-base font-bold leading-auto no-underline text-color;
+    }
+    .title-h6 {
+        @apply text-sm font-bold leading-auto no-underline text-color;
+    }
+
+    // Body large bold
+    // Paragraph: false
+    .body-bold-lg {
+        @apply text-lg font-bold leading-auto no-underline text-color;
+    }
+    .body-bold-lg-secondary {
+        @apply text-lg font-bold leading-auto no-underline text-color-secondary;
+    }
+    .body-bold-lg-primary {
+        @apply text-lg font-bold leading-auto no-underline text-primary;
+    }
+    .body-bold-lg-disabled {
+        @apply text-lg font-bold leading-auto no-underline text-color grayscale;
+    }
+    .body-bold-lg-secondary-disabled {
+        @apply text-lg font-bold leading-auto no-underline text-color-secondary grayscale;
+    }
+    .body-bold-lg-primary-disabled {
+        @apply text-lg font-bold leading-auto no-underline text-primary grayscale;
+    }
+
+    // Body large bold
+    // Paragraph: false
+    // Strikethrough: true
+    .body-bold-lg-strikethrough {
+        @apply text-lg font-bold leading-auto line-through text-color;
+    }
+    .body-bold-lg-strikethrough-secondary {
+        @apply text-lg font-bold leading-auto line-through text-color-secondary;
+    }
+    .body-bold-lg-strikethrough-primary {
+        @apply text-lg font-bold leading-auto line-through text-primary;
+    }
+    .body-bold-lg-strikethrough-disabled {
+        @apply text-lg font-bold leading-auto line-through text-color grayscale;
+    }
+    .body-bold-lg-strikethrough-secondary-disabled {
+        @apply text-lg font-bold leading-auto line-through text-color-secondary grayscale;
+    }
+    .body-bold-lg-strikethrough-primary-disabled {
+        @apply text-lg font-bold leading-auto line-through text-primary grayscale;
+    }
+
+    // Body large bold
+    // Paragraph: true
+    .body-bold-lg-paragraph {
+        @apply text-lg font-bold leading-normal no-underline text-color;
+    }
+    .body-bold-lg-secondary-paragraph {
+        @apply text-lg font-bold leading-normal no-underline text-color-secondary;
+    }
+    .body-bold-lg-primary-paragraph {
+        @apply text-lg font-bold leading-normal no-underline text-primary;
+    }
+    .body-bold-lg-paragraph-disabled {
+        @apply text-lg font-bold leading-normal no-underline text-color grayscale;
+    }
+    .body-bold-lg-secondary-paragraph-disabled {
+        @apply text-lg font-bold leading-normal no-underline text-color-secondary grayscale;
+    }
+    .body-bold-lg-primary-paragraph-disabled {
+        @apply text-lg font-bold leading-normal no-underline text-primary grayscale;
+    }
+
+    // Body large bold
+    // Paragraph: true
+    // Strikethrough: true
+    .body-bold-lg-strikethrough-paragraph {
+        @apply text-lg font-bold leading-normal line-through text-color;
+    }
+    .body-bold-lg-strikethrough-secondary-paragraph {
+        @apply text-lg font-bold leading-normal line-through text-color-secondary;
+    }
+    .body-bold-lg-strikethrough-primary-paragraph {
+        @apply text-lg font-bold leading-normal line-through text-primary;
+    }
+    .body-bold-lg-strikethrough-paragraph-disabled {
+        @apply text-lg font-bold leading-normal line-through text-color grayscale;
+    }
+    .body-bold-lg-strikethrough-secondary-paragraph-disabled {
+        @apply text-lg font-bold leading-normal line-through text-color-secondary grayscale;
+    }
+    .body-bold-lg-strikethrough-primary-paragraph-disabled {
+        @apply text-lg font-bold leading-normal line-through text-primary grayscale;
+    }
+
+    // Body large medium
+    // Paragraph: false
+    .body-medium-lg {
+        @apply text-lg font-medium leading-auto no-underline text-color;
+    }
+    .body-medium-lg-secondary {
+        @apply text-lg font-medium leading-auto no-underline text-color-secondary;
+    }
+    .body-medium-lg-primary {
+        @apply text-lg font-medium leading-auto no-underline text-primary;
+    }
+    .body-medium-lg-disabled {
+        @apply text-lg font-medium leading-auto no-underline text-color grayscale;
+    }
+    .body-medium-lg-secondary-disabled {
+        @apply text-lg font-medium leading-auto no-underline text-color-secondary grayscale;
+    }
+    .body-medium-lg-primary-disabled {
+        @apply text-lg font-medium leading-auto no-underline text-primary grayscale;
+    }
+
+    // Body large medium
+    // Paragraph: false
+    // Strikethrough: true
+    .body-medium-lg-strikethrough {
+        @apply text-lg font-medium leading-auto line-through text-color;
+    }
+    .body-medium-lg-strikethrough-secondary {
+        @apply text-lg font-medium leading-auto line-through text-color-secondary;
+    }
+    .body-medium-lg-strikethrough-primary {
+        @apply text-lg font-medium leading-auto line-through text-primary;
+    }
+    .body-medium-lg-strikethrough-disabled {
+        @apply text-lg font-medium leading-auto line-through text-color grayscale;
+    }
+    .body-medium-lg-strikethrough-secondary-disabled {
+        @apply text-lg font-medium leading-auto line-through text-color-secondary grayscale;
+    }
+    .body-medium-lg-strikethrough-primary-disabled {
+        @apply text-lg font-medium leading-auto line-through text-primary grayscale;
+    }
+
+    // Body large medium
+    // Paragraph: true
+    .body-medium-lg-paragraph {
+        @apply text-lg font-medium leading-normal no-underline text-color;
+    }
+    .body-medium-lg-secondary-paragraph {
+        @apply text-lg font-medium leading-normal no-underline text-color-secondary;
+    }
+    .body-medium-lg-primary-paragraph {
+        @apply text-lg font-medium leading-normal no-underline text-primary;
+    }
+    .body-medium-lg-paragraph-disabled {
+        @apply text-lg font-medium leading-normal no-underline text-color grayscale;
+    }
+    .body-medium-lg-secondary-paragraph-disabled {
+        @apply text-lg font-medium leading-normal no-underline text-color-secondary grayscale;
+    }
+    .body-medium-lg-primary-paragraph-disabled {
+        @apply text-lg font-medium leading-normal no-underline text-primary grayscale;
+    }
+
+    // Body large medium
+    // Paragraph: true
+    // Strikethrough: true
+    .body-medium-lg-strikethrough-paragraph {
+        @apply text-lg font-medium leading-normal line-through text-color;
+    }
+    .body-medium-lg-strikethrough-secondary-paragraph {
+        @apply text-lg font-medium leading-normal line-through text-color-secondary;
+    }
+    .body-medium-lg-strikethrough-primary-paragraph {
+        @apply text-lg font-medium leading-normal line-through text-primary;
+    }
+    .body-medium-lg-strikethrough-paragraph-disabled {
+        @apply text-lg font-medium leading-normal line-through text-color grayscale;
+    }
+    .body-medium-lg-strikethrough-secondary-paragraph-disabled {
+        @apply text-lg font-medium leading-normal line-through text-color-secondary grayscale;
+    }
+    .body-medium-lg-strikethrough-primary-paragraph-disabled {
+        @apply text-lg font-medium leading-normal line-through text-primary grayscale;
+    }
+
+    // Body large regular
+    // Paragraph: false
+    .body-regular-lg {
+        @apply text-lg font-normal leading-auto no-underline text-color;
+    }
+    .body-regular-lg-secondary {
+        @apply text-lg font-normal leading-auto no-underline text-color-secondary;
+    }
+    .body-regular-lg-primary {
+        @apply text-lg font-normal leading-auto no-underline text-primary;
+    }
+    .body-regular-lg-disabled {
+        @apply text-lg font-normal leading-auto no-underline text-color grayscale;
+    }
+    .body-regular-lg-secondary-disabled {
+        @apply text-lg font-normal leading-auto no-underline text-color-secondary grayscale;
+    }
+    .body-regular-lg-primary-disabled {
+        @apply text-lg font-normal leading-auto no-underline text-primary grayscale;
+    }
+
+    // Body large regular
+    // Paragraph: false
+    // Strikethrough: true
+    .body-regular-lg-strikethrough {
+        @apply text-lg font-normal leading-auto line-through text-color;
+    }
+    .body-regular-lg-strikethrough-secondary {
+        @apply text-lg font-normal leading-auto line-through text-color-secondary;
+    }
+    .body-regular-lg-strikethrough-primary {
+        @apply text-lg font-normal leading-auto line-through text-primary;
+    }
+    .body-regular-lg-strikethrough-disabled {
+        @apply text-lg font-normal leading-auto line-through text-color grayscale;
+    }
+    .body-regular-lg-strikethrough-secondary-disabled {
+        @apply text-lg font-normal leading-auto line-through text-color-secondary grayscale;
+    }
+    .body-regular-lg-strikethrough-primary-disabled {
+        @apply text-lg font-normal leading-auto line-through text-primary grayscale;
+    }
+
+    // Body large regular
+    // Paragraph: true
+    .body-regular-lg-paragraph {
+        @apply text-lg font-normal leading-normal no-underline text-color;
+    }
+    .body-regular-lg-secondary-paragraph {
+        @apply text-lg font-normal leading-normal no-underline text-color-secondary;
+    }
+    .body-regular-lg-primary-paragraph {
+        @apply text-lg font-normal leading-normal no-underline text-primary;
+    }
+    .body-regular-lg-paragraph-disabled {
+        @apply text-lg font-normal leading-normal no-underline text-color grayscale;
+    }
+    .body-regular-lg-secondary-paragraph-disabled {
+        @apply text-lg font-normal leading-normal no-underline text-color-secondary grayscale;
+    }
+    .body-regular-lg-primary-paragraph-disabled {
+        @apply text-lg font-normal leading-normal no-underline text-primary grayscale;
+    }
+
+    // Body large regular
+    // Paragraph: true
+    // Strikethrough: true
+    .body-regular-lg-strikethrough-paragraph {
+        @apply text-lg font-normal leading-normal line-through text-color;
+    }
+    .body-regular-lg-strikethrough-secondary-paragraph {
+        @apply text-lg font-normal leading-normal line-through text-color-secondary;
+    }
+    .body-regular-lg-strikethrough-primary-paragraph {
+        @apply text-lg font-normal leading-normal line-through text-primary;
+    }
+    .body-regular-lg-strikethrough-paragraph-disabled {
+        @apply text-lg font-normal leading-normal line-through text-color grayscale;
+    }
+    .body-regular-lg-strikethrough-secondary-paragraph-disabled {
+        @apply text-lg font-normal leading-normal line-through text-color-secondary grayscale;
+    }
+    .body-regular-lg-strikethrough-primary-paragraph-disabled {
+        @apply text-lg font-normal leading-normal line-through text-primary grayscale;
+    }
+
+    // Body base bold
+    // Paragraph: false
+    .body-bold-base {
+        @apply text-base font-bold leading-auto no-underline text-color;
+    }
+    .body-bold-base-secondary {
+        @apply text-base font-bold leading-auto no-underline text-color-secondary;
+    }
+    .body-bold-base-primary {
+        @apply text-base font-bold leading-auto no-underline text-primary;
+    }
+    .body-bold-base-disabled {
+        @apply text-base font-bold leading-auto no-underline text-color grayscale;
+    }
+    .body-bold-base-secondary-disabled {
+        @apply text-base font-bold leading-auto no-underline text-color-secondary grayscale;
+    }
+    .body-bold-base-primary-disabled {
+        @apply text-base font-bold leading-auto no-underline text-primary grayscale;
+    }
+
+    // Body base bold
+    // Paragraph: false
+    // Strikethrough: true
+    .body-bold-base-strikethrough {
+        @apply text-base font-bold leading-auto line-through text-color;
+    }
+    .body-bold-base-strikethrough-secondary {
+        @apply text-base font-bold leading-auto line-through text-color-secondary;
+    }
+    .body-bold-base-strikethrough-primary {
+        @apply text-base font-bold leading-auto line-through text-primary;
+    }
+    .body-bold-base-strikethrough-disabled {
+        @apply text-base font-bold leading-auto line-through text-color grayscale;
+    }
+    .body-bold-base-strikethrough-secondary-disabled {
+        @apply text-base font-bold leading-auto line-through text-color-secondary grayscale;
+    }
+    .body-bold-base-strikethrough-primary-disabled {
+        @apply text-base font-bold leading-auto line-through text-primary grayscale;
+    }
+
+    // Body base bold
+    // Paragraph: true
+    .body-bold-base-paragraph {
+        @apply text-base font-bold leading-normal no-underline text-color;
+    }
+    .body-bold-base-secondary-paragraph {
+        @apply text-base font-bold leading-normal no-underline text-color-secondary;
+    }
+    .body-bold-base-primary-paragraph {
+        @apply text-base font-bold leading-normal no-underline text-primary;
+    }
+    .body-bold-base-paragraph-disabled {
+        @apply text-base font-bold leading-normal no-underline text-color grayscale;
+    }
+    .body-bold-base-secondary-paragraph-disabled {
+        @apply text-base font-bold leading-normal no-underline text-color-secondary grayscale;
+    }
+    .body-bold-base-primary-paragraph-disabled {
+        @apply text-base font-bold leading-normal no-underline text-primary grayscale;
+    }
+
+    // Body base bold
+    // Paragraph: true
+    // Strikethrough: true
+    .body-bold-base-strikethrough-paragraph {
+        @apply text-base font-bold leading-normal line-through text-color;
+    }
+    .body-bold-base-strikethrough-secondary-paragraph {
+        @apply text-base font-bold leading-normal line-through text-color-secondary;
+    }
+    .body-bold-base-strikethrough-primary-paragraph {
+        @apply text-base font-bold leading-normal line-through text-primary;
+    }
+    .body-bold-base-strikethrough-paragraph-disabled {
+        @apply text-base font-bold leading-normal line-through text-color grayscale;
+    }
+    .body-bold-base-strikethrough-secondary-paragraph-disabled {
+        @apply text-base font-bold leading-normal line-through text-color-secondary grayscale;
+    }
+    .body-bold-base-strikethrough-primary-paragraph-disabled {
+        @apply text-base font-bold leading-normal line-through text-primary grayscale;
+    }
+
+    // Body base medium
+    // Paragraph: false
+    .body-medium-base {
+        @apply text-base font-medium leading-auto no-underline text-color;
+    }
+    .body-medium-base-secondary {
+        @apply text-base font-medium leading-auto no-underline text-color-secondary;
+    }
+    .body-medium-base-primary {
+        @apply text-base font-medium leading-auto no-underline text-primary;
+    }
+    .body-medium-base-disabled {
+        @apply text-base font-medium leading-auto no-underline text-color grayscale;
+    }
+    .body-medium-base-secondary-disabled {
+        @apply text-base font-medium leading-auto no-underline text-color-secondary grayscale;
+    }
+    .body-medium-base-primary-disabled {
+        @apply text-base font-medium leading-auto no-underline text-primary grayscale;
+    }
+
+    // Body base medium
+    // Paragraph: false
+    // Strikethrough: true
+    .body-medium-base-strikethrough {
+        @apply text-base font-medium leading-auto line-through text-color;
+    }
+    .body-medium-base-strikethrough-secondary {
+        @apply text-base font-medium leading-auto line-through text-color-secondary;
+    }
+    .body-medium-base-strikethrough-primary {
+        @apply text-base font-medium leading-auto line-through text-primary;
+    }
+    .body-medium-base-strikethrough-disabled {
+        @apply text-base font-medium leading-auto line-through text-color grayscale;
+    }
+    .body-medium-base-strikethrough-secondary-disabled {
+        @apply text-base font-medium leading-auto line-through text-color-secondary grayscale;
+    }
+    .body-medium-base-strikethrough-primary-disabled {
+        @apply text-base font-medium leading-auto line-through text-primary grayscale;
+    }
+
+    // Body base medium
+    // Paragraph: true
+    .body-medium-base-paragraph {
+        @apply text-base font-medium leading-normal no-underline text-color;
+    }
+    .body-medium-base-secondary-paragraph {
+        @apply text-base font-medium leading-normal no-underline text-color-secondary;
+    }
+    .body-medium-base-primary-paragraph {
+        @apply text-base font-medium leading-normal no-underline text-primary;
+    }
+    .body-medium-base-paragraph-disabled {
+        @apply text-base font-medium leading-normal no-underline text-color grayscale;
+    }
+    .body-medium-base-secondary-paragraph-disabled {
+        @apply text-base font-medium leading-normal no-underline text-color-secondary grayscale;
+    }
+    .body-medium-base-primary-paragraph-disabled {
+        @apply text-base font-medium leading-normal no-underline text-primary grayscale;
+    }
+
+    // Body base medium
+    // Paragraph: true
+    // Strikethrough: true
+    .body-medium-base-strikethrough-paragraph {
+        @apply text-base font-medium leading-normal line-through text-color;
+    }
+    .body-medium-base-strikethrough-secondary-paragraph {
+        @apply text-base font-medium leading-normal line-through text-color-secondary;
+    }
+    .body-medium-base-strikethrough-primary-paragraph {
+        @apply text-base font-medium leading-normal line-through text-primary;
+    }
+    .body-medium-base-strikethrough-paragraph-disabled {
+        @apply text-base font-medium leading-normal line-through text-color grayscale;
+    }
+    .body-medium-base-strikethrough-secondary-paragraph-disabled {
+        @apply text-base font-medium leading-normal line-through text-color-secondary grayscale;
+    }
+    .body-medium-base-strikethrough-primary-paragraph-disabled {
+        @apply text-base font-medium leading-normal line-through text-primary grayscale;
+    }
+
+    // Body base regular
+    // Paragraph: false
+    .body-regular-base {
+        @apply text-base font-normal leading-auto no-underline text-color;
+    }
+    .body-regular-base-secondary {
+        @apply text-base font-normal leading-auto no-underline text-color-secondary;
+    }
+    .body-regular-base-primary {
+        @apply text-base font-normal leading-auto no-underline text-primary;
+    }
+    .body-regular-base-disabled {
+        @apply text-base font-normal leading-auto no-underline text-color grayscale;
+    }
+    .body-regular-base-secondary-disabled {
+        @apply text-base font-normal leading-auto no-underline text-color-secondary grayscale;
+    }
+    .body-regular-base-primary-disabled {
+        @apply text-base font-normal leading-auto no-underline text-primary grayscale;
+    }
+
+    // Body base regular
+    // Paragraph: false
+    // Strikethrough: true
+    .body-regular-base-strikethrough {
+        @apply text-base font-normal leading-auto line-through text-color;
+    }
+    .body-regular-base-strikethrough-secondary {
+        @apply text-base font-normal leading-auto line-through text-color-secondary;
+    }
+    .body-regular-base-strikethrough-primary {
+        @apply text-base font-normal leading-auto line-through text-primary;
+    }
+    .body-regular-base-strikethrough-disabled {
+        @apply text-base font-normal leading-auto line-through text-color grayscale;
+    }
+    .body-regular-base-strikethrough-secondary-disabled {
+        @apply text-base font-normal leading-auto line-through text-color-secondary grayscale;
+    }
+    .body-regular-base-strikethrough-primary-disabled {
+        @apply text-base font-normal leading-auto line-through text-primary grayscale;
+    }
+
+    // Body base regular
+    // Paragraph: true
+    .body-regular-base-paragraph {
+        @apply text-base font-normal leading-normal no-underline text-color;
+    }
+    .body-regular-base-secondary-paragraph {
+        @apply text-base font-normal leading-normal no-underline text-color-secondary;
+    }
+    .body-regular-base-primary-paragraph {
+        @apply text-base font-normal leading-normal no-underline text-primary;
+    }
+    .body-regular-base-paragraph-disabled {
+        @apply text-base font-normal leading-normal no-underline text-color grayscale;
+    }
+    .body-regular-base-secondary-paragraph-disabled {
+        @apply text-base font-normal leading-normal no-underline text-color-secondary grayscale;
+    }
+    .body-regular-base-primary-paragraph-disabled {
+        @apply text-base font-normal leading-normal no-underline text-primary grayscale;
+    }
+
+    // Body base regular
+    // Paragraph: true
+    // Strikethrough: true
+    .body-regular-base-strikethrough-paragraph {
+        @apply text-base font-normal leading-normal line-through text-color;
+    }
+    .body-regular-base-strikethrough-secondary-paragraph {
+        @apply text-base font-normal leading-normal line-through text-color-secondary;
+    }
+    .body-regular-base-strikethrough-primary-paragraph {
+        @apply text-base font-normal leading-normal line-through text-primary;
+    }
+    .body-regular-base-strikethrough-paragraph-disabled {
+        @apply text-base font-normal leading-normal line-through text-color grayscale;
+    }
+    .body-regular-base-strikethrough-secondary-paragraph-disabled {
+        @apply text-base font-normal leading-normal line-through text-color-secondary grayscale;
+    }
+    .body-regular-base-strikethrough-primary-paragraph-disabled {
+        @apply text-base font-normal leading-normal line-through text-primary grayscale;
+    }
+
+    // Subtitle
+    // Base: true
+    .subtitle-base {
+        @apply text-base font-bold leading-auto uppercase text-color;
+    }
+    .subtitle-base-secondary {
+        @apply text-base font-bold leading-auto uppercase text-color-secondary;
+    }
+    .subtitle-base-primary {
+        @apply text-base font-bold leading-auto uppercase text-primary;
+    }
+
+    // Subtitle
+    // Base: false
+    .subtitle-sm {
+        @apply text-sm font-bold leading-auto uppercase text-color;
+    }
+    .subtitle-sm-secondary {
+        @apply text-sm font-bold leading-auto uppercase text-color-secondary;
+    }
+    .subtitle-sm-primary {
+        @apply text-sm font-bold leading-auto uppercase text-primary;
+    }
+
+    // Caption
+    // Disabled: false
+    .caption {
+        @apply text-sm font-normal leading-auto no-underline text-color;
+    }
+
+    .caption-secondary {
+        @apply text-sm font-normal leading-auto no-underline text-color-secondary;
+    }
+
+    .caption-primary {
+        @apply text-sm font-normal leading-auto no-underline text-primary;
+    }
+
+    // Caption
+    // Disabled: true
+    .caption-disabled {
+        @apply text-sm font-normal leading-auto no-underline text-color grayscale;
+    }
+
+    .caption-secondary-disabled {
+        @apply text-sm font-normal leading-auto no-underline text-color-secondary grayscale;
+    }
+
+    .caption-primary-disabled {
+        @apply text-sm font-normal leading-auto no-underline text-primary grayscale;
+    }
+
+    // Service
+    // Danger
+    .service-danger-base {
+        @apply text-base font-normal leading-auto no-underline text-danger;
+    }
+    .service-danger-sm {
+        @apply text-sm font-normal leading-auto no-underline text-danger;
+    }
+
+    // Service
+    // Warning
+    .service-warning-base {
+        @apply text-base font-normal leading-auto no-underline text-warning;
+    }
+    .service-warning-sm {
+        @apply text-sm font-normal leading-auto no-underline text-warning;
+    }
+
+    // Service
+    // Success
+    .service-success-base {
+        @apply text-base font-normal leading-auto no-underline text-success;
+    }
+    .service-success-sm {
+        @apply text-sm font-normal leading-auto no-underline text-success;
+    }
+
+    // Service
+    // Info
+    .service-info-base {
+        @apply text-base font-normal leading-auto no-underline text-info;
+    }
+    .service-info-sm {
+        @apply text-sm font-normal leading-auto no-underline text-info;
+    }
+
+    // Service
+    // Help
+    .service-help-base {
+        @apply text-base font-normal leading-auto no-underline text-help;
+    }
+    .service-help-sm {
+        @apply text-sm font-normal leading-auto no-underline text-help;
+    }
+
+    // Anchor
+    // Base: true
+    .anchor-base {
+        @apply text-base font-normal leading-auto no-underline text-info hover:underline;
+    }
+    .anchor-base:visited {
+        @apply text-base font-normal leading-auto no-underline text-help hover:underline;
+    }
+
+    // Anchor
+    // Base: false
+    .anchor-sm {
+        @apply text-sm font-normal leading-auto no-underline text-info hover:underline;
+    }
+    .anchor-sm:visited {
+        @apply text-sm font-normal leading-auto no-underline text-help hover:underline;
+    }
+}

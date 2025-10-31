@@ -1,0 +1,120 @@
+.p-fileupload-dnd,
+.p-fileupload-button {
+    .p-fileupload {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: $gap-2;
+    }
+
+    &.p-fileupload-advanced {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .p-fileupload-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: $gap-2;
+
+        > p-progressbar,
+        p-messages {
+            display: none;
+        }
+    }
+
+    .p-orderlist-controls {
+        display: none;
+    }
+
+    .p-fileupload-files {
+        display: none;
+    }
+
+    .p-fileupload-info-button {
+        width: $buttonIconOnlyWidth;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: $infoMessageIconColor;
+    }
+
+    .p-orderlist-list-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .p-orderlist-list {
+            overflow: hidden;
+            min-height: 0px;
+        }
+    }
+
+    .p-fileupload-progress-spinner {
+        width: $text-xl;
+        height: $text-xl;
+    }
+
+    .p-fileupload-item-row {
+        padding: $p-1 $p-1 $p-1 $p-2;
+        border-radius: $borderRadius;
+        border: 1px solid $surface-transparent;
+
+        &:hover {
+            background: $surface-hover;
+        }
+
+        &.error {
+            border-color: $errorColor;
+
+            .file-icon {
+                color: $errorColor;
+            }
+        }
+    }
+
+    .p-dataview-content,
+    .p-orderlist-list {
+        display: flex;
+        flex-direction: column;
+        gap: $gap-2;
+    }
+}
+
+.p-fileupload-dnd {
+    .p-fileupload-buttonbar {
+        width: 100%;
+        border-radius: $borderRadius;
+        background: $surface-section;
+        border: 1px dashed $panelHeaderBorderColor;
+        padding: $panelHeaderPadding;
+
+        button {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: $gap-2;
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: $gap-1;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-color: $primaryColor;
+
+            i {
+                color: $primaryColor;
+            }
+        }
+    }
+}

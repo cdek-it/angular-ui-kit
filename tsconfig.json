@@ -1,0 +1,46 @@
+{
+    "compileOnSave": false,
+    "include": [
+            "src/**/*.ts",
+            "typings.d.ts"
+    ],
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": false,
+        "noImplicitOverride": false,
+        "noPropertyAccessFromIndexSignature": false,
+        "noImplicitReturns": false,
+        "noFallthroughCasesInSwitch": false,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false,
+        "types": ["jasmine"],
+        "lib": ["ES2022", "dom"],
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "paths": {
+            "primeng/*": ["src/app/components/*/public_api"],
+            "@pages/*": ["src/app/showcase/pages/*"],
+            "@doc/*": ["src/app/showcase/doc/*"],
+            "@domain/*": ["src/app/showcase/domain/*"],
+            "@service/*": ["src/app/showcase/service/*"],
+            "@layout/*": ["src/app/showcase/layout/*"],
+            "@themes/*": ["src/app/components/themes/*"]
+        }
+    },
+    "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": false,
+        "strictInputAccessModifiers": false,
+        "strictTemplates": false
+    }
+}

@@ -1,0 +1,45 @@
+.p-divider {
+    border-color: $dividerColor;
+
+    .p-divider-content {
+        background-color: $panelContentBg;
+        color: $text-color-secondary;
+        text-transform: uppercase;
+    }
+
+    &.p-divider-horizontal {
+        margin: $dividerHorizontalMargin;
+        padding: $dividerHorizontalPadding;
+
+        .p-divider-content {
+            padding: 0 $inlineSpacing;
+        }
+
+        &:before {
+            border-top-width: $dividerSize;
+            border-top-color: $dividerColor;
+        }
+
+        &.p-divider-dash:before  {
+            border-top-style: dashed;
+        }
+    }
+
+    &.p-divider-vertical {
+        margin: $dividerVerticalMargin;
+        padding: $dividerVerticalPadding;
+
+        .p-divider-content {
+            padding: $inlineSpacing 0;
+        }
+
+        &:before {
+            border-left-width: $dividerSize;
+            border-left-color: $dividerColor;
+        }
+
+        &.p-divider-dash:before  {
+            border-left-style: dashed;
+        }
+    }
+}

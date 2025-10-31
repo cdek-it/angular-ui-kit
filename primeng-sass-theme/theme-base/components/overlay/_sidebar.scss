@@ -1,0 +1,56 @@
+.p-sidebar {
+    color: $panelContentTextColor;
+
+    border: $overlayContentBorder;
+    border-radius: $borderRadius;
+
+    box-shadow: $overlayContainerShadow;
+    background: $overlayContentBg;
+
+    margin: $p-2;
+
+    height: calc(100vh - $p-4) !important;
+
+    &.p-sidebar-top,
+    &.p-sidebar-full,
+    &.p-sidebar-bottom {
+        width: calc(100vw - $p-4);
+        width: -moz-available !important;
+        width: -webkit-fill-available !important;
+    }
+
+    &.p-sidebar-top,
+    &.p-sidebar-bottom {
+        height: auto;
+    }
+
+    .p-sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: $panelHeaderPadding;
+        border-bottom: $panelHeaderBorder;
+
+        .p-sidebar-close,
+        .p-sidebar-icon {
+            @include action-icon();
+        }
+
+        > :only-child {
+            margin-left: auto;
+        }
+    }
+
+    .p-sidebar-content {
+        padding: $dialogContentPadding;
+    }
+
+    .p-sidebar-footer {
+        display: flex;
+        align-items: center;
+        gap: $p-2;
+        padding: $dialogContentPadding;
+        padding-top: $p-0;
+    }
+}

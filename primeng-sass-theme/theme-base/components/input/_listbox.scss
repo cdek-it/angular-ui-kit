@@ -1,0 +1,235 @@
+// core
+.p-listbox-list-wrapper {
+    overflow: auto;
+}
+
+.p-listbox-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.p-listbox-item {
+    cursor: pointer;
+
+    overflow: hidden;
+    position: relative;
+
+    color: $inputListItemTextColor;
+
+    margin: $inputListItemMargin;
+    padding: $inputListItemPadding;
+    
+    border: $inputListItemBorder;
+    border-radius: $inputListItemBorderRadius;
+
+    transition: $listItemTransition;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.p-highlight {
+        color: $highlightTextColor;
+        background: $menuitemActiveBg;
+    }
+
+    &:not(.p-highlight).p-disabled {
+        color: $disabledButtonTextColor;
+        border-color: $disabledButtonBorderColor;
+        background: $disabledButtonBg;
+    }
+
+    &.p-disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        background: $menuitemActiveBg !important;
+        color: $menuitemActiveTextColor !important;
+        mix-blend-mode: luminosity;
+        border: 1px solid $inputListItemBorderColor;
+
+        &:has(.p-checkbox) {
+            background: $disabledButtonBg;
+            color: $disabledButtonTextColor;
+        }
+    }
+
+    .p-checkbox {
+        margin-right: 0.5rem;
+    }
+
+    &:has(.p-checkbox) {
+        background: $inputListBg;
+        color: $inputListItemTextColor;
+        &:hover {
+            background: #000;
+        }
+    }
+}
+
+.p-listbox-item-group {
+    cursor: auto;
+}
+
+.p-listbox-filter-container {
+    position: relative;
+}
+
+.p-listbox-filter-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+}
+
+.p-listbox-filter {
+    width: 100%;
+}
+
+// theme
+.p-listbox {
+    background: $surface-ground;
+    color: $inputListTextColor;
+    border: 1px solid $surface-border;
+    border-radius: $borderRadius;
+    transition: $formElementTransition;
+    outline-color: transparent;
+
+    .p-listbox-header {
+        padding: $inputListHeaderPadding;
+        border-bottom: $inputListHeaderBorder;
+        color: $inputListHeaderTextColor;
+        background: $inputListHeaderBg;
+        margin: $inputListHeaderMargin;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-checkbox {
+            margin-right: 0.5rem;
+
+            .p-checkbox-box.p-disabled {
+                background: $inputBg;
+            }
+        }
+
+        .p-listbox-filter {
+            padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+        }
+
+        .p-listbox-filter-icon {
+            right: nth($inputPadding, 2);
+            color: $inputIconColor;
+        }
+
+        .p-disabled + .p-listbox-filter-icon {
+            opacity: $disabledOpacity;
+        }
+    }
+
+    .p-listbox-list {
+        padding: $inputListPadding;
+        outline: 0 none;
+
+        .p-listbox-item-group {
+            margin: $submenuHeaderMargin;
+            padding: $submenuHeaderPadding;
+            color: $submenuHeaderTextColor;
+            background: $submenuHeaderBg;
+            font-weight: $submenuHeaderFontWeight;
+        }
+
+        .p-listbox-empty-message {
+            text-align: center;
+            color: $inputListItemTextColor;
+
+            padding: $inputListItemPaddingLeftRight;            
+            background: $inputListItemBg;
+
+            
+        }
+    }
+
+    &:not(.p-disabled) {
+        :not(.p-disabled).p-listbox-item {
+            &.p-highlight {
+                &.p-focus {
+                    border: 1px solid $inputListItemBorderColor;
+                    background: $menuitemActiveBg;
+                    box-shadow: 0 0 0 $focusShadowWidth $focusOutlineColor;
+                }
+
+                &:hover {
+                    background: $menuitemActiveHoverBg;
+                }
+
+                &:has(.p-checkbox) {
+                    &.p-focus {
+                        border: 1px solid $inputListItemBorderColor;
+                        background: $inputListItemBg;
+                        box-shadow: 0 0 0 $focusShadowWidth $focusOutlineColor;
+                    }
+                    &:hover {
+                        color: $inputListItemHoverTextColor;
+                        background: $inputListItemHoverBg;
+    
+                        &.p-focus {
+                            color: $inputListItemHoverTextColor;
+                            background: $inputListItemHoverBg;
+                        }
+                    }
+                }
+            }
+
+            &:not(.p-highlight):not(.p-disabled) {
+                // не зачекано и focus
+                &.p-focus {
+                    border: 1px solid $inputListItemBorderColor;
+                    background: $inputListItemBg;
+                    box-shadow: 0 0 0 $focusShadowWidth $focusOutlineColor;
+                }
+                // не зачекано и hover
+                &:hover {
+                    color: $inputListItemHoverTextColor;
+                    background: $inputListItemHoverBg;
+
+                    &.p-focus {
+                        color: $inputListItemHoverTextColor;
+                        background: $inputListItemHoverBg;
+                    }
+                }
+            }
+        }
+    }
+
+    &.p-focus {
+        @include focused-input();
+    }
+
+    &.p-invalid {
+        @include invalid-input();
+    }
+
+    &.p-disabled *.p-disabled {
+        opacity: 1;
+    }
+
+    &.p-disabled {
+        .p-listbox-filter-icon {
+            display: none;
+        }
+
+        .p-listbox-filter.p-inputtext {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 15 15' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7.49967 2.83335C7.03555 2.83335 6.59043 3.01773 6.26224 3.34592C5.93405 3.67411 5.74967 4.11922 5.74967 4.58335V6.33335H9.24967V4.58335C9.24967 4.11922 9.0653 3.67411 8.73711 3.34592C8.40892 3.01773 7.9638 2.83335 7.49967 2.83335ZM10.4163 6.33335V4.58335C10.4163 3.80981 10.1091 3.06794 9.56207 2.52096C9.01509 1.97398 8.27322 1.66669 7.49967 1.66669C6.72613 1.66669 5.98426 1.97398 5.43728 2.52096C4.8903 3.06794 4.58301 3.80981 4.58301 4.58335V6.33335C4.11888 6.33335 3.67376 6.51773 3.34557 6.84592C3.01738 7.17411 2.83301 7.61922 2.83301 8.08335V11.5834C2.83301 12.0475 3.01738 12.4926 3.34557 12.8208C3.67376 13.149 4.11888 13.3334 4.58301 13.3334H10.4163C10.8805 13.3334 11.3256 13.149 11.6538 12.8208C11.982 12.4926 12.1663 12.0475 12.1663 11.5834V8.08335C12.1663 7.61922 11.982 7.17411 11.6538 6.84592C11.3256 6.51773 10.8805 6.33335 10.4163 6.33335ZM4.58301 7.50002C4.4283 7.50002 4.27993 7.56148 4.17053 7.67087C4.06113 7.78027 3.99967 7.92864 3.99967 8.08335V11.5834C3.99967 11.7381 4.06113 11.8864 4.17053 11.9958C4.27993 12.1052 4.4283 12.1667 4.58301 12.1667H10.4163C10.5711 12.1667 10.7194 12.1052 10.8288 11.9958C10.9382 11.8864 10.9997 11.7381 10.9997 11.5834V8.08335C10.9997 7.92864 10.9382 7.78027 10.8288 7.67087C10.7194 7.56148 10.5711 7.50002 10.4163 7.50002H4.58301ZM6.67472 9.0084C6.89351 8.7896 7.19026 8.66669 7.49967 8.66669C7.80909 8.66669 8.10584 8.7896 8.32463 9.0084C8.54342 9.22719 8.66634 9.52393 8.66634 9.83335C8.66634 10.1428 8.54343 10.4395 8.32463 10.6583C8.10584 10.8771 7.80909 11 7.49967 11C7.19026 11 6.89351 10.8771 6.67472 10.6583C6.45592 10.4395 6.33301 10.1428 6.33301 9.83335C6.33301 9.52393 6.45592 9.22719 6.67472 9.0084Z' fill='black' fill-opacity='0.8'/%3E%3C/svg%3E");
+            background-position: right $inputPaddingLeftRight center;
+            background-repeat: no-repeat;
+        }
+
+        .p-listbox-item {
+            background: $disabledButtonBg;
+            color: $disabledButtonTextColor;
+        }
+    }
+}
