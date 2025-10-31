@@ -2,7 +2,6 @@
 FROM docker-private.cdek.ru/node:18.20-alpine AS builder
 WORKDIR /usr/src/app
 COPY package*.json ./
-COPY .npmrc ./
 RUN npm install
 COPY . .
 RUN npm run build
