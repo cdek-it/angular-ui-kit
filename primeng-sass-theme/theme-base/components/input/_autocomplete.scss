@@ -221,6 +221,10 @@
 .p-autocomplete-clearable {
     position: relative;
 
+    .p-inputtext {
+        padding-right: 2.5rem;
+    }
+
     .p-autocomplete-clear-icon {
         right: 0.75rem;
     }
