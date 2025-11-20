@@ -190,7 +190,13 @@ p-button {
 .p-fluid {
     .p-button:not(.p-button-icon-only) {
         width: 100%;
+        justify-content: center;
+
+        .p-button-label {
+            flex: none; // иконка прижата к label
+        }
     }
+
     .p-button-group {
         .p-button:not(.p-button-icon-only) {
             flex: 1;
