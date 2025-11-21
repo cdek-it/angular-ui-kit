@@ -8,6 +8,10 @@
     }
 }
 
+.p-calendar-clear-icon.p-icon {
+    right: $inputPaddingLeftRight;
+}
+
 .p-datepicker {
     margin-top: $inputListPadding;
     padding: $calendarPadding;

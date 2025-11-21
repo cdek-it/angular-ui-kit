@@ -7,6 +7,7 @@ import { AppCodeModule } from '@layout/doc/app.code.component';
 import { CalendarModule } from 'primeng/calendar';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
+import { ClearDoc } from './cleardoc';
 import { FormatDoc } from './formatdoc';
 import { LocaleDoc } from './localedoc';
 import { IconDoc } from './icondoc';
@@ -40,6 +41,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     declarations: [
         ImportDoc,
         BasicDoc,
+        ClearDoc,
         FormatDoc,
         LocaleDoc,
         IconDoc,

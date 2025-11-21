@@ -22,6 +22,7 @@ import { FloatLabelDoc } from '@doc/calendar/floatlabeldoc';
 import { InvalidDoc } from '@doc/calendar/invaliddoc';
 import { DisabledDoc } from '@doc/calendar/disableddoc';
 import { FilledDoc } from '@doc/calendar/filleddoc';
+import { ClearDoc } from '@doc/calendar/cleardoc';
 @Component({
     templateUrl: './calendardemo.html'
 })
@@ -131,6 +132,11 @@ export class CalendarDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'clear',
+            label: 'Clear',
+            component: ClearDoc
         },
         {
             id: 'style',
