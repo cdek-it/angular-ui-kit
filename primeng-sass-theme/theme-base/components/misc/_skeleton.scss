@@ -1,8 +1,0 @@
-.p-skeleton {
-    background: $skeletonBg;
-    border-radius: $borderRadius;
-
-    &:after {
-        background: linear-gradient(90deg, $skeletonBg 0%, $surface-100 40%, $skeletonBg 75%);
-    }
-}

@@ -1,46 +1,34 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-    "compileOnSave": false,
-    "include": [
-            "src/**/*.ts",
-            "typings.d.ts"
-    ],
-    "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/out-tsc",
-        "forceConsistentCasingInFileNames": false,
-        "noImplicitOverride": false,
-        "noPropertyAccessFromIndexSignature": false,
-        "noImplicitReturns": false,
-        "noFallthroughCasesInSwitch": false,
-        "sourceMap": true,
-        "allowSyntheticDefaultImports": true,
-        "declaration": false,
-        "downlevelIteration": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "target": "ES6",
-        "module": "CommonJS",
-        "useDefineForClassFields": false,
-        "types": ["jasmine", "node"],
-        "lib": ["ES6", "ESNext", "dom"],
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "paths": {
-            "primeng/*": ["src/app/components/*/public_api"],
-            "@pages/*": ["src/app/showcase/pages/*"],
-            "@doc/*": ["src/app/showcase/doc/*"],
-            "@domain/*": ["src/app/showcase/domain/*"],
-            "@service/*": ["src/app/showcase/service/*"],
-            "@layout/*": ["src/app/showcase/layout/*"],
-            "@themes/*": ["src/app/components/themes/*"]
-        }
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
     },
-    "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],
-    "angularCompilerOptions": {
-        "enableI18nLegacyMessageIdFormat": false,
-        "strictInjectionParameters": false,
-        "strictInputAccessModifiers": false,
-        "strictTemplates": false
+    {
+      "path": "./tsconfig.spec.json"
     }
+  ]
 }
