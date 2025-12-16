@@ -4,7 +4,7 @@ import Aura from '@primeng/themes/aura';
 // import * as primitive from './primitive.json';
 // import * as semantic from './semantic.json';
 
-import components from './index';
+import components from './components';
 import primitive from './primitive';
 import semantic from './semantic';
 

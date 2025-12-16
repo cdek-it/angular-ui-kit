@@ -21,7 +21,7 @@
     "build:check": "npm run format:check && npm run security:check",
     "build:storybook": "ng run angular-ui-kit:build-storybook",
     "security:check": "npm audit --production --audit-level high",
-    "copy:dist": "cpx 'src-tokens/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/"
+    "copy:dist": "cpx 'src/prime-preset/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/"
   },
   "repository": "github:cdek-it/angular-ui-kit",
   "devDependencies": {
