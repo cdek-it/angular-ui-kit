@@ -1,0 +1,212 @@
+{
+  "success": {
+    "50": "{colors.solid.green.950}",
+    "100": "{colors.solid.green.900}",
+    "200": "{colors.solid.green.800}",
+    "300": "{colors.solid.green.700}",
+    "400": "{colors.solid.green.600}",
+    "500": "{colors.solid.green.500}",
+    "600": "{colors.solid.green.400}",
+    "700": "{colors.solid.green.300}",
+    "800": "{colors.solid.green.200}",
+    "900": "{colors.solid.green.100}",
+    "950": "{colors.solid.green.50}"
+  },
+  "info": {
+    "50": "{colors.solid.blue.950}",
+    "100": "{colors.solid.blue.900}",
+    "200": "{colors.solid.blue.800}",
+    "300": "{colors.solid.blue.700}",
+    "400": "{colors.solid.blue.600}",
+    "500": "{colors.solid.blue.500}",
+    "600": "{colors.solid.blue.400}",
+    "700": "{colors.solid.blue.300}",
+    "800": "{colors.solid.blue.200}",
+    "900": "{colors.solid.blue.100}",
+    "950": "{colors.solid.blue.50}"
+  },
+  "warn": {
+    "50": "{colors.solid.yellow.950}",
+    "100": "{colors.solid.yellow.900}",
+    "200": "{colors.solid.yellow.800}",
+    "300": "{colors.solid.yellow.700}",
+    "400": "{colors.solid.yellow.600}",
+    "500": "{colors.solid.yellow.500}",
+    "600": "{colors.solid.yellow.400}",
+    "700": "{colors.solid.yellow.300}",
+    "800": "{colors.solid.yellow.200}",
+    "900": "{colors.solid.yellow.100}",
+    "950": "{colors.solid.yellow.50}"
+  },
+  "transparent": "rgba(0, 0, 0, 0.0001)",
+  "help": {
+    "50": "{colors.solid.purple.950}",
+    "100": "{colors.solid.purple.900}",
+    "200": "{colors.solid.purple.800}",
+    "300": "{colors.solid.purple.700}",
+    "400": "{colors.solid.purple.600}",
+    "500": "{colors.solid.purple.500}",
+    "600": "{colors.solid.purple.400}",
+    "700": "{colors.solid.purple.300}",
+    "800": "{colors.solid.purple.200}",
+    "900": "{colors.solid.purple.100}",
+    "950": "{colors.solid.purple.50}"
+  },
+  "error": {
+    "50": "{colors.solid.red.950}",
+    "100": "{colors.solid.red.900}",
+    "200": "{colors.solid.red.800}",
+    "300": "{colors.solid.red.700}",
+    "400": "{colors.solid.red.600}",
+    "500": "{colors.solid.red.500}",
+    "600": "{colors.solid.red.400}",
+    "700": "{colors.solid.red.300}",
+    "800": "{colors.solid.red.200}",
+    "900": "{colors.solid.red.100}",
+    "950": "{colors.solid.red.50}"
+  },
+  "surface": {
+    "0": "{colors.alpha.black.100}",
+    "50": "{colors.solid.zinc.950}",
+    "100": "{colors.solid.zinc.900}",
+    "200": "{colors.solid.zinc.800}",
+    "300": "{colors.solid.zinc.700}",
+    "400": "{colors.solid.zinc.600}",
+    "500": "{colors.solid.zinc.500}",
+    "600": "{colors.solid.zinc.400}",
+    "700": "{colors.solid.zinc.300}",
+    "800": "{colors.solid.zinc.200}",
+    "900": "{colors.solid.zinc.100}",
+    "950": "{colors.solid.zinc.50}"
+  },
+  "primary": {
+    "color": "{primary.500}",
+    "contrastColor": "{colors.solid.zinc.900}",
+    "hoverColor": "{primary.400}",
+    "activeColor": "{primary.300}"
+  },
+  "highlight": {
+    "background": "{colors.solid.zinc.100}",
+    "focusBackground": "{colors.solid.zinc.200}",
+    "color": "{colors.solid.zinc.900}",
+    "focusColor": "{colors.solid.zinc.900}"
+  },
+  "focusRing": {
+    "shadow": "0 0 0 0.2rem {primary.800}",
+    "extend": {
+      "invalid": "{colors.solid.red.800}",
+      "success": "{colors.solid.green.800}",
+      "warning": "{colors.solid.yellow.800}",
+      "info": "{colors.solid.blue.800}"
+    }
+  },
+  "mask": {
+    "background": "{colors.alpha.black.60}",
+    "color": "{surface.800}"
+  },
+  "formField": {
+    "background": "{colors.solid.zinc.950}",
+    "disabledBackground": "{colors.solid.zinc.800}",
+    "readonlyBackground": "{colors.solid.zinc.900}",
+    "filledBackground": "{colors.solid.zinc.950}",
+    "filledHoverBackground": "{colors.solid.zinc.950}",
+    "filledFocusBackground": "{colors.solid.zinc.950}",
+    "borderColor": "{colors.solid.zinc.700}",
+    "hoverBorderPrimaryColor": "{colors.solid.zinc.100}",
+    "focusBorderPrimaryColor": "{colors.solid.zinc.100}",
+    "hoverBorderSecondaryColor": "{colors.solid.green.400}",
+    "focusBorderSecondaryColor": "{colors.solid.green.400}",
+    "invalidBorderColor": "{colors.solid.red.600}",
+    "color": "{colors.alpha.white.100}",
+    "disabledColor": "{colors.solid.zinc.500}",
+    "placeholderColor": "{colors.solid.zinc.500}",
+    "invalidPlaceholderColor": "{colors.solid.red.400}",
+    "floatLabelColor": "{colors.solid.zinc.500}",
+    "floatLabelFocusColor": "{colors.solid.zinc.500}",
+    "floatLabelActiveColor": "{colors.solid.zinc.500}",
+    "floatLabelInvalidColor": "{formField.invalidPlaceholderColor}",
+    "iconColor": "{colors.alpha.white.100}",
+    "shadow": "rgba(255, 255, 255, 0.0000)",
+    "backgroundHandler": "{colors.alpha.white.100}"
+  },
+  "text": {
+    "color": "{colors.alpha.white.100}",
+    "extend": {
+      "colorPrimaryStatic": "{colors.solid.zinc.900}",
+      "colorSecondaryStatic": "{colors.alpha.white.100}",
+      "colorInverted": "{colors.solid.zinc.900}"
+    },
+    "hoverColor": "{colors.solid.zinc.300}",
+    "mutedColor": "{colors.solid.zinc.500}",
+    "hoverMutedColor": "{colors.solid.zinc.700}"
+  },
+  "content": {
+    "background": "{colors.solid.zinc.900}",
+    "hoverBackground": "{colors.solid.zinc.800}",
+    "borderColor": "{colors.solid.zinc.800}",
+    "color": "{text.color}",
+    "hoverColor": "{text.hoverColor}"
+  },
+  "overlay": {
+    "select": {
+      "background": "{colors.solid.zinc.900}",
+      "borderColor": "{colors.solid.zinc.800}",
+      "color": "{text.color}"
+    },
+    "popover": {
+      "background": "{colors.solid.zinc.900}",
+      "borderColor": "{formField.borderColor}",
+      "color": "{text.color}",
+      "shadow": "rgba(24, 26, 31, 0.2000)"
+    },
+    "modal": {
+      "background": "{colors.solid.zinc.900}",
+      "borderColor": "{colors.solid.zinc.800}",
+      "color": "{text.color}"
+    }
+  },
+  "list": {
+    "option": {
+      "background": "{colors.solid.zinc.900}",
+      "focusBackground": "{colors.solid.zinc.800}",
+      "selectedBackground": "{colors.solid.zinc.100}",
+      "selectedFocusBackground": "{colors.solid.zinc.300}",
+      "color": "{text.color}",
+      "focusColor": "{text.color}",
+      "selectedColor": "{text.extend.colorInverted}",
+      "selectedFocusColor": "{text.extend.colorInverted}",
+      "icon": {
+        "color": "{text.color}",
+        "focusColor": "{text.color}"
+      }
+    },
+    "surface": "#ffffff",
+    "optionGroup": {
+      "background": "{colors.solid.zinc.900}",
+      "color": "{text.mutedColor}"
+    }
+  },
+  "navigation": {
+    "submenuLabel": {
+      "background": "rgba(255, 255, 255, 0.0000)",
+      "color": "{text.mutedColor}"
+    },
+    "submenuIcon": {
+      "color": "{colors.solid.zinc.100}",
+      "focusColor": "{colors.solid.zinc.100}",
+      "activeColor": "{colors.solid.zinc.900}"
+    },
+    "item": {
+      "focusBackground": "{colors.solid.zinc.900}",
+      "activeBackground": "{colors.solid.zinc.100}",
+      "color": "{colors.alpha.white.100}",
+      "focusColor": "{colors.alpha.white.100}",
+      "activeColor": "{colors.solid.zinc.900}",
+      "icon": {
+        "color": "{colors.alpha.white.100}",
+        "focusColor": "{colors.alpha.white.100}",
+        "activeColor": "{colors.solid.zinc.900}"
+      }
+    }
+  }
+}

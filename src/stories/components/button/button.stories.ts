@@ -12,6 +12,7 @@ import { ButtonDisabledComponent, Disabled } from './examples/button-disabled.co
 import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
 import { ButtonBadgeComponent, Badge } from './examples/button-badge.component';
 import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
+import { CommonModule } from '@angular/common';
 
 const meta: Meta = {
   title: 'PrimeNG/Button',
@@ -19,6 +20,7 @@ const meta: Meta = {
   decorators: [
     moduleMetadata({
       imports: [
+        CommonModule,
         ButtonModule,
         ButtonBaseComponent,
         ButtonSizesComponent,

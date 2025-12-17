@@ -1,0 +1,30 @@
+{
+  "sizingInputtext": {
+    "root": {
+      "fontSize": "0.875rem",
+      "paddingX": "1.09375rem",
+      "paddingY": "1.09375rem"
+    }
+  },
+  "sizingSelect": {
+    "root": {
+      "fontSize": "0.875rem",
+      "paddingX": "1.09375rem",
+      "paddingY": "1.09375rem"
+    }
+  },
+  "sizingDialog": {
+    "extra": {
+      "minWidth": "26.25rem"
+    }
+  },
+  "sizingMessage": {
+    "width": "26.25rem"
+  },
+  "sizingToast": {
+    "width": "26.25rem"
+  },
+  "sizingDrawer": {
+    "width": "26.25rem"
+  }
+}
