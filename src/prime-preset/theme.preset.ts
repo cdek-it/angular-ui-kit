@@ -1,13 +1,8 @@
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
-// import * as components from './components.json';
-// import * as primitive from './primitive.json';
-// import * as semantic from './semantic.json';
 
-import components from './components';
-import primitive from './primitive';
-import semantic from './semantic';
+import presetTokens from './map-tokens';
 
-const Preset = definePreset(Aura, { components, primitive, semantic });
+const Preset = definePreset(Aura, presetTokens);
 
 export default Preset;
