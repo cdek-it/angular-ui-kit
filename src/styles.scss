@@ -3,3 +3,24 @@
 @tailwind utilities;
 
 @import '@tabler/icons-webfont/dist/tabler-icons.min.css';
+
+@font-face {
+  font-family: 'TT Fellows';
+  src: url('/src/prime-preset/fonts/tt-fellows/TT_Fellows_Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TT Fellows';
+  src: url('/src/prime-preset/fonts/tt-fellows/TT_Fellows_DemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TT Fellows';
+  src: url('/src/prime-preset/fonts/tt-fellows/TT_Fellows_DemiBold_Italic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+}
