@@ -1,0 +1,1587 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "ButtonBadgeComponent",
+            "id": "component-ButtonBadgeComponent-fab33f9afdb48c6fae49d289621dfd7234c7920f7d3f703dac62f523dd0852ba668326634ecf1aaddf69f2b1afbd505312415662d1865b6b360fbd9dec82dafc",
+            "file": "src/stories/components/button/examples/button-badge.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-badge",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Emails\" badge=\"8\" size=\"small\" />\n\n    <p-button label=\"Emails\" badge=\"8\" />\n\n    <p-button label=\"Emails\" badge=\"8\" size=\"large\" />\n\n    <p-button\n        label=\"Messages\"\n        icon=\"ti ti-users\"\n        badge=\"2\"\n        badgeClass=\"p-badge-contrast\"\n        outlined=\"true\" />\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Emails\" badge=\"8\" size=\"small\" />\n\n    <p-button label=\"Emails\" badge=\"8\" />\n\n    <p-button label=\"Emails\" badge=\"8\" size=\"large\" />\n\n    <p-button\n        label=\"Messages\"\n        icon=\"ti ti-users\"\n        badge=\"2\"\n        badgeClass=\"p-badge-contrast\"\n        outlined=\"true\" />\n  </div>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-badge',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonBadgeComponent {}\n\nexport const Badge: StoryObj = {\n  render: () => ({\n    template: `<app-button-badge></app-button-badge>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Badge кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonBadgeComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonBaseComponent",
+            "id": "component-ButtonBaseComponent-6af8a00394965f790f420544bff02db11acaf9dc0a8d25754bf7fb4eca0b1593e580fb507f53a98cc78fc785cc15586e7c1e378bbe02c80a0d007a7649cb86bf",
+            "file": "src/stories/components/button/examples/button-base.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-base",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <p-button\n    [label]=\"label\"\n    [disabled]=\"disabled\"\n    [loading]=\"loading\"\n    [size]=\"size\"\n    [rounded]=\"rounded\"\n    [outlined]=\"outlined\"\n    [text]=\"text\"\n    [icon]=\"icon\"\n    [iconPos]=\"iconPos\"\n    [badge]=\"badge\"\n    [severity]=\"severity\"\n  >\n  </p-button>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "badge",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 42,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 34,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 40,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "iconPos",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 41,
+                    "type": "\"left\" | \"right\" | null",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 33,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "loading",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 35,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "outlined",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 38,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "rounded",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 37,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "severity",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 43,
+                    "type": "\"success\" | \"info\" | \"warn\" | \"primary\" | \"help\" | \"danger\" | null",
+                    "decorators": []
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 36,
+                    "type": "\"small\" | \"large\" | null",
+                    "decorators": []
+                },
+                {
+                    "name": "text",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 39,
+                    "type": "boolean",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <p-button\n    [label]=\"label\"\n    [disabled]=\"disabled\"\n    [loading]=\"loading\"\n    [size]=\"size\"\n    [rounded]=\"rounded\"\n    [outlined]=\"outlined\"\n    [text]=\"text\"\n    [icon]=\"icon\"\n    [iconPos]=\"iconPos\"\n    [badge]=\"badge\"\n    [severity]=\"severity\"\n  >\n  </p-button>\n</div>\n`;\nconst styles = ``;\n\n@Component({\n  selector: 'app-button-base',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonBaseComponent {\n  @Input() label = '';\n  @Input() disabled = false;\n  @Input() loading = false;\n  @Input() size: 'small' | 'large' | null = null;\n  @Input() rounded = false;\n  @Input() outlined = false;\n  @Input() text = false;\n  @Input() icon: string = '';\n  @Input() iconPos: 'left' | 'right' | null = null;\n  @Input() badge: string = '';\n  @Input() severity: 'success' | 'info' | 'warn' | 'primary' | 'help' | 'danger' | null = null;\n}\n\nexport const Base: StoryObj = {\n  render: (args) => ({\n    props: args,\n    template: `\n<app-button-base\n  [label]=\"label\"\n  [disabled]=\"disabled\"\n  [loading]=\"loading\"\n  [size]=\"size\"\n  [rounded]=\"rounded\"\n  [outlined]=\"outlined\"\n  [text]=\"text\"\n  [icon]=\"icon\"\n  [iconPos]=\"iconPos\"\n  [badge]=\"badge\"\n  [severity]=\"severity\"\n>\n</app-button-base>`\n  }),\n  args: {\n    label: 'Base button',\n    disabled: false,\n    loading: false,\n    size: null,\n    rounded: false,\n    outlined: false,\n    text: false,\n    icon: '',\n    iconPos: null,\n    badge: '',\n    severity: null\n  },\n  argTypes: {\n    label: {\n      description: 'Текст кнопки.'\n    },\n    disabled: {\n      description: 'При наличии указывает, что компонент должен быть отключен.'\n    },\n    loading: {\n      description: 'Находится ли кнопка в состоянии загрузки.'\n    },\n    // TODO Добавить xlarge после фикса в либе.\n    size: {\n      description: 'Определяет размер кнопки.',\n      control: { type: 'select' },\n      options: [null, 'small', 'large'],\n      table: {\n        type: { summary: `'small' | 'large' | null` } // <-- тип в документации\n      }\n    },\n    rounded: {\n      description: 'При наличии делает кнопку с закругленными краями.'\n    },\n    outlined: {\n      description: 'При наличии делает кнопку с контуром без фона.'\n    },\n    text: {\n      description: 'При наличии делает кнопку текстовой без фона и границ.'\n    },\n    icon: {\n      description: 'Имя иконки для отображения в кнопке.'\n    },\n    iconPos: {\n      description: 'Позиция иконки относительно текста.',\n      control: { type: 'select' },\n      options: [null, 'left', 'right'],\n      table: {\n        type: { summary: `'left' | 'right' | null` }\n      }\n    },\n    badge: {\n      description: 'Текст для отображения в виде бейджа на кнопке.'\n    },\n    severity: {\n      description: 'Определяет цветовую схему кнопки.',\n      control: { type: 'select' },\n      options: [null, 'success', 'info', 'warn', 'primary', 'help', 'danger'],\n      table: {\n        type: {\n          summary: `'success' | 'info' | 'warn' | 'primary' | 'help' | 'danger' | null`\n        }\n      }\n    }\n  },\n  parameters: {\n    docs: {\n      description: {\n        story: 'Стандартная кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-base',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonBaseComponent {\n  @Input() label = '';\n  @Input() disabled = false;\n  @Input() loading = false;\n  @Input() size: 'small' | 'large' | null = null;\n  @Input() rounded = false;\n}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonDisabledComponent",
+            "id": "component-ButtonDisabledComponent-08149394bbd9dbd2d50d65e9a92b7cbac68e072764309fc410968d2ef7c91352a365dc0e14dd6193f13ab6eaa25606e8f505fc0a1c17097427aa69d168736ab8",
+            "file": "src/stories/components/button/examples/button-disabled.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-disabled",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [disabled]=\"true\"/>\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [disabled]=\"true\"/>\n  </div>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-disabled',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonDisabledComponent {}\n\nexport const Disabled: StoryObj = {\n  render: () => ({\n    template: `<app-button-disabled></app-button-disabled>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Disabled кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-disabled',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonDisabledComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonIconComponent",
+            "id": "component-ButtonIconComponent-553ddfe0086eec00020f592a5e46510ee6019a96420a18f0fc74e8ac183c5cd0e7ec864d369e6d9f3b378c09c5553bd2f92f8a6c407390fe601668ef0e6909ca",
+            "file": "src/stories/components/button/examples/button-icon.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-icon",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" iconPos=\"right\" />\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" iconPos=\"right\" />\n  </div>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-icon',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonIconComponent {}\n\nexport const Icon: StoryObj = {\n  render: () => ({\n    template: `<app-button-icon></app-button-icon>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки с иконками'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-icon',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonIconComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonLoadingComponent",
+            "id": "component-ButtonLoadingComponent-747831019d46f2ad5ee976a755845a807fe3d6fce93323c22753c42a300535885ea9570f93c580b2377de7ec8a16386caea5d52b5d8c5d87cf9ba97198870ace",
+            "file": "src/stories/components/button/examples/button-loading.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-loading",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [loading]=\"true\"/>\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [loading]=\"true\"/>\n  </div>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-loading',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonLoadingComponent {}\n\nexport const Loading: StoryObj = {\n  render: () => ({\n    template: `<app-button-loading></app-button-loading>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопка в состоянии загрузки'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-loading',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonLoadingComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonOutlinedComponent",
+            "id": "component-ButtonOutlinedComponent-2f780c950280808a263be91edeaa56e63eedc39495be6eca8bb7dcea5d56a09aea77d6cecdb9341715d1e1f7c582df95b46fd1321497a1536e21b716244a4a5a",
+            "file": "src/stories/components/button/examples/button-outlined.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-outlined",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Outlined button\" [outlined]=\"true\">\n  </p-button>\n</div>`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Outlined button\" [outlined]=\"true\">\n  </p-button>\n</div>`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-outlined',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonOutlinedComponent {}\n\nexport const Outlined: StoryObj = {\n  render: () => ({\n    template: `<app-button-outlined></app-button-outlined>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Outlined кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-outlined',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonOutlinedComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonRoundedComponent",
+            "id": "component-ButtonRoundedComponent-75651107f6304e710142aef6f4f68ec0f1069847af847d954b7de576ea710779cec3f802adc8586bc9683100e14432e4c15d5d58fa2f7204d7e2e2d034db308a",
+            "file": "src/stories/components/button/examples/button-rounded.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-rounded",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Primary\" [rounded]=\"true\" />\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Primary\" [rounded]=\"true\" />\n  </div>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-rounded',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonRoundedComponent {}\n\nexport const Rounded: StoryObj = {\n  render: () => ({\n    template: `<app-button-rounded></app-button-rounded>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Скругленная кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-rounded',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonRoundedComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonSeverityComponent",
+            "id": "component-ButtonSeverityComponent-bceea86d34a4ff6c3637b6c4b0dfe628631cbeeacb8537089aaeb500fef8c51fbad4689c06a2de3d51f4f3510bc7520fd634f48cb91995dc93e187ab3099c6e5",
+            "file": "src/stories/components/button/examples/button-severity.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-severity",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex flex-col gap-4\">\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\"/>\n      <p-button label=\"Danger\" severity=\"danger\" />\n      <p-button label=\"Warning\" severity=\"warn\" />\n      <p-button label=\"Success\" severity=\"success\" />\n      <p-button label=\"Info\" severity=\"info\" />\n      <p-button label=\"Help\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [rounded]=\"true\"/>\n      <p-button label=\"Danger\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [rounded]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [rounded]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [text]=\"true\"/>\n      <p-button label=\"Danger\" [text]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [text]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [text]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [text]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [text]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" />\n      <p-button icon=\"ti ti-file-alert\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" severity=\"help\" />\n    </div>\n\n     <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [text]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [text]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [text]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [text]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [text]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [text]=\"true\" severity=\"help\" />\n    </div>\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex flex-col gap-4\">\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\"/>\n      <p-button label=\"Danger\" severity=\"danger\" />\n      <p-button label=\"Warning\" severity=\"warn\" />\n      <p-button label=\"Success\" severity=\"success\" />\n      <p-button label=\"Info\" severity=\"info\" />\n      <p-button label=\"Help\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [rounded]=\"true\"/>\n      <p-button label=\"Danger\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [rounded]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [rounded]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [text]=\"true\"/>\n      <p-button label=\"Danger\" [text]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [text]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [text]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [text]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [text]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" />\n      <p-button icon=\"ti ti-file-alert\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" severity=\"help\" />\n    </div>\n\n     <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [text]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [text]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [text]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [text]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [text]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [text]=\"true\" severity=\"help\" />\n    </div>\n  </div>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-severity',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonSeverityComponent {}\n\nexport const Severity: StoryObj = {\n  render: () => ({\n    template: `<app-button-severity></app-button-severity>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки с разным Severity'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-severity',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonSeverityComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonSizesComponent",
+            "id": "component-ButtonSizesComponent-cd17928f6a96e0c2d4319065effc31fa54d37723ef053a6ee42aaac52a553f33c495e79ccd49b3caa116ad0a761224fecf5b2f4bec5e1683dd8aa5f78cc53746",
+            "file": "src/stories/components/button/examples/button-sizes.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-sizes",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Small\" icon=\"ti ti-check\" size=\"small\" />\n    <p-button label=\"Normal\" icon=\"ti ti-check\" />\n    <p-button label=\"Large\" icon=\"ti ti-check\" size=\"large\" />\n  <!--  <p-button label=\"xLarge\" icon=\"pi pi-check\" size=\"xlarge\" /> для xlarge необходимо перейти на class, т.к. опции xlarge у компонента нет.-->\n  </div>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { StoryObj } from '@storybook/angular';\nimport { Button } from 'primeng/button';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Small\" icon=\"ti ti-check\" size=\"small\" />\n    <p-button label=\"Normal\" icon=\"ti ti-check\" />\n    <p-button label=\"Large\" icon=\"ti ti-check\" size=\"large\" />\n  <!--  <p-button label=\"xLarge\" icon=\"pi pi-check\" size=\"xlarge\" /> для xlarge необходимо перейти на class, т.к. опции xlarge у компонента нет.-->\n  </div>\n</div>\n`;\n\nconst styles = '';\n\n@Component({\n  selector: 'app-button-sizes',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonSizesComponent {}\n\nexport const Sizes: StoryObj = {\n  render: () => ({\n    template: `<app-button-sizes></app-button-sizes>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки разных размеров'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-sizes',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonSizesComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        },
+        {
+            "name": "ButtonTextComponent",
+            "id": "component-ButtonTextComponent-9ec9afa71413a44df8de13324a927aa6ce9c0992a9a509345a5081da321472dde3882151e6e56589f4e751c0c6091d49fb74c41e9cc549be31a6e283b2f0d5c1",
+            "file": "src/stories/components/button/examples/button-text.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button-text",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "`<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Primary text\" [text]=\"true\"></p-button>\n</div>\n`",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Button"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\nimport { StoryObj } from '@storybook/angular';\n\nconst template = `\n<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Primary text\" [text]=\"true\"></p-button>\n</div>\n`;\nconst styles = '';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [Button],\n  template,\n  styles\n})\nexport class ButtonTextComponent {}\n\nexport const Text: StoryObj = {\n  render: () => ({\n    template: `<app-button-text></app-button-text>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Text кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonTextComponent {}\n        `\n      }\n    }\n  }\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": []
+        }
+    ],
+    "modules": [],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "Badge",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-badge.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-badge></app-button-badge>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Badge кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonBadgeComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Base",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-base.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n<app-button-base\n  [label]=\"label\"\n  [disabled]=\"disabled\"\n  [loading]=\"loading\"\n  [size]=\"size\"\n  [rounded]=\"rounded\"\n  [outlined]=\"outlined\"\n  [text]=\"text\"\n  [icon]=\"icon\"\n  [iconPos]=\"iconPos\"\n  [badge]=\"badge\"\n  [severity]=\"severity\"\n>\n</app-button-base>`\n  }),\n  args: {\n    label: 'Base button',\n    disabled: false,\n    loading: false,\n    size: null,\n    rounded: false,\n    outlined: false,\n    text: false,\n    icon: '',\n    iconPos: null,\n    badge: '',\n    severity: null\n  },\n  argTypes: {\n    label: {\n      description: 'Текст кнопки.'\n    },\n    disabled: {\n      description: 'При наличии указывает, что компонент должен быть отключен.'\n    },\n    loading: {\n      description: 'Находится ли кнопка в состоянии загрузки.'\n    },\n    // TODO Добавить xlarge после фикса в либе.\n    size: {\n      description: 'Определяет размер кнопки.',\n      control: { type: 'select' },\n      options: [null, 'small', 'large'],\n      table: {\n        type: { summary: `'small' | 'large' | null` } // <-- тип в документации\n      }\n    },\n    rounded: {\n      description: 'При наличии делает кнопку с закругленными краями.'\n    },\n    outlined: {\n      description: 'При наличии делает кнопку с контуром без фона.'\n    },\n    text: {\n      description: 'При наличии делает кнопку текстовой без фона и границ.'\n    },\n    icon: {\n      description: 'Имя иконки для отображения в кнопке.'\n    },\n    iconPos: {\n      description: 'Позиция иконки относительно текста.',\n      control: { type: 'select' },\n      options: [null, 'left', 'right'],\n      table: {\n        type: { summary: `'left' | 'right' | null` }\n      }\n    },\n    badge: {\n      description: 'Текст для отображения в виде бейджа на кнопке.'\n    },\n    severity: {\n      description: 'Определяет цветовую схему кнопки.',\n      control: { type: 'select' },\n      options: [null, 'success', 'info', 'warn', 'primary', 'help', 'danger'],\n      table: {\n        type: {\n          summary: `'success' | 'info' | 'warn' | 'primary' | 'help' | 'danger' | null`\n        }\n      }\n    }\n  },\n  parameters: {\n    docs: {\n      description: {\n        story: 'Стандартная кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-base',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonBaseComponent {\n  @Input() label = '';\n  @Input() disabled = false;\n  @Input() loading = false;\n  @Input() size: 'small' | 'large' | null = null;\n  @Input() rounded = false;\n}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-disabled.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-disabled></app-button-disabled>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Disabled кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-disabled',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonDisabledComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Icon",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-icon></app-button-icon>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки с иконками'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-icon',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonIconComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Loading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-loading.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-loading></app-button-loading>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопка в состоянии загрузки'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-loading',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonLoadingComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'PrimeNG/Button',\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [\n        ButtonModule,\n        ButtonBaseComponent,\n        ButtonSizesComponent,\n        ButtonRoundedComponent,\n        ButtonOutlinedComponent,\n        ButtonTextComponent,\n        ButtonIconComponent,\n        ButtonDisabledComponent,\n        ButtonLoadingComponent,\n        ButtonBadgeComponent,\n        ButtonSeverityComponent\n      ]\n    })\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component: 'Компонент кнопки с различными стилями, состояниями и иконками'\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Outlined",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-outlined.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-outlined></app-button-outlined>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Outlined кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-outlined',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonOutlinedComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Rounded",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-rounded.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-rounded></app-button-rounded>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Скругленная кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-rounded',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonRoundedComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Severity",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-severity.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-severity></app-button-severity>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки с разным Severity'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-severity',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonSeverityComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Sizes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-sizes.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-sizes></app-button-sizes>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки разных размеров'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-sizes',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonSizesComponent {}\n        `\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-badge.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-base.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "``"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-disabled.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-loading.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-outlined.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-rounded.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-severity.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-sizes.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "styles",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-text.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "''"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-badge.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Emails\" badge=\"8\" size=\"small\" />\n\n    <p-button label=\"Emails\" badge=\"8\" />\n\n    <p-button label=\"Emails\" badge=\"8\" size=\"large\" />\n\n    <p-button\n        label=\"Messages\"\n        icon=\"ti ti-users\"\n        badge=\"2\"\n        badgeClass=\"p-badge-contrast\"\n        outlined=\"true\" />\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-base.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <p-button\n    [label]=\"label\"\n    [disabled]=\"disabled\"\n    [loading]=\"loading\"\n    [size]=\"size\"\n    [rounded]=\"rounded\"\n    [outlined]=\"outlined\"\n    [text]=\"text\"\n    [icon]=\"icon\"\n    [iconPos]=\"iconPos\"\n    [badge]=\"badge\"\n    [severity]=\"severity\"\n  >\n  </p-button>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-disabled.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [disabled]=\"true\"/>\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" iconPos=\"right\" />\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-loading.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [loading]=\"true\"/>\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-outlined.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Outlined button\" [outlined]=\"true\">\n  </p-button>\n</div>`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-rounded.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Primary\" [rounded]=\"true\" />\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-severity.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex flex-col gap-4\">\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\"/>\n      <p-button label=\"Danger\" severity=\"danger\" />\n      <p-button label=\"Warning\" severity=\"warn\" />\n      <p-button label=\"Success\" severity=\"success\" />\n      <p-button label=\"Info\" severity=\"info\" />\n      <p-button label=\"Help\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [rounded]=\"true\"/>\n      <p-button label=\"Danger\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [rounded]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [rounded]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [text]=\"true\"/>\n      <p-button label=\"Danger\" [text]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [text]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [text]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [text]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [text]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" />\n      <p-button icon=\"ti ti-file-alert\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" severity=\"help\" />\n    </div>\n\n     <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [text]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [text]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [text]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [text]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [text]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [text]=\"true\" severity=\"help\" />\n    </div>\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-sizes.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Small\" icon=\"ti ti-check\" size=\"small\" />\n    <p-button label=\"Normal\" icon=\"ti ti-check\" />\n    <p-button label=\"Large\" icon=\"ti ti-check\" size=\"large\" />\n  <!--  <p-button label=\"xLarge\" icon=\"pi pi-check\" size=\"xlarge\" /> для xlarge необходимо перейти на class, т.к. опции xlarge у компонента нет.-->\n  </div>\n</div>\n`"
+            },
+            {
+                "name": "template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-text.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Primary text\" [text]=\"true\"></p-button>\n</div>\n`"
+            },
+            {
+                "name": "Text",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/button/examples/button-text.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj",
+                "defaultValue": "{\n  render: () => ({\n    template: `<app-button-text></app-button-text>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Text кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonTextComponent {}\n        `\n      }\n    }\n  }\n}"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/stories/components/button/examples/button-badge.component.ts": [
+                {
+                    "name": "Badge",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-badge.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-badge></app-button-badge>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Badge кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonBadgeComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-badge.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-badge.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Emails\" badge=\"8\" size=\"small\" />\n\n    <p-button label=\"Emails\" badge=\"8\" />\n\n    <p-button label=\"Emails\" badge=\"8\" size=\"large\" />\n\n    <p-button\n        label=\"Messages\"\n        icon=\"ti ti-users\"\n        badge=\"2\"\n        badgeClass=\"p-badge-contrast\"\n        outlined=\"true\" />\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-base.component.ts": [
+                {
+                    "name": "Base",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-base.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n<app-button-base\n  [label]=\"label\"\n  [disabled]=\"disabled\"\n  [loading]=\"loading\"\n  [size]=\"size\"\n  [rounded]=\"rounded\"\n  [outlined]=\"outlined\"\n  [text]=\"text\"\n  [icon]=\"icon\"\n  [iconPos]=\"iconPos\"\n  [badge]=\"badge\"\n  [severity]=\"severity\"\n>\n</app-button-base>`\n  }),\n  args: {\n    label: 'Base button',\n    disabled: false,\n    loading: false,\n    size: null,\n    rounded: false,\n    outlined: false,\n    text: false,\n    icon: '',\n    iconPos: null,\n    badge: '',\n    severity: null\n  },\n  argTypes: {\n    label: {\n      description: 'Текст кнопки.'\n    },\n    disabled: {\n      description: 'При наличии указывает, что компонент должен быть отключен.'\n    },\n    loading: {\n      description: 'Находится ли кнопка в состоянии загрузки.'\n    },\n    // TODO Добавить xlarge после фикса в либе.\n    size: {\n      description: 'Определяет размер кнопки.',\n      control: { type: 'select' },\n      options: [null, 'small', 'large'],\n      table: {\n        type: { summary: `'small' | 'large' | null` } // <-- тип в документации\n      }\n    },\n    rounded: {\n      description: 'При наличии делает кнопку с закругленными краями.'\n    },\n    outlined: {\n      description: 'При наличии делает кнопку с контуром без фона.'\n    },\n    text: {\n      description: 'При наличии делает кнопку текстовой без фона и границ.'\n    },\n    icon: {\n      description: 'Имя иконки для отображения в кнопке.'\n    },\n    iconPos: {\n      description: 'Позиция иконки относительно текста.',\n      control: { type: 'select' },\n      options: [null, 'left', 'right'],\n      table: {\n        type: { summary: `'left' | 'right' | null` }\n      }\n    },\n    badge: {\n      description: 'Текст для отображения в виде бейджа на кнопке.'\n    },\n    severity: {\n      description: 'Определяет цветовую схему кнопки.',\n      control: { type: 'select' },\n      options: [null, 'success', 'info', 'warn', 'primary', 'help', 'danger'],\n      table: {\n        type: {\n          summary: `'success' | 'info' | 'warn' | 'primary' | 'help' | 'danger' | null`\n        }\n      }\n    }\n  },\n  parameters: {\n    docs: {\n      description: {\n        story: 'Стандартная кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-base',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonBaseComponent {\n  @Input() label = '';\n  @Input() disabled = false;\n  @Input() loading = false;\n  @Input() size: 'small' | 'large' | null = null;\n  @Input() rounded = false;\n}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-base.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "``"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-base.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <p-button\n    [label]=\"label\"\n    [disabled]=\"disabled\"\n    [loading]=\"loading\"\n    [size]=\"size\"\n    [rounded]=\"rounded\"\n    [outlined]=\"outlined\"\n    [text]=\"text\"\n    [icon]=\"icon\"\n    [iconPos]=\"iconPos\"\n    [badge]=\"badge\"\n    [severity]=\"severity\"\n  >\n  </p-button>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-disabled.component.ts": [
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-disabled.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-disabled></app-button-disabled>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Disabled кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-disabled',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonDisabledComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-disabled.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-disabled.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [disabled]=\"true\"/>\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-icon.component.ts": [
+                {
+                    "name": "Icon",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-icon></app-button-icon>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки с иконками'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-icon',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonIconComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" />\n    <p-button label=\"Submit\" icon=\"ti ti-check\" iconPos=\"right\" />\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-loading.component.ts": [
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-loading.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-loading></app-button-loading>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопка в состоянии загрузки'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-loading',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonLoadingComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-loading.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-loading.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Submit\" icon=\"ti ti-check\" [loading]=\"true\"/>\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/button.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'PrimeNG/Button',\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [\n        ButtonModule,\n        ButtonBaseComponent,\n        ButtonSizesComponent,\n        ButtonRoundedComponent,\n        ButtonOutlinedComponent,\n        ButtonTextComponent,\n        ButtonIconComponent,\n        ButtonDisabledComponent,\n        ButtonLoadingComponent,\n        ButtonBadgeComponent,\n        ButtonSeverityComponent\n      ]\n    })\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component: 'Компонент кнопки с различными стилями, состояниями и иконками'\n      }\n    }\n  }\n}"
+                }
+            ],
+            "src/stories/components/button/examples/button-outlined.component.ts": [
+                {
+                    "name": "Outlined",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-outlined.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-outlined></app-button-outlined>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Outlined кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-outlined',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonOutlinedComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-outlined.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-outlined.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Outlined button\" [outlined]=\"true\">\n  </p-button>\n</div>`"
+                }
+            ],
+            "src/stories/components/button/examples/button-rounded.component.ts": [
+                {
+                    "name": "Rounded",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-rounded.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-rounded></app-button-rounded>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Скругленная кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-rounded',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonRoundedComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-rounded.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-rounded.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3\">\n    <p-button label=\"Primary\" [rounded]=\"true\" />\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-severity.component.ts": [
+                {
+                    "name": "Severity",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-severity.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-severity></app-button-severity>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки с разным Severity'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-severity',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonSeverityComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-severity.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-severity.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex flex-col gap-4\">\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\"/>\n      <p-button label=\"Danger\" severity=\"danger\" />\n      <p-button label=\"Warning\" severity=\"warn\" />\n      <p-button label=\"Success\" severity=\"success\" />\n      <p-button label=\"Info\" severity=\"info\" />\n      <p-button label=\"Help\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [rounded]=\"true\"/>\n      <p-button label=\"Danger\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [rounded]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [rounded]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button label=\"Primary\" [text]=\"true\"/>\n      <p-button label=\"Danger\" [text]=\"true\" severity=\"danger\" />\n      <p-button label=\"Warning\" [text]=\"true\" severity=\"warn\" />\n      <p-button label=\"Success\" [text]=\"true\" severity=\"success\" />\n      <p-button label=\"Info\" [text]=\"true\" severity=\"info\" />\n      <p-button label=\"Help\" [text]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" />\n      <p-button icon=\"ti ti-file-alert\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" severity=\"help\" />\n    </div>\n\n     <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" severity=\"help\" />\n    </div>\n\n    <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [outlined]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [outlined]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [outlined]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [outlined]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [outlined]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [outlined]=\"true\" severity=\"help\" />\n    </div>\n\n      <div class=\"flex gap-3 items-end\">\n      <p-button icon=\"ti ti-check\" [rounded]=\"true\" [text]=\"true\" />\n      <p-button icon=\"ti ti-file-alert\" [rounded]=\"true\" [text]=\"true\" severity=\"danger\" />\n      <p-button icon=\"ti ti-bell\" [rounded]=\"true\" [text]=\"true\" severity=\"warn\" />\n      <p-button icon=\"ti ti-search\" [rounded]=\"true\" [text]=\"true\" severity=\"success\" />\n      <p-button icon=\"ti ti-user\" [rounded]=\"true\" [text]=\"true\" severity=\"info\" />\n      <p-button icon=\"ti ti-heart\" [rounded]=\"true\" [text]=\"true\" severity=\"help\" />\n    </div>\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-sizes.component.ts": [
+                {
+                    "name": "Sizes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-sizes.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-sizes></app-button-sizes>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Кнопки разных размеров'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-sizes',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonSizesComponent {}\n        `\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-sizes.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-sizes.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <div class=\"flex gap-3 items-end\">\n    <p-button label=\"Small\" icon=\"ti ti-check\" size=\"small\" />\n    <p-button label=\"Normal\" icon=\"ti ti-check\" />\n    <p-button label=\"Large\" icon=\"ti ti-check\" size=\"large\" />\n  <!--  <p-button label=\"xLarge\" icon=\"pi pi-check\" size=\"xlarge\" /> для xlarge необходимо перейти на class, т.к. опции xlarge у компонента нет.-->\n  </div>\n</div>\n`"
+                }
+            ],
+            "src/stories/components/button/examples/button-text.component.ts": [
+                {
+                    "name": "styles",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-text.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "''"
+                },
+                {
+                    "name": "template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-text.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\n<div class=\"bg-surface-ground p-4\">\n  <p-button label=\"Primary text\" [text]=\"true\"></p-button>\n</div>\n`"
+                },
+                {
+                    "name": "Text",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/button/examples/button-text.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<app-button-text></app-button-text>`\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Text кнопка'\n      },\n      source: {\n        language: 'ts',\n        code: `\nimport { Component } from '@angular/core';\nimport { Button } from 'primeng/button';\n\n@Component({\n  selector: 'app-button-text',\n  standalone: true,\n  imports: [\n    Button\n  ],\n  template: ${template},\n  styles: ${styles}\n})\nexport class ButtonTextComponent {}\n        `\n      }\n    }\n  }\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "children": []
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "src/stories/components/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-badge.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonBadgeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-badge.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Badge",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-badge.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-badge.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-base.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonBaseComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-base.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Base",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-base.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-base.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-disabled.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonDisabledComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-disabled.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-disabled.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-disabled.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-icon.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonIconComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-icon.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Icon",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-icon.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-icon.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-loading.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonLoadingComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-loading.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Loading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-loading.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-loading.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-outlined.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonOutlinedComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-outlined.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Outlined",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-outlined.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-outlined.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-rounded.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonRoundedComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-rounded.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Rounded",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-rounded.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-rounded.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-severity.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonSeverityComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-severity.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Severity",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-severity.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-severity.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-sizes.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonSizesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-sizes.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Sizes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-sizes.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-sizes.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-text.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonTextComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-text.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "styles",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-text.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/button/examples/button-text.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Text",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
