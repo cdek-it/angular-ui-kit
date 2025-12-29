@@ -40,7 +40,7 @@ export class ButtonBaseComponent {
   @Input() icon: string = '';
   @Input() iconPos: 'left' | 'right' | null = null;
   @Input() badge: string = '';
-  @Input() severity: 'success' | 'info' | 'warn' | 'primary' | 'help' | 'danger' | null = null;
+  @Input() severity: Extract<Button['severity'], string | null> = null;
 }
 
 export const Base: StoryObj = {
