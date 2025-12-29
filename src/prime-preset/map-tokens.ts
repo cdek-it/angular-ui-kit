@@ -26,28 +26,18 @@ if (presetTokens?.semantic) {
 
 presetTokens.semantic = { ...presetTokens.semantic, ...sizingBase };
 
-const semanticLink: any = presetTokens.semantic;
+const semanticLink: Record<string, any> = presetTokens.semantic;
 
-const sizingSmLink: any = sizingSm;
-const sizingLgLink: any = sizingLg;
-const sizingXlgLink: any = sizingXlg;
-
-for (const key in sizingSm) {
-  if ((semanticLink)[key]) {
-    semanticLink[key].sm = sizingSmLink[key]?.root ? sizingSmLink[key].root : sizingSmLink[key];
-  }
+function applySizing(semantic: Record<string, any>, sizing: Record<string, any>, sizeKey: 'sm' | 'lg' | 'xlg') {
+  Object.keys(sizing).forEach((key) => {
+    if (semantic[key]) {
+      semantic[key][sizeKey] = sizing[key]?.root ?? sizing[key];
+    }
+  });
 }
 
-for (const key in sizingLg) {
-  if ((semanticLink)[key]) {
-    semanticLink[key].lg = sizingLgLink[key]?.root ? sizingLgLink[key].root : sizingLgLink[key];
-  }
-}
-
-for (const key in sizingXlg) {
-  if ((semanticLink)[key]) {
-    semanticLink[key].xlg = sizingXlgLink[key]?.root ? sizingXlgLink[key].root : sizingXlgLink[key];
-  }
-}
+applySizing(semanticLink, sizingSm, 'sm');
+applySizing(semanticLink, sizingLg, 'lg');
+applySizing(semanticLink, sizingXlg, 'xlg');
 
 export default presetTokens;
