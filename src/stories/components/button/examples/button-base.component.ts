@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Button } from 'primeng/button';
+import { Button, ButtonIconPosition } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
 
 const template = `
@@ -33,12 +33,12 @@ export class ButtonBaseComponent {
   @Input() label = '';
   @Input() disabled = false;
   @Input() loading = false;
-  @Input() size: 'small' | 'large' | null = null;
+  @Input() size: 'small' | 'large' | undefined;
   @Input() rounded = false;
   @Input() outlined = false;
   @Input() text = false;
   @Input() icon: string = '';
-  @Input() iconPos: 'left' | 'right' | null = null;
+  @Input() iconPos: ButtonIconPosition = 'left';
   @Input() badge: string = '';
   @Input() severity: Extract<Button['severity'], string | null> = null;
 }

@@ -5,6 +5,6 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "include": ["../src/stories/**/*.stories.*", "./preview.ts"],
+  "include": ["../src/stories/**/*.stories.*", "./preview.ts", "../src/prime-preset/**/*"],
   "files": ["./typings.d.ts"]
 }
