@@ -2,17 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-// Подключение темы для локальной разработки.
-// Перебивает выбранную тему, поэтому желательно чтобы подключенная и выбранная темы совпадали.
-// Подключать только при разработке и лучше в самом верху, чтобы tailwind не перебивал стили витрины.
-
-//@import '../primeng-sass-theme/themes/ek5/ek5-light-primary';
-//@import '../primeng-sass-theme/themes/brand/brand-light-primary';
-
-@import 'assets/showcase/styles/layout/layout.scss';
-@import 'assets/showcase/styles/primeng.css';
-@import 'primeicons/primeicons.css';
 @import '@tabler/icons-webfont/dist/tabler-icons.min.css';
-@import 'quill/dist/quill.snow.css';
-@import 'assets/showcase/styles/flags.css';
-@import '@docsearch/css/dist/style.css';

@@ -1,11 +1,10 @@
 {
-  "extends": "../tsconfig.storybook-app.json",
+  "extends": "../tsconfig.app.json",
   "compilerOptions": {
     "types": ["node"],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "exclude": ["../src-storybook/test.ts", "../src-storybook/**/*.spec.ts"],
-  "include": ["../src-storybook/**/*.stories.*", "./preview.ts"],
+  "include": ["../src/stories/**/*.stories.*", "./preview.ts", "../src/prime-preset/**/*"],
   "files": ["./typings.d.ts"]
 }
