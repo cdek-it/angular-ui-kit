@@ -11,10 +11,12 @@ import sizingSm from './tokens/sizing-sm.json';
 import sizingLg from './tokens/sizing-lg.json';
 import sizingXlg from './tokens/sizing-xlg.json';
 
+import button from './tokens/components/button.json';
+
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive,
   semantic,
-  components
+  components: { ...components, ...button }
 };
 
 if (presetTokens?.semantic) {
