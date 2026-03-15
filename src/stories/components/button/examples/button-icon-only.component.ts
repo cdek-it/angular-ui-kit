@@ -10,30 +10,30 @@ const template = `
     <span><code>size="large"</code></span>
     <span><code>class="p-button-xlg"</code></span>
 
-    <p-button label="Button" size="small" [loading]="true" />
-    <p-button label="Button" [loading]="true" />
-    <p-button label="Button" size="large" [loading]="true" />
-    <p-button label="Button" class="p-button-xlg" [loading]="true" />
+    <p-button icon="ti ti-check" size="small" />
+    <p-button icon="ti ti-check" />
+    <p-button icon="ti ti-check" size="large" />
+    <p-button icon="ti ti-check" class="p-button-xlg" />
   </div>
 </div>
 `;
 
 @Component({
-  selector: 'app-button-loading',
+  selector: 'app-button-icon-only',
   standalone: true,
   imports: [ButtonModule],
   template
 })
-export class ButtonLoadingComponent {}
+export class ButtonIconOnlyComponent {}
 
-export const Loading: StoryObj = {
+export const IconOnly: StoryObj = {
   render: () => ({
-    template: `<app-button-loading></app-button-loading>`
+    template: `<app-button-icon-only></app-button-icon-only>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Кнопка с индикатором загрузки. Полезно для асинхронных действий.'
+        story: 'В случаях, когда текст не требуется, можно использовать только иконку.'
       }
     }
   }

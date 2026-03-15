@@ -1,33 +1,37 @@
 import { Meta, moduleMetadata } from '@storybook/angular';
-
+import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
-import { ButtonBaseComponent, Base } from './examples/button-base.component';
+import { ButtonBaseComponent, Default } from './examples/button-base.component';
 import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
 import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
-import { ButtonOutlinedComponent, Outlined } from './examples/button-outlined.component';
 import { ButtonTextComponent, Text } from './examples/button-text.component';
-import { ButtonIconComponent, Icon } from './examples/button-icon.component';
+import { ButtonLinkComponent, Link } from './examples/button-link.component';
+import { ButtonIconComponent, Icons } from './examples/button-icon.component';
+import { ButtonIconOnlyComponent, IconOnly } from './examples/button-icon-only.component';
 import { ButtonDisabledComponent, Disabled } from './examples/button-disabled.component';
 import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
 import { ButtonBadgeComponent, Badge } from './examples/button-badge.component';
 import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
-import { CommonModule } from '@angular/common';
 
 const meta: Meta = {
   title: 'PrimeNG/Button',
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
         CommonModule,
         ButtonModule,
+        BadgeModule,
+        OverlayBadgeModule,
         ButtonBaseComponent,
         ButtonSizesComponent,
         ButtonRoundedComponent,
-        ButtonOutlinedComponent,
         ButtonTextComponent,
+        ButtonLinkComponent,
         ButtonIconComponent,
+        ButtonIconOnlyComponent,
         ButtonDisabledComponent,
         ButtonLoadingComponent,
         ButtonBadgeComponent,
@@ -38,11 +42,11 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Компонент кнопки с различными стилями, состояниями и иконками'
+        component: 'Кнопка — базовый интерактивный элемент. [PrimeNG Button](https://primeng.org/button), [Figma Design](https://www.figma.com/design/HOLKdvQJ8jCLeX17s9d0Yf/UI-Kit--DS--v2.0?node-id=160-5223)'
       }
     }
   }
 };
 export default meta;
 
-export { Base, Disabled, Loading, Sizes, Rounded, Outlined, Text, Icon, Badge, Severity };
+export { Default, Sizes, Icons, IconOnly, Severity, Text, Link, Rounded, Disabled, Loading, Badge };

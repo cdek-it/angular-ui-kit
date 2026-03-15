@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
+import { ButtonModule } from 'primeng/button';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <div class="flex gap-3">
-    <p-button label="Primary" [rounded]="true" />
+  <div style="display: grid; grid-template-columns: repeat(4, max-content); gap: 20px; align-items: center; justify-items: center;">
+    <span><code>size="small"</code></span>
+    <span><code>size="base"</code></span>
+    <span><code>size="large"</code></span>
+    <span><code>class="p-button-xlg"</code></span>
+
+    <p-button label="Button" size="small" [rounded]="true" />
+    <p-button label="Button" [rounded]="true" />
+    <p-button label="Button" size="large" [rounded]="true" />
+    <p-button label="Button" class="p-button-xlg" [rounded]="true" />
   </div>
 </div>
 `;
-const styles = '';
 
 @Component({
   selector: 'app-button-rounded',
   standalone: true,
-  imports: [Button],
-  template,
-  styles
+  imports: [ButtonModule],
+  template
 })
 export class ButtonRoundedComponent {}
 
@@ -27,25 +33,7 @@ export const Rounded: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Скругленная кнопка'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-
-@Component({
-  selector: 'app-button-rounded',
-  standalone: true,
-  imports: [
-    Button
-  ],
-  template: ${template},
-  styles: ${styles}
-})
-export class ButtonRoundedComponent {}
-        `
+        story: 'Полностью скруглённая форма кнопки.'
       }
     }
   }

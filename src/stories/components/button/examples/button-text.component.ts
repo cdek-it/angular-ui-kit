@@ -1,20 +1,28 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
+import { ButtonModule } from 'primeng/button';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <p-button label="Primary text" [text]="true"></p-button>
+  <div style="display: grid; grid-template-columns: repeat(4, max-content); gap: 20px; align-items: center; justify-items: center;">
+    <span><code>size="small"</code></span>
+    <span><code>size="base"</code></span>
+    <span><code>size="large"</code></span>
+    <span><code>class="p-button-xlg"</code></span>
+
+    <p-button label="Button" size="small" [text]="true" />
+    <p-button label="Button" [text]="true" />
+    <p-button label="Button" size="large" [text]="true" />
+    <p-button label="Button" class="p-button-xlg" [text]="true" />
+  </div>
 </div>
 `;
-const styles = '';
 
 @Component({
   selector: 'app-button-text',
   standalone: true,
-  imports: [Button],
-  template,
-  styles
+  imports: [ButtonModule],
+  template
 })
 export class ButtonTextComponent {}
 
@@ -25,25 +33,7 @@ export const Text: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Text кнопка'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-
-@Component({
-  selector: 'app-button-text',
-  standalone: true,
-  imports: [
-    Button
-  ],
-  template: ${template},
-  styles: ${styles}
-})
-export class ButtonTextComponent {}
-        `
+        story: 'Кнопка без заливки и границ, часто используется в тулбарах или списках.'
       }
     }
   }
