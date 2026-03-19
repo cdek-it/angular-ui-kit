@@ -1,33 +1,40 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
+import { ButtonModule } from 'primeng/button';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <div class="flex gap-3 items-end">
-    <p-button label="Emails" badge="8" size="small" />
+  <div style="display: grid; grid-template-columns: repeat(4, max-content); gap: 40px; row-gap: 20px; align-items: center; justify-items: center;">
+    <span><code>size="small"</code></span>
+    <span><code>size="base"</code></span>
+    <span><code>size="large"</code></span>
+    <span><code>class="p-button-xlg"</code></span>
 
-    <p-button label="Emails" badge="8" />
+    <p-overlay-badge value="8" severity="danger">
+        <p-button label="Button" size="small" />
+    </p-overlay-badge>
 
-    <p-button label="Emails" badge="8" size="large" />
+    <p-overlay-badge value="8" severity="danger">
+        <p-button label="Button" />
+    </p-overlay-badge>
 
-    <p-button
-        label="Messages"
-        icon="ti ti-users"
-        badge="2"
-        badgeClass="p-badge-contrast"
-        outlined="true" />
+    <p-overlay-badge value="8" severity="danger">
+        <p-button label="Button" size="large" />
+    </p-overlay-badge>
+
+    <p-overlay-badge value="8" severity="danger">
+        <p-button label="Button" class="p-button-xlg" />
+    </p-overlay-badge>
   </div>
 </div>
 `;
-const styles = '';
 
 @Component({
   selector: 'app-button-badge',
   standalone: true,
-  imports: [Button],
-  template,
-  styles
+  imports: [ButtonModule, OverlayBadgeModule],
+  template
 })
 export class ButtonBadgeComponent {}
 
@@ -38,25 +45,7 @@ export const Badge: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Badge кнопка'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-
-@Component({
-  selector: 'app-button-text',
-  standalone: true,
-  imports: [
-    Button
-  ],
-  template: ${template},
-  styles: ${styles}
-})
-export class ButtonBadgeComponent {}
-        `
+        story: 'Кнопка с уведомлением или числовым индикатором (OverlayBadge).'
       }
     }
   }

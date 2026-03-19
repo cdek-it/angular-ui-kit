@@ -10,30 +10,30 @@ const template = `
     <span><code>size="large"</code></span>
     <span><code>class="p-button-xlg"</code></span>
 
-    <p-button label="Button" size="small" [loading]="true" />
-    <p-button label="Button" [loading]="true" />
-    <p-button label="Button" size="large" [loading]="true" />
-    <p-button label="Button" class="p-button-xlg" [loading]="true" />
+    <p-button label="Button" size="small" [link]="true" />
+    <p-button label="Button" [link]="true" />
+    <p-button label="Button" size="large" [link]="true" />
+    <p-button label="Button" class="p-button-xlg" [link]="true" />
   </div>
 </div>
 `;
 
 @Component({
-  selector: 'app-button-loading',
+  selector: 'app-button-link',
   standalone: true,
   imports: [ButtonModule],
   template
 })
-export class ButtonLoadingComponent {}
+export class ButtonLinkComponent {}
 
-export const Loading: StoryObj = {
+export const Link: StoryObj = {
   render: () => ({
-    template: `<app-button-loading></app-button-loading>`
+    template: `<app-button-link></app-button-link>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Кнопка с индикатором загрузки. Полезно для асинхронных действий.'
+        story: 'Кнопка, стилизованная под ссылку.'
       }
     }
   }
