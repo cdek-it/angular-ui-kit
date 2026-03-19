@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
+import { ExtraButtonComponent, Extra } from './examples/button-extra.component';
 import { ButtonBaseComponent, Default } from './examples/button-base.component';
 import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
 import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
@@ -25,6 +26,7 @@ const meta: Meta = {
         ButtonModule,
         BadgeModule,
         OverlayBadgeModule,
+        ExtraButtonComponent,
         ButtonBaseComponent,
         ButtonSizesComponent,
         ButtonRoundedComponent,
@@ -49,4 +51,4 @@ const meta: Meta = {
 };
 export default meta;
 
-export { Default, Sizes, Icons, IconOnly, Severity, Text, Link, Rounded, Disabled, Loading, Badge };
+export { Extra, Default, Sizes, Icons, IconOnly, Severity, Text, Link, Rounded, Disabled, Loading, Badge };
