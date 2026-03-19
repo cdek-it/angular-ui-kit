@@ -27,7 +27,7 @@ const template = `
 `;
 
 @Component({
-  selector: 'app-extra-button',
+  selector: 'extra-button',
   standalone: true,
   imports: [Button],
   template
@@ -65,7 +65,7 @@ export const Extra: StoryObj = {
   render: (args) => ({
     props: args,
     template: `
-<app-extra-button
+<extra-button
   [label]="label"
   [variant]="variant"
   [severity]="severity"
@@ -76,7 +76,7 @@ export const Extra: StoryObj = {
   [icon]="icon"
   [disabled]="disabled"
   [loading]="loading"
-></app-extra-button>`
+></extra-button>`
   }),
   args: {
     label: 'Button',
