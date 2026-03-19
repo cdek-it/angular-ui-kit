@@ -24,7 +24,7 @@ const template = `
   imports: [ButtonModule],
   template
 })
-export class ButtonSizesComponent {}
+export class ButtonSizesComponent { }
 
 export const Sizes: StoryObj = {
   render: () => ({
