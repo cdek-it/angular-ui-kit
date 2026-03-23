@@ -22,9 +22,7 @@ export class ButtonComponent {
 
   @Input() text: boolean = false;
 
-  private innerSize: 'small' | undefined | 'large';
-
-  constructor() {
-    this.innerSize = this.size === 'xlarge' ? undefined : this.size;
+  get innerSize(): 'small' | undefined | 'large' {
+    return (this.size === 'xlarge' || !this.size) ? undefined : (this.size as 'small' | 'large');
   }
 }
