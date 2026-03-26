@@ -20,11 +20,19 @@ export const Extra: StoryObj = {
   [badge]="badge"
   [badgeSeverity]="badgeSeverity"
   [showBadge]="showBadge"
+  [fluid]="fluid"
+  [ariaLabel]="ariaLabel"
+  [autofocus]="autofocus"
+  [tabindex]="tabindex"
+  [text]="text"
 ></extra-button>`
   }),
   args: {
     label: 'Button',
-    showBadge: false
+    showBadge: false,
+    fluid: false,
+    autofocus: false,
+    text: false
   },
   argTypes: {
     label: { control: 'text' },
@@ -54,9 +62,15 @@ export const Extra: StoryObj = {
       control: 'select',
       options: [null, 'success', 'warning', 'danger', 'info', 'secondary', 'contrast']
     },
-    showBadge: { control: 'boolean' }
+    showBadge: { control: 'boolean' },
+    fluid: { control: 'boolean' },
+    ariaLabel: { control: 'text' },
+    autofocus: { control: 'boolean' },
+    tabindex: { control: 'number' },
+    text: { control: 'boolean' }
   },
   parameters: {
+
     docs: {
       description: {
         story: 'Интерактивный пример с пропсами, соответствующими Figma-компоненту Button.'

@@ -21,13 +21,17 @@ export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
       [styleClass]="size === 'xlarge' ? 'p-button-xlg' : ''"
       [rounded]="rounded"
       [outlined]="variant === 'outlined'"
-      [text]="variant === 'text'"
+      [text]="variant === 'text' || text"
       [link]="variant === 'link'"
       [icon]="icon"
       [iconPos]="primeIconPos"
       [severity]="primeSeverity"
       [badge]="showBadge ? (badge || ' ') : null"
       [badgeSeverity]="badgeSeverity"
+      [fluid]="fluid"
+      [ariaLabel]="ariaLabel"
+      [autofocus]="autofocus"
+      [tabindex]="tabindex"
     ></p-button>
   `
 })
@@ -45,6 +49,11 @@ export class ExtraButtonComponent {
   @Input() badge = '';
   @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null = null;
   @Input() showBadge = false;
+  @Input() fluid = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+  @Input() text = false;
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';

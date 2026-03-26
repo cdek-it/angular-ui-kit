@@ -142,11 +142,59 @@ const meta: Meta<ExtraButtonComponent> = {
         type: { summary: 'boolean' },
       },
     },
+    fluid: {
+      control: 'boolean',
+      description: 'Растягивать ли кнопку на всю ширину контейнера',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для экранных дикторов',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string' },
+      },
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус при загрузке',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    tabindex: {
+      control: 'number',
+      description: 'Порядок фокуса',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'number' },
+      },
+    },
+    text: {
+      control: 'boolean',
+      description: 'Текстовый вариант кнопки',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
   },
   args: {
     showBadge: false,
     badge: '',
     badgeSeverity: null,
+    fluid: false,
+    autofocus: false,
+    text: false,
   },
 };
 
@@ -165,6 +213,11 @@ const commonTemplate = `
   [badge]="badge"
   [badgeSeverity]="badgeSeverity"
   [showBadge]="showBadge"
+  [fluid]="fluid"
+  [ariaLabel]="ariaLabel"
+  [autofocus]="autofocus"
+  [tabindex]="tabindex"
+  [text]="text"
 ></extra-button>
 `;
 
