@@ -1,15 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../components/button/button-extra.component';
 
-const gridTemplate = (inner: string) => `
-<div style="display: grid; grid-template-columns: repeat(4, max-content); gap: 20px; align-items: center;">
-  <span><code>small</code></span>
-  <span><code>base</code></span>
-  <span><code>large</code></span>
-  <span><code>xlarge</code></span>
-  ${inner}
-</div>
-`;
 
 const meta: Meta<ExtraButtonComponent> = {
   title: 'Prime/Button',
@@ -123,16 +114,71 @@ const meta: Meta<ExtraButtonComponent> = {
         type: { summary: 'boolean' },
       },
     },
+    badge: {
+      control: 'text',
+      description: 'Значение бейджа',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: '' },
+        type: { summary: 'string' },
+      },
+    },
+    badgeSeverity: {
+      control: 'select',
+      options: [null, 'success', 'info', 'warning', 'danger', 'secondary', 'contrast'],
+      description: 'Цветовая схема бейджа',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'null' },
+        type: { summary: "'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null" },
+      },
+    },
+    showBadge: {
+      control: 'boolean',
+      description: 'Показывать ли бейдж',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+  },
+  args: {
+    showBadge: false,
+    badge: '',
+    badgeSeverity: null,
   },
 };
+
+const commonTemplate = `
+<extra-button
+  [label]="label"
+  [variant]="variant"
+  [severity]="severity"
+  [size]="size"
+  [rounded]="rounded"
+  [iconPos]="iconPos"
+  [iconOnly]="iconOnly"
+  [icon]="icon"
+  [disabled]="disabled"
+  [loading]="loading"
+  [badge]="badge"
+  [badgeSeverity]="badgeSeverity"
+  [showBadge]="showBadge"
+></extra-button>
+`;
 
 export default meta;
 type Story = StoryObj<ExtraButtonComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 
-export const ButtonDefault: Story = {
-  name: 'Button',
+export const Default: Story = {
+  name: 'Default',
+  render: (args) => ({
+    props: args,
+    template: commonTemplate,
+  }),
   args: {
     label: 'Button',
   },
@@ -153,14 +199,9 @@ export const ButtonDefault: Story = {
 export const Sizes: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [label]="label"></extra-button>
-  <extra-button size="base" [label]="label"></extra-button>
-  <extra-button size="large" [label]="label"></extra-button>
-  <extra-button size="xlarge" [label]="label"></extra-button>
-    `),
+    template: commonTemplate,
   }),
-  args: { label: 'Button' },
+  args: { label: 'Button', size: 'large' },
   parameters: {
     docs: {
       description: { story: 'Все доступные размеры: small, base, large, xlarge.' },
@@ -178,12 +219,7 @@ export const Sizes: Story = {
 export const Icons: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [label]="label" [icon]="icon"></extra-button>
-  <extra-button size="base" [label]="label" [icon]="icon"></extra-button>
-  <extra-button size="large" [label]="label" [icon]="icon"></extra-button>
-  <extra-button size="xlarge" [label]="label" [icon]="icon"></extra-button>
-    `),
+    template: commonTemplate,
   }),
   args: { label: 'Button', icon: 'ti ti-check' },
   parameters: {
@@ -199,14 +235,9 @@ export const Icons: Story = {
 export const IconOnly: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [icon]="icon" [iconOnly]="true"></extra-button>
-  <extra-button size="base" [icon]="icon" [iconOnly]="true"></extra-button>
-  <extra-button size="large" [icon]="icon" [iconOnly]="true"></extra-button>
-  <extra-button size="xlarge" [icon]="icon" [iconOnly]="true"></extra-button>
-    `),
+    template: commonTemplate,
   }),
-  args: { icon: 'ti ti-check' },
+  args: { icon: 'ti ti-check', iconOnly: true },
   parameters: {
     docs: {
       description: { story: 'Кнопки без текста, только с иконкой.' },
@@ -220,14 +251,9 @@ export const IconOnly: Story = {
 export const Loading: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [label]="label" [loading]="true"></extra-button>
-  <extra-button size="base" [label]="label" [loading]="true"></extra-button>
-  <extra-button size="large" [label]="label" [loading]="true"></extra-button>
-  <extra-button size="xlarge" [label]="label" [loading]="true"></extra-button>
-    `),
+    template: commonTemplate,
   }),
-  args: { label: 'Button' },
+  args: { label: 'Button', loading: true },
   parameters: {
     docs: {
       description: { story: 'Состояние загрузки с индикатором.' },
@@ -241,14 +267,9 @@ export const Loading: Story = {
 export const Rounded: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [label]="label" [rounded]="true"></extra-button>
-  <extra-button size="base" [label]="label" [rounded]="true"></extra-button>
-  <extra-button size="large" [label]="label" [rounded]="true"></extra-button>
-  <extra-button size="xlarge" [label]="label" [rounded]="true"></extra-button>
-    `),
+    template: commonTemplate,
   }),
-  args: { label: 'Button' },
+  args: { label: 'Button', rounded: true },
   parameters: {
     docs: {
       description: { story: 'Скруглённая форма кнопок.' },
@@ -262,14 +283,9 @@ export const Rounded: Story = {
 export const Text: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [label]="label" variant="text"></extra-button>
-  <extra-button size="base" [label]="label" variant="text"></extra-button>
-  <extra-button size="large" [label]="label" variant="text"></extra-button>
-  <extra-button size="xlarge" [label]="label" variant="text"></extra-button>
-    `),
+    template: commonTemplate,
   }),
-  args: { label: 'Button' },
+  args: { label: 'Button', variant: 'text' },
   parameters: {
     docs: {
       description: { story: 'Текстовый вариант кнопки (без заливки и границ).' },
@@ -283,14 +299,9 @@ export const Text: Story = {
 export const Link: Story = {
   render: (args) => ({
     props: args,
-    template: gridTemplate(`
-  <extra-button size="small" [label]="label" variant="link"></extra-button>
-  <extra-button size="base" [label]="label" variant="link"></extra-button>
-  <extra-button size="large" [label]="label" variant="link"></extra-button>
-  <extra-button size="xlarge" [label]="label" variant="link"></extra-button>
-    `),
+    template: commonTemplate,
   }),
-  args: { label: 'Link Button' },
+  args: { label: 'Link Button', variant: 'link' },
   parameters: {
     docs: {
       description: { story: 'Кнопка в виде ссылки.' },
@@ -302,41 +313,11 @@ export const Link: Story = {
 };
 
 export const Severity: Story = {
-  render: () => ({
-    template: `
-<div style="display: grid; grid-template-columns: repeat(5, max-content); gap: 20px; align-items: center;">
-  <span></span>
-  <span><code>success</code></span>
-  <span><code>info</code></span>
-  <span><code>warning</code></span>
-  <span><code>danger</code></span>
-
-  <span><code>small</code></span>
-  <extra-button size="small" severity="success" label="Button"></extra-button>
-  <extra-button size="small" severity="info" label="Button"></extra-button>
-  <extra-button size="small" severity="warning" label="Button"></extra-button>
-  <extra-button size="small" severity="danger" label="Button"></extra-button>
-
-  <span><code>base</code></span>
-  <extra-button size="base" severity="success" label="Button"></extra-button>
-  <extra-button size="base" severity="info" label="Button"></extra-button>
-  <extra-button size="base" severity="warning" label="Button"></extra-button>
-  <extra-button size="base" severity="danger" label="Button"></extra-button>
-
-  <span><code>large</code></span>
-  <extra-button size="large" severity="success" label="Button"></extra-button>
-  <extra-button size="large" severity="info" label="Button"></extra-button>
-  <extra-button size="large" severity="warning" label="Button"></extra-button>
-  <extra-button size="large" severity="danger" label="Button"></extra-button>
-
-  <span><code>xlarge</code></span>
-  <extra-button size="xlarge" severity="success" label="Button"></extra-button>
-  <extra-button size="xlarge" severity="info" label="Button"></extra-button>
-  <extra-button size="xlarge" severity="warning" label="Button"></extra-button>
-  <extra-button size="xlarge" severity="danger" label="Button"></extra-button>
-</div>
-    `,
+  render: (args) => ({
+    props: args,
+    template: commonTemplate,
   }),
+  args: { label: 'Button', severity: 'success' },
   parameters: {
     docs: {
       description: { story: 'Цветовые схемы для различных контекстов: success, info, warning, danger.' },
@@ -348,35 +329,11 @@ export const Severity: Story = {
 };
 
 export const Disabled: Story = {
-  render: () => ({
-    template: `
-<div style="display: grid; grid-template-columns: repeat(5, max-content); gap: 20px; align-items: center;">
-  <span></span>
-  <span><code>success</code></span>
-  <span><code>info</code></span>
-  <span><code>warning</code></span>
-  <span><code>danger</code></span>
-
-  <span><code>default</code></span>
-  <extra-button severity="success" label="Button" [disabled]="true"></extra-button>
-  <extra-button severity="info" label="Button" [disabled]="true"></extra-button>
-  <extra-button severity="warning" label="Button" [disabled]="true"></extra-button>
-  <extra-button severity="danger" label="Button" [disabled]="true"></extra-button>
-
-  <span><code>outlined</code></span>
-  <extra-button severity="success" label="Button" variant="outlined" [disabled]="true"></extra-button>
-  <extra-button severity="info" label="Button" variant="outlined" [disabled]="true"></extra-button>
-  <extra-button severity="warning" label="Button" variant="outlined" [disabled]="true"></extra-button>
-  <extra-button severity="danger" label="Button" variant="outlined" [disabled]="true"></extra-button>
-
-  <span><code>text</code></span>
-  <extra-button severity="success" label="Button" variant="text" [disabled]="true"></extra-button>
-  <extra-button severity="info" label="Button" variant="text" [disabled]="true"></extra-button>
-  <extra-button severity="warning" label="Button" variant="text" [disabled]="true"></extra-button>
-  <extra-button severity="danger" label="Button" variant="text" [disabled]="true"></extra-button>
-</div>
-    `,
+  render: (args) => ({
+    props: args,
+    template: commonTemplate,
   }),
+  args: { label: 'Button', disabled: true },
   parameters: {
     docs: {
       description: { story: 'Состояние кнопки, при котором взаимодействие заблокировано.' },
@@ -386,3 +343,26 @@ export const Disabled: Story = {
     },
   },
 };
+
+export const Badge: Story = {
+  render: (args) => ({
+    props: args,
+    template: commonTemplate,
+  }),
+  args: {
+    label: 'Emails',
+    badge: '8',
+    severity: 'success',
+    badgeSeverity: 'danger',
+    showBadge: true,
+  },
+  parameters: {
+    docs: {
+      description: { story: 'Примеры использования бейджей на кнопках с позиционированием в углу.' },
+      source: {
+        code: `<extra-button label="Emails" badge="8" severity="success" badgeSeverity="danger" [showBadge]="true" />`,
+      },
+    },
+  },
+};
+

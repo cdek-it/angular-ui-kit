@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/angular';
 
-export { ExtraButtonComponent } from '../../../../../components/button/button-extra.component';
+export { ExtraButtonComponent } from '../../../../components/button/button-extra.component';
 
 export const Extra: StoryObj = {
   render: (args) => ({
@@ -17,65 +17,44 @@ export const Extra: StoryObj = {
   [icon]="icon"
   [disabled]="disabled"
   [loading]="loading"
+  [badge]="badge"
+  [badgeSeverity]="badgeSeverity"
+  [showBadge]="showBadge"
 ></extra-button>`
   }),
   args: {
     label: 'Button',
-    variant: 'primary',
-    severity: null,
-    size: 'base',
-    rounded: false,
-    iconPos: null,
-    iconOnly: false,
-    icon: '',
-    disabled: false,
-    loading: false
+    showBadge: false
   },
   argTypes: {
-    label: {
-      control: 'text',
-      description: 'Текст кнопки'
-    },
+    label: { control: 'text' },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outlined', 'text', 'link'],
-      description: 'Вариант отображения кнопки'
+      options: ['primary', 'secondary', 'outlined', 'text', 'link']
     },
     severity: {
       control: 'select',
-      options: [null, 'success', 'warning', 'danger', 'info'],
-      description: 'Цветовая схема кнопки'
+      options: [null, 'success', 'warning', 'danger', 'info']
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'],
-      description: 'Размер кнопки'
+      options: ['small', 'base', 'large', 'xlarge']
     },
-    rounded: {
-      control: 'boolean',
-      description: 'Скруглённая форма кнопки'
-    },
+    rounded: { control: 'boolean' },
     iconPos: {
       control: 'select',
-      options: [null, 'prefix', 'postfix'],
-      description: 'Позиция иконки (prefix — слева, postfix — справа)'
+      options: [null, 'prefix', 'postfix']
     },
-    iconOnly: {
-      control: 'boolean',
-      description: 'Режим кнопки только с иконкой'
+    iconOnly: { control: 'boolean' },
+    icon: { control: 'text' },
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    badge: { control: 'text' },
+    badgeSeverity: {
+      control: 'select',
+      options: [null, 'success', 'warning', 'danger', 'info', 'secondary', 'contrast']
     },
-    icon: {
-      control: 'text',
-      description: 'CSS-класс иконки (например: ti ti-check)'
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключённое состояние'
-    },
-    loading: {
-      control: 'boolean',
-      description: 'Состояние загрузки с индикатором'
-    }
+    showBadge: { control: 'boolean' }
   },
   parameters: {
     docs: {
@@ -85,3 +64,32 @@ export const Extra: StoryObj = {
     }
   }
 };
+
+export const Badge: StoryObj = {
+  render: (args) => ({
+    props: args,
+    template: `
+<extra-button
+  [label]="label"
+  [badge]="badge"
+  [badgeSeverity]="badgeSeverity"
+  [showBadge]="showBadge"
+  [severity]="severity"
+></extra-button>`
+  }),
+  args: {
+    label: 'Emails',
+    badge: '8',
+    badgeSeverity: 'danger',
+    showBadge: true,
+    severity: 'success'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Пример кнопки с бейджем для отображения уведомлений или счётчиков.'
+      }
+    }
+  }
+};
+

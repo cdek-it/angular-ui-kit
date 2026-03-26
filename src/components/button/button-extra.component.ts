@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Button } from 'primeng/button';
+import { Badge } from 'primeng/badge';
 
 export type ExtraButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
 export type ExtraButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
@@ -9,7 +10,7 @@ export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
 @Component({
   selector: 'extra-button',
   standalone: true,
-  imports: [Button],
+  imports: [Button, Badge],
   styleUrl: './button.component.scss',
   template: `
     <p-button
@@ -25,6 +26,8 @@ export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
       [icon]="icon"
       [iconPos]="primeIconPos"
       [severity]="primeSeverity"
+      [badge]="showBadge ? (badge || ' ') : null"
+      [badgeSeverity]="badgeSeverity"
     ></p-button>
   `
 })
@@ -39,6 +42,9 @@ export class ExtraButtonComponent {
   @Input() icon = '';
   @Input() disabled = false;
   @Input() loading = false;
+  @Input() badge = '';
+  @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null = null;
+  @Input() showBadge = false;
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';
