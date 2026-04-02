@@ -52,6 +52,6 @@ api-generator/typedoc.json
 # файлы в этим папках компилятся и должны создаваться при сборке
 src/assets/components/themes
 
-./storybook-static
-./debug-storybook.log
-./documentation.json
+/storybook-static
+/debug-storybook.log
+/documentation.json
