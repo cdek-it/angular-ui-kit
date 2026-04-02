@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { Button } from 'primeng/button';
-import { Badge } from 'primeng/badge';
+import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
-export type ExtraButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
-export type ExtraButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
-export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
+export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
+export type ButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
+export type ButtonSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ButtonIconPos = 'prefix' | 'postfix' | null;
+export type BadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
+type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 
 @Component({
-  selector: 'extra-button',
+  selector: 'button',
   standalone: true,
-  imports: [Button, Badge],
-  styleUrl: './button.component.scss',
+  imports: [Button],
   template: `
     <p-button
       [label]="iconOnly ? '' : label"
@@ -26,8 +26,8 @@ export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
       [icon]="icon"
       [iconPos]="primeIconPos"
       [severity]="primeSeverity"
-      [badge]="showBadge ? (badge || ' ') : null"
-      [badgeSeverity]="badgeSeverity"
+      [badge]="showBadge ? badge || ' ' : undefined"
+      [badgeSeverity]="primeBadgeSeverity"
       [fluid]="fluid"
       [ariaLabel]="ariaLabel"
       [autofocus]="autofocus"
@@ -35,19 +35,19 @@ export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
     ></p-button>
   `
 })
-export class ExtraButtonComponent {
+export class ButtonComponent {
   @Input() label = 'Button';
-  @Input() variant: ExtraButtonVariant = 'primary';
-  @Input() severity: ExtraButtonSeverity = null;
-  @Input() size: ExtraButtonSize = 'base';
+  @Input() variant: ButtonVariant = 'primary';
+  @Input() severity: ButtonSeverity = null;
+  @Input() size: ButtonSize = 'base';
   @Input() rounded = false;
-  @Input() iconPos: ExtraButtonIconPos = null;
+  @Input() iconPos: ButtonIconPos = null;
   @Input() iconOnly = false;
   @Input() icon = '';
   @Input() disabled = false;
   @Input() loading = false;
   @Input() badge = '';
-  @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null = null;
+  @Input() badgeSeverity: BadgeSeverity = null;
   @Input() showBadge = false;
   @Input() fluid = false;
   @Input() ariaLabel: string | undefined = undefined;
@@ -65,9 +65,14 @@ export class ExtraButtonComponent {
     return this.iconPos === 'postfix' ? 'right' : 'left';
   }
 
-  get primeSeverity(): string | null {
+  get primeSeverity(): PrimeButtonSeverity | null {
     if (this.variant === 'secondary') return 'secondary';
     if (this.severity === 'warning') return 'warn';
     return this.severity;
+  }
+
+  get primeBadgeSeverity(): PrimeBadgeSeverity {
+    if (this.badgeSeverity === 'warning') return 'warn';
+    return this.badgeSeverity;
   }
 }

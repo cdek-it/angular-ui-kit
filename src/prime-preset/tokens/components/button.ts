@@ -37,6 +37,21 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
     font-family: var(--p-fonts-font-family-heading, 'TT Fellows', sans-serif);
   }
 
+  /* ─── Button badge ─── */
+  .p-button, .p-ripple.p-button {
+    position: relative;
+    overflow: visible;
+  }
+
+  .p-button .p-badge {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      transform: translate(50%, -50%);
+      transform-origin: 100% 0;
+      margin: 0;
+  }
+
   /* ─── Размеры иконок ─── */
   .p-button .p-button-icon {
     font-size: var(--p-button-extend-icon-size-md);
