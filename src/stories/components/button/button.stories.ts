@@ -1,8 +1,9 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../../../lib/components/button/button.component';
 
+type ButtonArgs = ButtonComponent & { onClick?: (event: MouseEvent) => void };
 
-const meta: Meta<ButtonComponent> = {
+const meta: Meta<ButtonArgs> = {
   title: 'Prime/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
@@ -14,12 +15,16 @@ const meta: Meta<ButtonComponent> = {
   parameters: {
     docs: {
       description: {
-        component:
-          'Кнопка — базовый интерактивный элемент. [Figma Design](https://www.figma.com/design/HOLKdvQJ8jCLeX17s9d0Yf/UI-Kit--DS--v2.0?node-id=160-5223)',
+        component: `Интерактивный элемент интерфейса. Используется для инициации действий, отправки форм и навигации.
+
+\`\`\`typescript
+import { ButtonModule } from 'primeng/button';
+\`\`\``,
       },
     },
   },
   argTypes: {
+    // ── Props ────────────────────────────────────────────────
     label: {
       control: 'text',
       description: 'Текст кнопки',
@@ -27,16 +32,6 @@ const meta: Meta<ButtonComponent> = {
         category: 'Props',
         defaultValue: { summary: 'Button' },
         type: { summary: 'string' },
-      },
-    },
-    variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'outlined', 'text', 'link'],
-      description: 'Вариант отображения кнопки',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'primary' },
-        type: { summary: "'primary' | 'secondary' | 'outlined' | 'text' | 'link'" },
       },
     },
     severity: {
@@ -47,6 +42,16 @@ const meta: Meta<ButtonComponent> = {
         category: 'Props',
         defaultValue: { summary: 'null' },
         type: { summary: "'success' | 'info' | 'warning' | 'danger' | null" },
+      },
+    },
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'outlined', 'text', 'link'],
+      description: 'Вариант отображения кнопки',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'primary' },
+        type: { summary: "'primary' | 'secondary' | 'outlined' | 'text' | 'link'" },
       },
     },
     size: {
@@ -114,34 +119,6 @@ const meta: Meta<ButtonComponent> = {
         type: { summary: 'boolean' },
       },
     },
-    badge: {
-      control: 'text',
-      description: 'Значение бейджа',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
-    },
-    badgeSeverity: {
-      control: 'select',
-      options: [null, 'success', 'info', 'warning', 'danger', 'secondary', 'contrast'],
-      description: 'Цветовая схема бейджа',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null" },
-      },
-    },
-    showBadge: {
-      control: 'boolean',
-      description: 'Показывать ли бейдж',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
     fluid: {
       control: 'boolean',
       description: 'Растягивать ли кнопку на всю ширину контейнера',
@@ -187,6 +164,44 @@ const meta: Meta<ButtonComponent> = {
         type: { summary: 'boolean' },
       },
     },
+    // ── Badge ────────────────────────────────────────────────
+    badge: {
+      control: 'text',
+      description: 'Значение бейджа',
+      table: {
+        category: 'Badge',
+        defaultValue: { summary: '' },
+        type: { summary: 'string' },
+      },
+    },
+    badgeSeverity: {
+      control: 'select',
+      options: [null, 'success', 'info', 'warning', 'danger', 'secondary', 'contrast'],
+      description: 'Цветовая схема бейджа',
+      table: {
+        category: 'Badge',
+        defaultValue: { summary: 'null' },
+        type: { summary: "'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null" },
+      },
+    },
+    showBadge: {
+      control: 'boolean',
+      description: 'Показывать ли бейдж',
+      table: {
+        category: 'Badge',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    // ── Events ───────────────────────────────────────────────
+    onClick: {
+      control: false,
+      description: 'Событие клика по кнопке',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<MouseEvent>' },
+      },
+    },
   },
   args: {
     showBadge: false,
@@ -222,16 +237,31 @@ const commonTemplate = `
 `;
 
 export default meta;
-type Story = StoryObj<ButtonComponent>;
+type Story = StoryObj<ButtonArgs>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
+  render: (args) => {
+    const parts: string[] = [];
+
+    if (args.label != null && args.label !== '') parts.push(`label="${args.label}"`);
+    if (args.severity != null) parts.push(`severity="${args.severity}"`);
+    if (args.variant != null) parts.push(`variant="${args.variant}"`);
+    if (args.size != null) parts.push(`size="${args.size}"`);
+    if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
+    if (args.iconPos != null) parts.push(`iconPos="${args.iconPos}"`);
+    if (args.rounded) parts.push(`[rounded]="true"`);
+    if (args.disabled) parts.push(`[disabled]="true"`);
+    if (args.loading) parts.push(`[loading]="true"`);
+
+    const template = parts.length
+      ? `<button\n  ${parts.join('\n  ')}\n></button>`
+      : `<button></button>`;
+
+    return { props: args, template };
+  },
   args: {
     label: 'Button',
   },
@@ -239,9 +269,6 @@ export const Default: Story = {
     docs: {
       description: {
         story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-      source: {
-        code: `<button label="Button" />`,
       },
     },
   },
