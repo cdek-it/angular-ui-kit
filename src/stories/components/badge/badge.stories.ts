@@ -9,7 +9,7 @@ export { Sizes } from './examples/badge-sizes.component';
 export { Dot } from './examples/badge-dot.component';
 
 const meta: Meta<BadgeComponent> = {
-  title: 'Prime/Badge',
+  title: 'Components/Misc/Badge',
   component: BadgeComponent,
   tags: ['autodocs'],
   decorators: [
