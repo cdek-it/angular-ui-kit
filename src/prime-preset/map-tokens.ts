@@ -2,14 +2,19 @@ import { Preset } from '@primeuix/themes/types';
 import type { ComponentsDesignTokens } from '@primeuix/themes/types';
 import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 
-import primitive from './tokens/primitive';
-import semantic from './tokens/semantic';
-import components from './tokens/components';
+import tokens from './tokens/tokens.json';
+import { buttonCss } from './tokens/components/button';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
-  primitive: primitive as AuraBaseDesignTokens['primitive'],
-  semantic: semantic as unknown as AuraBaseDesignTokens['semantic'],
-  components: components as ComponentsDesignTokens
+  primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
+  semantic: tokens.semantic as unknown as AuraBaseDesignTokens['semantic'],
+  components: {
+    ...(tokens.components as unknown as ComponentsDesignTokens),
+    button: {
+      ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
+      css: buttonCss,
+    },
+  } as ComponentsDesignTokens,
 };
 
 export default presetTokens;
