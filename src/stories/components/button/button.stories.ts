@@ -3,7 +3,7 @@ import { ButtonComponent } from '../../../lib/components/button/button.component
 
 
 const meta: Meta<ButtonComponent> = {
-  title: 'Prime/Button',
+  title: 'Components/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
   decorators: [
