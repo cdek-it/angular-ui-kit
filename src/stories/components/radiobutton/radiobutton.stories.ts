@@ -8,7 +8,7 @@ import { RadiobuttonDisabledComponent, Disabled } from './examples/radiobutton-d
 type RadiobuttonArgs = RadiobuttonComponent;
 
 const meta: Meta<RadiobuttonArgs> = {
-  title: 'Prime/Form/RadioButton',
+  title: 'Components/Form/RadioButton',
   component: RadiobuttonComponent,
   tags: ['autodocs'],
   decorators: [
