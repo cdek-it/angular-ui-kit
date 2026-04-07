@@ -8,7 +8,7 @@ import { ToggleSwitchDisabledComponent } from './examples/toggleswitch-disabled.
 type ToggleSwitchArgs = ToggleSwitchComponent;
 
 const meta: Meta<ToggleSwitchArgs> = {
-  title: 'Prime/Form/ToggleSwitch',
+  title: 'Components/Form/ToggleSwitch',
   component: ToggleSwitchComponent,
   tags: ['autodocs'],
   decorators: [
