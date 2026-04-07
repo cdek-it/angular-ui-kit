@@ -18,7 +18,7 @@ const iconOnlyItems = [
 ];
 
 const meta: Meta<BreadcrumbArgs> = {
-  title: 'Prime/Menu/Breadcrumb',
+  title: 'Components/Menu/Breadcrumb',
   component: BreadcrumbComponent,
   tags: ['autodocs'],
   decorators: [
