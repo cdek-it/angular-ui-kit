@@ -7,7 +7,7 @@ import { TagIconComponent } from './examples/tag-icon.component';
 type TagArgs = TagComponent;
 
 const meta: Meta<TagArgs> = {
-  title: 'Prime/Misc/Tag',
+  title: 'Components/Misc/Tag',
   component: TagComponent,
   tags: ['autodocs'],
   decorators: [
