@@ -9,7 +9,7 @@ import { CheckboxInvalidComponent, Invalid } from './examples/checkbox-invalid.c
 type CheckboxArgs = CheckboxComponent & { label?: string };
 
 const meta: Meta<CheckboxArgs> = {
-  title: 'Prime/Form/Checkbox',
+  title: 'Components/Form/Checkbox',
   component: CheckboxComponent,
   tags: ['autodocs'],
   decorators: [
