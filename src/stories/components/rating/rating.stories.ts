@@ -7,7 +7,7 @@ import { RatingDisabledComponent, Disabled } from './examples/rating-disabled.co
 type RatingArgs = RatingComponent;
 
 const meta: Meta<RatingArgs> = {
-  title: 'Prime/Form/Rating',
+  title: 'Components/Form/Rating',
   component: RatingComponent,
   tags: ['autodocs'],
   decorators: [
