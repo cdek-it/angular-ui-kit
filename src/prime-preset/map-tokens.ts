@@ -4,6 +4,7 @@ import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 
 import tokens from './tokens/tokens.json';
 import { buttonCss } from './tokens/components/button';
+import { progressbarCss } from './tokens/components/progressbar';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -13,6 +14,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
+    },
+    progressbar: {
+      ...(tokens.components.progressbar as unknown as ComponentsDesignTokens['progressbar']),
+      css: progressbarCss,
     },
   } as ComponentsDesignTokens,
 };
