@@ -3,7 +3,7 @@ import { OverlayBadge } from 'primeng/overlaybadge';
 import { AvatarComponent, AvatarGroupComponent } from '../../../lib/components/avatar/avatar.component';
 
 const meta: Meta<AvatarComponent> = {
-  title: 'Prime/Misc/Avatar',
+  title: 'Components/Misc/Avatar',
   component: AvatarComponent,
   tags: ['autodocs'],
   decorators: [
