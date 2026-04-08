@@ -22,6 +22,13 @@ export const cardCss = ({ dt }: { dt: (token: string) => string }): string => `
     box-shadow: ${dt('overlay.popover.shadow')};
   }
 
+  /* ─── Caption (Title & Subtitle wrapper) ─── */
+  .p-card-caption {
+    display: flex;
+    flex-direction: column;
+    gap: ${dt('card.caption.gap')};
+  }
+
   /* ─── Subtitle typography ─── */
   .p-card-subtitle {
     font-family: ${dt('fonts.fontFamily.heading')};

@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../../../lib/components/button/button.compon
 
 const template = `
 <div class="bg-surface-ground">
-  <card title="Title" subtitle="Caption" [overlay]="true" style="width: 20rem">
+  <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
     <ng-template pTemplate="header">
       <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
         <i class="ti ti-photo text-3xl"></i>
@@ -16,7 +16,7 @@ const template = `
       <p class="text-sm">Карточка с тенью.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button label="Действие" size="small" [fluid]="true"></button>
+      <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
     </ng-template>
   </card>
 </div>
@@ -61,7 +61,7 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
         <p class="text-sm">Карточка с тенью.</p>
       </ng-template>
       <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true"></button>
+        <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
       </ng-template>
     </card>
   \`,

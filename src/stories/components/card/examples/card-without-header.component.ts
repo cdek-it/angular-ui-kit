@@ -6,12 +6,12 @@ import { ButtonComponent } from '../../../../lib/components/button/button.compon
 
 const template = `
 <div class="bg-surface-ground">
-  <card title="Title" subtitle="Caption" style="width: 20rem">
+  <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
     <ng-template pTemplate="content">
       <p class="text-sm">Карточка без изображения в шапке.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button label="Действие" size="small" [fluid]="true"></button>
+      <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
     </ng-template>
   </card>
 </div>
@@ -46,12 +46,12 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Title" subtitle="Caption" style="width: 20rem">
+    <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <ng-template pTemplate="content">
         <p class="text-sm">Карточка без изображения в шапке.</p>
       </ng-template>
       <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true"></button>
+        <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
       </ng-template>
     </card>
   \`,

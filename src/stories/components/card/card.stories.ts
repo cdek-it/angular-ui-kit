@@ -95,7 +95,7 @@ export const Default: Story = {
       <p class="text-sm">Контент карточки. Гибкая область для любого содержимого.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button label="Действие" size="small" [fluid]="true"></button>
+      <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
     </ng-template>
   </card>
 </div>`;
@@ -103,8 +103,8 @@ export const Default: Story = {
     return { props: args, template };
   },
   args: {
-    title: 'Title',
-    subtitle: 'Caption',
+    title: 'Заголовок',
+    subtitle: 'Подзаголовок',
   },
   parameters: {
     docs: {
@@ -136,7 +136,7 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Title" subtitle="Caption" [overlay]="true" style="width: 20rem">
+    <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
       <ng-template pTemplate="header">
         <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
           <i class="ti ti-photo text-3xl"></i>
@@ -179,7 +179,7 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Title" subtitle="Caption" style="width: 20rem">
+    <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <ng-template pTemplate="content">
         <p class="text-sm">Карточка без изображения в шапке.</p>
       </ng-template>
@@ -217,7 +217,7 @@ import { CardComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [CardComponent, SharedModule],
   template: \`
-    <card title="Title" subtitle="Caption" style="width: 20rem">
+    <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <ng-template pTemplate="header">
         <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
           <i class="ti ti-photo text-3xl"></i>
@@ -257,7 +257,7 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Title" style="width: 20rem">
+    <card title="Заголовок" style="width: 20rem">
       <ng-template pTemplate="header">
         <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
           <i class="ti ti-photo text-3xl"></i>

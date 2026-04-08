@@ -16,14 +16,22 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
   standalone: true,
   imports: [Card, SharedModule, NgTemplateOutlet],
   template: `
-    <p-card
-      [header]="title"
-      [subheader]="subtitle"
-      [styleClass]="overlay ? 'shadow-md' : ''"
-    >
+    <p-card [styleClass]="overlay ? 'shadow-md' : ''">
       @if (headerTpl) {
         <ng-template pTemplate="header">
           <ng-container [ngTemplateOutlet]="headerTpl.template"></ng-container>
+        </ng-template>
+      }
+      @if (title || subtitle) {
+        <ng-template pTemplate="title">
+          <div class="p-card-caption">
+            @if (title) {
+              <div class="p-card-title m-0" data-pc-section="title">{{ title }}</div>
+            }
+            @if (subtitle) {
+              <div class="p-card-subtitle m-0" data-pc-section="subtitle">{{ subtitle }}</div>
+            }
+          </div>
         </ng-template>
       }
       @if (contentTpl) {
