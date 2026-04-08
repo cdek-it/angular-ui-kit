@@ -87,9 +87,7 @@ export const Default: Story = {
     const template = `<div class="bg-surface-ground">
   <card${attrs} style="width: 20rem">
     <ng-template pTemplate="header">
-      <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
-        <i class="ti ti-photo text-3xl"></i>
-      </div>
+      <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
     <ng-template pTemplate="content">
       <p class="text-sm">Контент карточки. Гибкая область для любого содержимого.</p>

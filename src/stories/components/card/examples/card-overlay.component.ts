@@ -8,9 +8,7 @@ const template = `
 <div class="bg-surface-ground">
   <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
     <ng-template pTemplate="header">
-      <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
-        <i class="ti ti-photo text-3xl"></i>
-      </div>
+      <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
     <ng-template pTemplate="content">
       <p class="text-sm">Карточка с тенью.</p>
@@ -51,11 +49,9 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Title" subtitle="Caption" [overlay]="true" style="width: 20rem">
+    <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
       <ng-template pTemplate="header">
-        <div class="bg-surface-100 h-32 flex items-center justify-center text-surface-400">
-          <i class="ti ti-photo text-3xl"></i>
-        </div>
+        <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
       </ng-template>
       <ng-template pTemplate="content">
         <p class="text-sm">Карточка с тенью.</p>
