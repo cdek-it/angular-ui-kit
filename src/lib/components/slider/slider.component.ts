@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Slider } from 'primeng/slider';
 import type { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/slider';
@@ -12,8 +12,8 @@ export type SliderOrientation = 'horizontal' | 'vertical';
   imports: [Slider, FormsModule],
   template: `
     <p-slider
-      [ngModel]="value"
-      (ngModelChange)="valueChange.emit($event)"
+      [ngModel]="normalizedValue"
+      (ngModelChange)="onNgModelChange($event)"
       [min]="min"
       [max]="max"
       [step]="step"
@@ -25,7 +25,7 @@ export type SliderOrientation = 'horizontal' | 'vertical';
     ></p-slider>
   `,
 })
-export class SliderComponent {
+export class SliderComponent implements OnChanges {
   @Input() value: number | number[] = 0;
   @Output() valueChange = new EventEmitter<number | number[]>();
   @Input() min = 0;
@@ -36,4 +36,29 @@ export class SliderComponent {
   @Input() disabled = false;
   @Output() onChange = new EventEmitter<SliderChangeEvent>();
   @Output() onSlideEnd = new EventEmitter<SliderSlideEndEvent>();
+
+  get normalizedValue(): number | number[] {
+    if (this.range && !Array.isArray(this.value)) {
+      return [this.min, this.max];
+    }
+    if (!this.range && Array.isArray(this.value)) {
+      return this.value[0];
+    }
+    return this.value;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['range']) {
+      if (this.range && !Array.isArray(this.value)) {
+        this.value = [this.min, this.max];
+      } else if (!this.range && Array.isArray(this.value)) {
+        this.value = this.value[0];
+      }
+    }
+  }
+
+  onNgModelChange(v: number | number[]): void {
+    this.value = v;
+    this.valueChange.emit(v);
+  }
 }
