@@ -10,7 +10,7 @@ import { CardWithoutSubtitleComponent } from './examples/card-without-subtitle.c
 type CardArgs = CardComponent;
 
 const meta: Meta<CardArgs> = {
-  title: 'Components/Card',
+  title: 'Components/Panel/Card',
   component: CardComponent,
   tags: ['autodocs'],
   decorators: [
