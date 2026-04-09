@@ -3,11 +3,11 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
     padding: ${dt('menu.extend.paddingY')} ${dt('menu.extend.paddingX')};
   }
 
-  .p-menu .p-menu-item-content .p-menu-item-link {
+  .p-menu .p-menu-item-content .p-menu-item-link .p-menu-item-label {
     font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.base')};
+    font-size: ${dt('fonts.fontSize.300')};
     font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.400')};
   }
 
   .p-menu .p-menu-item-content .menu-item-label {
@@ -18,15 +18,17 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   .p-menu .p-menu-item-content .menu-item-caption {
     font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.sm')};
+    font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.regular')};
     color: ${dt('menu.colorScheme.light.extend.extItem.caption.color')};
   }
 
   .p-menu .p-menu-item:not(.p-disabled) .p-menu-item-content:hover,
   .p-menu .p-menu-item:not(.p-disabled) .p-menu-item-content:hover .p-menu-item-link,
-  .p-menu .p-menu-item:not(.p-disabled) .p-menu-item-content:hover .p-menu-item-label {
-    color: ${dt('menu.colorScheme.light.item.color')};
+  .p-menu .p-menu-item:not(.p-disabled) .p-menu-item-content:hover .p-menu-item-label,
+  .p-menu .p-menu-item:not(.p-disabled) .p-menu-item-content:hover .p-menu-item-icon {
+    background: ${dt('menu.colorScheme.light.item.focusBackground')};
+    color: ${dt('menu.colorScheme.light.item.focusColor')};
   }
 
   .p-menu .p-menu-item.p-menuitem-checked > .p-menu-item-content,
@@ -48,18 +50,18 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
   }
 
   .p-menu .p-menu-item.p-menuitem-checked:not(.p-disabled) > .p-menu-item-content:hover {
-    background: ${dt('menu.extend.extItem.activeBackground')};
-    color: ${dt('menu.extend.extItem.activeColor')};
+    background: ${dt('menu.colorScheme.light.item.focusBackground')};
+    color: ${dt('menu.colorScheme.light.item.focusColor')};
   }
 
   .p-menu .p-menu-item.p-menuitem-checked:not(.p-disabled) > .p-menu-item-content:hover .p-menu-item-icon {
-    color: ${dt('menu.colorScheme.light.extend.extItem.icon.activeColor')};
+    color: ${dt('menu.colorScheme.light.item.focusColor')};
   }
 
   .p-menu .p-menu-submenu-label {
     text-transform: uppercase;
-    font-size: ${dt('fonts.fontSize.sm')};
+    font-size: ${dt('fonts.fontSize.200')};
     font-family: ${dt('fonts.fontFamily.heading')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.400')};
   }
 `;
