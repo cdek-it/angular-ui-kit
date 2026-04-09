@@ -1,6 +1,7 @@
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
+import { PrimeTemplate } from 'primeng/api';
 
 export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 
@@ -8,7 +9,7 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
   selector: 'dialog',
   host: { style: 'display: contents' },
   standalone: true,
-  imports: [Dialog, NgTemplateOutlet],
+  imports: [Dialog, NgTemplateOutlet, PrimeTemplate],
   template: `
     <p-dialog
       [header]="header"
@@ -24,9 +25,7 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
     >
       <ng-content></ng-content>
       <ng-template pTemplate="footer">
-        @if (footerTemplate) {
-          <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
-        }
+        <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
       </ng-template>
     </p-dialog>
   `,
@@ -40,9 +39,8 @@ export class DialogComponent {
   @Input() closeOnEscape = true;
   @Input() showHeader = true;
   @Input() focusOnShow = false;
+  @Input() footerTemplate: TemplateRef<any> | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();
-
-  @ContentChild('dialogFooter') footerTemplate?: TemplateRef<any>;
 
   get sizeClass(): string {
     if (this.size === 'sm') return 'p-dialog-sm';

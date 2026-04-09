@@ -14,10 +14,10 @@ const meta: Meta<DialogComponent> = {
   parameters: {
     docs: {
       description: {
-        component: `Dialog (модальное окно) — это контейнер, который отображается поверх основного содержимого страницы.
+        component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
 
 \`\`\`typescript
-import { DialogComponent } from '@your-lib/dialog';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -107,23 +107,46 @@ type Story = StoryObj<DialogComponent>;
 export const Basic: Story = {
   name: 'Basic',
   decorators: [moduleMetadata({ imports: [DialogDefaultComponent] })],
-  render: () => ({ template: `<app-dialog-default></app-dialog-default>` }),
+  render: () => ({ template: `<app-dialog-basic></app-dialog-basic>` }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример диалогового окна с заголовком, текстом и кнопками.',
+        story: 'Базовый пример диалогового окна с заголовком, контентом и кнопками действий.',
       },
       source: {
+        language: 'ts',
         code: `
-<p-button (onClick)="visible = true" label="Open Dialog"></p-button>
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
-<dialog header="Dialog Header" [visible]="visible" (visibleChange)="visible = $event">
-  <p>Lorem ipsum dolor sit amet...</p>
-  <ng-template #dialogFooter>
-    <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
-    <p-button label="Сохранить" (onClick)="visible = false"></p-button>
-  </ng-template>
-</dialog>`,
+@Component({
+  selector: 'app-dialog-basic',
+  standalone: true,
+  imports: [DialogComponent, Button],
+  template: \`
+    <p-button (onClick)="visible = true" label="Создать заявку"></p-button>
+
+    <ng-template #footer>
+      <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
+      <p-button label="Подтвердить" (onClick)="visible = false"></p-button>
+    </ng-template>
+
+    <dialog
+      header="Подтверждение заявки"
+      [visible]="visible"
+      (visibleChange)="visible = $event"
+      [footerTemplate]="footer"
+    >
+      <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
+    </dialog>
+  \`,
+})
+export class DialogBasicComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
+  visible = false;
+}
+        `,
       },
     },
   },
@@ -139,7 +162,33 @@ export const Small: Story = {
     docs: {
       description: { story: 'Уменьшенный размер диалога (SM).' },
       source: {
-        code: `<dialog header="Small Dialog" size="sm" [visible]="visible" (visibleChange)="visible = $event">...</dialog>`,
+        language: 'ts',
+        code: `
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-small',
+  standalone: true,
+  imports: [DialogComponent, Button],
+  template: \`
+    <dialog
+      header="Статус отправления"
+      size="sm"
+      [visible]="visible"
+      (visibleChange)="visible = $event"
+      [footerTemplate]="footer"
+    >
+      <p>Отправление CDEK-2025-00478312 прибыло на сортировочный центр.</p>
+    </dialog>
+  \`,
+})
+export class DialogSmallComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
+  visible = false;
+}
+        `,
       },
     },
   },
@@ -155,7 +204,33 @@ export const Large: Story = {
     docs: {
       description: { story: 'Увеличенный размер диалога (LG).' },
       source: {
-        code: `<dialog header="Large Dialog" size="lg" [visible]="visible" (visibleChange)="visible = $event">...</dialog>`,
+        language: 'ts',
+        code: `
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-large',
+  standalone: true,
+  imports: [DialogComponent, Button],
+  template: \`
+    <dialog
+      header="Детали отправления"
+      size="lg"
+      [visible]="visible"
+      (visibleChange)="visible = $event"
+      [footerTemplate]="footer"
+    >
+      <p>Отправление CDEK-2025-00478312 передано курьеру. Адрес: г. Новосибирск, ул. Ленина, 42.</p>
+    </dialog>
+  \`,
+})
+export class DialogLargeComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
+  visible = false;
+}
+        `,
       },
     },
   },
@@ -171,7 +246,33 @@ export const ExtraLarge: Story = {
     docs: {
       description: { story: 'Максимальный размер диалога (XLG).' },
       source: {
-        code: `<dialog header="Extra Large Dialog" size="xlg" [visible]="visible" (visibleChange)="visible = $event">...</dialog>`,
+        language: 'ts',
+        code: `
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-extra-large',
+  standalone: true,
+  imports: [DialogComponent, Button],
+  template: \`
+    <dialog
+      header="Отчёт по доставкам за апрель 2025"
+      size="xlg"
+      [visible]="visible"
+      (visibleChange)="visible = $event"
+      [footerTemplate]="footer"
+    >
+      <p>За апрель 2025 обработано 4 872 отправления. Успешно доставлено — 4 641 (95,3%).</p>
+    </dialog>
+  \`,
+})
+export class DialogExtraLargeComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
+  visible = false;
+}
+        `,
       },
     },
   },
@@ -187,23 +288,81 @@ export const NoModal: Story = {
     docs: {
       description: { story: 'Окно не блокирует фон страницы.' },
       source: {
-        code: `<dialog header="No Modal Dialog" [modal]="false" [visible]="visible" (visibleChange)="visible = $event">...</dialog>`,
+        language: 'ts',
+        code: `
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-no-modal',
+  standalone: true,
+  imports: [DialogComponent, Button],
+  template: \`
+    <dialog
+      header="Маршрут доставки"
+      [modal]="false"
+      [visible]="visible"
+      (visibleChange)="visible = $event"
+      [footerTemplate]="footer"
+    >
+      <p>Маршрут: Москва → Новосибирск → пункт выдачи.</p>
+    </dialog>
+  \`,
+})
+export class DialogNoModalComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
+  visible = false;
+}
+        `,
       },
     },
   },
 };
 
-// ── No Header ─────────────────────────────────────────────────────────────────
+// ── Show Header ───────────────────────────────────────────────────────────────
 
 export const NoHeader: Story = {
-  name: 'No Header',
+  name: 'Show Header',
   decorators: [moduleMetadata({ imports: [DialogNoHeaderComponent] })],
   render: () => ({ template: `<app-dialog-no-header></app-dialog-no-header>` }),
   parameters: {
     docs: {
-      description: { story: 'Диалог без заголовка и кнопки закрытия.' },
+      description: { story: 'Заголовок можно скрыть с помощью пропса showHeader: false.' },
       source: {
-        code: `<dialog [visible]="visible" (visibleChange)="visible = $event" [showHeader]="false" [dismissableMask]="true">...</dialog>`,
+        language: 'ts',
+        code: `
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-no-header',
+  standalone: true,
+  imports: [DialogComponent, Button],
+  template: \`
+    <ng-template #footer>
+      <div class="flex justify-end w-full">
+        <p-button label="Закрыть" (onClick)="visible = false"></p-button>
+      </div>
+    </ng-template>
+
+    <dialog
+      [showHeader]="false"
+      [dismissableMask]="true"
+      [visible]="visible"
+      (visibleChange)="visible = $event"
+      [footerTemplate]="footer"
+    >
+      <p>Заявка на доставку принята в обработку. Трек-номер будет присвоен в течение 15 минут.</p>
+    </dialog>
+  \`,
+})
+export class DialogNoHeaderComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
+  visible = false;
+}
+        `,
       },
     },
   },

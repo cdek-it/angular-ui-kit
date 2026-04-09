@@ -1,32 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+
+const template = `
+<div class="bg-surface-ground">
+  <p-button (onClick)="visible = true" label="Открыть отчёт"></p-button>
+
+  <ng-template #footer>
+    <p-button variant="text" label="Закрыть" (onClick)="visible = false"></p-button>
+    <p-button label="Экспортировать" (onClick)="visible = false"></p-button>
+  </ng-template>
+
+  <dialog
+    header="Отчёт по доставкам за апрель 2025"
+    size="xlg"
+    [visible]="visible"
+    (visibleChange)="visible = $event"
+    [footerTemplate]="footer"
+  >
+    <p>За апрель 2025 года обработано 4 872 отправления. Успешно доставлено — 4 641 (95,3%). Возвраты — 112 (2,3%). В пути — 119 (2,4%). Средний срок доставки по России составил 2,7 рабочего дня. Наиболее загруженные направления: Москва — Санкт-Петербург, Москва — Новосибирск, Москва — Екатеринбург.</p>
+  </dialog>
+</div>
+`;
 
 @Component({
   selector: 'app-dialog-extra-large',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: `
-    <p-button (onClick)="visible = true" label="Open Dialog"></p-button>
-
-    <dialog
-      header="Extra Large Dialog"
-      size="xlg"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [focusOnShow]="false"
-    >
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </p>
-      <ng-template #dialogFooter>
-        <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
-        <p-button label="Сохранить" (onClick)="visible = false"></p-button>
-      </ng-template>
-    </dialog>
-  `,
+  template,
 })
 export class DialogExtraLargeComponent {
+  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
