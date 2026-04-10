@@ -1,7 +1,32 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 import { PrimeTemplate } from 'primeng/api';
+import { Select } from 'primeng/select';
+import { Button } from 'primeng/button';
+
+const MONTHS = [
+  { name: 'Январь', value: 0 },
+  { name: 'Февраль', value: 1 },
+  { name: 'Март', value: 2 },
+  { name: 'Апрель', value: 3 },
+  { name: 'Май', value: 4 },
+  { name: 'Июнь', value: 5 },
+  { name: 'Июль', value: 6 },
+  { name: 'Август', value: 7 },
+  { name: 'Сентябрь', value: 8 },
+  { name: 'Октябрь', value: 9 },
+  { name: 'Ноябрь', value: 10 },
+  { name: 'Декабрь', value: 11 },
+];
+
+const YEARS = (() => {
+  const result = [];
+  for (let y = 1990; y <= 2035; y++) {
+    result.push({ name: String(y), value: y });
+  }
+  return result;
+})();
 
 export type DatePickerSize = 'small' | 'medium' | 'large' | 'xlarge';
 export type DatePickerSelectionMode = 'single' | 'multiple' | 'range';
@@ -11,7 +36,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
   selector: 'date-picker',
   host: { style: 'display: inline-flex' },
   standalone: true,
-  imports: [DatePicker, PrimeTemplate, FormsModule],
+  imports: [DatePicker, PrimeTemplate, FormsModule, Select, Button],
   template: `
     <p-datepicker
       #dpRef
@@ -39,17 +64,57 @@ export type DatePickerIconDisplay = 'input' | 'button';
       [view]="view"
       [showOtherMonths]="showOtherMonths"
       [selectOtherMonths]="selectOtherMonths"
+      (onShow)="syncCurrentDate()"
+      (onMonthChange)="onMonthChangeHandler($event)"
+      (onYearChange)="onYearChangeHandler($event)"
       (onSelect)="onSelect.emit($event)"
-      (onMonthChange)="onMonthChange.emit($event)"
-      (onYearChange)="onYearChange.emit($event)"
       (onClear)="onClear.emit($event)"
     >
-      <ng-template pTemplate="previousicon">
-        <i class="ti ti-chevron-left" aria-hidden="true"></i>
+      <ng-template pTemplate="header">
+        <div class="p-datepicker-header p-datepicker-custom-header">
+          <p-button
+            severity="secondary"
+            [rounded]="true"
+            [text]="true"
+            (onClick)="navPrev($event)"
+          >
+            <ng-template pTemplate="icon">
+              <i class="ti ti-chevron-left" aria-hidden="true"></i>
+            </ng-template>
+          </p-button>
+          <div class="p-datepicker-title">
+            <p-select
+              appendTo="body"
+              [options]="months"
+              optionLabel="name"
+              optionValue="value"
+              [ngModel]="dpCurrentMonth"
+              (ngModelChange)="onMonthSelect($event)"
+              class="p-datepicker-month-select"
+            ></p-select>
+            <p-select
+              appendTo="body"
+              [options]="years"
+              optionLabel="name"
+              optionValue="value"
+              [ngModel]="dpCurrentYear"
+              (ngModelChange)="onYearSelect($event)"
+              class="p-datepicker-year-select"
+            ></p-select>
+          </div>
+          <p-button
+            severity="secondary"
+            [rounded]="true"
+            [text]="true"
+            (onClick)="navNext($event)"
+          >
+            <ng-template pTemplate="icon">
+              <i class="ti ti-chevron-right" aria-hidden="true"></i>
+            </ng-template>
+          </p-button>
+        </div>
       </ng-template>
-      <ng-template pTemplate="nexticon">
-        <i class="ti ti-chevron-right" aria-hidden="true"></i>
-      </ng-template>
+
       <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
         <i class="ti ti-calendar-month p-datepicker-input-icon cursor-pointer" (click)="clickCallBack($event)"></i>
       </ng-template>
@@ -64,8 +129,14 @@ export type DatePickerIconDisplay = 'input' | 'button';
     </p-datepicker>
   `,
 })
-export class DatePickerComponent {
+export class DatePickerComponent implements AfterViewInit {
   @ViewChild('dpRef') dpRef!: DatePicker;
+
+  readonly months = MONTHS;
+  readonly years = YEARS;
+
+  dpCurrentMonth = new Date().getMonth();
+  dpCurrentYear = new Date().getFullYear();
 
   @Input() value: Date | Date[] | null = null;
   @Output() valueChange = new EventEmitter<Date | Date[] | null>();
@@ -99,6 +170,51 @@ export class DatePickerComponent {
     if (this.size === 'small') return 'small';
     if (this.size === 'large' || this.size === 'xlarge') return 'large';
     return undefined;
+  }
+
+  ngAfterViewInit(): void {
+    // Sync initial month/year for inline mode (panel renders immediately)
+    if (this.inline) {
+      this.syncCurrentDate();
+    }
+  }
+
+  syncCurrentDate(): void {
+    if (this.dpRef) {
+      this.dpCurrentMonth = this.dpRef.currentMonth;
+      this.dpCurrentYear = this.dpRef.currentYear;
+    }
+  }
+
+  onMonthChangeHandler(event: { month: number; year: number }): void {
+    // DatePicker emits 1-indexed month; store as 0-indexed
+    this.dpCurrentMonth = event.month - 1;
+    this.dpCurrentYear = event.year;
+    this.onMonthChange.emit(event);
+  }
+
+  onYearChangeHandler(event: { month: number; year: number }): void {
+    this.dpCurrentMonth = event.month - 1;
+    this.dpCurrentYear = event.year;
+    this.onYearChange.emit(event);
+  }
+
+  onMonthSelect(month: number): void {
+    this.dpCurrentMonth = month;
+    this.dpRef?.createMonths(month, this.dpCurrentYear);
+  }
+
+  onYearSelect(year: number): void {
+    this.dpCurrentYear = year;
+    this.dpRef?.createMonths(this.dpCurrentMonth, year);
+  }
+
+  navPrev(event: MouseEvent): void {
+    this.dpRef?.navBackward(event);
+  }
+
+  navNext(event: MouseEvent): void {
+    this.dpRef?.navForward(event);
   }
 
   onValueChange(val: Date | Date[] | null): void {

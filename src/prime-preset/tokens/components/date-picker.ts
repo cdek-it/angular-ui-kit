@@ -15,16 +15,32 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   overflow: hidden;
 }
 
-.p-datepicker-header.p-datepicker-header {
+/* Скрываем нативный заголовок с кнопками выбора месяца/года;
+   кастомный заголовок (pTemplate="header") рендерится вне .p-datepicker-calendar */
+.p-datepicker-calendar .p-datepicker-header {
+  display: none;
+}
+
+.p-datepicker-custom-header.p-datepicker-header {
   gap: ${dt('datepicker.title.gap')};
   padding: ${dt('datepicker.header.padding')};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.p-datepicker-title {
+  display: flex;
+  align-items: center;
+  gap: ${dt('datepicker.title.gap')};
+  margin: 0 auto;
 }
 
 .p-datepicker-year-select {
   min-width: ${dt('datepicker.extend.extSelectYear.minWidth')};
 }
 
-.p-datepicker-header.p-datepicker-header .p-button-text {
+.p-datepicker-custom-header .p-button.p-button {
   width: ${dt('datepicker.dropdown.width')};
   height: ${dt('datepicker.dropdown.width')};
   padding: 0;
