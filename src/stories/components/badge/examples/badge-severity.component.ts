@@ -34,7 +34,7 @@ export const Severity: StoryObj = {
   argTypes: {
     severity: {
       control: 'select',
-      options: [null, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'contrast'],
+      options: ['primary', 'success', 'info', 'warning', 'danger'],
       description: 'Цветовая схема бейджа'
     },
     value: {
@@ -45,7 +45,7 @@ export const Severity: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Цветовые схемы: primary, secondary, success, info, warning, danger, contrast.'
+        story: 'Цветовые схемы: primary, success, info, warning, danger.'
       },
       source: {
         language: 'ts',

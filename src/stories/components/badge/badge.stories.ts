@@ -42,12 +42,12 @@ import { BadgeModule } from 'primeng/badge';
     },
     severity: {
       control: 'select',
-      options: [null, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'contrast'],
+      options: ['primary', 'success', 'info', 'warning', 'danger'],
       description: 'Цветовая схема бейджа',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'contrast' | null" },
+        defaultValue: { summary: "'primary'" },
+        type: { summary: "'primary' | 'success' | 'info' | 'warning' | 'danger'" },
       },
     },
     size: {
@@ -63,7 +63,7 @@ import { BadgeModule } from 'primeng/badge';
   },
   args: {
     value: '8',
-    severity: null,
+    severity: 'primary',
     size: 'base',
   },
 };
@@ -79,7 +79,7 @@ export const Default: Story = {
     const parts: string[] = [];
 
     if (args.value != null && args.value !== '') parts.push(`value="${args.value}"`);
-    if (args.severity != null) parts.push(`severity="${args.severity}"`);
+    if (args.severity !== 'primary') parts.push(`severity="${args.severity}"`);
     if (args.size != null && args.size !== 'base') parts.push(`size="${args.size}"`);
 
     const template = parts.length

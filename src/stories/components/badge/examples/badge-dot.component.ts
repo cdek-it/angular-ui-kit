@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BadgeComponent, BadgeSeverity } from '../../../../lib/components/badge/badge.component';
+import { BadgeComponent, BadgeSeverity, BadgeSize } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <badge [severity]="severity"></badge>
+  <badge [severity]="severity" [size]="size"></badge>
 </div>
 `;
 
@@ -18,21 +18,22 @@ const styles = '';
   styles
 })
 export class BadgeDotComponent {
-  @Input() severity: BadgeSeverity = null;
+  @Input() severity: BadgeSeverity = 'primary';
+  @Input() size: BadgeSize = 'base';
 }
 
 export const Dot: StoryObj = {
   render: (args) => ({
     props: args,
-    template: `<app-badge-dot [severity]="severity"></app-badge-dot>`
+    template: `<app-badge-dot [severity]="severity" [size]="size"></app-badge-dot>`
   }),
   args: {
-    severity: null
+    severity: 'primary'
   },
   argTypes: {
     severity: {
       control: 'select',
-      options: [null, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'contrast'],
+      options: ['primary', 'success', 'info', 'warning', 'danger'],
       description: 'Цветовая схема бейджа'
     }
   },
