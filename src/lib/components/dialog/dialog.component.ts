@@ -21,7 +21,7 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
       [showHeader]="showHeader"
       [focusOnShow]="focusOnShow"
       [styleClass]="sizeClass"
-      appendTo="body"
+      [appendTo]="appendTo"
     >
       <ng-content></ng-content>
       <ng-template pTemplate="footer">
@@ -39,6 +39,7 @@ export class DialogComponent {
   @Input() closeOnEscape = true;
   @Input() showHeader = true;
   @Input() focusOnShow = false;
+  @Input() appendTo: string = 'body';
   @Input() footerTemplate: TemplateRef<any> | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();
 

@@ -88,6 +88,15 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' },
       },
     },
+    appendTo: {
+      control: 'text',
+      description: 'Элемент, к которому прикрепляется диалог (например body или CSS-селектор)',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "'body'" },
+        type: { summary: 'string' },
+      },
+    },
     visibleChange: {
       control: false,
       description: 'Изменение видимости диалога',
