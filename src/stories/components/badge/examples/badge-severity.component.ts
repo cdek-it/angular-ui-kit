@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BadgeComponent, BadgeSeverity } from '../../../../lib/components/badge/badge.component';
+import { BadgeComponent, BadgeSeverity, BadgeSize } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <badge [value]="value" [severity]="severity"></badge>
+  <badge [value]="value" [severity]="severity" [size]="size"></badge>
 </div>
 `;
 
@@ -20,12 +20,13 @@ const styles = '';
 export class BadgeSeverityComponent {
   @Input() value: string | number = '8';
   @Input() severity: BadgeSeverity = 'success';
+  @Input() size: BadgeSize = 'base';
 }
 
 export const Severity: StoryObj = {
   render: (args) => ({
     props: args,
-    template: `<app-badge-severity [value]="value" [severity]="severity"></app-badge-severity>`
+    template: `<app-badge-severity [value]="value" [severity]="severity" [size]="size"></app-badge-severity>`
   }),
   args: {
     value: '8',

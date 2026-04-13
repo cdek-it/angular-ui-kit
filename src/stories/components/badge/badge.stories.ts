@@ -75,19 +75,10 @@ type Story = StoryObj<BadgeComponent>;
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.value != null && args.value !== '') parts.push(`value="${args.value}"`);
-    if (args.severity !== 'primary') parts.push(`severity="${args.severity}"`);
-    if (args.size != null && args.size !== 'base') parts.push(`size="${args.size}"`);
-
-    const template = parts.length
-      ? `<badge\n  ${parts.join('\n  ')}\n></badge>`
-      : `<badge></badge>`;
-
-    return { props: args, template };
-  },
+  render: (args) => ({
+    props: args,
+    template: `<app-badge-severity [value]="value" [severity]="severity" [size]="size"></app-badge-severity>`,
+  }),
   args: {
     value: '8',
   },
