@@ -24,7 +24,7 @@ const meta: Meta<ProgressBarArgs> = {
         component: `Информирует пользователя о статусе длительного процесса.
 
 \`\`\`typescript
-import { ProgressBar } from 'primeng/progressbar';
+import { ProgressBarComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
