@@ -6,6 +6,7 @@ import { DialogLargeComponent } from './examples/dialog-large.component';
 import { DialogExtraLargeComponent } from './examples/dialog-extra-large.component';
 import { DialogNoModalComponent } from './examples/dialog-no-modal.component';
 import { DialogNoHeaderComponent } from './examples/dialog-no-header.component';
+import { DialogDynamicComponent } from './examples/dialog-dynamic.component';
 
 const meta: Meta<DialogComponent> = {
   title: 'Components/Overlay/Dialog',
@@ -381,6 +382,67 @@ export class DialogNoHeaderComponent {
   visible = false;
 }
         `,
+      },
+    },
+  },
+};
+
+// ── Dynamic ───────────────────────────────────────────────────────────────────
+
+export const Dynamic: Story = {
+  name: 'Dynamic',
+  decorators: [moduleMetadata({ imports: [DialogDynamicComponent] })],
+  render: () => ({ template: `<app-dialog-dynamic></app-dialog-dynamic>` }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Программное открытие диалога через `UiDialogService`. Содержимое — любой Angular-компонент, получающий `DynamicDialogRef` для закрытия.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { Button } from 'primeng/button';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UiDialogService } from '@cdek-it/angular-ui-kit';
+
+// Содержимое диалога
+@Component({
+  selector: 'app-dialog-dynamic-content',
+  standalone: true,
+  imports: [Button],
+  template: \`
+    <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button variant="text" label="Отмена" (onClick)="ref.close()"></p-button>
+      <p-button label="Подтвердить" (onClick)="ref.close(true)"></p-button>
+    </div>
+  \`,
+})
+export class DialogDynamicContentComponent {
+  constructor(readonly ref: DynamicDialogRef) {}
+}
+
+// Компонент-триггер
+@Component({
+  selector: 'app-dialog-dynamic',
+  standalone: true,
+  imports: [Button],
+  providers: [DialogService, UiDialogService],
+  template: \`
+    <p-button (onClick)="open()" label="Создать заявку"></p-button>
+  \`,
+})
+export class DialogDynamicComponent {
+  constructor(private readonly dialogService: UiDialogService) {}
+
+  open(): void {
+    this.dialogService.open(DialogDynamicContentComponent, {
+      header: 'Подтверждение заявки',
+      modal: true,
+    });
+  }
+}`,
       },
     },
   },
