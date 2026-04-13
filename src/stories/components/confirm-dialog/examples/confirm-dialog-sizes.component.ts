@@ -5,6 +5,7 @@ import {
   ConfirmDialogComponent,
   ConfirmDialogSize,
 } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 interface SizeItem {
   key: ConfirmDialogSize;
@@ -41,26 +42,22 @@ const template = `
   selector: 'app-confirm-dialog-sizes',
   standalone: true,
   imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, ConfirmDialogService],
   template,
 })
 export class ConfirmDialogSizesComponent {
   sizes = SIZES;
 
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   showConfirm(size: SizeItem): void {
-    this.confirmationService.confirm({
+    this.confirmDialogService.confirm({
       key: 'cd-size-' + size.key,
       message: 'Это диалог размера ' + size.label,
       header: 'Подтверждение',
       icon: 'ti ti-alert-triangle',
       acceptLabel: 'Да',
       rejectLabel: 'Нет',
-      rejectButtonProps: {
-        severity: 'secondary',
-        text: true,
-      },
       accept: () => {},
       reject: () => {},
     });

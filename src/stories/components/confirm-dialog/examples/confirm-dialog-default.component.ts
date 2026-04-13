@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogComponent } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 const template = `
 <div class="bg-surface-ground">
@@ -15,24 +16,20 @@ const template = `
   selector: 'app-confirm-dialog-default',
   standalone: true,
   imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, ConfirmDialogService],
   template,
 })
 export class ConfirmDialogDefaultComponent {
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   showConfirm(): void {
-    this.confirmationService.confirm({
+    this.confirmDialogService.confirm({
       key: 'cd-default',
       message: 'Вы уверены, что хотите продолжить?',
       header: 'Подтверждение',
       icon: 'ti ti-alert-triangle',
       acceptLabel: 'Да',
       rejectLabel: 'Нет',
-      rejectButtonProps: {
-        severity: 'secondary',
-        text: true,
-      },
       accept: () => {},
       reject: () => {},
     });

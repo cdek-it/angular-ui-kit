@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogComponent } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 interface SeverityItem {
   type: 'success' | 'info' | 'warn' | 'help' | 'danger';
@@ -86,16 +87,16 @@ const template = `
   selector: 'app-confirm-dialog-severities',
   standalone: true,
   imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, ConfirmDialogService],
   template,
 })
 export class ConfirmDialogSeveritiesComponent {
   severities = SEVERITIES;
 
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   showConfirm(severity: SeverityItem): void {
-    this.confirmationService.confirm({
+    this.confirmDialogService.confirm({
       key: 'cd-severity-' + severity.type,
       message: severity.message,
       header: severity.header,
@@ -103,10 +104,6 @@ export class ConfirmDialogSeveritiesComponent {
       acceptLabel: severity.acceptLabel,
       rejectLabel: 'Нет',
       acceptButtonProps: { severity: severity.buttonSeverity },
-      rejectButtonProps: {
-        severity: 'secondary',
-        text: true,
-      },
       accept: () => {},
       reject: () => {},
     });

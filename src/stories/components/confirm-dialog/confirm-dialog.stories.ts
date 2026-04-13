@@ -11,10 +11,10 @@ const meta: Meta<ConfirmDialogComponent> = {
   parameters: {
     docs: {
       description: {
-        component: `Компонент для подтверждения действий пользователя. Требует подключения \`ConfirmationService\`.
+        component: `Компонент для подтверждения действий пользователя. Требует подключения \`ConfirmationService\` и \`ConfirmDialogService\`.
 
 \`\`\`typescript
-import { ConfirmDialogComponent } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
 import { ConfirmationService } from 'primeng/api';
 \`\`\``,
       },
@@ -73,33 +73,29 @@ export const Default: Story = {
 import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogComponent } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-confirm-dialog-default',
   standalone: true,
   imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, ConfirmDialogService],
   template: \`
     <p-button label="Показать диалог" severity="contrast" (onClick)="showConfirm()"></p-button>
     <confirm-dialog key="cd-default"></confirm-dialog>
   \`,
 })
 export class ConfirmDialogDefaultComponent {
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   showConfirm(): void {
-    this.confirmationService.confirm({
+    this.confirmDialogService.confirm({
       key: 'cd-default',
       message: 'Вы уверены, что хотите продолжить?',
       header: 'Подтверждение',
       icon: 'ti ti-alert-triangle',
       acceptLabel: 'Да',
       rejectLabel: 'Нет',
-      rejectButtonProps: {
-        severity: 'secondary',
-        text: true,
-      },
       accept: () => {},
       reject: () => {},
     });
@@ -128,7 +124,7 @@ export const Severities: Story = {
 import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogComponent } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
 
 const SEVERITIES = [
   { type: 'success', buttonSeverity: 'success', icon: 'ti ti-circle-check', label: 'Успех', header: 'Успех', message: 'Операция выполнена успешно.', acceptLabel: 'OK' },
@@ -142,7 +138,7 @@ const SEVERITIES = [
   selector: 'app-confirm-dialog-severities',
   standalone: true,
   imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, ConfirmDialogService],
   template: \`
     <confirm-dialog key="cd-severity-success" severity="success"></confirm-dialog>
     <confirm-dialog key="cd-severity-info" severity="info"></confirm-dialog>
@@ -164,10 +160,10 @@ const SEVERITIES = [
 })
 export class ConfirmDialogSeveritiesComponent {
   severities = SEVERITIES;
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   showConfirm(severity: any): void {
-    this.confirmationService.confirm({
+    this.confirmDialogService.confirm({
       key: 'cd-severity-' + severity.type,
       message: severity.message,
       header: severity.header,
@@ -175,10 +171,6 @@ export class ConfirmDialogSeveritiesComponent {
       acceptLabel: severity.acceptLabel,
       rejectLabel: 'Нет',
       acceptButtonProps: { severity: severity.buttonSeverity },
-      rejectButtonProps: {
-        severity: 'secondary',
-        text: true,
-      },
       accept: () => {},
       reject: () => {},
     });
@@ -207,7 +199,7 @@ export const Sizes: Story = {
 import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogComponent } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
 
 const SIZES = [
   { key: 'sm', label: 'Small' },
@@ -220,7 +212,7 @@ const SIZES = [
   selector: 'app-confirm-dialog-sizes',
   standalone: true,
   imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, ConfirmDialogService],
   template: \`
     <confirm-dialog key="cd-size-sm" size="sm"></confirm-dialog>
     <confirm-dialog key="cd-size-default"></confirm-dialog>
@@ -236,20 +228,16 @@ const SIZES = [
 })
 export class ConfirmDialogSizesComponent {
   sizes = SIZES;
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmDialogService: ConfirmDialogService) {}
 
   showConfirm(size: any): void {
-    this.confirmationService.confirm({
+    this.confirmDialogService.confirm({
       key: 'cd-size-' + size.key,
       message: 'Это диалог размера ' + size.label,
       header: 'Подтверждение',
       icon: 'ti ti-alert-triangle',
       acceptLabel: 'Да',
       rejectLabel: 'Нет',
-      rejectButtonProps: {
-        severity: 'secondary',
-        text: true,
-      },
       accept: () => {},
       reject: () => {},
     });
