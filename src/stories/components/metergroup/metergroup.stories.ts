@@ -37,7 +37,7 @@ const meta: Meta<MeterGroupArgs> = {
         component: `Визуализирует несколько числовых значений в виде единой полосы прогресса с подписями.
 
 \`\`\`typescript
-import { MeterGroup } from 'primeng/metergroup';
+import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
