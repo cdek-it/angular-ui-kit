@@ -4,7 +4,7 @@ import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 
 import tokens from './tokens/tokens.json';
 import { buttonCss } from './tokens/components/button';
-import { radiobuttonCss } from './tokens/components/radiobutton';
+import { badgeCss } from './tokens/components/badge';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -15,9 +15,9 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
-    radiobutton: {
-      ...(tokens.components.radiobutton as unknown as ComponentsDesignTokens['radiobutton']),
-      css: radiobuttonCss,
+    badge: {
+      ...(tokens.components.badge as unknown as ComponentsDesignTokens['badge']),
+      css: badgeCss,
     },
   } as ComponentsDesignTokens,
 };
