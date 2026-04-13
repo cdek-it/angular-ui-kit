@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../lib/components/button/button.component
 type ButtonArgs = ButtonComponent & { onClick?: (event: MouseEvent) => void };
 
 const meta: Meta<ButtonArgs> = {
-  title: 'Prime/Button',
+  title: 'Components/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
   decorators: [
