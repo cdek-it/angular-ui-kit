@@ -1,17 +1,11 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { MeterGroupComponent } from '../../../lib/components/metergroup/metergroup.component';
-import { MeterItem } from 'primeng/metergroup';
 import { MeterGroupHorizontalComponent } from './examples/metergroup-horizontal.component';
 import { MeterGroupVerticalComponent } from './examples/metergroup-vertical.component';
 import { MeterGroupIconComponent } from './examples/metergroup-icon.component';
 import { MeterGroupLabelStartComponent } from './examples/metergroup-label-start.component';
 import { MeterGroupLabelVerticalComponent } from './examples/metergroup-label-vertical.component';
-
-const defaultValue: MeterItem[] = [
-  { label: 'Space used', color: '#34d399', value: 16 },
-  { label: 'Unused', color: '#fbbf24', value: 8 },
-  { label: 'System', color: '#60a5fa', value: 24 },
-];
+import { defaultValue, iconValue } from './metergroup.data';
 
 type MeterGroupArgs = MeterGroupComponent;
 
@@ -175,14 +169,7 @@ export const Vertical: Story = {
 
 export const Icon: Story = {
   render: (args) => ({
-    props: {
-      ...args,
-      value: [
-        { label: 'Apps', color: '#34d399', value: 16, icon: 'ti ti-apps' },
-        { label: 'Messages', color: '#fbbf24', value: 8, icon: 'ti ti-message' },
-        { label: 'System', color: '#60a5fa', value: 24, icon: 'ti ti-cpu' },
-      ],
-    },
+    props: { ...args, value: iconValue },
     template: commonTemplate,
   }),
   args: {
