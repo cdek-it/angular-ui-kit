@@ -2,20 +2,9 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { BreadcrumbComponent } from '../../../lib/components/breadcrumb/breadcrumb.component';
 import { BreadcrumbBasicComponent } from './examples/breadcrumb-basic.component';
 import { BreadcrumbIconsOnlyComponent } from './examples/breadcrumb-icons-only.component';
+import { commonHome, commonItems, iconOnlyItems } from './breadcrumb.data';
 
 type BreadcrumbArgs = BreadcrumbComponent;
-
-const commonItems = [
-  { label: 'Электроника', icon: 'ti ti-device-laptop', url: '#' },
-  { label: 'Компьютеры', icon: 'ti ti-cpu', url: '#' },
-  { label: 'Ноутбуки' },
-];
-const commonHome = { icon: 'ti ti-home', url: '#' };
-const iconOnlyItems = [
-  { icon: 'ti ti-device-laptop', url: '#' },
-  { icon: 'ti ti-cpu', url: '#' },
-  { icon: 'ti ti-book' },
-];
 
 const meta: Meta<BreadcrumbArgs> = {
   title: 'Components/Menu/Breadcrumb',
