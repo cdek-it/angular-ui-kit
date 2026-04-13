@@ -26,7 +26,7 @@ const meta: Meta<SkeletonComponent> = {
         component: `Заглушка для контента, пока данные загружаются. Поддерживает прямоугольную и круглую форму, а также волновую анимацию.
 
 \`\`\`typescript
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
