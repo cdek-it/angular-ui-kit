@@ -23,6 +23,6 @@ export const dataTableCss = ({ dt }: { dt: (token: string) => string }): string 
   }
 
   .p-datatable .p-datatable-sortable-column:not(.p-datatable-column-sorted):hover {
-    color: ${dt('datatable.headerCell.hoverColor')};
+    color: ${dt('text.hoverColor')};
   }
 `;
