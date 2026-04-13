@@ -8,7 +8,7 @@ import { Chip } from 'primeng/chip';
   template: `
     <p-chip
       [label]="label"
-      [icon]="icon || undefined"
+      [icon]="icon"
       [removable]="removable"
       [disabled]="disabled"
       (onRemove)="onRemove.emit($event)"

@@ -28,7 +28,7 @@ const meta: Meta<ChipArgs> = {
         component: `Чип — небольшой интерактивный элемент с текстом, иконкой и опциональной кнопкой удаления.
 
 \`\`\`typescript
-import { ChipModule } from 'primeng/chip';
+import { ChipComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
