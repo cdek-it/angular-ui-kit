@@ -16,7 +16,7 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
       <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
         <div class="p-dialog-header">
           <div class="p-dialog-title">
-            <i [class]="message.icon + ' p-icon'"></i>
+            <i [class]="message.icon"></i>
             <span>{{ message.header }}</span>
           </div>
           <button
