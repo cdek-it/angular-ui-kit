@@ -1,11 +1,11 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { DialogComponent } from '../../../lib/components/dialog/dialog.component';
-import { DialogDefaultComponent } from './examples/dialog-default.component';
-import { DialogSmallComponent } from './examples/dialog-small.component';
-import { DialogLargeComponent } from './examples/dialog-large.component';
-import { DialogExtraLargeComponent } from './examples/dialog-extra-large.component';
-import { DialogNoModalComponent } from './examples/dialog-no-modal.component';
-import { DialogNoHeaderComponent } from './examples/dialog-no-header.component';
+import { DialogDefaultComponent, template as dialogDefaultTemplate } from './examples/dialog-default.component';
+import { DialogSmallComponent, template as dialogSmallTemplate } from './examples/dialog-small.component';
+import { DialogLargeComponent, template as dialogLargeTemplate } from './examples/dialog-large.component';
+import { DialogExtraLargeComponent, template as dialogExtraLargeTemplate } from './examples/dialog-extra-large.component';
+import { DialogNoModalComponent, template as dialogNoModalTemplate } from './examples/dialog-no-modal.component';
+import { DialogNoHeaderComponent, template as dialogNoHeaderTemplate } from './examples/dialog-no-header.component';
 import { DialogDynamicComponent } from './examples/dialog-dynamic.component';
 
 const meta: Meta<DialogComponent> = {
@@ -143,23 +143,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-dialog-basic',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: \`
-    <p-button (onClick)="visible = true" label="Создать заявку"></p-button>
-
-    <ng-template #footer>
-      <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
-      <p-button label="Подтвердить" (onClick)="visible = false"></p-button>
-    </ng-template>
-
-    <dialog
-      header="Подтверждение заявки"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [footerTemplate]="footer"
-    >
-      <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
-    </dialog>
-  \`,
+  template: \`${dialogDefaultTemplate}\`,
 })
 export class DialogBasicComponent {
   @ViewChild('footer') footer!: TemplateRef<any>;
@@ -191,17 +175,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-dialog-small',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: \`
-    <dialog
-      header="Статус отправления"
-      size="sm"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [footerTemplate]="footer"
-    >
-      <p>Отправление CDEK-2025-00478312 прибыло на сортировочный центр.</p>
-    </dialog>
-  \`,
+  template: \`${dialogSmallTemplate}\`,
 })
 export class DialogSmallComponent {
   @ViewChild('footer') footer!: TemplateRef<any>;
@@ -233,17 +207,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-dialog-large',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: \`
-    <dialog
-      header="Детали отправления"
-      size="lg"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [footerTemplate]="footer"
-    >
-      <p>Отправление CDEK-2025-00478312 передано курьеру. Адрес: г. Новосибирск, ул. Ленина, 42.</p>
-    </dialog>
-  \`,
+  template: \`${dialogLargeTemplate}\`,
 })
 export class DialogLargeComponent {
   @ViewChild('footer') footer!: TemplateRef<any>;
@@ -275,17 +239,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-dialog-extra-large',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: \`
-    <dialog
-      header="Отчёт по доставкам за апрель 2025"
-      size="xlg"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [footerTemplate]="footer"
-    >
-      <p>За апрель 2025 обработано 4 872 отправления. Успешно доставлено — 4 641 (95,3%).</p>
-    </dialog>
-  \`,
+  template: \`${dialogExtraLargeTemplate}\`,
 })
 export class DialogExtraLargeComponent {
   @ViewChild('footer') footer!: TemplateRef<any>;
@@ -317,17 +271,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-dialog-no-modal',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: \`
-    <dialog
-      header="Маршрут доставки"
-      [modal]="false"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [footerTemplate]="footer"
-    >
-      <p>Маршрут: Москва → Новосибирск → пункт выдачи.</p>
-    </dialog>
-  \`,
+  template: \`${dialogNoModalTemplate}\`,
 })
 export class DialogNoModalComponent {
   @ViewChild('footer') footer!: TemplateRef<any>;
@@ -359,23 +303,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-dialog-no-header',
   standalone: true,
   imports: [DialogComponent, Button],
-  template: \`
-    <ng-template #footer>
-      <div class="flex justify-end w-full">
-        <p-button label="Закрыть" (onClick)="visible = false"></p-button>
-      </div>
-    </ng-template>
-
-    <dialog
-      [showHeader]="false"
-      [dismissableMask]="true"
-      [visible]="visible"
-      (visibleChange)="visible = $event"
-      [footerTemplate]="footer"
-    >
-      <p>Заявка на доставку принята в обработку. Трек-номер будет присвоен в течение 15 минут.</p>
-    </dialog>
-  \`,
+  template: \`${dialogNoHeaderTemplate}\`,
 })
 export class DialogNoHeaderComponent {
   @ViewChild('footer') footer!: TemplateRef<any>;

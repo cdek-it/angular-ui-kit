@@ -2,7 +2,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
-const template = `
+export const template = `
 <div class="bg-surface-ground">
   <p-button (onClick)="visible = true" label="Показать маршрут"></p-button>
 
