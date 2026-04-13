@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { Avatar } from 'primeng/avatar';
 import { AvatarGroup } from 'primeng/avatargroup';
 
@@ -25,6 +25,13 @@ export class AvatarComponent {
   @Input() image = '';
   @Input() size: AvatarSize = 'normal';
   @Input() shape: AvatarShape = 'square';
+
+  @HostBinding('class') get hostClass(): string {
+    const classes = ['ui-avatar'];
+    if (this.size === 'large') classes.push('ui-avatar-lg');
+    if (this.size === 'xlarge') classes.push('ui-avatar-xl');
+    return classes.join(' ');
+  }
 
   get primeSize(): 'normal' | 'large' | 'xlarge' | undefined {
     return this.size === 'normal' ? undefined : this.size;
