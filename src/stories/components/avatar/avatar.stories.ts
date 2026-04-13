@@ -256,7 +256,7 @@ export const IconWithBadge: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <p-overlay-badge severity="success">
+      <p-overlay-badge value="8" severity="success">
         <avatar icon="ti ti-user" size="xlarge"></avatar>
       </p-overlay-badge>
     `,
@@ -265,7 +265,7 @@ export const IconWithBadge: Story = {
     docs: {
       description: { story: 'Аватар с иконкой и бейджем через OverlayBadge.' },
       source: {
-        code: `<p-overlay-badge severity="success">
+        code: `<p-overlay-badge value="8" severity="success">
   <avatar icon="ti ti-user" size="xlarge"></avatar>
 </p-overlay-badge>`,
       },
@@ -279,7 +279,7 @@ export const ImageWithBadge: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <p-overlay-badge severity="success">
+      <p-overlay-badge value="8" severity="success">
         <avatar image="/assets/images/avatar/avatar.png" size="xlarge"></avatar>
       </p-overlay-badge>
     `,
@@ -288,7 +288,7 @@ export const ImageWithBadge: Story = {
     docs: {
       description: { story: 'Аватар с изображением и бейджем через OverlayBadge.' },
       source: {
-        code: `<p-overlay-badge severity="success">
+        code: `<p-overlay-badge value="8" severity="success">
   <avatar image="/assets/images/avatar/avatar.png" size="xlarge"></avatar>
 </p-overlay-badge>`,
       },

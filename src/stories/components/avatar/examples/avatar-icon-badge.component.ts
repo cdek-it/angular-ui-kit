@@ -6,10 +6,10 @@ import { AvatarComponent } from '../../../../lib/components/avatar/avatar.compon
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex items-center gap-4">
-    <p-overlay-badge severity="success">
+    <p-overlay-badge value="8" severity="success">
       <avatar icon="ti ti-user" size="xlarge"></avatar>
     </p-overlay-badge>
-    <p-overlay-badge value="!" severity="warn">
+    <p-overlay-badge value="8" severity="warn">
       <avatar icon="ti ti-bell" size="large"></avatar>
     </p-overlay-badge>
   </div>
@@ -48,10 +48,10 @@ import { AvatarComponent } from '@cdek-it/angular-ui-kit';
   imports: [AvatarComponent, OverlayBadge],
   template: \`
     <div class="flex items-center gap-4">
-      <p-overlay-badge severity="success">
+      <p-overlay-badge value="8" severity="success">
         <avatar icon="ti ti-user" size="xlarge"></avatar>
       </p-overlay-badge>
-      <p-overlay-badge value="!" severity="warn">
+      <p-overlay-badge value="8" severity="warn">
         <avatar icon="ti ti-bell" size="large"></avatar>
       </p-overlay-badge>
     </div>
