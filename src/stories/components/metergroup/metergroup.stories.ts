@@ -134,7 +134,25 @@ export const Horizontal: Story = {
       source: {
         language: 'ts',
         code: `
-<metergroup [value]="value" orientation="horizontal"></metergroup>`,
+import { Component } from '@angular/core';
+import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { MeterItem } from 'primeng/metergroup';
+
+@Component({
+  selector: 'app-metergroup-horizontal',
+  standalone: true,
+  imports: [MeterGroupComponent],
+  template: \`
+    <metergroup [value]="value" orientation="horizontal"></metergroup>
+  \`,
+})
+export class MeterGroupHorizontalComponent {
+  value: MeterItem[] = [
+    { label: 'Space used', color: '#34d399', value: 16 },
+    { label: 'Unused', color: '#fbbf24', value: 8 },
+    { label: 'System', color: '#60a5fa', value: 24 },
+  ];
+}`,
       },
     },
   },
@@ -161,7 +179,27 @@ export const Vertical: Story = {
       source: {
         language: 'ts',
         code: `
-<metergroup [value]="value" orientation="vertical" style="height: 200px"></metergroup>`,
+import { Component } from '@angular/core';
+import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { MeterItem } from 'primeng/metergroup';
+
+@Component({
+  selector: 'app-metergroup-vertical',
+  standalone: true,
+  imports: [MeterGroupComponent],
+  template: \`
+    <div style="height: 300px; display: flex">
+      <metergroup [value]="value" orientation="vertical"></metergroup>
+    </div>
+  \`,
+})
+export class MeterGroupVerticalComponent {
+  value: MeterItem[] = [
+    { label: 'Space used', color: '#34d399', value: 16 },
+    { label: 'Unused', color: '#fbbf24', value: 8 },
+    { label: 'System', color: '#60a5fa', value: 24 },
+  ];
+}`,
       },
     },
   },
@@ -184,7 +222,7 @@ export const Icon: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MeterGroupComponent } from '@shared/components/metergroup/metergroup.component';
+import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
 import { MeterItem } from 'primeng/metergroup';
 
 @Component({
@@ -192,9 +230,7 @@ import { MeterItem } from 'primeng/metergroup';
   standalone: true,
   imports: [MeterGroupComponent],
   template: \`
-    <div class="bg-surface-ground">
-      <metergroup [value]="value"></metergroup>
-    </div>
+    <metergroup [value]="value"></metergroup>
   \`,
 })
 export class MeterGroupIconComponent {
@@ -225,7 +261,25 @@ export const LabelStart: Story = {
       source: {
         language: 'ts',
         code: `
-<metergroup [value]="value" labelPosition="start"></metergroup>`,
+import { Component } from '@angular/core';
+import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { MeterItem } from 'primeng/metergroup';
+
+@Component({
+  selector: 'app-metergroup-label-start',
+  standalone: true,
+  imports: [MeterGroupComponent],
+  template: \`
+    <metergroup [value]="value" labelPosition="start"></metergroup>
+  \`,
+})
+export class MeterGroupLabelStartComponent {
+  value: MeterItem[] = [
+    { label: 'Space used', color: '#34d399', value: 16 },
+    { label: 'Unused', color: '#fbbf24', value: 8 },
+    { label: 'System', color: '#60a5fa', value: 24 },
+  ];
+}`,
       },
     },
   },
@@ -247,7 +301,25 @@ export const LabelVertical: Story = {
       source: {
         language: 'ts',
         code: `
-<metergroup [value]="value" labelOrientation="vertical"></metergroup>`,
+import { Component } from '@angular/core';
+import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { MeterItem } from 'primeng/metergroup';
+
+@Component({
+  selector: 'app-metergroup-label-vertical',
+  standalone: true,
+  imports: [MeterGroupComponent],
+  template: \`
+    <metergroup [value]="value" labelOrientation="vertical"></metergroup>
+  \`,
+})
+export class MeterGroupLabelVerticalComponent {
+  value: MeterItem[] = [
+    { label: 'Space used', color: '#34d399', value: 16 },
+    { label: 'Unused', color: '#fbbf24', value: 8 },
+    { label: 'System', color: '#60a5fa', value: 24 },
+  ];
+}`,
       },
     },
   },
