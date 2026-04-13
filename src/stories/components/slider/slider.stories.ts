@@ -26,7 +26,7 @@ const meta: Meta<SliderComponent> = {
         component: `Слайдер позволяет выбрать числовое значение или диапазон путём перемещения ползунка.
 
 \`\`\`typescript
-import { SliderModule } from 'primeng/slider';
+import { SliderComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -86,14 +86,6 @@ import { SliderModule } from 'primeng/slider';
         category: 'Props',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
-      },
-    },
-    onChange: {
-      control: false,
-      description: 'Событие изменения значения при перетаскивании',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<SliderChangeEvent>' },
       },
     },
     onSlideEnd: {
@@ -176,14 +168,15 @@ export const Range: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-range',
   standalone: true,
-  imports: [SliderComponent],
+  imports: [SliderComponent, FormsModule],
   template: \`
-    <slider [min]="0" [max]="100" [range]="true" [(value)]="value"></slider>
+    <slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></slider>
   \`,
 })
 export class SliderRangeComponent {
@@ -214,14 +207,15 @@ export const Step: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-step',
   standalone: true,
-  imports: [SliderComponent],
+  imports: [SliderComponent, FormsModule],
   template: \`
-    <slider [min]="0" [max]="100" [step]="10" [(value)]="value"></slider>
+    <slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></slider>
   \`,
 })
 export class SliderStepComponent {
@@ -251,15 +245,16 @@ export const Vertical: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-vertical',
   standalone: true,
-  imports: [SliderComponent],
+  imports: [SliderComponent, FormsModule],
   template: \`
     <div style="height: 220px">
-      <slider orientation="vertical" [(value)]="value" style="height: 200px"></slider>
+      <slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></slider>
     </div>
   \`,
 })
@@ -297,7 +292,7 @@ import { SliderComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [SliderComponent],
   template: \`
-    <slider [value]="50" [disabled]="true"></slider>
+    <slider [disabled]="true"></slider>
   \`,
 })
 export class SliderDisabledComponent {}

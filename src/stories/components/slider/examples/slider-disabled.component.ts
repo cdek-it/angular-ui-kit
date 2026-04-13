@@ -3,7 +3,7 @@ import { SliderComponent } from '../../../../lib/components/slider/slider.compon
 
 const template = `
 <div class="bg-surface-ground" style="width: 320px">
-  <slider [value]="50" [disabled]="true"></slider>
+  <slider [disabled]="true"></slider>
 </div>
 `;
 const styles = '';

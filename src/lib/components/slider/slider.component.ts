@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { Slider } from 'primeng/slider';
-import type { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/slider';
+import type { SliderSlideEndEvent } from 'primeng/slider';
+import { Subscription } from 'rxjs';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
 
@@ -9,56 +10,82 @@ export type SliderOrientation = 'horizontal' | 'vertical';
   selector: 'slider',
   host: { style: 'display: block' },
   standalone: true,
-  imports: [Slider, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Slider, ReactiveFormsModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SliderComponent),
+      multi: true,
+    },
+  ],
   template: `
     <p-slider
-      [ngModel]="normalizedValue"
-      (ngModelChange)="onNgModelChange($event)"
+      [formControl]="control"
       [min]="min"
       [max]="max"
       [step]="step"
       [range]="range"
       [orientation]="orientation"
-      [disabled]="disabled"
-      (onChange)="onChange.emit($event)"
       (onSlideEnd)="onSlideEnd.emit($event)"
     ></p-slider>
   `,
 })
-export class SliderComponent implements OnChanges {
-  @Input() value: number | number[] = 0;
-  @Output() valueChange = new EventEmitter<number | number[]>();
+export class SliderComponent implements ControlValueAccessor, OnChanges, OnDestroy {
   @Input() min = 0;
   @Input() max = 100;
   @Input() step: number | undefined = undefined;
   @Input() range = false;
   @Input() orientation: SliderOrientation = 'horizontal';
-  @Input() disabled = false;
-  @Output() onChange = new EventEmitter<SliderChangeEvent>();
+  @Input() set disabled(value: boolean) {
+    value ? this.control.disable() : this.control.enable();
+  }
   @Output() onSlideEnd = new EventEmitter<SliderSlideEndEvent>();
 
-  get normalizedValue(): number | number[] {
-    if (this.range && !Array.isArray(this.value)) {
-      return [this.min, this.max];
-    }
-    if (!this.range && Array.isArray(this.value)) {
-      return this.value[0];
-    }
-    return this.value;
+  readonly control = new FormControl<number | number[]>(0, { nonNullable: true });
+
+  private _onChange: (value: number | number[]) => void = () => {};
+  private _onTouched: () => void = () => {};
+  private readonly _sub: Subscription;
+
+  constructor() {
+    this._sub = this.control.valueChanges.subscribe(v => this._onChange(v));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['range']) {
-      if (this.range && !Array.isArray(this.value)) {
-        this.value = [this.min, this.max];
-      } else if (!this.range && Array.isArray(this.value)) {
-        this.value = this.value[0];
+      const current = this.control.value;
+      if (this.range && !Array.isArray(current)) {
+        this.control.setValue([this.min, this.max], { emitEvent: false });
+      } else if (!this.range && Array.isArray(current)) {
+        this.control.setValue(current[0], { emitEvent: false });
       }
     }
   }
 
-  onNgModelChange(v: number | number[]): void {
-    this.value = v;
-    this.valueChange.emit(v);
+  ngOnDestroy(): void {
+    this._sub.unsubscribe();
+  }
+
+  writeValue(value: number | number[]): void {
+    this.control.setValue(this.normalize(value ?? 0), { emitEvent: false });
+  }
+
+  registerOnChange(fn: (value: number | number[]) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    isDisabled ? this.control.disable() : this.control.enable();
+  }
+
+  private normalize(value: number | number[]): number | number[] {
+    if (this.range && !Array.isArray(value)) return [this.min, this.max];
+    if (!this.range && Array.isArray(value)) return value[0];
+    return value;
   }
 }
