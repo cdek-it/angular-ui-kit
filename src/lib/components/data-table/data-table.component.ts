@@ -43,13 +43,13 @@ export interface DataTableColumn {
               <th [style]="col.headerStyle || 'width: 3rem'">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-            } @else if (col.sortable) {
-              <th [pSortableColumn]="col.field" [style]="col.headerStyle || ''">
-                {{ col.header }}
-                <p-sortIcon [field]="col.field"></p-sortIcon>
-              </th>
             } @else {
-              <th [style]="col.headerStyle || ''">{{ col.header }}</th>
+              <th [pSortableColumn]="col.sortable ? col.field : null" [style]="col.headerStyle || ''">
+                {{ col.header }}
+                @if (col.sortable) {
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                }
+              </th>
             }
           }
         </tr>
