@@ -33,6 +33,15 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' },
       },
     },
+    headerTemplate: {
+      control: false,
+      description: 'Кастомный шаблон заголовка. При наличии заменяет строковый header',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'null' },
+        type: { summary: 'TemplateRef<any> | null' },
+      },
+    },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg', 'xlg'],

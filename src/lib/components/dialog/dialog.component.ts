@@ -23,6 +23,11 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
       [styleClass]="sizeClass"
       [appendTo]="appendTo"
     >
+      @if (headerTemplate) {
+        <ng-template pTemplate="header">
+          <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+        </ng-template>
+      }
       <ng-content></ng-content>
       <ng-template pTemplate="footer">
         <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
@@ -40,6 +45,7 @@ export class DialogComponent {
   @Input() showHeader = true;
   @Input() focusOnShow = false;
   @Input() appendTo: string = 'body';
+  @Input() headerTemplate: TemplateRef<any> | null = null;
   @Input() footerTemplate: TemplateRef<any> | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();
 
