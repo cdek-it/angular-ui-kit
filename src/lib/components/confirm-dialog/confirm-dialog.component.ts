@@ -45,7 +45,6 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
           <div class="p-dialog-footer">
             <p-button
               [label]="message.rejectLabel"
-              severity="secondary"
               variant="text"
               (onClick)="onReject()"
             ></p-button>
