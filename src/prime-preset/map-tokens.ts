@@ -5,6 +5,7 @@ import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
+import { panelmenuCss } from './tokens/components/panelmenu';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -19,6 +20,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
+    },
+    panelmenu: {
+      ...(tokens.components.panelmenu as unknown as ComponentsDesignTokens['panelmenu']),
+      css: panelmenuCss,
     },
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
