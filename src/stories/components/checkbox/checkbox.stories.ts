@@ -5,6 +5,7 @@ import { CheckboxGroupComponent, Group } from './examples/checkbox-group.compone
 import { CheckboxIndeterminateComponent, Indeterminate } from './examples/checkbox-indeterminate.component';
 import { CheckboxDisabledComponent, Disabled } from './examples/checkbox-disabled.component';
 import { CheckboxInvalidComponent, Invalid } from './examples/checkbox-invalid.component';
+import { CheckboxLabelComponent, Label } from './examples/checkbox-label.component';
 
 type CheckboxArgs = CheckboxComponent & { label?: string };
 
@@ -21,6 +22,7 @@ const meta: Meta<CheckboxArgs> = {
         CheckboxIndeterminateComponent,
         CheckboxDisabledComponent,
         CheckboxInvalidComponent,
+        CheckboxLabelComponent,
       ]
     })
   ],
@@ -139,4 +141,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { Invalid, Disabled, Indeterminate, Group };
+export { Invalid, Disabled, Indeterminate, Group, Label };
