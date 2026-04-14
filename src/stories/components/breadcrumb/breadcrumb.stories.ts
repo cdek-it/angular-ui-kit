@@ -1,8 +1,8 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { BreadcrumbComponent } from '../../../lib/components/breadcrumb/breadcrumb.component';
-import { BreadcrumbBasicComponent } from './examples/breadcrumb-basic.component';
-import { BreadcrumbIconsOnlyComponent } from './examples/breadcrumb-icons-only.component';
-import { commonHome, commonItems, iconOnlyItems } from './breadcrumb.data';
+import { BreadcrumbBasicComponent, Basic } from './examples/breadcrumb-basic.component';
+import { BreadcrumbIconsOnlyComponent, IconsOnly } from './examples/breadcrumb-icons-only.component';
+import { commonHome, commonItems } from './breadcrumb.data';
 
 type BreadcrumbArgs = BreadcrumbComponent;
 
@@ -55,13 +55,6 @@ const meta: Meta<BreadcrumbArgs> = {
 export default meta;
 type Story = StoryObj<BreadcrumbArgs>;
 
-const commonTemplate = `
-<breadcrumb
-  [model]="model"
-  [home]="home"
-></breadcrumb>
-`;
-
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
@@ -78,78 +71,5 @@ export const Default: Story = {
   },
 };
 
-// ── Basic ─────────────────────────────────────────────────────────────────────
-export const Basic: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    model: commonItems,
-    home: commonHome,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Хлебные крошки с текстом и иконками.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { BreadcrumbComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-breadcrumb-basic',
-  standalone: true,
-  imports: [BreadcrumbComponent],
-  template: \`
-    <breadcrumb [model]="model" [home]="home"></breadcrumb>
-  \`,
-})
-export class BreadcrumbBasicComponent {
-  home = { icon: 'ti ti-home', url: '#' };
-  model = [
-    { label: 'Электроника', icon: 'ti ti-device-laptop', url: '#' },
-    { label: 'Компьютеры', icon: 'ti ti-cpu', url: '#' },
-    { label: 'Ноутбуки' },
-  ];
-}
-        `,
-      },
-    },
-  },
-};
-
-// ── IconsOnly ─────────────────────────────────────────────────────────────────
-export const IconsOnly: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    model: iconOnlyItems,
-    home: commonHome,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Хлебные крошки только с иконками, без текста.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { BreadcrumbComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-breadcrumb-icons-only',
-  standalone: true,
-  imports: [BreadcrumbComponent],
-  template: \`
-    <breadcrumb [model]="model" [home]="home"></breadcrumb>
-  \`,
-})
-export class BreadcrumbIconsOnlyComponent {
-  home = { icon: 'ti ti-home', url: '#' };
-  model = [
-    { icon: 'ti ti-device-laptop', url: '#' },
-    { icon: 'ti ti-cpu', url: '#' },
-    { icon: 'ti ti-book' },
-  ];
-}
-        `,
-      },
-    },
-  },
-};
+// ── Re-exports from example components ────────────────────────────────────
+export { Basic, IconsOnly };
