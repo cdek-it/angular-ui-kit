@@ -5,6 +5,7 @@ import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
+import { checkboxCss } from './tokens/components/checkbox';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -15,6 +16,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     avatar: {
       ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
       css: avatarCss,
+    },
+    checkbox: {
+      ...(tokens.components.checkbox as unknown as ComponentsDesignTokens['checkbox']),
+      css: checkboxCss,
     },
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),

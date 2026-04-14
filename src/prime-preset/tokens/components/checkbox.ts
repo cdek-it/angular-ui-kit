@@ -1,4 +1,41 @@
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
+/* ─── Label типографика ─── */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  color: ${dt('text.color')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: normal;
+  cursor: pointer;
+}
+
+.checkbox-label--hover {
+  color: ${dt('text.primaryColor')};
+}
+
+.checkbox-label--disabled {
+  color: ${dt('text.mutedColor')};
+  cursor: default;
+}
+
+.checkbox-caption {
+  color: ${dt('text.secondaryColor')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: normal;
+}
+
+.checkbox-caption--hover {
+  color: ${dt('text.primaryColor')};
+}
+
+.checkbox-caption--disabled {
+  color: ${dt('text.disabledColor')};
+}
+
 /* Переопределение ширины border для checkbox */
 .p-checkbox-box {
   border-width: ${dt('checkbox.root.extend.borderWidth')};

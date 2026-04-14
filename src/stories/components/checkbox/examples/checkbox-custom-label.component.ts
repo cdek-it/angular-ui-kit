@@ -3,80 +3,26 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
+const styles = '';
+
 @Component({
   selector: 'app-checkbox-custom-label',
   standalone: true,
   imports: [CheckboxComponent, ReactiveFormsModule],
-  styles: [`
-    .custom-label-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .label-container {
-      display: flex;
-      flex-direction: column;
-      gap: 3.5px;
-    }
-
-    .label-text {
-      color: var(--text-color, #2B2E33);
-      font-family: var(--typography-font-family-base, "PT Sans");
-      font-size: var(--typography-font-size-text-base, 14px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      cursor: pointer;
-    }
-
-    .label-text.hover {
-      color: var(--text-primary-color, #1DC831);
-    }
-
-    .label-text.disabled {
-      color: var(--text-muted-color, #85888E);
-      cursor: default;
-    }
-
-    .caption-text {
-      color: var(--text-secondary-color, #6D7076);
-      font-family: var(--typography-font-family-heading, "TT Fellows");
-      font-size: var(--typography-font-size-text-sm, 12.25px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-    }
-
-    .caption-text.hover {
-      color: var(--text-primary-color, #1DC831);
-    }
-
-    .caption-text.disabled {
-      color: var(--text-disabled-color, #CECFD2);
-    }
-  `],
+  styles,
   template: `
-    <div class="custom-label-wrapper">
+    <div class="flex items-center gap-3.5">
       @if (labelPosition === 'left') {
-        <checkbox
-          [formControl]="formControl"
-          [inputId]="inputId"
-          [binary]="true"
-        ></checkbox>
+        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
       }
-      <div class="label-container">
-        <label [for]="inputId" [class]="'label-text ' + state">{{ label }}</label>
+      <div class="flex flex-col gap-[3.5px]">
+        <label [for]="inputId" [class]="labelClass">{{ label }}</label>
         @if (caption) {
-          <span [class]="'caption-text ' + state">{{ caption }}</span>
+          <span [class]="captionClass">{{ caption }}</span>
         }
       </div>
       @if (labelPosition === 'right') {
-        <checkbox
-          [formControl]="formControl"
-          [inputId]="inputId"
-          [binary]="true"
-        ></checkbox>
+        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
       }
     </div>
   `,
@@ -85,13 +31,22 @@ export class CheckboxCustomLabelComponent {
   @Input() label = 'Checkbox';
   @Input() caption = 'caption';
   @Input() labelPosition: 'left' | 'right' = 'left';
-  @Input() state: 'default' | 'hover' | 'disabled' = 'default';
+  @Input() invalid = false;
+  @Input() disabled = false;
   @Input() inputId = 'custom-checkbox';
 
   formControl = new FormControl(false);
 
+  get labelClass(): string {
+    return this.disabled ? 'checkbox-label checkbox-label--disabled' : 'checkbox-label';
+  }
+
+  get captionClass(): string {
+    return this.disabled ? 'checkbox-caption checkbox-caption--disabled' : 'checkbox-caption';
+  }
+
   ngOnChanges(): void {
-    if (this.state === 'disabled') {
+    if (this.disabled) {
       this.formControl.disable();
     } else {
       this.formControl.enable();
@@ -100,44 +55,48 @@ export class CheckboxCustomLabelComponent {
 }
 
 export const CustomLabel: StoryObj = {
-  render: () => ({
+  render: (args) => ({
+    props: { ...args, checked: false },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <app-checkbox-custom-label
-          label="Checkbox"
-          caption="caption"
-          labelPosition="left"
-          state="default"
-          inputId="cl-default"
-        ></app-checkbox-custom-label>
-        <app-checkbox-custom-label
-          label="Checkbox"
-          caption="caption"
-          labelPosition="left"
-          state="hover"
-          inputId="cl-hover"
-        ></app-checkbox-custom-label>
-        <app-checkbox-custom-label
-          label="Checkbox"
-          caption="caption"
-          labelPosition="left"
-          state="disabled"
-          inputId="cl-disabled"
-        ></app-checkbox-custom-label>
-        <app-checkbox-custom-label
-          label="Checkbox"
-          caption="caption"
-          labelPosition="right"
-          state="default"
-          inputId="cl-right"
-        ></app-checkbox-custom-label>
-      </div>
+      <app-checkbox-custom-label
+        [label]="label"
+        [caption]="caption"
+        [labelPosition]="labelPosition"
+        [invalid]="invalid"
+        [disabled]="disabled"
+        inputId="custom-label"
+      ></app-checkbox-custom-label>
     `,
   }),
+  args: {
+    label: 'Checkbox',
+    caption: 'caption',
+    labelPosition: 'left',
+    invalid: false,
+    disabled: false,
+  },
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'Текст метки',
+      table: { category: 'Props' },
+    },
+    caption: {
+      control: 'text',
+      description: 'Подпись под меткой',
+      table: { category: 'Props' },
+    },
+    labelPosition: {
+      control: 'select',
+      options: ['left', 'right'],
+      description: 'Позиция чекбокса относительно метки',
+      table: { category: 'Props', defaultValue: { summary: 'left' } },
+    },
+  },
   parameters: {
     docs: {
       description: {
-        story: 'Чекбокс с label и caption. Состояния: default, hover, disabled. Позиция метки: left / right.',
+        story: 'Чекбокс с label и caption. Управляйте состоянием через Controls.',
       },
       source: {
         language: 'ts',
@@ -150,49 +109,19 @@ import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-checkbox-custom-label',
   standalone: true,
   imports: [CheckboxComponent, ReactiveFormsModule],
-  styles: [\`
-    .custom-label-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .label-container {
-      display: flex;
-      flex-direction: column;
-      gap: 3.5px;
-    }
-    .label-text {
-      color: var(--text-color, #2B2E33);
-      font-family: var(--typography-font-family-base, "PT Sans");
-      font-size: var(--typography-font-size-text-base, 14px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      cursor: pointer;
-    }
-    .label-text.disabled { color: var(--text-muted-color, #85888E); cursor: default; }
-    .caption-text {
-      color: var(--text-secondary-color, #6D7076);
-      font-family: var(--typography-font-family-heading, "TT Fellows");
-      font-size: var(--typography-font-size-text-sm, 12.25px);
-      font-weight: 400;
-      line-height: normal;
-    }
-    .caption-text.disabled { color: var(--text-disabled-color, #CECFD2); }
-  \`],
   template: \`
-    <div class="custom-label-wrapper">
+    <div class="flex items-center gap-3.5">
       @if (labelPosition === 'left') {
-        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true"></checkbox>
+        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
       }
-      <div class="label-container">
-        <label [for]="inputId" [class]="'label-text ' + state">{{ label }}</label>
+      <div class="flex flex-col gap-[3.5px]">
+        <label [for]="inputId" [class]="labelClass">{{ label }}</label>
         @if (caption) {
-          <span [class]="'caption-text ' + state">{{ caption }}</span>
+          <span [class]="captionClass">{{ caption }}</span>
         }
       </div>
       @if (labelPosition === 'right') {
-        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true"></checkbox>
+        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
       }
     </div>
   \`,
@@ -201,13 +130,22 @@ export class CheckboxCustomLabelComponent implements OnChanges {
   @Input() label = 'Checkbox';
   @Input() caption = 'caption';
   @Input() labelPosition: 'left' | 'right' = 'left';
-  @Input() state: 'default' | 'hover' | 'disabled' = 'default';
+  @Input() invalid = false;
+  @Input() disabled = false;
   @Input() inputId = 'custom-checkbox';
 
   formControl = new FormControl(false);
 
+  get labelClass(): string {
+    return this.disabled ? 'checkbox-label checkbox-label--disabled' : 'checkbox-label';
+  }
+
+  get captionClass(): string {
+    return this.disabled ? 'checkbox-caption checkbox-caption--disabled' : 'checkbox-caption';
+  }
+
   ngOnChanges(): void {
-    if (this.state === 'disabled') {
+    if (this.disabled) {
       this.formControl.disable();
     } else {
       this.formControl.enable();

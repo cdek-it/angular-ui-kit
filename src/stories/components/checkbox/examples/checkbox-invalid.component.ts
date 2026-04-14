@@ -3,47 +3,47 @@ import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
-const template = `
-  <checkbox [binary]="true" [invalid]="true" [(ngModel)]="val1"></checkbox>
-`;
+const styles = '';
 
 @Component({
   selector: 'app-checkbox-invalid',
   standalone: true,
   imports: [CheckboxComponent, FormsModule],
-  template,
+  styles,
+  template: `
+    <checkbox [binary]="true" [invalid]="true" [(ngModel)]="checked"></checkbox>
+  `,
 })
 export class CheckboxInvalidComponent {
-  val1 = false;
-  val2 = true;
+  checked = false;
 }
 
 export const Invalid: StoryObj = {
-  render: () => ({
-    template: `<app-checkbox-invalid></app-checkbox-invalid>`,
+  render: (args) => ({
+    props: { ...args, checked: false },
+    template: `<checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked"></checkbox>`,
   }),
+  args: { invalid: true },
   parameters: {
     docs: {
-      description: { story: 'Пример невалидного состояния чекбокса.' },
+      description: { story: 'Невалидное состояние чекбокса.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox-invalid',
   standalone: true,
-  imports: [CheckboxComponent, FormsModule],
+  imports: [CheckboxComponent, ReactiveFormsModule],
   template: \`
-    <checkbox [binary]="true" [invalid]="true" [(ngModel)]="val1"></checkbox>
-    <checkbox [binary]="true" [invalid]="true" [(ngModel)]="val2"></checkbox>
+    <checkbox [binary]="true" [formControl]="control"></checkbox>
   \`,
 })
 export class CheckboxInvalidComponent {
-  val1 = false;
-  val2 = true;
+  control = new FormControl(false, [Validators.requiredTrue]);
 }
         `,
       },

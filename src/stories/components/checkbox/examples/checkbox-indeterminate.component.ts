@@ -3,44 +3,47 @@ import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
-const template = `
-  <checkbox [indeterminate]="true" [binary]="true" [(ngModel)]="val1"></checkbox>
-`;
+const styles = '';
 
 @Component({
   selector: 'app-checkbox-indeterminate',
   standalone: true,
   imports: [CheckboxComponent, FormsModule],
-  template,
+  styles,
+  template: `
+    <checkbox [binary]="true" [indeterminate]="true" [(ngModel)]="checked"></checkbox>
+  `,
 })
 export class CheckboxIndeterminateComponent {
-  val1 = false;
+  checked = false;
 }
 
 export const Indeterminate: StoryObj = {
-  render: () => ({
-    template: `<app-checkbox-indeterminate></app-checkbox-indeterminate>`,
+  render: (args) => ({
+    props: { ...args, checked: false },
+    template: `<checkbox [binary]="true" [indeterminate]="indeterminate" [disabled]="disabled" [(ngModel)]="checked"></checkbox>`,
   }),
+  args: { indeterminate: true },
   parameters: {
     docs: {
-      description: { story: 'Состояние indeterminate (неопределенное).' },
+      description: { story: 'Неопределённое состояние чекбокса.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
 import { FormsModule } from '@angular/forms';
+import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-checkbox-indeterminate',
   standalone: true,
   imports: [CheckboxComponent, FormsModule],
   template: \`
-    <checkbox [indeterminate]="true" [binary]="true" [(ngModel)]="val1"></checkbox>
+    <checkbox [binary]="true" [indeterminate]="true" [(ngModel)]="checked"></checkbox>
   \`,
 })
 export class CheckboxIndeterminateComponent {
-  val1 = false;
+  checked = false;
 }
         `,
       },

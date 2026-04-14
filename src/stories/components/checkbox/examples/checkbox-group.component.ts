@@ -27,6 +27,7 @@ export const Group: StoryObj = {
     template: `<app-checkbox-group></app-checkbox-group>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Использование нескольких чекбоксов для выбора нескольких значений из массива.' },
       source: {

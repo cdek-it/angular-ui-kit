@@ -3,47 +3,47 @@ import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
-const template = `
-<checkbox [disabled]="true" [binary]="true" [(ngModel)]="val1"></checkbox>
-`;
+const styles = '';
 
 @Component({
   selector: 'app-checkbox-disabled',
   standalone: true,
   imports: [CheckboxComponent, FormsModule],
-  template,
+  styles,
+  template: `
+    <checkbox [binary]="true" [disabled]="true" [(ngModel)]="checked"></checkbox>
+  `,
 })
 export class CheckboxDisabledComponent {
-  val1 = true;
-  val2 = false;
+  checked = true;
 }
 
 export const Disabled: StoryObj = {
-  render: () => ({
-    template: `<app-checkbox-disabled></app-checkbox-disabled>`,
+  render: (args) => ({
+    props: { ...args, checked: true },
+    template: `<checkbox [binary]="true" [disabled]="disabled" [invalid]="invalid" [(ngModel)]="checked"></checkbox>`,
   }),
+  args: { disabled: true },
   parameters: {
     docs: {
-      description: { story: 'Пример использования заблокированного чекбокса.' },
+      description: { story: 'Заблокированное состояние чекбокса.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox-disabled',
   standalone: true,
-  imports: [CheckboxComponent, FormsModule],
+  imports: [CheckboxComponent, ReactiveFormsModule],
   template: \`
-    <checkbox [disabled]="true" [binary]="true" [(ngModel)]="val1"></checkbox>
-    <checkbox [disabled]="true" [binary]="true" [(ngModel)]="val2"></checkbox>
+    <checkbox [binary]="true" [formControl]="control"></checkbox>
   \`,
 })
 export class CheckboxDisabledComponent {
-  val1 = true;
-  val2 = false;
+  control = new FormControl({ value: true, disabled: true });
 }
         `,
       },
