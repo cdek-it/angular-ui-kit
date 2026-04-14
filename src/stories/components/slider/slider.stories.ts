@@ -1,9 +1,9 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { SliderComponent } from '../../../lib/components/slider/slider.component';
-import { SliderRangeComponent } from './examples/slider-range.component';
-import { SliderStepComponent } from './examples/slider-step.component';
-import { SliderVerticalComponent } from './examples/slider-vertical.component';
-import { SliderDisabledComponent } from './examples/slider-disabled.component';
+import { SliderRangeComponent, Range } from './examples/slider-range.component';
+import { SliderStepComponent, Step } from './examples/slider-step.component';
+import { SliderVerticalComponent, Vertical } from './examples/slider-vertical.component';
+import { SliderDisabledComponent, Disabled } from './examples/slider-disabled.component';
 
 const meta: Meta<SliderComponent> = {
   title: 'Components/Form/Slider',
@@ -99,17 +99,6 @@ import { SliderComponent } from '@cdek-it/angular-ui-kit';
   },
 };
 
-const commonTemplate = `
-<slider
-  [min]="min"
-  [max]="max"
-  [step]="step"
-  [range]="range"
-  [orientation]="orientation"
-  [disabled]="disabled"
-></slider>
-`;
-
 export default meta;
 type Story = StoryObj<SliderComponent>;
 
@@ -150,154 +139,5 @@ export const Default: Story = {
   },
 };
 
-// ── Range ─────────────────────────────────────────────────────────────────────
-
-export const Range: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    min: 0,
-    max: 100,
-    range: true,
-    orientation: 'horizontal',
-    disabled: false,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Выбор диапазона значений с двумя ползунками.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-range',
-  standalone: true,
-  imports: [SliderComponent, FormsModule],
-  template: \`
-    <slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></slider>
-  \`,
-})
-export class SliderRangeComponent {
-  value: number[] = [20, 80];
-}
-        `,
-      },
-    },
-  },
-};
-
-// ── Step ──────────────────────────────────────────────────────────────────────
-
-export const Step: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    min: 0,
-    max: 100,
-    step: 10,
-    range: false,
-    orientation: 'horizontal',
-    disabled: false,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Слайдер с шагом изменения значения.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-step',
-  standalone: true,
-  imports: [SliderComponent, FormsModule],
-  template: \`
-    <slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></slider>
-  \`,
-})
-export class SliderStepComponent {
-  value = 50;
-}
-        `,
-      },
-    },
-  },
-};
-
-// ── Vertical ──────────────────────────────────────────────────────────────────
-
-export const Vertical: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    min: 0,
-    max: 100,
-    range: false,
-    orientation: 'vertical',
-    disabled: false,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Слайдер с вертикальной ориентацией.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-vertical',
-  standalone: true,
-  imports: [SliderComponent, FormsModule],
-  template: \`
-    <div style="height: 220px">
-      <slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></slider>
-    </div>
-  \`,
-})
-export class SliderVerticalComponent {
-  value = 50;
-}
-        `,
-      },
-    },
-  },
-};
-
-// ── Disabled ──────────────────────────────────────────────────────────────────
-
-export const Disabled: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    min: 0,
-    max: 100,
-    range: false,
-    orientation: 'horizontal',
-    disabled: true,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Слайдер в отключённом состоянии.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-disabled',
-  standalone: true,
-  imports: [SliderComponent],
-  template: \`
-    <slider [disabled]="true"></slider>
-  \`,
-})
-export class SliderDisabledComponent {}
-        `,
-      },
-    },
-  },
-};
+// ── Re-exports from example components ────────────────────────────────────
+export { Range, Step, Vertical, Disabled };
