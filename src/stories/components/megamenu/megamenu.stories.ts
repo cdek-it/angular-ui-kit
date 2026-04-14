@@ -1,13 +1,16 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MegaMenuComponent } from '../../../lib/components/megamenu/megamenu.component';
-import { MegaMenuHorizontalComponent } from './examples/megamenu-horizontal.component';
-import { MegaMenuVerticalComponent } from './examples/megamenu-vertical.component';
+import { MegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
 import { MegaMenuCustomComponent } from './examples/megamenu-custom.component';
 
 const meta: Meta<MegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
   component: MegaMenuComponent,
   tags: ['autodocs'],
+  decorators: [
+    moduleMetadata({
+      imports: [MegaMenuComponent],
+    }),
+  ],
   parameters: {
     docs: {
       description: {
@@ -52,53 +55,102 @@ import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
       },
     },
   },
+  args: {
+    orientation: 'horizontal',
+    disabled: false,
+  },
 };
 
 export default meta;
 type Story = StoryObj<MegaMenuComponent>;
 
-// ── Horizontal ──────────────────────────────────────────────────────────────
-export const Horizontal: Story = {
-  name: 'Horizontal',
-  decorators: [moduleMetadata({ imports: [MegaMenuHorizontalComponent] })],
-  render: () => ({ template: `<app-megamenu-horizontal></app-megamenu-horizontal>` }),
+const baseItems: MegaMenuModel[] = [
+  {
+    label: 'Products',
+    icon: 'ti ti-box',
+    items: [
+      [
+        {
+          label: 'UI Components',
+          items: [
+            { label: 'Form', icon: 'ti ti-forms' },
+            { label: 'Button', icon: 'ti ti-hand-click' },
+            { label: 'Table', icon: 'ti ti-table' },
+          ],
+        },
+      ],
+      [
+        {
+          label: 'Charts',
+          items: [
+            { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
+            { label: 'Line Chart', icon: 'ti ti-chart-line' },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    label: 'Solutions',
+    icon: 'ti ti-bulb',
+    items: [
+      [
+        {
+          label: 'Business',
+          items: [
+            { label: 'Analytics', icon: 'ti ti-chart-dots' },
+            { label: 'CRM', icon: 'ti ti-users' },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    label: 'Contact',
+    icon: 'ti ti-mail',
+    disabled: true,
+  },
+];
+
+const commonTemplate = `
+<megamenu
+  [model]="model"
+  [orientation]="orientation"
+  [disabled]="disabled"
+></megamenu>
+`;
+
+// ── Default ──────────────────────────────────────────────────────────────────
+export const Default: Story = {
+  name: 'Default',
+  render: (args) => ({
+    props: { ...args, model: baseItems },
+    template: commonTemplate,
+  }),
   parameters: {
     docs: {
       description: {
-        story: 'Горизонтальная ориентация (по умолчанию).',
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items"></megamenu>\`,
-})
-export class ExampleComponent {
-  items: MegaMenuModel[] = [
-    {
-      label: 'Products',
-      icon: 'ti ti-box',
-      items: [
-        [
-          {
-            label: 'UI Components',
-            items: [
-              { label: 'Form', icon: 'ti ti-forms' },
-              { label: 'Button', icon: 'ti ti-hand-click' },
-            ],
-          },
-        ],
-      ],
+        code: `<megamenu [model]="items"></megamenu>`,
+      },
     },
-    { label: 'Contact', icon: 'ti ti-mail', disabled: true },
-  ];
-}`,
+  },
+};
+
+// ── Horizontal ──────────────────────────────────────────────────────────────
+export const Horizontal: Story = {
+  render: (args) => ({
+    props: { ...args, model: baseItems },
+    template: commonTemplate,
+  }),
+  args: { orientation: 'horizontal' },
+  parameters: {
+    docs: {
+      description: { story: 'Горизонтальная ориентация (по умолчанию).' },
+      source: {
+        code: `<megamenu [model]="items"></megamenu>`,
       },
     },
   },
@@ -106,45 +158,16 @@ export class ExampleComponent {
 
 // ── Vertical ────────────────────────────────────────────────────────────────
 export const Vertical: Story = {
-  name: 'Vertical',
-  decorators: [moduleMetadata({ imports: [MegaMenuVerticalComponent] })],
-  render: () => ({ template: `<app-megamenu-vertical></app-megamenu-vertical>` }),
+  render: (args) => ({
+    props: { ...args, model: baseItems },
+    template: commonTemplate,
+  }),
+  args: { orientation: 'vertical' },
   parameters: {
     docs: {
-      description: {
-        story: 'Вертикальная ориентация.',
-      },
+      description: { story: 'Вертикальная ориентация.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items" orientation="vertical"></megamenu>\`,
-})
-export class ExampleComponent {
-  items: MegaMenuModel[] = [
-    {
-      label: 'Products',
-      icon: 'ti ti-box',
-      items: [
-        [
-          {
-            label: 'UI Components',
-            items: [
-              { label: 'Form', icon: 'ti ti-forms' },
-              { label: 'Button', icon: 'ti ti-hand-click' },
-            ],
-          },
-        ],
-      ],
-    },
-  ];
-}`,
+        code: `<megamenu [model]="items" orientation="vertical"></megamenu>`,
       },
     },
   },
@@ -152,10 +175,10 @@ export class ExampleComponent {
 
 // ── Custom ──────────────────────────────────────────────────────────────────
 export const Custom: Story = {
-  name: 'Custom',
   decorators: [moduleMetadata({ imports: [MegaMenuCustomComponent] })],
   render: () => ({ template: `<app-megamenu-custom></app-megamenu-custom>` }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Пункты меню с описанием (description) и бейджами.',
