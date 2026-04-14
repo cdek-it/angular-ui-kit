@@ -1,6 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { MegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
-import { MegaMenuCustomComponent } from './examples/megamenu-custom.component';
 
 const meta: Meta<MegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
@@ -174,50 +173,87 @@ export const Vertical: Story = {
 };
 
 // ── Custom ──────────────────────────────────────────────────────────────────
+const customItems: MegaMenuModel[] = [
+  {
+    label: 'Products',
+    icon: 'ti ti-box',
+    items: [
+      [
+        {
+          label: 'Components',
+          items: [
+            {
+              label: 'Form',
+              description: 'Input, Select, Checkbox',
+              icon: 'ti ti-forms',
+              badge: 'New',
+            } as any,
+            {
+              label: 'Button',
+              description: 'Actions and triggers',
+              icon: 'ti ti-hand-click',
+            } as any,
+          ],
+        },
+      ],
+      [
+        {
+          label: 'Charts',
+          items: [
+            {
+              label: 'Bar Chart',
+              description: 'Categorical comparison',
+              icon: 'ti ti-chart-bar',
+            } as any,
+            {
+              label: 'Line Chart',
+              description: 'Trends over time',
+              icon: 'ti ti-chart-line',
+              badge: 'Beta',
+            } as any,
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    label: 'Solutions',
+    icon: 'ti ti-bulb',
+    items: [
+      [
+        {
+          label: 'Business',
+          items: [
+            {
+              label: 'Analytics',
+              description: 'Reports and dashboards',
+              icon: 'ti ti-chart-dots',
+            } as any,
+            {
+              label: 'CRM',
+              description: 'Customer management',
+              icon: 'ti ti-users',
+              badge: 'Pro',
+            } as any,
+          ],
+        },
+      ],
+    ],
+  },
+];
+
 export const Custom: Story = {
-  decorators: [moduleMetadata({ imports: [MegaMenuCustomComponent] })],
-  render: () => ({ template: `<app-megamenu-custom></app-megamenu-custom>` }),
+  render: (args) => ({
+    props: { ...args, model: customItems },
+    template: commonTemplate,
+  }),
   parameters: {
-    controls: { disable: true },
     docs: {
       description: {
         story: 'Пункты меню с описанием (description) и бейджами.',
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items"></megamenu>\`,
-})
-export class ExampleComponent {
-  items: MegaMenuModel[] = [
-    {
-      label: 'Products',
-      icon: 'ti ti-box',
-      items: [
-        [
-          {
-            label: 'Components',
-            items: [
-              {
-                label: 'Form',
-                description: 'Input, Select, Checkbox',
-                icon: 'ti ti-forms',
-                badge: 'New',
-              },
-            ],
-          },
-        ],
-      ],
-    },
-  ];
-}`,
+        code: `<megamenu [model]="items"></megamenu>`,
       },
     },
   },
