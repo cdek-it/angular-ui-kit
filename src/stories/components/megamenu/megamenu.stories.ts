@@ -122,17 +122,19 @@ const commonTemplate = `
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => ({
-    props: { ...args, model: baseItems },
-    template: commonTemplate,
-  }),
+  render: (args) => {
+    const parts: string[] = ['[model]="model"'];
+
+    if (args.orientation && args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
+    if (args.disabled) parts.push(`[disabled]="true"`);
+
+    const template = `<megamenu\n  ${parts.join('\n  ')}\n></megamenu>`;
+    return { props: { ...args, model: baseItems }, template };
+  },
   parameters: {
     docs: {
       description: {
         story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-      source: {
-        code: `<megamenu [model]="items"></megamenu>`,
       },
     },
   },
