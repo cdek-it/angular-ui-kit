@@ -3,6 +3,7 @@ import type { ComponentsDesignTokens } from '@primeuix/themes/types';
 import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 
 import tokens from './tokens/tokens.json';
+import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { tagCss } from './tokens/components/tag';
 
@@ -11,6 +12,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
   semantic: tokens.semantic as unknown as AuraBaseDesignTokens['semantic'],
   components: {
     ...(tokens.components as unknown as ComponentsDesignTokens),
+    avatar: {
+      ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
+      css: avatarCss,
+    },
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
