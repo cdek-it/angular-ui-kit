@@ -3,21 +3,26 @@ import type { ComponentsDesignTokens } from '@primeuix/themes/types';
 import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 
 import tokens from './tokens/tokens.json';
+import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
-import { chipCss } from './tokens/components/chip';
+import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
   semantic: tokens.semantic as unknown as AuraBaseDesignTokens['semantic'],
   components: {
     ...(tokens.components as unknown as ComponentsDesignTokens),
+    avatar: {
+      ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
+      css: avatarCss,
+    },
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
-    chip: {
-      ...(tokens.components.chip as unknown as ComponentsDesignTokens['chip']),
-      css: chipCss,
+    tooltip: {
+      ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
+      css: tooltipCss,
     },
   } as ComponentsDesignTokens,
 };
