@@ -6,7 +6,7 @@ import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.
 const template = `
 <form class="flex align-items-center gap-1">
   <checkbox [formControl]="formControl" inputId="checkbox" [binary]="true"></checkbox>
-  <label for="checkbox">Checkbox</label>
+  <label for="checkbox" class="checkbox-label">Checkbox</label>
 </form>
 `;
 
@@ -14,6 +14,17 @@ const template = `
   selector: 'app-checkbox-label',
   standalone: true,
   imports: [CheckboxComponent, ReactiveFormsModule],
+  styles: [`
+    .checkbox-label {
+      color: var(--text-color, #2B2E33);
+      font-family: var(--typography-font-family-base, "PT Sans");
+      font-size: var(--typography-font-size-text-base, 14px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      cursor: pointer;
+    }
+  `],
   template,
 })
 export class CheckboxLabelComponent {
@@ -38,10 +49,21 @@ import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-checkbox-label',
   standalone: true,
   imports: [CheckboxComponent, ReactiveFormsModule],
+  styles: [\`
+    .checkbox-label {
+      color: var(--text-color, #2B2E33);
+      font-family: var(--typography-font-family-base, "PT Sans");
+      font-size: var(--typography-font-size-text-base, 14px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      cursor: pointer;
+    }
+  \`],
   template: \`
     <form class="flex align-items-center gap-1">
       <checkbox [formControl]="formControl" inputId="checkbox" [binary]="true"></checkbox>
-      <label for="checkbox">Checkbox</label>
+      <label for="checkbox" class="checkbox-label">Checkbox</label>
     </form>
   \`,
 })
