@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ToggleSwitchComponent } from '../../../../lib/components/toggleswitch/toggleswitch.component';
-
-const template = `
-  <toggleswitch [(ngModel)]="value" [disabled]="true"></toggleswitch>
-`;
 
 @Component({
   selector: 'app-toggleswitch-disabled',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
-  template,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: `
+    <toggleswitch [formControl]="control"></toggleswitch>
+  `,
 })
 export class ToggleSwitchDisabledComponent {
-  value = false;
+  control = new FormControl({ value: false, disabled: true });
 }
 
 export const Disabled: StoryObj = {
@@ -23,24 +21,24 @@ export const Disabled: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Заблокированное состояние переключателя.' },
+      description: { story: 'Заблокированное состояние переключателя через FormControl.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-toggleswitch-disabled',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
   template: \`
-    <toggleswitch [(ngModel)]="value" [disabled]="true"></toggleswitch>
+    <toggleswitch [formControl]="control"></toggleswitch>
   \`,
 })
 export class ToggleSwitchDisabledComponent {
-  value = false;
+  control = new FormControl({ value: false, disabled: true });
 }
         `,
       },

@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ToggleSwitchComponent } from '../../../../lib/components/toggleswitch/toggleswitch.component';
-
-const template = `
-  <toggleswitch [(ngModel)]="value"></toggleswitch>
-`;
 
 @Component({
   selector: 'app-toggleswitch-checked',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
-  template,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: `
+    <toggleswitch [formControl]="control"></toggleswitch>
+  `,
 })
 export class ToggleSwitchCheckedComponent {
-  value = true;
+  control = new FormControl(true);
 }
 
 export const Checked: StoryObj = {
@@ -28,19 +26,19 @@ export const Checked: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-toggleswitch-checked',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
   template: \`
-    <toggleswitch [(ngModel)]="value"></toggleswitch>
+    <toggleswitch [formControl]="control"></toggleswitch>
   \`,
 })
 export class ToggleSwitchCheckedComponent {
-  value = true;
+  control = new FormControl(true);
 }
         `,
       },

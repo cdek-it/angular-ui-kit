@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ToggleSwitchComponent } from '../../../../lib/components/toggleswitch/toggleswitch.component';
-
-const template = `
-  <toggleswitch [(ngModel)]="value" [invalid]="true"></toggleswitch>
-`;
 
 @Component({
   selector: 'app-toggleswitch-invalid',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
-  template,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: `
+    <toggleswitch [formControl]="control"></toggleswitch>
+  `,
 })
 export class ToggleSwitchInvalidComponent {
-  value = false;
+  // Validators.requiredTrue требует значение true, поэтому false делает контрол невалидным
+  control = new FormControl(false, [Validators.requiredTrue]);
 }
 
 export const Invalid: StoryObj = {
@@ -23,24 +22,24 @@ export const Invalid: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Невалидное состояние переключателя.' },
+      description: { story: 'Невалидное состояние переключателя через FormControl и Validators.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-toggleswitch-invalid',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
   template: \`
-    <toggleswitch [(ngModel)]="value" [invalid]="true"></toggleswitch>
+    <toggleswitch [formControl]="control"></toggleswitch>
   \`,
 })
 export class ToggleSwitchInvalidComponent {
-  value = false;
+  control = new FormControl(false, [Validators.requiredTrue]);
 }
         `,
       },

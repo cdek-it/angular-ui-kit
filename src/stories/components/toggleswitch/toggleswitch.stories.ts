@@ -1,13 +1,11 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToggleSwitchComponent } from '../../../lib/components/toggleswitch/toggleswitch.component';
 import { ToggleSwitchCheckedComponent } from './examples/toggleswitch-checked.component';
 import { ToggleSwitchInvalidComponent } from './examples/toggleswitch-invalid.component';
 import { ToggleSwitchDisabledComponent } from './examples/toggleswitch-disabled.component';
 
-type ToggleSwitchArgs = ToggleSwitchComponent;
-
-const meta: Meta<ToggleSwitchArgs> = {
+const meta: Meta<ToggleSwitchComponent> = {
   title: 'Components/Form/ToggleSwitch',
   component: ToggleSwitchComponent,
   tags: ['autodocs'],
@@ -15,7 +13,7 @@ const meta: Meta<ToggleSwitchArgs> = {
     moduleMetadata({
       imports: [
         ToggleSwitchComponent,
-        FormsModule,
+        ReactiveFormsModule,
         ToggleSwitchCheckedComponent,
         ToggleSwitchInvalidComponent,
         ToggleSwitchDisabledComponent,
@@ -26,31 +24,11 @@ const meta: Meta<ToggleSwitchArgs> = {
     designTokens: { prefix: '--p-toggleswitch' },
     docs: {
       description: {
-        component: `Компонент для переключения между двумя состояниями.`,
+        component: `Компонент для переключения между двумя состояниями. Состояния \`disabled\` и \`invalid\` управляются через \`FormControl\`, не через пропсы.`,
       },
     },
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
-    invalid: {
-      control: 'boolean',
-      description: 'Подсвечивает переключатель как невалидный',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает возможность взаимодействия',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-
     // ── Events ───────────────────────────────────────────────
     onChange: {
       control: false,
@@ -77,38 +55,39 @@ const meta: Meta<ToggleSwitchArgs> = {
       },
     },
   },
-  args: {
-    invalid: false,
-    disabled: false,
-  },
 };
 
 export default meta;
-type Story = StoryObj<ToggleSwitchArgs>;
-
-const commonTemplate = `
-<toggleswitch
-  [(ngModel)]="value"
-  [invalid]="invalid"
-  [disabled]="disabled"
-></toggleswitch>
-`;
+type Story = StoryObj<ToggleSwitchComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [`[(ngModel)]="value"`];
-    if (args.invalid) parts.push(`[invalid]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-
-    const template = `<toggleswitch\n  ${parts.join('\n  ')}\n></toggleswitch>`;
-    return { props: { ...args, value: false }, template };
-  },
+  render: () => ({
+    props: { control: new FormControl(false) },
+    template: `<toggleswitch [formControl]="control"></toggleswitch>`,
+  }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
+        story: 'Базовый пример. Управление значением и состоянием через `FormControl`.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  standalone: true,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: \`<toggleswitch [formControl]="control"></toggleswitch>\`,
+})
+export class Example {
+  control = new FormControl(false);
+}
+        `,
       },
     },
   },
@@ -116,8 +95,9 @@ export const Default: Story = {
 
 // ── Checked ───────────────────────────────────────────────────────────────────
 export const Checked: Story = {
-  render: (args) => ({ props: { ...args, value: true }, template: commonTemplate }),
-  args: { invalid: false, disabled: false },
+  render: () => ({
+    template: `<app-toggleswitch-checked></app-toggleswitch-checked>`,
+  }),
   parameters: {
     docs: {
       description: { story: 'Переключатель во включённом состоянии.' },
@@ -125,19 +105,16 @@ export const Checked: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-toggleswitch-checked',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
-  template: \`
-    <toggleswitch [(ngModel)]="value"></toggleswitch>
-  \`,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: \`<toggleswitch [formControl]="control"></toggleswitch>\`,
 })
 export class ToggleSwitchCheckedComponent {
-  value = true;
+  control = new FormControl(true);
 }
         `,
       },
@@ -147,28 +124,26 @@ export class ToggleSwitchCheckedComponent {
 
 // ── Invalid ───────────────────────────────────────────────────────────────────
 export const Invalid: Story = {
-  render: (args) => ({ props: { ...args, value: false }, template: commonTemplate }),
-  args: { invalid: true, disabled: false },
+  render: () => ({
+    template: `<app-toggleswitch-invalid></app-toggleswitch-invalid>`,
+  }),
   parameters: {
     docs: {
-      description: { story: 'Невалидное состояние переключателя.' },
+      description: { story: 'Невалидное состояние через `FormControl` и `Validators`.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-toggleswitch-invalid',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
-  template: \`
-    <toggleswitch [(ngModel)]="value" [invalid]="true"></toggleswitch>
-  \`,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: \`<toggleswitch [formControl]="control"></toggleswitch>\`,
 })
 export class ToggleSwitchInvalidComponent {
-  value = false;
+  control = new FormControl(false, [Validators.requiredTrue]);
 }
         `,
       },
@@ -178,28 +153,26 @@ export class ToggleSwitchInvalidComponent {
 
 // ── Disabled ──────────────────────────────────────────────────────────────────
 export const Disabled: Story = {
-  render: (args) => ({ props: { ...args, value: false }, template: commonTemplate }),
-  args: { invalid: false, disabled: true },
+  render: () => ({
+    template: `<app-toggleswitch-disabled></app-toggleswitch-disabled>`,
+  }),
   parameters: {
     docs: {
-      description: { story: 'Заблокированное состояние переключателя.' },
+      description: { story: 'Заблокированное состояние через `FormControl`.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-toggleswitch-disabled',
   standalone: true,
-  imports: [ToggleSwitchComponent, FormsModule],
-  template: \`
-    <toggleswitch [(ngModel)]="value" [disabled]="true"></toggleswitch>
-  \`,
+  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  template: \`<toggleswitch [formControl]="control"></toggleswitch>\`,
 })
 export class ToggleSwitchDisabledComponent {
-  value = false;
+  control = new FormControl({ value: false, disabled: true });
 }
         `,
       },
