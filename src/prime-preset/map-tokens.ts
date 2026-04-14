@@ -6,6 +6,7 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { tooltipCss } from './tokens/components/tooltip';
+import { megamenuCss } from './tokens/components/megamenu';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -23,6 +24,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
       css: tooltipCss,
+    },
+    megamenu: {
+      ...(tokens.components.megamenu as unknown as ComponentsDesignTokens['megamenu']),
+      css: megamenuCss,
     },
   } as ComponentsDesignTokens,
 };
