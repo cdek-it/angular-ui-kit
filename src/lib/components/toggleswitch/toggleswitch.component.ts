@@ -1,24 +1,17 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, Optional, Output, Self } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
   selector: 'toggleswitch',
   standalone: true,
   imports: [ToggleSwitch, FormsModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ToggleSwitchComponent),
-      multi: true,
-    },
-  ],
   template: `
     <p-toggleswitch
       [ngModel]="modelValue"
       (ngModelChange)="handleChange($event)"
-      [invalid]="invalid"
-      [disabled]="disabled"
+      [invalid]="isInvalid"
+      [disabled]="isDisabled"
       (onChange)="onChange.emit($event)"
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
@@ -26,17 +19,29 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
   `,
 })
 export class ToggleSwitchComponent implements ControlValueAccessor {
-  @Input() invalid = false;
-  @Input() disabled = false;
-
   @Output() onChange = new EventEmitter<any>();
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();
 
   modelValue = false;
+  private _disabled = false;
 
   private _onChange: (value: boolean) => void = () => {};
   private _onTouched: () => void = () => {};
+
+  constructor(@Optional() @Self() private ngControl: NgControl) {
+    if (ngControl) {
+      ngControl.valueAccessor = this;
+    }
+  }
+
+  get isDisabled(): boolean {
+    return this._disabled;
+  }
+
+  get isInvalid(): boolean {
+    return !!this.ngControl?.invalid;
+  }
 
   handleChange(value: boolean): void {
     this.modelValue = value;
@@ -57,6 +62,6 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this._disabled = isDisabled;
   }
 }
