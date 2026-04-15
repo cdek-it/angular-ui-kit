@@ -74,17 +74,18 @@ type Story = StoryObj<TabsComponent>;
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => ({
-    props: args,
-    template: `
-      <tabs
-        [value]="value"
-        [tabs]="tabs"
-        [scrollable]="scrollable"
-        [lazy]="lazy"
-      ></tabs>
-    `,
-  }),
+  render: (args) => {
+    const parts: string[] = [];
+
+    parts.push(`value="${args.value}"`);
+    parts.push(`[tabs]="tabs"`);
+    if (args.scrollable) parts.push(`[scrollable]="true"`);
+    if (args.lazy)       parts.push(`[lazy]="true"`);
+
+    const template = `<tabs\n  ${parts.join('\n  ')}\n></tabs>`;
+
+    return { props: args, template };
+  },
   args: {
     value: '0',
     tabs: [
