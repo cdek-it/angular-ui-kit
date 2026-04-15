@@ -44,7 +44,7 @@ export interface StepperItem {
             <p class="m-0">{{ step.content }}</p>
             <div class="flex pt-4">
               <p-button *ngIf="!first" label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
-              <p-button *ngIf="!last" label="Вперёд" severity="secondary" class="ml-auto" (onClick)="activateCallback(steps[i + 1].value)"/>
+              <p-button *ngIf="!last" label="Вперёд" severity="secondary" class="ml-auto" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
             </div>
           </ng-template>
         </p-step-panel>
@@ -65,7 +65,7 @@ export interface StepperItem {
               <p class="m-0">{{ step.content }}</p>
               <div class="flex gap-2 pt-4">
                 <p-button *ngIf="!first" label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
-                <p-button *ngIf="!last" label="Вперёд" severity="secondary" (onClick)="activateCallback(steps[i + 1].value)"/>
+                <p-button *ngIf="!last" label="Вперёд" severity="secondary" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
               </div>
             </ng-template>
           </p-step-panel>
