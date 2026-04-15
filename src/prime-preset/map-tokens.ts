@@ -9,6 +9,8 @@ import { checkboxCss } from './tokens/components/checkbox';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
+import { tabsCss } from './tokens/components/tabs';
+import { stepperCss } from './tokens/components/stepper';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -38,6 +40,14 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
       css: tooltipCss,
+    },
+    tabs: {
+      ...(tokens.components.tabs as unknown as ComponentsDesignTokens['tabs']),
+      css: tabsCss,
+    },
+    stepper: {
+      ...(tokens.components.stepper as unknown as ComponentsDesignTokens['stepper']),
+      css: stepperCss,
     },
   } as ComponentsDesignTokens,
 };
