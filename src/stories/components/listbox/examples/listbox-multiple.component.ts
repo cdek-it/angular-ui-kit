@@ -33,6 +33,7 @@ export const Multiple: StoryObj = {
     template: `<app-listbox-multiple></app-listbox-multiple>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Множественный выбор элементов.' },
       source: {

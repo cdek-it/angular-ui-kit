@@ -40,6 +40,7 @@ export const Custom: StoryObj = {
     template: `<app-listbox-custom></app-listbox-custom>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Кастомный шаблон элемента с иконкой и подписью.' },
       source: {

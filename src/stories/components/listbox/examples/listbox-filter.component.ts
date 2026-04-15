@@ -33,6 +33,7 @@ export const Filter: StoryObj = {
     template: `<app-listbox-filter></app-listbox-filter>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Фильтрация списка по введённому тексту.' },
       source: {

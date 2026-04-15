@@ -33,6 +33,7 @@ export const Checkmark: StoryObj = {
     template: `<app-listbox-checkmark></app-listbox-checkmark>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Галочка рядом с выбранным элементом.' },
       source: {

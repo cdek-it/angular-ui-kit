@@ -33,6 +33,7 @@ export const Disabled: StoryObj = {
     template: `<app-listbox-disabled></app-listbox-disabled>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Список в отключённом состоянии — взаимодействие заблокировано.' },
       source: {

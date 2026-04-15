@@ -51,6 +51,7 @@ export const Grouped: StoryObj = {
     template: `<app-listbox-grouped></app-listbox-grouped>`,
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Группировка элементов с заголовками категорий.' },
       source: {
