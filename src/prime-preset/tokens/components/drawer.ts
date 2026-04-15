@@ -31,19 +31,6 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
   padding: 0 ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')};
 }
 
-/* Кнопка закрытия — нейтральный outlined стиль вместо secondary */
-.p-drawer.p-component .p-drawer-close-button {
-  background: transparent;
-  border: 1px solid ${dt('drawer.root.borderColor')};
-  color: ${dt('text.color')};
-}
-
-.p-drawer.p-component .p-drawer-close-button:hover {
-  background: ${dt('surface.100')};
-  border-color: ${dt('drawer.root.borderColor')};
-  color: ${dt('text.color')};
-}
-
 .p-drawer.p-component .p-drawer-close-button:active {
   background: ${dt('surface.200')};
 }

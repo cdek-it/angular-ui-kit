@@ -26,6 +26,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
       [blockScroll]="blockScroll"
       [styleClass]="sizeClass"
       [position]="position"
+      [closeButtonProps]="{ text: true, rounded: true }"
       (visibleChange)="visibleChange.emit($event)"
       (onShow)="onShow.emit()"
       (onHide)="onHide.emit()"
