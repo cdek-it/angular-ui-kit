@@ -8,6 +8,7 @@ import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
+import { drawerCss } from './tokens/components/drawer';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -18,6 +19,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     avatar: {
       ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
       css: avatarCss,
+    },
+    drawer: {
+      ...(tokens.components.drawer as unknown as ComponentsDesignTokens['drawer']),
+      css: drawerCss,
     },
     checkbox: {
       ...(tokens.components.checkbox as unknown as ComponentsDesignTokens['checkbox']),
