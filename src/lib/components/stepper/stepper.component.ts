@@ -6,6 +6,7 @@ import { Step } from 'primeng/stepper';
 import { StepPanels } from 'primeng/stepper';
 import { StepPanel } from 'primeng/stepper';
 import { StepItem } from 'primeng/stepper';
+import { Button } from 'primeng/button';
 
 export interface StepperItem {
   value: string;
@@ -19,7 +20,7 @@ export interface StepperItem {
 @Component({
   selector: 'stepper',
   standalone: true,
-  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, NgFor, NgIf, NgClass],
+  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, Button, NgFor, NgIf, NgClass],
   template: `
     <p-stepper
       [value]="value"
@@ -38,15 +39,19 @@ export interface StepperItem {
         </p-step>
       </p-step-list>
       <p-step-panels *ngIf="orientation === 'horizontal' && showPanels">
-        <p-step-panel *ngFor="let step of steps" [value]="step.value">
-          <ng-template #content>
+        <p-step-panel *ngFor="let step of steps; let i = index; let first = first; let last = last" [value]="step.value">
+          <ng-template #content let-activateCallback="activateCallback">
             <p class="m-0">{{ step.content }}</p>
+            <div class="flex pt-4">
+              <p-button *ngIf="!first" label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
+              <p-button *ngIf="!last" label="Вперёд" severity="secondary" class="ml-auto" (onClick)="activateCallback(steps[i + 1].value)"/>
+            </div>
           </ng-template>
         </p-step-panel>
       </p-step-panels>
 
       <ng-container *ngIf="orientation === 'vertical'">
-        <p-step-item *ngFor="let step of steps" [value]="step.value">
+        <p-step-item *ngFor="let step of steps; let i = index; let first = first; let last = last" [value]="step.value">
           <p-step
             [value]="step.value"
             [disabled]="step.disabled || false"
@@ -56,8 +61,12 @@ export interface StepperItem {
             <div *ngIf="step.caption" class="caption-secondary">{{ step.caption }}</div>
           </p-step>
           <p-step-panel *ngIf="showPanels" [value]="step.value">
-            <ng-template #content>
+            <ng-template #content let-activateCallback="activateCallback">
               <p class="m-0">{{ step.content }}</p>
+              <div class="flex gap-2 pt-4">
+                <p-button *ngIf="!first" label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
+                <p-button *ngIf="!last" label="Вперёд" severity="secondary" (onClick)="activateCallback(steps[i + 1].value)"/>
+              </div>
             </ng-template>
           </p-step-panel>
         </p-step-item>
