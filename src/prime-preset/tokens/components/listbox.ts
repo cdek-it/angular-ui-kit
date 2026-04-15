@@ -10,8 +10,13 @@ export const listboxCss = ({ dt }: { dt: (token: string) => string }): string =>
   /* ─── Расположение элемента списка ─── */
   .p-listbox-option {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--p-listbox-extend-ext-option-gap);
+  }
+
+  /* Многострочный контент (иконка + label-group): выравнивание по верху */
+  .p-listbox-option:has(.p-listbox-option-label-group) {
+    align-items: flex-start;
   }
 
   .p-listbox-option:has(.p-listbox-option-check-icon) {
