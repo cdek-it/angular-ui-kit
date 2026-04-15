@@ -31,10 +31,6 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
   padding: 0 ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')};
 }
 
-.p-drawer.p-component .p-drawer-close-button:active {
-  background: ${dt('surface.200')};
-}
-
 /* Боковые drawer (слева/справа) - базовые размеры и отступы от краев экрана */
 .p-drawer.p-component.p-drawer-left,
 .p-drawer.p-component.p-drawer-right {
