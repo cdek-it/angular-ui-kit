@@ -6,6 +6,8 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
+import { tagCss } from './tokens/components/tag';
+import { toastCss } from './tokens/components/toast';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -28,6 +30,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
       css: tagCss,
+    },
+    toast: {
+      ...(tokens.components.toast as unknown as ComponentsDesignTokens['toast']),
+      css: toastCss,
     },
   } as ComponentsDesignTokens,
 };
