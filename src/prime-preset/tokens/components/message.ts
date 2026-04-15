@@ -6,15 +6,12 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
     position: relative;
   }
 
-  /* border-radius для контента message */
-  .p-message .p-message-content {
-    border-radius: ${dt('message.root.borderRadius')};
-  }
-
   /* Контент message с приоритизацией align-items */
   .p-message .p-message-content {
     display: flex;
     align-items: flex-start;
+    width: stretch;
+    border-radius: ${dt('message.root.borderRadius')};
   }
 
   /* Текстовый блок message */
@@ -27,6 +24,7 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
 
   /* Заголовок message */
   .p-message-summary {
+    font-family: ${dt('fonts.fontFamily.base')};
     font-weight: ${dt('message.text.fontWeight')};
     line-height: ${dt('fonts.lineHeight.250')};
     font-size: ${dt('message.text.fontSize')};
@@ -34,6 +32,7 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
 
   /* Детальное описание message */
   .p-message .p-message-detail {
+    font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
     line-height: ${dt('fonts.lineHeight.250')};
     font-weight: ${dt('fonts.fontWeight.regular')};

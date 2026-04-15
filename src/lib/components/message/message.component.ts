@@ -19,27 +19,25 @@ const SEVERITY_ICONS: Record<string, string> = {
   template: `
     <p-message [severity]="severity" [closable]="false" [life]="life">
       <ng-template pTemplate="container" let-closeCallback="closeCallback">
-        <div class="p-message-content">
-          <div class="p-message-accent-line"></div>
-          <i [class]="resolvedIcon + ' p-message-icon'"></i>
-          <div class="p-message-text">
-            <span class="p-message-summary">{{ summary }}</span>
-            @if (detail) {
-              <div class="p-message-detail">{{ detail }}</div>
-            }
-            <ng-content></ng-content>
-          </div>
-          @if (closable) {
-            <button
-              type="button"
-              pButton
-              [text]="true"
-              icon="ti ti-x"
-              class="p-message-close-button"
-              (click)="closeCallback($event); onClose.emit($event)"
-            ></button>
+        <div class="p-message-accent-line"></div>
+        <i [class]="resolvedIcon + ' p-message-icon'"></i>
+        <div class="p-message-text">
+          <span class="p-message-summary">{{ summary }}</span>
+          @if (detail) {
+            <div class="p-message-detail">{{ detail }}</div>
           }
+          <ng-content></ng-content>
         </div>
+        @if (closable) {
+          <button
+            type="button"
+            pButton
+            [text]="true"
+            icon="ti ti-x"
+            class="p-message-close-button"
+            (click)="closeCallback($event); onClose.emit($event)"
+          ></button>
+        }
       </ng-template>
     </p-message>
   `,
