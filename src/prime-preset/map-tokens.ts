@@ -6,6 +6,7 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
+import { popoverCss } from './tokens/components/popover';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -28,6 +29,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
       css: tagCss,
+    },
+    popover: {
+      ...(tokens.components.popover as unknown as ComponentsDesignTokens['popover']),
+      css: popoverCss,
     },
   } as ComponentsDesignTokens,
 };
