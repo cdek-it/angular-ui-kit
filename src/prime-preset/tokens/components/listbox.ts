@@ -10,7 +10,7 @@ export const listboxCss = ({ dt }: { dt: (token: string) => string }): string =>
   /* ─── Расположение элемента списка ─── */
   .p-listbox-option {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--p-listbox-extend-ext-option-gap);
   }
 
@@ -29,7 +29,7 @@ export const listboxCss = ({ dt }: { dt: (token: string) => string }): string =>
   .p-listbox-option-caption {
     color: var(--p-listbox-extend-ext-option-caption-color);
     font-size: ${dt('fonts.fontSize.200')};
-    font-family: ${dt('fonts.fontFamily.base')};
+    font-family: ${dt('fonts.fontFamily.heading')};
   }
 
   /* ─── Галочка выбора ─── */
