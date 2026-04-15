@@ -25,9 +25,9 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
-    tooltip: {
-      ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
-      css: tooltipCss,
+    tag: {
+      ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
+      css: tagCss,
     },
   } as ComponentsDesignTokens,
 };
