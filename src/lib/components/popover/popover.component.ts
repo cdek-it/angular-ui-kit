@@ -7,6 +7,7 @@ import { SharedModule } from 'primeng/api';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Popover, SharedModule],
+  host: { style: 'display: contents' },
   template: `
     <p-popover #op [dismissable]="dismissable" [appendTo]="appendTo">
       <ng-content></ng-content>

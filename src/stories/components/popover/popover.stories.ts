@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { PopoverComponent } from '../../../lib/components/popover/popover.component';
-import { PopoverBasicComponent, Basic } from './examples/popover-basic.component';
+import { PopoverBasicComponent } from './examples/popover-basic.component';
 import { PopoverRichContentComponent, RichContent } from './examples/popover-rich-content.component';
 
 const meta: Meta<PopoverComponent> = {
@@ -68,4 +68,4 @@ export const Default: Story = {
   },
 };
 
-export { Basic, RichContent };
+export { RichContent };

@@ -7,6 +7,7 @@ import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
 import { popoverCss } from './tokens/components/popover';
+import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {

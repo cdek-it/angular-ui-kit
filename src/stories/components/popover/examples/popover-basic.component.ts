@@ -4,11 +4,13 @@ import { PopoverComponent } from '../../../../lib/components/popover/popover.com
 import { ButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="flex justify-center min-h-[200px] pt-8">
-  <button label="Открыть" (click)="popover.toggle($event)"></button>
-  <popover #popover>
-    <p>Содержимое popover.</p>
-  </popover>
+<div class="min-h-[200px]">
+  <div class="relative inline-block">
+    <button label="Показать" (click)="popover.toggle($event)"></button>
+    <popover #popover appendTo="self">
+      <p>Содержимое popover.</p>
+    </popover>
+  </div>
 </div>
 `;
 const styles = '';
@@ -43,8 +45,8 @@ import { ButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [PopoverComponent, ButtonComponent],
   template: \`
-    <button label="Открыть" (click)="popover.toggle($event)"></button>
-    <popover #popover>
+    <button label="Показать" (click)="popover.toggle($event)"></button>
+    <popover #popover appendTo="self">
       <p>Содержимое popover.</p>
     </popover>
   \`,
