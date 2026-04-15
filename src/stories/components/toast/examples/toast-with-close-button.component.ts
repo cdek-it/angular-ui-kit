@@ -11,55 +11,59 @@ const SEVERITIES = [
   { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
 ] as const;
 
+const template = `
+<p-toast key="with-close">
+  <ng-template #message let-message>
+    <div class="p-toast-accent-line"></div>
+    <i [class]="message.icon + ' p-toast-message-icon'"></i>
+    <div class="p-toast-message-text">
+      <span class="p-toast-summary">{{ message.summary }}</span>
+      <div class="p-toast-detail">{{ message.detail }}</div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<div class="flex flex-col gap-4">
+  @for (s of severities; track s.type) {
+    <div [class]="'p-toast-message p-toast-message-' + s.type">
+      <div class="p-toast-message-content">
+        <div class="p-toast-accent-line"></div>
+        <i [class]="s.icon + ' p-toast-message-icon'"></i>
+        <div class="p-toast-message-text">
+          <span class="p-toast-summary">Сообщение</span>
+          <div class="p-toast-detail">Подпись</div>
+        </div>
+        <button
+          type="button"
+          class="p-button p-component p-button-text p-toast-close-button"
+        >
+          <span class="p-button-icon ti ti-x"></span>
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<div class="flex flex-wrap gap-2 mt-6">
+  @for (s of severities; track s.type) {
+    <p-button
+      [label]="'Показать: ' + s.label"
+      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warn' : s.type"
+      variant="outlined"
+      (onClick)="show(s.type, s.icon)"
+    ></p-button>
+  }
+</div>
+`;
+const styles = '';
+
 @Component({
   selector: 'app-toast-with-close-button',
   standalone: true,
   imports: [Toast, Button, SharedModule],
   providers: [MessageService],
-  template: `
-    <p-toast key="with-close">
-      <ng-template #message let-message>
-        <div class="p-toast-accent-line"></div>
-        <i [class]="message.icon + ' p-toast-message-icon'"></i>
-        <div class="p-toast-message-text">
-          <span class="p-toast-summary">{{ message.summary }}</span>
-          <div class="p-toast-detail">{{ message.detail }}</div>
-        </div>
-      </ng-template>
-    </p-toast>
-
-    <div class="flex flex-col gap-4">
-      @for (s of severities; track s.type) {
-        <div [class]="'p-toast-message p-toast-message-' + s.type">
-          <div class="p-toast-message-content">
-            <div class="p-toast-accent-line"></div>
-            <i [class]="s.icon + ' p-toast-message-icon'"></i>
-            <div class="p-toast-message-text">
-              <span class="p-toast-summary">Сообщение</span>
-              <div class="p-toast-detail">Подпись</div>
-            </div>
-            <button
-              type="button"
-              class="p-button p-component p-button-text p-toast-close-button"
-            >
-              <span class="p-button-icon ti ti-x"></span>
-            </button>
-          </div>
-        </div>
-      }
-    </div>
-
-    <div class="flex flex-wrap gap-2 mt-6">
-      @for (s of severities; track s.type) {
-        <p-button
-          [label]="'Показать: ' + s.label"
-          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warn' : s.type"
-          variant="outlined"
-          (onClick)="show(s.type, s.icon)"
-        ></p-button>
-      }
-    </div>
-  `,
+  template,
+  styles,
 })
 export class ToastWithCloseButtonComponent {
   readonly severities = SEVERITIES;
@@ -90,7 +94,7 @@ export const WithCloseButton: StoryObj = {
         language: 'ts',
         code: `
 this.messageService.add({
-  group: 'my-toast',
+  key: 'my-toast',
   severity: 'info',
   summary: 'Сообщение',
   detail: 'Подпись',
