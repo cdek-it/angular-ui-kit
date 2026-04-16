@@ -7,11 +7,6 @@ export const timelineCss = ({ dt }: { dt: (token: string) => string }): string =
   line-height: ${dt('fonts.lineHeight.500')};
 }
 
-/* ─── Event gap ─── */
-.p-timeline-event {
-  gap: ${dt('timeline.extend.extEvent.gap')};
-}
-
 /* ─── Маркер ─── */
 .p-timeline-event-marker {
   border-width: ${dt('timeline.eventMarker.borderWidth')};

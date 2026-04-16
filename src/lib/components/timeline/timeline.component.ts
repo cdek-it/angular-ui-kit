@@ -1,12 +1,12 @@
 import { Component, Input, ContentChild, TemplateRef } from '@angular/core';
 import { Timeline } from 'primeng/timeline';
 import { SharedModule } from 'primeng/api';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'timeline',
   standalone: true,
-  imports: [Timeline, SharedModule, NgTemplateOutlet],
+  imports: [Timeline, SharedModule, NgIf, NgTemplateOutlet],
   template: `
     <p-timeline
       [value]="value"
@@ -19,8 +19,11 @@ import { NgTemplateOutlet } from '@angular/common';
         ></ng-container>
       </ng-template>
 
-      <ng-template *ngIf="oppositeTemplate" pTemplate="opposite" let-event>
-        <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+      <ng-template pTemplate="opposite" let-event>
+        <ng-container *ngIf="oppositeTemplate; else emptyOpposite">
+          <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+        </ng-container>
+        <ng-template #emptyOpposite><span>&nbsp;</span></ng-template>
       </ng-template>
 
       <ng-template *ngIf="markerTemplate" pTemplate="marker" let-event>
