@@ -5,14 +5,10 @@ import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 
 const template = `
-<div class="flex flex-col gap-6 w-64 pt-4">
+<div class="pt-6 w-64">
   <p-floatlabel variant="in">
-    <input pInputText id="fl-name" [(ngModel)]="value1" />
+    <input pInputText id="fl-name" [(ngModel)]="value" />
     <label for="fl-name">Имя</label>
-  </p-floatlabel>
-  <p-floatlabel variant="in">
-    <input pInputText pSize="large" id="fl-surname" [(ngModel)]="value2" />
-    <label for="fl-surname">Фамилия (large)</label>
   </p-floatlabel>
 </div>
 `;
@@ -26,8 +22,7 @@ const styles = '';
   styles,
 })
 export class InputTextFloatLabelComponent {
-  value1 = '';
-  value2 = '';
+  value = '';
 }
 
 export const FloatLabelStory: StoryObj = {
@@ -39,7 +34,8 @@ export const FloatLabelStory: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Требует нативный `<input pInputText>` как прямой дочерний элемент `p-floatlabel`.',
+        story:
+          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию. Требует нативный `<input pInputText>` как прямой дочерний элемент `p-floatlabel`.',
       },
       source: {
         language: 'ts',

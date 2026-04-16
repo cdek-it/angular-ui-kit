@@ -1,11 +1,11 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { InputTextClearComponent, ClearButton } from './examples/inputtext-clear.component';
+import { ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
-import { InputTextDisabledComponent, Disabled } from './examples/inputtext-disabled.component';
-import { InputTextReadonlyComponent, Readonly } from './examples/inputtext-readonly.component';
-import { InputTextInvalidComponent, Invalid } from './examples/inputtext-invalid.component';
+import { Disabled } from './examples/inputtext-disabled.component';
+import { Readonly } from './examples/inputtext-readonly.component';
+import { Invalid } from './examples/inputtext-invalid.component';
 
 type InputTextArgs = InputTextComponent;
 
@@ -18,11 +18,7 @@ const meta: Meta<InputTextArgs> = {
       imports: [
         InputTextComponent,
         FormsModule,
-        InputTextClearComponent,
         InputTextFloatLabelComponent,
-        InputTextDisabledComponent,
-        InputTextReadonlyComponent,
-        InputTextInvalidComponent,
       ],
     }),
   ],
@@ -30,7 +26,11 @@ const meta: Meta<InputTextArgs> = {
     designTokens: { prefix: '--p-inputtext' },
     docs: {
       description: {
-        component: `Текстовое поле для ввода данных. Поддерживает размеры \`small\`, \`base\`, \`large\`, \`xlarge\`, очистку значения и FloatLabel.`,
+        component: `Текстовое поле для ввода данных.
+
+\`\`\`typescript
+import { InputTextModule } from 'primeng/inputtext';
+\`\`\``,
       },
     },
   },
@@ -110,7 +110,7 @@ const meta: Meta<InputTextArgs> = {
         type: { summary: "'outlined' | 'filled'" },
       },
     },
-    // Hidden props
+    // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
