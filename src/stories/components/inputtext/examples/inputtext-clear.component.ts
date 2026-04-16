@@ -18,6 +18,7 @@ const template = `
   ></input-text>
 </div>
 `;
+
 const styles = '';
 
 @Component({
@@ -28,7 +29,7 @@ const styles = '';
   styles,
 })
 export class InputTextClearComponent {
-  value = 'Начальное значение';
+  value = '';
   value2 = '';
 }
 

@@ -36,9 +36,12 @@ export type InputTextVariant = 'outlined' | 'filled';
           (input)="onInput($event)"
           (blur)="onTouched()"
         />
-        @if (modelValue) {
-          <p-inputicon class="ti ti-x" (click)="clearValue()"></p-inputicon>
-        }
+        <p-inputicon
+          class="ti ti-x"
+          [style.visibility]="modelValue ? 'visible' : 'hidden'"
+          [style.pointerEvents]="modelValue ? 'auto' : 'none'"
+          (click)="clearValue()"
+        ></p-inputicon>
       </p-iconfield>
     } @else {
       <input
