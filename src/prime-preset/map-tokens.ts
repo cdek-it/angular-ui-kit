@@ -8,6 +8,7 @@ import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
+import { togglebuttonCss } from './tokens/components/togglebutton';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -34,6 +35,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
       css: tagCss,
+    },
+    togglebutton: {
+      ...(tokens.components.togglebutton as unknown as ComponentsDesignTokens['togglebutton']),
+      css: togglebuttonCss,
     },
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
