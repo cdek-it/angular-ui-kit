@@ -4,36 +4,12 @@ import { StoryObj } from '@storybook/angular';
 import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<div class="flex flex-wrap items-center gap-3">
-  <toggle-button
-    size="sm"
-    onIcon="ti ti-star-filled"
-    offIcon="ti ti-star"
-    [iconOnly]="true"
-    [(ngModel)]="values.sm"
-  ></toggle-button>
-  <toggle-button
-    size="base"
-    onIcon="ti ti-star-filled"
-    offIcon="ti ti-star"
-    [iconOnly]="true"
-    [(ngModel)]="values.base"
-  ></toggle-button>
-  <toggle-button
-    size="lg"
-    onIcon="ti ti-star-filled"
-    offIcon="ti ti-star"
-    [iconOnly]="true"
-    [(ngModel)]="values.lg"
-  ></toggle-button>
-  <toggle-button
-    size="xlg"
-    onIcon="ti ti-star-filled"
-    offIcon="ti ti-star"
-    [iconOnly]="true"
-    [(ngModel)]="values.xlg"
-  ></toggle-button>
-</div>
+<toggle-button
+  onIcon="ti ti-star-filled"
+  offIcon="ti ti-star"
+  [iconOnly]="true"
+  [(ngModel)]="checked"
+></toggle-button>
 `;
 const styles = '';
 
@@ -45,12 +21,7 @@ const styles = '';
   styles,
 })
 export class ToggleButtonIconOnlyComponent {
-  values = {
-    sm: false,
-    base: true,
-    lg: false,
-    xlg: true,
-  };
+  checked = false;
 }
 
 export const IconOnly: StoryObj = {
@@ -61,7 +32,7 @@ export const IconOnly: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Icon-only вариант: квадратная кнопка без текста. Пропорции регулируются через `size`.',
+        story: 'Icon-only вариант: квадратная кнопка без текста. Размер регулируется через `size`.',
       },
       source: {
         language: 'ts',

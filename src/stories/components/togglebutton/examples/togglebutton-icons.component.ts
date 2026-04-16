@@ -4,30 +4,13 @@ import { StoryObj } from '@storybook/angular';
 import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<div class="flex flex-col gap-3">
-  <toggle-button
-    onLabel="Включено"
-    offLabel="Выключено"
-    onIcon="ti ti-check"
-    offIcon="ti ti-x"
-    [(ngModel)]="checked1"
-  ></toggle-button>
-  <toggle-button
-    onLabel="Избранное"
-    offLabel="Добавить"
-    onIcon="ti ti-star-filled"
-    offIcon="ti ti-star"
-    [(ngModel)]="checked2"
-  ></toggle-button>
-  <toggle-button
-    onLabel="Включено"
-    offLabel="Выключено"
-    onIcon="ti ti-check"
-    offIcon="ti ti-x"
-    iconPos="right"
-    [(ngModel)]="checked3"
-  ></toggle-button>
-</div>
+<toggle-button
+  onLabel="Включено"
+  offLabel="Выключено"
+  onIcon="ti ti-check"
+  offIcon="ti ti-x"
+  [(ngModel)]="checked"
+></toggle-button>
 `;
 const styles = '';
 
@@ -39,9 +22,7 @@ const styles = '';
   styles,
 })
 export class ToggleButtonIconsComponent {
-  checked1 = false;
-  checked2 = true;
-  checked3 = false;
+  checked = false;
 }
 
 export const Icons: StoryObj = {
@@ -52,7 +33,7 @@ export const Icons: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Кнопки с иконками через `onIcon`/`offIcon`. Позиция иконки управляется `iconPos`.',
+        story: 'Кнопка с иконками через `onIcon`/`offIcon`. Позиция иконки управляется `iconPos`.',
       },
       source: {
         language: 'ts',

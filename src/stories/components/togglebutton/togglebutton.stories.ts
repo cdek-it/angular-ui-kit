@@ -1,10 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { ToggleButtonComponent } from '../../../lib/components/togglebutton/togglebutton.component';
-import { ToggleButtonSizesComponent, Sizes } from './examples/togglebutton-sizes.component';
-import { ToggleButtonIconsComponent, Icons } from './examples/togglebutton-icons.component';
-import { ToggleButtonIconOnlyComponent, IconOnly } from './examples/togglebutton-icon-only.component';
-import { ToggleButtonDisabledComponent, Disabled } from './examples/togglebutton-disabled.component';
 
 type ToggleButtonArgs = ToggleButtonComponent;
 
@@ -14,14 +10,7 @@ const meta: Meta<ToggleButtonArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ToggleButtonComponent,
-        FormsModule,
-        ToggleButtonSizesComponent,
-        ToggleButtonIconsComponent,
-        ToggleButtonIconOnlyComponent,
-        ToggleButtonDisabledComponent,
-      ],
+      imports: [ToggleButtonComponent, FormsModule],
     }),
   ],
   parameters: {
@@ -149,27 +138,33 @@ const meta: Meta<ToggleButtonArgs> = {
 export default meta;
 type Story = StoryObj<ToggleButtonArgs>;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function buildTemplate(args: any): string {
+  const parts: string[] = [];
+
+  parts.push(`onLabel="${args.onLabel}"`);
+  parts.push(`offLabel="${args.offLabel}"`);
+  if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+  if (args.onIcon) parts.push(`onIcon="${args.onIcon}"`);
+  if (args.offIcon) parts.push(`offIcon="${args.offIcon}"`);
+  if (args.iconPos && args.iconPos !== 'left') parts.push(`iconPos="${args.iconPos}"`);
+  if (args.disabled) parts.push(`[disabled]="true"`);
+  if (args.iconOnly) parts.push(`[iconOnly]="true"`);
+  if (args.fluid) parts.push(`[fluid]="true"`);
+  parts.push(`[(ngModel)]="checked"`);
+
+  return `<toggle-button\n  ${parts.join('\n  ')}\n></toggle-button>`;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderStory(args: any) {
+  return { props: { ...args, checked: false }, template: buildTemplate(args) };
+}
+
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    parts.push(`onLabel="${args.onLabel}"`);
-    parts.push(`offLabel="${args.offLabel}"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.onIcon) parts.push(`onIcon="${args.onIcon}"`);
-    if (args.offIcon) parts.push(`offIcon="${args.offIcon}"`);
-    if (args.iconPos && args.iconPos !== 'left') parts.push(`iconPos="${args.iconPos}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.iconOnly) parts.push(`[iconOnly]="true"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-    parts.push(`[(ngModel)]="checked"`);
-
-    const template = `<toggle-button\n  ${parts.join('\n  ')}\n></toggle-button>`;
-
-    return { props: { ...args, checked: false }, template };
-  },
+  render: (args) => renderStory(args),
   parameters: {
     docs: {
       description: {
@@ -179,5 +174,63 @@ export const Default: Story = {
   },
 };
 
-// ── Re-exports from example components ────────────────────────────────────
-export { Sizes, Icons, IconOnly, Disabled };
+// ── Sizes ────────────────────────────────────────────────────────────────────
+export const Sizes: Story = {
+  render: (args) => renderStory(args),
+  args: { size: 'xlg' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Размер компонента задаётся через проп `size`: `sm`, `base`, `lg`, `xlg`.',
+      },
+    },
+  },
+};
+
+// ── Icons ────────────────────────────────────────────────────────────────────
+export const Icons: Story = {
+  render: (args) => renderStory(args),
+  args: {
+    onLabel: 'Включено',
+    offLabel: 'Выключено',
+    onIcon: 'ti ti-check',
+    offIcon: 'ti ti-x',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Кнопка с иконками через `onIcon`/`offIcon`. Позиция иконки управляется `iconPos`.',
+      },
+    },
+  },
+};
+
+// ── IconOnly ─────────────────────────────────────────────────────────────────
+export const IconOnly: Story = {
+  render: (args) => renderStory(args),
+  args: {
+    onIcon: 'ti ti-star-filled',
+    offIcon: 'ti ti-star',
+    iconOnly: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Icon-only вариант: квадратная кнопка без текста. Размер регулируется через `size`.',
+      },
+    },
+  },
+};
+
+// ── Disabled ─────────────────────────────────────────────────────────────────
+export const Disabled: Story = {
+  render: (args) => renderStory(args),
+  args: { disabled: true },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Отключённое состояние через `[disabled]="true"`.',
+      },
+    },
+  },
+};

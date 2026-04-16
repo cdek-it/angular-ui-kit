@@ -4,20 +4,12 @@ import { StoryObj } from '@storybook/angular';
 import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<div class="flex flex-wrap gap-3">
-  <toggle-button
-    onLabel="Вкл"
-    offLabel="Выкл"
-    [disabled]="true"
-    [(ngModel)]="unchecked"
-  ></toggle-button>
-  <toggle-button
-    onLabel="Вкл"
-    offLabel="Выкл"
-    [disabled]="true"
-    [(ngModel)]="checked"
-  ></toggle-button>
-</div>
+<toggle-button
+  onLabel="Вкл"
+  offLabel="Выкл"
+  [disabled]="true"
+  [(ngModel)]="checked"
+></toggle-button>
 `;
 const styles = '';
 
@@ -29,8 +21,7 @@ const styles = '';
   styles,
 })
 export class ToggleButtonDisabledComponent {
-  unchecked = false;
-  checked = true;
+  checked = false;
 }
 
 export const Disabled: StoryObj = {
@@ -41,7 +32,7 @@ export const Disabled: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Отключённое состояние: выключенный и включённый варианты.',
+        story: 'Отключённое состояние через `[disabled]="true"`.',
       },
       source: {
         language: 'ts',
