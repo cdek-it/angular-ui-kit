@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { SelectButton } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
 
@@ -25,7 +25,7 @@ export interface SelectButtonItem {
       optionDisabled="disabled"
       [multiple]="multiple"
       [allowEmpty]="allowEmpty"
-      [disabled]="disabled"
+      [disabled]="isDisabled"
       [ngClass]="sizeClass"
     >
       <ng-template pTemplate="item" let-item>
@@ -35,22 +35,52 @@ export interface SelectButtonItem {
     </p-selectbutton>
   `,
 })
-export class SelectButtonComponent {
-  @Input() value: string | string[] = '';
+export class SelectButtonComponent implements ControlValueAccessor {
   @Input() options: SelectButtonItem[] = [];
   @Input() size: 'default' | 'sm' | 'lg' | 'xlg' = 'default';
   @Input() multiple = false;
   @Input() allowEmpty = true;
-  @Input() disabled = false;
 
   @Output() valueChange = new EventEmitter<string | string[]>();
+
+  value: string | string[] = '';
+
+  private _disabled = false;
+  private onChange = (_: string | string[]) => {};
+  private onTouched = () => {};
+
+  constructor(@Optional() @Self() private ngControl: NgControl) {
+    if (ngControl) ngControl.valueAccessor = this;
+  }
+
+  get isDisabled(): boolean {
+    return this._disabled;
+  }
 
   get sizeClass(): string {
     return this.size === 'default' ? '' : `p-selectbutton-${this.size}`;
   }
 
+  writeValue(value: string | string[]): void {
+    this.value = value ?? '';
+  }
+
+  registerOnChange(fn: (value: string | string[]) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this._disabled = isDisabled;
+  }
+
   onValueChange(newValue: string | string[]): void {
     this.value = newValue;
+    this.onChange(newValue);
+    this.onTouched();
     this.valueChange.emit(newValue);
   }
 }

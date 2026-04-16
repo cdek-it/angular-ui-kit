@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { SelectButtonComponent, SelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <select-button [(value)]="value" [options]="options"></select-button>
+  <select-button [(ngModel)]="value" [options]="options"></select-button>
 </div>
 `;
 const styles = '';
@@ -12,7 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-select-button-selected',
   standalone: true,
-  imports: [SelectButtonComponent],
+  imports: [SelectButtonComponent, FormsModule],
   template,
   styles,
 })
@@ -38,14 +39,15 @@ export const Selected: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-selected',
   standalone: true,
-  imports: [SelectButtonComponent],
+  imports: [SelectButtonComponent, FormsModule],
   template: \`
-    <select-button [(value)]="value" [options]="options"></select-button>
+    <select-button [(ngModel)]="value" [options]="options"></select-button>
   \`,
 })
 export class SelectButtonSelectedComponent {

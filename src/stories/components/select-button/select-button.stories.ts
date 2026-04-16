@@ -69,15 +69,6 @@ import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit
         type: { summary: 'boolean' },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает весь компонент',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
     options: {
       control: 'object',
       description: 'Массив опций',
@@ -104,7 +95,6 @@ export const Default: Story = {
     if (args.size && args.size !== 'default') parts.push(`size="${args.size}"`);
     if (args.multiple)                        parts.push(`[multiple]="true"`);
     if (!args.allowEmpty)                     parts.push(`[allowEmpty]="false"`);
-    if (args.disabled)                        parts.push(`[disabled]="true"`);
 
     const template = `<select-button\n  ${parts.join('\n  ')}\n></select-button>`;
 
@@ -120,7 +110,6 @@ export const Default: Story = {
     size: 'default',
     multiple: false,
     allowEmpty: true,
-    disabled: false,
   },
   parameters: {
     docs: {

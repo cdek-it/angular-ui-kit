@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { SelectButtonComponent, SelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <select-button [(value)]="value" [options]="options" [disabled]="true"></select-button>
+  <select-button [formControl]="control" [options]="options"></select-button>
 </div>
 `;
 const styles = '';
@@ -12,12 +13,12 @@ const styles = '';
 @Component({
   selector: 'app-select-button-disabled',
   standalone: true,
-  imports: [SelectButtonComponent],
+  imports: [SelectButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class SelectButtonDisabledComponent {
-  value = '1';
+  control = new FormControl({ value: '1', disabled: true });
   options: SelectButtonItem[] = [
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2' },
@@ -33,23 +34,24 @@ export const Disabled: StoryObj = {
   parameters: {
     controls: { disable: true },
     docs: {
-      description: { story: 'Весь компонент отключён.' },
+      description: { story: 'Весь компонент отключён через `FormControl`.' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-disabled',
   standalone: true,
-  imports: [SelectButtonComponent],
+  imports: [SelectButtonComponent, ReactiveFormsModule],
   template: \`
-    <select-button [(value)]="value" [options]="options" [disabled]="true"></select-button>
+    <select-button [formControl]="control" [options]="options"></select-button>
   \`,
 })
 export class SelectButtonDisabledComponent {
-  value = '1';
+  control = new FormControl({ value: '1', disabled: true });
   options: SelectButtonItem[] = [
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2' },
