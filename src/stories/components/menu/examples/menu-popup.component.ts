@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Button } from 'primeng/button';
 import { MenuComponent, MenuModel } from '../../../../lib/components/menu/menu.component';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <p-button label="Действия с заказом" severity="contrast" (onClick)="toggle($event)"></p-button>
+  <button label="Действия с заказом" variant="secondary" (click)="toggle($event)"></button>
   <menu #menuRef [model]="items" [popup]="true"></menu>
 </div>
 `;
@@ -12,7 +12,7 @@ const template = `
 @Component({
   selector: 'app-menu-popup',
   standalone: true,
-  imports: [MenuComponent, Button],
+  imports: [MenuComponent, ButtonComponent],
   template,
 })
 export class MenuPopupComponent {

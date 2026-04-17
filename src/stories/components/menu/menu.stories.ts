@@ -61,15 +61,14 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component, ViewChild } from '@angular/core';
-import { Button } from 'primeng/button';
-import { MenuComponent, MenuModel } from '@cdek-it/angular-ui-kit';
+import { MenuComponent, MenuModel, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-popup',
   standalone: true,
-  imports: [MenuComponent, Button],
+  imports: [MenuComponent, ButtonComponent],
   template: \`
-    <p-button label="Действия с заказом" severity="contrast" (onClick)="toggle($event)"></p-button>
+    <button label="Действия с заказом" variant="secondary" (click)="toggle($event)"></button>
     <menu #menuRef [model]="items" [popup]="true"></menu>
   \`,
 })
