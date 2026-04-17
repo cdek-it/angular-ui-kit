@@ -8,6 +8,10 @@ export type ConfirmDialogOptions = Pick<
 
 @Injectable()
 export class ConfirmDialogService {
+  static providers() {
+    return [ConfirmationService, ConfirmDialogService];
+  }
+
   constructor(private readonly confirmationService: ConfirmationService) {}
 
   confirm(options: ConfirmDialogOptions): void {

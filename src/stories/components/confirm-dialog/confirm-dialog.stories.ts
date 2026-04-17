@@ -11,11 +11,10 @@ const meta: Meta<ConfirmDialogComponent> = {
   parameters: {
     docs: {
       description: {
-        component: `Компонент для подтверждения действий пользователя. Требует подключения \`ConfirmationService\` и \`ConfirmDialogService\`.
+        component: `Компонент для подтверждения действий пользователя.
 
 \`\`\`typescript
 import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
-import { ConfirmationService } from 'primeng/api';
 \`\`\``,
       },
     },
@@ -71,17 +70,15 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-confirm-dialog-default',
   standalone: true,
-  imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService, ConfirmDialogService],
+  imports: [ConfirmDialogComponent, ButtonComponent],
+  providers: [ConfirmDialogService.providers()],
   template: \`
-    <p-button label="Показать диалог" severity="contrast" (onClick)="showConfirm()"></p-button>
+    <button label="Показать диалог" severity="contrast" (click)="showConfirm()"></button>
     <confirm-dialog key="cd-default"></confirm-dialog>
   \`,
 })
@@ -122,9 +119,7 @@ export const Severities: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 const SEVERITIES = [
   { type: 'success', buttonSeverity: 'success', icon: 'ti ti-circle-check', label: 'Успех', header: 'Успех', message: 'Операция выполнена успешно.', acceptLabel: 'OK' },
@@ -137,8 +132,8 @@ const SEVERITIES = [
 @Component({
   selector: 'app-confirm-dialog-severities',
   standalone: true,
-  imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService, ConfirmDialogService],
+  imports: [ConfirmDialogComponent, ButtonComponent],
+  providers: [ConfirmDialogService.providers()],
   template: \`
     <confirm-dialog key="cd-severity-success" severity="success"></confirm-dialog>
     <confirm-dialog key="cd-severity-info" severity="info"></confirm-dialog>
@@ -148,12 +143,12 @@ const SEVERITIES = [
 
     <div class="flex flex-wrap gap-2">
       @for (severity of severities; track severity.type) {
-        <p-button
+        <button
           [label]="'Показать: ' + severity.label"
           [severity]="severity.buttonSeverity"
           variant="outlined"
-          (onClick)="showConfirm(severity)"
-        ></p-button>
+          (click)="showConfirm(severity)"
+        ></button>
       }
     </div>
   \`,
@@ -197,9 +192,7 @@ export const Sizes: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogComponent, ConfirmDialogService } from '@cdek-it/angular-ui-kit';
+import { ConfirmDialogComponent, ConfirmDialogService, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 const SIZES = [
   { key: 'sm', label: 'Small' },
@@ -211,8 +204,8 @@ const SIZES = [
 @Component({
   selector: 'app-confirm-dialog-sizes',
   standalone: true,
-  imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService, ConfirmDialogService],
+  imports: [ConfirmDialogComponent, ButtonComponent],
+  providers: [ConfirmDialogService.providers()],
   template: \`
     <confirm-dialog key="cd-size-sm" size="sm"></confirm-dialog>
     <confirm-dialog key="cd-size-default"></confirm-dialog>
@@ -221,7 +214,7 @@ const SIZES = [
 
     <div class="flex flex-wrap gap-2">
       @for (size of sizes; track size.key) {
-        <p-button [label]="size.label" severity="contrast" (onClick)="showConfirm(size)"></p-button>
+        <button [label]="size.label" severity="contrast" (click)="showConfirm(size)"></button>
       }
     </div>
   \`,

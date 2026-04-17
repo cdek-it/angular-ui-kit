@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { ConfirmDialogComponent } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
@@ -72,12 +71,12 @@ const template = `
 
   <div class="flex flex-wrap gap-2">
     @for (severity of severities; track severity.type) {
-      <p-button
+      <button
         [label]="'Показать: ' + severity.label"
         [severity]="severity.buttonSeverity"
         variant="outlined"
-        (onClick)="showConfirm(severity)"
-      ></p-button>
+        (click)="showConfirm(severity)"
+      ></button>
     }
   </div>
 </div>
@@ -86,8 +85,8 @@ const template = `
 @Component({
   selector: 'app-confirm-dialog-severities',
   standalone: true,
-  imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService, ConfirmDialogService],
+  imports: [ConfirmDialogComponent, ButtonComponent],
+  providers: [ConfirmDialogService.providers()],
   template,
 })
 export class ConfirmDialogSeveritiesComponent {

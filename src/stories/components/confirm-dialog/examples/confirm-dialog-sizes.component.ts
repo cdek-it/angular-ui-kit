@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import {
   ConfirmDialogComponent,
   ConfirmDialogSize,
@@ -28,11 +27,11 @@ const template = `
 
   <div class="flex flex-wrap gap-2">
     @for (size of sizes; track size.key) {
-      <p-button
+      <button
         [label]="size.label"
         severity="contrast"
-        (onClick)="showConfirm(size)"
-      ></p-button>
+        (click)="showConfirm(size)"
+      ></button>
     }
   </div>
 </div>
@@ -41,8 +40,8 @@ const template = `
 @Component({
   selector: 'app-confirm-dialog-sizes',
   standalone: true,
-  imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService, ConfirmDialogService],
+  imports: [ConfirmDialogComponent, ButtonComponent],
+  providers: [ConfirmDialogService.providers()],
   template,
 })
 export class ConfirmDialogSizesComponent {

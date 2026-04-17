@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { ConfirmDialogComponent } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 const template = `
 <div class="bg-surface-ground">
-  <p-button label="Показать диалог" severity="contrast" (onClick)="showConfirm()"></p-button>
+  <button label="Показать диалог" severity="contrast" (click)="showConfirm()"></button>
 
   <confirm-dialog key="cd-default"></confirm-dialog>
 </div>
@@ -15,8 +14,8 @@ const template = `
 @Component({
   selector: 'app-confirm-dialog-default',
   standalone: true,
-  imports: [ConfirmDialogComponent, Button],
-  providers: [ConfirmationService, ConfirmDialogService],
+  imports: [ConfirmDialogComponent, ButtonComponent],
+  providers: [ConfirmDialogService.providers()],
   template,
 })
 export class ConfirmDialogDefaultComponent {
