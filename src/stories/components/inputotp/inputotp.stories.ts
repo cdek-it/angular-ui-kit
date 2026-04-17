@@ -28,7 +28,11 @@ const meta: Meta<InputOtpArgs> = {
     designTokens: { prefix: '--p-inputotp' },
     docs: {
       description: {
-        component: `Компонент для ввода одноразовых паролей (OTP).`,
+        component: `Компонент для ввода одноразовых паролей (OTP).
+
+\`\`\`typescript
+import { InputOtpModule } from 'primeng/inputotp';
+\`\`\``,
       },
     },
   },

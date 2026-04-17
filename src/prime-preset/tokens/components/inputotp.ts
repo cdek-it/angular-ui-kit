@@ -21,7 +21,7 @@ export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 /* ─── Extra Large ─── */
-.p-inputotp-xlg .p-inputtext {
+.p-inputotp.p-component.p-inputotp-xlg .p-inputtext {
   font-size: ${dt('inputtext.extend.extXlg.fontSize')};
   padding-block: ${dt('inputtext.extend.extXlg.paddingY')};
 }
