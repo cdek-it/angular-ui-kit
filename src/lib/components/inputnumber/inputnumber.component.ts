@@ -21,7 +21,7 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
   template: `
     <p-inputNumber
       [ngClass]="sizeClass"
-      [pSize]="primeSize"
+      [inputStyleClass]="inputSizeClass"
       [showButtons]="showButtons"
       [buttonLayout]="buttonLayout"
       [mode]="mode"
@@ -89,10 +89,10 @@ export class InputNumberComponent implements ControlValueAccessor {
   private _onChange: (value: number | null) => void = () => {};
   onTouched: () => void = () => {};
 
-  get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large' || this.size === 'xlarge') return 'large';
-    return undefined;
+  get inputSizeClass(): string {
+    if (this.size === 'small') return 'p-inputtext-sm';
+    if (this.size === 'large' || this.size === 'xlarge') return 'p-inputtext-lg';
+    return '';
   }
 
   get sizeClass(): Record<string, boolean> {

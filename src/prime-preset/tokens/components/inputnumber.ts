@@ -7,6 +7,11 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 
 .p-inputnumber-horizontal .p-inputnumber-button {
   min-height: ${dt('inputnumber.extend.extButton.height')};
+  border: ${dt('inputnumber.extend.borderWidth')} solid ${dt('inputnumber.button.borderColor')};
+}
+
+.p-inputnumber-horizontal .p-inputnumber-decrement-button {
+  border-right: none;
 }
 
 /* ─── Disabled состояние ─── */

@@ -193,7 +193,7 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
-    primeSize: { table: { disable: true } },
+    inputSizeClass: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
 
     // ── Events ───────────────────────────────────────────────
