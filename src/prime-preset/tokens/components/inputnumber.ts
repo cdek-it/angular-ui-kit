@@ -15,8 +15,13 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
   color: ${dt('inputtext.root.disabledColor')};
 }
 
+/* ─── FloatLabel: кнопки на полную высоту поля ─── */
+.p-floatlabel:has(.p-inputnumber-horizontal) .p-inputnumber-button {
+  align-self: stretch;
+}
+
 /* ─── Extra Large ─── */
-.p-inputnumber-input[data-p~="xlarge"] {
+.p-inputnumber.p-inputnumber-xlg .p-inputnumber-input {
   font-size: ${dt('inputtext.extend.extXlg.fontSize')};
   padding: ${dt('inputtext.extend.extXlg.paddingY')} ${dt('inputtext.extend.extXlg.paddingX')};
 }

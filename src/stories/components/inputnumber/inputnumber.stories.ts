@@ -35,6 +35,16 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
+    size: {
+      control: 'select',
+      options: ['small', 'base', 'large', 'xlarge'],
+      description: 'Размер компонента',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "'base'" },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
+      },
+    },
     placeholder: {
       control: 'text',
       description: 'Подсказка при пустом поле',
@@ -183,6 +193,8 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
+    primeSize: { table: { disable: true } },
+    sizeClass: { table: { disable: true } },
 
     // ── Events ───────────────────────────────────────────────
     onInput: {
@@ -195,6 +207,7 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
   },
   args: {
+    size: 'base',
     placeholder: 'Введите число...',
     showButtons: false,
     buttonLayout: 'stacked',
@@ -217,6 +230,7 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     if (args.showButtons) parts.push(`[showButtons]="true"`);
     if (args.buttonLayout && args.buttonLayout !== 'stacked') parts.push(`buttonLayout="${args.buttonLayout}"`);

@@ -1,14 +1,16 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgClass } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { SharedModule } from 'primeng/api';
 
+export type InputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
 export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
 
 @Component({
   selector: 'input-number',
   standalone: true,
-  imports: [InputNumber, SharedModule, FormsModule],
+  imports: [InputNumber, SharedModule, FormsModule, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -18,6 +20,8 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
   ],
   template: `
     <p-inputNumber
+      [ngClass]="sizeClass"
+      [pSize]="primeSize"
       [showButtons]="showButtons"
       [buttonLayout]="buttonLayout"
       [mode]="mode"
@@ -56,6 +60,7 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
   `,
 })
 export class InputNumberComponent implements ControlValueAccessor {
+  @Input() size: InputNumberSize = 'base';
   @Input() showButtons = false;
   @Input() buttonLayout: InputNumberButtonLayout = 'stacked';
   @Input() mode = 'decimal';
@@ -83,6 +88,16 @@ export class InputNumberComponent implements ControlValueAccessor {
 
   private _onChange: (value: number | null) => void = () => {};
   onTouched: () => void = () => {};
+
+  get primeSize(): 'small' | 'large' | undefined {
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large' || this.size === 'xlarge') return 'large';
+    return undefined;
+  }
+
+  get sizeClass(): Record<string, boolean> {
+    return { 'p-inputnumber-xlg': this.size === 'xlarge' };
+  }
 
   onModelChange(value: number | null): void {
     this.modelValue = value;
