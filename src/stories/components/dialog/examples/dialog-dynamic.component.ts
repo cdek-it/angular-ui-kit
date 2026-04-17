@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DynamicDialogRef, UiDialogService } from '../../../../lib/components/dialog/dialog-open.service';
 
@@ -33,14 +33,16 @@ export const template = `
   selector: 'app-dialog-dynamic',
   standalone: true,
   imports: [ButtonComponent],
-  providers: [UiDialogService.providers()],
   template,
 })
 export class DialogDynamicComponent {
-  constructor(private readonly dialogService: UiDialogService) {}
+  constructor(
+    private readonly dialogService: UiDialogService,
+    private readonly injector: Injector,
+  ) {}
 
   open(): void {
-    this.dialogService.open(DialogDynamicContentComponent, {
+    this.dialogService.open(DialogDynamicContentComponent, this.injector, {
       header: 'Подтверждение заявки',
       modal: true,
     });

@@ -317,7 +317,7 @@ export const Dynamic: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { ButtonComponent, DynamicDialogRef, UiDialogService } from '@cdek-it/angular-ui-kit';
 
 // Содержимое диалога
@@ -342,16 +342,18 @@ export class DialogDynamicContentComponent {
   selector: 'app-dialog-dynamic',
   standalone: true,
   imports: [ButtonComponent],
-  providers: [UiDialogService.providers()],
   template: \`
     <button (click)="open()" label="Создать заявку"></button>
   \`,
 })
 export class DialogDynamicComponent {
-  constructor(private readonly dialogService: UiDialogService) {}
+  constructor(
+    private readonly dialogService: UiDialogService,
+    private readonly injector: Injector,
+  ) {}
 
   open(): void {
-    this.dialogService.open(DialogDynamicContentComponent, {
+    this.dialogService.open(DialogDynamicContentComponent, this.injector, {
       header: 'Подтверждение заявки',
       modal: true,
     });
