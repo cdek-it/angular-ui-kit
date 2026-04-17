@@ -9,6 +9,7 @@ import { checkboxCss } from './tokens/components/checkbox';
 import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
+import { inputgroupCss } from './tokens/components/inputgroup';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -31,6 +32,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     progressspinner: {
       ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
       css: progressspinnerCss,
+    },
+    inputgroup: {
+      ...(tokens.components.inputgroup as unknown as ComponentsDesignTokens['inputgroup']),
+      css: inputgroupCss,
     },
     inputtext: {
       ...(tokens.components.inputtext as unknown as ComponentsDesignTokens['inputtext']),
