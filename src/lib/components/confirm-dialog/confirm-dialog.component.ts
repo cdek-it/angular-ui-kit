@@ -1,8 +1,8 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
-import { Button } from 'primeng/button';
 import { PrimeTemplate } from 'primeng/api';
+import { ButtonComponent } from '../button/button.component';
 
 export type ConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';
@@ -11,7 +11,7 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
   selector: 'confirm-dialog',
   host: { style: 'display: contents' },
   standalone: true,
-  imports: [ConfirmDialog, Button, PrimeTemplate, NgTemplateOutlet],
+  imports: [ConfirmDialog, ButtonComponent, PrimeTemplate, NgTemplateOutlet],
   template: `
     <p-confirmDialog [key]="key" [styleClass]="computedClass" appendTo="body">
       <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
@@ -43,16 +43,16 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
           </ng-container>
         } @else {
           <div class="p-dialog-footer">
-            <p-button
+            <button
               [label]="message.rejectLabel"
               variant="text"
-              (onClick)="onReject()"
-            ></p-button>
-            <p-button
+              (click)="onReject()"
+            ></button>
+            <button
               [label]="message.acceptLabel"
               [severity]="message.acceptButtonProps?.severity"
-              (onClick)="onAccept()"
-            ></p-button>
+              (click)="onAccept()"
+            ></button>
           </div>
         }
       </ng-template>
