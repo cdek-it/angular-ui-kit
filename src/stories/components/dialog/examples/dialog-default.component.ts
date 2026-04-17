@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
@@ -29,6 +29,5 @@ export const template = `
   template,
 })
 export class DialogDefaultComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }

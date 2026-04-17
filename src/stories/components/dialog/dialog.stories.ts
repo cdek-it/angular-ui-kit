@@ -135,7 +135,7 @@ export const Basic: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
@@ -146,7 +146,6 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   template: \`${dialogDefaultTemplate}\`,
 })
 export class DialogBasicComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
         `,
@@ -167,7 +166,7 @@ export const Small: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
@@ -178,7 +177,6 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   template: \`${dialogSmallTemplate}\`,
 })
 export class DialogSmallComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
         `,
@@ -199,7 +197,7 @@ export const Large: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
@@ -210,7 +208,6 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   template: \`${dialogLargeTemplate}\`,
 })
 export class DialogLargeComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
         `,
@@ -231,7 +228,7 @@ export const ExtraLarge: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
@@ -242,7 +239,6 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   template: \`${dialogExtraLargeTemplate}\`,
 })
 export class DialogExtraLargeComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
         `,
@@ -263,7 +259,7 @@ export const NoModal: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
@@ -274,7 +270,6 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   template: \`${dialogNoModalTemplate}\`,
 })
 export class DialogNoModalComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
         `,
@@ -295,7 +290,7 @@ export const NoHeader: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { DialogComponent } from '@cdek-it/angular-ui-kit';
 
@@ -306,7 +301,6 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
   template: \`${dialogNoHeaderTemplate}\`,
 })
 export class DialogNoHeaderComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }
         `,
