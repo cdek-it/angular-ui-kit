@@ -29,9 +29,11 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
         </ng-template>
       }
       <ng-content></ng-content>
-      <ng-template pTemplate="footer">
-        <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
-      </ng-template>
+      @if (footerTemplate) {
+        <ng-template pTemplate="footer">
+          <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+        </ng-template>
+      }
     </p-dialog>
   `,
 })
