@@ -318,20 +318,18 @@ export const Dynamic: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { UiDialogService } from '@cdek-it/angular-ui-kit';
+import { ButtonComponent, DynamicDialogRef, UiDialogService } from '@cdek-it/angular-ui-kit';
 
 // Содержимое диалога
 @Component({
   selector: 'app-dialog-dynamic-content',
   standalone: true,
-  imports: [Button],
+  imports: [ButtonComponent],
   template: \`
     <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
     <div class="flex justify-end gap-2 mt-4">
-      <p-button variant="text" label="Отмена" (onClick)="ref.close()"></p-button>
-      <p-button label="Подтвердить" (onClick)="ref.close(true)"></p-button>
+      <button variant="text" label="Отмена" (click)="ref.close()"></button>
+      <button label="Подтвердить" (click)="ref.close(true)"></button>
     </div>
   \`,
 })
@@ -343,10 +341,10 @@ export class DialogDynamicContentComponent {
 @Component({
   selector: 'app-dialog-dynamic',
   standalone: true,
-  imports: [Button],
-  providers: [DialogService, UiDialogService],
+  imports: [ButtonComponent],
+  providers: [UiDialogService.providers()],
   template: \`
-    <p-button (onClick)="open()" label="Создать заявку"></p-button>
+    <button (click)="open()" label="Создать заявку"></button>
   \`,
 })
 export class DialogDynamicComponent {

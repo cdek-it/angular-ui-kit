@@ -11,6 +11,10 @@ export { DynamicDialogRef, DynamicDialogConfig };
 
 @Injectable()
 export class UiDialogService {
+  static providers() {
+    return [DialogService, UiDialogService];
+  }
+
   constructor(private readonly primengDialogService: DialogService) {}
 
   open<T>(componentType: Type<T>, config: UiDynamicDialogConfig = {}): DynamicDialogRef<T> | null {
