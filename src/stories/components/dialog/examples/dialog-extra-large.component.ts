@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <p-button (onClick)="visible = true" label="Открыть отчёт"></p-button>
+  <button (click)="visible = true" label="Открыть отчёт"></button>
 
   <ng-template #footer>
-    <p-button variant="text" label="Закрыть" (onClick)="visible = false"></p-button>
-    <p-button label="Экспортировать" (onClick)="visible = false"></p-button>
+    <button variant="text" label="Закрыть" (click)="visible = false"></button>
+    <button label="Экспортировать" (click)="visible = false"></button>
   </ng-template>
 
   <dialog
@@ -26,7 +26,7 @@ export const template = `
 @Component({
   selector: 'app-dialog-extra-large',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template,
 })
 export class DialogExtraLargeComponent {

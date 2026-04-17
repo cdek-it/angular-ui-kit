@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <p-button (onClick)="visible = true" label="Открыть диалог"></p-button>
+  <button (click)="visible = true" label="Открыть диалог"></button>
 
   <ng-template #footer>
     <div class="flex justify-end w-full">
-      <p-button label="Закрыть" (onClick)="visible = false"></p-button>
+      <button label="Закрыть" (click)="visible = false"></button>
     </div>
   </ng-template>
 
@@ -27,7 +27,7 @@ export const template = `
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template,
 })
 export class DialogNoHeaderComponent {

@@ -136,13 +136,12 @@ export const Basic: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
+import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-basic',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template: \`${dialogDefaultTemplate}\`,
 })
 export class DialogBasicComponent {
@@ -167,13 +166,12 @@ export const Small: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
+import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-small',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template: \`${dialogSmallTemplate}\`,
 })
 export class DialogSmallComponent {
@@ -198,13 +196,12 @@ export const Large: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
+import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-large',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template: \`${dialogLargeTemplate}\`,
 })
 export class DialogLargeComponent {
@@ -229,13 +226,12 @@ export const ExtraLarge: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
+import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-extra-large',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template: \`${dialogExtraLargeTemplate}\`,
 })
 export class DialogExtraLargeComponent {
@@ -260,13 +256,12 @@ export const NoModal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
+import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-no-modal',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template: \`${dialogNoModalTemplate}\`,
 })
 export class DialogNoModalComponent {
@@ -291,13 +286,12 @@ export const NoHeader: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
+import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template: \`${dialogNoHeaderTemplate}\`,
 })
 export class DialogNoHeaderComponent {

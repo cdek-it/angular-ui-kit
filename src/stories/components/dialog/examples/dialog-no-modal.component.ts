@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
+import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <p-button (onClick)="visible = true" label="Показать маршрут"></p-button>
+  <button (click)="visible = true" label="Показать маршрут"></button>
 
   <ng-template #footer>
-    <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
-    <p-button label="Сохранить" (onClick)="visible = false"></p-button>
+    <button variant="text" label="Отмена" (click)="visible = false"></button>
+    <button label="Сохранить" (click)="visible = false"></button>
   </ng-template>
 
   <dialog
@@ -26,7 +26,7 @@ export const template = `
 @Component({
   selector: 'app-dialog-no-modal',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [DialogComponent, ButtonComponent],
   template,
 })
 export class DialogNoModalComponent {
