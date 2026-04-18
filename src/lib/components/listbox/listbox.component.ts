@@ -1,11 +1,14 @@
-import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
+import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 
 @Component({
   selector: 'listbox',
   standalone: true,
   imports: [Listbox, FormsModule],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ListboxComponent), multi: true },
+  ],
   template: `
     <p-listbox
       [options]="options"
@@ -24,7 +27,7 @@ import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
       [disabled]="isDisabled"
       (onChange)="onChangeHandler($event)"
       (onFocus)="onFocus.emit($event)"
-      (onBlur)="onBlur.emit($event)"
+      (onBlur)="onBlurHandler($event)"
     ></p-listbox>
   `,
 })
@@ -51,16 +54,19 @@ export class ListboxComponent implements ControlValueAccessor {
   private _onChange: (value: any) => void = () => {};
   private _onTouched: () => void = () => {};
 
-  constructor(@Optional() @Self() private ngControl: NgControl) {
-    if (ngControl) ngControl.valueAccessor = this;
-  }
-
   get isDisabled(): boolean {
     return this._disabled;
   }
 
   onChangeHandler(event: ListboxChangeEvent): void {
+    // Обновляем внутреннее значение и уведомляем форму об изменении.
+    this.modelValue = event.value;
     this._onChange(event.value);
+  }
+
+  onBlurHandler(event: FocusEvent): void {
+    // emit external onBlur and mark control as touched for forms
+    this.onBlur.emit(event);
     this._onTouched();
   }
 
