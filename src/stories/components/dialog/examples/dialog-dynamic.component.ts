@@ -38,11 +38,10 @@ export const template = `
 export class DialogDynamicComponent {
   constructor(
     private readonly dialogService: UiDialogService,
-    private readonly injector: Injector,
   ) {}
 
   open(): void {
-    this.dialogService.open(DialogDynamicContentComponent, this.injector, {
+    this.dialogService.open(DialogDynamicContentComponent, {
       header: 'Подтверждение заявки',
       modal: true,
     });
