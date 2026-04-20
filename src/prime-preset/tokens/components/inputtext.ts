@@ -6,9 +6,16 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   line-height: ${dt('fonts.lineHeight.250')};
 }
 
+/* ─── Disabled ─── */
+.p-inputtext:disabled {
+  background: ${dt('inputtext.root.disabledBackground')};
+  color: ${dt('inputtext.root.disabledColor')};
+}
+
 /* ─── Readonly ─── */
 .p-inputtext:enabled:read-only {
   background: ${dt('inputtext.extend.readonlyBackground')};
+  color: ${dt('inputtext.root.color')};
 }
 
 /* ─── Extra Large ─── */
