@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Toast } from 'primeng/toast';
 import { Button } from 'primeng/button';
-import { MessageService, SharedModule } from 'primeng/api';
+import { ToastComponent } from '../../../../lib/components/toast/toast.component';
+import { UiToastService } from '../../../../lib/components/toast/toast.service';
 
 const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
@@ -12,16 +12,7 @@ const SEVERITIES = [
 ] as const;
 
 const template = `
-<p-toast key="severities">
-  <ng-template #message let-message>
-    <div class="p-toast-accent-line"></div>
-    <i [class]="message.icon + ' p-toast-message-icon'"></i>
-    <div class="p-toast-message-text">
-      <span class="p-toast-summary">{{ message.summary }}</span>
-      <div class="p-toast-detail">{{ message.detail }}</div>
-    </div>
-  </ng-template>
-</p-toast>
+<ui-toast key="severities"></ui-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of severities; track s.type) {
@@ -54,20 +45,19 @@ const styles = '';
 @Component({
   selector: 'app-toast-severities',
   standalone: true,
-  imports: [Toast, Button, SharedModule],
-  providers: [MessageService],
+  imports: [ToastComponent, Button],
   template,
   styles,
 })
 export class ToastSeveritiesComponent {
   readonly severities = SEVERITIES;
 
-  constructor(private readonly messageService: MessageService) {}
+  constructor(private readonly toastService: UiToastService) {}
 
   show(severity: string, icon: string): void {
-    this.messageService.add({
+    this.toastService.add({
       key: 'severities',
-      severity,
+      severity: severity as any,
       summary: 'Сообщение',
       detail: 'Подпись',
       life: 5000,
@@ -87,33 +77,22 @@ export const Severities: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MessageService, SharedModule } from 'primeng/api';
-import { Toast } from 'primeng/toast';
+import { ToastComponent, UiToastService } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [Toast, SharedModule],
-  providers: [MessageService],
+  imports: [ToastComponent],
   template: \`
-    <p-toast key="my-toast">
-      <ng-template #message let-message>
-        <div class="p-toast-accent-line"></div>
-        <i [class]="message.icon + ' p-toast-message-icon'"></i>
-        <div class="p-toast-message-text">
-          <span class="p-toast-summary">{{ message.summary }}</span>
-          <div class="p-toast-detail">{{ message.detail }}</div>
-        </div>
-      </ng-template>
-    </p-toast>
+    <ui-toast key="my-toast"></ui-toast>
     <button (click)="show()">Показать</button>
   \`,
 })
 export class ExampleComponent {
-  constructor(private messageService: MessageService) {}
+  constructor(private toastService: UiToastService) {}
 
   show(): void {
-    this.messageService.add({
+    this.toastService.add({
       key: 'my-toast',
       severity: 'info',
       summary: 'Сообщение',

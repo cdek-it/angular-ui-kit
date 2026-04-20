@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Toast } from 'primeng/toast';
 import { Button } from 'primeng/button';
-import { MessageService, SharedModule } from 'primeng/api';
+import { ToastComponent } from '../../../../lib/components/toast/toast.component';
+import { UiToastService } from '../../../../lib/components/toast/toast.service';
 
 const SIZES = [
   { key: 'sm', label: 'Small (20rem)', width: '20rem', cssVar: '20rem' },
@@ -12,19 +12,10 @@ const SIZES = [
 ] as const;
 
 const template = `
-<p-toast
+<ui-toast
   key="width-preview"
   [pt]="{ root: { style: { '--p-toast-width': currentWidth } } }"
->
-  <ng-template #message let-message>
-    <div class="p-toast-accent-line"></div>
-    <i [class]="message.icon + ' p-toast-message-icon'"></i>
-    <div class="p-toast-message-text">
-      <span class="p-toast-summary">{{ message.summary }}</span>
-      <div class="p-toast-detail">{{ message.detail }}</div>
-    </div>
-  </ng-template>
-</p-toast>
+></ui-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of sizes; track s.key) {
@@ -59,8 +50,7 @@ const styles = '';
 @Component({
   selector: 'app-toast-width',
   standalone: true,
-  imports: [Toast, Button, SharedModule],
-  providers: [MessageService],
+  imports: [ToastComponent, Button],
   template,
   styles,
 })
@@ -68,12 +58,12 @@ export class ToastWidthComponent {
   readonly sizes = SIZES;
   currentWidth = '25rem';
 
-  constructor(private readonly messageService: MessageService) {}
+  constructor(private readonly toastService: UiToastService) {}
 
   show(cssVar: string): void {
     this.currentWidth = cssVar;
-    this.messageService.clear('width-preview');
-    this.messageService.add({
+    this.toastService.clear('width-preview');
+    this.toastService.add({
       key: 'width-preview',
       severity: 'info',
       summary: 'Сообщение',
@@ -94,9 +84,8 @@ export const Width: StoryObj = {
       source: {
         language: 'ts',
         code: `
-<p-toast [pt]="{ root: { style: { '--p-toast-width': '30rem' } } }">
-  ...
-</p-toast>
+<ui-toast [pt]="{ root: { style: { '--p-toast-width': '30rem' } } }">
+</ui-toast>
         `,
       },
     },

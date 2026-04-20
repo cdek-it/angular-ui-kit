@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Toast } from 'primeng/toast';
 import { Button } from 'primeng/button';
-import { MessageService, SharedModule } from 'primeng/api';
+import { ToastComponent } from '../../../../lib/components/toast/toast.component';
+import { UiToastService } from '../../../../lib/components/toast/toast.service';
 
 const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
@@ -12,16 +12,7 @@ const SEVERITIES = [
 ] as const;
 
 const template = `
-<p-toast key="with-close">
-  <ng-template #message let-message>
-    <div class="p-toast-accent-line"></div>
-    <i [class]="message.icon + ' p-toast-message-icon'"></i>
-    <div class="p-toast-message-text">
-      <span class="p-toast-summary">{{ message.summary }}</span>
-      <div class="p-toast-detail">{{ message.detail }}</div>
-    </div>
-  </ng-template>
-</p-toast>
+<ui-toast key="with-close"></ui-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of severities; track s.type) {
@@ -60,20 +51,19 @@ const styles = '';
 @Component({
   selector: 'app-toast-with-close-button',
   standalone: true,
-  imports: [Toast, Button, SharedModule],
-  providers: [MessageService],
+  imports: [ToastComponent, Button],
   template,
   styles,
 })
 export class ToastWithCloseButtonComponent {
   readonly severities = SEVERITIES;
 
-  constructor(private readonly messageService: MessageService) {}
+  constructor(private readonly toastService: UiToastService) {}
 
   show(severity: string, icon: string): void {
-    this.messageService.add({
+    this.toastService.add({
       key: 'with-close',
-      severity,
+      severity: severity as any,
       summary: 'Сообщение',
       detail: 'Подпись',
       life: 5000,
@@ -93,7 +83,7 @@ export const WithCloseButton: StoryObj = {
       source: {
         language: 'ts',
         code: `
-this.messageService.add({
+this.toastService.add({
   key: 'my-toast',
   severity: 'info',
   summary: 'Сообщение',
