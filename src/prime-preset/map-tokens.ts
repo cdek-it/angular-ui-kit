@@ -9,6 +9,7 @@ import { checkboxCss } from './tokens/components/checkbox';
 import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
+import { textareaCss } from './tokens/components/textarea';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -39,6 +40,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
       css: tagCss,
+    },
+    textarea: {
+      ...(tokens.components.textarea as unknown as ComponentsDesignTokens['textarea']),
+      css: textareaCss,
     },
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
