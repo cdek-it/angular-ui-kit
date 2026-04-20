@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Menubar } from 'primeng/menubar';
 import { Badge } from 'primeng/badge';
-import { NgIf } from '@angular/common';
 import { MenuItem, SharedModule } from 'primeng/api';
 
 const template = `
@@ -36,7 +35,7 @@ const styles = '';
   selector: 'app-menubar-custom',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Menubar, Badge, NgIf, SharedModule],
+  imports: [Menubar, Badge, SharedModule],
   template,
   styles,
 })
@@ -86,14 +85,13 @@ export const Custom: StoryObj = {
 import { Component } from '@angular/core';
 import { Menubar } from 'primeng/menubar';
 import { Badge } from 'primeng/badge';
-import { NgIf } from '@angular/common';
 import { MenuItem, SharedModule } from 'primeng/api';
 
 @Component({
   selector: 'app-menubar-custom',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Menubar, Badge, NgIf, SharedModule],
+  imports: [Menubar, Badge, SharedModule],
   template: \`
     <p-menubar [model]="items">
       <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu" let-root="root">
