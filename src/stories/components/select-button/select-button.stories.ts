@@ -1,11 +1,13 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { SelectButtonComponent } from '../../../lib/components/select-button/select-button.component';
-import { SelectButtonSelectedComponent, Selected } from './examples/select-button-selected.component';
-import { SelectButtonDisabledComponent, Disabled } from './examples/select-button-disabled.component';
-import { SelectButtonSemiDisabledComponent, SemiDisabled } from './examples/select-button-semi-disabled.component';
-import { SelectButtonIconsComponent, WithIcons } from './examples/select-button-icons.component';
+import { SelectButtonSelectedComponent, Selected as SelectedStory } from './examples/select-button-selected.component';
+import { SelectButtonDisabledComponent, Disabled as DisabledStory } from './examples/select-button-disabled.component';
+import { SelectButtonSemiDisabledComponent, SemiDisabled as SemiDisabledStory } from './examples/select-button-semi-disabled.component';
+import { SelectButtonIconsComponent, WithIcons as WithIconsStory } from './examples/select-button-icons.component';
 
-const meta: Meta<SelectButtonComponent> = {
+type SelectButtonArgs = SelectButtonComponent;
+
+const meta: Meta<SelectButtonArgs> = {
   title: 'Components/Form/SelectButton',
   component: SelectButtonComponent,
   tags: ['autodocs'],
@@ -81,7 +83,7 @@ import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit
 };
 
 export default meta;
-type Story = StoryObj<SelectButtonComponent>;
+type Story = StoryObj<SelectButtonArgs>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
@@ -122,16 +124,16 @@ export const Default: Story = {
 
 // ── Selected ──────────────────────────────────────────────────────────────────
 
-export { Selected };
+export const Selected: Story = SelectedStory;
 
 // ── Disabled ──────────────────────────────────────────────────────────────────
 
-export { Disabled };
+export const Disabled: Story = DisabledStory;
 
 // ── Semi-disabled ─────────────────────────────────────────────────────────────
 
-export { SemiDisabled };
+export const SemiDisabled: Story = SemiDisabledStory;
 
 // ── With Icons ────────────────────────────────────────────────────────────────
 
-export { WithIcons };
+export const WithIcons: Story = WithIconsStory;
