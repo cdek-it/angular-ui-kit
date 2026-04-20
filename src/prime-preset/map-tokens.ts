@@ -6,6 +6,7 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
+import { inputmaskCss } from './tokens/components/inputmask';
 import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
@@ -35,6 +36,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     inputtext: {
       ...(tokens.components.inputtext as unknown as ComponentsDesignTokens['inputtext']),
       css: inputtextCss,
+    },
+    inputmask: {
+      ...(tokens.components.inputmask as unknown as object),
+      css: inputmaskCss,
     },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
