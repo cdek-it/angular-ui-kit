@@ -5,7 +5,9 @@ import { StepperLinearComponent, Linear as LinearStory } from './examples/steppe
 import { StepperStepsOnlyComponent, StepsOnly as StepsOnlyStory } from './examples/stepper-steps-only.component';
 import { StepperErrorComponent, Error as ErrorStory } from './examples/stepper-error.component';
 
-const meta: Meta<StepperComponent> = {
+type StepperArgs = StepperComponent;
+
+const meta: Meta<StepperArgs> = {
   title: 'Components/Stepper',
   component: StepperComponent,
   tags: ['autodocs'],
@@ -82,7 +84,7 @@ import { StepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<StepperComponent>;
+type Story = StoryObj<StepperArgs>;
 
 // ── Default (Horizontal) ─────────────────────────────────────────────────────
 
