@@ -5,7 +5,9 @@ import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
 import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
-import { messageCss } from './tokens/components/message';
+import { checkboxCss } from './tokens/components/checkbox';
+import { progressspinnerCss } from './tokens/components/progressspinner';
+import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -17,13 +19,21 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
       css: avatarCss,
     },
+    checkbox: {
+      ...(tokens.components.checkbox as unknown as ComponentsDesignTokens['checkbox']),
+      css: checkboxCss,
+    },
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
-    message: {
-      ...(tokens.components.message as unknown as ComponentsDesignTokens['message']),
-      css: messageCss,
+    progressspinner: {
+      ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
+      css: progressspinnerCss,
+    },
+    tag: {
+      ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
+      css: tagCss,
     },
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
