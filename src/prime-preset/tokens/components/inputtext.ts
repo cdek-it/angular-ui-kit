@@ -18,6 +18,12 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   color: ${dt('inputtext.root.color')};
 }
 
+/* ─── Invalid + Focus ─── */
+.p-inputtext.p-invalid:focus {
+  border-color: ${dt('inputtext.root.invalidBorderColor')};
+  box-shadow: 0 0 0 1px ${dt('inputtext.root.invalidBorderColor')};
+}
+
 /* ─── Extra Large ─── */
 .p-inputtext.p-inputtext-xlg {
   font-size: ${dt('inputtext.extend.extXlg.fontSize')};
