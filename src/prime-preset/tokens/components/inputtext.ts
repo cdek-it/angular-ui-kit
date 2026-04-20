@@ -18,6 +18,11 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   color: ${dt('inputtext.root.color')};
 }
 
+/* ─── Focus ─── */
+.p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 1px ${dt('inputtext.root.focusBorderColor')};
+}
+
 /* ─── Invalid + Focus ─── */
 .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
