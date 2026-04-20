@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgFor, NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Stepper } from 'primeng/stepper';
 import { StepList } from 'primeng/stepper';
 import { Step } from 'primeng/stepper';
@@ -20,57 +20,80 @@ export interface StepperItem {
 @Component({
   selector: 'stepper',
   standalone: true,
-  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, Button, NgFor, NgIf, NgClass],
+  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, Button, NgClass],
   template: `
     <p-stepper
       [value]="value"
       [linear]="linear"
       (valueChange)="onValueChange($event)"
     >
-      <p-step-list *ngIf="orientation === 'horizontal'">
-        <p-step
-          *ngFor="let step of steps"
-          [value]="step.value"
-          [disabled]="step.disabled || false"
-          [ngClass]="{ 'step-invalid': step.invalid }"
-        >
-          {{ step.label }}
-          <div *ngIf="step.caption" class="caption-secondary">{{ step.caption }}</div>
-        </p-step>
-      </p-step-list>
-      <p-step-panels *ngIf="orientation === 'horizontal' && showPanels">
-        <p-step-panel *ngFor="let step of steps; let i = index; let first = first; let last = last" [value]="step.value">
-          <ng-template #content let-activateCallback="activateCallback">
-            <p class="m-0">{{ step.content }}</p>
-            <div class="flex pt-4">
-              <p-button *ngIf="!first" label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
-              <p-button *ngIf="!last" label="Вперёд" severity="secondary" class="ml-auto" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
-            </div>
-          </ng-template>
-        </p-step-panel>
-      </p-step-panels>
+      @if (orientation === 'horizontal') {
+        <p-step-list>
+          @for (step of steps; track step.value) {
+            <p-step
+              [value]="step.value"
+              [disabled]="step.disabled || false"
+              [ngClass]="{ 'step-invalid': step.invalid }"
+            >
+              {{ step.label }}
+              @if (step.caption) {
+                <div class="caption-secondary">{{ step.caption }}</div>
+              }
+            </p-step>
+          }
+        </p-step-list>
+      }
+      @if (orientation === 'horizontal' && showPanels) {
+        <p-step-panels>
+          @for (step of steps; track step.value; let i = $index; let first = $first; let last = $last) {
+            <p-step-panel [value]="step.value">
+              <ng-template #content let-activateCallback="activateCallback">
+                <p class="m-0">{{ step.content }}</p>
+                <div class="flex pt-4">
+                  @if (!first) {
+                    <p-button label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
+                  }
+                  @if (!last) {
+                    <p-button label="Вперёд" severity="secondary" class="ml-auto" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
+                  }
+                </div>
+              </ng-template>
+            </p-step-panel>
+          }
+        </p-step-panels>
+      }
 
-      <ng-container *ngIf="orientation === 'vertical'">
-        <p-step-item *ngFor="let step of steps; let i = index; let first = first; let last = last" [value]="step.value">
-          <p-step
-            [value]="step.value"
-            [disabled]="step.disabled || false"
-            [ngClass]="{ 'step-invalid': step.invalid }"
-          >
-            {{ step.label }}
-            <div *ngIf="step.caption" class="caption-secondary">{{ step.caption }}</div>
-          </p-step>
-          <p-step-panel *ngIf="showPanels" [value]="step.value">
-            <ng-template #content let-activateCallback="activateCallback">
-              <p class="m-0">{{ step.content }}</p>
-              <div class="flex gap-2 pt-4">
-                <p-button *ngIf="!first" label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
-                <p-button *ngIf="!last" label="Вперёд" severity="secondary" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
-              </div>
-            </ng-template>
-          </p-step-panel>
-        </p-step-item>
-      </ng-container>
+      @if (orientation === 'vertical') {
+        @for (step of steps; track step.value; let i = $index; let first = $first; let last = $last) {
+          <p-step-item [value]="step.value">
+            <p-step
+              [value]="step.value"
+              [disabled]="step.disabled || false"
+              [ngClass]="{ 'step-invalid': step.invalid }"
+            >
+              {{ step.label }}
+              @if (step.caption) {
+                <div class="caption-secondary">{{ step.caption }}</div>
+              }
+            </p-step>
+            @if (showPanels) {
+              <p-step-panel [value]="step.value">
+                <ng-template #content let-activateCallback="activateCallback">
+                  <p class="m-0">{{ step.content }}</p>
+                  <div class="flex gap-2 pt-4">
+                    @if (!first) {
+                      <p-button label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
+                    }
+                    @if (!last) {
+                      <p-button label="Вперёд" severity="secondary" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
+                    }
+                  </div>
+                </ng-template>
+              </p-step-panel>
+            }
+          </p-step-item>
+        }
+      }
     </p-stepper>
   `,
 })
