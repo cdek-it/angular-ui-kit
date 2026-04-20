@@ -38,9 +38,12 @@ export type InputTextVariant = 'outlined' | 'filled';
         />
         <p-inputicon
           class="ti ti-x"
+          tabindex="0"
           [style.visibility]="modelValue ? 'visible' : 'hidden'"
           [style.pointerEvents]="modelValue ? 'auto' : 'none'"
           (click)="clearValue()"
+          (keydown.enter)="clearValue()"
+          (keydown.space)="clearValue()"
         ></p-inputicon>
       </p-iconfield>
     } @else {
