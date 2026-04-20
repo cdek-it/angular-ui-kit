@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, computed, forwardRef, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent, AutoCompleteDropdownClickEvent } from 'primeng/autocomplete';
 
@@ -39,14 +39,13 @@ export type AutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
       [delay]="delay"
       [scrollHeight]="scrollHeight"
       [emptyMessage]="emptyMessage"
-      [size]="primeSize"
       [disabled]="disabled"
       [readonly]="readonly"
       [invalid]="invalid"
       [fluid]="fluid"
       [unique]="unique"
       [dataKey]="dataKey"
-      [inputStyleClass]="computedInputStyleClass"
+      [inputStyleClass]="computedInputStyleClass()"
       [inputId]="inputId"
       [ariaLabel]="ariaLabel"
       [ariaLabelledBy]="ariaLabelledBy"
@@ -80,7 +79,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() delay = 300;
   @Input() scrollHeight = '200px';
   @Input() emptyMessage: string | undefined = undefined;
-  @Input() size: AutoCompleteSize = 'base';
+  private _size = signal<AutoCompleteSize>('base');
+  @Input() set size(v: AutoCompleteSize) { this._size.set(v); }
+  get size(): AutoCompleteSize { return this._size(); }
   @Input() disabled = false;
   @Input() readonly = false;
   @Input() invalid = false;
@@ -101,20 +102,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Output() onBlur = new EventEmitter<Event>();
   @Output() onClear = new EventEmitter<void>();
 
-  get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large' || this.size === 'xlarge') return 'large';
-    return undefined;
-  }
-
-  get sizeClass(): string {
-    if (this.size === 'xlarge') return 'p-inputtext-xlg';
-    return '';
-  }
-
-  get computedInputStyleClass(): string {
-    return [this.sizeClass, this.inputStyleClass].filter(Boolean).join(' ');
-  }
+  readonly computedInputStyleClass = computed(() => {
+    const classes: string[] = [];
+    const s = this._size();
+    if (s === 'small')  classes.push('p-inputtext-sm');
+    if (s === 'large')  classes.push('p-inputtext-lg');
+    if (s === 'xlarge') classes.push('p-inputtext-lg', 'p-inputtext-xlg');
+    if (this.inputStyleClass) classes.push(this.inputStyleClass);
+    return classes.join(' ') || undefined;
+  });
 
   modelValue: any = null;
 

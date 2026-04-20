@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import Preset from '../src/prime-preset/theme.preset';
+import { RU_TRANSLATION } from '../src/prime-preset/locale/ru';
 
 import '!style-loader!css-loader!postcss-loader!sass-loader!../src/styles.scss';
 
@@ -22,7 +23,8 @@ const preview: Preview = {
               darkModeSelector: false,
               cssLayer: false
             }
-          }
+          },
+          translation: RU_TRANSLATION
         })
       ]
     })
