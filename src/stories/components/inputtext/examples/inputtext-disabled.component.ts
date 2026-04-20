@@ -15,7 +15,6 @@ export const Disabled: Story = {
         [readonly]="readonly"
         [invalid]="invalid"
         [fluid]="fluid"
-        [variant]="variant"
         [placeholder]="placeholder"
         [(ngModel)]="value"
       ></input-text>

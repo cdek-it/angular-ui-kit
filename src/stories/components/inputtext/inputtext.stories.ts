@@ -100,16 +100,6 @@ import { InputTextModule } from 'primeng/inputtext';
         type: { summary: 'boolean' },
       },
     },
-    variant: {
-      control: 'select',
-      options: ['outlined', 'filled'],
-      description: 'Визуальный вариант поля',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: "'outlined'" },
-        type: { summary: "'outlined' | 'filled'" },
-      },
-    },
     // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
@@ -133,7 +123,6 @@ import { InputTextModule } from 'primeng/inputtext';
     invalid: false,
     showClear: false,
     fluid: false,
-    variant: 'outlined',
   },
 };
 
@@ -153,7 +142,6 @@ export const Default: Story = {
     if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
     parts.push(`[(ngModel)]="value"`);
 
     const template = `<input-text\n  ${parts.join('\n  ')}\n></input-text>`;

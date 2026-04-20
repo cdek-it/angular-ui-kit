@@ -6,7 +6,7 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
 export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
-export type InputTextVariant = 'outlined' | 'filled';
+
 
 @Component({
   selector: 'input-text',
@@ -31,7 +31,6 @@ export type InputTextVariant = 'outlined' | 'filled';
           [invalid]="invalid"
           [placeholder]="placeholder"
           [fluid]="fluid"
-          [variant]="variant === 'filled' ? 'filled' : undefined"
           [value]="modelValue"
           (input)="onInput($event)"
           (blur)="onTouched()"
@@ -56,7 +55,6 @@ export type InputTextVariant = 'outlined' | 'filled';
         [invalid]="invalid"
         [placeholder]="placeholder"
         [fluid]="fluid"
-        [variant]="variant === 'filled' ? 'filled' : undefined"
         [value]="modelValue"
         (input)="onInput($event)"
         (blur)="onTouched()"
@@ -72,7 +70,6 @@ export class InputTextComponent implements ControlValueAccessor {
   @Input() invalid = false;
   @Input() showClear = false;
   @Input() fluid = false;
-  @Input() variant: InputTextVariant = 'outlined';
 
   @Output() onClear = new EventEmitter<void>();
 
