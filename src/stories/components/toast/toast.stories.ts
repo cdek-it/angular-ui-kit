@@ -28,11 +28,10 @@ const meta: Meta<ToastComponent> = {
     designTokens: { prefix: '--p-toast' },
     docs: {
       description: {
-        component: `Компонент для отображения всплывающих уведомлений поверх интерфейса. Требует подключения \`MessageService\`.
+        component: `Компонент для отображения всплывающих уведомлений поверх интерфейса. Требует подключения \`UiToastService\`.
 
 \`\`\`typescript
-import { ToastComponent } from '@cdek-it/angular-ui-kit';
-import { MessageService } from 'primeng/api';
+import { ToastComponent, UiToastService } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
