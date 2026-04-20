@@ -26,6 +26,10 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
       [inputStyleClass]="computedInputStyleClass"
       [disabled]="disabled"
       [placeholder]="placeholder"
+      [promptLabel]="promptLabel"
+      [weakLabel]="weakLabel"
+      [mediumLabel]="mediumLabel"
+      [strongLabel]="strongLabel"
       [variant]="variant"
       [fluid]="fluid"
       [invalid]="invalid"
@@ -47,6 +51,10 @@ export class PasswordComponent implements ControlValueAccessor {
   @Input() variant: 'filled' | 'outlined' = 'outlined';
   @Input() fluid = false;
   @Input() invalid = false;
+  @Input() promptLabel = 'Введите пароль';
+  @Input() weakLabel = 'Слабый';
+  @Input() mediumLabel = 'Средний';
+  @Input() strongLabel = 'Надёжный';
   @Input() inputId: string | undefined = undefined;
   @Input() inputStyleClass: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
@@ -56,14 +64,11 @@ export class PasswordComponent implements ControlValueAccessor {
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
-  get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large' || this.size === 'xlarge') return 'large';
-    return undefined;
-  }
-
   get sizeClass(): string {
-    return this.size === 'xlarge' ? 'p-inputtext-xlg' : '';
+    if (this.size === 'small') return 'p-inputtext-sm';
+    if (this.size === 'large') return 'p-inputtext-lg';
+    if (this.size === 'xlarge') return 'p-inputtext-lg p-inputtext-xlg';
+    return '';
   }
 
   get computedInputStyleClass(): string {
