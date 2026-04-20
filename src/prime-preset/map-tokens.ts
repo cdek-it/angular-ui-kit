@@ -6,6 +6,9 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
+import { confirmDialogCss } from './tokens/components/confirm-dialog';
+import { dialogCss } from './tokens/components/dialog';
+import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -24,6 +27,14 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
+    },
+    confirmdialog: {
+      ...(tokens.components.confirmdialog as unknown as ComponentsDesignTokens['confirmdialog']),
+      css: confirmDialogCss,
+    },
+    dialog: {
+      ...(tokens.components.dialog as unknown as ComponentsDesignTokens['dialog']),
+      css: dialogCss,
     },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),

@@ -26,12 +26,13 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
               <span>{{ message.header }}</span>
             </div>
             <button
-              class="p-button p-component p-button-icon-only p-button-rounded p-button-text p-dialog-close-button"
-              type="button"
+              class="p-dialog-close-button"
+              variant="text"
+              icon="ti ti-x"
+              [rounded]="true"
+              [iconOnly]="true"
               (click)="onReject()"
-            >
-              <span class="p-button-icon ti ti-x"></span>
-            </button>
+            ></button>
           </div>
         }
         <div class="p-dialog-content">
