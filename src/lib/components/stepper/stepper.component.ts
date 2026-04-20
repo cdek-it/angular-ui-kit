@@ -6,7 +6,7 @@ import { Step } from 'primeng/stepper';
 import { StepPanels } from 'primeng/stepper';
 import { StepPanel } from 'primeng/stepper';
 import { StepItem } from 'primeng/stepper';
-import { Button } from 'primeng/button';
+import { ButtonComponent } from '../button/button.component';
 
 export interface StepperItem {
   value: string;
@@ -20,7 +20,7 @@ export interface StepperItem {
 @Component({
   selector: 'stepper',
   standalone: true,
-  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, Button, NgClass],
+  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, ButtonComponent, NgClass],
   template: `
     <p-stepper
       [value]="value"
@@ -51,10 +51,10 @@ export interface StepperItem {
                 <p class="m-0">{{ step.content }}</p>
                 <div class="flex pt-4">
                   @if (!first) {
-                    <p-button label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
+                    <button label="Назад" variant="outlined" (onClick)="activateCallback(steps[i - 1].value)"></button>
                   }
                   @if (!last) {
-                    <p-button label="Вперёд" severity="secondary" class="ml-auto" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
+                    <button label="Вперёд" variant="secondary" class="ml-auto" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"></button>
                   }
                 </div>
               </ng-template>
@@ -82,10 +82,10 @@ export interface StepperItem {
                   <p class="m-0">{{ step.content }}</p>
                   <div class="flex gap-2 pt-4">
                     @if (!first) {
-                      <p-button label="Назад" severity="contrast" (onClick)="activateCallback(steps[i - 1].value)"/>
+                      <button label="Назад" variant="outlined" (onClick)="activateCallback(steps[i - 1].value)"></button>
                     }
                     @if (!last) {
-                      <p-button label="Вперёд" severity="secondary" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"/>
+                      <button label="Вперёд" variant="secondary" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"></button>
                     }
                   </div>
                 </ng-template>
