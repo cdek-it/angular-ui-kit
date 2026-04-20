@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Toast } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { SharedModule } from 'primeng/api';
 
 export type ToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
@@ -24,9 +23,8 @@ const SEVERITY_ICONS: Record<string, string> = {
   selector: 'ui-toast',
   standalone: true,
   imports: [Toast, SharedModule],
-  providers: [MessageService],
   template: `
-    <p-toast [position]="position" [key]="key" [life]="life">
+    <p-toast [position]="position" [key]="key" [life]="life" [pt]="pt">
       <ng-template #message let-message>
         <div class="p-toast-accent-line"></div>
         <i [class]="resolveIcon(message) + ' p-toast-message-icon'"></i>
@@ -44,6 +42,7 @@ export class ToastComponent {
   @Input() position: ToastPosition = 'top-right';
   @Input() key: string | undefined = undefined;
   @Input() life = 5000;
+  @Input() pt: Record<string, any> | undefined = undefined;
 
   resolveIcon(message: { severity?: string; icon?: string }): string {
     return message.icon ?? SEVERITY_ICONS[message.severity ?? 'info'] ?? 'ti ti-info-circle';
