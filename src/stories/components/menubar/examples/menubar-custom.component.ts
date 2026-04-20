@@ -10,13 +10,21 @@ const template = `
 <p-menubar [model]="items">
   <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu" let-root="root">
     <a class="p-menubar-item-link flex items-center gap-2">
-      <span *ngIf="item.icon" [class]="'p-menubar-item-icon ' + item.icon"></span>
+      @if (item.icon) {
+        <span [class]="'p-menubar-item-icon ' + item.icon"></span>
+      }
       <div class="menubar-item-label">
         <span class="p-menubar-item-label">{{ item.label }}</span>
-        <small *ngIf="item['description']" class="menubar-item-caption">{{ item['description'] }}</small>
+        @if (item['description']) {
+          <small class="menubar-item-caption">{{ item['description'] }}</small>
+        }
       </div>
-      <p-badge *ngIf="item['badge']" [value]="item['badge']"></p-badge>
-      <span *ngIf="hasSubmenu" [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
+      @if (item['badge']) {
+        <p-badge [value]="item['badge']"></p-badge>
+      }
+      @if (hasSubmenu) {
+        <span [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
+      }
     </a>
   </ng-template>
 </p-menubar>
@@ -90,13 +98,21 @@ import { MenuItem, SharedModule } from 'primeng/api';
     <p-menubar [model]="items">
       <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu" let-root="root">
         <a class="p-menubar-item-link flex items-center gap-2">
-          <span *ngIf="item.icon" [class]="'p-menubar-item-icon ' + item.icon"></span>
+          @if (item.icon) {
+            <span [class]="'p-menubar-item-icon ' + item.icon"></span>
+          }
           <div class="menubar-item-label">
             <span class="p-menubar-item-label">{{ item.label }}</span>
-            <small *ngIf="item['description']" class="menubar-item-caption">{{ item['description'] }}</small>
+            @if (item['description']) {
+              <small class="menubar-item-caption">{{ item['description'] }}</small>
+            }
           </div>
-          <p-badge *ngIf="item['badge']" [value]="item['badge']"></p-badge>
-          <span *ngIf="hasSubmenu" [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
+          @if (item['badge']) {
+            <p-badge [value]="item['badge']"></p-badge>
+          }
+          @if (hasSubmenu) {
+            <span [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
+          }
         </a>
       </ng-template>
     </p-menubar>
