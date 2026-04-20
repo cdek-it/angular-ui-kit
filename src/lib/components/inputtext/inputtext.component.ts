@@ -21,7 +21,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
   ],
   template: `
     @if (showClear) {
-      <p-iconfield>
+      <p-iconfield [ngClass]="{'!w-full': fluid}">
         <input
           pInputText
           [ngClass]="sizeClass"
