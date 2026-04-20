@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { SelectButton } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
@@ -14,7 +14,7 @@ export interface SelectButtonItem {
 @Component({
   selector: 'select-button',
   standalone: true,
-  imports: [SelectButton, SharedModule, FormsModule, NgIf, NgClass],
+  imports: [SelectButton, SharedModule, FormsModule, NgClass],
   template: `
     <p-selectbutton
       [options]="options"
@@ -29,7 +29,9 @@ export interface SelectButtonItem {
       [ngClass]="sizeClass"
     >
       <ng-template pTemplate="item" let-item>
-        <i *ngIf="item.icon" [class]="item.icon"></i>
+        @if (item.icon) {
+          <i [class]="item.icon"></i>
+        }
         <span>{{ item.label }}</span>
       </ng-template>
     </p-selectbutton>
