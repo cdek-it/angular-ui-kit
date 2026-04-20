@@ -1,7 +1,4 @@
-/**
- * Кастомная CSS-стилизация для компонента p-autocomplete.
- * Подключается в map-tokens.ts: `import { autocompleteCss } from './components/autocomplete'`
- */
+
 export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): string => `
   /* ─── Base ─── */
   .p-autocomplete {
@@ -21,13 +18,16 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
     line-height: ${dt('fonts.lineHeight.250')};
   }
 
-  /* Монолитный вид (убираем внутренние границы при dropdown) */
+  /* Монолитный вид: убираем стыкующиеся границы инпута и dropdown-кнопки.
+     border-inline-end-width не перезаписывается hover/focus, т.к. те меняют только border-color. */
   .p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input {
-    border-right-width: 0;
+    border-inline-end-width: 0;
   }
 
+  /* Dropdown: дублируем border-inline-start: 0 с повышенной специфичностью,
+     чтобы наш селектор гарантированно побеждал базовое правило PrimeNG. */
   .p-autocomplete .p-autocomplete-dropdown {
-    border-left-width: 0;
+    border-inline-start: 0 none;
   }
 
   /* ─── States: Hover ─── */
@@ -92,35 +92,49 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
     padding-inline-end: ${dt('chip.root.paddingX')};
   }
 
-  /* ─── Sizes ─── */
+  /* ─── Sizes ─────────────────────────────────────────────────────────────────
+     Повторяем padding-block / padding-inline из PrimeNG inputtext-size классов,
+     но с повышенной специфичностью (.p-autocomplete.p-component + класс размера),
+     чтобы перебить base-padding из .p-autocomplete .p-autocomplete-input выше.
+  ──────────────────────────────────────────────────────────────────────────── */
+
+  /* sm */
   .p-autocomplete.p-component .p-inputtext-sm.p-autocomplete-input,
   .p-autocomplete.p-component .p-inputtext-sm.p-autocomplete-input-multiple {
-    font-size: ${dt('form.sm.fontSize')};
-    padding: ${dt('form.sm.paddingY')} ${dt('form.paddingX')};
+    font-size: ${dt('inputtext.root.sm.fontSize')};
+    padding-block: ${dt('inputtext.root.sm.paddingY')};
+    padding-inline: ${dt('inputtext.root.sm.paddingX')};
   }
 
   .p-autocomplete.p-component .p-inputtext-sm.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding: calc(${dt('form.sm.paddingY')} - 4.75px);
+    padding-block: calc(${dt('inputtext.root.sm.paddingY')} - 4.75px);
+    padding-inline: calc(${dt('inputtext.root.sm.paddingY')} - 4.75px);
   }
 
+  /* lg */
   .p-autocomplete.p-component .p-inputtext-lg.p-autocomplete-input,
   .p-autocomplete.p-component .p-inputtext-lg.p-autocomplete-input-multiple {
-    font-size: ${dt('form.lg.fontSize')};
-    padding: ${dt('form.lg.paddingY')} ${dt('form.paddingX')};
+    font-size: ${dt('inputtext.root.lg.fontSize')};
+    padding-block: ${dt('inputtext.root.lg.paddingY')};
+    padding-inline: ${dt('inputtext.root.lg.paddingX')};
   }
 
   .p-autocomplete.p-component .p-inputtext-lg.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding: calc(${dt('form.lg.paddingY')} - 4.75px);
+    padding-block: calc(${dt('inputtext.root.lg.paddingY')} - 4.75px);
+    padding-inline: calc(${dt('inputtext.root.lg.paddingY')} - 4.75px);
   }
 
+  /* xlg */
   .p-autocomplete.p-component .p-inputtext-xlg.p-autocomplete-input,
   .p-autocomplete.p-component .p-inputtext-xlg.p-autocomplete-input-multiple {
-    font-size: ${dt('form.xlg.fontSize')};
-    padding: ${dt('form.xlg.paddingY')} ${dt('form.paddingX')};
+    font-size: ${dt('inputtext.extend.extXlg.fontSize')};
+    padding-block: ${dt('inputtext.extend.extXlg.paddingY')};
+    padding-inline: ${dt('inputtext.extend.extXlg.paddingX')};
   }
 
   .p-autocomplete.p-component .p-inputtext-xlg.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding: calc(${dt('form.xlg.paddingY')} - 4.75px);
+    padding-block: calc(${dt('inputtext.extend.extXlg.paddingY')} - 4.75px);
+    padding-inline: calc(${dt('inputtext.extend.extXlg.paddingY')} - 4.75px);
   }
 
   .p-autocomplete.p-component .p-inputtext-xlg .p-autocomplete-chip {

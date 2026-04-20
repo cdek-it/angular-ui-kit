@@ -2,7 +2,6 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Базовые стили ─── */
 .p-inputtext {
-  border-width: ${dt('inputtext.extend.borderWidth')};
   line-height: ${dt('fonts.lineHeight.250')};
 }
 

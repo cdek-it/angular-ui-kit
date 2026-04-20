@@ -144,6 +144,7 @@ import { AutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     ariaLabel: { table: { disable: true } },
     ariaLabelledBy: { table: { disable: true } },
     autofocus: { table: { disable: true } },
+    primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
     computedInputStyleClass: { table: { disable: true } },
 

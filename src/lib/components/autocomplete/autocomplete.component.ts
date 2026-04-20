@@ -39,6 +39,7 @@ export type AutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
       [delay]="delay"
       [scrollHeight]="scrollHeight"
       [emptyMessage]="emptyMessage"
+      [size]="primeSize"
       [disabled]="disabled"
       [readonly]="readonly"
       [invalid]="invalid"
@@ -100,10 +101,14 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Output() onBlur = new EventEmitter<Event>();
   @Output() onClear = new EventEmitter<void>();
 
+  get primeSize(): 'small' | 'large' | undefined {
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large' || this.size === 'xlarge') return 'large';
+    return undefined;
+  }
+
   get sizeClass(): string {
-    if (this.size === 'small') return 'p-inputtext-sm';
-    if (this.size === 'large') return 'p-inputtext-lg';
-    if (this.size === 'xlarge') return 'p-inputtext-lg p-inputtext-xlg';
+    if (this.size === 'xlarge') return 'p-inputtext-xlg';
     return '';
   }
 
