@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { Tabs } from 'primeng/tabs';
 import { TabList } from 'primeng/tabs';
 import { Tab } from 'primeng/tabs';
@@ -20,7 +19,7 @@ export interface TabItem {
 @Component({
   selector: 'tabs',
   standalone: true,
-  imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge, NgIf],
+  imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge],
   template: `
     <p-tabs
       [value]="value"
