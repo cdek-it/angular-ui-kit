@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Tabs } from 'primeng/tabs';
 import { TabList } from 'primeng/tabs';
 import { Tab } from 'primeng/tabs';
@@ -20,7 +20,7 @@ export interface TabItem {
 @Component({
   selector: 'tabs',
   standalone: true,
-  imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge, NgFor, NgIf],
+  imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge, NgIf],
   template: `
     <p-tabs
       [value]="value"
@@ -29,24 +29,30 @@ export interface TabItem {
       (valueChange)="value = $event"
     >
       <p-tablist>
-        <p-tab
-          *ngFor="let tab of tabs"
-          [value]="tab.value"
-          [disabled]="tab.disabled || false"
-        >
-          <i *ngIf="tab.icon" class="text-xl" [class]="tab.icon"></i>
-          <span>{{ tab.label }}</span>
-          <p-badge
-            *ngIf="tab.badge"
-            [value]="tab.badge"
-            [severity]="tab.badgeSeverity || 'success'"
-          ></p-badge>
-        </p-tab>
+        @for (tab of tabs; track tab.value) {
+          <p-tab
+            [value]="tab.value"
+            [disabled]="tab.disabled || false"
+          >
+            @if (tab.icon) {
+              <i class="text-xl" [class]="tab.icon"></i>
+            }
+            <span>{{ tab.label }}</span>
+            @if (tab.badge) {
+              <p-badge
+                [value]="tab.badge"
+                [severity]="tab.badgeSeverity || 'success'"
+              ></p-badge>
+            }
+          </p-tab>
+        }
       </p-tablist>
       <p-tabpanels>
-        <p-tabpanel *ngFor="let tab of tabs" [value]="tab.value">
-          <p class="m-0">{{ tab.content }}</p>
-        </p-tabpanel>
+        @for (tab of tabs; track tab.value) {
+          <p-tabpanel [value]="tab.value">
+            <p class="m-0">{{ tab.content }}</p>
+          </p-tabpanel>
+        }
       </p-tabpanels>
     </p-tabs>
   `,
