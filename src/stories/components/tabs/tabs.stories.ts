@@ -1,7 +1,7 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { TabsComponent } from '../../../lib/components/tabs/tabs.component';
-import { TabsWithBadgeComponent, WithBadge as WithBadgeStory } from './examples/tabs-with-badge.component';
-import { TabsWithDisabledComponent, WithDisabled as WithDisabledStory } from './examples/tabs-with-disabled.component';
+import { TabsWithBadgeComponent, WithBadge } from './examples/tabs-with-badge.component';
+import { TabsWithDisabledComponent, WithDisabled } from './examples/tabs-with-disabled.component';
 
 const meta: Meta<TabsComponent> = {
   title: 'Components/Menu/Tabs',
@@ -105,10 +105,4 @@ export const Default: Story = {
   },
 };
 
-// ── WithBadge ─────────────────────────────────────────────────────────────────
-
-export const WithBadge: Story = WithBadgeStory;
-
-// ── WithDisabled ──────────────────────────────────────────────────────────────
-
-export const WithDisabled: Story = WithDisabledStory;
+export { WithBadge, WithDisabled };
