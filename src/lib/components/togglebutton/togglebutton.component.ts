@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
@@ -8,6 +8,7 @@ export type ToggleButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
 @Component({
   selector: 'toggle-button',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToggleButton, NgClass],
   providers: [
     {
