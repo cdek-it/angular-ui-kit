@@ -20,25 +20,28 @@ export interface SelectButtonItem {
       [options]="options"
       [ngModel]="value"
       (ngModelChange)="onValueChange($event)"
-      optionLabel="label"
-      optionValue="value"
-      optionDisabled="disabled"
+      [optionLabel]="optionLabel"
+      [optionValue]="optionValue"
+      [optionDisabled]="optionDisabled"
       [multiple]="multiple"
       [allowEmpty]="allowEmpty"
       [disabled]="isDisabled"
       [ngClass]="sizeClass"
     >
       <ng-template pTemplate="item" let-item>
-        @if (item.icon) {
-          <i [class]="item.icon"></i>
+        @if (item['icon']) {
+          <i [class]="item['icon']"></i>
         }
-        <span>{{ item.label }}</span>
+        <span>{{ item[optionLabel] }}</span>
       </ng-template>
     </p-selectbutton>
   `,
 })
 export class SelectButtonComponent implements ControlValueAccessor {
-  @Input() options: SelectButtonItem[] = [];
+  @Input() options: any[] = [];
+  @Input() optionLabel = 'label';
+  @Input() optionValue = 'value';
+  @Input() optionDisabled = 'disabled';
   @Input() size: 'default' | 'sm' | 'lg' | 'xlg' = 'default';
   @Input() multiple = false;
   @Input() allowEmpty = true;
