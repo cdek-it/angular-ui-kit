@@ -2,7 +2,7 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { InputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
 import { InputMaskFloatLabelComponent, FloatLabelStory } from './examples/inputmask-float-label.component';
-import { InputMaskSizesComponent, Sizes } from './examples/inputmask-sizes.component';
+import { Sizes } from './examples/inputmask-sizes.component';
 import { Disabled } from './examples/inputmask-disabled.component';
 import { Readonly } from './examples/inputmask-readonly.component';
 import { Invalid } from './examples/inputmask-invalid.component';
@@ -19,7 +19,6 @@ const meta: Meta<InputMaskArgs> = {
         InputMaskComponent,
         FormsModule,
         InputMaskFloatLabelComponent,
-        InputMaskSizesComponent,
       ],
     }),
   ],

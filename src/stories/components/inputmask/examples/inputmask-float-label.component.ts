@@ -36,7 +36,7 @@ export const FloatLabelStory: StoryObj = {
     docs: {
       description: {
         story:
-          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Требует нативный `<p-inputmask>` как прямой дочерний элемент `p-floatlabel`.',
+          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию. Требует нативный `<p-inputmask>` как прямой дочерний элемент `p-floatlabel`.',
       },
       source: {
         language: 'ts',

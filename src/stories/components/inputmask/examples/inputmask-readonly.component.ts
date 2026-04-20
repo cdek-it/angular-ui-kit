@@ -11,7 +11,13 @@ export const Readonly: Story = {
       <input-mask
         [mask]="mask"
         [slotChar]="slotChar"
+        [size]="size"
+        [showClear]="showClear"
+        [disabled]="disabled"
         [readonly]="readonly"
+        [invalid]="invalid"
+        [fluid]="fluid"
+        [variant]="variant"
         [placeholder]="placeholder"
         [(ngModel)]="value"
       ></input-mask>
@@ -19,7 +25,6 @@ export const Readonly: Story = {
   }),
   args: {
     mask: '99-99-99',
-    slotChar: '_',
     readonly: true,
     placeholder: '99-99-99',
   },
@@ -29,8 +34,14 @@ export const Readonly: Story = {
         story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.',
       },
       source: {
-        language: 'html',
-        code: `<input-mask mask="99-99-99" [readonly]="true" [(ngModel)]="value"></input-mask>`,
+        language: 'ts',
+        code: `
+import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
+import { FormsModule } from '@angular/forms';
+
+// template:
+// <input-mask mask="99-99-99" [readonly]="true" [(ngModel)]="value"></input-mask>
+        `,
       },
     },
   },
