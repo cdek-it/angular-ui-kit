@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
@@ -8,6 +8,7 @@ const styles = '';
 @Component({
   selector: 'app-checkbox-label',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, FormsModule],
   styles,
   template: `
@@ -44,6 +45,7 @@ import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-checkbox-label',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, ReactiveFormsModule],
   template: \`
     <form class="flex items-center gap-2">

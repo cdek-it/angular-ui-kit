@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { RadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
@@ -23,6 +23,7 @@ const template = `
 @Component({
   selector: 'app-radiobutton-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadiobuttonComponent, FormsModule],
   template,
 })
@@ -47,6 +48,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-radiobutton-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadiobuttonComponent, FormsModule],
   template: \`
     <radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></radiobutton>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { OverlayBadge } from 'primeng/overlaybadge';
 import { AvatarComponent } from '../../../../lib/components/avatar/avatar.component';
@@ -20,6 +20,7 @@ const styles = '';
 @Component({
   selector: 'app-avatar-icon-badge',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarComponent, OverlayBadge],
   template,
   styles,
@@ -45,6 +46,7 @@ import { AvatarComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-avatar-icon-badge',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarComponent, OverlayBadge],
   template: \`
     <div class="flex items-center gap-4">

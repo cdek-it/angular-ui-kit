@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { AvatarComponent, AvatarGroupComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -19,6 +19,7 @@ const styles = '';
 @Component({
   selector: 'app-avatar-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarComponent, AvatarGroupComponent],
   template,
   styles,
@@ -43,6 +44,7 @@ import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-avatar-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarComponent, AvatarGroupComponent],
   template: \`
     <avatar-group>

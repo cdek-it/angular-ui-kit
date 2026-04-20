@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner'; // We use Module since PrimeNG 17/18 might export it this way. Wait, earlier we saw ProgressSpinner is standalone? Actually ProgressSpinner in v18 is standalone, but importing it as ProgressSpinner works.
 // Let's import the component directly. Wait, index.d.ts exports { ProgressSpinner, ProgressSpinnerModule }. Either is fine. Let's use ProgressSpinner.
 import { ProgressSpinner } from 'primeng/progressspinner';
@@ -8,6 +8,7 @@ export type ProgressSpinnerSize = 'small' | 'medium' | 'large' | 'xlarge';
 @Component({
   selector: 'progressspinner',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressSpinner],
   template: `
     <p-progressSpinner

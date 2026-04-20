@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Avatar } from 'primeng/avatar';
 import { AvatarGroup } from 'primeng/avatargroup';
 
@@ -8,6 +8,7 @@ export type AvatarShape = 'square' | 'circle';
 @Component({
   selector: 'avatar',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Avatar],
   template: `
     <p-avatar
@@ -41,6 +42,7 @@ export class AvatarComponent {
 @Component({
   selector: 'avatar-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarGroup],
   template: `
     <p-avatar-group>

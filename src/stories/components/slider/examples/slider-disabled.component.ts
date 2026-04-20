@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { SliderComponent } from '../../../../lib/components/slider/slider.component';
 
@@ -12,6 +12,7 @@ const styles = '';
 @Component({
   selector: 'app-slider-disabled',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SliderComponent],
   template,
   styles,
@@ -34,6 +35,7 @@ import { SliderComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-slider-disabled',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SliderComponent],
   template: \`
     <slider [disabled]="true"></slider>

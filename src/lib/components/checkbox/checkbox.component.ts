@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
@@ -8,6 +8,7 @@ export type CheckboxVariant = 'outlined' | 'filled';
 @Component({
   selector: 'checkbox',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Checkbox],
   providers: [
     {

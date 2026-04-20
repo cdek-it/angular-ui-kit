@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { BadgeComponent, BadgeSeverity, BadgeSize } from '../../../../lib/components/badge/badge.component';
 
@@ -13,6 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-badge-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent],
   template,
   styles
@@ -57,6 +58,7 @@ import { BadgeComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-badge-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent],
   template: \`${template}\`
 })

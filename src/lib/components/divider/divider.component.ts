@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Divider } from 'primeng/divider';
 
 export type DividerLayout = 'horizontal' | 'vertical';
@@ -8,6 +8,7 @@ export type DividerAlign = 'left' | 'center' | 'right' | 'top' | 'bottom';
 @Component({
   selector: 'divider',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Divider],
   template: `
     <p-divider

@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy} from '@angular/core';
 import { MeterGroup, MeterItem } from 'primeng/metergroup';
 
 export type MeterGroupOrientation = 'horizontal' | 'vertical';
@@ -8,6 +8,7 @@ export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
 @Component({
   selector: 'metergroup',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MeterGroup],
   template: `
     <p-metergroup

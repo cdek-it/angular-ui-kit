@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
@@ -15,6 +15,7 @@ const template = `
 @Component({
   selector: 'app-checkbox-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, FormsModule, JsonPipe],
   template,
 })
@@ -40,6 +41,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-checkbox-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, FormsModule],
   template: \`
     <checkbox value="Pizza" [(ngModel)]="selectedItems"></checkbox>

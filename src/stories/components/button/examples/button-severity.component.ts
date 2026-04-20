@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { Button } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
 
@@ -84,6 +84,7 @@ const styles = '';
 @Component({
   selector: 'app-button-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   template,
   styles
@@ -108,6 +109,7 @@ import { Button } from 'primeng/button';
 @Component({
   selector: 'app-button-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     Button
   ],

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { DividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
@@ -13,6 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-divider-with-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DividerComponent],
   template,
   styles,
@@ -35,6 +36,7 @@ import { DividerComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-divider-with-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DividerComponent],
   template: \`
     <divider align="center">

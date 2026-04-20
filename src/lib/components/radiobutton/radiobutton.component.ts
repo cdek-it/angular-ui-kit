@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 
@@ -8,6 +8,7 @@ export type RadiobuttonSize = 'small' | 'base' | 'large';
 @Component({
   selector: 'radiobutton',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadioButton, FormsModule],
   providers: [
     {

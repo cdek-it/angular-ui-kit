@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
 import { MenubarComponent } from '../../../../lib/components/menubar/menubar.component';
@@ -14,6 +14,7 @@ const styles = '';
 @Component({
   selector: 'app-menubar-basic',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MenubarComponent],
   template,
   styles,
@@ -39,6 +40,7 @@ import { MenubarComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-menubar-basic',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MenubarComponent],
   template: \`
     <menubar [model]="items"></menubar>

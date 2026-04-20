@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Menubar } from 'primeng/menubar';
 import { Badge } from 'primeng/badge';
@@ -27,6 +27,7 @@ const styles = '';
 @Component({
   selector: 'app-menubar-custom',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Menubar, Badge, NgIf, SharedModule],
   template,
   styles,
@@ -83,6 +84,7 @@ import { MenuItem, SharedModule } from 'primeng/api';
 @Component({
   selector: 'app-menubar-custom',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Menubar, Badge, NgIf, SharedModule],
   template: \`
     <p-menubar [model]="items">

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Skeleton } from 'primeng/skeleton';
 
 export type SkeletonShape = 'rectangle' | 'circle';
@@ -8,6 +8,7 @@ export type SkeletonAnimation = 'wave' | 'none';
   selector: 'skeleton',
   host: { style: 'display: block' },
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Skeleton],
   template: `
     <p-skeleton

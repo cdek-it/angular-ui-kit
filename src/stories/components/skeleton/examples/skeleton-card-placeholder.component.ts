@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
@@ -19,6 +19,7 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-card-placeholder',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SkeletonComponent],
   template,
   styles,
@@ -41,6 +42,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-skeleton-card-placeholder',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SkeletonComponent],
   template: \`
     <div class="flex gap-4">

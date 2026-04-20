@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, ChangeDetectionStrategy} from '@angular/core';
 import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DynamicDialogRef, UiDialogService } from '../../../../lib/components/dialog/dialog-open.service';
 
@@ -7,6 +7,7 @@ import { DynamicDialogRef, UiDialogService } from '../../../../lib/components/di
 @Component({
   selector: 'app-dialog-dynamic-content',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ButtonComponent],
   template: `
     <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
@@ -32,6 +33,7 @@ export const template = `
 @Component({
   selector: 'app-dialog-dynamic',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ButtonComponent],
   template,
 })

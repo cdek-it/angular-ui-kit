@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
@@ -8,6 +8,7 @@ const styles = '';
 @Component({
   selector: 'app-checkbox-indeterminate',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, FormsModule],
   styles,
   template: `
@@ -37,6 +38,7 @@ import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-checkbox-indeterminate',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CheckboxComponent, FormsModule],
   template: \`
     <checkbox [binary]="true" [indeterminate]="true" [(ngModel)]="checked"></checkbox>

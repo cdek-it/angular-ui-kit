@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Tag } from 'primeng/tag';
 
 export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger';
@@ -6,6 +6,7 @@ export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' 
 @Component({
   selector: 'tag',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Tag],
   template: `
     <p-tag

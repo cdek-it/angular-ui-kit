@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { ProgressBar } from 'primeng/progressbar';
 
 export type ProgressBarMode = 'determinate' | 'indeterminate';
@@ -6,6 +6,7 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
 @Component({
   selector: 'progressbar',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressBar],
   template: `
     <p-progressbar

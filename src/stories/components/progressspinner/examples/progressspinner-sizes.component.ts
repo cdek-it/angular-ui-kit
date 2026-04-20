@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ProgressSpinnerComponent, ProgressSpinnerSize } from '../../../../lib/components/progressspinner/progressspinner.component';
 
@@ -9,6 +9,7 @@ const template = `
 @Component({
   selector: 'progressspinner-sizes',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressSpinnerComponent],
   template
 })
@@ -40,6 +41,7 @@ import { ProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'progressspinner-sizes',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressSpinnerComponent],
   template: \`<progressspinner size="xlarge"></progressspinner>\`
 })

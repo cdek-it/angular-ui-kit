@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Button, ButtonIconPosition } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
 
@@ -25,6 +25,7 @@ const styles = ``;
 @Component({
   selector: 'app-button-base',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   template,
   styles
@@ -142,6 +143,7 @@ import { Button } from 'primeng/button';
 @Component({
   selector: 'app-button-base',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     Button
   ],

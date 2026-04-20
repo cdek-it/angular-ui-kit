@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef, ChangeDetectionStrategy} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Rating } from 'primeng/rating';
 
@@ -7,6 +7,7 @@ export type RatingValue = number | null;
 @Component({
   selector: 'rating',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Rating, FormsModule],
   providers: [
     {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
@@ -16,6 +16,7 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-circle',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SkeletonComponent],
   template,
   styles,
@@ -38,6 +39,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-skeleton-circle',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SkeletonComponent],
   template: \`
     <div class="flex items-center gap-4">

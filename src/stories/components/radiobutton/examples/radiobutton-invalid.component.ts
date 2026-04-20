@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { RadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
@@ -19,6 +19,7 @@ const template = `
 @Component({
   selector: 'app-radiobutton-invalid',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadiobuttonComponent, FormsModule],
   template,
 })
@@ -43,6 +44,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-radiobutton-invalid',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadiobuttonComponent, FormsModule],
   template: \`
     <radiobutton name="inv" value="1" [invalid]="true" [(ngModel)]="selected"></radiobutton>

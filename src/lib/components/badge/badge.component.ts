@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Badge } from 'primeng/badge';
 
 export type BadgeSeverity = 'primary' | 'success' | 'info' | 'warning' | 'danger';
@@ -10,6 +10,7 @@ type PrimeBadgeSize = ReturnType<Badge['size']>;
 @Component({
   selector: 'badge',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Badge],
   template: `
     <p-badge

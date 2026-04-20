@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { TagComponent } from '../../../../lib/components/tag/tag.component';
 
@@ -11,6 +11,7 @@ const template = `
 @Component({
   selector: 'app-tag-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TagComponent],
   template,
 })
@@ -32,6 +33,7 @@ import { TagComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-tag-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TagComponent],
   template: \`
     <tag value="Success" severity="success"></tag>

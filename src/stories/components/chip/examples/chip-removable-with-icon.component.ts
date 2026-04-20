@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { ChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
@@ -11,6 +11,7 @@ const styles = '';
 @Component({
   selector: 'app-chip-removable-with-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ChipComponent],
   template,
   styles,
@@ -33,6 +34,7 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-chip-removable-with-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ChipComponent],
   template: \`
     <chip label="Задержан" icon="ti ti-alert-triangle" [removable]="true"></chip>

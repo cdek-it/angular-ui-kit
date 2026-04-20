@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
@@ -27,6 +27,7 @@ export const template = `
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DialogComponent, ButtonComponent],
   template,
 })

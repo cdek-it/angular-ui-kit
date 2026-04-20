@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { BreadcrumbComponent } from '../../../../lib/components/breadcrumb/breadcrumb.component';
 import { commonHome, iconOnlyItems } from '../breadcrumb.data';
@@ -12,6 +12,7 @@ const template = `
 @Component({
   selector: 'app-breadcrumb-icons-only',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BreadcrumbComponent],
   template,
 })
@@ -36,6 +37,7 @@ import { BreadcrumbComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-breadcrumb-icons-only',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BreadcrumbComponent],
   template: \`
     <breadcrumb [model]="model" [home]="home"></breadcrumb>

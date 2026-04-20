@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
@@ -11,6 +11,7 @@ type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 @Component({
   selector: 'button',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   template: `
     <p-button
