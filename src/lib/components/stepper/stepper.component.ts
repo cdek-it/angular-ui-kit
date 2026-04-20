@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Stepper } from 'primeng/stepper';
 import { StepList } from 'primeng/stepper';
@@ -20,6 +20,7 @@ export interface StepperItem {
 @Component({
   selector: 'stepper',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, ButtonComponent, NgClass],
   template: `
     <p-stepper
