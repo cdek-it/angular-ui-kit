@@ -30,11 +30,7 @@ import { MenubarComponent } from '@cdek-it/angular-ui-kit';
       },
     },
     designTokens: { prefix: '--p-menubar' },
-  },
-  argTypes: {
-    model: {
-      table: { disable: true },
-    },
+    controls: { disable: true },
   },
 };
 
