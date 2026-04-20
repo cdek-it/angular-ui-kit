@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgClass } from '@angular/common';
 import { InputMask } from 'primeng/inputmask';
 
 export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
@@ -10,7 +9,7 @@ export type InputMaskVariant = 'outlined' | 'filled';
   selector: 'input-mask',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMask, NgClass, FormsModule],
+  imports: [InputMask, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -18,11 +17,13 @@ export type InputMaskVariant = 'outlined' | 'filled';
       multi: true,
     },
   ],
-  host: { style: 'display: block' },
+  host: {
+    style: 'display: block',
+    '[class.input-mask-xlg]': 'size === "xlarge"',
+  },
   template: `
     <p-inputmask
-      [ngClass]="sizeClass"
-      [pSize]="primeSize"
+      [size]="primeSize"
       [mask]="mask"
       [slotChar]="slotChar"
       [autoClear]="autoClear"
@@ -81,10 +82,6 @@ export class InputMaskComponent implements ControlValueAccessor {
     if (this.size === 'small') return 'small';
     if (this.size === 'large' || this.size === 'xlarge') return 'large';
     return undefined;
-  }
-
-  get sizeClass(): Record<string, boolean> {
-    return { 'p-inputmask-xlg': this.size === 'xlarge' };
   }
 
   onModelChange(value: string | null): void {

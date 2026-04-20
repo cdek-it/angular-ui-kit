@@ -38,7 +38,6 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       css: inputtextCss,
     },
     inputmask: {
-      ...(tokens.components.inputmask as unknown as object),
       css: inputmaskCss,
     },
     tag: {

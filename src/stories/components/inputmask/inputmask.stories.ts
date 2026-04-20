@@ -175,7 +175,6 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     },
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
-    sizeClass: { table: { disable: true } },
     onTouched: { table: { disable: true } },
     onModelChange: { table: { disable: true } },
     writeValue: { table: { disable: true } },
