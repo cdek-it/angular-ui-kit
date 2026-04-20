@@ -11,6 +11,7 @@ import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { timelineCss } from './tokens/components/timeline';
+import { passwordCss } from './tokens/components/password';
 import { tooltipCss } from './tokens/components/tooltip';
 import { megamenuCss } from './tokens/components/megamenu';
 
@@ -34,6 +35,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
+    },
+    password: {
+      ...(tokens.components.password as unknown as ComponentsDesignTokens['password']),
+      css: passwordCss,
     },
     progressspinner: {
       ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
