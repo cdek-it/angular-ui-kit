@@ -1,11 +1,15 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FloatLabel } from 'primeng/floatlabel';
+import { Textarea } from 'primeng/textarea';
 import { TextareaComponent } from '../../../lib/components/textarea/textarea.component';
 import { Disabled } from './examples/textarea-disabled.component';
 import { Readonly } from './examples/textarea-readonly.component';
 import { Invalid } from './examples/textarea-invalid.component';
 import { AutoResize, TextareaAutoResizeComponent } from './examples/textarea-autoresize.component';
-import { Sizes, TextareaSizesComponent } from './examples/textarea-sizes.component';
+import { Sizes } from './examples/textarea-sizes.component';
+import { FloatLabelStory, TextareaFloatLabelComponent } from './examples/textarea-float-label.component';
 
 type TextareaArgs = TextareaComponent;
 
@@ -18,8 +22,11 @@ const meta: Meta<TextareaArgs> = {
       imports: [
         TextareaComponent,
         FormsModule,
+        NgClass,
+        Textarea,
+        FloatLabel,
         TextareaAutoResizeComponent,
-        TextareaSizesComponent,
+        TextareaFloatLabelComponent,
       ],
     }),
   ],
@@ -190,4 +197,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { Disabled, Readonly, Invalid, AutoResize, Sizes };
+export { Disabled, Readonly, Invalid, AutoResize, Sizes, FloatLabelStory as FloatLabel };
