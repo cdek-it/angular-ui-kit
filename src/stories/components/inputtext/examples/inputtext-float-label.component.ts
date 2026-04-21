@@ -1,37 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 
-const template = `
-<div class="pt-6 w-64">
-  <p-floatlabel variant="in">
-    <input pInputText id="fl-name" [(ngModel)]="value" />
-    <label for="fl-name">Имя<span class="text-red-500 ml-0.5">*</span></label>
-  </p-floatlabel>
-</div>
-`;
-const styles = '';
-
 @Component({
   selector: 'app-inputtext-float-label',
   standalone: true,
-  imports: [InputText, FloatLabel, FormsModule],
-  template,
-  styles,
+  imports: [InputText, FloatLabel, FormsModule, NgIf],
+  template: `
+<div class="pt-6 w-64">
+  <p-floatlabel variant="in">
+    <input pInputText id="fl-name" [(ngModel)]="value" />
+    <label for="fl-name">Имя<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
+  </p-floatlabel>
+</div>
+`,
 })
 export class InputTextFloatLabelComponent {
   value = '';
+  @Input() required = false;
 }
 
 export const FloatLabelStory: StoryObj = {
   name: 'FloatLabel',
-  render: () => ({
-    template: `<app-inputtext-float-label></app-inputtext-float-label>`,
+  render: (args) => ({
+    template: `<app-inputtext-float-label [required]="required"></app-inputtext-float-label>`,
+    props: { required: args['required'] },
   }),
+  args: { required: true },
+  argTypes: {
+    required: {
+      control: 'boolean',
+      description: 'Показывает маркер обязательного поля `*` рядом с меткой',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+  },
   parameters: {
-    controls: { disable: true },
     docs: {
       description: {
         story:
@@ -46,7 +56,6 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-inputtext-float-label',
   standalone: true,
   imports: [InputText, FloatLabel, FormsModule],
   template: \`
@@ -56,7 +65,7 @@ import { FormsModule } from '@angular/forms';
     </p-floatlabel>
   \`,
 })
-export class InputTextFloatLabelComponent {
+export class FloatLabelExample {
   value = '';
 }
         `,
