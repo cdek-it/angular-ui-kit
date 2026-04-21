@@ -14,6 +14,17 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
   border-right: none;
 }
 
+/* ─── Focus ─── */
+.p-inputnumber .p-inputnumber-input:enabled:focus {
+  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+}
+
+/* ─── Invalid + Focus ─── */
+.p-inputnumber.p-invalid .p-inputnumber-input:focus {
+  border-color: ${dt('inputtext.root.invalidBorderColor')};
+  box-shadow: 0 0 0 1px ${dt('inputtext.root.invalidBorderColor')};
+}
+
 /* ─── Disabled состояние ─── */
 .p-inputnumber-horizontal:has(.p-inputnumber-input:disabled) .p-inputnumber-button {
   background: ${dt('inputtext.root.disabledBackground')};

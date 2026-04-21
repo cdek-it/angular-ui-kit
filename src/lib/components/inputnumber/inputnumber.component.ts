@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { SharedModule } from 'primeng/api';
@@ -59,7 +59,14 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
     </p-inputNumber>
   `,
 })
-export class InputNumberComponent implements ControlValueAccessor {
+export class InputNumberComponent implements ControlValueAccessor, OnInit {
+  private readonly _injector = inject(Injector);
+  private _ngControl: NgControl | null = null;
+
+  ngOnInit(): void {
+    this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
+  }
+
   @Input() size: InputNumberSize = 'base';
   @Input() showButtons = false;
   @Input() buttonLayout: InputNumberButtonLayout = 'stacked';
@@ -67,8 +74,6 @@ export class InputNumberComponent implements ControlValueAccessor {
   @Input() currency: string | undefined;
   @Input() locale: string | undefined;
   @Input() placeholder = '';
-  @Input() disabled = false;
-  @Input() invalid = false;
   @Input() readonly = false;
   @Input() fluid = false;
   @Input() min: number | undefined;
@@ -81,6 +86,12 @@ export class InputNumberComponent implements ControlValueAccessor {
   @Input() useGrouping = true;
   @Input() incrementButtonIcon: string | undefined;
   @Input() decrementButtonIcon: string | undefined;
+
+  disabled = false;
+
+  get invalid(): boolean {
+    return this._ngControl?.invalid ?? false;
+  }
 
   @Output() onInput = new EventEmitter<{ value: number | null }>();
 
