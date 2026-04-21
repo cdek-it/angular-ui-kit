@@ -1,8 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
-import { Textarea } from 'primeng/textarea';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TextareaComponent } from '../../../lib/components/textarea/textarea.component';
 import { Disabled } from './examples/textarea-disabled.component';
 import { Readonly } from './examples/textarea-readonly.component';
@@ -11,7 +8,7 @@ import { AutoResize, TextareaAutoResizeComponent } from './examples/textarea-aut
 import { Sizes } from './examples/textarea-sizes.component';
 import { FloatLabelStory, TextareaFloatLabelComponent } from './examples/textarea-float-label.component';
 
-type TextareaArgs = TextareaComponent;
+type TextareaArgs = TextareaComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<TextareaArgs> = {
   title: 'Components/Form/Textarea',
@@ -21,10 +18,7 @@ const meta: Meta<TextareaArgs> = {
     moduleMetadata({
       imports: [
         TextareaComponent,
-        FormsModule,
-        NgClass,
-        Textarea,
-        FloatLabel,
+        ReactiveFormsModule,
         TextareaAutoResizeComponent,
         TextareaFloatLabelComponent,
       ],
@@ -64,7 +58,16 @@ import { TextareaComponent } from '@cdek-it/angular-ui-kit';
     },
     disabled: {
       control: 'boolean',
-      description: 'Отключает взаимодействие',
+      description: 'Отключает взаимодействие — управляется через FormControl',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    invalid: {
+      control: 'boolean',
+      description: 'Невалидное состояние — управляется через FormControl',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -80,9 +83,9 @@ import { TextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' },
       },
     },
-    invalid: {
+    showClear: {
       control: 'boolean',
-      description: 'Невалидное состояние',
+      description: 'Показывает иконку очистки при наличии значения',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -125,7 +128,7 @@ import { TextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'number' },
       },
     },
-    // Скрыть внутренние computed props
+    // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
@@ -138,13 +141,22 @@ import { TextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'EventEmitter<{ height: string }>' },
       },
     },
+    onClear: {
+      control: false,
+      description: 'Событие очистки поля (при showClear)',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<void>' },
+      },
+    },
   },
   args: {
     placeholder: 'Введите текст...',
     size: 'base',
     disabled: false,
-    readonly: false,
     invalid: false,
+    readonly: false,
+    showClear: false,
     fluid: false,
     autoResize: false,
     rows: 3,
@@ -162,18 +174,21 @@ export const Default: Story = {
 
     if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
+    if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.autoResize) parts.push(`[autoResize]="true"`);
     if (args.rows && args.rows !== 3) parts.push(`[rows]="${args.rows}"`);
     if (args.cols) parts.push(`[cols]="${args.cols}"`);
-    parts.push(`[(ngModel)]="value"`);
 
-    const template = `<ui-textarea\n  ${parts.join('\n  ')}\n></ui-textarea>`;
+    const validators = [];
+    if (args.invalid) validators.push(Validators.required);
 
-    return { props: { ...args, value: '' }, template };
+    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
+
+    const template = `<ui-textarea [formControl]="control"\n  ${parts.join('\n  ')}\n></ui-textarea>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {

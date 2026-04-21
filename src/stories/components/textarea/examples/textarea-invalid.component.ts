@@ -1,43 +1,43 @@
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
-type Story = StoryObj<TextareaComponent>;
-
-export const Invalid: Story = {
+export const Invalid: StoryObj = {
   name: 'Invalid',
-  render: (args) => ({
-    props: { ...args, value: '' },
-    template: `
-      <ui-textarea
-        [size]="size"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [autoResize]="autoResize"
-        [rows]="rows"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></ui-textarea>
-    `,
-  }),
-  args: {
-    invalid: true,
-    placeholder: 'Обязательное поле',
+  render: (args) => {
+    const control = new FormControl('', Validators.required);
+    return {
+      props: { ...args, control },
+      template: `<ui-textarea [formControl]="control" placeholder="Обязательное поле"></ui-textarea>`,
+    };
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Невалидное состояние — поле выделяется красной рамкой.',
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [TextareaComponent, ReactiveFormsModule],
       },
+    }),
+  ],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Невалидное состояние — управляется через FormControl + Validators.' },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TextareaComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
-// template:
-// <ui-textarea [invalid]="true" placeholder="Обязательное поле" [(ngModel)]="value"></ui-textarea>
+@Component({
+  standalone: true,
+  imports: [TextareaComponent, ReactiveFormsModule],
+  template: \`<ui-textarea [formControl]="control" placeholder="Обязательное поле"></ui-textarea>\`,
+})
+export class InvalidExample {
+  control = new FormControl('', Validators.required);
+}
         `,
       },
     },
