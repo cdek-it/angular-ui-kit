@@ -1,3 +1,4 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputNumberComponent } from '../../../../lib/components/inputnumber/inputnumber.component';
 
@@ -5,17 +6,27 @@ type Story = StoryObj<InputNumberComponent>;
 
 export const Buttons: Story = {
   name: 'Buttons',
-  render: (args) => ({
-    props: { ...args, value: null },
-    template: `
-      <input-number
-        [showButtons]="true"
-        buttonLayout="horizontal"
-        [(ngModel)]="value"
-      ></input-number>
-    `,
-  }),
-  args: {},
+  render: () => {
+    const control = new FormControl<number | null>(null);
+    return {
+      props: { control },
+      template: `
+        <input-number
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          [formControl]="control"
+        ></input-number>
+      `,
+    };
+  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputNumberComponent, ReactiveFormsModule],
+      },
+    }),
+  ],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -25,11 +36,18 @@ export const Buttons: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
-// template:
-// <input-number [showButtons]="true" buttonLayout="horizontal" [(ngModel)]="value"></input-number>
+@Component({
+  standalone: true,
+  imports: [InputNumberComponent, ReactiveFormsModule],
+  template: \`<input-number [showButtons]="true" buttonLayout="horizontal" [formControl]="control"></input-number>\`,
+})
+export class ButtonsExample {
+  control = new FormControl<number | null>(null);
+}
         `,
       },
     },
