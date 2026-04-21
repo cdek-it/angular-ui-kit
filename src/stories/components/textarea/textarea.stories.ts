@@ -125,16 +125,6 @@ import { TextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'number' },
       },
     },
-    variant: {
-      control: 'select',
-      options: ['outlined', 'filled'],
-      description: 'Визуальный вариант поля',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: "'outlined'" },
-        type: { summary: "'outlined' | 'filled'" },
-      },
-    },
     // Скрыть внутренние computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
@@ -158,7 +148,6 @@ import { TextareaComponent } from '@cdek-it/angular-ui-kit';
     fluid: false,
     autoResize: false,
     rows: 3,
-    variant: 'outlined',
   },
 };
 
@@ -180,7 +169,6 @@ export const Default: Story = {
     if (args.autoResize) parts.push(`[autoResize]="true"`);
     if (args.rows && args.rows !== 3) parts.push(`[rows]="${args.rows}"`);
     if (args.cols) parts.push(`[cols]="${args.cols}"`);
-    if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
     parts.push(`[(ngModel)]="value"`);
 
     const template = `<ui-textarea\n  ${parts.join('\n  ')}\n></ui-textarea>`;

@@ -4,7 +4,6 @@ import { NgClass } from '@angular/common';
 import { Textarea } from 'primeng/textarea';
 
 export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
-export type TextareaVariant = 'outlined' | 'filled';
 
 @Component({
   selector: 'ui-textarea',
@@ -48,7 +47,6 @@ export class TextareaComponent implements ControlValueAccessor {
   @Input() autoResize = false;
   @Input() rows = 3;
   @Input() cols?: number;
-  @Input() variant: TextareaVariant = 'outlined';
 
   @Output() onResize = new EventEmitter<{ height: string }>();
 
