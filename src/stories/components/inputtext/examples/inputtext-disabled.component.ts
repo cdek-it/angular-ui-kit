@@ -26,11 +26,18 @@ export const Disabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 
-control = new FormControl({ value: '', disabled: true });
-// template: <input-text [formControl]="control"></input-text>
+@Component({
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: \`<input-text [formControl]="control" placeholder="Введите текст..."></input-text>\`,
+})
+export class DisabledExample {
+  control = new FormControl({ value: '', disabled: true });
+}
         `,
       },
     },

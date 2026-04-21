@@ -26,11 +26,18 @@ export const Invalid: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 
-control = new FormControl('', Validators.required);
-// template: <input-text [formControl]="control"></input-text>
+@Component({
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: \`<input-text [formControl]="control" placeholder="Обязательное поле"></input-text>\`,
+})
+export class InvalidExample {
+  control = new FormControl('', Validators.required);
+}
         `,
       },
     },
