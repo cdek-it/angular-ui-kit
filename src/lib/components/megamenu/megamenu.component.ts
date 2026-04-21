@@ -6,9 +6,10 @@ import { Badge } from 'primeng/badge';
 
 export type MegaMenuOrientation = 'horizontal' | 'vertical';
 
-export interface MegaMenuModel extends MegaMenuItem {
+export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
   description?: string;
   badge?: string;
+  items?: MegaMenuModel[][];
 }
 
 @Component({
