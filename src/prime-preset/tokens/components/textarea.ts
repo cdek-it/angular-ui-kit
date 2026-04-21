@@ -16,12 +16,24 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 /* --- States --- */
 .p-textarea:enabled:read-only {
   background: ${dt('textarea.extend.readonlyBackground')};
+  color: ${dt('textarea.color')};
 }
 
-.p-textarea:is(.p-disabled, :disabled) {
-  background: ${dt('textarea.disabled.background')};
-  color: ${dt('textarea.disabled.color')};
+.p-textarea:disabled {
+  background: ${dt('textarea.disabledBackground')};
+  color: ${dt('textarea.disabledColor')};
   opacity: 1;
+}
+
+/* --- Focus --- */
+.p-textarea:enabled:focus {
+  box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('textarea.focusRing.color')};
+}
+
+/* --- Invalid + Focus --- */
+.p-textarea.p-invalid:focus {
+  border-color: ${dt('textarea.invalidBorderColor')};
+  box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('focusRing.extend.invalid')};
 }
 
 `;
