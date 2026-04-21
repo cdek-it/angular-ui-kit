@@ -6,17 +6,14 @@ type Story = StoryObj<InputTextComponent>;
 export const Disabled: Story = {
   name: 'Disabled',
   render: (args) => ({
-    props: { ...args, value: 'Disabled с текстом' },
+    props: { ...args },
     template: `
       <input-text
         [size]="size"
         [showClear]="showClear"
-        [disabled]="disabled"
         [readonly]="readonly"
-        [invalid]="invalid"
         [fluid]="fluid"
         [placeholder]="placeholder"
-        [(ngModel)]="value"
       ></input-text>
     `,
   }),
@@ -27,16 +24,16 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Отключённое состояние — поле недоступно для взаимодействия.',
+        story: 'Отключённое состояние — управляется через formControl.',
       },
       source: {
         language: 'ts',
         code: `
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-// template:
-// <input-text [disabled]="true" [(ngModel)]="value"></input-text>
+// formControl = new FormControl({ value: '', disabled: true });
+// <input-text [formControl]="formControl"></input-text>
         `,
       },
     },

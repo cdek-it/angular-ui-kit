@@ -1,5 +1,4 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
 import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
@@ -17,7 +16,6 @@ const meta: Meta<InputTextArgs> = {
     moduleMetadata({
       imports: [
         InputTextComponent,
-        FormsModule,
         InputTextFloatLabelComponent,
       ],
     }),
@@ -55,27 +53,11 @@ import { InputTextModule } from 'primeng/inputtext';
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает взаимодействие',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
+    disabled: { table: { disable: true } },
+    invalid: { table: { disable: true } },
     readonly: {
       control: 'boolean',
       description: 'Только для чтения',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-    invalid: {
-      control: 'boolean',
-      description: 'Невалидное состояние',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -118,9 +100,7 @@ import { InputTextModule } from 'primeng/inputtext';
   args: {
     placeholder: 'Введите текст...',
     size: 'base',
-    disabled: false,
     readonly: false,
-    invalid: false,
     showClear: false,
     fluid: false,
   },
@@ -137,16 +117,13 @@ export const Default: Story = {
 
     if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
-    parts.push(`[(ngModel)]="value"`);
 
     const template = `<input-text\n  ${parts.join('\n  ')}\n></input-text>`;
 
-    return { props: { ...args, value: '' }, template };
+    return { props: { ...args }, template };
   },
   parameters: {
     docs: {
