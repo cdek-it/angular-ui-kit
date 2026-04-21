@@ -1,27 +1,34 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
-type Story = StoryObj<TextareaComponent>;
-
-export const Sizes: Story = {
+export const Sizes: StoryObj = {
   name: 'Sizes',
-  render: (args) => ({
-    props: { ...args, value: '' },
-    template: `
-      <ui-textarea
-        [size]="size"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [autoResize]="autoResize"
-        [rows]="rows"
-        [variant]="variant"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></ui-textarea>
-    `,
-  }),
+  render: (args) => {
+    const control = new FormControl('');
+    return {
+      props: { ...args, control },
+      template: `<ui-textarea [formControl]="control" [size]="size" [placeholder]="placeholder"></ui-textarea>`,
+    };
+  },
+  args: {
+    size: 'base',
+    placeholder: 'Введите текст...',
+  },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['small', 'base', 'large', 'xlarge'],
+    },
+  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [TextareaComponent, ReactiveFormsModule],
+      },
+    }),
+  ],
   parameters: {
     docs: {
       description: {
@@ -29,10 +36,12 @@ export const Sizes: Story = {
       },
       source: {
         language: 'ts',
-        code: `<ui-textarea size="small" placeholder="Введите текст..." [(ngModel)]="value"></ui-textarea>
-<ui-textarea placeholder="Введите текст..." [(ngModel)]="value"></ui-textarea>
-<ui-textarea size="large" placeholder="Введите текст..." [(ngModel)]="value"></ui-textarea>
-<ui-textarea size="xlarge" placeholder="Введите текст..." [(ngModel)]="value"></ui-textarea>`,
+        code: `
+<ui-textarea size="small" placeholder="Введите текст..." [formControl]="control"></ui-textarea>
+<ui-textarea placeholder="Введите текст..." [formControl]="control"></ui-textarea>
+<ui-textarea size="large" placeholder="Введите текст..." [formControl]="control"></ui-textarea>
+<ui-textarea size="xlarge" placeholder="Введите текст..." [formControl]="control"></ui-textarea>
+        `,
       },
     },
   },

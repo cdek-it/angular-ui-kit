@@ -5,7 +5,6 @@ import { TextareaComponent } from '../../../../lib/components/textarea/textarea.
 
 export const template = `
 <div style="display: flex; flex-direction: column; gap: 8px; width: 320px;">
-  <label style="font-size: 14px; color: var(--p-text-color)">Авторасширение (autoResize)</label>
   <ui-textarea
     [autoResize]="true"
     [rows]="2"

@@ -1,43 +1,43 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
-type Story = StoryObj<TextareaComponent>;
-
-export const Readonly: Story = {
+export const Readonly: StoryObj = {
   name: 'Readonly',
-  render: (args) => ({
-    props: { ...args, value: 'Только для чтения — этот текст нельзя изменить.' },
-    template: `
-      <ui-textarea
-        [size]="size"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [autoResize]="autoResize"
-        [rows]="rows"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></ui-textarea>
-    `,
-  }),
-  args: {
-    readonly: true,
-    placeholder: 'Введите текст...',
+  render: (args) => {
+    const control = new FormControl('Только для чтения — этот текст нельзя изменить.');
+    return {
+      props: { ...args, control },
+      template: `<ui-textarea [formControl]="control" [readonly]="true" placeholder="Введите текст..."></ui-textarea>`,
+    };
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Режим только для чтения — содержимое отображается, но не редактируется.',
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [TextareaComponent, ReactiveFormsModule],
       },
+    }),
+  ],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется.' },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TextareaComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
-// template:
-// <ui-textarea [readonly]="true" [(ngModel)]="value"></ui-textarea>
+@Component({
+  standalone: true,
+  imports: [TextareaComponent, ReactiveFormsModule],
+  template: \`<ui-textarea [formControl]="control" [readonly]="true"></ui-textarea>\`,
+})
+export class ReadonlyExample {
+  control = new FormControl('Только для чтения.');
+}
         `,
       },
     },

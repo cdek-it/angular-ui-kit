@@ -1,142 +1,119 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { Textarea } from 'primeng/textarea';
 import { StoryObj } from '@storybook/angular';
-import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
-
-export const sourceTemplate = `
-<p-floatlabel variant="in">
-  <textarea
-    pTextarea
-    id="fl-textarea"
-    [rows]="rows"
-    [disabled]="disabled"
-    [readOnly]="readonly"
-    [invalid]="invalid"
-    [fluid]="fluid"
-    [pSize]="primeSize"
-    [ngClass]="sizeClass"
-    [(ngModel)]="value"
-  ></textarea>
-  <label for="fl-textarea">Комментарий</label>
-</p-floatlabel>
-`;
-const styles = '';
 
 @Component({
   selector: 'app-textarea-float-label',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Textarea, FloatLabel, FormsModule, NgClass],
+  imports: [Textarea, FloatLabel, ReactiveFormsModule, NgIf],
   template: `
 <div class="pt-6 w-80">
   <p-floatlabel variant="in">
     <textarea
       pTextarea
       id="fl-textarea"
-      [rows]="rows"
-      [disabled]="disabled"
-      [readOnly]="readonly"
-      [invalid]="invalid"
-      [fluid]="fluid"
-      [pSize]="primeSize"
-      [ngClass]="sizeClass"
-      [(ngModel)]="value"
+      rows="3"
+      [formControl]="control"
     ></textarea>
-    <label for="fl-textarea">Комментарий</label>
+    <label for="fl-textarea">{{ label }}<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
   `,
-  styles,
 })
 export class TextareaFloatLabelComponent {
-  @Input() size: TextareaComponent['size'] = 'base';
-  @Input() disabled = false;
-  @Input() readonly = false;
-  @Input() invalid = false;
-  @Input() fluid = false;
-  @Input() rows = 3;
-
-  value = '';
-
-  get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large') return 'large';
-    return undefined;
-  }
-
-  get sizeClass(): Record<string, boolean> {
-    return { 'p-textarea-xlg': this.size === 'xlarge' };
-  }
+  control = new FormControl('');
+  @Input() label = 'Комментарий';
+  @Input() required = false;
 }
 
-export const FloatLabelStory: StoryObj<TextareaFloatLabelComponent> = {
+export const FloatLabelStory: StoryObj = {
   name: 'FloatLabel',
-  render: (args) => ({
-    props: { ...args },
-    template: `
-      <div class="pt-6 w-80">
-        <p-floatlabel variant="in">
-          <textarea
-            pTextarea
-            id="fl-textarea"
-            [rows]="rows"
-            [disabled]="disabled"
-            [readOnly]="readonly"
-            [invalid]="invalid"
-            [fluid]="fluid"
-            [pSize]="primeSize"
-            [ngClass]="sizeClass"
-            [(ngModel)]="value"
-          ></textarea>
-          <label for="fl-textarea">Комментарий</label>
-        </p-floatlabel>
-      </div>
-    `,
-  }),
-  argTypes: {
-    size: { table: { disable: true } },
+  render: (args) => {
+    const control = new FormControl('');
+    return {
+      props: { ...args, control },
+      template: `
+        <div class="pt-6 w-80">
+          <p-floatlabel variant="in">
+            <textarea
+              pTextarea
+              id="fl-textarea"
+              rows="3"
+              [formControl]="control"
+            ></textarea>
+            <label for="fl-textarea">{{ label }}<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
+          </p-floatlabel>
+        </div>
+      `,
+    };
   },
   args: {
-    disabled: false,
-    readonly: false,
-    invalid: false,
-    fluid: false,
-    rows: 3,
+    label: 'Комментарий',
+    required: false,
   },
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'Текст плавающей метки',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "'Комментарий'" },
+        type: { summary: 'string' },
+      },
+    },
+    required: {
+      control: 'boolean',
+      description: 'Показывает маркер обязательного поля `*` рядом с меткой',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [Textarea, FloatLabel, ReactiveFormsModule, NgIf],
+      },
+    }),
+  ],
   parameters: {
     docs: {
       description: {
         story:
-          'Интеграция с `p-floatlabel variant="in"` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию. Требует нативный `<textarea pTextarea>` как прямой дочерний элемент `p-floatlabel`.',
+          'Интеграция с `p-floatlabel variant="in"` — плавающая метка внутри поля. `required` добавляет красный маркер `*`. Требует нативный `<textarea pTextarea>` как прямой дочерний элемент `p-floatlabel`.',
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Textarea } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [Textarea, FloatLabel, FormsModule],
+  imports: [Textarea, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
       <textarea
         pTextarea
         id="fl-textarea"
         rows="3"
-        [(ngModel)]="value"
+        [formControl]="control"
       ></textarea>
-      <label for="fl-textarea">Комментарий</label>
+      <label for="fl-textarea">Комментарий<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,
 })
-export class MyComponent {
-  value = '';
+export class FloatLabelExample {
+  control = new FormControl('');
 }
         `,
       },

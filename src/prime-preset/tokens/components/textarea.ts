@@ -36,4 +36,23 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
   box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('focusRing.extend.invalid')};
 }
 
+/* --- ClearButton (showClear) --- */
+.p-iconfield:has(.p-textarea) {
+  display: block;
+  width: fit-content;
+}
+
+.p-iconfield:has(.p-textarea) .p-textarea {
+  padding-right: ${dt('form.padding.500')};
+}
+
+.p-iconfield:has(.p-textarea) .p-inputicon {
+  top: ${dt('form.padding.500')};
+  transform: none;
+  font-size: ${dt('textarea.extend.iconSize')};
+  width: ${dt('textarea.extend.iconSize')};
+  height: ${dt('textarea.extend.iconSize')};
+  cursor: pointer;
+}
+
 `;
