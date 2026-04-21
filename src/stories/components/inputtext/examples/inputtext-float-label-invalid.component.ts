@@ -8,7 +8,7 @@ export const template = `
 <div class="pt-6 w-64">
   <p-floatlabel variant="in">
     <input pInputText id="fl-invalid" class="p-invalid" [(ngModel)]="value" />
-    <label for="fl-invalid">Обязательное поле</label>
+    <label for="fl-invalid">Обязательное поле<span class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
 `;
@@ -52,7 +52,7 @@ import { FormsModule } from '@angular/forms';
   template: \`
     <p-floatlabel variant="in">
       <input pInputText id="fl-invalid" class="p-invalid" [(ngModel)]="value" />
-      <label for="fl-invalid">Обязательное поле</label>
+      <label for="fl-invalid">Обязательное поле<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,
 })
