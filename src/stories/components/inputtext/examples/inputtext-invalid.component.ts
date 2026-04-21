@@ -1,39 +1,36 @@
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
-type Story = StoryObj<InputTextComponent>;
-
-export const Invalid: Story = {
+export const Invalid: StoryObj = {
   name: 'Invalid',
-  render: (args) => ({
-    props: { ...args },
-    template: `
-      <input-text
-        [size]="size"
-        [showClear]="showClear"
-        [readonly]="readonly"
-        [fluid]="fluid"
-        [placeholder]="placeholder"
-      ></input-text>
-    `,
-  }),
-  args: {
-    invalid: true,
-    placeholder: 'Обязательное поле',
+  render: (args) => {
+    const control = new FormControl('', Validators.required);
+    return {
+      props: { ...args, control },
+      template: `<input-text [formControl]="control" placeholder="Обязательное поле"></input-text>`,
+    };
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Невалидное состояние — управляется через formControl валидацию.',
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputTextComponent, ReactiveFormsModule],
       },
+    }),
+  ],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Невалидное состояние — управляется через FormControl + Validators.' },
       source: {
         language: 'ts',
         code: `
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
-// formControl = new FormControl('', Validators.required);
-// <input-text [formControl]="formControl"></input-text>
+control = new FormControl('', Validators.required);
+// template: <input-text [formControl]="control"></input-text>
         `,
       },
     },

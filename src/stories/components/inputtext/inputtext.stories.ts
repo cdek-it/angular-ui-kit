@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
@@ -7,7 +8,7 @@ import { Disabled } from './examples/inputtext-disabled.component';
 import { Readonly } from './examples/inputtext-readonly.component';
 import { Invalid } from './examples/inputtext-invalid.component';
 
-type InputTextArgs = InputTextComponent;
+type InputTextArgs = InputTextComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<InputTextArgs> = {
   title: 'Components/Form/InputText',
@@ -17,6 +18,7 @@ const meta: Meta<InputTextArgs> = {
     moduleMetadata({
       imports: [
         InputTextComponent,
+        ReactiveFormsModule,
         InputTextFloatLabelComponent,
         InputTextFloatLabelInvalidComponent,
       ],
@@ -55,8 +57,24 @@ import { InputTextModule } from 'primeng/inputtext';
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
-    disabled: { table: { disable: true } },
-    invalid: { table: { disable: true } },
+    disabled: {
+      control: 'boolean',
+      description: 'Отключает взаимодействие — управляется через FormControl',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    invalid: {
+      control: 'boolean',
+      description: 'Невалидное состояние — управляется через FormControl',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
     readonly: {
       control: 'boolean',
       description: 'Только для чтения',
@@ -102,6 +120,8 @@ import { InputTextModule } from 'primeng/inputtext';
   args: {
     placeholder: 'Введите текст...',
     size: 'base',
+    disabled: false,
+    invalid: false,
     readonly: false,
     showClear: false,
     fluid: false,
@@ -123,9 +143,14 @@ export const Default: Story = {
     if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
 
-    const template = `<input-text\n  ${parts.join('\n  ')}\n></input-text>`;
+    const validators = [];
+    if (args.invalid) validators.push(Validators.required);
 
-    return { props: { ...args }, template };
+    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
+
+    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {

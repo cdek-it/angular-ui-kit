@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
 import { IconField } from 'primeng/iconfield';
@@ -62,7 +62,14 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
     }
   `,
 })
-export class InputTextComponent implements ControlValueAccessor {
+export class InputTextComponent implements ControlValueAccessor, OnInit {
+  private readonly _injector = inject(Injector);
+  private _ngControl: NgControl | null = null;
+
+  ngOnInit(): void {
+    this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
+  }
+
   @Input() placeholder = '';
   @Input() size: InputTextSize = 'base';
   @Input() readonly = false;
@@ -70,7 +77,10 @@ export class InputTextComponent implements ControlValueAccessor {
   @Input() fluid = false;
 
   disabled = false;
-  invalid = false;
+
+  get invalid(): boolean {
+    return this._ngControl?.invalid ?? false;
+  }
 
   @Output() onClear = new EventEmitter<void>();
 
