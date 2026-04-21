@@ -1,12 +1,12 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputNumberComponent } from '../../../lib/components/inputnumber/inputnumber.component';
 import { InputNumberFloatLabelComponent, FloatLabelStory } from './examples/inputnumber-float-label.component';
 import { Currency } from './examples/inputnumber-currency.component';
 import { Buttons } from './examples/inputnumber-buttons.component';
 import { Disabled } from './examples/inputnumber-disabled.component';
 
-type InputNumberArgs = InputNumberComponent;
+type InputNumberArgs = InputNumberComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<InputNumberArgs> = {
   title: 'Components/Form/InputNumber',
@@ -16,7 +16,7 @@ const meta: Meta<InputNumberArgs> = {
     moduleMetadata({
       imports: [
         InputNumberComponent,
-        FormsModule,
+        ReactiveFormsModule,
         InputNumberFloatLabelComponent,
       ],
     }),
@@ -103,7 +103,7 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
     disabled: {
       control: 'boolean',
-      description: 'Отключает взаимодействие',
+      description: 'Отключает взаимодействие — управляется через FormControl',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -112,7 +112,7 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
     invalid: {
       control: 'boolean',
-      description: 'Невалидное состояние',
+      description: 'Невалидное состояние — управляется через FormControl',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -191,6 +191,24 @@ import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' },
       },
     },
+    minFractionDigits: {
+      control: 'number',
+      description: 'Минимальное количество знаков после запятой',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'number' },
+      },
+    },
+    maxFractionDigits: {
+      control: 'number',
+      description: 'Максимальное количество знаков после запятой',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'number' },
+      },
+    },
     // Hidden computed props
     modelValue: { table: { disable: true } },
     inputSizeClass: { table: { disable: true } },
@@ -237,8 +255,6 @@ export const Default: Story = {
     if (args.mode && args.mode !== 'decimal') parts.push(`mode="${args.mode}"`);
     if (args.currency) parts.push(`currency="${args.currency}"`);
     if (args.locale) parts.push(`locale="${args.locale}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.min != null) parts.push(`[min]="${args.min}"`);
@@ -246,12 +262,18 @@ export const Default: Story = {
     if (args.step && args.step !== 1) parts.push(`[step]="${args.step}"`);
     if (args.prefix) parts.push(`prefix="${args.prefix}"`);
     if (args.suffix) parts.push(`suffix="${args.suffix}"`);
+    if (args.minFractionDigits != null) parts.push(`[minFractionDigits]="${args.minFractionDigits}"`);
+    if (args.maxFractionDigits != null) parts.push(`[maxFractionDigits]="${args.maxFractionDigits}"`);
     if (!args.useGrouping) parts.push(`[useGrouping]="false"`);
-    parts.push(`[(ngModel)]="value"`);
 
-    const template = `<input-number\n  ${parts.join('\n  ')}\n></input-number>`;
+    const validators = [];
+    if (args.invalid) validators.push(Validators.required);
 
-    return { props: { ...args, value: null }, template };
+    const control = new FormControl<number | null>({ value: null, disabled: args.disabled }, validators);
+
+    const template = `<input-number [formControl]="control"\n  ${parts.join('\n  ')}\n></input-number>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {
