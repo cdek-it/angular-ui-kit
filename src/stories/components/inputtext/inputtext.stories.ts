@@ -2,6 +2,7 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
+import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
 import { Disabled } from './examples/inputtext-disabled.component';
 import { Readonly } from './examples/inputtext-readonly.component';
 import { Invalid } from './examples/inputtext-invalid.component';
@@ -17,6 +18,7 @@ const meta: Meta<InputTextArgs> = {
       imports: [
         InputTextComponent,
         InputTextFloatLabelComponent,
+        InputTextFloatLabelInvalidComponent,
       ],
     }),
   ],
@@ -135,4 +137,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { ClearButton, FloatLabelStory as FloatLabel, Disabled, Readonly, Invalid };
+export { ClearButton, FloatLabelStory as FloatLabel, FloatLabelInvalid, Disabled, Readonly, Invalid };
