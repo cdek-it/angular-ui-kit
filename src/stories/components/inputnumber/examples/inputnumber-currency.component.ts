@@ -1,3 +1,4 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputNumberComponent } from '../../../../lib/components/inputnumber/inputnumber.component';
 
@@ -5,36 +6,48 @@ type Story = StoryObj<InputNumberComponent>;
 
 export const Currency: Story = {
   name: 'Currency',
-  render: (args) => ({
-    props: { ...args, value: null },
-    template: `
-      <input-number
-        [mode]="mode"
-        [currency]="currency"
-        [locale]="locale"
-        [(ngModel)]="value"
-      ></input-number>
-    `,
-  }),
-  args: {
-    mode: 'currency',
-    currency: 'RUB',
-    locale: 'ru-RU',
+  render: () => {
+    const control = new FormControl<number | null>(null);
+    return {
+      props: { control },
+      template: `
+        <input-number
+          suffix=" ₽"
+          [useGrouping]="true"
+          [formControl]="control"
+        ></input-number>
+      `,
+    };
   },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputNumberComponent, ReactiveFormsModule],
+      },
+    }),
+  ],
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Форматирование значения как валюты (рубли). Используются `mode="currency"`, `currency="RUB"` и `locale="ru-RU"`.',
+        story: 'Форматирование значения как валюты через `suffix`. Режим `mode="currency"` не используется из-за известного бага PrimeNG с кареткой.',
       },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
-// template:
-// <input-number mode="currency" currency="RUB" locale="ru-RU" [(ngModel)]="value"></input-number>
+@Component({
+  standalone: true,
+  imports: [InputNumberComponent, ReactiveFormsModule],
+  template: \`<input-number suffix=" ₽" [useGrouping]="true" [formControl]="control"></input-number>\`,
+})
+export class CurrencyExample {
+  control = new FormControl<number | null>(null);
+}
         `,
       },
     },
