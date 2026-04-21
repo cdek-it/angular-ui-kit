@@ -3,22 +3,41 @@ import { NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { Textarea } from 'primeng/textarea';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { StoryObj } from '@storybook/angular';
 
 @Component({
   selector: 'app-textarea-float-label',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Textarea, FloatLabel, ReactiveFormsModule, NgIf],
+  imports: [Textarea, FloatLabel, ReactiveFormsModule, NgIf, IconField, InputIcon],
   template: `
-<div class="pt-6 w-80">
+<div class="w-80">
   <p-floatlabel variant="in">
-    <textarea
-      pTextarea
-      id="fl-textarea"
-      rows="3"
-      [formControl]="control"
-    ></textarea>
+    @if (showClear) {
+      <p-iconfield>
+        <textarea
+          pTextarea
+          id="fl-textarea"
+          rows="3"
+          [formControl]="control"
+        ></textarea>
+        <p-inputicon
+          class="ti ti-x"
+          [style.visibility]="control.value ? 'visible' : 'hidden'"
+          [style.pointerEvents]="control.value ? 'auto' : 'none'"
+          (click)="control.setValue('')"
+        ></p-inputicon>
+      </p-iconfield>
+    } @else {
+      <textarea
+        pTextarea
+        id="fl-textarea"
+        rows="3"
+        [formControl]="control"
+      ></textarea>
+    }
     <label for="fl-textarea">{{ label }}<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
@@ -28,29 +47,15 @@ export class TextareaFloatLabelComponent {
   control = new FormControl('');
   @Input() label = 'Комментарий';
   @Input() required = false;
+  @Input() showClear = false;
 }
 
 export const FloatLabelStory: StoryObj = {
   name: 'FloatLabel',
-  render: (args) => {
-    const control = new FormControl('');
-    return {
-      props: { ...args, control },
-      template: `
-        <div class="pt-6 w-80">
-          <p-floatlabel variant="in">
-            <textarea
-              pTextarea
-              id="fl-textarea"
-              rows="3"
-              [formControl]="control"
-            ></textarea>
-            <label for="fl-textarea">{{ label }}<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
-          </p-floatlabel>
-        </div>
-      `,
-    };
-  },
+  render: (args) => ({
+    props: { label: args['label'], required: args['required'], showClear: args['showClear'] },
+    template: `<app-textarea-float-label [label]="label" [required]="required" [showClear]="showClear"></app-textarea-float-label>`,
+  }),
   args: {
     label: 'Комментарий',
     required: false,
@@ -75,14 +80,6 @@ export const FloatLabelStory: StoryObj = {
       },
     },
   },
-  decorators: [
-    (story: any) => ({
-      ...story(),
-      moduleMetadata: {
-        imports: [Textarea, FloatLabel, ReactiveFormsModule, NgIf],
-      },
-    }),
-  ],
   parameters: {
     docs: {
       description: {

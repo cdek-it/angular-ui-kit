@@ -28,7 +28,7 @@ const meta: Meta<TextareaArgs> = {
     designTokens: { prefix: '--p-textarea' },
     docs: {
       description: {
-        component: `Многострочное текстовое поле для ввода данных. Поддерживает авторасширение, состояния disabled/readonly/invalid, размеры и интеграцию с формами через CVA.
+        component: `Многострочное текстовое поле для ввода данных.
 
 \`\`\`typescript
 import { TextareaComponent } from '@cdek-it/angular-ui-kit';

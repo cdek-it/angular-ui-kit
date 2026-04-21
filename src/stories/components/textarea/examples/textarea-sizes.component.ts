@@ -8,7 +8,7 @@ export const Sizes: StoryObj = {
     const control = new FormControl('');
     return {
       props: { ...args, control },
-      template: `<ui-textarea [formControl]="control" [size]="size" [placeholder]="placeholder"></ui-textarea>`,
+      template: `<ui-textarea [formControl]="control" [size]="size" [placeholder]="placeholder" [showClear]="showClear"></ui-textarea>`,
     };
   },
   args: {

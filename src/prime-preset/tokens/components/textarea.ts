@@ -43,7 +43,7 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .p-iconfield:has(.p-textarea) .p-textarea {
-  padding-right: ${dt('form.padding.500')};
+  padding-right: ${dt('form.padding.700')};
 }
 
 .p-iconfield:has(.p-textarea) .p-inputicon {
