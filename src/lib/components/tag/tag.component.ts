@@ -1,0 +1,29 @@
+import { Component, Input } from '@angular/core';
+import { Tag } from 'primeng/tag';
+
+export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger';
+
+@Component({
+  selector: 'tag',
+  standalone: true,
+  imports: [Tag],
+  template: `
+    <p-tag
+      [value]="value"
+      [severity]="primeSeverity"
+      [rounded]="rounded"
+      [icon]="icon || undefined"
+    ></p-tag>
+  `,
+})
+export class TagComponent {
+  @Input() value = '';
+  @Input() severity: TagSeverity = 'primary';
+  @Input() rounded = false;
+  @Input() icon = '';
+
+  get primeSeverity(): 'secondary' | 'success' | 'info' | 'warn' | 'danger' | undefined {
+    if (this.severity === 'primary') return undefined;
+    return this.severity;
+  }
+}
