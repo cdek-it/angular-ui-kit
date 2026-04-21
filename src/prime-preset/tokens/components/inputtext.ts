@@ -20,7 +20,7 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Focus ─── */
 .p-inputtext:enabled:focus {
-  box-shadow: 0 0 0 1px ${dt('inputtext.root.focusBorderColor')};
+  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
 }
 
 /* ─── Invalid + Focus ─── */
