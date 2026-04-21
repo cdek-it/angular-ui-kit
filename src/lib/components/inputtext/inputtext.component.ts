@@ -65,11 +65,12 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 export class InputTextComponent implements ControlValueAccessor {
   @Input() placeholder = '';
   @Input() size: InputTextSize = 'base';
-  @Input() disabled = false;
   @Input() readonly = false;
-  @Input() invalid = false;
   @Input() showClear = false;
   @Input() fluid = false;
+
+  disabled = false;
+  invalid = false;
 
   @Output() onClear = new EventEmitter<void>();
 
