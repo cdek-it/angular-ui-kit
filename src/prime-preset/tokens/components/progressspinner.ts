@@ -1,0 +1,35 @@
+export const progressspinnerCss = ({ dt }: { dt: (token: string) => string }): string => `
+.p-progressspinner-circle {
+  stroke-width: ${dt('progressspinner.root.borderWidth')};
+}
+
+/* multicolor false */
+.p-progressspinner.p-progressspinner-monochrome .p-progressspinner-circle {
+    stroke: ${dt('primary.color')};
+    animation: p-progressspinner-dash 1.5s ease-in-out infinite;
+}
+
+.p-progressspinner.p-progressspinner-small,
+.p-progressspinner.p-progressspinner-small .p-progressspinner-circle {
+  width: ${dt('progressspinner.extend.small')};
+  height: ${dt('progressspinner.extend.small')};
+}
+
+.p-progressspinner.p-progressspinner-medium,
+.p-progressspinner.p-progressspinner-medium .p-progressspinner-circle {
+  width: ${dt('progressspinner.extend.medium')};
+  height: ${dt('progressspinner.extend.medium')};
+}
+
+.p-progressspinner.p-progressspinner-large,
+.p-progressspinner.p-progressspinner-large .p-progressspinner-circle {
+  width: ${dt('progressspinner.extend.large')};
+  height: ${dt('progressspinner.extend.large')};
+}
+
+.p-progressspinner.p-progressspinner-xlarge,
+.p-progressspinner.p-progressspinner-xlarge .p-progressspinner-circle {
+  width: ${dt('progressspinner.extend.xlarge')};
+  height: ${dt('progressspinner.extend.xlarge')};
+}
+`;
