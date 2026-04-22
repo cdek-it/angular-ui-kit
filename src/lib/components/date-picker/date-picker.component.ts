@@ -129,12 +129,13 @@ export type DatePickerIconDisplay = 'input' | 'button';
       }
       @if (showTime) {
         <ng-template pTemplate="footer">
-          <div class="p-datepicker-time-picker p-datepicker-time-picker-custom">
+          <div class="p-datepicker-time-picker p-datepicker-time-picker-custom" (keydown)="$event.stopPropagation()">
             <div class="p-datepicker-time-field">
               <label class="p-datepicker-time-label">Часы</label>
               <p-inputNumber
-                [ngModel]="timeHour"
-                (ngModelChange)="onHourChange($event)"
+                [ngModel]="dpRef.currentHour"
+                (onBlur)="onTimeBlur()"
+                (onInput)="onHourInput($event)"
                 [min]="0"
                 [max]="23"
                 [format]="false"
@@ -147,8 +148,9 @@ export type DatePickerIconDisplay = 'input' | 'button';
             <div class="p-datepicker-time-field">
               <label class="p-datepicker-time-label">Минуты</label>
               <p-inputNumber
-                [ngModel]="timeMinute"
-                (ngModelChange)="onMinuteChange($event)"
+                [ngModel]="dpRef.currentMinute"
+                (onBlur)="onTimeBlur()"
+                (onInput)="onMinuteInput($event)"
                 [min]="0"
                 [max]="59"
                 [format]="false"
@@ -251,57 +253,20 @@ export class DatePickerComponent implements AfterViewInit {
 
   onValueChange(val: Date | Date[] | null): void {
     this.value = val;
-    this.syncTimeFromValue();
     this.valueChange.emit(val);
   }
 
-  timeHour = 0;
-  timeMinute = 0;
-
-  private syncTimeFromValue(): void {
-    const date = this.getActiveDate();
-    if (date) {
-      this.timeHour = date.getHours();
-      this.timeMinute = date.getMinutes();
-    }
+  onHourInput(event: { value: number | null }): void {
+    const clamped = Math.min(23, Math.max(0, event.value ?? 0));
+    this.dpRef.currentHour = clamped;
   }
 
-  private getActiveDate(): Date | null {
-    if (!this.value) return null;
-    if (Array.isArray(this.value)) {
-      return this.value[this.value.length - 1] ?? this.value[0] ?? null;
-    }
-    return this.value;
+  onMinuteInput(event: { value: number | null }): void {
+    const clamped = Math.min(59, Math.max(0, event.value ?? 0));
+    this.dpRef.currentMinute = clamped;
   }
 
-  onHourChange(hour: number): void {
-    this.timeHour = hour ?? 0;
-    this.applyTimeToValue();
-  }
-
-  onMinuteChange(minute: number): void {
-    this.timeMinute = minute ?? 0;
-    this.applyTimeToValue();
-  }
-
-  private applyTimeToValue(): void {
-    const date = this.getActiveDate();
-    if (!date) return;
-    const updated = new Date(date.getTime());
-    updated.setHours(this.timeHour);
-    updated.setMinutes(this.timeMinute);
-
-    if (Array.isArray(this.value)) {
-      if (this.selectionMode === 'range') {
-        this.value = this.value[1]
-          ? [this.value[0], updated]
-          : [updated, null] as any;
-      } else {
-        this.value = [...this.value.slice(0, -1), updated];
-      }
-    } else {
-      this.value = updated;
-    }
-    this.valueChange.emit(this.value);
+  onTimeBlur(): void {
+    (this.dpRef as any).updateTime();
   }
 }
