@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FileUpload } from 'primeng/fileupload';
 import { ProgressBar } from 'primeng/progressbar';
@@ -35,9 +35,9 @@ import { ButtonComponent } from '../button/button.component';
       (onClear)="onClearEvent.emit()"
       (onError)="onError.emit($event)"
     >
-      <ng-template pTemplate="header" let-chooseCallback="chooseCallback" let-uploadCallback="uploadCallback" let-clearCallback="clearCallback">
+      <ng-template pTemplate="header" let-uploadCallback="uploadCallback" let-clearCallback="clearCallback">
         <div class="fu-header" [attr.data-ref]="storeCallbacks(uploadCallback, clearCallback)">
-          <div class="fu-dropzone" (click)="chooseCallback()">
+          <div class="fu-dropzone" (click)="onChooseClick()">
             <i class="ti ti-upload fu-dropzone__icon"></i>
             <div class="fu-dropzone__info">
               <span class="fu-dropzone__title">{{ dropzoneTitle }}</span>
@@ -50,7 +50,7 @@ import { ButtonComponent } from '../button/button.component';
         </div>
       </ng-template>
 
-      <ng-template pTemplate="content" let-files="files" let-uploadedFiles="uploadedFiles"
+      <ng-template pTemplate="content"
         let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
         <div class="fu-content">
           @if (isUploading) {
@@ -61,9 +61,9 @@ import { ButtonComponent } from '../button/button.component';
               Файлы успешно загружены
             </p-message>
           }
-          @if (files.length > 0) {
+          @if (selectedFiles.length > 0) {
             <div class="fu-file-list">
-              @for (file of files; track file.name + file.size; let i = $index) {
+              @for (file of selectedFiles; track file.name + file.size; let i = $index) {
                 <div class="fu-file-card">
                   <div class="fu-file-card__wrap">
                     @if (isImage(file)) {
@@ -79,7 +79,7 @@ import { ButtonComponent } from '../button/button.component';
                       </span>
                     </div>
                   </div>
-                  <button icon="ti ti-trash" variant="text" [rounded]="true" size="small"
+                  <button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
                     (click)="onRemoveFile(file, removeFileCallback, i)"></button>
                 </div>
               }
@@ -96,17 +96,17 @@ import { ButtonComponent } from '../button/button.component';
                       <span class="fu-file-card__size">Загружено</span>
                     </div>
                   </div>
-                  <button icon="ti ti-trash" variant="text" [rounded]="true" size="small"
+                  <button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
                     (click)="removeUploadedFileCallback(i)"></button>
                 </div>
               }
             </div>
           }
-          @if (files.length > 0 || uploadedFiles.length > 0) {
+          @if (selectedFiles.length > 0 || uploadedFiles.length > 0) {
             <div class="fu-footer">
-              <button label="Отправить" [disabled]="!files.length" (click)="uploadCb?.()"></button>
+              <button label="Отправить" [disabled]="!selectedFiles.length" (click)="uploadCb?.()"></button>
               <button label="Очистить" severity="danger" variant="text"
-                [disabled]="!files.length && !uploadedFiles.length" (click)="onClearUpload()"></button>
+                [disabled]="!selectedFiles.length && !uploadedFiles.length" (click)="onClearUpload()"></button>
             </div>
           }
         </div>
@@ -115,6 +115,8 @@ import { ButtonComponent } from '../button/button.component';
   `,
 })
 export class FileUploadComponent {
+  private el = inject(ElementRef);
+  private cdr = inject(ChangeDetectorRef);
   @ViewChild('fuRef') fuRef!: FileUpload;
 
   @Input() name = 'files[]';
@@ -140,6 +142,8 @@ export class FileUploadComponent {
   @Output() onError = new EventEmitter<any>();
   @Output() onUpload = new EventEmitter<any>();
 
+  selectedFiles: any[] = [];
+  uploadedFiles: any[] = [];
   totalSize = 0;
   totalSizePercent = 0;
   uploadSuccess = false;
@@ -158,6 +162,11 @@ export class FileUploadComponent {
     return '';
   }
 
+  onChooseClick(): void {
+    const input = this.el.nativeElement.querySelector('input[type="file"]') as HTMLInputElement;
+    input?.click();
+  }
+
   isImage(file: File): boolean {
     return file.type.startsWith('image/');
   }
@@ -171,10 +180,10 @@ export class FileUploadComponent {
   }
 
   onSelectedFiles(event: any): void {
-    const files: File[] = event.files;
-    this.totalSize = files.reduce((acc, f) => acc + f.size, 0);
+    this.selectedFiles = [...(this.fuRef?.files || [])];
+    this.totalSize = this.selectedFiles.reduce((acc, f) => acc + f.size, 0);
     this.uploadSuccess = false;
-    this.isUploading = files.length > 0;
+    this.isUploading = this.selectedFiles.length > 0;
     this.totalSizePercent = 0;
 
     let progress = 0;
@@ -182,36 +191,46 @@ export class FileUploadComponent {
       progress += 10;
       this.totalSizePercent = Math.min(progress, 100);
       if (progress >= 100) clearInterval(interval);
+      this.cdr.markForCheck();
     }, 40);
 
+    this.cdr.detectChanges();
     this.onSelectEvent.emit(event);
   }
 
   onUploader(event: any): void {
     setTimeout(() => {
       this.clearCbRef?.();
+      this.selectedFiles = [];
+      this.uploadedFiles = [...(event.files || [])];
       this.totalSize = 0;
       this.totalSizePercent = 0;
       this.uploadSuccess = true;
       this.isUploading = false;
+      this.cdr.detectChanges();
     }, 1500);
     this.onUpload.emit(event);
   }
 
   onRemoveFile(file: File, removeFileCallback: (index: number) => void, index: number): void {
     removeFileCallback(index);
+    this.selectedFiles = [...(this.fuRef?.files || [])];
     this.totalSize -= file.size;
     this.totalSizePercent = Math.min((this.totalSize / (this.maxFileSize || 1000000)) * 100, 100);
     if (this.totalSize <= 0) {
       this.isUploading = false;
     }
+    this.cdr.detectChanges();
   }
 
   onClearUpload(): void {
     this.clearCbRef?.();
+    this.selectedFiles = [];
+    this.uploadedFiles = [];
     this.totalSize = 0;
     this.totalSizePercent = 0;
     this.uploadSuccess = false;
     this.isUploading = false;
+    this.cdr.detectChanges();
   }
 }
