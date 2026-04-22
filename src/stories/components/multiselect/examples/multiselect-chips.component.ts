@@ -19,6 +19,7 @@ const template = `
   display="chip"
   [showClear]="showClear"
   [size]="size"
+  [filter]="filter"
 ></multiselect-field>
 `;
 const styles = '';
@@ -33,6 +34,7 @@ const styles = '';
 export class MultiSelectChipsComponent {
   @Input() size: MultiSelectSize = 'base';
   @Input() showClear = false;
+  @Input() filter = true;
   control = new FormControl(null);
   options = OPTIONS;
 }
@@ -40,12 +42,11 @@ export class MultiSelectChipsComponent {
 export const Chips = {
   name: 'Chips',
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'] },
-    template: `<app-multiselect-chips [size]="size" [showClear]="showClear"></app-multiselect-chips>`,
+    props: { size: args['size'], showClear: args['showClear'], filter: args['filter'] },
+    template: `<app-multiselect-chips [size]="size" [showClear]="showClear" [filter]="filter"></app-multiselect-chips>`,
   }),
   argTypes: {
     display: { table: { disable: true } },
-    filter: { table: { disable: true } },
     readonly: { table: { disable: true } },
     disabled: { table: { disable: true } },
     invalid: { table: { disable: true } },

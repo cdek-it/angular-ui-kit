@@ -19,6 +19,7 @@ const template = `
       [options]="options"
       optionLabel="name"
       [showClear]="showClear"
+      [filter]="filter"
     ></multiselect-field>
     <label for="multiselect-fl">Города</label>
   </p-floatlabel>
@@ -35,6 +36,7 @@ const styles = '';
 })
 export class MultiSelectFloatLabelComponent {
   @Input() showClear = false;
+  @Input() filter = true;
   control = new FormControl(null);
   options = OPTIONS;
 }
@@ -42,13 +44,12 @@ export class MultiSelectFloatLabelComponent {
 export const FloatLabelStory = {
   name: 'FloatLabel',
   render: (args: any) => ({
-    props: { showClear: args['showClear'] },
-    template: `<app-multiselect-float-label [showClear]="showClear"></app-multiselect-float-label>`,
+    props: { showClear: args['showClear'], filter: args['filter'] },
+    template: `<app-multiselect-float-label [showClear]="showClear" [filter]="filter"></app-multiselect-float-label>`,
   }),
   argTypes: {
     size: { table: { disable: true } },
     display: { table: { disable: true } },
-    filter: { table: { disable: true } },
     readonly: { table: { disable: true } },
     disabled: { table: { disable: true } },
     invalid: { table: { disable: true } },

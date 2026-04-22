@@ -43,6 +43,7 @@ export type MultiSelectDisplay = 'comma' | 'chip';
       [emptyMessage]="emptyMessage"
       [emptyFilterMessage]="emptyFilterMessage"
       [size]="primeSize"
+      [pt]="filterPt"
       (onChange)="onMultiSelectChange($event)"
       (onClear)="onClear.emit($event)"
       (onFilter)="onFilter.emit($event)"
@@ -121,6 +122,12 @@ export class MultiSelectComponent implements ControlValueAccessor, OnInit {
   @Output() onHide = new EventEmitter<Event>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
+
+  readonly filterPt = {
+    pcFilterContainer: { root: { class: 'p-iconfield p-multiselect-filter-container' } },
+    pcFilter: { root: { class: 'p-inputtext-sm' } },
+    pcFilterIconContainer: { root: { class: 'p-inputicon' } },
+  };
 
   get invalid(): boolean {
     return !!(this._ngControl?.invalid && this._ngControl?.touched);

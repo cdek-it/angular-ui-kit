@@ -127,7 +127,7 @@ import { MultiSelectComponent } from '@cdek-it/angular-ui-kit';
     display: 'comma',
     placeholder: 'Выберите города...',
     showClear: true,
-    filter: false,
+    filter: true,
     readonly: false,
     disabled: false,
     invalid: false,
