@@ -95,16 +95,36 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   color: ${dt('button.colorScheme.light.text.primary.color')};
 }
 
-.p-datepicker.p-datepicker:has(.p-datepicker-clear-icon) .p-datepicker-clear-icon {
-  position: absolute;
-  right: ${dt('datepicker.dropdown.width')};
-  cursor: pointer;
-  z-index: 1;
-}
-
+/* ─── Clear icon: скрываем при пустом значении ─── */
 .p-datepicker.p-datepicker:not(.p-inputwrapper-filled) .p-datepicker-clear-icon,
 .p-datepicker.p-datepicker:has(.p-datepicker-input:placeholder-shown) .p-datepicker-clear-icon {
   display: none;
+}
+
+/* ─── Custom time picker (InputNumber без кнопок) ─── */
+.p-datepicker-time-picker-custom.p-datepicker-time-picker-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${dt('spacing.2x')};
+  padding: ${dt('spacing.2x')} 0;
+  border-top: 1px solid ${dt('datepicker.panel.borderColor')};
+}
+
+.p-datepicker-time-picker-custom .p-inputnumber {
+  width: ${dt('datepicker.extend.extTimePicker.minWidth')};
+}
+
+.p-datepicker-time-picker-custom .p-datepicker-time-input {
+  text-align: center;
+  padding: ${dt('spacing.1x')} ${dt('spacing.2x')};
+  width: 100%;
+}
+
+.p-datepicker-time-picker-custom .p-datepicker-separator {
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.bold')};
+  color: ${dt('datepicker.extend.extTimePicker.color')};
 }
 
 :is(.p-datepicker-month-select, .p-datepicker-year-select) .p-select-dropdown {

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
+import { InputNumber } from 'primeng/inputnumber';
 import { PrimeTemplate } from 'primeng/api';
 import { Select } from 'primeng/select';
 import { Button } from 'primeng/button';
@@ -36,7 +37,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
   selector: 'date-picker',
   host: { style: 'display: inline-flex' },
   standalone: true,
-  imports: [DatePicker, PrimeTemplate, FormsModule, Select, Button],
+  imports: [DatePicker, InputNumber, PrimeTemplate, FormsModule, Select, Button],
   template: `
     <p-datepicker
       #dpRef
@@ -48,8 +49,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
       [iconDisplay]="iconDisplay"
       [inline]="inline"
       [showButtonBar]="showButtonBar"
-      [showTime]="showTime"
-      [hourFormat]="hourFormat"
+      [showTime]="false"
       [showClear]="showClear"
       [placeholder]="placeholder"
       [disabled]="disabled"
@@ -123,7 +123,32 @@ export type DatePickerIconDisplay = 'input' | 'button';
       </ng-template>
       @if (showClear) {
         <ng-template pTemplate="clearicon">
-          <i class="p-datepicker-clear-icon ti ti-x cursor-pointer"></i>
+          <i class="ti ti-x"></i>
+        </ng-template>
+      }
+      @if (showTime) {
+        <ng-template pTemplate="footer">
+          <div class="p-datepicker-time-picker p-datepicker-time-picker-custom">
+            <p-inputNumber
+              [ngModel]="timeHour"
+              (ngModelChange)="onHourChange($event)"
+              [min]="0"
+              [max]="23"
+              [format]="false"
+              inputStyleClass="p-datepicker-time-input"
+            ></p-inputNumber>
+            <div class="p-datepicker-separator">
+              <span>:</span>
+            </div>
+            <p-inputNumber
+              [ngModel]="timeMinute"
+              (ngModelChange)="onMinuteChange($event)"
+              [min]="0"
+              [max]="59"
+              [format]="false"
+              inputStyleClass="p-datepicker-time-input"
+            ></p-inputNumber>
+          </div>
         </ng-template>
       }
     </p-datepicker>
@@ -219,6 +244,57 @@ export class DatePickerComponent implements AfterViewInit {
 
   onValueChange(val: Date | Date[] | null): void {
     this.value = val;
+    this.syncTimeFromValue();
     this.valueChange.emit(val);
+  }
+
+  timeHour = 0;
+  timeMinute = 0;
+
+  private syncTimeFromValue(): void {
+    const date = this.getActiveDate();
+    if (date) {
+      this.timeHour = date.getHours();
+      this.timeMinute = date.getMinutes();
+    }
+  }
+
+  private getActiveDate(): Date | null {
+    if (!this.value) return null;
+    if (Array.isArray(this.value)) {
+      return this.value[this.value.length - 1] ?? this.value[0] ?? null;
+    }
+    return this.value;
+  }
+
+  onHourChange(hour: number): void {
+    this.timeHour = hour ?? 0;
+    this.applyTimeToValue();
+  }
+
+  onMinuteChange(minute: number): void {
+    this.timeMinute = minute ?? 0;
+    this.applyTimeToValue();
+  }
+
+  private applyTimeToValue(): void {
+    const date = this.getActiveDate();
+    if (!date) return;
+    const updated = new Date(date.getTime());
+    updated.setHours(this.timeHour);
+    updated.setMinutes(this.timeMinute);
+
+    if (Array.isArray(this.value)) {
+      if (this.selectionMode === 'range') {
+        this.value = this.value[1]
+          ? [this.value[0], updated]
+          : [updated, null] as any;
+      } else {
+        this.value = [...this.value.slice(0, -1), updated];
+      }
+    } else {
+      this.value = updated;
+    }
+    this.valueChange.emit(this.value);
   }
 }
