@@ -6,18 +6,14 @@ type Story = StoryObj<InputTextComponent>;
 export const ClearButton: Story = {
   name: 'ClearButton',
   render: (args) => ({
-    props: { ...args, value: '' },
+    props: { ...args },
     template: `
       <input-text
         [size]="size"
         [showClear]="showClear"
-        [disabled]="disabled"
         [readonly]="readonly"
-        [invalid]="invalid"
         [fluid]="fluid"
-        [variant]="variant"
         [placeholder]="placeholder"
-        [(ngModel)]="value"
       ></input-text>
     `,
   }),
@@ -34,10 +30,9 @@ export const ClearButton: Story = {
         language: 'ts',
         code: `
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 // template:
-// <input-text [showClear]="true" placeholder="Введите текст..." [(ngModel)]="value"></input-text>
+// <input-text [showClear]="true" placeholder="Введите текст..."></input-text>
         `,
       },
     },
