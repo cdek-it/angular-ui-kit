@@ -85,9 +85,9 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   font-weight: ${dt('fonts.fontWeight.regular')};
 }
 
-.p-datepicker-time-picker.p-datepicker-time-picker {
-  min-width: ${dt('datepicker.extend.extTimePicker.minWidth')};
-  color: ${dt('datepicker.extend.extTimePicker.color')};
+/* ─── Скрываем нативный time picker (заменён кастомным в footer) ─── */
+.p-datepicker-time-picker.p-datepicker-time-picker:not(.p-datepicker-time-picker-custom) {
+  display: none;
 }
 
 .p-datepicker-buttonbar.p-datepicker-buttonbar .p-button.p-button {
@@ -118,7 +118,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 /* ─── Custom time picker (InputNumber без кнопок) ─── */
 .p-datepicker-time-picker-custom.p-datepicker-time-picker-custom {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: ${dt('datepicker.timePicker.gap')};
   padding: ${dt('datepicker.timePicker.padding')};
@@ -130,7 +130,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   flex-direction: column;
   align-items: center;
   gap: ${dt('datepicker.timePicker.buttonGap')};
-  min-width: 42px;
+  width: auto;
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-time-label {
@@ -141,14 +141,10 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   color: ${dt('datepicker.extend.extTimePicker.color')};
 }
 
-.p-datepicker-time-picker-custom .p-inputnumber {
-  width: 100%;
-}
-
-.p-datepicker-time-picker-custom .p-datepicker-time-input {
+.p-datepicker-time-picker-custom .p-inputnumber,
+.p-datepicker-time-picker-custom .p-datepicker-time-input.p-datepicker-time-input {
+  width: ${dt('datepicker.extend.extTimePicker.minWidth')};
   text-align: center;
-  min-width: 65px;
-  width: 100%;
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-separator {
@@ -157,8 +153,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   font-weight: ${dt('fonts.fontWeight.regular')};
   line-height: 1;
   color: ${dt('datepicker.extend.extTimePicker.color')};
-  align-self: flex-end;
-  padding-bottom: ${dt('datepicker.timePicker.buttonGap')};
+  margin-top: calc(${dt('fonts.fontSize.100')} + ${dt('datepicker.timePicker.buttonGap')});
 }
 
 :is(.p-datepicker-month-select, .p-datepicker-year-select) .p-select-dropdown {
