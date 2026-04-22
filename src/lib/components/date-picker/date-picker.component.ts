@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 import { InputNumber } from 'primeng/inputnumber';
@@ -63,12 +63,14 @@ export type DatePickerIconDisplay = 'input' | 'button';
       [minDate]="minDate"
       [maxDate]="maxDate"
       [view]="view"
+      [hideOnDateTimeSelect]="false"
       [showOtherMonths]="showOtherMonths"
       [selectOtherMonths]="selectOtherMonths"
-      (onShow)="syncCurrentDate()"
+      (onShow)="onPanelShow()"
+      (onClose)="onPanelClose()"
       (onMonthChange)="onMonthChangeHandler($event)"
       (onYearChange)="onYearChangeHandler($event)"
-      (onSelect)="onSelect.emit($event)"
+      (onSelect)="onDateSelected($event)"
       (onClear)="onClear.emit($event)"
     >
       <ng-template pTemplate="header">
@@ -163,7 +165,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
     </p-datepicker>
   `,
 })
-export class DatePickerComponent implements AfterViewInit {
+export class DatePickerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('dpRef') dpRef!: DatePicker;
 
   readonly months = MONTHS;
@@ -221,7 +223,6 @@ export class DatePickerComponent implements AfterViewInit {
   }
 
   onMonthChangeHandler(event: { month: number; year: number }): void {
-    // DatePicker emits 1-indexed month; store as 0-indexed
     this.dpCurrentMonth = event.month - 1;
     this.dpCurrentYear = event.year;
     this.onMonthChange.emit(event);
@@ -254,6 +255,16 @@ export class DatePickerComponent implements AfterViewInit {
   onValueChange(val: Date | Date[] | null): void {
     this.value = val;
     this.valueChange.emit(val);
+    if (this.selectionMode === 'range' && Array.isArray(val)) {
+      if (val[1]) {
+        this.rangeStart = null;
+        if (!this.inline) {
+          (this.dpRef as any).hideOverlay();
+        }
+      } else {
+        this.rangeStart = val[0] ?? null;
+      }
+    }
   }
 
   onHourInput(event: { value: number | null }): void {
@@ -268,5 +279,117 @@ export class DatePickerComponent implements AfterViewInit {
 
   onTimeBlur(): void {
     (this.dpRef as any).updateTime();
+  }
+
+  // ── Range hover preview ──────────────────────────────────────────────────
+
+  private panelMouseoverHandler: ((e: Event) => void) | null = null;
+  private panelMouseleaveHandler: (() => void) | null = null;
+  private rangeStart: Date | null = null;
+
+  onPanelShow(): void {
+    this.syncCurrentDate();
+    if (this.selectionMode === 'range') {
+      this.attachRangePreview();
+    }
+  }
+
+  onPanelClose(): void {
+    this.detachRangePreview();
+  }
+
+  onDateSelected(event: any): void {
+    this.onSelect.emit(event);
+  }
+
+  ngOnDestroy(): void {
+    this.detachRangePreview();
+  }
+
+  private attachRangePreview(): void {
+    this.removeRangeListeners();
+
+    setTimeout(() => {
+      const panel = this.getPanelElement();
+      if (!panel) return;
+
+      this.panelMouseoverHandler = (e: Event) => {
+        if (!this.rangeStart) return;
+        const dayEl = (e.target as HTMLElement).closest('.p-datepicker-day') as HTMLElement;
+        if (!dayEl) return;
+        const dateKey = dayEl.getAttribute('data-date');
+        if (!dateKey) return;
+        const hovered = this.parseDateKey(dateKey);
+        if (!hovered) return;
+        this.clearHoverPreview(panel);
+        this.applyRangePreview(panel, this.rangeStart, hovered);
+      };
+
+      this.panelMouseleaveHandler = () => {
+        this.clearHoverPreview(panel);
+      };
+
+      panel.addEventListener('mouseover', this.panelMouseoverHandler);
+      panel.addEventListener('mouseleave', this.panelMouseleaveHandler);
+    });
+  }
+
+  private removeRangeListeners(): void {
+    const panel = this.getPanelElement();
+    if (panel) {
+      if (this.panelMouseoverHandler) {
+        panel.removeEventListener('mouseover', this.panelMouseoverHandler);
+      }
+      if (this.panelMouseleaveHandler) {
+        panel.removeEventListener('mouseleave', this.panelMouseleaveHandler);
+      }
+    }
+    this.panelMouseoverHandler = null;
+    this.panelMouseleaveHandler = null;
+  }
+
+  private detachRangePreview(): void {
+    const panel = this.getPanelElement();
+    if (panel) this.clearHoverPreview(panel);
+    this.removeRangeListeners();
+  }
+
+  private getPanelElement(): HTMLElement | null {
+    return (this.dpRef as any)?.content?.nativeElement
+      ?? document.querySelector('.p-datepicker-panel');
+  }
+
+  private parseDateKey(key: string): Date | null {
+    const parts = key.split('-').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return null;
+    return new Date(parts[0], parts[1], parts[2]);
+  }
+
+  private applyRangePreview(panel: HTMLElement, start: Date, end: Date): void {
+    const [from, to] = start <= end ? [start, end] : [end, start];
+    const days = panel.querySelectorAll('.p-datepicker-day[data-date]');
+    days.forEach((el) => {
+      const key = el.getAttribute('data-date');
+      if (!key) return;
+      const d = this.parseDateKey(key);
+      if (!d) return;
+      const inRange = d > from && d < to;
+      const isEdge = d.getTime() === from.getTime() || d.getTime() === to.getTime();
+      if (inRange) {
+        el.classList.add('p-datepicker-day-selected-range');
+        el.setAttribute('data-hover-preview', '');
+      }
+      if (isEdge && !el.classList.contains('p-datepicker-day-selected')) {
+        el.classList.add('p-datepicker-day-selected');
+        el.setAttribute('data-hover-preview', '');
+      }
+    });
+  }
+
+  private clearHoverPreview(panel: HTMLElement): void {
+    panel.querySelectorAll('[data-hover-preview]').forEach((el) => {
+      el.classList.remove('p-datepicker-day-selected-range', 'p-datepicker-day-selected');
+      el.removeAttribute('data-hover-preview');
+    });
   }
 }
