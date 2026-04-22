@@ -10,6 +10,7 @@ import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
+import { megamenuCss } from './tokens/components/megamenu';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -43,6 +44,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
       css: tooltipCss,
+    },
+    megamenu: {
+      ...(tokens.components.megamenu as unknown as ComponentsDesignTokens['megamenu']),
+      css: megamenuCss,
     },
   } as ComponentsDesignTokens,
 };
