@@ -38,6 +38,7 @@ const template = `
   placeholder="Выберите город..."
   [optionGroupTemplate]="groupTpl"
   [size]="size"
+  [showClear]="showClear"
 ></select-field>
 `;
 const styles = '';
@@ -51,14 +52,15 @@ const styles = '';
 })
 export class SelectGroupedComponent {
   @Input() size: SelectSize = 'base';
+  @Input() showClear = false;
   control = new FormControl(null);
   options = GROUPED_OPTIONS;
 }
 
 export const Grouped = {
   render: (args: any) => ({
-    props: { size: args['size'] },
-    template: `<app-select-grouped [size]="size"></app-select-grouped>`,
+    props: { size: args['size'], showClear: args['showClear'] },
+    template: `<app-select-grouped [size]="size" [showClear]="showClear"></app-select-grouped>`,
   }),
   parameters: {
     docs: {

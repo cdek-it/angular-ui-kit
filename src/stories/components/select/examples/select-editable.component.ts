@@ -16,6 +16,7 @@ const template = `
   placeholder="Выберите или введите город..."
   [editable]="true"
   [size]="size"
+  [showClear]="showClear"
 ></select-field>
 `;
 const styles = '';
@@ -29,14 +30,15 @@ const styles = '';
 })
 export class SelectEditableComponent {
   @Input() size: SelectSize = 'base';
+  @Input() showClear = false;
   control = new FormControl(null);
   options = OPTIONS;
 }
 
 export const Editable = {
   render: (args: any) => ({
-    props: { size: args['size'] },
-    template: `<app-select-editable [size]="size"></app-select-editable>`,
+    props: { size: args['size'], showClear: args['showClear'] },
+    template: `<app-select-editable [size]="size" [showClear]="showClear"></app-select-editable>`,
   }),
   parameters: {
     docs: {

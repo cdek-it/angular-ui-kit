@@ -25,6 +25,7 @@ const template = `
   placeholder="Выберите пункт..."
   [optionTemplate]="optTpl"
   [size]="size"
+  [showClear]="showClear"
 ></select-field>
 `;
 const styles = '';
@@ -38,14 +39,15 @@ const styles = '';
 })
 export class SelectCustomComponent {
   @Input() size: SelectSize = 'base';
+  @Input() showClear = false;
   control = new FormControl(null);
   options = OPTIONS;
 }
 
 export const Custom = {
   render: (args: any) => ({
-    props: { size: args['size'] },
-    template: `<app-select-custom [size]="size"></app-select-custom>`,
+    props: { size: args['size'], showClear: args['showClear'] },
+    template: `<app-select-custom [size]="size" [showClear]="showClear"></app-select-custom>`,
   }),
   parameters: {
     docs: {
