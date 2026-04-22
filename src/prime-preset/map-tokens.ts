@@ -6,11 +6,11 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
+import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
-import { tabsCss } from './tokens/components/tabs';
-import { stepperCss } from './tokens/components/stepper';
+import { megamenuCss } from './tokens/components/megamenu';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -33,6 +33,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
       css: progressspinnerCss,
     },
+    inputtext: {
+      ...(tokens.components.inputtext as unknown as ComponentsDesignTokens['inputtext']),
+      css: inputtextCss,
+    },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
       css: tagCss,
@@ -41,13 +45,9 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
       css: tooltipCss,
     },
-    tabs: {
-      ...(tokens.components.tabs as unknown as ComponentsDesignTokens['tabs']),
-      css: tabsCss,
-    },
-    stepper: {
-      ...(tokens.components.stepper as unknown as ComponentsDesignTokens['stepper']),
-      css: stepperCss,
+    megamenu: {
+      ...(tokens.components.megamenu as unknown as ComponentsDesignTokens['megamenu']),
+      css: megamenuCss,
     },
   } as ComponentsDesignTokens,
 };
