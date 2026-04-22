@@ -9,7 +9,7 @@ export type MegaMenuOrientation = 'horizontal' | 'vertical';
 export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
   description?: string;
   badge?: string;
-  items?: MegaMenuModel[][];
+  items?: MegaMenuModel[][] | MegaMenuModel[];
 }
 
 @Component({
