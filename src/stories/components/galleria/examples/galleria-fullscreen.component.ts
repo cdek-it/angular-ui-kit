@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GalleriaComponent } from '../../../../lib/components/galleria/galleria.component';
+import { GalleriaModule } from 'primeng/galleria';
 import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { PrimeTemplate } from 'primeng/api';
 import { GALLERIA_IMAGES } from './galleria-default.component';
@@ -7,13 +7,13 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
 @Component({
   selector: 'app-galleria-fullscreen',
   standalone: true,
-  imports: [GalleriaComponent, ButtonComponent, PrimeTemplate],
+  imports: [GalleriaModule, ButtonComponent, PrimeTemplate],
   template: `
     <button label="Открыть галерею" (click)="visible = true"></button>
 
-    <galleria
+    <p-galleria
       [value]="images"
-      [numVisible]="5"
+      [numVisible]="4"
       [showItemNavigators]="true"
       [showThumbnails]="true"
       [circular]="true"
@@ -27,7 +27,7 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
       <ng-template pTemplate="thumbnail" let-item>
         <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
       </ng-template>
-    </galleria>
+    </p-galleria>
   `,
 })
 export class GalleriaFullscreenComponent {

@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { GalleriaComponent } from '../../../../lib/components/galleria/galleria.component';
+import { GalleriaModule } from 'primeng/galleria';
 import { PrimeTemplate } from 'primeng/api';
 import { GALLERIA_IMAGES } from './galleria-default.component';
 
 @Component({
   selector: 'app-galleria-thumbnails',
   standalone: true,
-  imports: [GalleriaComponent, PrimeTemplate],
+  imports: [GalleriaModule, PrimeTemplate],
   template: `
-    <galleria
+    <p-galleria
       [value]="images"
-      [numVisible]="5"
+      [numVisible]="4"
       [showItemNavigators]="true"
       [showThumbnails]="true"
       [showIndicators]="false"
       [circular]="true"
-      style="max-width: 800px; display: block;"
+      [containerStyle]="{ 'max-width': '800px' }"
     >
       <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
@@ -23,7 +23,7 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
       <ng-template pTemplate="thumbnail" let-item>
         <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
       </ng-template>
-    </galleria>
+    </p-galleria>
   `,
 })
 export class GalleriaThumbnailsComponent {

@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { GalleriaComponent } from '../../../../lib/components/galleria/galleria.component';
+import { GalleriaModule } from 'primeng/galleria';
 import { PrimeTemplate } from 'primeng/api';
 import { GALLERIA_IMAGES } from './galleria-default.component';
 
 @Component({
   selector: 'app-galleria-caption',
   standalone: true,
-  imports: [GalleriaComponent, PrimeTemplate],
+  imports: [GalleriaModule, PrimeTemplate],
   template: `
-    <galleria
+    <p-galleria
       [value]="images"
-      [numVisible]="5"
+      [numVisible]="4"
       [showItemNavigators]="true"
       [showThumbnails]="false"
       [showIndicators]="true"
       [circular]="true"
-      style="max-width: 800px; display: block;"
+      [containerStyle]="{ 'max-width': '800px' }"
     >
       <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
@@ -26,7 +26,7 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
           <p style="margin: 0; opacity: 0.8; font-size: 0.875rem;">{{ item.description }}</p>
         </div>
       </ng-template>
-    </galleria>
+    </p-galleria>
   `,
 })
 export class GalleriaCaptionComponent {

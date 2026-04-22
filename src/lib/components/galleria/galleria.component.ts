@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, ViewChild, AfterContentInit } from '@angular/core';
+import { Galleria, GalleriaModule } from 'primeng/galleria';
+import { PrimeTemplate } from 'primeng/api';
 
 export interface GalleriaItem {
   itemImageSrc: string;
@@ -34,12 +35,13 @@ export interface GalleriaItem {
       [responsiveOptions]="responsiveOptions"
       (activeIndexChange)="activeIndexChange.emit($event)"
       (visibleChange)="visibleChange.emit($event)"
-    >
-      <ng-content></ng-content>
-    </p-galleria>
+    ></p-galleria>
   `,
 })
-export class GalleriaComponent {
+export class GalleriaComponent implements AfterContentInit {
+  @ViewChild(Galleria, { static: true }) private galleriaRef!: Galleria;
+  @ContentChildren(PrimeTemplate) private userTemplates!: QueryList<PrimeTemplate>;
+
   @Input() value: GalleriaItem[] = [];
   @Input() numVisible = 3;
   @Input() showItemNavigators = false;
@@ -59,4 +61,35 @@ export class GalleriaComponent {
 
   @Output() activeIndexChange = new EventEmitter<number>();
   @Output() visibleChange = new EventEmitter<boolean>();
+
+  ngAfterContentInit(): void {
+    this.syncTemplates();
+    this.userTemplates.changes.subscribe(() => this.syncTemplates());
+  }
+
+  private syncTemplates(): void {
+    const ref = this.galleriaRef as any;
+    this.userTemplates.forEach((tpl) => {
+      switch (tpl.getType()) {
+        case 'item':
+          ref._itemTemplate = tpl.template;
+          break;
+        case 'thumbnail':
+          ref._thumbnailTemplate = tpl.template;
+          break;
+        case 'caption':
+          ref.captionTemplate = tpl.template;
+          break;
+        case 'header':
+          ref.headerTemplate = tpl.template;
+          break;
+        case 'footer':
+          ref.footerTemplate = tpl.template;
+          break;
+        case 'indicator':
+          ref.indicatorTemplate = tpl.template;
+          break;
+      }
+    });
+  }
 }
