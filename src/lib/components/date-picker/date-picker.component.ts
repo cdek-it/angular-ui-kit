@@ -129,25 +129,31 @@ export type DatePickerIconDisplay = 'input' | 'button';
       @if (showTime) {
         <ng-template pTemplate="footer">
           <div class="p-datepicker-time-picker p-datepicker-time-picker-custom">
-            <p-inputNumber
-              [ngModel]="timeHour"
-              (ngModelChange)="onHourChange($event)"
-              [min]="0"
-              [max]="23"
-              [format]="false"
-              inputStyleClass="p-datepicker-time-input"
-            ></p-inputNumber>
+            <div class="p-datepicker-time-field">
+              <label class="p-datepicker-time-label">Часы</label>
+              <p-inputNumber
+                [ngModel]="timeHour"
+                (ngModelChange)="onHourChange($event)"
+                [min]="0"
+                [max]="23"
+                [format]="false"
+                inputStyleClass="p-datepicker-time-input"
+              ></p-inputNumber>
+            </div>
             <div class="p-datepicker-separator">
               <span>:</span>
             </div>
-            <p-inputNumber
-              [ngModel]="timeMinute"
-              (ngModelChange)="onMinuteChange($event)"
-              [min]="0"
-              [max]="59"
-              [format]="false"
-              inputStyleClass="p-datepicker-time-input"
-            ></p-inputNumber>
+            <div class="p-datepicker-time-field">
+              <label class="p-datepicker-time-label">Минуты</label>
+              <p-inputNumber
+                [ngModel]="timeMinute"
+                (ngModelChange)="onMinuteChange($event)"
+                [min]="0"
+                [max]="59"
+                [format]="false"
+                inputStyleClass="p-datepicker-time-input"
+              ></p-inputNumber>
+            </div>
           </div>
         </ng-template>
       }

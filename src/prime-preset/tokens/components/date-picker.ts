@@ -71,6 +71,20 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   margin: ${dt('datepicker.dayView.margin')};
 }
 
+/* ─── Weekday header text ─── */
+.p-datepicker-weekday {
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.demibold')};
+}
+
+/* ─── Day cell text ─── */
+.p-datepicker-day {
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+}
+
 .p-datepicker-time-picker.p-datepicker-time-picker {
   min-width: ${dt('datepicker.extend.extTimePicker.minWidth')};
   color: ${dt('datepicker.extend.extTimePicker.color')};
@@ -104,27 +118,47 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 /* ─── Custom time picker (InputNumber без кнопок) ─── */
 .p-datepicker-time-picker-custom.p-datepicker-time-picker-custom {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  gap: ${dt('spacing.2x')};
-  padding: ${dt('spacing.2x')} 0;
+  gap: ${dt('datepicker.timePicker.gap')};
+  padding: ${dt('datepicker.timePicker.padding')};
   border-top: 1px solid ${dt('datepicker.panel.borderColor')};
 }
 
+.p-datepicker-time-picker-custom .p-datepicker-time-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${dt('datepicker.timePicker.buttonGap')};
+  min-width: 42px;
+}
+
+.p-datepicker-time-picker-custom .p-datepicker-time-label {
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.100')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: 1;
+  color: ${dt('datepicker.extend.extTimePicker.color')};
+}
+
 .p-datepicker-time-picker-custom .p-inputnumber {
-  width: ${dt('datepicker.extend.extTimePicker.minWidth')};
+  width: 100%;
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-time-input {
   text-align: center;
-  padding: ${dt('spacing.1x')} ${dt('spacing.2x')};
+  min-width: 65px;
   width: 100%;
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-separator {
-  font-size: ${dt('fonts.fontSize.300')};
-  font-weight: ${dt('fonts.fontWeight.bold')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.100')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: 1;
   color: ${dt('datepicker.extend.extTimePicker.color')};
+  align-self: flex-end;
+  padding-bottom: ${dt('datepicker.timePicker.buttonGap')};
 }
 
 :is(.p-datepicker-month-select, .p-datepicker-year-select) .p-select-dropdown {
