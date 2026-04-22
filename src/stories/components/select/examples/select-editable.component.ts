@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '../../../../lib/components/select/select.component';
+import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -15,6 +15,7 @@ const template = `
   optionLabel="name"
   placeholder="Выберите или введите город..."
   [editable]="true"
+  [size]="size"
 ></select-field>
 `;
 const styles = '';
@@ -27,13 +28,15 @@ const styles = '';
   styles,
 })
 export class SelectEditableComponent {
+  @Input() size: SelectSize = 'base';
   control = new FormControl(null);
   options = OPTIONS;
 }
 
 export const Editable = {
-  render: () => ({
-    template: `<app-select-editable></app-select-editable>`,
+  render: (args: any) => ({
+    props: { size: args['size'] },
+    template: `<app-select-editable [size]="size"></app-select-editable>`,
   }),
   parameters: {
     docs: {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SelectComponent } from '../../../../lib/components/select/select.component';
@@ -18,6 +18,7 @@ const template = `
       [formControl]="control"
       [options]="options"
       optionLabel="name"
+      [showClear]="showClear"
     ></select-field>
     <label for="select-fl">Город</label>
   </p-floatlabel>
@@ -33,15 +34,20 @@ const styles = '';
   styles,
 })
 export class SelectFloatLabelComponent {
+  @Input() showClear = false;
   control = new FormControl(null);
   options = OPTIONS;
 }
 
 export const FloatLabelStory = {
   name: 'FloatLabel',
-  render: () => ({
-    template: `<app-select-float-label></app-select-float-label>`,
+  render: (args: any) => ({
+    props: { showClear: args['showClear'] },
+    template: `<app-select-float-label [showClear]="showClear"></app-select-float-label>`,
   }),
+  argTypes: {
+    size: { table: { disable: true } },
+  },
   parameters: {
     docs: {
       description: {
@@ -66,6 +72,7 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
           [formControl]="control"
           [options]="options"
           optionLabel="name"
+          [showClear]="true"
         ></select-field>
         <label for="select-fl">Город</label>
       </p-floatlabel>

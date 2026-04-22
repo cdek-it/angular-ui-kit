@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '../../../../lib/components/select/select.component';
+import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -18,6 +18,7 @@ const template = `
   placeholder="Выберите город..."
   [filter]="true"
   [showClear]="true"
+  [size]="size"
 ></select-field>
 `;
 const styles = '';
@@ -30,13 +31,15 @@ const styles = '';
   styles,
 })
 export class SelectFilterComponent {
+  @Input() size: SelectSize = 'base';
   control = new FormControl(null);
   options = OPTIONS;
 }
 
 export const Filter = {
-  render: () => ({
-    template: `<app-select-filter></app-select-filter>`,
+  render: (args: any) => ({
+    props: { size: args['size'] },
+    template: `<app-select-filter [size]="size"></app-select-filter>`,
   }),
   parameters: {
     docs: {
