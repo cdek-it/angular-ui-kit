@@ -5,11 +5,18 @@ export const timelineCss = ({ dt }: { dt: (token: string) => string }): string =
   font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.300')};
   line-height: ${dt('fonts.lineHeight.500')};
+  color: ${dt('text.color')};
 }
 
 /* ─── Маркер ─── */
 .p-timeline-event-marker {
   border-width: ${dt('timeline.eventMarker.borderWidth')};
+  background: ${dt('timeline.eventMarker.background')};
+  border-color: ${dt('timeline.eventMarker.borderColor')};
+}
+
+.p-timeline-event-marker::before {
+  background: ${dt('timeline.eventMarker.content.background')};
 }
 
 /* ─── Коннектор ─── */
