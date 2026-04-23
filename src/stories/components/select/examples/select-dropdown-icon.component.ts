@@ -47,7 +47,7 @@ export const DropdownIcon = {
   },
   argTypes: {
     dropdownIcon: {
-      control: { type: 'text' },
+      control: 'text' as const,
       description: 'CSS-класс иконки для выпадающего списка',
       table: {
         category: 'Props',
