@@ -1,7 +1,9 @@
-import { Component, Input, ContentChild, TemplateRef } from '@angular/core';
+import { Component, Input, ContentChild, TemplateRef, HostBinding } from '@angular/core';
 import { Timeline } from 'primeng/timeline';
 import { SharedModule } from 'primeng/api';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+
+export type TimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
 
 @Component({
   selector: 'timeline',
@@ -43,6 +45,9 @@ export class TimelineComponent {
   @Input() align: 'left' | 'right' | 'alternate' | 'top' | 'bottom' = 'left';
   @Input() layout: 'vertical' | 'horizontal' = 'vertical';
   @Input() showCaption: boolean = true;
+  @Input() line: TimelineLine = 'solid';
+
+  @HostBinding('attr.data-line') get dataLine() { return this.line; }
 
   @ContentChild('content') contentTemplate?: TemplateRef<any>;
   @ContentChild('opposite') oppositeTemplate?: TemplateRef<any>;
