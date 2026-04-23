@@ -6,7 +6,8 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     line-height: ${dt('fonts.lineHeight.250')};
   }
 
-  .p-select.p-component .p-select-label {
+  .p-select.p-component .p-select-label,
+  .p-select-option {
     font-family: ${dt('fonts.fontFamily.base')};
   }
 
