@@ -17,7 +17,7 @@ const BASIC_OPTIONS = [
   { name: 'Казань', code: 'KZN' },
 ];
 
-type SelectArgs = Pick<SelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly'> & {
+type SelectArgs = Pick<SelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'dropdownIcon'> & {
   disabled: boolean;
   invalid: boolean;
 };
