@@ -7,6 +7,7 @@ import { SelectCustomComponent, Custom as CustomStory } from './examples/select-
 import { SelectEditableComponent, Editable as EditableStory } from './examples/select-editable.component';
 import { Disabled as DisabledStory } from './examples/select-disabled.component';
 import { SelectFloatLabelComponent, FloatLabelStory } from './examples/select-float-label.component';
+import { SelectDropdownIconComponent, DropdownIcon as DropdownIconStory } from './examples/select-dropdown-icon.component';
 
 const BASIC_OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -35,6 +36,7 @@ const meta: Meta<SelectArgs> = {
         SelectCustomComponent,
         SelectEditableComponent,
         SelectFloatLabelComponent,
+        SelectDropdownIconComponent,
       ],
     }),
   ],
@@ -185,6 +187,10 @@ export const Editable: Story = EditableStory;
 // ── Disabled ──────────────────────────────────────────────────────────────────
 
 export const Disabled: Story = DisabledStory;
+
+// ── DropdownIcon ─────────────────────────────────────────────────────────────
+
+export const DropdownIcon: Story = DropdownIconStory;
 
 // ── FloatLabel ────────────────────────────────────────────────────────────────
 
