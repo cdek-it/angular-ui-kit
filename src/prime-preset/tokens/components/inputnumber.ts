@@ -21,6 +21,8 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 /* ─── Focus ─── */
 .p-inputnumber .p-inputnumber-input:enabled:focus {
   box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+  z-index: 1;
+  position: relative;
 }
 
 /* ─── Invalid + Focus ─── */
