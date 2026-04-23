@@ -7,7 +7,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-select.p-component .p-select-label.p-placeholder {
-    font-family: ${dt('fonts.fontFamily.base')};
+     font-family: ${dt('fonts.fontFamily.base')};
   }
 
   /* ─── Focus ─── */
@@ -54,6 +54,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-floatlabel-in .p-select.p-component .p-select-label {
+    font-family: ${dt('fonts.fontFamily.base')};
     padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
     padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
   }
