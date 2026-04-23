@@ -3,6 +3,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
+import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 
@@ -11,7 +12,7 @@ export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
 @Component({
   selector: 'select-field',
   standalone: true,
-  imports: [Select, NgClass, NgTemplateOutlet, PrimeTemplate, FormsModule],
+  imports: [Select, NgClass, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,52 +21,64 @@ export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
     },
   ],
   template: `
-    <p-select
-      [ngClass]="selectClasses"
-      [ngModel]="modelValue"
-      [disabled]="disabled"
-      [options]="options"
-      [optionLabel]="optionLabel"
-      [optionValue]="optionValue"
-      [optionDisabled]="optionDisabled"
-      [optionGroupLabel]="optionGroupLabel"
-      [optionGroupChildren]="optionGroupChildren"
-      [group]="group"
-      [placeholder]="placeholder"
-      [filter]="filter"
-      [showClear]="showClear"
-      [editable]="editable"
-      [readonly]="readonly"
-      [loading]="loading"
-      [inputId]="inputId"
-      [appendTo]="appendTo"
-      [size]="primeSize"
-      [emptyMessage]="emptyMessage"
-      [emptyFilterMessage]="emptyFilterMessage"
-      (onChange)="onSelectChange($event)"
-      (onClear)="onClear.emit($event)"
-      (onFilter)="onFilter.emit($event)"
-      (onShow)="onShow.emit($event)"
-      (onHide)="onHide.emit($event)"
-      (onFocus)="onFocus.emit($event)"
-      (onBlur)="handleBlur($event)"
-    >
-      @if (optionTemplate) {
-        <ng-template pTemplate="item" let-option>
-          <ng-container [ngTemplateOutlet]="optionTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
-        </ng-template>
-      }
-      @if (selectedItemTemplate) {
-        <ng-template pTemplate="selectedItem" let-option>
-          <ng-container [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
-        </ng-template>
-      }
-      @if (optionGroupTemplate) {
-        <ng-template pTemplate="group" let-group>
-          <ng-container [ngTemplateOutlet]="optionGroupTemplate" [ngTemplateOutletContext]="{ $implicit: group }"></ng-container>
-        </ng-template>
-      }
-    </p-select>
+    @if (floatLabel) {
+      <p-floatlabel variant="in">
+        <ng-container *ngTemplateOutlet="selectTpl"></ng-container>
+        <label [attr.for]="inputId">{{ label }}</label>
+      </p-floatlabel>
+    } @else {
+      <ng-container *ngTemplateOutlet="selectTpl"></ng-container>
+    }
+
+    <ng-template #selectTpl>
+      <p-select
+        [ngClass]="selectClasses"
+        [ngModel]="modelValue"
+        [disabled]="disabled"
+        [options]="options"
+        [optionLabel]="optionLabel"
+        [optionValue]="optionValue"
+        [optionDisabled]="optionDisabled"
+        [optionGroupLabel]="optionGroupLabel"
+        [optionGroupChildren]="optionGroupChildren"
+        [group]="group"
+        [placeholder]="placeholder"
+        [filter]="filter"
+        [showClear]="showClear"
+        [editable]="editable"
+        [readonly]="readonly"
+        [loading]="loading"
+        [inputId]="inputId"
+        [appendTo]="appendTo"
+        [size]="primeSize"
+        [dropdownIcon]="dropdownIcon"
+        [emptyMessage]="emptyMessage"
+        [emptyFilterMessage]="emptyFilterMessage"
+        (onChange)="onSelectChange($event)"
+        (onClear)="onClear.emit($event)"
+        (onFilter)="onFilter.emit($event)"
+        (onShow)="onShow.emit($event)"
+        (onHide)="onHide.emit($event)"
+        (onFocus)="onFocus.emit($event)"
+        (onBlur)="handleBlur($event)"
+      >
+        @if (optionTemplate) {
+          <ng-template pTemplate="item" let-option>
+            <ng-container [ngTemplateOutlet]="optionTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
+          </ng-template>
+        }
+        @if (selectedItemTemplate) {
+          <ng-template pTemplate="selectedItem" let-option>
+            <ng-container [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
+          </ng-template>
+        }
+        @if (optionGroupTemplate) {
+          <ng-template pTemplate="group" let-group>
+            <ng-container [ngTemplateOutlet]="optionGroupTemplate" [ngTemplateOutletContext]="{ $implicit: group }"></ng-container>
+          </ng-template>
+        }
+      </p-select>
+    </ng-template>
   `,
 })
 export class SelectComponent implements ControlValueAccessor, OnInit {
@@ -92,6 +105,9 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   @Input() loading = false;
   @Input() inputId: string | undefined;
   @Input() appendTo: any = 'body';
+  @Input() floatLabel = false;
+  @Input() label = '';
+  @Input() dropdownIcon: string | undefined;
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
   @Input() optionTemplate: TemplateRef<any> | null = null;

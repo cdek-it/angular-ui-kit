@@ -1,6 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FloatLabel as PrimeFloatLabel } from 'primeng/floatlabel';
 import { SelectComponent } from '../../../lib/components/select/select.component';
 import { SelectFilterComponent, Filter as FilterStory } from './examples/select-filter.component';
 import { SelectGroupedComponent, Grouped as GroupedStory } from './examples/select-grouped.component';
@@ -31,7 +30,6 @@ const meta: Meta<SelectArgs> = {
       imports: [
         SelectComponent,
         ReactiveFormsModule,
-        PrimeFloatLabel,
         SelectFilterComponent,
         SelectGroupedComponent,
         SelectCustomComponent,
