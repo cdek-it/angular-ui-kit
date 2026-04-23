@@ -20,10 +20,12 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
       </ng-template>
 
       <ng-template pTemplate="opposite" let-event>
-        <ng-container *ngIf="oppositeTemplate; else emptyOpposite">
-          <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+        <ng-container *ngIf="showCaption">
+          <ng-container *ngIf="oppositeTemplate; else emptyOpposite">
+            <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+          </ng-container>
+          <ng-template #emptyOpposite><span>&nbsp;</span></ng-template>
         </ng-container>
-        <ng-template #emptyOpposite><span>&nbsp;</span></ng-template>
       </ng-template>
 
       <ng-template *ngIf="markerTemplate" pTemplate="marker" let-event>
@@ -40,6 +42,7 @@ export class TimelineComponent {
   @Input() value: any[] = [];
   @Input() align: 'left' | 'right' | 'alternate' | 'top' | 'bottom' = 'left';
   @Input() layout: 'vertical' | 'horizontal' = 'vertical';
+  @Input() showCaption: boolean = true;
 
   @ContentChild('content') contentTemplate?: TemplateRef<any>;
   @ContentChild('opposite') oppositeTemplate?: TemplateRef<any>;
