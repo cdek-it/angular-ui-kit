@@ -1,5 +1,6 @@
 import { applicationConfig, Preview } from '@storybook/angular';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
+import { withThemeByClassName } from '@storybook/addon-themes';
 import docJson from '../documentation.json';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -13,36 +14,7 @@ setCompodocJson(docJson);
 const DARK_MODE_SELECTOR = '.dark-mode';
 
 const preview: Preview = {
-  globalTypes: {
-    theme: {
-      description: 'Тема оформления',
-      toolbar: {
-        title: 'Тема',
-        icon: 'mirror',
-        items: [
-          { value: 'light', title: 'Светлая', icon: 'sun' },
-          { value: 'dark', title: 'Тёмная', icon: 'moon' },
-        ],
-        dynamicTitle: true,
-      },
-    },
-  },
-  initialGlobals: {
-    theme: 'light',
-  },
   decorators: [
-    (story, context) => {
-      const isDark = context.globals['theme'] === 'dark';
-      const body = document.body;
-
-      if (isDark) {
-        body.classList.add('dark-mode');
-      } else {
-        body.classList.remove('dark-mode');
-      }
-
-      return story();
-    },
     applicationConfig({
       providers: [
         provideAnimationsAsync(),
@@ -56,10 +28,20 @@ const preview: Preview = {
           }
         })
       ]
+    }),
+    withThemeByClassName({
+      themes: {
+        light: '',
+        dark: 'dark-mode'
+      },
+      defaultTheme: 'light'
     })
   ],
   parameters: {
     backgrounds: { disable: true },
+    docs: {
+      globals: { theme: 'light' },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
