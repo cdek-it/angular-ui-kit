@@ -50,8 +50,22 @@ timeline[data-line="dotted"] .p-timeline-horizontal .p-timeline-event-connector 
   border-top: ${dt('timeline.eventConnector.size')} dotted ${dt('timeline.eventConnector.color')};
 }
 
+/* ─── Маркер-иконка (без бордера и фона) ─── */
+.p-timeline-event-marker:has(i) {
+  border: none;
+  background: none;
+}
+
+.p-timeline-event-marker:has(i)::before {
+  display: none;
+}
+
 /* ─── Кастомный цвет маркера ─── */
 timeline[style*="--timeline-marker-color"] .p-timeline-event-marker {
   border-color: var(--timeline-marker-color);
+}
+
+timeline[style*="--timeline-marker-color"] .p-timeline-event-marker i {
+  color: var(--timeline-marker-color);
 }
 `;
