@@ -1,6 +1,9 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { TimelineComponent } from '../../../lib/components/timeline/timeline.component';
 import { TimelineHorizontalComponent, Horizontal } from './examples/timeline-horizontal.component';
+import { TimelineDashedLineComponent, DashedLine } from './examples/timeline-dashed-line.component';
+import { TimelineCustomIconComponent, CustomIcon } from './examples/timeline-custom-icon.component';
+import { TimelineMarkerColorComponent, MarkerColor } from './examples/timeline-marker-color.component';
 
 type TimelineArgs = TimelineComponent;
 type Story = StoryObj<TimelineArgs>;
@@ -11,7 +14,7 @@ const meta: Meta<TimelineArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [TimelineComponent, TimelineHorizontalComponent],
+      imports: [TimelineComponent, TimelineHorizontalComponent, TimelineDashedLineComponent, TimelineCustomIconComponent, TimelineMarkerColorComponent],
     }),
   ],
   parameters: {
@@ -52,6 +55,43 @@ const meta: Meta<TimelineArgs> = {
         type: { summary: "'vertical' | 'horizontal'" },
       },
     },
+    showCaption: {
+      control: 'boolean',
+      description: 'Показывать opposite-контент',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+      },
+    },
+    line: {
+      control: 'select',
+      options: ['solid', 'dashed', 'dotted', 'none'],
+      description: 'Стиль линии коннектора',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "'solid'" },
+        type: { summary: "'solid' | 'dashed' | 'dotted' | 'none'" },
+      },
+    },
+    icon: {
+      control: 'text',
+      description: 'CSS-класс иконки маркера (например `ti ti-check`)',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' },
+      },
+    },
+    markerColor: {
+      control: 'color',
+      description: 'Кастомный цвет маркера',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' },
+      },
+    },
     contentTemplate: { table: { disable: true } },
     oppositeTemplate: { table: { disable: true } },
     markerTemplate: { table: { disable: true } },
@@ -60,6 +100,10 @@ const meta: Meta<TimelineArgs> = {
     value: ['Заказ создан', 'Оплата', 'Отправка', 'Доставлено'],
     align: 'left',
     layout: 'vertical',
+    showCaption: true,
+    line: 'solid',
+    icon: '',
+    markerColor: '',
   },
 };
 
@@ -72,6 +116,10 @@ function renderStory(args: any) {
   parts.push(`[value]="value"`);
   if (args.align && args.align !== 'left') parts.push(`align="${args.align}"`);
   if (args.layout && args.layout !== 'vertical') parts.push(`layout="${args.layout}"`);
+  if (args.showCaption === false) parts.push(`[showCaption]="false"`);
+  if (args.line && args.line !== 'solid') parts.push(`line="${args.line}"`);
+  if (args.icon) parts.push(`icon="${args.icon}"`);
+  if (args.markerColor) parts.push(`markerColor="${args.markerColor}"`);
 
   const template = `<timeline\n  ${parts.join('\n  ')}\n></timeline>`;
 
@@ -93,3 +141,6 @@ export const Default: Story = {
 
 // ── Re-exports from example components ────────────────────────────────────
 export { Horizontal };
+export { DashedLine };
+export { CustomIcon };
+export { MarkerColor };
