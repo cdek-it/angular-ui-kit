@@ -42,6 +42,10 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
   align-self: stretch;
 }
 
+.p-floatlabel:has(.p-inputnumber) label {
+  z-index: 2;
+}
+
 /* ─── Extra Large ─── */
 .p-inputnumber.p-inputnumber-xlg .p-inputnumber-input {
   font-size: ${dt('inputtext.extend.extXlg.fontSize')};
