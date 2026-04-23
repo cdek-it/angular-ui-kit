@@ -30,8 +30,15 @@ export type TimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
         </ng-container>
       </ng-template>
 
-      <ng-template *ngIf="markerTemplate" pTemplate="marker" let-event>
-        <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
+      <ng-template *ngIf="markerTemplate || icon" pTemplate="marker" let-event>
+        <ng-container *ngIf="markerTemplate; else defaultMarker">
+          <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
+        </ng-container>
+        <ng-template #defaultMarker>
+          <span class="p-timeline-event-marker">
+            <i [class]="icon"></i>
+          </span>
+        </ng-template>
       </ng-template>
     </p-timeline>
 
@@ -46,6 +53,7 @@ export class TimelineComponent {
   @Input() layout: 'vertical' | 'horizontal' = 'vertical';
   @Input() showCaption: boolean = true;
   @Input() line: TimelineLine = 'solid';
+  @Input() icon = '';
 
   @HostBinding('attr.data-line') get dataLine() { return this.line; }
 
