@@ -49,4 +49,9 @@ timeline[data-line="dotted"] .p-timeline-horizontal .p-timeline-event-connector 
   border-left: none;
   border-top: ${dt('timeline.eventConnector.size')} dotted ${dt('timeline.eventConnector.color')};
 }
+
+/* ─── Кастомный цвет маркера ─── */
+timeline[style*="--timeline-marker-color"] .p-timeline-event-marker {
+  border-color: var(--timeline-marker-color);
+}
 `;

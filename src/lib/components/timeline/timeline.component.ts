@@ -54,8 +54,10 @@ export class TimelineComponent {
   @Input() showCaption: boolean = true;
   @Input() line: TimelineLine = 'solid';
   @Input() icon = '';
+  @Input() markerColor = '';
 
   @HostBinding('attr.data-line') get dataLine() { return this.line; }
+  @HostBinding('style.--timeline-marker-color') get markerColorVar() { return this.markerColor || null; }
 
   @ContentChild('content') contentTemplate?: TemplateRef<any>;
   @ContentChild('opposite') oppositeTemplate?: TemplateRef<any>;
