@@ -14,6 +14,10 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
   border-right: none;
 }
 
+.p-inputnumber-horizontal .p-inputnumber-increment-button {
+  border-left: none;
+}
+
 /* ─── Focus ─── */
 .p-inputnumber .p-inputnumber-input:enabled:focus {
   box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
