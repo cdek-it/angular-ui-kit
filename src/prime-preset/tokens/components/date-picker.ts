@@ -122,7 +122,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   justify-content: center;
   gap: ${dt('datepicker.timePicker.gap')};
   padding: ${dt('datepicker.timePicker.padding')};
-  border-top: 1px solid ${dt('datepicker.panel.borderColor')};
+  border-top: ${dt('form.borderWidth')} solid ${dt('datepicker.panel.borderColor')};
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-time-field {

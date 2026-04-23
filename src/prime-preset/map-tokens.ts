@@ -35,10 +35,6 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
-    checkbox: {
-      ...(tokens.components.checkbox as unknown as ComponentsDesignTokens['checkbox']),
-      css: checkboxCss,
-    },
     datepicker: {
       ...(tokens.components.datepicker as unknown as ComponentsDesignTokens['datepicker']),
       css: datePickerCss,
