@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
@@ -18,6 +18,7 @@ const template = `
   [dropdownIcon]="dropdownIcon"
   [size]="size"
   [showClear]="showClear"
+  [readonly]="readonly"
 ></select-field>
 `;
 const styles = '';
@@ -32,15 +33,26 @@ const styles = '';
 export class SelectDropdownIconComponent {
   @Input() size: SelectSize = 'base';
   @Input() showClear = false;
+  @Input() readonly = false;
   @Input() dropdownIcon = 'ti ti-search';
   control = new FormControl(null);
   options = OPTIONS;
+
+  @Input() set disabled(val: boolean) {
+    val ? this.control.disable() : this.control.enable();
+  }
+
+  @Input() set invalid(val: boolean) {
+    this.control.setValidators(val ? [Validators.required] : []);
+    this.control.updateValueAndValidity();
+    if (val) this.control.markAsTouched();
+  }
 }
 
 export const DropdownIcon = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'], dropdownIcon: args['dropdownIcon'] },
-    template: `<app-select-dropdown-icon [size]="size" [showClear]="showClear" [dropdownIcon]="dropdownIcon"></app-select-dropdown-icon>`,
+    props: { size: args['size'], showClear: args['showClear'], dropdownIcon: args['dropdownIcon'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
+    template: `<app-select-dropdown-icon [size]="size" [showClear]="showClear" [dropdownIcon]="dropdownIcon" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-dropdown-icon>`,
   }),
   args: {
     dropdownIcon: 'ti ti-search',

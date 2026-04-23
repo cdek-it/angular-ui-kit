@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const GROUPED_OPTIONS = [
@@ -39,6 +39,7 @@ const template = `
   [optionGroupTemplate]="groupTpl"
   [size]="size"
   [showClear]="showClear"
+  [readonly]="readonly"
 ></select-field>
 `;
 const styles = '';
@@ -53,14 +54,25 @@ const styles = '';
 export class SelectGroupedComponent {
   @Input() size: SelectSize = 'base';
   @Input() showClear = false;
+  @Input() readonly = false;
   control = new FormControl(null);
   options = GROUPED_OPTIONS;
+
+  @Input() set disabled(val: boolean) {
+    val ? this.control.disable() : this.control.enable();
+  }
+
+  @Input() set invalid(val: boolean) {
+    this.control.setValidators(val ? [Validators.required] : []);
+    this.control.updateValueAndValidity();
+    if (val) this.control.markAsTouched();
+  }
 }
 
 export const Grouped = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'] },
-    template: `<app-select-grouped [size]="size" [showClear]="showClear"></app-select-grouped>`,
+    props: { size: args['size'], showClear: args['showClear'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
+    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`,
   }),
   parameters: {
     docs: {

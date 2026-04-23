@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
@@ -26,6 +26,7 @@ const template = `
   [optionTemplate]="optTpl"
   [size]="size"
   [showClear]="showClear"
+  [readonly]="readonly"
 ></select-field>
 `;
 const styles = '';
@@ -40,14 +41,25 @@ const styles = '';
 export class SelectCustomComponent {
   @Input() size: SelectSize = 'base';
   @Input() showClear = false;
+  @Input() readonly = false;
   control = new FormControl(null);
   options = OPTIONS;
+
+  @Input() set disabled(val: boolean) {
+    val ? this.control.disable() : this.control.enable();
+  }
+
+  @Input() set invalid(val: boolean) {
+    this.control.setValidators(val ? [Validators.required] : []);
+    this.control.updateValueAndValidity();
+    if (val) this.control.markAsTouched();
+  }
 }
 
 export const Custom = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'] },
-    template: `<app-select-custom [size]="size" [showClear]="showClear"></app-select-custom>`,
+    props: { size: args['size'], showClear: args['showClear'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
+    template: `<app-select-custom [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`,
   }),
   parameters: {
     docs: {

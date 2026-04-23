@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
@@ -19,6 +19,7 @@ const template = `
   [filter]="true"
   [showClear]="true"
   [size]="size"
+  [readonly]="readonly"
 ></select-field>
 `;
 const styles = '';
@@ -32,14 +33,25 @@ const styles = '';
 })
 export class SelectFilterComponent {
   @Input() size: SelectSize = 'base';
+  @Input() readonly = false;
   control = new FormControl(null);
   options = OPTIONS;
+
+  @Input() set disabled(val: boolean) {
+    val ? this.control.disable() : this.control.enable();
+  }
+
+  @Input() set invalid(val: boolean) {
+    this.control.setValidators(val ? [Validators.required] : []);
+    this.control.updateValueAndValidity();
+    if (val) this.control.markAsTouched();
+  }
 }
 
 export const Filter = {
   render: (args: any) => ({
-    props: { size: args['size'] },
-    template: `<app-select-filter [size]="size"></app-select-filter>`,
+    props: { size: args['size'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
+    template: `<app-select-filter [size]="size" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-filter>`,
   }),
   parameters: {
     docs: {

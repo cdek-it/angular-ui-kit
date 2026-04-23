@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectComponent } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
@@ -19,6 +19,7 @@ const template = `
     [floatLabel]="true"
     [label]="label"
     [showClear]="showClear"
+    [readonly]="readonly"
   ></select-field>
 </div>
 `;
@@ -33,16 +34,27 @@ const styles = '';
 })
 export class SelectFloatLabelComponent {
   @Input() showClear = false;
+  @Input() readonly = false;
   @Input() label = 'Город';
   control = new FormControl(null);
   options = OPTIONS;
+
+  @Input() set disabled(val: boolean) {
+    val ? this.control.disable() : this.control.enable();
+  }
+
+  @Input() set invalid(val: boolean) {
+    this.control.setValidators(val ? [Validators.required] : []);
+    this.control.updateValueAndValidity();
+    if (val) this.control.markAsTouched();
+  }
 }
 
 export const FloatLabelStory = {
   name: 'FloatLabel',
   render: (args: any) => ({
-    props: { showClear: args['showClear'], label: 'Город' },
-    template: `<app-select-float-label [showClear]="showClear" [label]="label"></app-select-float-label>`,
+    props: { showClear: args['showClear'], label: 'Город', readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
+    template: `<app-select-float-label [showClear]="showClear" [label]="label" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-float-label>`,
   }),
   argTypes: {
     size: { table: { disable: true } },
