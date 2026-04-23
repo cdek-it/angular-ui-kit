@@ -6,6 +6,10 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     line-height: ${dt('fonts.lineHeight.250')};
   }
 
+  .p-select.p-component .p-select-label.p-placeholder {
+    font-family: ${dt('fonts.fontFamily.base')};
+  }
+
   /* ─── Focus ─── */
   .p-select.p-component:not(.p-disabled).p-focus {
     box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('select.root.focusRing.color')};
@@ -40,14 +44,12 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   /* ─── FloatLabel ─── */
   .p-floatlabel:has(.p-select.p-component) label {
     font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
     font-weight: ${dt('floatlabel.root.fontWeight')};
     line-height: ${dt('fonts.lineHeight.250')};
     color: ${dt('floatlabel.root.color')};
   }
 
   .p-floatlabel:has(.p-select.p-component) .p-floatlabel-active label {
-    font-size: ${dt('floatlabel.root.active.fontSize')};
     font-weight: ${dt('floatlabel.root.active.fontWeight')};
   }
 
