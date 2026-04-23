@@ -5,6 +5,15 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
   border-width: ${dt('textarea.extend.borderWidth')};
   line-height: ${dt('fonts.lineHeight.250')};
   min-height: ${dt('textarea.extend.minHeight')};
+  font-family: ${dt('fonts.fontFamily.base')};
+}
+
+.p-textarea::placeholder {
+  font-family: ${dt('fonts.fontFamily.base')};
+}
+
+.p-floatlabel:has(.p-textarea) label {
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 /* --- Sizes --- */
