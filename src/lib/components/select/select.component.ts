@@ -51,7 +51,7 @@ export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
         [inputId]="inputId"
         [appendTo]="appendTo"
         [size]="primeSize"
-        [dropdownIcon]="dropdownIcon"
+        [checkmark]="checkmark"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
         (onChange)="onSelectChange($event)"
@@ -107,7 +107,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   @Input() appendTo: any = 'body';
   @Input() floatLabel = false;
   @Input() label = '';
-  @Input() dropdownIcon: string | undefined;
+  @Input() checkmark = true;
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
   @Input() optionTemplate: TemplateRef<any> | null = null;

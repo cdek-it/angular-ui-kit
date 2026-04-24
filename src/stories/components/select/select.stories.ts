@@ -7,7 +7,7 @@ import { SelectCustomComponent, Custom as CustomStory } from './examples/select-
 import { SelectEditableComponent, Editable as EditableStory } from './examples/select-editable.component';
 import { Disabled as DisabledStory } from './examples/select-disabled.component';
 import { SelectFloatLabelComponent, FloatLabelStory } from './examples/select-float-label.component';
-import { SelectDropdownIconComponent, DropdownIcon as DropdownIconStory } from './examples/select-dropdown-icon.component';
+
 
 const BASIC_OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -17,7 +17,7 @@ const BASIC_OPTIONS = [
   { name: 'Казань', code: 'KZN' },
 ];
 
-type SelectArgs = Pick<SelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'dropdownIcon'> & {
+type SelectArgs = Pick<SelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'checkmark'> & {
   disabled: boolean;
   invalid: boolean;
 };
@@ -36,7 +36,6 @@ const meta: Meta<SelectArgs> = {
         SelectCustomComponent,
         SelectEditableComponent,
         SelectFloatLabelComponent,
-        SelectDropdownIconComponent,
       ],
     }),
   ],
@@ -99,6 +98,15 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' },
       },
     },
+    checkmark: {
+      control: 'boolean',
+      description: 'Отображает иконку выбранного элемента в списке',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+      },
+    },
     disabled: {
       control: 'boolean',
       description: 'Отключает взаимодействие — управляется через FormControl',
@@ -124,6 +132,7 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
     showClear: true,
     filter: false,
     readonly: false,
+    checkmark: true,
     disabled: false,
     invalid: false,
   },
@@ -155,6 +164,7 @@ export const Default: Story = {
           [showClear]="showClear"
           [filter]="filter"
           [readonly]="readonly"
+          [checkmark]="checkmark"
         ></select-field>
       `,
     };
@@ -187,10 +197,6 @@ export const Editable: Story = EditableStory;
 // ── Disabled ──────────────────────────────────────────────────────────────────
 
 export const Disabled: Story = DisabledStory;
-
-// ── DropdownIcon ─────────────────────────────────────────────────────────────
-
-export const DropdownIcon: Story = DropdownIconStory;
 
 // ── FloatLabel ────────────────────────────────────────────────────────────────
 
