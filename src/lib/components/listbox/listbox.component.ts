@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 
@@ -6,6 +6,7 @@ import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
   selector: 'listbox',
   standalone: true,
   imports: [Listbox, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ListboxComponent), multi: true },
   ],
@@ -48,7 +49,7 @@ export class ListboxComponent implements ControlValueAccessor {
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();
 
-  modelValue: any = null;
+  protected modelValue: any = null;
 
   private _disabled = false;
   private _onChange: (value: any) => void = () => {};
