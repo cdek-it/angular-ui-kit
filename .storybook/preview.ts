@@ -22,7 +22,7 @@ const preview: Preview = {
           theme: {
             preset: Preset,
             options: {
-              darkModeSelector: DARK_MODE_SELECTOR,
+              darkModeSelector: '.dark',
               cssLayer: false
             }
           }
@@ -32,7 +32,7 @@ const preview: Preview = {
     withThemeByClassName({
       themes: {
         light: '',
-        dark: 'dark-mode'
+        dark: 'dark'
       },
       defaultTheme: 'light'
     })
