@@ -60,7 +60,8 @@ jobs:
           VERSION=$(node -e "console.log(require('./${PACKAGE_DIR}/package.json').version)")
           echo "Package version: $VERSION (from ${PACKAGE_DIR}/package.json)"
           # create tarball in workspace
-          TARFILE=$(npm pack "$PACKAGE_DIR")
+          # ensure we pack the local folder, not a package from the registry
+          TARFILE=$(npm pack "./$PACKAGE_DIR")
           echo "Created tarball: $TARFILE"
           # extract package.json from tarball and print
           mkdir -p verify_unpack
