@@ -30,6 +30,46 @@ export const appConfig: ApplicationConfig = {
 
 `provideExtraThemes()` необходим для правильной интеграции стилей библиотеки в приложение.
 
+## Пример использования компонентов
+
+Ниже простой пример использования входящих в библиотеку компонентов (вариант — `extra-button` и `extra-tag`). Вставьте в шаблон компонента или story:
+
+```html
+<div style="display: flex; flex-direction: column; gap: 16px; padding: 16px">
+  <extra-button label="hello"></extra-button>
+  <extra-button label="hello" [rounded]="true"></extra-button>
+  <extra-button label="hello" [text]="true"></extra-button>
+  <extra-tag [value]="'tag content'"></extra-tag>
+</div>
+```
+
+Примечание: Нужно добавить импорт соответствующего модуля/компонентов библиотеки в ваш модуль или компонент. Пример для standalone-компонента (используется `imports` в декораторе):
+
+```ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ExtraButtonComponent, ExtraTagComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [
+    ExtraButtonComponent,
+    CommonModule,
+    ExtraTagComponent,
+  ],
+  template: `
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 16px">
+      <extra-button label="hello"></extra-button>
+      <extra-button label="hello" [rounded]="true"></extra-button>
+      <extra-button label="hello" [text]="true"></extra-button>
+      <extra-tag [value]="'tag content'"></extra-tag>
+    </div>
+  `
+})
+export class AppExample {}
+```
+
 ## Используемые технологии и связанные зависимости
 
 ---
