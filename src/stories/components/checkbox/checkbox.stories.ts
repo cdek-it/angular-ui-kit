@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { CheckboxComponent } from '../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent as CheckboxComponent } from '../../../lib/components/checkbox/checkbox.component';
 import { FormsModule } from '@angular/forms';
 import { CheckboxGroupComponent, Group } from './examples/checkbox-group.component';
 import { CheckboxIndeterminateComponent, Indeterminate } from './examples/checkbox-indeterminate.component';
@@ -129,7 +129,7 @@ export const Default: Story = {
     if (args.indeterminate) parts.push(`[indeterminate]="true"`);
     parts.push(`[(ngModel)]="checked"`);
 
-    const template = `<checkbox\n  ${parts.join('\n  ')}\n></checkbox>`;
+    const template = `<extra-checkbox\n  ${parts.join('\n  ')}\n></extra-checkbox>`;
 
     return { props: { ...args, checked: false }, template };
   },

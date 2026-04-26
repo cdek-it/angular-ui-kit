@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent as InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
 import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
@@ -148,7 +148,7 @@ export const Default: Story = {
 
     const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
-    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+    const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
     return { props: { ...args, control }, template };
   },

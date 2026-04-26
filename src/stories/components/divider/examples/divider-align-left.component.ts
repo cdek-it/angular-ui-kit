@@ -3,9 +3,9 @@ import { DividerComponent } from '../../../../lib/components/divider/divider.com
 
 const template = `
 <div class="bg-surface-ground">
-  <divider align="left">
+  <extra-divider align="left">
     <span>Отправитель</span>
-  </divider>
+  </extra-divider>
 </div>
 `;
 const styles = '';
@@ -37,9 +37,9 @@ import { DividerComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [DividerComponent],
   template: \`
-    <divider align="left">
+    <extra-divider align="left">
       <span>Отправитель</span>
-    </divider>
+    </extra-divider>
   \`,
 })
 export class DividerAlignLeftComponent {}

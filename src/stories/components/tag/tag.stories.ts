@@ -1,19 +1,19 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { TagComponent } from '../../../lib/components/tag/tag.component';
+import { ExtraTagComponent } from '../../../lib/components/tag/tag.component';
 import { TagSeverityComponent } from './examples/tag-severity.component';
 import { TagRoundedComponent } from './examples/tag-rounded.component';
 import { TagIconComponent } from './examples/tag-icon.component';
 
-type TagArgs = TagComponent;
+type TagArgs = ExtraTagComponent;
 
 const meta: Meta<TagArgs> = {
   title: 'Components/Misc/Tag',
-  component: TagComponent,
+  component: ExtraTagComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        TagComponent,
+        ExtraTagComponent,
         TagSeverityComponent,
         TagRoundedComponent,
         TagIconComponent,
@@ -78,12 +78,12 @@ export default meta;
 type Story = StoryObj<TagArgs>;
 
 const commonTemplate = `
-<tag
+<extra-tag
   [value]="value"
   [severity]="severity"
   [rounded]="rounded"
   [icon]="icon"
-></tag>
+></extra-tag>
 `;
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -97,8 +97,8 @@ export const Default: Story = {
     if (args.icon) parts.push(`icon="${args.icon}"`);
 
     const template = parts.length
-      ? `<tag\n  ${parts.join('\n  ')}\n></tag>`
-      : `<tag></tag>`;
+      ? `<extra-tag\n  ${parts.join('\n  ')}\n></extra-tag>`
+      : `<extra-tag></extra-tag>`;
 
     return { props: args, template };
   },
@@ -122,14 +122,14 @@ export const Severity: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { TagComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tag-severity',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template: \`
-    <tag value="Success" severity="success"></tag>
+    <extra-tag value="Success" severity="success"></extra-tag>
   \`,
 })
 export class TagSeverityComponent {}
@@ -150,14 +150,14 @@ export const Rounded: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { TagComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tag-rounded',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template: \`
-    <tag value="Rounded" severity="success" [rounded]="true"></tag>
+    <extra-tag value="Rounded" severity="success" [rounded]="true"></extra-tag>
   \`,
 })
 export class TagRoundedComponent {}
@@ -178,14 +178,14 @@ export const WithIcon: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { TagComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tag-icon',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template: \`
-    <tag value="Verified" severity="info" icon="ti ti-check"></tag>
+    <extra-tag value="Verified" severity="info" icon="ti ti-check"></extra-tag>
   \`,
 })
 export class TagIconComponent {}

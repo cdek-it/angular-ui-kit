@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { TieredMenuComponent } from '../../../lib/components/tieredmenu/tieredmenu.component';
+import { ExtraTieredMenuComponent as TieredMenuComponent } from '../../../lib/components/tieredmenu/tieredmenu.component';
 import { TieredMenuBasicComponent, Basic } from './examples/tieredmenu-basic.component';
 import { TieredMenuSelectedComponent, WithSelected } from './examples/tieredmenu-selected.component';
 import { TieredMenuCustomComponent, Custom } from './examples/tieredmenu-custom.component';
@@ -24,8 +24,8 @@ const meta: Meta<TieredMenuComponent> = {
         component: `Компонент для отображения иерархического меню с вложенными подменю, которые открываются в виде вложенных оверлеев при наведении на пункт.
 
 \`\`\`typescript
-import { TieredMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
+import { ExtraTieredMenuComponent as TieredMenuComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`",
       },
     },
     designTokens: { prefix: '--p-tieredmenu' },

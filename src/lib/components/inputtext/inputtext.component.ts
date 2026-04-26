@@ -9,19 +9,19 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 
 
 @Component({
-  selector: 'input-text',
+  selector: 'extra-input-text',
   standalone: true,
   imports: [InputText, IconField, InputIcon, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputTextComponent),
-      multi: true,
-    },
+      useExisting: forwardRef(() => ExtraInputTextComponent),
+      multi: true
+    }
   ],
   template: `
     @if (showClear) {
-      <p-iconfield [ngClass]="{'!w-full': fluid}">
+      <p-iconfield [ngClass]="{ '!w-full': fluid }">
         <input
           pInputText
           [ngClass]="sizeClass"
@@ -60,9 +60,9 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         (blur)="onTouched()"
       />
     }
-  `,
+  `
 })
-export class InputTextComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 

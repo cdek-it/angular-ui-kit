@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
 
-const template = `<megamenu [model]="items"></megamenu>`;
+const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
 
 @Component({
   selector: 'app-megamenu-custom',
   standalone: true,
-  imports: [MegaMenuComponent],
+  imports: [ExtraMegaMenuComponent],
   template,
 })
 export class MegaMenuCustomComponent {

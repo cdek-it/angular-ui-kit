@@ -5,7 +5,7 @@ export type TooltipPosition = 'right' | 'left' | 'top' | 'bottom';
 export type TooltipEvent = 'hover' | 'focus' | 'both';
 
 @Directive({
-  selector: '[tooltip]',
+  selector: '[extra-tooltip]',
   standalone: true,
   hostDirectives: [
     {
@@ -27,7 +27,7 @@ export type TooltipEvent = 'hover' | 'focus' | 'both';
     }
   ]
 })
-export class TooltipDirective {
+export class ExtraTooltipDirective {
   @Input() tooltip: string | undefined;
   @Input() position: TooltipPosition = 'right';
   @Input() event: TooltipEvent = 'hover';

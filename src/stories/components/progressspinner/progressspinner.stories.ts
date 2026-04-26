@@ -1,16 +1,16 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ProgressSpinnerComponent } from '../../../lib/components/progressspinner/progressspinner.component';
+import { ExtraProgressSpinnerComponent } from '../../../lib/components/progressspinner/progressspinner.component';
 import { Sizes, ProgressSpinnerSizesComponent } from './examples/progressspinner-sizes.component';
 import { Monochrome, ProgressSpinnerMonochromeComponent } from './examples/progressspinner-monochrome.component';
 
-type ProgressSpinnerArgs = ProgressSpinnerComponent;
+type ProgressSpinnerArgs = ExtraProgressSpinnerComponent;
 
 const meta: Meta<ProgressSpinnerArgs> = {
   title: 'Prime/Misc/ProgressSpinner',
-  component: ProgressSpinnerComponent,
+  component: ExtraProgressSpinnerComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({ imports: [ProgressSpinnerComponent, ProgressSpinnerSizesComponent, ProgressSpinnerMonochromeComponent] })
+    moduleMetadata({ imports: [ExtraProgressSpinnerComponent, ProgressSpinnerSizesComponent, ProgressSpinnerMonochromeComponent] })
   ],
   parameters: {
     docs: {
@@ -18,8 +18,8 @@ const meta: Meta<ProgressSpinnerArgs> = {
         component: `Используется для отображения индикатора процесса/состояния загрузки неопределенного времени.
 
 \`\`\`typescript
-import { ProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
+import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`,
       },
     },
     designTokens: { prefix: '--p-progressspinner' },
@@ -76,13 +76,13 @@ export default meta;
 type Story = StoryObj<ProgressSpinnerArgs>;
 
 const commonTemplate = `
-<progressspinner
+<extra-progressspinner
   [size]="size"
   [multicolor]="multicolor"
   [strokeWidth]="strokeWidth"
   [fill]="fill"
   [animationDuration]="animationDuration"
-></progressspinner>
+></extra-progressspinner>
 `;
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -90,7 +90,7 @@ export const Default: Story = {
   name: 'Default',
   render: (args) => {
     const parts: string[] = [];
-    
+
     if (args.size && args.size !== 'medium') parts.push(`size="${args.size}"`);
     if (!args.multicolor) parts.push(`[multicolor]="false"`);
     if (args.strokeWidth && args.strokeWidth !== '2') parts.push(`strokeWidth="${args.strokeWidth}"`);
@@ -100,7 +100,7 @@ export const Default: Story = {
     const properties = parts.length > 0 ? ' ' + parts.join('\n  ') : '';
 
     const template = `
-<progressspinner${properties}></progressspinner>
+<extra-progressspinner${properties}></extra-progressspinner>
 `;
     return { props: args, template };
   },

@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { SharedModule } from 'primeng/api';
-import { CardComponent } from '../../../../lib/components/card/card.component';
+import { ExtraCardComponent } from '../../../../lib/components/card/card.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
+  <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
     <ng-template pTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
     <ng-template pTemplate="content">
       <p class="text-sm">Карточка без футера.</p>
     </ng-template>
-  </card>
+  </extra-card>
 </div>
 `;
 const styles = '';
@@ -20,7 +20,7 @@ const styles = '';
 @Component({
   selector: 'app-card-without-footer',
   standalone: true,
-  imports: [CardComponent, SharedModule],
+  imports: [ExtraCardComponent, SharedModule],
   template,
   styles,
 })
@@ -38,21 +38,21 @@ export const WithoutFooter: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { CardComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCardComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-card-without-footer',
   standalone: true,
   imports: [CardComponent, SharedModule],
   template: \`
-    <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
+    <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <ng-template pTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
       </ng-template>
       <ng-template pTemplate="content">
         <p class="text-sm">Карточка без футера.</p>
       </ng-template>
-    </card>
+    </extra-card>
   \`,
 })
 export class CardWithoutFooterComponent {}

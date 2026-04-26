@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ButtonComponent } from '../../../lib/components/button/button.component';
+import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 
 type ButtonArgs = ButtonComponent & { onClick?: (event: MouseEvent) => void };
 
@@ -214,7 +214,7 @@ import { ButtonModule } from 'primeng/button';
 };
 
 const commonTemplate = `
-<button
+<extra-button
   [label]="label"
   [variant]="variant"
   [severity]="severity"
@@ -233,7 +233,7 @@ const commonTemplate = `
   [autofocus]="autofocus"
   [tabindex]="tabindex"
   [text]="text"
-></button>
+></extra-button>
 `;
 
 export default meta;
@@ -257,8 +257,8 @@ export const Default: Story = {
     if (args.loading) parts.push(`[loading]="true"`);
 
     const template = parts.length
-      ? `<button\n  ${parts.join('\n  ')}\n></button>`
-      : `<button></button>`;
+      ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
+      : `<extra-button></extra-button>`;
 
     return { props: args, template };
   },
@@ -287,10 +287,10 @@ export const Sizes: Story = {
       description: { story: 'Все доступные размеры: small, base, large, xlarge.' },
       source: {
         code: `
-<button size="small" label="Button" />
-<button label="Button" />
-<button size="large" label="Button" />
-<button size="xlarge" label="Button" />`,
+<extra-button size="small" label="Button" />
+<extra-button label="Button" />
+<extra-button size="large" label="Button" />
+<extra-button size="xlarge" label="Button" />`,
       },
     },
   },
@@ -306,7 +306,7 @@ export const Icons: Story = {
     docs: {
       description: { story: 'Кнопки с иконками (префикс по умолчанию).' },
       source: {
-        code: `<button label="Button" icon="ti ti-check" />`,
+        code: `<extra-button label="Button" icon="ti ti-check" />`,
       },
     },
   },
@@ -322,7 +322,7 @@ export const IconOnly: Story = {
     docs: {
       description: { story: 'Кнопки без текста, только с иконкой.' },
       source: {
-        code: `<button icon="ti ti-check" [iconOnly]="true" />`,
+        code: `<extra-button icon="ti ti-check" [iconOnly]="true" />`,
       },
     },
   },
@@ -338,7 +338,7 @@ export const Loading: Story = {
     docs: {
       description: { story: 'Состояние загрузки с индикатором.' },
       source: {
-        code: `<button label="Button" [loading]="true" />`,
+        code: `<extra-button label="Button" [loading]="true" />`,
       },
     },
   },
@@ -354,7 +354,7 @@ export const Rounded: Story = {
     docs: {
       description: { story: 'Скруглённая форма кнопок.' },
       source: {
-        code: `<button label="Button" [rounded]="true" />`,
+        code: `<extra-button label="Button" [rounded]="true" />`,
       },
     },
   },
@@ -370,7 +370,7 @@ export const Text: Story = {
     docs: {
       description: { story: 'Текстовый вариант кнопки (без заливки и границ).' },
       source: {
-        code: `<button label="Button" variant="text" />`,
+        code: `<extra-button label="Button" variant="text" />`,
       },
     },
   },
@@ -386,7 +386,7 @@ export const Link: Story = {
     docs: {
       description: { story: 'Кнопка в виде ссылки.' },
       source: {
-        code: `<button label="Link Button" variant="link" />`,
+        code: `<extra-button label="Link Button" variant="link" />`,
       },
     },
   },
@@ -402,7 +402,7 @@ export const Severity: Story = {
     docs: {
       description: { story: 'Цветовые схемы для различных контекстов: success, info, warning, danger.' },
       source: {
-        code: `<button severity="success" label="Button" />`,
+        code: `<extra-button severity="success" label="Button" />`,
       },
     },
   },
@@ -418,7 +418,7 @@ export const Disabled: Story = {
     docs: {
       description: { story: 'Состояние кнопки, при котором взаимодействие заблокировано.' },
       source: {
-        code: `<button label="Button" [disabled]="true" />`,
+        code: `<extra-button label="Button" [disabled]="true" />`,
       },
     },
   },
@@ -440,7 +440,7 @@ export const Badge: Story = {
     docs: {
       description: { story: 'Примеры использования бейджей на кнопках с позиционированием в углу.' },
       source: {
-        code: `<button label="Emails" badge="8" severity="success" badgeSeverity="danger" [showBadge]="true" />`,
+        code: `<extra-button label="Emails" badge="8" severity="success" badgeSeverity="danger" [showBadge]="true" />`,
       },
     },
   },

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
-import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <button (click)="visible = true" label="Детали отправления"></button>
+  <extra-button (click)="visible = true" label="Детали отправления"></extra-button>
 
   <ng-template #footer>
-    <button variant="text" label="Отмена" (click)="visible = false"></button>
-    <button label="Сохранить" (click)="visible = false"></button>
+    <extra-button variant="text" label="Отмена" (click)="visible = false"></extra-button>
+    <extra-button label="Сохранить" (click)="visible = false"></extra-button>
   </ng-template>
 
-  <dialog
+  <extra-dialog
     header="Детали отправления"
     size="lg"
     [visible]="visible"
@@ -26,7 +26,7 @@ export const template = `
 @Component({
   selector: 'app-dialog-large',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template,
 })
 export class DialogLargeComponent {

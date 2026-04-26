@@ -6,7 +6,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 export type TimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
 
 @Component({
-  selector: 'timeline',
+  selector: 'extra-timeline',
   standalone: true,
   imports: [Timeline, SharedModule, NgIf, NgTemplateOutlet],
   template: `
@@ -47,7 +47,7 @@ export type TimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
     </ng-template>
   `,
 })
-export class TimelineComponent {
+export class ExtraTimelineComponent {
   @Input() value: any[] = [];
   @Input() align: 'left' | 'right' | 'alternate' | 'top' | 'bottom' = 'left';
   @Input() layout: 'vertical' | 'horizontal' = 'vertical';

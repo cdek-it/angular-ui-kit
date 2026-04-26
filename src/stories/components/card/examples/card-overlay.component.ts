@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { SharedModule } from 'primeng/api';
-import { CardComponent } from '../../../../lib/components/card/card.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraCardComponent } from '../../../../lib/components/card/card.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
+  <extra-card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
     <ng-template pTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
@@ -24,7 +24,7 @@ const styles = '';
 @Component({
   selector: 'app-card-overlay',
   standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
+    imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
   template,
   styles,
 })
@@ -42,14 +42,14 @@ export const Overlay: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-card-overlay',
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
+    <extra-card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
       <ng-template pTemplate="header">
         <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
       </ng-template>
@@ -57,9 +57,9 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
         <p class="text-sm">Карточка с тенью.</p>
       </ng-template>
       <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
+        <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
       </ng-template>
-    </card>
+    </extra-card>
   \`,
 })
 export class CardOverlayComponent {}

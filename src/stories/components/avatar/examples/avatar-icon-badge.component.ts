@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { OverlayBadge } from 'primeng/overlaybadge';
-import { AvatarComponent } from '../../../../lib/components/avatar/avatar.component';
+import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex items-center gap-4">
     <p-overlay-badge value="8" severity="success">
-      <avatar icon="ti ti-user" size="xlarge"></avatar>
+      <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
     </p-overlay-badge>
     <p-overlay-badge value="8" severity="warn">
-      <avatar icon="ti ti-bell" size="large"></avatar>
+      <extra-avatar icon="ti ti-bell" size="large"></extra-avatar>
     </p-overlay-badge>
   </div>
 </div>
@@ -20,7 +20,7 @@ const styles = '';
 @Component({
   selector: 'app-avatar-icon-badge',
   standalone: true,
-  imports: [AvatarComponent, OverlayBadge],
+    imports: [ExtraAvatarComponent, OverlayBadge],
   template,
   styles,
 })
@@ -40,19 +40,19 @@ export const IconWithBadge: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { OverlayBadge } from 'primeng/overlaybadge';
-import { AvatarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-avatar-icon-badge',
   standalone: true,
-  imports: [AvatarComponent, OverlayBadge],
+  imports: [ExtraAvatarComponent, OverlayBadge],
   template: \`
     <div class="flex items-center gap-4">
       <p-overlay-badge value="8" severity="success">
-        <avatar icon="ti ti-user" size="xlarge"></avatar>
+        <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
       </p-overlay-badge>
       <p-overlay-badge value="8" severity="warn">
-        <avatar icon="ti ti-bell" size="large"></avatar>
+        <extra-avatar icon="ti ti-bell" size="large"></extra-avatar>
       </p-overlay-badge>
     </div>
   \`,

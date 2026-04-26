@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { TagComponent } from '../../../../lib/components/tag/tag.component';
+import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <tag value="Rounded" severity="success" [rounded]="true"></tag>
+  <extra-tag value="Rounded" severity="success" [rounded]="true"></extra-tag>
 </div>
 `;
 
 @Component({
   selector: 'app-tag-rounded',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template,
 })
 export class TagRoundedComponent { }
@@ -27,14 +27,14 @@ export const Rounded: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { TagComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tag-rounded',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template: \`
-    <tag value="Rounded" severity="success" [rounded]="true"></tag>
+    <extra-tag value="Rounded" severity="success" [rounded]="true"></extra-tag>
   \`,
 })
 export class TagRoundedComponent {}

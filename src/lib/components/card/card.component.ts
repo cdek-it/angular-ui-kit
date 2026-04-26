@@ -11,7 +11,7 @@ import { Card } from 'primeng/card';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
-  selector: 'card',
+  selector: 'extra-card',
   host: { style: 'display: block' },
   standalone: true,
   imports: [Card, SharedModule, NgTemplateOutlet],
@@ -47,7 +47,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
     </p-card>
   `,
 })
-export class CardComponent implements AfterContentInit {
+export class ExtraCardComponent implements AfterContentInit {
   @Input() title = '';
   @Input() subtitle = '';
   @Input() overlay = false;
