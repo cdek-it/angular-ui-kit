@@ -50,9 +50,13 @@ jobs:
           cat dist/package.json || true
           echo "----- dist ls -----"
           ls -la dist || true
-      - name: Normalize dist/package.json (ensure correct name & version)
+      - name: Normalize dist/package.json (ensure correct name, version and repository)
         run: |
-          node -e "const fs=require('fs'); const root=require('./package.json'); const srcExists=fs.existsSync('src/lib/package.json'); const src=srcExists? require('./src/lib/package.json'): null; const p='dist/package.json'; const d=JSON.parse(fs.readFileSync(p)); const wantedName= src? src.name : root.name; const wantedVersion=root.version; let changed=false; if(d.name!==wantedName){console.log('name:',d.name,'->',wantedName); d.name=wantedName; changed=true;} if(d.version!==wantedVersion){console.log('version:',d.version,'->',wantedVersion); d.version=wantedVersion; changed=true;} if(changed){fs.writeFileSync(p, JSON.stringify(d,null,2)+'\n'); console.log('Updated',p);} else {console.log(p,'already correct');}"
+          node -e "const fs=require('fs'); const root=require('./package.json'); const srcExists=fs.existsSync('src/lib/package.json'); const src=srcExists? require('./src/lib/package.json'): null; const p='dist/package.json'; const d=JSON.parse(fs.readFileSync(p)); const wantedName= src? src.name : root.name; const wantedVersion=root.version; let changed=false; if(d.name!==wantedName){console.log('name:',d.name,'->',wantedName); d.name=wantedName; changed=true;} if(d.version!==wantedVersion){console.log('version:',d.version,'->',wantedVersion); d.version=wantedVersion; changed=true;} // ensure repository.url exists and matches root
+          const normalizeRepo=(r)=>{ if(!r) return null; if(typeof r==='string') return r.replace(/^git\+/, '').replace(/\.git$/,''); if(r.url) return r.url.replace(/^git\+/, '').replace(/\.git$/,''); return null; };
+          const wantedRepo = normalizeRepo(root.repository) || (process.env.GITHUB_REPOSITORY? 'https://github.com/'+process.env.GITHUB_REPOSITORY : null);
+          if(wantedRepo){ if(!d.repository) { d.repository = { type: 'git', url: wantedRepo }; console.log('repository: set ->',wantedRepo); changed=true; } else { const currentRepo=normalizeRepo(d.repository); if(currentRepo!==wantedRepo){ console.log('repository:',currentRepo,'->',wantedRepo); d.repository = { type: 'git', url: wantedRepo }; changed=true; } } }
+          if(changed){fs.writeFileSync(p, JSON.stringify(d,null,2)+'\n'); console.log('Updated',p);} else {console.log(p,'already correct');}"
       - name: Pack dist and verify package.json inside tarball
         run: |
           set -euo pipefail
