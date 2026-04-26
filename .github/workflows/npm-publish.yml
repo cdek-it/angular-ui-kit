@@ -44,17 +44,50 @@ jobs:
       - name: Fix package.json issues inside dist (optional)
         run: |
           npm --prefix ./dist pkg fix || true
-      - name: Publish to npm from dist (use tag for prerelease versions)
+      - name: Debug dist/package.json
+        run: |
+          echo "----- dist/package.json -----"
+          cat dist/package.json || true
+          echo "----- dist ls -----"
+          ls -la dist || true
+      - name: Normalize dist/package.json (ensure correct name & version)
+        run: |
+          node -e "const fs=require('fs'); const root=require('./package.json'); const srcExists=fs.existsSync('src/lib/package.json'); const src=srcExists? require('./src/lib/package.json'): null; const p='dist/package.json'; const d=JSON.parse(fs.readFileSync(p)); const wantedName= src? src.name : root.name; const wantedVersion=root.version; let changed=false; if(d.name!==wantedName){console.log('name:',d.name,'->',wantedName); d.name=wantedName; changed=true;} if(d.version!==wantedVersion){console.log('version:',d.version,'->',wantedVersion); d.version=wantedVersion; changed=true;} if(changed){fs.writeFileSync(p, JSON.stringify(d,null,2)+'\n'); console.log('Updated',p);} else {console.log(p,'already correct');}"
+      - name: Pack dist and verify package.json inside tarball
         run: |
           set -euo pipefail
           PACKAGE_DIR=dist
           VERSION=$(node -e "console.log(require('./${PACKAGE_DIR}/package.json').version)")
           echo "Package version: $VERSION (from ${PACKAGE_DIR}/package.json)"
+          # create tarball in workspace
+          TARFILE=$(npm pack "$PACKAGE_DIR")
+          echo "Created tarball: $TARFILE"
+          # extract package.json from tarball and print
+          mkdir -p verify_unpack
+          tar -xzf "$TARFILE" -C verify_unpack
+          echo "----- package.json inside tarball -----"
+          cat verify_unpack/package/package.json
+          # read version from inside tarball
+          INNER_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('verify_unpack/package/package.json')).version)")
+          INNER_NAME=$(node -e "console.log(JSON.parse(require('fs').readFileSync('verify_unpack/package/package.json')).name)")
+          echo "Inner package name: $INNER_NAME, version: $INNER_VERSION"
+          if [ "$INNER_VERSION" != "$VERSION" ]; then
+            echo "Error: version inside tarball ($INNER_VERSION) does not match dist/package.json ($VERSION)"; exit 1
+          fi
+          echo "Tarball verified."
+          # make TARFILE available to next step
+          echo "TARFILE=$TARFILE" >> $GITHUB_ENV
+      - name: Publish verified tarball to npm (use tag for prerelease versions)
+        run: |
+          set -euo pipefail
+          PACKAGE_DIR=dist
+          VERSION=$(node -e "console.log(require('./${PACKAGE_DIR}/package.json').version)")
+          TARFILE=${{ env.TARFILE }}
           if [[ "$VERSION" == *-* ]]; then
             TAG=$(echo "$VERSION" | sed -E 's/^[0-9]+\.[0-9]+\.[0-9]+-([^\.]+).*/\1/')
             echo "Detected prerelease tag: $TAG"
-            npm publish "$PACKAGE_DIR" --tag "$TAG"
+            npm publish "$TARFILE" --tag "$TAG"
           else
             echo "Publishing as latest"
-            npm publish "$PACKAGE_DIR"
+            npm publish "$TARFILE"
           fi
