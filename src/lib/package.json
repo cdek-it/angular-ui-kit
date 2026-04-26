@@ -1,6 +1,6 @@
 {
   "name": "@cdek-it/angular-ui-kit",
-  "version": "0.2.2-test",
+  "version": "0.2.3-test",
   "peerDependencies": {
     "@angular/common": "^20.3.15",
     "@angular/core": "^20.3.15"
