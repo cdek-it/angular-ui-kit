@@ -15,9 +15,43 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
   }
 
   .p-password-meter-text {
-    color: ${dt('text.color')};
+    color: ${dt('text.mutedColor')};
     font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.medium')};
+  }
+
+  /* ─── Focus ─── */
+  .p-password:has(.p-inputtext:enabled:focus) {
+    box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+    border-radius: ${dt('inputtext.root.borderRadius')};
+  }
+
+  /* ─── Invalid + Focus ─── */
+  .p-password:has(.p-inputtext.p-invalid:focus) {
+    box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.extend.invalid')};
+    border-radius: ${dt('inputtext.root.borderRadius')};
+  }
+
+  .p-password:has(.p-inputtext.p-invalid:focus) .p-inputtext {
+    border-color: ${dt('inputtext.root.invalidBorderColor')};
+  }
+
+  /* ─── FloatLabel ─── */
+  .p-floatlabel:has(.p-password) label {
+    font-family: ${dt('fonts.fontFamily.base')};
+    font-weight: ${dt('floatlabel.root.fontWeight')};
+    line-height: ${dt('fonts.lineHeight.250')};
+    color: ${dt('floatlabel.root.color')};
+  }
+
+  .p-floatlabel:has(.p-password) .p-floatlabel-active label {
+    font-weight: ${dt('floatlabel.root.active.fontWeight')};
+  }
+
+  .p-floatlabel-in .p-password .p-inputtext {
+    font-family: ${dt('fonts.fontFamily.base')};
+    padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
+    padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
   }
 
   /* ─── Кастомный контент (правила пароля) ─── */
