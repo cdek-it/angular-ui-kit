@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ExtraCheckboxComponent as CheckboxComponent } from '../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent } from '../../../lib/components/checkbox/checkbox.component';
 import { FormsModule } from '@angular/forms';
 import { CheckboxGroupComponent, Group } from './examples/checkbox-group.component';
 import { CheckboxIndeterminateComponent, Indeterminate } from './examples/checkbox-indeterminate.component';
@@ -8,23 +8,23 @@ import { CheckboxInvalidComponent, Invalid } from './examples/checkbox-invalid.c
 import { CheckboxLabelComponent, Label } from './examples/checkbox-label.component';
 import { CheckboxCustomLabelComponent, CustomLabel } from './examples/checkbox-custom-label.component';
 
-type CheckboxArgs = CheckboxComponent & { label?: string };
+type CheckboxArgs = ExtraCheckboxComponent & { label?: string };
 
 const meta: Meta<CheckboxArgs> = {
   title: 'Components/Form/Checkbox',
-  component: CheckboxComponent,
+  component: ExtraCheckboxComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        CheckboxComponent,
+        ExtraCheckboxComponent,
         FormsModule,
         CheckboxGroupComponent,
         CheckboxIndeterminateComponent,
         CheckboxDisabledComponent,
         CheckboxInvalidComponent,
         CheckboxLabelComponent,
-        CheckboxCustomLabelComponent,
+        CheckboxCustomLabelComponent
       ]
     })
   ],
@@ -32,9 +32,9 @@ const meta: Meta<CheckboxArgs> = {
     designTokens: { prefix: '--p-checkbox' },
     docs: {
       description: {
-        component: `Компонент для выбора одного или нескольких вариантов.`,
-      },
-    },
+        component: `Компонент для выбора одного или нескольких вариантов.`
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -45,8 +45,8 @@ const meta: Meta<CheckboxArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -54,8 +54,8 @@ const meta: Meta<CheckboxArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     indeterminate: {
       control: 'boolean',
@@ -63,8 +63,8 @@ const meta: Meta<CheckboxArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     // Hidden props
     size: { table: { disable: true } },
@@ -87,32 +87,32 @@ const meta: Meta<CheckboxArgs> = {
       description: 'Событие изменения значения',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<CheckboxChangeEvent>' },
-      },
+        type: { summary: 'EventEmitter<CheckboxChangeEvent>' }
+      }
     },
     onFocus: {
       control: false,
       description: 'Событие фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
+        type: { summary: 'EventEmitter<Event>' }
+      }
     },
     onBlur: {
       control: false,
       description: 'Событие потери фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
-    },
+        type: { summary: 'EventEmitter<Event>' }
+      }
+    }
   },
   args: {
     binary: true,
     disabled: false,
     invalid: false,
-    indeterminate: false,
-  },
+    indeterminate: false
+  }
 };
 
 export default meta;

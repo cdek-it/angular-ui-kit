@@ -25,7 +25,7 @@ const meta: Meta<TieredMenuComponent> = {
 
 \`\`\`typescript
 import { ExtraTieredMenuComponent as TieredMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\`",
+\`\`\``,
       },
     },
     designTokens: { prefix: '--p-tieredmenu' },

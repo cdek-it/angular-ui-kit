@@ -3,9 +3,7 @@ import { ExtraProgressSpinnerComponent } from '../../../lib/components/progresss
 import { Sizes, ProgressSpinnerSizesComponent } from './examples/progressspinner-sizes.component';
 import { Monochrome, ProgressSpinnerMonochromeComponent } from './examples/progressspinner-monochrome.component';
 
-type ProgressSpinnerArgs = ExtraProgressSpinnerComponent;
-
-const meta: Meta<ProgressSpinnerArgs> = {
+const meta: Meta<ExtraProgressSpinnerComponent> = {
   title: 'Prime/Misc/ProgressSpinner',
   component: ExtraProgressSpinnerComponent,
   tags: ['autodocs'],
@@ -19,7 +17,7 @@ const meta: Meta<ProgressSpinnerArgs> = {
 
 \`\`\`typescript
 import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
-\`\`\`,
+\`\`\``,
       },
     },
     designTokens: { prefix: '--p-progressspinner' },
@@ -73,17 +71,7 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<ProgressSpinnerArgs>;
-
-const commonTemplate = `
-<extra-progressspinner
-  [size]="size"
-  [multicolor]="multicolor"
-  [strokeWidth]="strokeWidth"
-  [fill]="fill"
-  [animationDuration]="animationDuration"
-></extra-progressspinner>
-`;
+type Story = StoryObj<ExtraProgressSpinnerComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {

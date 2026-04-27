@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { RatingComponent } from '../../../../lib/components/rating/rating.component';
+import { ExtraRatingComponent } from '../../../../lib/components/rating/rating.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <rating [(ngModel)]="value" [disabled]="true"></rating>
+  <extra-rating [(ngModel)]="value" [disabled]="true"></extra-rating>
 </div>
 `;
 
 @Component({
   selector: 'app-rating-disabled',
   standalone: true,
-  imports: [RatingComponent, FormsModule],
-  template,
+  imports: [ExtraRatingComponent, FormsModule],
+  template
 })
 export class RatingDisabledComponent {
   value = 2;
@@ -38,7 +38,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [RatingComponent, FormsModule],
   template: \`
-    <rating [(ngModel)]="value" [disabled]="true"></rating>
+    <extra-rating [(ngModel)]="value" [disabled]="true"></extra-rating>
   \`,
 })
 export class RatingDisabledComponent {

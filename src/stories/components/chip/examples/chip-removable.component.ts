@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ChipComponent } from '../../../../lib/components/chip/chip.component';
+import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <chip label="Хрупкий груз" [removable]="true"></chip>
+  <extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>
 </div>
 `;
 const styles = '';
@@ -11,7 +11,7 @@ const styles = '';
 @Component({
   selector: 'app-chip-removable',
   standalone: true,
-  imports: [ChipComponent],
+  imports: [ExtraChipComponent],
   template,
   styles,
 })
@@ -28,14 +28,14 @@ export const Removable = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ChipComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-chip-removable',
   standalone: true,
-  imports: [ChipComponent],
+  imports: [ExtraChipComponent],
   template: \`
-    <chip label="Хрупкий груз" [removable]="true"></chip>
+    <extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>
   \`,
 })
 export class ChipRemovableComponent {}

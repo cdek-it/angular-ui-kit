@@ -17,7 +17,7 @@ const meta: Meta<ExtraMegaMenuComponent> = {
 
 \`\`\`typescript
 import { ExtraMegaMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\`,
+\`\`\``,
       },
       story: {
         height: '300px',

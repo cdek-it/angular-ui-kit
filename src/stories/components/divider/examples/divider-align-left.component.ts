@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DividerComponent } from '../../../../lib/components/divider/divider.component';
+import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
 <div class="bg-surface-ground">
@@ -13,7 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-divider-align-left',
   standalone: true,
-  imports: [DividerComponent],
+  imports: [ExtraDividerComponent],
   template,
   styles,
 })
@@ -30,12 +30,12 @@ export const AlignLeft = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DividerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-divider-align-left',
   standalone: true,
-  imports: [DividerComponent],
+  imports: [ExtraDividerComponent],
   template: \`
     <extra-divider align="left">
       <span>Отправитель</span>

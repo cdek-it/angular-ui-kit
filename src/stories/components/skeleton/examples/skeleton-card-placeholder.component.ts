@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
 <div class="bg-surface-ground">
@@ -19,7 +19,7 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-card-placeholder',
   standalone: true,
-  imports: [SkeletonComponent],
+  imports: [ExtraSkeletonComponent],
   template,
   styles,
 })

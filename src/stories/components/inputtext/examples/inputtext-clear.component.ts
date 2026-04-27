@@ -1,20 +1,20 @@
 import { StoryObj } from '@storybook/angular';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
-type Story = StoryObj<InputTextComponent>;
+type Story = StoryObj<ExtraInputTextComponent>;
 
 export const ClearButton: Story = {
   name: 'ClearButton',
   render: (args) => ({
     props: { ...args },
     template: `
-      <input-text
+      <extra-input-text
         [size]="size"
         [showClear]="showClear"
         [readonly]="readonly"
         [fluid]="fluid"
         [placeholder]="placeholder"
-      ></input-text>
+      ></extra-input-text>
     `,
   }),
   args: {
@@ -29,10 +29,10 @@ export const ClearButton: Story = {
       source: {
         language: 'ts',
         code: `
-import { InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
 // template:
-// <input-text [showClear]="true" placeholder="Введите текст..."></input-text>
+// <extra-input-text [showClear]="true" placeholder="Введите текст..."></extra-input-text>
         `,
       },
     },
