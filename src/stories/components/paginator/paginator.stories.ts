@@ -5,7 +5,7 @@ import { PaginatorRowsPerPageComponent, RowsPerPage as RowsPerPageStory } from '
 
 type PaginatorArgs = Pick<
   PaginatorComponent,
-  'totalRecords' | 'rows' | 'pageLinkSize' | 'showFirstLastIcon' | 'showPageLinks' | 'alwaysShow'
+  'totalRecords' | 'rows' | 'pageLinkSize' | 'showFirstLastIcon' | 'showPageLinks' | 'showCurrentPageReport' | 'showJumpToPageInput' | 'alwaysShow'
 >;
 
 const meta: Meta<PaginatorArgs> = {
@@ -79,6 +79,24 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' },
       },
     },
+    showCurrentPageReport: {
+      control: 'boolean',
+      description: 'Показывать текст с текущей страницей и общим количеством',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    showJumpToPageInput: {
+      control: 'boolean',
+      description: 'Показывать поле ввода для перехода на конкретную страницу',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
     alwaysShow: {
       control: 'boolean',
       description: 'Показывать пагинатор даже при единственной странице',
@@ -95,6 +113,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
     pageLinkSize: 5,
     showFirstLastIcon: true,
     showPageLinks: true,
+    showCurrentPageReport: false,
+    showJumpToPageInput: false,
     alwaysShow: true,
   },
 };
@@ -115,6 +135,8 @@ export const Default: Story = {
         [pageLinkSize]="pageLinkSize"
         [showFirstLastIcon]="showFirstLastIcon"
         [showPageLinks]="showPageLinks"
+        [showCurrentPageReport]="showCurrentPageReport"
+        [showJumpToPageInput]="showJumpToPageInput"
         [alwaysShow]="alwaysShow"
       ></paginator>
     `,
