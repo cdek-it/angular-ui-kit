@@ -9,6 +9,7 @@ import { cardCss } from './tokens/components/card';
 import { checkboxCss } from './tokens/components/checkbox';
 import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
+import { passwordCss } from './tokens/components/password';
 import { tagCss } from './tokens/components/tag';
 import { textareaCss } from './tokens/components/textarea';
 import { tooltipCss } from './tokens/components/tooltip';
