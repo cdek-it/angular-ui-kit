@@ -60,6 +60,43 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
   }
 
+  /* ─── Checkmark: выбранный элемент ─── */
+  .p-select-option:has(.p-select-option-check-icon) {
+    background: ${dt('select.option.selectedBackground')};
+    color: ${dt('select.option.selectedColor')};
+  }
+
+  .p-select-option:has(.p-select-option-check-icon).p-focus {
+    background: ${dt('select.option.selectedFocusBackground')};
+    color: ${dt('select.option.selectedFocusColor')};
+  }
+
+  /* Скрываем пустой SVG и заменяем на tabler-иконку */
+  .p-select-option-check-icon,
+  .p-select-option-blank-icon {
+    display: none;
+  }
+
+  .p-select-option:has(.p-select-option-check-icon)::before {
+    font-family: 'tabler-icons';
+    content: var(--p-select-checkmark-content, "\\ea5e");
+    font-size: ${dt('select.extend.iconSize')};
+    color: ${dt('select.option.selectedColor')};
+    flex-shrink: 0;
+  }
+
+  .p-select-option:has(.p-select-option-check-icon).p-focus::before {
+    color: ${dt('select.option.selectedFocusColor')};
+  }
+
+  .p-select-option:has(.p-select-option-blank-icon)::before {
+    font-family: 'tabler-icons';
+    content: var(--p-select-checkmark-content, "\\ea5e");
+    font-size: ${dt('select.extend.iconSize')};
+    visibility: hidden;
+    flex-shrink: 0;
+  }
+
   /* ─── Иконки ─── */
   .p-select.p-component :is(.p-select-dropdown .p-select-dropdown-icon, .p-select-clear-icon, .p-select-loading-icon) {
     font-size: ${dt('select.extend.iconSize')};

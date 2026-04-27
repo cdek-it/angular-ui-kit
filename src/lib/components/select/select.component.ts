@@ -52,6 +52,7 @@ export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
         [appendTo]="appendTo"
         [size]="primeSize"
         [checkmark]="checkmark"
+        [panelStyle]="panelStyle"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
         (onChange)="onSelectChange($event)"
@@ -108,6 +109,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   @Input() floatLabel = false;
   @Input() label = '';
   @Input() checkmark = true;
+  @Input() checkmarkIcon = '\ea5e';
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
   @Input() optionTemplate: TemplateRef<any> | null = null;
@@ -132,6 +134,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     if (this.size === 'small') return 'small';
     if (this.size === 'large') return 'large';
     return undefined;
+  }
+
+  get panelStyle(): Record<string, string> {
+    return { '--p-select-checkmark-content': `"\\${this.checkmarkIcon}"` };
   }
 
   get selectClasses(): Record<string, boolean> {
