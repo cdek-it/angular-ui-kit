@@ -1,28 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { Password } from 'primeng/password';
-import { FloatLabel as PrimeFloatLabel } from 'primeng/floatlabel';
+import { PasswordComponent } from '../../../../lib/components/password/password.component';
 
 @Component({
   selector: 'app-password-float-label',
   standalone: true,
-  imports: [Password, PrimeFloatLabel, FormsModule],
+  imports: [PasswordComponent, FormsModule],
   template: `
     <div class="pt-6 w-64">
-      <p-floatlabel variant="in">
-        <p-password
-          id="fl-password"
-          [(ngModel)]="value"
-          [toggleMask]="toggleMask"
-          [feedback]="feedback"
-          [disabled]="disabled"
-          [invalid]="invalid"
-          [fluid]="fluid"
-          [placeholder]="placeholder"
-        ></p-password>
-        <label for="fl-password">Пароль</label>
-      </p-floatlabel>
+      <password
+        [floatLabel]="true"
+        [label]="label"
+        [toggleMask]="toggleMask"
+        [feedback]="feedback"
+        [disabled]="disabled"
+        [invalid]="invalid"
+        [fluid]="fluid"
+        [placeholder]="placeholder"
+        [inputId]="'fl-password'"
+        [(ngModel)]="value"
+      ></password>
     </div>
   `,
 })
@@ -33,6 +31,7 @@ export class PasswordFloatLabelComponent {
   @Input() invalid = false;
   @Input() fluid = false;
   @Input() placeholder: string | undefined = undefined;
+  @Input() label = 'Пароль';
   value = '';
 }
 
@@ -62,36 +61,17 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
     disabled: false,
     invalid: false,
     fluid: false,
+    label: 'Пароль',
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию.',
+          'Интеграция с `floatLabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию.',
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { Password } from 'primeng/password';
-import { FloatLabel } from 'primeng/floatlabel';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-  selector: 'app-password-float-label',
-  standalone: true,
-  imports: [Password, FloatLabel, FormsModule],
-  template: \`
-    <p-floatlabel variant="in">
-      <p-password id="fl-password" [(ngModel)]="value" [toggleMask]="true" [feedback]="false"></p-password>
-      <label for="fl-password">Пароль</label>
-    </p-floatlabel>
-  \`,
-})
-export class PasswordFloatLabelComponent {
-  value = '';
-}
-        `,
+        language: 'html',
+        code: `<password [floatLabel]="true" label="Пароль" inputId="fl-password" [(ngModel)]="value"></password>`,
       },
     },
   },

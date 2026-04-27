@@ -104,6 +104,24 @@ import { PasswordComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' },
       },
     },
+    floatLabel: {
+      control: 'boolean',
+      description: 'Плавающая метка внутри поля',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Текст плавающей метки (используется с floatLabel)',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' },
+      },
+    },
     // Hidden props
     variant: { table: { disable: true } },
     promptLabel: { table: { disable: true } },
@@ -144,6 +162,8 @@ import { PasswordComponent } from '@cdek-it/angular-ui-kit';
     disabled: false,
     invalid: false,
     fluid: false,
+    floatLabel: false,
+    label: '',
   },
 };
 
@@ -163,6 +183,8 @@ export const Default: Story = {
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
+    if (args.floatLabel) parts.push(`[floatLabel]="true"`);
+    if (args.label) parts.push(`label="${args.label}"`);
 
     parts.push(`[(ngModel)]="value"`);
 
