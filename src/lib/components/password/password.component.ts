@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 import { Password } from 'primeng/password';
+import { FloatLabel } from 'primeng/floatlabel';
 
 export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
 
@@ -9,7 +11,7 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
   host: { style: 'display: block' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Password, FormsModule],
+  imports: [Password, FormsModule, FloatLabel, NgTemplateOutlet],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -18,28 +20,39 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
     },
   ],
   template: `
-    <p-password
-      [ngModel]="modelValue"
-      (ngModelChange)="handleChange($event)"
-      [feedback]="feedback"
-      [toggleMask]="toggleMask"
-      [inputStyleClass]="computedInputStyleClass"
-      [disabled]="disabled"
-      [placeholder]="placeholder"
-      [promptLabel]="promptLabel"
-      [weakLabel]="weakLabel"
-      [mediumLabel]="mediumLabel"
-      [strongLabel]="strongLabel"
-      [variant]="variant"
-      [fluid]="fluid"
-      [invalid]="invalid"
-      [inputId]="inputId"
-      [ariaLabel]="ariaLabel"
-      [ariaLabelledBy]="ariaLabelledBy"
-      [autofocus]="autofocus"
-      (onFocus)="onFocus.emit($event)"
-      (onBlur)="onBlur.emit($event)"
-    ></p-password>
+    @if (floatLabel) {
+      <p-floatlabel variant="in">
+        <ng-container *ngTemplateOutlet="passwordTpl"></ng-container>
+        <label [attr.for]="inputId">{{ label }}</label>
+      </p-floatlabel>
+    } @else {
+      <ng-container *ngTemplateOutlet="passwordTpl"></ng-container>
+    }
+
+    <ng-template #passwordTpl>
+      <p-password
+        [ngModel]="modelValue"
+        (ngModelChange)="handleChange($event)"
+        [feedback]="feedback"
+        [toggleMask]="toggleMask"
+        [inputStyleClass]="computedInputStyleClass"
+        [disabled]="disabled"
+        [placeholder]="placeholder"
+        [promptLabel]="promptLabel"
+        [weakLabel]="weakLabel"
+        [mediumLabel]="mediumLabel"
+        [strongLabel]="strongLabel"
+        [variant]="variant"
+        [fluid]="fluid"
+        [invalid]="invalid"
+        [inputId]="inputId"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        (onFocus)="onFocus.emit($event)"
+        (onBlur)="onBlur.emit($event)"
+      ></p-password>
+    </ng-template>
   `,
 })
 export class PasswordComponent implements ControlValueAccessor {
@@ -51,6 +64,8 @@ export class PasswordComponent implements ControlValueAccessor {
   @Input() variant: 'filled' | 'outlined' = 'outlined';
   @Input() fluid = false;
   @Input() invalid = false;
+  @Input() floatLabel = false;
+  @Input() label = '';
   @Input() promptLabel = 'Введите пароль';
   @Input() weakLabel = 'Слабый';
   @Input() mediumLabel = 'Средний';
