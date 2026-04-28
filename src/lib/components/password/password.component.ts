@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Password } from 'primeng/password';
+import { PrimeTemplate } from 'primeng/api';
 import { FloatLabel } from 'primeng/floatlabel';
 
 export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
@@ -11,7 +12,7 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
   host: { style: 'display: block' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Password, FormsModule, FloatLabel, NgTemplateOutlet],
+  imports: [Password, FormsModule, FloatLabel, NgTemplateOutlet, PrimeTemplate],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -48,14 +49,29 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
         [inputId]="inputId"
         [ariaLabel]="ariaLabel"
         [ariaLabelledBy]="ariaLabelledBy"
+        [appendTo]="appendTo"
         [autofocus]="autofocus"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="onBlur.emit($event)"
-      ></p-password>
+      >
+        @if (headerTemplate) {
+          <ng-template pTemplate="header">
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+          </ng-template>
+        }
+        @if (footerTemplate) {
+          <ng-template pTemplate="footer">
+            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+          </ng-template>
+        }
+      </p-password>
     </ng-template>
   `,
 })
 export class PasswordComponent implements ControlValueAccessor {
+  @ContentChild('header') headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild('footer') footerTemplate: TemplateRef<any> | null = null;
+
   @Input() feedback = true;
   @Input() toggleMask = false;
   @Input() disabled = false;
@@ -74,6 +90,7 @@ export class PasswordComponent implements ControlValueAccessor {
   @Input() inputStyleClass: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input() appendTo: any = 'body';
   @Input() autofocus = false;
 
   @Output() onFocus = new EventEmitter<Event>();

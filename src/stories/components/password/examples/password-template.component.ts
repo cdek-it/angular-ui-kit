@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { Password } from 'primeng/password';
+import { PasswordComponent } from '../../../../lib/components/password/password.component';
 import { Divider } from 'primeng/divider';
 
 @Component({
   selector: 'app-password-template',
   standalone: true,
-  imports: [Password, Divider, FormsModule],
+  imports: [PasswordComponent, Divider, FormsModule],
   template: `
     <div style="width: 280px">
-      <p-password
+      <password
         [(ngModel)]="value"
         [toggleMask]="true"
         [feedback]="true"
@@ -18,26 +18,50 @@ import { Divider } from 'primeng/divider';
         weakLabel="Слабый"
         mediumLabel="Средний"
         strongLabel="Надёжный"
-        autocomplete="off"
       >
-        <ng-template #header>
-          <div class="font-semibold text-sm mb-4">Создание пароля</div>
-        </ng-template>
         <ng-template #footer>
           <p-divider />
-          <ul class="pl-2 my-0 leading-normal text-sm">
-            <li>Минимум одна строчная буква</li>
-            <li>Минимум одна заглавная буква</li>
-            <li>Минимум одна цифра</li>
-            <li>Не менее 8 символов</li>
-          </ul>
+          <div class="p-password-rules">
+            <div class="p-password-rule">
+              <i class="ti" [class.ti-circle]="!hasLowercase" [class.ti-check]="hasLowercase"></i>
+              <span>Минимум одна строчная буква</span>
+            </div>
+            <div class="p-password-rule">
+              <i class="ti" [class.ti-circle]="!hasUppercase" [class.ti-check]="hasUppercase"></i>
+              <span>Минимум одна заглавная буква</span>
+            </div>
+            <div class="p-password-rule">
+              <i class="ti" [class.ti-circle]="!hasDigit" [class.ti-check]="hasDigit"></i>
+              <span>Минимум одна цифра</span>
+            </div>
+            <div class="p-password-rule">
+              <i class="ti" [class.ti-circle]="!hasMinLength" [class.ti-check]="hasMinLength"></i>
+              <span>Не менее 8 символов</span>
+            </div>
+          </div>
         </ng-template>
-      </p-password>
+      </password>
     </div>
   `,
 })
 export class PasswordTemplateComponent {
   value: string | null = null;
+
+  get hasLowercase(): boolean {
+    return /[a-z]/.test(this.value ?? '');
+  }
+
+  get hasUppercase(): boolean {
+    return /[A-Z]/.test(this.value ?? '');
+  }
+
+  get hasDigit(): boolean {
+    return /\d/.test(this.value ?? '');
+  }
+
+  get hasMinLength(): boolean {
+    return (this.value ?? '').length >= 8;
+  }
 }
 
 export const Template: StoryObj = {
@@ -49,22 +73,21 @@ export const Template: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Кастомный контент через `ng-template`: заголовок, разделитель и список требований к паролю.',
+        story: 'Кастомный контент через `ng-template`: разделитель и список требований к паролю с tabler-иконками.',
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Password } from 'primeng/password';
-import { Divider } from 'primeng/divider';
 import { FormsModule } from '@angular/forms';
+import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { Divider } from 'primeng/divider';
 
 @Component({
-  selector: 'app-password-template',
   standalone: true,
-  imports: [Password, Divider, FormsModule],
+  imports: [PasswordComponent, Divider, FormsModule],
   template: \`
-    <p-password
+    <password
       [(ngModel)]="value"
       [toggleMask]="true"
       [feedback]="true"
@@ -73,23 +96,48 @@ import { FormsModule } from '@angular/forms';
       mediumLabel="Средний"
       strongLabel="Надёжный"
     >
-      <ng-template #header>
-        <div class="font-semibold text-sm mb-4">Создание пароля</div>
-      </ng-template>
       <ng-template #footer>
         <p-divider />
-        <ul class="pl-2 my-0 leading-normal text-sm">
-          <li>Минимум одна строчная буква</li>
-          <li>Минимум одна заглавная буква</li>
-          <li>Минимум одна цифра</li>
-          <li>Не менее 8 символов</li>
-        </ul>
+        <div class="p-password-rules">
+          <div class="p-password-rule">
+            <i class="ti" [class.ti-circle]="!hasLowercase" [class.ti-check]="hasLowercase"></i>
+            <span>Минимум одна строчная буква</span>
+          </div>
+          <div class="p-password-rule">
+            <i class="ti" [class.ti-circle]="!hasUppercase" [class.ti-check]="hasUppercase"></i>
+            <span>Минимум одна заглавная буква</span>
+          </div>
+          <div class="p-password-rule">
+            <i class="ti" [class.ti-circle]="!hasDigit" [class.ti-check]="hasDigit"></i>
+            <span>Минимум одна цифра</span>
+          </div>
+          <div class="p-password-rule">
+            <i class="ti" [class.ti-circle]="!hasMinLength" [class.ti-check]="hasMinLength"></i>
+            <span>Не менее 8 символов</span>
+          </div>
+        </div>
       </ng-template>
-    </p-password>
+    </password>
   \`,
 })
-export class PasswordTemplateComponent {
+export class PasswordTemplateExample {
   value: string | null = null;
+
+  get hasLowercase(): boolean {
+    return /[a-z]/.test(this.value ?? '');
+  }
+
+  get hasUppercase(): boolean {
+    return /[A-Z]/.test(this.value ?? '');
+  }
+
+  get hasDigit(): boolean {
+    return /\\d/.test(this.value ?? '');
+  }
+
+  get hasMinLength(): boolean {
+    return (this.value ?? '').length >= 8;
+  }
 }
         `,
       },

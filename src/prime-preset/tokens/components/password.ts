@@ -7,6 +7,7 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
   .p-password-toggle-mask-icon,
   .p-icon.p-password-toggle-mask-icon.p-password-unmask-icon {
     cursor: pointer;
+    color: ${dt('password.icon.color')};
   }
 
   /* ─── Оверлей и индикатор ─── */
@@ -15,9 +16,11 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
   }
 
   .p-password-meter-text {
-    color: ${dt('text.mutedColor')};
+    font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.medium')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
+    line-height: ${dt('fonts.lineHeight.250')};
+    color: ${dt('password.overlay.color')};
   }
 
   /* ─── Focus ─── */
@@ -67,8 +70,12 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
   .p-password-rule {
     display: flex;
     align-items: center;
-    gap: ${dt('content.gap.200')};
-    font-size: ${dt('fonts.fontSize.100')};
+    gap: ${dt('password.content.gap')};
+    font-family: ${dt('fonts.fontFamily.base')};
+    font-size: ${dt('fonts.fontSize.200')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
+    line-height: ${dt('fonts.lineHeight.250')};
+    color: ${dt('password.overlay.color')};
   }
 
   /* ─── Состояния иконок правил ─── */

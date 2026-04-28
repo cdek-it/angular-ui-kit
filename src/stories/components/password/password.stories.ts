@@ -25,6 +25,10 @@ const meta: Meta<PasswordComponent> = {
         PasswordTemplateComponent,
       ],
     }),
+    (story) => ({
+      ...story(),
+      template: `<div style="padding: 4px">${story().template}</div>`,
+    }),
   ],
   parameters: {
     designTokens: { prefix: '--p-password' },
