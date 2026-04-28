@@ -82,10 +82,14 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     font-family: 'tabler-icons';
     content: var(--p-select-checkmark-content, "\\ea5e");
     font-size: ${dt('select.extend.iconSize')};
-    color: ${dt('select.checkmark.color')};
+    color: var(--p-select-option-selected-color);
     flex-shrink: 0;
     margin-inline-start: ${dt('select.checkmark.gutterStart')};
     margin-inline-end: ${dt('select.checkmark.gutterEnd')};
+  }
+
+  .p-select-option:has(.p-select-option-check-icon).p-focus::before {
+    color: var(--p-select-option-focus-color);
   }
 
   .p-select-option:has(.p-select-option-blank-icon)::before {
