@@ -109,7 +109,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   @Input() floatLabel = false;
   @Input() label = '';
   @Input() checkmark = true;
-  @Input() checkmarkIcon = '\ea5e';
+  @Input() checkmarkIcon = 'ea5e';
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
   @Input() optionTemplate: TemplateRef<any> | null = null;
@@ -137,7 +137,8 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   }
 
   get panelStyle(): Record<string, string> {
-    return { '--p-select-checkmark-content': `"\\${this.checkmarkIcon}"` };
+    const char = String.fromCodePoint(parseInt(this.checkmarkIcon, 16));
+    return { '--p-select-checkmark-content': `"${char}"` };
   }
 
   get selectClasses(): Record<string, boolean> {

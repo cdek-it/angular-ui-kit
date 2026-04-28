@@ -71,30 +71,25 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     color: ${dt('select.option.selectedFocusColor')};
   }
 
-  /* Скрываем пустой SVG и заменяем на tabler-иконку */
-  .p-select-option-check-icon,
-  .p-select-option-blank-icon {
+  /* Скрываем PrimeNG SVG, заменяем на tabler-иконку */
+  .p-select-option .p-select-option-check-icon,
+  .p-select-option .p-select-option-blank-icon {
     display: none;
   }
 
-  .p-select-option:has(.p-select-option-check-icon)::before {
-    font-family: 'tabler-icons';
-    content: var(--p-select-checkmark-content, "\\ea5e");
-    font-size: ${dt('select.extend.iconSize')};
-    color: ${dt('select.option.selectedColor')};
-    flex-shrink: 0;
-  }
-
-  .p-select-option:has(.p-select-option-check-icon).p-focus::before {
-    color: ${dt('select.option.selectedFocusColor')};
-  }
-
+  .p-select-option:has(.p-select-option-check-icon)::before,
   .p-select-option:has(.p-select-option-blank-icon)::before {
     font-family: 'tabler-icons';
     content: var(--p-select-checkmark-content, "\\ea5e");
     font-size: ${dt('select.extend.iconSize')};
-    visibility: hidden;
+    color: ${dt('select.checkmark.color')};
     flex-shrink: 0;
+    margin-inline-start: ${dt('select.checkmark.gutterStart')};
+    margin-inline-end: ${dt('select.checkmark.gutterEnd')};
+  }
+
+  .p-select-option:has(.p-select-option-blank-icon)::before {
+    visibility: hidden;
   }
 
   /* ─── Иконки ─── */
