@@ -1,40 +1,44 @@
-import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { InputText } from 'primeng/inputtext';
+import { Textarea } from 'primeng/textarea';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
-export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
-
+export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'input-text',
+  selector: 'ui-textarea',
   standalone: true,
-  imports: [InputText, IconField, InputIcon, NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Textarea, IconField, InputIcon, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputTextComponent),
+      useExisting: forwardRef(() => TextareaComponent),
       multi: true,
     },
   ],
   template: `
     @if (showClear) {
       <p-iconfield [ngClass]="{'!w-full': fluid}">
-        <input
-          pInputText
+        <textarea
+          pTextarea
           [ngClass]="sizeClass"
           [pSize]="primeSize"
           [disabled]="disabled"
           [readOnly]="readonly"
           [invalid]="invalid"
-          [placeholder]="placeholder"
           [fluid]="fluid"
+          [autoResize]="autoResize"
+          [rows]="rows"
+          [cols]="cols"
+          [placeholder]="placeholder"
           [value]="modelValue"
           (input)="onInput($event)"
           (blur)="onTouched()"
-        />
+          (onResize)="onResize.emit($event)"
+        ></textarea>
         <p-inputicon
           class="ti ti-x"
           tabindex="0"
@@ -46,23 +50,27 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         ></p-inputicon>
       </p-iconfield>
     } @else {
-      <input
-        pInputText
+      <textarea
+        pTextarea
         [ngClass]="sizeClass"
         [pSize]="primeSize"
         [disabled]="disabled"
         [readOnly]="readonly"
         [invalid]="invalid"
-        [placeholder]="placeholder"
         [fluid]="fluid"
+        [autoResize]="autoResize"
+        [rows]="rows"
+        [cols]="cols"
+        [placeholder]="placeholder"
         [value]="modelValue"
         (input)="onInput($event)"
         (blur)="onTouched()"
-      />
+        (onResize)="onResize.emit($event)"
+      ></textarea>
     }
   `,
 })
-export class InputTextComponent implements ControlValueAccessor, OnInit {
+export class TextareaComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -71,10 +79,13 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
   }
 
   @Input() placeholder = '';
-  @Input() size: InputTextSize = 'base';
+  @Input() size: TextareaSize = 'base';
   @Input() readonly = false;
   @Input() showClear = false;
   @Input() fluid = false;
+  @Input() autoResize = false;
+  @Input() rows = 3;
+  @Input() cols?: number;
 
   disabled = false;
 
@@ -82,6 +93,7 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
     return this._ngControl?.invalid ?? false;
   }
 
+  @Output() onResize = new EventEmitter<{ height: string }>();
   @Output() onClear = new EventEmitter<void>();
 
   modelValue = '';
@@ -90,16 +102,16 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';
-    if (this.size === 'large' || this.size === 'xlarge') return 'large';
+    if (this.size === 'large') return 'large';
     return undefined;
   }
 
   get sizeClass(): Record<string, boolean> {
-    return { 'p-inputtext-xlg': this.size === 'xlarge' };
+    return { 'p-textarea-xlg': this.size === 'xlarge' };
   }
 
   onInput(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
+    const value = (event.target as HTMLTextAreaElement).value;
     this.modelValue = value;
     this._onChange(value);
   }
