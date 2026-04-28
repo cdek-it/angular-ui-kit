@@ -1,43 +1,42 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { ClearButton } from './examples/inputtext-clear.component';
-import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
-import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
-import { Disabled } from './examples/inputtext-disabled.component';
-import { Readonly } from './examples/inputtext-readonly.component';
-import { Invalid } from './examples/inputtext-invalid.component';
+import { TextareaComponent } from '../../../lib/components/textarea/textarea.component';
+import { Disabled } from './examples/textarea-disabled.component';
+import { Readonly } from './examples/textarea-readonly.component';
+import { Invalid } from './examples/textarea-invalid.component';
+import { AutoResize, TextareaAutoResizeComponent } from './examples/textarea-autoresize.component';
+import { Sizes } from './examples/textarea-sizes.component';
+import { FloatLabelStory, TextareaFloatLabelComponent } from './examples/textarea-float-label.component';
 
-type InputTextArgs = InputTextComponent & { disabled: boolean; invalid: boolean };
+type TextareaArgs = TextareaComponent & { disabled: boolean; invalid: boolean };
 
-const meta: Meta<InputTextArgs> = {
-  title: 'Components/Form/InputText',
-  component: InputTextComponent,
+const meta: Meta<TextareaArgs> = {
+  title: 'Components/Form/Textarea',
+  component: TextareaComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        InputTextComponent,
+        TextareaComponent,
         ReactiveFormsModule,
-        InputTextFloatLabelComponent,
-        InputTextFloatLabelInvalidComponent,
+        TextareaAutoResizeComponent,
+        TextareaFloatLabelComponent,
       ],
     }),
   ],
   parameters: {
-    designTokens: { prefix: '--p-inputtext' },
+    designTokens: { prefix: '--p-textarea' },
     docs: {
       description: {
-        component: `Текстовое поле для ввода данных.
+        component: `Многострочное текстовое поле для ввода данных.
 
 \`\`\`typescript
-import { InputTextModule } from 'primeng/inputtext';
+import { TextareaComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
     placeholder: {
       control: 'text',
       description: 'Подсказка при пустом поле',
@@ -102,12 +101,46 @@ import { InputTextModule } from 'primeng/inputtext';
         type: { summary: 'boolean' },
       },
     },
+    autoResize: {
+      control: 'boolean',
+      description: 'Автоматически увеличивает высоту по мере ввода',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    rows: {
+      control: 'number',
+      description: 'Количество видимых строк',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: '3' },
+        type: { summary: 'number' },
+      },
+    },
+    cols: {
+      control: 'number',
+      description: 'Количество видимых столбцов',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'number' },
+      },
+    },
     // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
-
-    // ── Events ───────────────────────────────────────────────
+    // Events
+    onResize: {
+      control: false,
+      description: 'Событие изменения высоты поля (при autoResize)',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<{ height: string }>' },
+      },
+    },
     onClear: {
       control: false,
       description: 'Событие очистки поля (при showClear)',
@@ -125,11 +158,13 @@ import { InputTextModule } from 'primeng/inputtext';
     readonly: false,
     showClear: false,
     fluid: false,
+    autoResize: false,
+    rows: 3,
   },
 };
 
 export default meta;
-type Story = StoryObj<InputTextArgs>;
+type Story = StoryObj<TextareaArgs>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
@@ -142,13 +177,16 @@ export const Default: Story = {
     if (args.readonly) parts.push(`[readonly]="true"`);
     if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
+    if (args.autoResize) parts.push(`[autoResize]="true"`);
+    if (args.rows && args.rows !== 3) parts.push(`[rows]="${args.rows}"`);
+    if (args.cols) parts.push(`[cols]="${args.cols}"`);
 
     const validators = [];
     if (args.invalid) validators.push(Validators.required);
 
     const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
-    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+    const template = `<ui-textarea [formControl]="control"\n  ${parts.join('\n  ')}\n></ui-textarea>`;
 
     return { props: { ...args, control }, template };
   },
@@ -162,4 +200,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { ClearButton, FloatLabelStory as FloatLabel, FloatLabelInvalid, Disabled, Readonly, Invalid };
+export { Disabled, Readonly, Invalid, AutoResize, Sizes, FloatLabelStory as FloatLabel };
