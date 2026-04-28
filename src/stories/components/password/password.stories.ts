@@ -167,7 +167,7 @@ import { PasswordComponent } from '@cdek-it/angular-ui-kit';
     invalid: false,
     fluid: false,
     floatLabel: false,
-    label: '',
+    label: 'Пароль',
   },
 };
 
@@ -182,13 +182,16 @@ export const Default: Story = {
 
     if (!args.feedback) parts.push(`[feedback]="false"`);
     if (args.toggleMask) parts.push(`[toggleMask]="true"`);
-    if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
+    if (args.floatLabel) {
+      parts.push(`[floatLabel]="true"`);
+      if (args.label) parts.push(`label="${args.label}"`);
+    } else {
+      if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
+    }
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.floatLabel) parts.push(`[floatLabel]="true"`);
-    if (args.label) parts.push(`label="${args.label}"`);
 
     parts.push(`[(ngModel)]="value"`);
 
