@@ -11,6 +11,8 @@ import '!style-loader!css-loader!postcss-loader!sass-loader!../src/styles.scss';
 
 setCompodocJson(docJson);
 
+const DARK_MODE_SELECTOR = '.dark-mode';
+
 const preview: Preview = {
   decorators: [
     applicationConfig({
@@ -36,6 +38,10 @@ const preview: Preview = {
     })
   ],
   parameters: {
+    backgrounds: { disable: true },
+    docs: {
+      globals: { theme: 'light' },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
