@@ -1,16 +1,11 @@
-import { Component, EventEmitter, forwardRef, inject, Injector, OnInit, Optional, Output, Self } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, EventEmitter, Optional, Output, Self } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
   selector: 'toggleswitch',
   standalone: true,
   imports: [ToggleSwitch, FormsModule],
-   providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ToggleSwitchComponent),
-    multi: true,
-  }],
   template: `
     <p-toggleswitch
       [ngModel]="modelValue"
@@ -23,21 +18,23 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
     ></p-toggleswitch>
   `,
 })
-export class ToggleSwitchComponent implements OnInit, ControlValueAccessor {
+export class ToggleSwitchComponent implements ControlValueAccessor {
   @Output() onChange = new EventEmitter<unknown>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
   modelValue = false;
-  ngControl: NgControl | null = null;
-  
-  private injector = inject(Injector);
   
   private _disabled = false;
 
   private _onChange: (value: boolean) => void = () => {};
   private _onTouched: () => void = () => {};
 
+ constructor(@Optional() @Self() private ngControl: NgControl) {
+    if (ngControl) {
+      ngControl.valueAccessor = this;
+    }
+  }
 
   get isDisabled(): boolean {
     return this._disabled;
@@ -45,10 +42,6 @@ export class ToggleSwitchComponent implements OnInit, ControlValueAccessor {
 
   get isInvalid(): boolean {
     return !!this.ngControl?.invalid;
-  }
-
-  ngOnInit(): void {
-     this.ngControl = this.injector.get(NgControl, null, { self: true });
   }
 
   handleChange(value: boolean): void {
