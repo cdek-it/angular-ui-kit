@@ -1,3 +1,5 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
@@ -6,7 +8,7 @@ type Story = StoryObj<InputMaskComponent>;
 export const Sizes: Story = {
   name: 'Sizes',
   render: (args) => ({
-    props: { ...args, value: '' },
+    props: { ...args, control: new FormControl('') },
     template: `
       <input-mask
         [mask]="mask"
@@ -17,7 +19,7 @@ export const Sizes: Story = {
         [fluid]="fluid"
         [variant]="variant"
         [placeholder]="placeholder"
-        [(ngModel)]="value"
+        [formControl]="control"
       ></input-mask>
     `,
   }),
@@ -35,10 +37,13 @@ export const Sizes: Story = {
         language: 'ts',
         code: `
 import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+// В компоненте:
+readonly control = new FormControl('');
 
 // template:
-// <input-mask mask="99-99-99" size="small" [(ngModel)]="value"></input-mask>
+// <input-mask mask="99-99-99" size="small" [formControl]="control"></input-mask>
         `,
       },
     },

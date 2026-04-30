@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
 import { InputMaskFloatLabelComponent, FloatLabelStory } from './examples/inputmask-float-label.component';
 import { Sizes } from './examples/inputmask-sizes.component';
@@ -225,11 +225,11 @@ export const Default: Story = {
     if (args.readonly) parts.push(`[readonly]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
-    parts.push(`[(ngModel)]="value"`);
+    parts.push(`[formControl]="control"`);
 
     const template = `<input-mask\n  ${parts.join('\n  ')}\n></input-mask>`;
 
-    return { props: { ...args, value: '' }, template };
+    return { props: { ...args, control: new FormControl('') }, template };
   },
   parameters: {
     docs: {

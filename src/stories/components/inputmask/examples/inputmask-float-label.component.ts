@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMask } from 'primeng/inputmask';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -7,7 +7,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 export const template = `
 <div class="pt-6 w-64">
   <p-floatlabel variant="in">
-    <p-inputmask id="fl-mask" mask="99-99-99" [(ngModel)]="value"></p-inputmask>
+    <p-inputmask id="fl-mask" mask="99-99-99" [formControl]="control"></p-inputmask>
     <label for="fl-mask">Дата</label>
   </p-floatlabel>
 </div>
@@ -18,12 +18,12 @@ const styles = '';
   selector: 'app-inputmask-float-label',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMask, FloatLabel, FormsModule],
+  imports: [InputMask, FloatLabel, ReactiveFormsModule],
   template,
   styles,
 })
 export class InputMaskFloatLabelComponent {
-  value = '';
+  readonly control = new FormControl('');
 }
 
 export const FloatLabelStory: StoryObj = {
@@ -44,21 +44,21 @@ export const FloatLabelStory: StoryObj = {
 import { Component } from '@angular/core';
 import { InputMask } from 'primeng/inputmask';
 import { FloatLabel } from 'primeng/floatlabel';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-inputmask-float-label',
   standalone: true,
-  imports: [InputMask, FloatLabel, FormsModule],
+  imports: [InputMask, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <p-inputmask id="fl-mask" mask="99-99-99" [(ngModel)]="value"></p-inputmask>
+      <p-inputmask id="fl-mask" mask="99-99-99" [formControl]="control"></p-inputmask>
       <label for="fl-mask">Дата</label>
     </p-floatlabel>
   \`,
 })
 export class InputMaskFloatLabelComponent {
-  value = '';
+  readonly control = new FormControl('');
 }
         `,
       },
