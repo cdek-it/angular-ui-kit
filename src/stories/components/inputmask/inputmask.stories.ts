@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
 import { InputMaskFloatLabelComponent, FloatLabelStory } from './examples/inputmask-float-label.component';
 import { Sizes } from './examples/inputmask-sizes.component';
@@ -18,6 +18,7 @@ const meta: Meta<InputMaskArgs> = {
       imports: [
         InputMaskComponent,
         FormsModule,
+        ReactiveFormsModule,
         InputMaskFloatLabelComponent,
       ],
     }),
@@ -91,7 +92,7 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'],
+      options: ['small', 'base', 'large', 'xlarge'] as const,
       description: 'Размер поля',
       table: {
         category: 'Props',
@@ -99,27 +100,9 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает взаимодействие',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
     readonly: {
       control: 'boolean',
       description: 'Только для чтения',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-    invalid: {
-      control: 'boolean',
-      description: 'Невалидное состояние',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -137,7 +120,7 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     },
     variant: {
       control: 'select',
-      options: ['outlined', 'filled'],
+      options: ['outlined', 'filled'] as const,
       description: 'Визуальный вариант поля',
       table: {
         category: 'Props',
@@ -172,10 +155,9 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' },
       },
     },
-    modelValue: { table: { disable: true } },
+    control: { table: { disable: true } },
+    invalid: { table: { disable: true } },
     primeSize: { table: { disable: true } },
-    onTouched: { table: { disable: true } },
-    onModelChange: { table: { disable: true } },
     writeValue: { table: { disable: true } },
     registerOnChange: { table: { disable: true } },
     registerOnTouched: { table: { disable: true } },
@@ -219,9 +201,7 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     showClear: false,
     placeholder: '99-99-99',
     size: 'base',
-    disabled: false,
     readonly: false,
-    invalid: false,
     fluid: false,
     variant: 'outlined',
   },
@@ -242,9 +222,7 @@ export const Default: Story = {
     if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
     parts.push(`[(ngModel)]="value"`);

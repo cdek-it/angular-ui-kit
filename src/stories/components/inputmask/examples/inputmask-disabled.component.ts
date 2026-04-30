@@ -1,46 +1,50 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-type Story = StoryObj<InputMaskComponent>;
+const styles = '';
 
-export const Disabled: Story = {
+@Component({
+  selector: 'app-inputmask-disabled',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [InputMaskComponent, ReactiveFormsModule],
+  template: `
+    <input-mask
+      mask="99-99-99"
+      placeholder="99-99-99"
+      [formControl]="control"
+    ></input-mask>
+  `,
+  styles,
+})
+class InputMaskDisabledComponent {
+  readonly control = new FormControl({ value: '12-34-56', disabled: true });
+}
+
+export const Disabled: StoryObj = {
   name: 'Disabled',
-  render: (args) => ({
-    props: { ...args, value: '12-34-56' },
-    template: `
-      <input-mask
-        [mask]="mask"
-        [slotChar]="slotChar"
-        [size]="size"
-        [showClear]="showClear"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [variant]="variant"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></input-mask>
-    `,
+  render: () => ({
+    template: `<app-inputmask-disabled></app-inputmask-disabled>`,
   }),
-  args: {
-    mask: '99-99-99',
-    disabled: true,
-    placeholder: '99-99-99',
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Отключённое состояние — поле недоступно для взаимодействия.',
+        story: 'Отключённое состояние — управляется через `FormControl`.',
       },
       source: {
         language: 'ts',
         code: `
 import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+// В компоненте:
+readonly control = new FormControl({ value: '12-34-56', disabled: true });
 
 // template:
-// <input-mask mask="99-99-99" [disabled]="true" [(ngModel)]="value"></input-mask>
+// <input-mask mask="99-99-99" [formControl]="control"></input-mask>
         `,
       },
     },

@@ -1,34 +1,36 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-type Story = StoryObj<InputMaskComponent>;
+const styles = '';
 
-export const Readonly: Story = {
+@Component({
+  selector: 'app-inputmask-readonly',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [InputMaskComponent, ReactiveFormsModule],
+  template: `
+    <input-mask
+      mask="99-99-99"
+      placeholder="99-99-99"
+      [readonly]="true"
+      [formControl]="control"
+    ></input-mask>
+  `,
+  styles,
+})
+class InputMaskReadonlyComponent {
+  readonly control = new FormControl('12-34-56');
+}
+
+export const Readonly: StoryObj = {
   name: 'Readonly',
-  render: (args) => ({
-    props: { ...args, value: '12-34-56' },
-    template: `
-      <input-mask
-        [mask]="mask"
-        [slotChar]="slotChar"
-        [size]="size"
-        [showClear]="showClear"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [variant]="variant"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></input-mask>
-    `,
+  render: () => ({
+    template: `<app-inputmask-readonly></app-inputmask-readonly>`,
   }),
-  args: {
-    mask: '99-99-99',
-    readonly: true,
-    placeholder: '99-99-99',
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.',
@@ -37,10 +39,13 @@ export const Readonly: Story = {
         language: 'ts',
         code: `
 import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+// В компоненте:
+readonly control = new FormControl('12-34-56');
 
 // template:
-// <input-mask mask="99-99-99" [readonly]="true" [(ngModel)]="value"></input-mask>
+// <input-mask mask="99-99-99" [readonly]="true" [formControl]="control"></input-mask>
         `,
       },
     },

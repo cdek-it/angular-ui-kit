@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
 
 export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
@@ -9,14 +10,7 @@ export type InputMaskVariant = 'outlined' | 'filled';
   selector: 'input-mask',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMask, FormsModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputMaskComponent),
-      multi: true,
-    },
-  ],
+  imports: [InputMask, ReactiveFormsModule],
   host: {
     style: 'display: block',
     '[class.input-mask-xlg]': 'size === "xlarge"',
@@ -29,17 +23,15 @@ export type InputMaskVariant = 'outlined' | 'filled';
       [autoClear]="autoClear"
       [showClear]="showClear"
       [unmask]="unmask"
-      [disabled]="disabled"
       [readonly]="readonly"
-      [invalid]="invalid"
       [placeholder]="placeholder"
       [fluid]="fluid"
       [variant]="variant === 'filled' ? 'filled' : undefined"
       [characterPattern]="characterPattern"
       [keepBuffer]="keepBuffer"
+      [invalid]="invalid"
       [autocomplete]="autocomplete"
-      [(ngModel)]="modelValue"
-      (ngModelChange)="onModelChange($event)"
+      [formControl]="control"
       (onComplete)="onComplete.emit($event)"
       (onFocus)="onFocusEvent.emit($event)"
       (onBlur)="onBlurEvent.emit($event)"
@@ -49,7 +41,13 @@ export type InputMaskVariant = 'outlined' | 'filled';
     ></p-inputmask>
   `,
 })
-export class InputMaskComponent implements ControlValueAccessor {
+export class InputMaskComponent implements ControlValueAccessor, OnInit {
+  private readonly _injector = inject(Injector);
+  private readonly destroyRef = inject(DestroyRef);
+  private _ngControl: NgControl | null = null;
+
+  readonly control = new FormControl<string | null>(null);
+
   @Input() mask = '';
   @Input() slotChar = '_';
   @Input() autoClear = true;
@@ -57,9 +55,7 @@ export class InputMaskComponent implements ControlValueAccessor {
   @Input() unmask = false;
   @Input() placeholder = '';
   @Input() size: InputMaskSize = 'base';
-  @Input() disabled = false;
   @Input() readonly = false;
-  @Input() invalid = false;
   @Input() fluid = false;
   @Input() variant: InputMaskVariant = 'outlined';
   @Input() characterPattern = '[A-Za-z]';
@@ -73,10 +69,20 @@ export class InputMaskComponent implements ControlValueAccessor {
   @Output() onKeydownEvent = new EventEmitter<Event>();
   @Output() onClearEvent = new EventEmitter<void>();
 
-  modelValue: string | null = null;
-
   private _onChange: (value: string | null) => void = () => {};
-  onTouched: () => void = () => {};
+  private _onTouched: () => void = () => {};
+
+  ngOnInit(): void {
+    this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
+
+    this.control.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(v => this._onChange(v));
+  }
+
+  get invalid(): boolean {
+    return this._ngControl?.invalid ?? false;
+  }
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';
@@ -84,13 +90,8 @@ export class InputMaskComponent implements ControlValueAccessor {
     return undefined;
   }
 
-  onModelChange(value: string | null): void {
-    this.modelValue = value;
-    this._onChange(value);
-  }
-
   writeValue(value: string | null): void {
-    this.modelValue = value ?? null;
+    this.control.setValue(value ?? null, { emitEvent: false });
   }
 
   registerOnChange(fn: (value: string | null) => void): void {
@@ -98,10 +99,10 @@ export class InputMaskComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this._onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    isDisabled ? this.control.disable({ emitEvent: false }) : this.control.enable({ emitEvent: false });
   }
 }

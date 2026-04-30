@@ -1,46 +1,54 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-type Story = StoryObj<InputMaskComponent>;
+const styles = '';
 
-export const Invalid: Story = {
+@Component({
+  selector: 'app-inputmask-invalid',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [InputMaskComponent, ReactiveFormsModule],
+  template: `
+    <input-mask
+      mask="99-99-99"
+      placeholder="Обязательное поле"
+      [formControl]="control"
+    ></input-mask>
+  `,
+  styles,
+})
+class InputMaskInvalidComponent {
+  readonly control = new FormControl('', Validators.required);
+
+  constructor() {
+    this.control.markAsTouched();
+  }
+}
+
+export const Invalid: StoryObj = {
   name: 'Invalid',
-  render: (args) => ({
-    props: { ...args, value: '' },
-    template: `
-      <input-mask
-        [mask]="mask"
-        [slotChar]="slotChar"
-        [size]="size"
-        [showClear]="showClear"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [variant]="variant"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></input-mask>
-    `,
+  render: () => ({
+    template: `<app-inputmask-invalid></app-inputmask-invalid>`,
   }),
-  args: {
-    mask: '99-99-99',
-    invalid: true,
-    placeholder: 'Обязательное поле',
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Невалидное состояние — поле отображает ошибку.',
+        story: 'Невалидное состояние — определяется через валидаторы `FormControl`.',
       },
       source: {
         language: 'ts',
         code: `
 import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+
+// В компоненте:
+readonly control = new FormControl('', Validators.required);
 
 // template:
-// <input-mask mask="99-99-99" [invalid]="true" placeholder="Обязательное поле" [(ngModel)]="value"></input-mask>
+// <input-mask mask="99-99-99" [formControl]="control"></input-mask>
         `,
       },
     },
