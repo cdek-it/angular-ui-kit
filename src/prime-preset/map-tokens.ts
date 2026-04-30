@@ -36,6 +36,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
+    message: {
+      ...(tokens.components.message as unknown as ComponentsDesignTokens['message']),
+      css: messageCss,
+    },
     progressspinner: {
       ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
       css: progressspinnerCss,
