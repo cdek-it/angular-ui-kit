@@ -6,18 +6,14 @@ type Story = StoryObj<InputTextComponent>;
 export const Readonly: Story = {
   name: 'Readonly',
   render: (args) => ({
-    props: { ...args, value: 'Только для чтения' },
+    props: { ...args },
     template: `
       <input-text
         [size]="size"
         [showClear]="showClear"
-        [disabled]="disabled"
         [readonly]="readonly"
-        [invalid]="invalid"
         [fluid]="fluid"
-        [variant]="variant"
         [placeholder]="placeholder"
-        [(ngModel)]="value"
       ></input-text>
     `,
   }),
@@ -34,10 +30,9 @@ export const Readonly: Story = {
         language: 'ts',
         code: `
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 // template:
-// <input-text [readonly]="true" [(ngModel)]="value"></input-text>
+// <input-text [readonly]="true"></input-text>
         `,
       },
     },
