@@ -11,6 +11,7 @@ import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { textareaCss } from './tokens/components/textarea';
 import { tooltipCss } from './tokens/components/tooltip';
+import { inputgroupCss } from './tokens/components/inputgroup'
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
