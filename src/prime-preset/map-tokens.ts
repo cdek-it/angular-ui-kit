@@ -6,6 +6,7 @@ import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { checkboxCss } from './tokens/components/checkbox';
+import { inputotpCss } from './tokens/components/inputotp';
 import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';

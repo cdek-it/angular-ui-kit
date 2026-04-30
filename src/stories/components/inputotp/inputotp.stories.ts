@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
 import { InputOtpDisabledComponent, Disabled } from './examples/inputotp-disabled.component';
 import { InputOtpInvalidComponent, Invalid } from './examples/inputotp-invalid.component';
@@ -17,6 +17,7 @@ const meta: Meta<InputOtpArgs> = {
       imports: [
         InputOtpComponent,
         FormsModule,
+        ReactiveFormsModule,
         InputOtpDisabledComponent,
         InputOtpInvalidComponent,
         InputOtpMaskComponent,
@@ -31,13 +32,12 @@ const meta: Meta<InputOtpArgs> = {
         component: `Компонент для ввода одноразовых паролей (OTP).
 
 \`\`\`typescript
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
     length: {
       control: 'number',
       description: 'Количество символов',
@@ -65,27 +65,9 @@ import { InputOtpModule } from 'primeng/inputotp';
         type: { summary: 'boolean' },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает возможность взаимодействия',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-    invalid: {
-      control: 'boolean',
-      description: 'Подсвечивает поле как невалидное',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'],
+      options: ['small', 'base', 'large', 'xlarge'] as const,
       description: 'Размер поля',
       table: {
         category: 'Props',
@@ -98,11 +80,16 @@ import { InputOtpModule } from 'primeng/inputotp';
     readonly: { table: { disable: true } },
     tabindex: { table: { disable: true } },
     autofocus: { table: { disable: true } },
-    modelValue: { table: { disable: true } },
+    control: { table: { disable: true } },
+    invalid: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
+    writeValue: { table: { disable: true } },
+    registerOnChange: { table: { disable: true } },
+    registerOnTouched: { table: { disable: true } },
+    setDisabledState: { table: { disable: true } },
 
-    // ── Events ───────────────────────────────────────────────
+    // Events
     onChange: {
       control: false,
       description: 'Событие изменения значения',
@@ -132,8 +119,6 @@ import { InputOtpModule } from 'primeng/inputotp';
     length: 4,
     mask: false,
     integerOnly: false,
-    disabled: false,
-    invalid: false,
     size: 'base' as const,
   },
 };
@@ -141,7 +126,6 @@ import { InputOtpModule } from 'primeng/inputotp';
 export default meta;
 type Story = StoryObj<InputOtpArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
@@ -150,8 +134,6 @@ export const Default: Story = {
     if (args.length !== 4) parts.push(`[length]="${args.length}"`);
     if (args.mask) parts.push(`[mask]="true"`);
     if (args.integerOnly) parts.push(`[integerOnly]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     parts.push(`[(ngModel)]="value"`);
 
@@ -168,5 +150,4 @@ export const Default: Story = {
   },
 };
 
-// ── Re-exports from example components ────────────────────────────────────
 export { Disabled, Invalid, Mask, IntegerOnly };
