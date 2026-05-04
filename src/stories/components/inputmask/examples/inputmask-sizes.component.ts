@@ -36,14 +36,18 @@ export const Sizes: Story = {
       source: {
         language: 'ts',
         code: `
-import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
 
-// В компоненте:
-readonly control = new FormControl('');
-
-// template:
-// <input-mask mask="99-99-99" size="small" [formControl]="control"></input-mask>
+@Component({
+  standalone: true,
+  imports: [InputMaskComponent, ReactiveFormsModule],
+  template: \`<input-mask mask="99-99-99" size="small" [formControl]="control"></input-mask>\`,
+})
+export class SizesExample {
+  control = new FormControl('');
+}
         `,
       },
     },
