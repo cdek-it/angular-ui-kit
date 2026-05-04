@@ -1,5 +1,5 @@
-import { Component, DestroyRef, inject, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, DestroyRef, forwardRef, inject, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
@@ -10,11 +10,19 @@ export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
   selector: 'input-otp',
   standalone: true,
   imports: [InputOtp, ReactiveFormsModule, NgClass],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputOtpComponent),
+      multi: true,
+    },
+  ],
   template: `
     <p-inputotp
       [length]="length"
       [mask]="mask"
       [integerOnly]="integerOnly"
+      [disabled]="disabled"
       [readonly]="readonly"
       [invalid]="invalid"
       [size]="primeSize"
@@ -42,6 +50,8 @@ export class InputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() size: InputOtpSize = 'base';
   @Input() tabindex: number | null = null;
   @Input() autofocus = false;
+
+  disabled = false;
 
   @Output() onChange = new EventEmitter<InputOtpChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
@@ -92,6 +102,7 @@ export class InputOtpComponent implements ControlValueAccessor, OnInit {
   }
 
   setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
     isDisabled ? this.control.disable({ emitEvent: false }) : this.control.enable({ emitEvent: false });
   }
 }
