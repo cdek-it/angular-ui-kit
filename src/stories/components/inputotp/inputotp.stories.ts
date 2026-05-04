@@ -1,10 +1,10 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
-import { InputOtpDisabledComponent, Disabled } from './examples/inputotp-disabled.component';
-import { InputOtpInvalidComponent, Invalid } from './examples/inputotp-invalid.component';
-import { InputOtpMaskComponent, Mask } from './examples/inputotp-mask.component';
-import { InputOtpIntegerOnlyComponent, IntegerOnly } from './examples/inputotp-integeronly.component';
+import { Disabled } from './examples/inputotp-disabled.component';
+import { Invalid } from './examples/inputotp-invalid.component';
+import { Mask } from './examples/inputotp-mask.component';
+import { IntegerOnly } from './examples/inputotp-integeronly.component';
 
 type InputOtpArgs = InputOtpComponent;
 
@@ -16,12 +16,7 @@ const meta: Meta<InputOtpArgs> = {
     moduleMetadata({
       imports: [
         InputOtpComponent,
-        FormsModule,
         ReactiveFormsModule,
-        InputOtpDisabledComponent,
-        InputOtpInvalidComponent,
-        InputOtpMaskComponent,
-        InputOtpIntegerOnlyComponent,
       ],
     }),
   ],
@@ -81,6 +76,7 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
     tabindex: { table: { disable: true } },
     autofocus: { table: { disable: true } },
     control: { table: { disable: true } },
+    disabled: { table: { disable: true } },
     invalid: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
@@ -135,11 +131,11 @@ export const Default: Story = {
     if (args.mask) parts.push(`[mask]="true"`);
     if (args.integerOnly) parts.push(`[integerOnly]="true"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    parts.push(`[(ngModel)]="value"`);
+    parts.push(`[formControl]="control"`);
 
     const template = `<input-otp\n  ${parts.join('\n  ')}\n></input-otp>`;
 
-    return { props: { ...args, value: null }, template };
+    return { props: { ...args, control: new FormControl('') }, template };
   },
   parameters: {
     docs: {
