@@ -16,6 +16,7 @@ import { tooltipCss } from './tokens/components/tooltip';
 import { megamenuCss } from './tokens/components/megamenu';
 import { selectCss } from './tokens/components/select';
 import { messageCss } from './tokens/components/message';
+import { inputotpCss } from './tokens/components/inputotp';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -45,6 +46,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     progressspinner: {
       ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
       css: progressspinnerCss,
+    },
+    inputotp: {
+      ...(tokens.components.inputotp as unknown as ComponentsDesignTokens['inputotp']),
+      css: inputotpCss,
     },
     inputtext: {
       ...(tokens.components.inputtext as unknown as ComponentsDesignTokens['inputtext']),
