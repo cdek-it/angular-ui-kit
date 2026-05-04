@@ -4,6 +4,7 @@ import { InputOtpComponent } from '../../../lib/components/inputotp/inputotp.com
 import { Disabled } from './examples/inputotp-disabled.component';
 import { Invalid } from './examples/inputotp-invalid.component';
 import { Mask } from './examples/inputotp-mask.component';
+import { Readonly } from './examples/inputotp-readonly.component';
 import { IntegerOnly } from './examples/inputotp-integeronly.component';
 
 type InputOtpArgs = InputOtpComponent;
@@ -71,10 +72,35 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       },
     },
 
+    readonly: {
+      control: 'boolean',
+      description: 'Только для чтения',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    tabindex: {
+      control: 'number',
+      description: 'Значение атрибута tabindex',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'null' },
+        type: { summary: 'number | null' },
+      },
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автоматический фокус при загрузке',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+
     // Hidden props
-    readonly: { table: { disable: true } },
-    tabindex: { table: { disable: true } },
-    autofocus: { table: { disable: true } },
     control: { table: { disable: true } },
     disabled: { table: { disable: true } },
     invalid: { table: { disable: true } },
@@ -115,6 +141,9 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
     length: 4,
     mask: false,
     integerOnly: false,
+    readonly: false,
+    autofocus: false,
+    tabindex: null,
     size: 'base' as const,
   },
 };
@@ -131,6 +160,9 @@ export const Default: Story = {
     if (args.mask) parts.push(`[mask]="true"`);
     if (args.integerOnly) parts.push(`[integerOnly]="true"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+    if (args.readonly) parts.push(`[readonly]="true"`);
+    if (args.autofocus) parts.push(`[autofocus]="true"`);
+    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
     parts.push(`[formControl]="control"`);
 
     const template = `<input-otp\n  ${parts.join('\n  ')}\n></input-otp>`;
@@ -146,4 +178,4 @@ export const Default: Story = {
   },
 };
 
-export { Disabled, Invalid, Mask, IntegerOnly };
+export { Disabled, Readonly, Invalid, Mask, IntegerOnly };
