@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
 
 export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
-export type InputMaskVariant = 'outlined' | 'filled';
+
 
 @Component({
   selector: 'input-mask',
@@ -26,7 +26,7 @@ export type InputMaskVariant = 'outlined' | 'filled';
       [readonly]="readonly"
       [placeholder]="placeholder"
       [fluid]="fluid"
-      [variant]="variant === 'filled' ? 'filled' : undefined"
+
       [characterPattern]="characterPattern"
       [keepBuffer]="keepBuffer"
       [invalid]="invalid"
@@ -57,7 +57,6 @@ export class InputMaskComponent implements ControlValueAccessor, OnInit {
   @Input() size: InputMaskSize = 'base';
   @Input() readonly = false;
   @Input() fluid = false;
-  @Input() variant: InputMaskVariant = 'outlined';
   @Input() characterPattern = '[A-Za-z]';
   @Input() keepBuffer = false;
   @Input() autocomplete = '';

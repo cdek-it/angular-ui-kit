@@ -118,16 +118,6 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' },
       },
     },
-    variant: {
-      control: 'select',
-      options: ['outlined', 'filled'] as const,
-      description: 'Визуальный вариант поля',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: "'outlined'" },
-        type: { summary: "'outlined' | 'filled'" },
-      },
-    },
     characterPattern: {
       control: 'text',
       description: 'Регулярное выражение для символов типа a в маске',
@@ -203,7 +193,6 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     size: 'base',
     readonly: false,
     fluid: false,
-    variant: 'outlined',
   },
 };
 
@@ -224,7 +213,6 @@ export const Default: Story = {
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
     parts.push(`[formControl]="control"`);
 
     const template = `<input-mask\n  ${parts.join('\n  ')}\n></input-mask>`;

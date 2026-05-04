@@ -17,7 +17,7 @@ export const Sizes: Story = {
         [showClear]="showClear"
         [readonly]="readonly"
         [fluid]="fluid"
-        [variant]="variant"
+
         [placeholder]="placeholder"
         [formControl]="control"
       ></input-mask>
