@@ -1,37 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-const styles = '';
-
-@Component({
-  selector: 'app-inputmask-invalid',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMaskComponent, ReactiveFormsModule],
-  template: `
-    <input-mask
-      mask="99-99-99"
-      placeholder="Обязательное поле"
-      [formControl]="control"
-    ></input-mask>
-  `,
-  styles,
-})
-class InputMaskInvalidComponent {
-  readonly control = new FormControl('', Validators.required);
-
-  constructor() {
-    this.control.markAsTouched();
-  }
-}
-
 export const Invalid: StoryObj = {
   name: 'Invalid',
-  render: () => ({
-    template: `<app-inputmask-invalid></app-inputmask-invalid>`,
-  }),
+  render: (args) => {
+    const control = new FormControl('', Validators.required);
+    return {
+      props: { ...args, control },
+      template: `<input-mask mask="99-99-99" placeholder="Обязательное поле" [formControl]="control"></input-mask>`,
+    };
+  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputMaskComponent, ReactiveFormsModule],
+      },
+    }),
+  ],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -41,14 +28,18 @@ export const Invalid: StoryObj = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-// В компоненте:
-readonly control = new FormControl('', Validators.required);
-
-// template:
-// <input-mask mask="99-99-99" [formControl]="control"></input-mask>
+@Component({
+  standalone: true,
+  imports: [InputMaskComponent, ReactiveFormsModule],
+  template: \`<input-mask mask="99-99-99" [formControl]="control" placeholder="Обязательное поле"></input-mask>\`,
+})
+export class InvalidExample {
+  control = new FormControl('', Validators.required);
+}
         `,
       },
     },

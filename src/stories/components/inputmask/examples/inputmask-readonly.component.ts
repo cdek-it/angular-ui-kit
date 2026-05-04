@@ -1,34 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-const styles = '';
-
-@Component({
-  selector: 'app-inputmask-readonly',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMaskComponent, ReactiveFormsModule],
-  template: `
-    <input-mask
-      mask="99-99-99"
-      placeholder="99-99-99"
-      [readonly]="true"
-      [formControl]="control"
-    ></input-mask>
-  `,
-  styles,
-})
-class InputMaskReadonlyComponent {
-  readonly control = new FormControl('12-34-56');
-}
-
 export const Readonly: StoryObj = {
   name: 'Readonly',
-  render: () => ({
-    template: `<app-inputmask-readonly></app-inputmask-readonly>`,
-  }),
+  render: (args) => {
+    const control = new FormControl('12-34-56');
+    return {
+      props: { ...args, control },
+      template: `<input-mask mask="99-99-99" placeholder="99-99-99" [readonly]="true" [formControl]="control"></input-mask>`,
+    };
+  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputMaskComponent, ReactiveFormsModule],
+      },
+    }),
+  ],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -38,14 +28,18 @@ export const Readonly: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
 
-// В компоненте:
-readonly control = new FormControl('12-34-56');
-
-// template:
-// <input-mask mask="99-99-99" [readonly]="true" [formControl]="control"></input-mask>
+@Component({
+  standalone: true,
+  imports: [InputMaskComponent, ReactiveFormsModule],
+  template: \`<input-mask mask="99-99-99" [readonly]="true" [formControl]="control"></input-mask>\`,
+})
+export class ReadonlyExample {
+  control = new FormControl('12-34-56');
+}
         `,
       },
     },
