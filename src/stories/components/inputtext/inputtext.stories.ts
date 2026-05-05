@@ -1,13 +1,14 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
+import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
 import { Disabled } from './examples/inputtext-disabled.component';
 import { Readonly } from './examples/inputtext-readonly.component';
 import { Invalid } from './examples/inputtext-invalid.component';
 
-type InputTextArgs = InputTextComponent;
+type InputTextArgs = InputTextComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<InputTextArgs> = {
   title: 'Components/Form/InputText',
@@ -17,8 +18,9 @@ const meta: Meta<InputTextArgs> = {
     moduleMetadata({
       imports: [
         InputTextComponent,
-        FormsModule,
+        ReactiveFormsModule,
         InputTextFloatLabelComponent,
+        InputTextFloatLabelInvalidComponent,
       ],
     }),
   ],
@@ -57,7 +59,16 @@ import { InputTextModule } from 'primeng/inputtext';
     },
     disabled: {
       control: 'boolean',
-      description: 'Отключает взаимодействие',
+      description: 'Отключает взаимодействие — управляется через FormControl',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    invalid: {
+      control: 'boolean',
+      description: 'Невалидное состояние — управляется через FormControl',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -67,15 +78,6 @@ import { InputTextModule } from 'primeng/inputtext';
     readonly: {
       control: 'boolean',
       description: 'Только для чтения',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-    invalid: {
-      control: 'boolean',
-      description: 'Невалидное состояние',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -100,16 +102,6 @@ import { InputTextModule } from 'primeng/inputtext';
         type: { summary: 'boolean' },
       },
     },
-    variant: {
-      control: 'select',
-      options: ['outlined', 'filled'],
-      description: 'Визуальный вариант поля',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: "'outlined'" },
-        type: { summary: "'outlined' | 'filled'" },
-      },
-    },
     // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
@@ -129,11 +121,10 @@ import { InputTextModule } from 'primeng/inputtext';
     placeholder: 'Введите текст...',
     size: 'base',
     disabled: false,
-    readonly: false,
     invalid: false,
+    readonly: false,
     showClear: false,
     fluid: false,
-    variant: 'outlined',
   },
 };
 
@@ -148,17 +139,18 @@ export const Default: Story = {
 
     if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.showClear) parts.push(`[showClear]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
-    parts.push(`[(ngModel)]="value"`);
 
-    const template = `<input-text\n  ${parts.join('\n  ')}\n></input-text>`;
+    const validators = [];
+    if (args.invalid) validators.push(Validators.required);
 
-    return { props: { ...args, value: '' }, template };
+    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
+
+    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {
@@ -170,4 +162,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { ClearButton, FloatLabelStory as FloatLabel, Disabled, Readonly, Invalid };
+export { ClearButton, FloatLabelStory as FloatLabel, FloatLabelInvalid, Disabled, Readonly, Invalid };

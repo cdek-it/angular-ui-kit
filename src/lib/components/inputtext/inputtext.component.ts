@@ -1,12 +1,12 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
 export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
-export type InputTextVariant = 'outlined' | 'filled';
+
 
 @Component({
   selector: 'input-text',
@@ -21,7 +21,7 @@ export type InputTextVariant = 'outlined' | 'filled';
   ],
   template: `
     @if (showClear) {
-      <p-iconfield>
+      <p-iconfield [ngClass]="{'!w-full': fluid}">
         <input
           pInputText
           [ngClass]="sizeClass"
@@ -31,16 +31,18 @@ export type InputTextVariant = 'outlined' | 'filled';
           [invalid]="invalid"
           [placeholder]="placeholder"
           [fluid]="fluid"
-          [variant]="variant === 'filled' ? 'filled' : undefined"
           [value]="modelValue"
           (input)="onInput($event)"
           (blur)="onTouched()"
         />
         <p-inputicon
           class="ti ti-x"
+          tabindex="0"
           [style.visibility]="modelValue ? 'visible' : 'hidden'"
           [style.pointerEvents]="modelValue ? 'auto' : 'none'"
           (click)="clearValue()"
+          (keydown.enter)="clearValue()"
+          (keydown.space)="clearValue()"
         ></p-inputicon>
       </p-iconfield>
     } @else {
@@ -53,7 +55,6 @@ export type InputTextVariant = 'outlined' | 'filled';
         [invalid]="invalid"
         [placeholder]="placeholder"
         [fluid]="fluid"
-        [variant]="variant === 'filled' ? 'filled' : undefined"
         [value]="modelValue"
         (input)="onInput($event)"
         (blur)="onTouched()"
@@ -61,15 +62,25 @@ export type InputTextVariant = 'outlined' | 'filled';
     }
   `,
 })
-export class InputTextComponent implements ControlValueAccessor {
+export class InputTextComponent implements ControlValueAccessor, OnInit {
+  private readonly _injector = inject(Injector);
+  private _ngControl: NgControl | null = null;
+
+  ngOnInit(): void {
+    this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
+  }
+
   @Input() placeholder = '';
   @Input() size: InputTextSize = 'base';
-  @Input() disabled = false;
   @Input() readonly = false;
-  @Input() invalid = false;
   @Input() showClear = false;
   @Input() fluid = false;
-  @Input() variant: InputTextVariant = 'outlined';
+
+  disabled = false;
+
+  get invalid(): boolean {
+    return this._ngControl?.invalid ?? false;
+  }
 
   @Output() onClear = new EventEmitter<void>();
 

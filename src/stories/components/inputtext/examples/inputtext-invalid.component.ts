@@ -1,43 +1,43 @@
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
-type Story = StoryObj<InputTextComponent>;
-
-export const Invalid: Story = {
+export const Invalid: StoryObj = {
   name: 'Invalid',
-  render: (args) => ({
-    props: { ...args, value: '' },
-    template: `
-      <input-text
-        [size]="size"
-        [showClear]="showClear"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [variant]="variant"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></input-text>
-    `,
-  }),
-  args: {
-    invalid: true,
-    placeholder: 'Обязательное поле',
+  render: (args) => {
+    const control = new FormControl('', Validators.required);
+    return {
+      props: { ...args, control },
+      template: `<input-text [formControl]="control" placeholder="Обязательное поле"></input-text>`,
+    };
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Невалидное состояние — поле отображает ошибку.',
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputTextComponent, ReactiveFormsModule],
       },
+    }),
+  ],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Невалидное состояние — управляется через FormControl + Validators.' },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
-// template:
-// <input-text [invalid]="true" placeholder="Обязательное поле" [(ngModel)]="value"></input-text>
+@Component({
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: \`<input-text [formControl]="control" placeholder="Обязательное поле"></input-text>\`,
+})
+export class InvalidExample {
+  control = new FormControl('', Validators.required);
+}
         `,
       },
     },

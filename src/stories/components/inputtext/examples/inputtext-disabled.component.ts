@@ -1,43 +1,43 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
-type Story = StoryObj<InputTextComponent>;
-
-export const Disabled: Story = {
+export const Disabled: StoryObj = {
   name: 'Disabled',
-  render: (args) => ({
-    props: { ...args, value: 'Disabled с текстом' },
-    template: `
-      <input-text
-        [size]="size"
-        [showClear]="showClear"
-        [disabled]="disabled"
-        [readonly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [variant]="variant"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-      ></input-text>
-    `,
-  }),
-  args: {
-    disabled: true,
-    placeholder: 'Введите текст...',
+  render: (args) => {
+    const control = new FormControl({ value: '', disabled: true });
+    return {
+      props: { ...args, control },
+      template: `<input-text [formControl]="control" placeholder="Введите текст..."></input-text>`,
+    };
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Отключённое состояние — поле недоступно для взаимодействия.',
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputTextComponent, ReactiveFormsModule],
       },
+    }),
+  ],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Отключённое состояние — управляется через FormControl.' },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
-// template:
-// <input-text [disabled]="true" [(ngModel)]="value"></input-text>
+@Component({
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: \`<input-text [formControl]="control" placeholder="Введите текст..."></input-text>\`,
+})
+export class DisabledExample {
+  control = new FormControl({ value: '', disabled: true });
+}
         `,
       },
     },
