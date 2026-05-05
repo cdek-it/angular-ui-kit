@@ -57,3 +57,5 @@ src/assets/components/themes
 /documentation.json
 
 .claude/*
+
+.playwright-mcp/*
