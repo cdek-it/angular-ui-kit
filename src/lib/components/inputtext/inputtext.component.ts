@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, booleanAttribute, forwardRef, inject, Injector, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
@@ -73,7 +73,7 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder = '';
   @Input() size: InputTextSize = 'base';
   @Input() readonly = false;
-  @Input() showClear = false;
+  @Input({ transform: booleanAttribute }) showClear = false;
   @Input() fluid = false;
 
   disabled = false;

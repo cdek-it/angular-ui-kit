@@ -7,7 +7,7 @@ import { InputTextComponent } from '../../../../lib/components/inputtext/inputte
   selector: 'app-inputtext-clear',
   standalone: true,
   imports: [InputTextComponent, ReactiveFormsModule],
-  template: `<input-text [formControl]="control" [showClear]="true" placeholder="Введите текст..."></input-text>`,
+  template: `<input-text [formControl]="control" showClear placeholder="Введите текст..."></input-text>`,
 })
 export class InputTextClearComponent {
   control = new FormControl('');
@@ -42,7 +42,7 @@ import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   standalone: true,
   imports: [InputTextComponent, ReactiveFormsModule],
-  template: \`<input-text [formControl]="control" [showClear]="true" placeholder="Введите текст..."></input-text>\`,
+  template: \`<input-text [formControl]="control" showClear placeholder="Введите текст..."></input-text>\`,
 })
 export class ClearButtonExample {
   control = new FormControl('');

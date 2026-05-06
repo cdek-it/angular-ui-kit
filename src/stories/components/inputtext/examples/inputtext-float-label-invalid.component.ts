@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
+import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-float-label-invalid',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputText, FloatLabel, ReactiveFormsModule, NgIf],
+  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule, NgIf],
   template: `
 <div class="pt-6 w-64">
   <p-floatlabel variant="in">
-    <input pInputText id="fl-invalid" class="p-invalid" [formControl]="control" />
+    <input-text id="fl-invalid" [formControl]="control"></input-text>
     <label for="fl-invalid">Обязательное поле<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
 `,
 })
 export class InputTextFloatLabelInvalidComponent {
-  control = new FormControl('');
+  control = new FormControl('', Validators.required);
   @Input() required = false;
 }
 
@@ -51,22 +51,22 @@ export const FloatLabelInvalid: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputText } from 'primeng/inputtext';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,
-  imports: [InputText, FloatLabel, ReactiveFormsModule],
+  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <input pInputText id="fl-invalid" class="p-invalid" [formControl]="control" />
+      <input-text id="fl-invalid" [formControl]="control"></input-text>
       <label for="fl-invalid">Обязательное поле<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,
 })
 export class FloatLabelInvalidExample {
-  control = new FormControl('');
+  control = new FormControl('', Validators.required);
 }
         `,
       },
