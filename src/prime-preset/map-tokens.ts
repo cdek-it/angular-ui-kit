@@ -7,6 +7,7 @@ import { avatarCss } from './tokens/components/avatar';
 import { buttonCss } from './tokens/components/button';
 import { cardCss } from './tokens/components/card';
 import { checkboxCss } from './tokens/components/checkbox';
+import { inputmaskCss } from './tokens/components/inputmask';
 import { inputtextCss } from './tokens/components/inputtext';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
@@ -14,6 +15,7 @@ import { timelineCss } from './tokens/components/timeline';
 import { tooltipCss } from './tokens/components/tooltip';
 import { megamenuCss } from './tokens/components/megamenu';
 import { selectCss } from './tokens/components/select';
+import { messageCss } from './tokens/components/message';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -47,6 +49,9 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     inputtext: {
       ...(tokens.components.inputtext as unknown as ComponentsDesignTokens['inputtext']),
       css: inputtextCss,
+    },
+    inputmask: {
+      css: inputmaskCss,
     },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),

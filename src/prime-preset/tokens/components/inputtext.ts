@@ -4,6 +4,15 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 .p-inputtext {
   border-width: ${dt('inputtext.extend.borderWidth')};
   line-height: ${dt('fonts.lineHeight.250')};
+  font-family: ${dt('fonts.fontFamily.base')};
+}
+
+.p-inputtext::placeholder {
+  font-family: ${dt('fonts.fontFamily.base')};
+}
+
+.p-floatlabel:has(.p-inputtext) label {
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 /* ─── Disabled ─── */
