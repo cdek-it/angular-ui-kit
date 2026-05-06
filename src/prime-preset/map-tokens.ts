@@ -60,6 +60,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     inputmask: {
       css: inputmaskCss,
     },
+    inputgroupCss: {
+      ...(tokens.components.inputgroup as unknown as ComponentsDesignTokens['inputgroup']),
+      css: inputgroupCss,
+    },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
       css: tagCss,
