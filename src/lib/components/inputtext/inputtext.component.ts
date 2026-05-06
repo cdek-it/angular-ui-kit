@@ -12,6 +12,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
   selector: 'input-text',
   standalone: true,
   imports: [InputText, IconField, InputIcon, NgClass],
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -29,7 +30,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
           [disabled]="disabled"
           [readOnly]="readonly"
           [invalid]="invalid"
-          [placeholder]="placeholder"
+          [attr.placeholder]="placeholder || null"
           [fluid]="fluid"
           [value]="modelValue"
           (input)="onInput($event)"
@@ -53,7 +54,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         [disabled]="disabled"
         [readOnly]="readonly"
         [invalid]="invalid"
-        [placeholder]="placeholder"
+        [attr.placeholder]="placeholder || null"
         [fluid]="fluid"
         [value]="modelValue"
         (input)="onInput($event)"
