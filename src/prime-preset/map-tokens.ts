@@ -14,6 +14,7 @@ import { passwordCss } from './tokens/components/password';
 import { tagCss } from './tokens/components/tag';
 import { textareaCss } from './tokens/components/textarea';
 import { tooltipCss } from './tokens/components/tooltip';
+import { inputgroupCss } from './tokens/components/inputgroup'
 import { megamenuCss } from './tokens/components/megamenu';
 import { selectCss } from './tokens/components/select';
 import { messageCss } from './tokens/components/message';
@@ -58,6 +59,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     },
     inputmask: {
       css: inputmaskCss,
+    },
+    inputgroup: {
+      ...(tokens.components.inputgroup as unknown as ComponentsDesignTokens['inputgroup']),
+      css: inputgroupCss,
     },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
