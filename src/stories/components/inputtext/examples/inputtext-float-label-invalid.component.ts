@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -9,18 +9,18 @@ import { FloatLabel } from 'primeng/floatlabel';
   selector: 'app-inputtext-float-label-invalid',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputText, FloatLabel, FormsModule, NgIf],
+  imports: [InputText, FloatLabel, ReactiveFormsModule, NgIf],
   template: `
 <div class="pt-6 w-64">
   <p-floatlabel variant="in">
-    <input pInputText id="fl-invalid" class="p-invalid" [(ngModel)]="value" />
+    <input pInputText id="fl-invalid" class="p-invalid" [formControl]="control" />
     <label for="fl-invalid">Обязательное поле<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
 `,
 })
 export class InputTextFloatLabelInvalidComponent {
-  value = '';
+  control = new FormControl('');
   @Input() required = false;
 }
 
@@ -51,22 +51,22 @@ export const FloatLabelInvalid: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [InputText, FloatLabel, FormsModule],
+  imports: [InputText, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <input pInputText id="fl-invalid" class="p-invalid" [(ngModel)]="value" />
+      <input pInputText id="fl-invalid" class="p-invalid" [formControl]="control" />
       <label for="fl-invalid">Обязательное поле<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,
 })
 export class FloatLabelInvalidExample {
-  value = '';
+  control = new FormControl('');
 }
         `,
       },
