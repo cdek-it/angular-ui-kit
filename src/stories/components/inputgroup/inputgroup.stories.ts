@@ -5,7 +5,7 @@ import { InputGroupAddonComponent } from '../../../lib/components/inputgroup/inp
 import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { InputGroupWithTextComponent, WithText } from './examples/inputgroup-with-text.component';
 import { InputGroupDisabledComponent, Disabled } from './examples/inputgroup-disabled.component';
-import { InputGroupXlargeComponent, XLarge } from './examples/inputgroup-xlarge.component';
+import { InputGroupXlargeComponent, Sizes } from './examples/inputgroup-xlarge.component';
 import { InputGroupAddonRightComponent, AddonRight } from './examples/inputgroup-addon-right.component';
 import { InputGroupAddonBothComponent, AddonBoth } from './examples/inputgroup-addon-both.component';
 
@@ -89,4 +89,4 @@ ${groupOpen}
   },
 };
 
-export { WithText, AddonRight, AddonBoth, Disabled, XLarge };
+export { WithText, AddonRight, AddonBoth, Disabled, Sizes };

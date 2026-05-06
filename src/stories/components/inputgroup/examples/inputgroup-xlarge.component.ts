@@ -26,7 +26,7 @@ export class InputGroupXlargeComponent {
   value = '';
 }
 
-export const XLarge: StoryObj = {
+export const Sizes: StoryObj = {
   render: () => ({
     template: `<app-inputgroup-xlarge></app-inputgroup-xlarge>`,
   }),

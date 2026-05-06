@@ -57,6 +57,12 @@ export const inputgroupCss = ({ dt }: { dt: (token: string) => string }): string
   margin: 0;
 }
 
+/* Аддон: только горизонтальные границы (top/bottom), inline-бордеры управляются позиционно */
+.p-inputgroup > input-group-addon > .p-inputgroupaddon {
+  border-block-start: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
+  border-block-end: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
+}
+
 /* Первый элемент группы — input: левые углы */
 .p-inputgroup > input-text:first-child .p-inputtext {
   border-start-start-radius: ${dt('inputgroup.addon.borderRadius')};
