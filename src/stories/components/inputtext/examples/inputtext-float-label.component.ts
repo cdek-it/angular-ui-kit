@@ -2,17 +2,17 @@ import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
+import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-float-label',
   standalone: true,
-  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule, NgIf],
+  imports: [InputText, FloatLabel, ReactiveFormsModule, NgIf],
   template: `
 <div class="pt-6 w-64">
   <p-floatlabel variant="in">
-    <input-text id="fl-name" [formControl]="control"></input-text>
+    <input pInputText id="fl-name" [formControl]="control" />
     <label for="fl-name">Имя<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
@@ -45,22 +45,22 @@ export const FloatLabelStory: StoryObj = {
     docs: {
       description: {
         story:
-          'Интеграция с `p-floatlabel` — плавающая метка внутри поля.',
+          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. `p-floatlabel` требует нативный `<input pInputText>` как прямой дочерний элемент.',
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,
-  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule],
+  imports: [InputText, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <input-text id="fl-name" [formControl]="control"></input-text>
+      <input pInputText id="fl-name" [formControl]="control" />
       <label for="fl-name">Имя<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,
