@@ -13,6 +13,7 @@ import { tagCss } from './tokens/components/tag';
 import { timelineCss } from './tokens/components/timeline';
 import { tooltipCss } from './tokens/components/tooltip';
 import { megamenuCss } from './tokens/components/megamenu';
+import { selectbuttonCss } from './tokens/components/selectbutton';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -58,6 +59,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     megamenu: {
       ...(tokens.components.megamenu as unknown as ComponentsDesignTokens['megamenu']),
       css: megamenuCss,
+    },
+    selectbutton: {
+      ...(tokens.components.selectbutton as unknown as ComponentsDesignTokens['selectbutton']),
+      css: selectbuttonCss,
     },
   } as ComponentsDesignTokens,
 };
