@@ -14,6 +14,8 @@ import { timelineCss } from './tokens/components/timeline';
 import { tooltipCss } from './tokens/components/tooltip';
 import { megamenuCss } from './tokens/components/megamenu';
 import { selectCss } from './tokens/components/select';
+import { messageCss } from './tokens/components/message';
+import { togglebuttonCss } from './tokens/components/togglebutton';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -67,6 +69,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     select: {
       ...(tokens.components.select as unknown as ComponentsDesignTokens['select']),
       css: selectCss,
+    },
+    togglebutton: {
+      ...(tokens.components.togglebutton as unknown as ComponentsDesignTokens['togglebutton']),
+      css: togglebuttonCss,
     },
   } as ComponentsDesignTokens,
 };

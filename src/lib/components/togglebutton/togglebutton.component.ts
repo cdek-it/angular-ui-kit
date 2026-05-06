@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
 
@@ -9,7 +9,7 @@ export type ToggleButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
   selector: 'toggle-button',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ToggleButton, NgClass],
+  imports: [ToggleButton, NgClass, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -25,7 +25,7 @@ export type ToggleButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
       [onIcon]="onIcon"
       [offIcon]="offIcon"
       [iconPos]="iconPos"
-      [size]="primeSize"
+      [size]="primeSize!"
       [disabled]="disabled"
       [allowEmpty]="allowEmpty"
       [fluid]="fluid"
