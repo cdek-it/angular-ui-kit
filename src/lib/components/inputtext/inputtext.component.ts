@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, booleanAttribute, forwardRef, inject, Injector, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
@@ -12,6 +12,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
   selector: 'extra-input-text',
   standalone: true,
   imports: [InputText, IconField, InputIcon, NgClass],
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -29,7 +30,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
           [disabled]="disabled"
           [readOnly]="readonly"
           [invalid]="invalid"
-          [placeholder]="placeholder"
+          [attr.placeholder]="placeholder || null"
           [fluid]="fluid"
           [value]="modelValue"
           (input)="onInput($event)"
@@ -53,7 +54,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         [disabled]="disabled"
         [readOnly]="readonly"
         [invalid]="invalid"
-        [placeholder]="placeholder"
+        [attr.placeholder]="placeholder || null"
         [fluid]="fluid"
         [value]="modelValue"
         (input)="onInput($event)"
@@ -73,7 +74,7 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder = '';
   @Input() size: InputTextSize = 'base';
   @Input() readonly = false;
-  @Input() showClear = false;
+  @Input({ transform: booleanAttribute }) showClear = false;
   @Input() fluid = false;
 
   disabled = false;

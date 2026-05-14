@@ -1,27 +1,33 @@
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
-type Story = StoryObj<ExtraInputTextComponent>;
+@Component({
+  selector: 'app-inputtext-clear',
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: `<input-text [formControl]="control" showClear placeholder="Введите текст..."></input-text>`,
+})
+export class InputTextClearComponent {
+  control = new FormControl('');
+}
 
-export const ClearButton: Story = {
+export const ClearButton: StoryObj = {
   name: 'ClearButton',
-  render: (args) => ({
-    props: { ...args },
-    template: `
-      <extra-input-text
-        [size]="size"
-        [showClear]="showClear"
-        [readonly]="readonly"
-        [fluid]="fluid"
-        [placeholder]="placeholder"
-      ></extra-input-text>
-    `,
+  render: () => ({
+    template: `<app-inputtext-clear></app-inputtext-clear>`,
   }),
-  args: {
-    showClear: true,
-    placeholder: 'Введите текст...',
-  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputTextClearComponent],
+      },
+    }),
+  ],
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Поле с кнопкой очистки через `showClear`. Иконка × появляется при вводе первого символа.',
@@ -29,10 +35,18 @@ export const ClearButton: Story = {
       source: {
         language: 'ts',
         code: `
-import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 
-// template:
-// <extra-input-text [showClear]="true" placeholder="Введите текст..."></extra-input-text>
+@Component({
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: \`<input-text [formControl]="control" showClear placeholder="Введите текст..."></input-text>\`,
+})
+export class ClearButtonExample {
+  control = new FormControl('');
+}
         `,
       },
     },

@@ -1,25 +1,25 @@
 import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
+import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-float-label',
   standalone: true,
-  imports: [InputText, FloatLabel, FormsModule, NgIf],
+  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule, NgIf],
   template: `
 <div class="pt-6 w-64">
   <p-floatlabel variant="in">
-    <input pInputText id="fl-name" [(ngModel)]="value" />
+    <input-text id="fl-name" [formControl]="control"></input-text>
     <label for="fl-name">Имя<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
   </p-floatlabel>
 </div>
 `,
 })
 export class InputTextFloatLabelComponent {
-  value = '';
+  control = new FormControl('');
   @Input() required = false;
 }
 
@@ -45,28 +45,28 @@ export const FloatLabelStory: StoryObj = {
     docs: {
       description: {
         story:
-          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию. Требует нативный `<input pInputText>` как прямой дочерний элемент `p-floatlabel`.',
+          'Интеграция с `p-floatlabel` — плавающая метка внутри поля.',
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { InputText } from 'primeng/inputtext';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 import { FloatLabel } from 'primeng/floatlabel';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [InputText, FloatLabel, FormsModule],
+  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <input pInputText id="fl-name" [(ngModel)]="value" />
+      <input-text id="fl-name" [formControl]="control"></input-text>
       <label for="fl-name">Имя<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,
 })
 export class FloatLabelExample {
-  value = '';
+  control = new FormControl('');
 }
         `,
       },

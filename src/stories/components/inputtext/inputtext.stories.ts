@@ -1,11 +1,11 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraInputTextComponent as InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { ClearButton } from './examples/inputtext-clear.component';
+import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
+import { InputTextClearComponent, ClearButton } from './examples/inputtext-clear.component';
 import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
 import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
 import { Disabled } from './examples/inputtext-disabled.component';
-import { Readonly } from './examples/inputtext-readonly.component';
+import { InputTextReadonlyComponent, Readonly } from './examples/inputtext-readonly.component';
 import { Invalid } from './examples/inputtext-invalid.component';
 
 type InputTextArgs = InputTextComponent & { disabled: boolean; invalid: boolean };
@@ -21,6 +21,8 @@ const meta: Meta<InputTextArgs> = {
         ReactiveFormsModule,
         InputTextFloatLabelComponent,
         InputTextFloatLabelInvalidComponent,
+        InputTextReadonlyComponent,
+        InputTextClearComponent,
       ],
     }),
   ],
@@ -148,7 +150,7 @@ export const Default: Story = {
 
     const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
-    const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
+    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
 
     return { props: { ...args, control }, template };
   },
