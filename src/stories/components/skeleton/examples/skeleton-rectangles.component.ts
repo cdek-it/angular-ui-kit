@@ -5,9 +5,9 @@ import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skel
 const template = `
 <div class="bg-surface-ground">
   <div class="flex flex-col gap-3">
-    <skeleton height="1rem"></skeleton>
-    <skeleton height="1rem" width="75%"></skeleton>
-    <skeleton height="1rem" width="50%"></skeleton>
+    <extra-skeleton height="1rem"></extra-skeleton>
+    <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+    <extra-skeleton height="1rem" width="50%"></extra-skeleton>
   </div>
 </div>
 `;
@@ -41,9 +41,9 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   imports: [SkeletonComponent],
   template: \`
     <div class="flex flex-col gap-3">
-      <skeleton height="1rem"></skeleton>
-      <skeleton height="1rem" width="75%"></skeleton>
-      <skeleton height="1rem" width="50%"></skeleton>
+      <extra-skeleton height="1rem"></extra-skeleton>
+      <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+      <extra-skeleton height="1rem" width="50%"></extra-skeleton>
     </div>
   \`,
 })

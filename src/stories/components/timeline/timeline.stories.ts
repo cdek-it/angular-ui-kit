@@ -149,7 +149,7 @@ function renderStory(args: any) {
 >
   <ng-template #content let-event>
     <div>{{ event.value }}</div>
-    <small *ngIf="${args.showCaption}">{{ event.caption }}</small>
+    @if (${args.showCaption}) {<small>{{ event.caption }}</small>}
   </ng-template>
 </extra-timeline>`;
 

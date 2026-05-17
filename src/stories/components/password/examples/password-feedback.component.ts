@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></password>
+  <extra-password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-feedback',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template,
 })
 export class PasswordFeedbackComponent {
@@ -31,14 +31,14 @@ export const Feedback: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-feedback',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template: \`
-    <password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></password>
+    <extra-password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
   \`,
 })
 export class PasswordFeedbackComponent {

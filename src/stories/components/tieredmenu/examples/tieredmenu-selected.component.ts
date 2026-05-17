@@ -5,7 +5,7 @@ import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/
 
 const template = `
 <div class="bg-surface-ground" style="min-height: 280px">
-  <tieredmenu [model]="items"></tieredmenu>
+  <extra-tieredmenu [model]="items"></extra-tieredmenu>
 </div>
 `;
 const styles = '';

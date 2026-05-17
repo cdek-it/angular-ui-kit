@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { Textarea } from 'primeng/textarea';
@@ -11,7 +10,7 @@ import { StoryObj } from '@storybook/angular';
   selector: 'app-textarea-float-label',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Textarea, FloatLabel, ReactiveFormsModule, NgIf, IconField, InputIcon],
+  imports: [Textarea, FloatLabel, ReactiveFormsModule, IconField, InputIcon],
   template: `
 <div class="w-80">
   <p-floatlabel variant="in">
@@ -38,7 +37,7 @@ import { StoryObj } from '@storybook/angular';
         [formControl]="control"
       ></textarea>
     }
-    <label for="fl-textarea">{{ label }}<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
+    <label for="fl-textarea">{{ label }}@if (required) {<span class="text-red-500 ml-0.5">*</span>}</label>
   </p-floatlabel>
 </div>
   `,

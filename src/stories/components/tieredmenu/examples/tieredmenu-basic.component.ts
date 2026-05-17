@@ -41,7 +41,7 @@ import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ExtraTieredMenuComponent],
   template: \`
-    <tieredmenu [model]="items"></tieredmenu>
+    <extra-tieredmenu [model]="items"></extra-tieredmenu>
   \`,
 })
 export class TieredMenuBasicComponent {

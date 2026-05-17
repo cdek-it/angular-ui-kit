@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { PaginatorComponent } from '../../../../lib/components/paginator/paginator.component';
+import { ExtraPaginatorComponent } from '../../../../lib/components/paginator/paginator.component';
 import type { PaginatorState } from 'primeng/types/paginator';
 
 const template = `
-<paginator
+<extra-paginator
   [first]="first"
   [rows]="rows"
   [totalRecords]="120"
   [rowsPerPageOptions]="[10, 20, 30]"
   [showJumpToPageInput]="true"
   (onPageChange)="onPageChange($event)"
-></paginator>
+></extra-paginator>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-paginator-rows-per-page',
   standalone: true,
-  imports: [PaginatorComponent],
+  imports: [ExtraPaginatorComponent],
   template,
   styles,
 })
@@ -44,22 +44,22 @@ export const RowsPerPage = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
 import type { PaginatorState } from 'primeng/types/paginator';
 
 @Component({
   selector: 'app-paginator-rows-per-page',
   standalone: true,
-  imports: [PaginatorComponent],
+  imports: [ExtraPaginatorComponent],
   template: \`
-    <paginator
+    <extra-paginator
       [first]="first"
       [rows]="rows"
       [totalRecords]="120"
       [rowsPerPageOptions]="[10, 20, 30]"
       [showJumpToPageInput]="true"
       (onPageChange)="onPageChange($event)"
-    ></paginator>
+    ></extra-paginator>
   \`,
 })
 export class PaginatorRowsPerPageComponent {

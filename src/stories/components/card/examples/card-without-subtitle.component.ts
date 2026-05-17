@@ -14,9 +14,9 @@ const template = `
       <p class="text-sm">Карточка без подзаголовка.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
+      <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
     </ng-template>
-  </card>
+  </extra-card>
 </div>
 `;
 const styles = '';

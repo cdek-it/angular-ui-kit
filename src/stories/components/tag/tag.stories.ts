@@ -1,8 +1,8 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ExtraTagComponent } from '../../../lib/components/tag/tag.component';
-import { TagSeverityComponent } from './examples/tag-severity.component';
-import { TagRoundedComponent } from './examples/tag-rounded.component';
-import { TagIconComponent } from './examples/tag-icon.component';
+import { TagSeverityComponent, Severity } from './examples/tag-severity.component';
+import { TagRoundedComponent, Rounded } from './examples/tag-rounded.component';
+import { TagIconComponent, WithIcon } from './examples/tag-icon.component';
 
 type TagArgs = ExtraTagComponent;
 
@@ -111,86 +111,4 @@ export const Default: Story = {
   },
 };
 
-// ── Severity ──────────────────────────────────────────────────────────────────
-export const Severity: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { value: 'Success', severity: 'success' },
-  parameters: {
-    docs: {
-      description: { story: 'Вариант цветового оформления. Доступные значения: primary, secondary, success, info, warn, danger.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-tag-severity',
-  standalone: true,
-  imports: [ExtraTagComponent],
-  template: \`
-    <extra-tag value="Success" severity="success"></extra-tag>
-  \`,
-})
-export class TagSeverityComponent {}
-        `,
-      },
-    },
-  },
-};
-
-// ── Rounded ───────────────────────────────────────────────────────────────────
-export const Rounded: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { value: 'Rounded', severity: 'success', rounded: true },
-  parameters: {
-    docs: {
-      description: { story: 'Скруглённый вариант тега.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-tag-rounded',
-  standalone: true,
-  imports: [ExtraTagComponent],
-  template: \`
-    <extra-tag value="Rounded" severity="success" [rounded]="true"></extra-tag>
-  \`,
-})
-export class TagRoundedComponent {}
-        `,
-      },
-    },
-  },
-};
-
-// ── WithIcon ──────────────────────────────────────────────────────────────────
-export const WithIcon: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { value: 'Verified', severity: 'info', icon: 'ti ti-check' },
-  parameters: {
-    docs: {
-      description: { story: 'Тег с иконкой из библиотеки Tabler Icons.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-tag-icon',
-  standalone: true,
-  imports: [ExtraTagComponent],
-  template: \`
-    <extra-tag value="Verified" severity="info" icon="ti ti-check"></extra-tag>
-  \`,
-})
-export class TagIconComponent {}
-        `,
-      },
-    },
-  },
-};
+export { WithIcon, Rounded, Severity };

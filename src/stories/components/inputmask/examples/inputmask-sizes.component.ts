@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
+import { ExtraInputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-type Story = StoryObj<InputMaskComponent>;
+type Story = StoryObj<ExtraInputMaskComponent>;
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: (args) => ({
     props: { ...args, control: new FormControl('') },
     template: `
-      <input-mask
+      <extra-input-mask
         [mask]="mask"
         [slotChar]="slotChar"
         [size]="size"
@@ -20,7 +20,7 @@ export const Sizes: Story = {
 
         [placeholder]="placeholder"
         [formControl]="control"
-      ></input-mask>
+      ></extra-input-mask>
     `,
   }),
   args: {
@@ -38,12 +38,12 @@ export const Sizes: Story = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [InputMaskComponent, ReactiveFormsModule],
-  template: \`<input-mask mask="99-99-99" size="small" [formControl]="control"></input-mask>\`,
+  imports: [ExtraInputMaskComponent, ReactiveFormsModule],
+  template: \`<extra-input-mask mask="99-99-99" size="small" [formControl]="control"></extra-input-mask>\`,
 })
 export class SizesExample {
   control = new FormControl('');

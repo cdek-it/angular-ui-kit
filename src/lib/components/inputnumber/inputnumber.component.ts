@@ -8,13 +8,13 @@ export type InputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
 export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
 
 @Component({
-  selector: 'input-number',
+  selector: 'extra-input-number',
   standalone: true,
   imports: [InputNumber, SharedModule, FormsModule, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputNumberComponent),
+      useExisting: forwardRef(() => ExtraInputNumberComponent),
       multi: true,
     },
   ],
@@ -59,7 +59,7 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
     </p-inputNumber>
   `,
 })
-export class InputNumberComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 

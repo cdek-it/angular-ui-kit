@@ -1,21 +1,21 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputNumberComponent } from '../../../lib/components/inputnumber/inputnumber.component';
+import { ExtraInputNumberComponent } from '../../../lib/components/inputnumber/inputnumber.component';
 import { InputNumberFloatLabelComponent, FloatLabelStory } from './examples/inputnumber-float-label.component';
 import { Currency } from './examples/inputnumber-currency.component';
 import { Buttons } from './examples/inputnumber-buttons.component';
 import { Disabled } from './examples/inputnumber-disabled.component';
 
-type InputNumberArgs = InputNumberComponent & { disabled: boolean; invalid: boolean };
+type InputNumberArgs = ExtraInputNumberComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<InputNumberArgs> = {
   title: 'Components/Form/InputNumber',
-  component: InputNumberComponent,
+  component: ExtraInputNumberComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        InputNumberComponent,
+        ExtraInputNumberComponent,
         ReactiveFormsModule,
         InputNumberFloatLabelComponent,
       ],
@@ -28,7 +28,7 @@ const meta: Meta<InputNumberArgs> = {
         component: `Числовое поле ввода с поддержкой форматирования, валюты и кнопок увеличения/уменьшения.
 
 \`\`\`typescript
-import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -271,7 +271,7 @@ export const Default: Story = {
 
     const control = new FormControl<number | null>({ value: null, disabled: args.disabled }, validators);
 
-    const template = `<input-number [formControl]="control"\n  ${parts.join('\n  ')}\n></input-number>`;
+    const template = `<extra-input-number [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-number>`;
 
     return { props: { ...args, control }, template };
   },

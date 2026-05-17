@@ -5,9 +5,9 @@ import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skel
 const template = `
 <div class="bg-surface-ground">
   <div class="flex items-center gap-4">
-    <skeleton shape="circle" size="3rem"></skeleton>
-    <skeleton shape="circle" size="4rem"></skeleton>
-    <skeleton shape="circle" size="6rem"></skeleton>
+    <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
+    <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
+    <extra-skeleton shape="circle" size="6rem"></extra-skeleton>
   </div>
 </div>
 `;
@@ -40,10 +40,10 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [SkeletonComponent],
   template: \`
-    <div class="flex items-center gap-4">
-      <skeleton shape="circle" size="3rem"></skeleton>
-      <skeleton shape="circle" size="4rem"></skeleton>
-      <skeleton shape="circle" size="6rem"></skeleton>
+      <div class="flex items-center gap-4">
+      <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
+      <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
+      <extra-skeleton shape="circle" size="6rem"></extra-skeleton>
     </div>
   \`,
 })

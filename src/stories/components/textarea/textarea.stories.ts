@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TextareaComponent } from '../../../lib/components/textarea/textarea.component';
+import { ExtraTextareaComponent } from '../../../lib/components/textarea/textarea.component';
 import { Disabled } from './examples/textarea-disabled.component';
 import { Readonly } from './examples/textarea-readonly.component';
 import { Invalid } from './examples/textarea-invalid.component';
@@ -8,16 +8,16 @@ import { AutoResize, TextareaAutoResizeComponent } from './examples/textarea-aut
 import { Sizes } from './examples/textarea-sizes.component';
 import { FloatLabelStory, TextareaFloatLabelComponent } from './examples/textarea-float-label.component';
 
-type TextareaArgs = TextareaComponent & { disabled: boolean; invalid: boolean };
+type TextareaArgs = ExtraTextareaComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<TextareaArgs> = {
   title: 'Components/Form/Textarea',
-  component: TextareaComponent,
+  component: ExtraTextareaComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        TextareaComponent,
+        ExtraTextareaComponent,
         ReactiveFormsModule,
         TextareaAutoResizeComponent,
         TextareaFloatLabelComponent,
@@ -31,7 +31,7 @@ const meta: Meta<TextareaArgs> = {
         component: `Многострочное текстовое поле для ввода данных.
 
 \`\`\`typescript
-import { TextareaComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -186,7 +186,7 @@ export const Default: Story = {
 
     const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
-    const template = `<ui-textarea [formControl]="control"\n  ${parts.join('\n  ')}\n></ui-textarea>`;
+    const template = `<extra-textarea [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-textarea>`;
 
     return { props: { ...args, control }, template };
   },

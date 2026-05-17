@@ -66,7 +66,7 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
   `,
 })
 export class ExtraMegaMenuComponent {
-  @Input() model: MegaMenuModel[] = [];
+  @Input() model: MegaMenuItem[] = [];
   @Input() orientation: MegaMenuOrientation = 'horizontal';
   @Input() breakpoint: string = '960px';
   @Input() scrollHeight: string = '';

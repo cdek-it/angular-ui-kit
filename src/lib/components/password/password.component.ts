@@ -8,7 +8,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'password',
+  selector: 'extra-password',
   host: { style: 'display: block' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +16,7 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordComponent),
+      useExisting: forwardRef(() => ExtraPasswordComponent),
       multi: true,
     },
   ],
@@ -68,7 +68,7 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
     </ng-template>
   `,
 })
-export class PasswordComponent implements ControlValueAccessor {
+export class ExtraPasswordComponent implements ControlValueAccessor {
   @ContentChild('header') headerTemplate: TemplateRef<any> | null = null;
   @ContentChild('footer') footerTemplate: TemplateRef<any> | null = null;
 

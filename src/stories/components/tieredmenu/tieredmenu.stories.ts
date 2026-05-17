@@ -1,22 +1,22 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ExtraTieredMenuComponent as TieredMenuComponent } from '../../../lib/components/tieredmenu/tieredmenu.component';
+import { ExtraTieredMenuComponent } from '../../../lib/components/tieredmenu/tieredmenu.component';
 import { TieredMenuBasicComponent, Basic } from './examples/tieredmenu-basic.component';
 import { TieredMenuSelectedComponent, WithSelected } from './examples/tieredmenu-selected.component';
 import { TieredMenuCustomComponent, Custom } from './examples/tieredmenu-custom.component';
 
-const meta: Meta<TieredMenuComponent> = {
+const meta: Meta<ExtraTieredMenuComponent> = {
   title: 'Components/Menu/TieredMenu',
-  component: TieredMenuComponent,
+  component: ExtraTieredMenuComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        TieredMenuComponent,
+        ExtraTieredMenuComponent,
         TieredMenuBasicComponent,
         TieredMenuSelectedComponent,
-        TieredMenuCustomComponent,
-      ],
-    }),
+        TieredMenuCustomComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -25,14 +25,14 @@ const meta: Meta<TieredMenuComponent> = {
 
 \`\`\`typescript
 import { ExtraTieredMenuComponent as TieredMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-tieredmenu' },
+    designTokens: { prefix: '--p-tieredmenu' }
   },
   argTypes: {
     model: {
-      table: { disable: true },
+      table: { disable: true }
     },
     autoDisplay: {
       control: 'boolean',
@@ -40,8 +40,8 @@ import { ExtraTieredMenuComponent as TieredMenuComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     tabindex: {
       control: 'number',
@@ -49,14 +49,14 @@ import { ExtraTieredMenuComponent as TieredMenuComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'number' },
-      },
-    },
-  },
+        type: { summary: 'number' }
+      }
+    }
+  }
 };
 
 export default meta;
-type Story = StoryObj<TieredMenuComponent>;
+type Story = StoryObj<ExtraTieredMenuComponent>;
 
 // ── Re-exports from example components ────────────────────────────────────
 export { Basic, WithSelected, Custom };

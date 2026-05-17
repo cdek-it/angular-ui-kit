@@ -89,10 +89,10 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
 
   private _onChange: (value: string) => void = () => {};
 
-  get primeSize(): 'small' | 'large' | undefined {
+  get primeSize(): 'small' | 'large' | never {
     if (this.size === 'small') return 'small';
     if (this.size === 'large' || this.size === 'xlarge') return 'large';
-    return undefined;
+    return undefined as never;
   }
 
   get sizeClass(): Record<string, boolean> {

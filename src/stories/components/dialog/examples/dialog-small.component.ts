@@ -19,7 +19,7 @@ export const template = `
     [footerTemplate]="footer"
   >
     <p>Отправление CDEK-2025-00478312 прибыло на сортировочный центр г. Новосибирск и готово к передаче курьеру.</p>
-  </dialog>
+  </extra-dialog>
 </div>
 `;
 

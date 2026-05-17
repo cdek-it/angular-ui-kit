@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent } from '../../../lib/components/select/select.component';
+import { ExtraSelectComponent } from '../../../lib/components/select/select.component';
 import { SelectFilterComponent, Filter as FilterStory } from './examples/select-filter.component';
 import { SelectGroupedComponent, Grouped as GroupedStory } from './examples/select-grouped.component';
 import { SelectCustomComponent, Custom as CustomStory } from './examples/select-custom.component';
@@ -17,19 +17,19 @@ const BASIC_OPTIONS = [
   { name: 'Казань', code: 'KZN' },
 ];
 
-type SelectArgs = Pick<SelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'checkmark'> & {
+type SelectArgs = Pick<ExtraSelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'checkmark'> & {
   disabled: boolean;
   invalid: boolean;
 };
 
 const meta: Meta<SelectArgs> = {
   title: 'Components/Form/Select',
-  component: SelectComponent,
+  component: ExtraSelectComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        SelectComponent,
+        ExtraSelectComponent,
         ReactiveFormsModule,
         SelectFilterComponent,
         SelectGroupedComponent,
@@ -45,7 +45,7 @@ const meta: Meta<SelectArgs> = {
         component: `Выпадающий список для выбора одного значения из набора опций. Поддерживает фильтрацию, группировку, кастомные шаблоны и редактируемый ввод.
 
 \`\`\`typescript
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -155,7 +155,7 @@ export const Default: Story = {
     return {
       props: { ...args, control, options: BASIC_OPTIONS },
       template: `
-        <select-field
+        <extra-select
           [formControl]="control"
           [options]="options"
           optionLabel="name"
@@ -165,7 +165,7 @@ export const Default: Story = {
           [filter]="filter"
           [readonly]="readonly"
           [checkmark]="checkmark"
-        ></select-field>
+        ></extra-select>
       `,
     };
   },

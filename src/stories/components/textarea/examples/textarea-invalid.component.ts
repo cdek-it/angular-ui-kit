@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
+import { ExtraTextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
 export const Invalid: StoryObj = {
   name: 'Invalid',
@@ -8,14 +8,14 @@ export const Invalid: StoryObj = {
     const control = new FormControl('', Validators.required);
     return {
       props: { ...args, control },
-      template: `<ui-textarea [formControl]="control" placeholder="Обязательное поле"></ui-textarea>`,
+      template: `<extra-textarea [formControl]="control" placeholder="Обязательное поле"></extra-textarea>`,
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [TextareaComponent, ReactiveFormsModule],
+        imports: [ExtraTextareaComponent, ReactiveFormsModule],
       },
     }),
   ],
@@ -28,12 +28,12 @@ export const Invalid: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { TextareaComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [TextareaComponent, ReactiveFormsModule],
-  template: \`<ui-textarea [formControl]="control" placeholder="Обязательное поле"></ui-textarea>\`,
+  imports: [ExtraTextareaComponent, ReactiveFormsModule],
+  template: \`<extra-textarea [formControl]="control" placeholder="Обязательное поле"></extra-textarea>\`,
 })
 export class InvalidExample {
   control = new FormControl('', Validators.required);

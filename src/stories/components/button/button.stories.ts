@@ -1,18 +1,16 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
 import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
-import { Text } from './examples/button-text.component';
-import { Severity } from './examples/button-severity.component';
-import { Rounded } from './examples/button-rounded.component';
-import { Outlined } from './examples/button-outlined.component';
-import { Loading } from './examples/button-loading.component';
-import { Icon } from './examples/button-icon.component';
+import { ButtonTextComponent, Text } from './examples/button-text.component';
+import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
+import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
+import { ButtonOutlinedComponent, Outlined } from './examples/button-outlined.component';
+import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
+import { ButtonIconComponent, Icon } from './examples/button-icon.component';
 import { Extra } from './examples/button-extra.component';
-import { Disabled } from './examples/button-disabled.component';
-import { Base } from './examples/button-base.component';
-import { Badge } from './examples/button-badge.component';
-
-
+import { ButtonDisabledComponent, Disabled } from './examples/button-disabled.component';
+import { Base, ButtonBaseComponent } from './examples/button-base.component';
+import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
 
 type ButtonArgs = ExtraButtonComponent & { onClick?: (event: MouseEvent) => void };
 
@@ -22,7 +20,20 @@ const meta: Meta<ButtonArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraButtonComponent, ButtonSizesComponent]
+      imports: [
+        ExtraButtonComponent,
+        ButtonSizesComponent,
+        ButtonBadgeComponent,
+        ButtonBaseComponent,
+        ButtonDisabledComponent,
+        ButtonIconComponent,
+        ButtonLoadingComponent,
+        ButtonOutlinedComponent,
+        ButtonRoundedComponent,
+        ButtonSeverityComponent,
+        ButtonSizesComponent,
+        ButtonTextComponent
+      ]
     })
   ],
   parameters: {
@@ -276,15 +287,15 @@ export const Default: Story = {
     return { props: args, template };
   },
   args: {
-    label: 'Button',
+    label: 'Button'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 export { Sizes, Text, Severity, Rounded, Outlined, Loading, Icon, Extra, Disabled, Base, Badge };

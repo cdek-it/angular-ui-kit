@@ -5,7 +5,7 @@ import { InputGroup } from 'primeng/inputgroup';
 export type InputGroupSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'input-group',
+  selector: 'extra-input-group',
   standalone: true,
   imports: [InputGroup, NgClass],
   template: `
@@ -14,7 +14,7 @@ export type InputGroupSize = 'small' | 'base' | 'large' | 'xlarge';
     </p-inputgroup>
   `,
 })
-export class InputGroupComponent {
+export class ExtraInputGroupComponent {
   @Input() size: InputGroupSize = 'base';
 
   get sizeClass(): string {
