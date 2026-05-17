@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
+import { ExtraInputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
 export const Readonly: StoryObj = {
   name: 'Readonly',
@@ -8,14 +8,14 @@ export const Readonly: StoryObj = {
     const control = new FormControl('12-34-56');
     return {
       props: { ...args, control },
-      template: `<input-mask mask="99-99-99" placeholder="99-99-99" [readonly]="true" [formControl]="control"></input-mask>`,
+      template: `<extra-input-mask mask="99-99-99" placeholder="99-99-99" [readonly]="true" [formControl]="control"></extra-input-mask>`,
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [InputMaskComponent, ReactiveFormsModule],
+        imports: [ExtraInputMaskComponent, ReactiveFormsModule],
       },
     }),
   ],
@@ -30,12 +30,12 @@ export const Readonly: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [InputMaskComponent, ReactiveFormsModule],
-  template: \`<input-mask mask="99-99-99" [readonly]="true" [formControl]="control"></input-mask>\`,
+  imports: [ExtraInputMaskComponent, ReactiveFormsModule],
+  template: \`<extra-input-mask mask="99-99-99" [readonly]="true" [formControl]="control"></extra-input-mask>\`,
 })
 export class ReadonlyExample {
   control = new FormControl('12-34-56');

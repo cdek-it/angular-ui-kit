@@ -7,13 +7,13 @@ import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'input-otp',
+  selector: 'extra-input-otp',
   standalone: true,
   imports: [InputOtp, ReactiveFormsModule, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputOtpComponent),
+      useExisting: forwardRef(() => ExtraInputOtpComponent),
       multi: true,
     },
   ],
@@ -36,7 +36,7 @@ export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
     ></p-inputotp>
   `,
 })
-export class InputOtpComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;

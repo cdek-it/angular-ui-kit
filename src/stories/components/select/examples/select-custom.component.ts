@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Профиль', description: 'Настройки аккаунта', icon: 'ti ti-user' },
@@ -18,7 +18,7 @@ const template = `
     </div>
   </div>
 </ng-template>
-<select-field
+<extra-select
   [formControl]="control"
   [options]="options"
   optionLabel="name"
@@ -27,14 +27,14 @@ const template = `
   [size]="size"
   [showClear]="showClear"
   [readonly]="readonly"
-></select-field>
+></extra-select>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-select-custom',
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -69,11 +69,11 @@ export const Custom = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
     <ng-template #optTpl let-option>
       <div class="flex items-center gap-2">
@@ -84,13 +84,13 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
         </div>
       </div>
     </ng-template>
-    <select-field
+    <extra-select
       [formControl]="control"
       [options]="options"
       optionLabel="name"
       placeholder="Выберите пункт..."
       [optionTemplate]="optTpl"
-    ></select-field>
+    ></extra-select>
   \`,
 })
 export class SelectCustomExample {

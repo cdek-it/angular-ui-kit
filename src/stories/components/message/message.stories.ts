@@ -1,19 +1,19 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MessageComponent } from '../../../lib/components/message/message.component';
+import { ExtraMessageComponent } from '../../../lib/components/message/message.component';
 import { MessageSeveritiesComponent, Severities } from './examples/message-severities.component';
 import { MessageWithCloseButtonComponent, WithCloseButton } from './examples/message-with-close-button.component';
 import { MessageWithContentComponent, WithContent } from './examples/message-with-content.component';
 
-type MessageArgs = MessageComponent;
+type MessageArgs = ExtraMessageComponent;
 
 const meta: Meta<MessageArgs> = {
   title: 'Components/Feedback/Message',
-  component: MessageComponent,
+  component: ExtraMessageComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        MessageComponent,
+        ExtraMessageComponent,
         MessageSeveritiesComponent,
         MessageWithCloseButtonComponent,
         MessageWithContentComponent,
@@ -27,7 +27,7 @@ const meta: Meta<MessageArgs> = {
         component: `Компонент для отображения встроенных уведомлений с различными уровнями важности.
 
 \`\`\`typescript
-import { MessageComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -109,7 +109,7 @@ export const Default: Story = {
     if (args.closable) parts.push(`[closable]="true"`);
     if (args.life) parts.push(`[life]="${args.life}"`);
 
-    const template = `<ui-message\n  ${parts.join('\n  ')}\n></ui-message>`;
+    const template = `<extra-message\n  ${parts.join('\n  ')}\n></extra-message>`;
     return { props: args, template };
   },
   parameters: {

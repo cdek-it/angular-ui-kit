@@ -8,7 +8,7 @@ type PrimeBadgeSeverity = ReturnType<Badge['severity']>;
 type PrimeBadgeSize = ReturnType<Badge['size']>;
 
 @Component({
-  selector: 'badge',
+  selector: 'extra-badge',
   standalone: true,
   imports: [Badge],
   template: `
@@ -19,7 +19,7 @@ type PrimeBadgeSize = ReturnType<Badge['size']>;
     ></p-badge>
   `
 })
-export class BadgeComponent {
+export class ExtraBadgeComponent {
   @Input() value: string | number = '';
   @Input() severity: BadgeSeverity = 'primary';
   @Input() size: BadgeSize = 'base';

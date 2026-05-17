@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
-import { ButtonComponent } from '../../../lib/components/button/button.component';
+import { ExtraTooltipDirective as TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
+import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 
 const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
   title: 'Prime/Form/Tooltip',
@@ -17,7 +17,7 @@ const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
         component: `Компонент для отображения информационного текста при наведении на элемент.
 
 \`\`\`typescript
-import { TooltipDirective } from '@cdek-it/angular-ui-kit';
+import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -87,15 +87,16 @@ export default meta;
 type Story = StoryObj<TooltipDirective & { label?: string; isFocused?: boolean }>;
 
 const commonTemplate = `
-<button
-  [tooltip]="tooltip"
+<extra-button
+  [extra-tooltip]="tooltip"
   [position]="position"
   [event]="event"
   [showDelay]="showDelay"
   [hideDelay]="hideDelay"
   [disabled]="disabled"
   [label]="label || ''"
-></button>
+>
+</extra-button>
 `;
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -104,7 +105,7 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.tooltip) parts.push(`tooltip="${args.tooltip}"`);
+    if (args.tooltip) parts.push(`extra-tooltip="${args.tooltip}"`);
     if (args.position && args.position !== 'right') parts.push(`position="${args.position}"`);
     if (args.event && args.event !== 'hover') parts.push(`event="${args.event}"`);
     if (args.showDelay) parts.push(`[showDelay]="${args.showDelay}"`);
@@ -113,7 +114,7 @@ export const Default: Story = {
     if (args.label) parts.push(`label="${args.label}"`);
 
     const template = `
-<button ${parts.join('\n  ')}></button>
+<extra-button ${parts.join('\n  ')}></extra-button>
 `;
     return { props: args, template };
   },
@@ -139,7 +140,7 @@ export const Positions: Story = {
     docs: {
       description: { story: 'Различные варианты позиционирования (измените через Controls).' },
       source: {
-        code: `<button tooltip="Подсказка сверху" position="top" label="Сверху"></button>`
+        code: `<extra-button extra-tooltip="Подсказка сверху" position="top" label="Сверху"></extra-button>`
       }
     }
   }
@@ -156,7 +157,7 @@ export const Delay: Story = {
     docs: {
       description: { story: 'Подсказка может появляться или скрываться с задержкой в миллисекундах.' },
       source: {
-        code: `<button tooltip="Подсказка с задержкой 1с" [showDelay]="1000" label="Задержка появления (1с)"></button>`
+        code: `<extra-button extra-tooltip="Подсказка с задержкой 1с" [showDelay]="1000" label="Задержка появления (1с)"></extra-button>`
       }
     }
   }
@@ -168,7 +169,7 @@ export const EventFocus: Story = {
     props: args,
     template: `
 <input type="text"
-  [tooltip]="tooltip"
+  [extra-tooltip]="tooltip"
   [event]="event"
   [placeholder]="label || ''"
   style="padding: 0.5rem 1rem; border: 1px solid var(--p-surface-300); border-radius: var(--p-border-radius); outline: none; transition: border-color 0.2s; color: var(--p-text-color); background: var(--p-surface-0);"
@@ -188,7 +189,7 @@ export const EventFocus: Story = {
     docs: {
       description: { story: 'Подсказка может реагировать на фокус элемента вместо наведения.' },
       source: {
-        code: `<input type="text" tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
+         code: `<input type="text" extra-tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
       }
     }
   }

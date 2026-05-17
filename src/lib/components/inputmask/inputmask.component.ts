@@ -7,7 +7,7 @@ export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
 
 
 @Component({
-  selector: 'input-mask',
+  selector: 'extra-input-mask',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputMask, ReactiveFormsModule],
@@ -41,7 +41,7 @@ export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
     ></p-inputmask>
   `,
 })
-export class InputMaskComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;

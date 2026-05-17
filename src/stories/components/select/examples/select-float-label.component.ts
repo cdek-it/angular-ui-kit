@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -11,7 +11,7 @@ const OPTIONS = [
 
 const template = `
 <div class="pt-6 w-64">
-  <select-field
+  <extra-select
     inputId="select-fl"
     [formControl]="control"
     [options]="options"
@@ -20,7 +20,7 @@ const template = `
     [label]="label"
     [showClear]="showClear"
     [readonly]="readonly"
-  ></select-field>
+  ></extra-select>
 </div>
 `;
 const styles = '';
@@ -28,7 +28,7 @@ const styles = '';
 @Component({
   selector: 'app-select-float-label',
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -69,14 +69,14 @@ export const FloatLabelStory = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
     <div class="pt-6 w-64">
-      <select-field
+      <extra-select
         inputId="select-fl"
         [formControl]="control"
         [options]="options"
@@ -84,7 +84,7 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
         [floatLabel]="true"
         label="Город"
         [showClear]="true"
-      ></select-field>
+      ></extra-select>
     </div>
   \`,
 })

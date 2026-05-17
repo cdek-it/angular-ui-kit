@@ -1,32 +1,32 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { InputGroupComponent } from '../../../lib/components/inputgroup/input-group.component';
-import { InputGroupAddonComponent } from '../../../lib/components/inputgroup/input-group-addon.component';
-import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputGroupComponent } from '../../../lib/components/inputgroup/input-group.component';
+import { ExtraInputGroupAddonComponent } from '../../../lib/components/inputgroup/input-group-addon.component';
+import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { InputGroupWithTextComponent, WithText } from './examples/inputgroup-with-text.component';
 import { InputGroupDisabledComponent, Disabled } from './examples/inputgroup-disabled.component';
 import { InputGroupXlargeComponent, Sizes } from './examples/inputgroup-xlarge.component';
 import { InputGroupAddonRightComponent, AddonRight } from './examples/inputgroup-addon-right.component';
 import { InputGroupAddonBothComponent, AddonBoth } from './examples/inputgroup-addon-both.component';
 
-const meta: Meta<InputGroupComponent> = {
+const meta: Meta<ExtraInputGroupComponent> = {
   title: 'Components/Form/InputGroup',
-  component: InputGroupComponent,
+  component: ExtraInputGroupComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        InputGroupComponent,
-        InputGroupAddonComponent,
-        InputTextComponent,
+        ExtraInputGroupComponent,
+        ExtraInputGroupAddonComponent,
+        ExtraInputTextComponent,
         FormsModule,
         InputGroupWithTextComponent,
         InputGroupDisabledComponent,
         InputGroupXlargeComponent,
         InputGroupAddonRightComponent,
-        InputGroupAddonBothComponent,
-      ],
-    }),
+        InputGroupAddonBothComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -34,11 +34,11 @@ const meta: Meta<InputGroupComponent> = {
         component: `Группа полей ввода для объединения с аддонами (иконками или текстом).
 
 \`\`\`typescript
-import { InputGroupComponent, InputGroupAddonComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-inputgroup' },
+    designTokens: { prefix: '--p-inputgroup' }
   },
   argTypes: {
     size: {
@@ -48,17 +48,17 @@ import { InputGroupComponent, InputGroupAddonComponent } from '@cdek-it/angular-
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
-    },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
+    }
   },
   args: {
-    size: 'base',
-  },
+    size: 'base'
+  }
 };
 
 export default meta;
-type Story = StoryObj<InputGroupComponent>;
+type Story = StoryObj<ExtraInputGroupComponent>;
 
 export const Default: Story = {
   name: 'Default',
@@ -67,16 +67,16 @@ export const Default: Story = {
     if (args.size && args.size !== 'base') groupParts.push(`size="${args.size}"`);
 
     const groupOpen = groupParts.length
-      ? `<input-group ${groupParts.join(' ')}>`
-      : `<input-group>`;
+      ? `<extra-input-group ${groupParts.join(' ')}>`
+      : `<extra-input-group>`;
 
     const inputSize = args.size && args.size !== 'base' ? ` size="${args.size}"` : '';
 
     const template = `
 ${groupOpen}
-  <input-group-addon><i class="ti ti-user"></i></input-group-addon>
-  <input-text placeholder="Введите данные..."${inputSize} [(ngModel)]="value" [fluid]="true"></input-text>
-</input-group>`;
+  <extra-input-group-addon><i class="ti ti-user"></i></extra-input-group-addon>
+  <extra-input-text placeholder="Введите данные..."${inputSize} [(ngModel)]="value" [fluid]="true"></extra-input-text>
+</extra-input-group>`;
 
     return { props: { ...args, value: '' }, template };
   },

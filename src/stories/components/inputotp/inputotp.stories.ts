@@ -1,22 +1,22 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
+import { ExtraInputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
 import { Disabled } from './examples/inputotp-disabled.component';
 import { Invalid } from './examples/inputotp-invalid.component';
 import { Mask } from './examples/inputotp-mask.component';
 import { Readonly } from './examples/inputotp-readonly.component';
 import { IntegerOnly } from './examples/inputotp-integeronly.component';
 
-type InputOtpArgs = InputOtpComponent;
+type InputOtpArgs = ExtraInputOtpComponent;
 
 const meta: Meta<InputOtpArgs> = {
   title: 'Components/Form/InputOtp',
-  component: InputOtpComponent,
+  component: ExtraInputOtpComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        InputOtpComponent,
+        ExtraInputOtpComponent,
         ReactiveFormsModule,
       ],
     }),
@@ -28,7 +28,7 @@ const meta: Meta<InputOtpArgs> = {
         component: `Компонент для ввода одноразовых паролей (OTP).
 
 \`\`\`typescript
-import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -165,7 +165,7 @@ export const Default: Story = {
     if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
     parts.push(`[formControl]="control"`);
 
-    const template = `<input-otp\n  ${parts.join('\n  ')}\n></input-otp>`;
+    const template = `<extra-input-otp\n  ${parts.join('\n  ')}\n></extra-input-otp>`;
 
     return { props: { ...args, control: new FormControl('') }, template };
   },

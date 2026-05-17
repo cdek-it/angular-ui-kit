@@ -1,8 +1,8 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputNumberComponent } from '../../../../lib/components/inputnumber/inputnumber.component';
+import { ExtraInputNumberComponent } from '../../../../lib/components/inputnumber/inputnumber.component';
 
-type Story = StoryObj<InputNumberComponent>;
+type Story = StoryObj<ExtraInputNumberComponent>;
 
 export const Buttons: Story = {
   name: 'Buttons',
@@ -11,11 +11,11 @@ export const Buttons: Story = {
     return {
       props: { control },
       template: `
-        <input-number
+        <extra-input-number
           [showButtons]="true"
           buttonLayout="horizontal"
           [formControl]="control"
-        ></input-number>
+        ></extra-input-number>
       `,
     };
   },
@@ -23,7 +23,7 @@ export const Buttons: Story = {
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [InputNumberComponent, ReactiveFormsModule],
+        imports: [ExtraInputNumberComponent, ReactiveFormsModule],
       },
     }),
   ],
@@ -38,12 +38,12 @@ export const Buttons: Story = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputNumberComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [InputNumberComponent, ReactiveFormsModule],
-  template: \`<input-number [showButtons]="true" buttonLayout="horizontal" [formControl]="control"></input-number>\`,
+  imports: [ExtraInputNumberComponent, ReactiveFormsModule],
+  template: \`<extra-input-number [showButtons]="true" buttonLayout="horizontal" [formControl]="control"></extra-input-number>\`,
 })
 export class ButtonsExample {
   control = new FormControl<number | null>(null);

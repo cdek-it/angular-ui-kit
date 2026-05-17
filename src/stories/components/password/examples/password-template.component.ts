@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 import { Divider } from 'primeng/divider';
 
 @Component({
   selector: 'app-password-template',
   standalone: true,
-  imports: [PasswordComponent, Divider, FormsModule],
+  imports: [ExtraPasswordComponent, Divider, FormsModule],
   template: `
     <div style="width: 280px">
-      <password
+      <extra-password
         [(ngModel)]="value"
         [toggleMask]="true"
         [feedback]="true"
@@ -40,7 +40,7 @@ import { Divider } from 'primeng/divider';
             </div>
           </div>
         </ng-template>
-      </password>
+      </extra-password>
     </div>
   `,
 })
@@ -80,14 +80,14 @@ export const Template: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 import { Divider } from 'primeng/divider';
 
 @Component({
   standalone: true,
-  imports: [PasswordComponent, Divider, FormsModule],
+  imports: [ExtraPasswordComponent, Divider, FormsModule],
   template: \`
-    <password
+    <extra-password
       [(ngModel)]="value"
       [toggleMask]="true"
       [feedback]="true"
@@ -117,7 +117,7 @@ import { Divider } from 'primeng/divider';
           </div>
         </div>
       </ng-template>
-    </password>
+    </extra-password>
   \`,
 })
 export class PasswordTemplateExample {

@@ -13,7 +13,7 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
 }
 
 @Component({
-  selector: 'megamenu',
+  selector: 'extra-megamenu',
   host: { style: 'display: contents' },
   standalone: true,
   imports: [MegaMenu, PrimeTemplate, NgTemplateOutlet, Badge],
@@ -65,8 +65,8 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
     </p-megamenu>
   `,
 })
-export class MegaMenuComponent {
-  @Input() model: MegaMenuModel[] = [];
+export class ExtraMegaMenuComponent {
+  @Input() model: MegaMenuItem[] = [];
   @Input() orientation: MegaMenuOrientation = 'horizontal';
   @Input() breakpoint: string = '960px';
   @Input() scrollHeight: string = '';

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { InputGroupAddon } from 'primeng/inputgroupaddon';
 
 @Component({
-  selector: 'input-group-addon',
+  selector: 'extra-input-group-addon',
   standalone: true,
   imports: [InputGroupAddon],
   template: `
@@ -11,4 +11,4 @@ import { InputGroupAddon } from 'primeng/inputgroupaddon';
     </p-inputgroup-addon>
   `,
 })
-export class InputGroupAddonComponent {}
+export class ExtraInputGroupAddonComponent {}

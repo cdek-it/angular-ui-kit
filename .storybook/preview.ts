@@ -5,7 +5,7 @@ import docJson from '../documentation.json';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import Preset from '../src/prime-preset/theme.preset';
+import Preset from '../src/lib/providers/prime-preset/theme.preset';
 
 import '!style-loader!css-loader!postcss-loader!sass-loader!../src/styles.scss';
 

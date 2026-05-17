@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MessageComponent } from '../../../../lib/components/message/message.component';
+import { ExtraMessageComponent } from '../../../../lib/components/message/message.component';
 
 const template = `
 <div class="flex flex-col gap-4">
-  <ui-message severity="info" summary="Message" detail="caption"></ui-message>
-  <ui-message severity="success" summary="Message" detail="caption"></ui-message>
-  <ui-message severity="warn" summary="Message" detail="caption"></ui-message>
-  <ui-message severity="error" summary="Message" detail="caption"></ui-message>
+  <extra-message severity="info" summary="Message" detail="caption"></extra-message>
+  <extra-message severity="success" summary="Message" detail="caption"></extra-message>
+  <extra-message severity="warn" summary="Message" detail="caption"></extra-message>
+  <extra-message severity="error" summary="Message" detail="caption"></extra-message>
 </div>
 `;
 
 @Component({
   selector: 'app-message-severities',
   standalone: true,
-  imports: [MessageComponent],
+  imports: [ExtraMessageComponent],
   template,
 })
 export class MessageSeveritiesComponent {}
@@ -30,10 +30,10 @@ export const Severities: StoryObj = {
       source: {
         language: 'html',
         code: `
-<ui-message severity="info" summary="Message" detail="caption"></ui-message>
-<ui-message severity="success" summary="Message" detail="caption"></ui-message>
-<ui-message severity="warn" summary="Message" detail="caption"></ui-message>
-<ui-message severity="error" summary="Message" detail="caption"></ui-message>
+<extra-message severity="info" summary="Message" detail="caption"></extra-message>
+<extra-message severity="success" summary="Message" detail="caption"></extra-message>
+<extra-message severity="warn" summary="Message" detail="caption"></extra-message>
+<extra-message severity="error" summary="Message" detail="caption"></extra-message>
         `,
       },
     },

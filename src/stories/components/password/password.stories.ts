@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../lib/components/password/password.component';
 import { PasswordToggleComponent, ToggleMask } from './examples/password-toggle.component';
 import { PasswordFeedbackComponent, Feedback } from './examples/password-feedback.component';
 import { PasswordDisabledComponent, Disabled } from './examples/password-disabled.component';
@@ -8,14 +8,14 @@ import { PasswordInvalidComponent, Invalid } from './examples/password-invalid.c
 import { PasswordFloatLabelComponent, FloatLabel } from './examples/password-float-label.component';
 import { PasswordTemplateComponent, Template } from './examples/password-template.component';
 
-const meta: Meta<PasswordComponent> = {
+const meta: Meta<ExtraPasswordComponent> = {
   title: 'Components/Form/Password',
-  component: PasswordComponent,
+  component: ExtraPasswordComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        PasswordComponent,
+        ExtraPasswordComponent,
         FormsModule,
         PasswordToggleComponent,
         PasswordFeedbackComponent,
@@ -37,7 +37,7 @@ const meta: Meta<PasswordComponent> = {
         component: `Поле ввода пароля с поддержкой индикатора надёжности и переключения видимости.
 
 \`\`\`typescript
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
       story: { height: '280px' },
@@ -172,7 +172,7 @@ import { PasswordComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<PasswordComponent>;
+type Story = StoryObj<ExtraPasswordComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
@@ -196,8 +196,8 @@ export const Default: Story = {
     parts.push(`[(ngModel)]="value"`);
 
     const template = parts.length > 1
-      ? `<password\n  ${parts.join('\n  ')}\n></password>`
-      : `<password ${parts.join(' ')}></password>`;
+      ? `<password\n  ${parts.join('\n  ')}\n></extra-password>`
+      : `<extra-password ${parts.join(' ')}></extra-password>`;
 
     return { props: { ...args, value: null }, template };
   },

@@ -6,7 +6,7 @@ import { PrimeTemplate } from 'primeng/api';
 export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 
 @Component({
-  selector: 'dialog',
+  selector: 'extra-dialog',
   host: { style: 'display: contents' },
   standalone: true,
   imports: [Dialog, NgTemplateOutlet, PrimeTemplate],
@@ -37,7 +37,7 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
     </p-dialog>
   `,
 })
-export class DialogComponent {
+export class ExtraDialogComponent {
   @Input() header = '';
   @Input() visible = false;
   @Input() modal = true;

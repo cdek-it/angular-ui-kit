@@ -1,22 +1,22 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
+import { ExtraInputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
 import { InputMaskFloatLabelComponent, FloatLabelStory } from './examples/inputmask-float-label.component';
 import { Sizes } from './examples/inputmask-sizes.component';
 import { Disabled } from './examples/inputmask-disabled.component';
 import { Readonly } from './examples/inputmask-readonly.component';
 import { Invalid } from './examples/inputmask-invalid.component';
 
-type InputMaskArgs = InputMaskComponent;
+type InputMaskArgs = ExtraInputMaskComponent;
 
 const meta: Meta<InputMaskArgs> = {
   title: 'Components/Form/InputMask',
-  component: InputMaskComponent,
+  component: ExtraInputMaskComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        InputMaskComponent,
+        ExtraInputMaskComponent,
         FormsModule,
         ReactiveFormsModule,
         InputMaskFloatLabelComponent,
@@ -30,7 +30,7 @@ const meta: Meta<InputMaskArgs> = {
         component: `Компонент текстового ввода по маске. Используется для ввода данных в определённом формате: дата, телефон, серийный номер и т.д.
 
 \`\`\`typescript
-import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -215,7 +215,7 @@ export const Default: Story = {
     if (args.fluid) parts.push(`[fluid]="true"`);
     parts.push(`[formControl]="control"`);
 
-    const template = `<input-mask\n  ${parts.join('\n  ')}\n></input-mask>`;
+    const template = `<extra-input-mask\n  ${parts.join('\n  ')}\n></extra-input-mask>`;
 
     return { props: { ...args, control: new FormControl('') }, template };
   },

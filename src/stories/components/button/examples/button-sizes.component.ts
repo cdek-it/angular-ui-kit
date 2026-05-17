@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex gap-3 items-end">
-    <p-button label="Small" icon="ti ti-check" size="small" />
-    <p-button label="Normal" icon="ti ti-check" />
-    <p-button label="Large" icon="ti ti-check" size="large" />
-  <!--  <p-button label="xLarge" icon="pi pi-check" size="xlarge" /> для xlarge необходимо перейти на class, т.к. опции xlarge у компонента нет.-->
+    <extra-button label="Small" icon="ti ti-check" size="small" />
+    <extra-button label="Normal" icon="ti ti-check" />
+    <extra-button label="Large" icon="ti ti-check" size="large" />
+    <extra-button label="xLarge" icon="pi pi-check" size="xlarge" />
   </div>
 </div>
 `;
@@ -18,7 +18,7 @@ const styles = '';
 @Component({
   selector: 'app-button-sizes',
   standalone: true,
-  imports: [Button],
+  imports: [ExtraButtonComponent],
   template,
   styles
 })

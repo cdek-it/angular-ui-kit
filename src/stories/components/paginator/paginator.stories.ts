@@ -1,21 +1,21 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { PaginatorComponent } from '../../../lib/components/paginator/paginator.component';
+import { ExtraPaginatorComponent } from '../../../lib/components/paginator/paginator.component';
 import { PaginatorCurrentPageReportComponent, CurrentPageReport as CurrentPageReportStory } from './examples/paginator-current-page-report.component';
 import { PaginatorRowsPerPageComponent, RowsPerPage as RowsPerPageStory } from './examples/paginator-rows-per-page.component';
 
 type PaginatorArgs = Pick<
-  PaginatorComponent,
+  ExtraPaginatorComponent,
   'totalRecords' | 'rows' | 'pageLinkSize' | 'showFirstLastIcon' | 'showPageLinks' | 'showCurrentPageReport' | 'showJumpToPageInput' | 'alwaysShow'
 >;
 
 const meta: Meta<PaginatorArgs> = {
   title: 'Components/Data/Paginator',
-  component: PaginatorComponent,
+  component: ExtraPaginatorComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        PaginatorComponent,
+        ExtraPaginatorComponent,
         PaginatorCurrentPageReportComponent,
         PaginatorRowsPerPageComponent,
       ],
@@ -27,7 +27,7 @@ const meta: Meta<PaginatorArgs> = {
         component: `Отображает навигацию по страницам для больших наборов данных.
 
 \`\`\`typescript
-import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -129,7 +129,7 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <paginator
+      <extra-paginator
         [totalRecords]="totalRecords"
         [rows]="rows"
         [pageLinkSize]="pageLinkSize"
@@ -138,7 +138,7 @@ export const Default: Story = {
         [showCurrentPageReport]="showCurrentPageReport"
         [showJumpToPageInput]="showJumpToPageInput"
         [alwaysShow]="alwaysShow"
-      ></paginator>
+      ></extra-paginator>
     `,
   }),
   parameters: {

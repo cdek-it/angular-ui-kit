@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-readonly',
   standalone: true,
-  imports: [InputTextComponent, ReactiveFormsModule],
-  template: `<input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></input-text>`,
+  imports: [ExtraInputTextComponent, ReactiveFormsModule, FormsModule],
+  template: `<extra-input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-input-text>`
 })
 export class InputTextReadonlyComponent {
   control = new FormControl('');

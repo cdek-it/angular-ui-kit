@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
-import { PanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
+import { ExtraPanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
 
 const template = `
 <div class="bg-surface-ground" style="width: 280px">
-  <panelmenu [model]="items"></panelmenu>
+  <extra-panelmenu [model]="items"></extra-panelmenu>
 </div>
 `;
 const styles = '';
@@ -13,7 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-panelmenu-basic',
   standalone: true,
-  imports: [PanelMenuComponent],
+  imports: [ExtraPanelMenuComponent],
   template,
   styles,
 })
@@ -53,14 +53,14 @@ export const Basic: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-panelmenu-basic',
   standalone: true,
-  imports: [PanelMenuComponent],
+  imports: [ExtraPanelMenuComponent],
   template: \`
-    <panelmenu [model]="items"></panelmenu>
+    <extra-panelmenu [model]="items"></extra-panelmenu>
   \`,
 })
 export class PanelMenuBasicComponent {

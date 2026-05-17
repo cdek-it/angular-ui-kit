@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { TimelineComponent } from '../../../lib/components/timeline/timeline.component';
+import { ExtraTimelineComponent as TimelineComponent } from '../../../lib/components/timeline/timeline.component';
 
 type TimelineArgs = TimelineComponent & { verticalAlign: string; horizontalAlign: string };
 type Story = StoryObj<TimelineArgs>;
@@ -20,7 +20,7 @@ const meta: Meta<TimelineArgs> = {
     docs: {
       description: {
         component:
-          'Компонент для визуализации последовательности событий в хронологическом порядке. Поддерживает горизонтальную и вертикальную ориентацию, кастомные маркеры.\n\n```typescript\nimport { TimelineComponent } from \'@cdek-it/angular-ui-kit\';\n```',
+          'Компонент для визуализации последовательности событий в хронологическом порядке. Поддерживает горизонтальную и вертикальную ориентацию, кастомные маркеры.\n\n```typescript\nimport { ExtraTimelineComponent as TimelineComponent } from \'@cdek-it/angular-ui-kit\';\n```',
       },
     },
   },
@@ -144,14 +144,14 @@ function renderStory(args: any) {
 
   const attrs = parts.join('\n  ');
 
-  const template = `<timeline
+  const template = `<extra-timeline
   ${attrs}
 >
   <ng-template #content let-event>
     <div>{{ event.value }}</div>
-    <small *ngIf="${args.showCaption}">{{ event.caption }}</small>
+    @if (${args.showCaption}) {<small>{{ event.caption }}</small>}
   </ng-template>
-</timeline>`;
+</extra-timeline>`;
 
   return { props: { ...args, value: args.value }, template };
 }
@@ -209,14 +209,14 @@ export const Opposite: Story = {
 
     const attrs = parts.join('\n  ');
 
-    const template = `<timeline
+    const template = `<extra-timeline
   ${attrs}
 >
   <ng-template #content let-event>{{ event.value }}</ng-template>
   <ng-template #opposite let-event>
     <small>{{ event.caption }}</small>
   </ng-template>
-</timeline>`;
+</extra-timeline>`;
 
     return { props: { ...args, value: args.value }, template };
   },

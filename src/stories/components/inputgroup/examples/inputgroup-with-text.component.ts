@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { InputGroupComponent } from '../../../../lib/components/inputgroup/input-group.component';
-import { InputGroupAddonComponent } from '../../../../lib/components/inputgroup/input-group-addon.component';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputGroupComponent } from '../../../../lib/components/inputgroup/input-group.component';
+import { ExtraInputGroupAddonComponent } from '../../../../lib/components/inputgroup/input-group-addon.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <input-group>
-    <input-group-addon>@</input-group-addon>
-    <input-text placeholder="Username" [(ngModel)]="value" [fluid]="true"></input-text>
-  </input-group>
+  <extra-input-group>
+    <extra-input-group-addon>@</extra-input-group-addon>
+    <extra-input-text placeholder="Username" [(ngModel)]="value" [fluid]="true"></extra-input-text>
+  </extra-input-group>
 </div>
 `;
 const styles = '';
@@ -18,9 +18,9 @@ const styles = '';
 @Component({
   selector: 'app-inputgroup-with-text',
   standalone: true,
-  imports: [InputGroupComponent, InputGroupAddonComponent, InputTextComponent, FormsModule],
+  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, FormsModule],
   template,
-  styles,
+  styles
 })
 export class InputGroupWithTextComponent {
   value = '';
@@ -38,17 +38,17 @@ export const WithText: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupComponent, InputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-inputgroup-with-text',
   standalone: true,
-  imports: [InputGroupComponent, InputGroupAddonComponent, InputTextComponent, FormsModule],
+  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent, FormsModule],
   template: \`
-    <input-group>
-      <input-group-addon>@</input-group-addon>
-      <input-text placeholder="Username" [(ngModel)]="value" [fluid]="true"></input-text>
-    </input-group>
+    <extra-input-group>
+      <extra-input-group-addon>@</extra-input-group-addon>
+      <extra-input-text placeholder="Username" [(ngModel)]="value" [fluid]="true"></extra-input-text>
+    </extra-input-group>
   \`,
 })
 export class InputGroupWithTextComponent {

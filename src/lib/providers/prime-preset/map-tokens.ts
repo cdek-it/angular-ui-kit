@@ -1,6 +1,7 @@
 import { Preset } from '@primeuix/themes/types';
 import type { ComponentsDesignTokens } from '@primeuix/themes/types';
-import type { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
+// по другому импорт не работает
+import type { AuraBaseDesignTokens } from '../../../../node_modules/@primeuix/themes/dist/aura/base';
 
 import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';

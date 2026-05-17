@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SliderComponent } from '../../../../lib/components/slider/slider.component';
+import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></slider>
+  <extra-slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -13,7 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-slider-step',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  imports: [ExtraSliderComponent, FormsModule],
   template,
   styles,
 })
@@ -33,14 +33,14 @@ export const Step: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-step',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  imports: [ExtraSliderComponent, FormsModule],
   template: \`
-    <slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></slider>
+    <extra-slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></extra-slider>
   \`,
 })
 export class SliderStepComponent {

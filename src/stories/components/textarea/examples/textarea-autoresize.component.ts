@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
+import { ExtraTextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
 export const template = `
 <div style="display: flex; flex-direction: column; gap: 8px; width: 320px;">
-  <ui-textarea
+  <extra-textarea
     [autoResize]="true"
     [rows]="2"
     placeholder="Начните вводить текст — поле расширится..."
     [(ngModel)]="value"
-  ></ui-textarea>
+  ></extra-textarea>
 </div>
 `;
 const styles = '';
@@ -19,7 +19,7 @@ const styles = '';
   selector: 'app-textarea-autoresize',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TextareaComponent, FormsModule],
+  imports: [ExtraTextareaComponent, FormsModule],
   template,
   styles,
 })

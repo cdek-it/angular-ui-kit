@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ToggleSwitchComponent } from '../../../../lib/components/toggleswitch/toggleswitch.component';
+import { ExtraToggleSwitchComponent } from '../../../../lib/components/toggleswitch/toggleswitch.component';
 
 @Component({
   selector: 'app-toggleswitch-checked',
   standalone: true,
-  imports: [ToggleSwitchComponent, ReactiveFormsModule],
+  imports: [ExtraToggleSwitchComponent, ReactiveFormsModule],
   template: `
-    <toggleswitch [formControl]="control"></toggleswitch>
+    <extra-toggleswitch [formControl]="control"></extra-toggleswitch>
   `,
 })
 export class ToggleSwitchCheckedComponent {
@@ -34,7 +34,7 @@ import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ToggleSwitchComponent, ReactiveFormsModule],
   template: \`
-    <toggleswitch [formControl]="control"></toggleswitch>
+    <extra-toggleswitch [formControl]="control"></extra-toggleswitch>
   \`,
 })
 export class ToggleSwitchCheckedComponent {

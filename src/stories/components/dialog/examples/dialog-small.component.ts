@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
-import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <button (click)="visible = true" label="Посмотреть статус"></button>
+  <extra-button (click)="visible = true" label="Посмотреть статус"></extra-button>
 
   <ng-template #footer>
-    <button variant="text" label="Отмена" (click)="visible = false"></button>
-    <button label="Подтвердить" (click)="visible = false"></button>
+    <extra-button variant="text" label="Отмена" (click)="visible = false"></extra-button>
+    <extra-button label="Подтвердить" (click)="visible = false"></extra-button>
   </ng-template>
 
-  <dialog
+  <extra-dialog
     header="Статус отправления"
     size="sm"
     [visible]="visible"
@@ -19,14 +19,14 @@ export const template = `
     [footerTemplate]="footer"
   >
     <p>Отправление CDEK-2025-00478312 прибыло на сортировочный центр г. Новосибирск и готово к передаче курьеру.</p>
-  </dialog>
+  </extra-dialog>
 </div>
 `;
 
 @Component({
   selector: 'app-dialog-small',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template,
 })
 export class DialogSmallComponent {

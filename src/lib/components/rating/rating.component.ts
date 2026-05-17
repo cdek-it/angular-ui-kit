@@ -5,13 +5,13 @@ import { Rating } from 'primeng/rating';
 export type RatingValue = number | null;
 
 @Component({
-  selector: 'rating',
+  selector: 'extra-rating',
   standalone: true,
   imports: [Rating, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RatingComponent),
+      useExisting: forwardRef(() => ExtraRatingComponent),
       multi: true,
     },
   ],
@@ -29,7 +29,7 @@ export type RatingValue = number | null;
     ></p-rating>
   `,
 })
-export class RatingComponent implements ControlValueAccessor {
+export class ExtraRatingComponent implements ControlValueAccessor {
   @Input() stars = 5;
   @Input() readonly = false;
   @Input() disabled = false;
