@@ -17,7 +17,7 @@ export interface TabItem {
 }
 
 @Component({
-  selector: 'tabs',
+  selector: 'extra-tabs',
   standalone: true,
   imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge],
   template: `
@@ -56,8 +56,8 @@ export interface TabItem {
     </p-tabs>
   `,
 })
-export class TabsComponent {
-  @Input() value: string | number = '0';
+export class ExtraTabsComponent {
+  @Input() value: string | number | undefined = '0';
   @Input() tabs: TabItem[] = [];
   @Input() scrollable = false;
   @Input() lazy = false;

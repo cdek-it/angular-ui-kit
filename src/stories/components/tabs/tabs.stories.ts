@@ -1,20 +1,16 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { TabsComponent } from '../../../lib/components/tabs/tabs.component';
+import { ExtraTabsComponent } from '../../../lib/components/tabs/tabs.component';
 import { TabsWithBadgeComponent, WithBadge } from './examples/tabs-with-badge.component';
 import { TabsWithDisabledComponent, WithDisabled } from './examples/tabs-with-disabled.component';
 
-const meta: Meta<TabsComponent> = {
+const meta: Meta<ExtraTabsComponent> = {
   title: 'Components/Menu/Tabs',
-  component: TabsComponent,
+  component: ExtraTabsComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        TabsComponent,
-        TabsWithBadgeComponent,
-        TabsWithDisabledComponent,
-      ],
-    }),
+      imports: [ExtraTabsComponent, TabsWithBadgeComponent, TabsWithDisabledComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -22,11 +18,11 @@ const meta: Meta<TabsComponent> = {
         component: `Организует контент по вкладкам с возможностью переключения между ними.
 
 \`\`\`typescript
-import { TabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-tabs' },
+    designTokens: { prefix: '--p-tabs' }
   },
   argTypes: {
     value: {
@@ -35,8 +31,8 @@ import { TabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'string | number' },
-      },
+        type: { summary: 'string | number' }
+      }
     },
     scrollable: {
       control: 'boolean',
@@ -44,8 +40,8 @@ import { TabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     lazy: {
       control: 'boolean',
@@ -53,22 +49,22 @@ import { TabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     tabs: {
       control: 'object',
       description: 'Массив вкладок',
       table: {
         category: 'Props',
-        type: { summary: 'TabItem[]' },
-      },
-    },
-  },
+        type: { summary: 'TabItem[]' }
+      }
+    }
+  }
 };
 
 export default meta;
-type Story = StoryObj<TabsComponent>;
+type Story = StoryObj<ExtraTabsComponent>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
@@ -82,7 +78,7 @@ export const Default: Story = {
     if (args.scrollable) parts.push(`[scrollable]="true"`);
     if (args.lazy)       parts.push(`[lazy]="true"`);
 
-    const template = `<tabs\n  ${parts.join('\n  ')}\n></tabs>`;
+    const template = `<extra-tabs\n  ${parts.join('\n  ')}\n></extra-tabs>`;
 
     return { props: args, template };
   },
