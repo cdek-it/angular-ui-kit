@@ -1,27 +1,33 @@
+import { Component } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
-type Story = StoryObj<InputTextComponent>;
+@Component({
+  selector: 'app-inputtext-readonly',
+  standalone: true,
+  imports: [ExtraInputTextComponent, ReactiveFormsModule, FormsModule],
+  template: `<extra-input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-input-text>`
+})
+export class InputTextReadonlyComponent {
+  control = new FormControl('');
+}
 
-export const Readonly: Story = {
+export const Readonly: StoryObj = {
   name: 'Readonly',
-  render: (args) => ({
-    props: { ...args },
-    template: `
-      <input-text
-        [size]="size"
-        [showClear]="showClear"
-        [readonly]="readonly"
-        [fluid]="fluid"
-        [placeholder]="placeholder"
-      ></input-text>
-    `,
+  render: () => ({
+    template: `<app-inputtext-readonly></app-inputtext-readonly>`,
   }),
-  args: {
-    readonly: true,
-    placeholder: 'Введите текст...',
-  },
+  decorators: [
+    (story: any) => ({
+      ...story(),
+      moduleMetadata: {
+        imports: [InputTextReadonlyComponent],
+      },
+    }),
+  ],
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.',
@@ -29,10 +35,18 @@ export const Readonly: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 
-// template:
-// <input-text [readonly]="true"></input-text>
+@Component({
+  standalone: true,
+  imports: [InputTextComponent, ReactiveFormsModule],
+  template: \`<input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></input-text>\`,
+})
+export class ReadonlyExample {
+  control = new FormControl('');
+}
         `,
       },
     },

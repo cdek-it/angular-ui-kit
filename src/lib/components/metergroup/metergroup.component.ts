@@ -6,7 +6,7 @@ export type MeterGroupLabelPosition = 'start' | 'end';
 export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
 
 @Component({
-  selector: 'metergroup',
+  selector: 'extra-metergroup',
   standalone: true,
   imports: [MeterGroup],
   template: `
@@ -18,7 +18,7 @@ export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
     ></p-metergroup>
   `,
 })
-export class MeterGroupComponent {
+export class ExtraMeterGroupComponent {
   @Input() value: MeterItem[] = [];
   @Input() orientation: MeterGroupOrientation = 'horizontal';
   @Input() labelPosition: MeterGroupLabelPosition = 'end';

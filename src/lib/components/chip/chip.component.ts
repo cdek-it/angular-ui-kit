@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Chip } from 'primeng/chip';
 
 @Component({
-  selector: 'chip',
+  selector: 'extra-chip',
   standalone: true,
   imports: [Chip],
   template: `
@@ -15,7 +15,7 @@ import { Chip } from 'primeng/chip';
     ></p-chip>
   `,
 })
-export class ChipComponent {
+export class ExtraChipComponent {
   @Input() label = '';
   @Input() icon = '';
   @Input() removable = false;

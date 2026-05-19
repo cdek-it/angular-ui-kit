@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MeterGroupComponent } from '../../../lib/components/metergroup/metergroup.component';
+import { ExtraMeterGroupComponent as MeterGroupComponent } from '../../../lib/components/metergroup/metergroup.component';
 import { MeterGroupHorizontalComponent, Horizontal } from './examples/metergroup-horizontal.component';
 import { MeterGroupVerticalComponent, Vertical } from './examples/metergroup-vertical.component';
 import { MeterGroupIconComponent, Icon } from './examples/metergroup-icon.component';
@@ -31,7 +31,7 @@ const meta: Meta<MeterGroupArgs> = {
         component: `Визуализирует несколько числовых значений в виде единой полосы прогресса с подписями.
 
 \`\`\`typescript
-import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent as MeterGroupComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -81,12 +81,12 @@ import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
   },
 };
 
-const commonTemplate = `<metergroup
+const commonTemplate = `<extra-metergroup
   [value]="value"
   [orientation]="orientation"
   [labelPosition]="labelPosition"
   [labelOrientation]="labelOrientation"
-></metergroup>`;
+></extra-metergroup>`;
 
 export default meta;
 type Story = StoryObj<MeterGroupArgs>;

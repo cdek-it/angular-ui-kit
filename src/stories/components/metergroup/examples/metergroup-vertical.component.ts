@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
+import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
 import { defaultValue } from '../metergroup.data';
 
 @Component({
   selector: 'app-metergroup-vertical',
   standalone: true,
-  imports: [MeterGroupComponent],
+  imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
       <div style="height: 300px; display: flex">
-        <metergroup [value]="value" orientation="vertical"></metergroup>
+        <extra-metergroup [value]="value" orientation="vertical"></extra-metergroup>
       </div>
     </div>
   `,
@@ -31,16 +31,16 @@ export const Vertical: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
 import { MeterItem } from 'primeng/metergroup';
 
 @Component({
   selector: 'app-metergroup-vertical',
   standalone: true,
-  imports: [MeterGroupComponent],
+  imports: [ExtraMeterGroupComponent],
   template: \`
     <div style="height: 300px; display: flex">
-      <metergroup [value]="value" orientation="vertical"></metergroup>
+      <extra-metergroup [value]="value" orientation="vertical"></extra-metergroup>
     </div>
   \`,
 })

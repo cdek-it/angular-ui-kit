@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const styles = '';
 
 @Component({
   selector: 'app-checkbox-label',
   standalone: true,
-  imports: [CheckboxComponent, FormsModule],
+  imports: [ExtraCheckboxComponent, FormsModule],
   styles,
   template: `
     <form class="flex items-center gap-2">
-      <checkbox [binary]="true" [(ngModel)]="checked" inputId="checkbox"></checkbox>
+      <extra-checkbox [binary]="true" [(ngModel)]="checked" inputId="checkbox"></extra-checkbox>
       <label for="checkbox" class="checkbox-label">Checkbox</label>
     </form>
   `,
@@ -26,7 +26,7 @@ export const Label: StoryObj = {
     props: { ...args, checked: false },
     template: `
       <form class="flex items-center gap-2">
-        <checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked" inputId="checkbox"></checkbox>
+        <extra-checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked" inputId="checkbox"></extra-checkbox>
         <label for="checkbox" class="checkbox-label">Checkbox</label>
       </form>
     `,
@@ -39,15 +39,15 @@ export const Label: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-checkbox-label',
   standalone: true,
-  imports: [CheckboxComponent, ReactiveFormsModule],
+  imports: [ExtraCheckboxComponent, ReactiveFormsModule],
   template: \`
     <form class="flex items-center gap-2">
-      <checkbox [binary]="true" [formControl]="control" inputId="checkbox"></checkbox>
+      <extra-checkbox [binary]="true" [formControl]="control" inputId="checkbox"></extra-checkbox>
       <label for="checkbox" class="checkbox-label">Checkbox</label>
     </form>
   \`,
