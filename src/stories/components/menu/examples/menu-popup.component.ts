@@ -1,24 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
-import { MenuComponent, MenuModel } from '../../../../lib/components/menu/menu.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraMenuComponent, ExtraMenuModel } from '../../../../lib/components/menu/menu.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <button label="Действия с заказом" variant="secondary" (click)="toggle($event)"></button>
-  <menu #menuRef [model]="items" [popup]="true"></menu>
+  <extra-button label="Действия с заказом" variant="secondary" (click)="toggle($event)"></extra-button>
+  <extra-menu #menuRef [model]="items" [popup]="true"></extra-menu>
 </div>
 `;
 
 @Component({
   selector: 'app-menu-popup',
   standalone: true,
-  imports: [MenuComponent, ButtonComponent],
+  imports: [ExtraMenuComponent, ExtraButtonComponent],
   template,
 })
 export class MenuPopupComponent {
-  @ViewChild('menuRef') menuRef!: MenuComponent;
+  @ViewChild('menuRef') menuRef!: ExtraMenuComponent;
 
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     { label: 'Создать отправление', icon: 'ti ti-file-plus' },
     { label: 'Найти по трек-номеру', icon: 'ti ti-search' },
     { separator: true },

@@ -1,14 +1,14 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MenuComponent } from '../../../lib/components/menu/menu.component';
+import { ExtraMenuComponent } from '../../../lib/components/menu/menu.component';
 import { MenuPopupComponent } from './examples/menu-popup.component';
 import { MenuBasicComponent } from './examples/menu-basic.component';
 import { MenuWithIconsComponent } from './examples/menu-with-icons.component';
 import { MenuGroupedComponent } from './examples/menu-grouped.component';
 import { MenuCustomComponent } from './examples/menu-custom.component';
 
-const meta: Meta<MenuComponent> = {
+const meta: Meta<ExtraMenuComponent> = {
   title: 'Components/Menu/Menu',
-  component: MenuComponent,
+  component: ExtraMenuComponent,
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -16,7 +16,7 @@ const meta: Meta<MenuComponent> = {
         component: `Компонент навигационного меню. Поддерживает режим popup (по нажатию на триггер) и inline-отображение, группировку пунктов и пункты с описанием (caption).
 
 \`\`\`typescript
-import { MenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -28,7 +28,7 @@ import { MenuComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив пунктов меню.',
       table: {
         category: 'Props',
-        type: { summary: 'MenuModel[]' },
+        type: { summary: 'ExtraMenuModel[]' },
       },
     },
     popup: {
@@ -44,7 +44,7 @@ import { MenuComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<MenuComponent>;
+type Story = StoryObj<ExtraMenuComponent>;
 
 // ── Popup ─────────────────────────────────────────────────────────────────────
 
@@ -61,21 +61,21 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component, ViewChild } from '@angular/core';
-import { MenuComponent, MenuModel, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMenuComponent, ExtraMenuModel, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-popup',
   standalone: true,
-  imports: [MenuComponent, ButtonComponent],
+  imports: [ExtraMenuComponent, ButtonComponent],
   template: \`
     <button label="Действия с заказом" variant="secondary" (click)="toggle($event)"></button>
-    <menu #menuRef [model]="items" [popup]="true"></menu>
+    <extra-menu #menuRef [model]="items" [popup]="true"></extra-menu>
   \`,
 })
 export class MenuPopupComponent {
-  @ViewChild('menuRef') menuRef!: MenuComponent;
+  @ViewChild('menuRef') menuRef!: ExtraMenuComponent;
 
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     { label: 'Создать отправление', icon: 'ti ti-file-plus' },
     { label: 'Найти по трек-номеру', icon: 'ti ti-search' },
     { separator: true },
@@ -107,18 +107,18 @@ export const Basic: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenuComponent, MenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-basic',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [ExtraMenuComponent],
   template: \`
-    <menu [model]="items"></menu>
+    <extra-menu [model]="items"></extra-menu>
   \`,
 })
 export class MenuBasicComponent {
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     { label: 'Новый заказ' },
     { label: 'Поиск отправления' },
     { separator: true },
@@ -146,18 +146,18 @@ export const WithIcons: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenuComponent, MenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-with-icons',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [ExtraMenuComponent],
   template: \`
-    <menu [model]="items"></menu>
+    <extra-menu [model]="items"></extra-menu>
   \`,
 })
 export class MenuWithIconsComponent {
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     { label: 'Создать отправление', icon: 'ti ti-file-plus' },
     { label: 'Открыть список заказов', icon: 'ti ti-folder-open' },
     { label: 'Сохранить черновик', icon: 'ti ti-device-floppy' },
@@ -187,18 +187,18 @@ export const Grouped: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenuComponent, MenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-grouped',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [ExtraMenuComponent],
   template: \`
-    <menu [model]="items"></menu>
+    <extra-menu [model]="items"></extra-menu>
   \`,
 })
 export class MenuGroupedComponent {
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     {
       label: 'Заказы',
       items: [
@@ -238,18 +238,18 @@ export const Custom: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenuComponent, MenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-custom',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [ExtraMenuComponent],
   template: \`
-    <menu [model]="items"></menu>
+    <extra-menu [model]="items"></extra-menu>
   \`,
 })
 export class MenuCustomComponent {
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     {
       label: 'Создать отправление',
       caption: 'Оформление нового заказа',

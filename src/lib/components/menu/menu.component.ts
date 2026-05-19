@@ -3,12 +3,12 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Menu } from 'primeng/menu';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 
-export interface MenuModel extends MenuItem {
+export interface ExtraMenuModel extends MenuItem {
   caption?: string;
 }
 
 @Component({
-  selector: 'menu',
+  selector: 'extra-menu',
   host: { style: 'display: contents' },
   standalone: true,
   imports: [Menu, PrimeTemplate, NgTemplateOutlet],
@@ -46,10 +46,10 @@ export interface MenuModel extends MenuItem {
     </p-menu>
   `,
 })
-export class MenuComponent {
+export class ExtraMenuComponent {
   @ViewChild('menuRef') menuRef!: Menu;
 
-  @Input() model: MenuModel[] = [];
+  @Input() model: ExtraMenuModel[] = [];
   @Input() popup = false;
   @Input() itemTemplate: TemplateRef<any> | null = null;
 

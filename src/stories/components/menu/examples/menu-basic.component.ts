@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import { MenuComponent, MenuModel } from '../../../../lib/components/menu/menu.component';
+import { ExtraMenuComponent, ExtraMenuModel } from '../../../../lib/components/menu/menu.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <menu [model]="items"></menu>
+  <extra-menu [model]="items"></extra-menu>
 </div>
 `;
 
 @Component({
   selector: 'app-menu-basic',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [ExtraMenuComponent],
   template,
 })
 export class MenuBasicComponent {
-  items: MenuModel[] = [
+  items: ExtraMenuModel[] = [
     { label: 'Новый заказ' },
     { label: 'Поиск отправления' },
     { separator: true },
