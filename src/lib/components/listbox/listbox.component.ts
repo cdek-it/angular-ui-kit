@@ -1,15 +1,26 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  ChangeDetectorRef,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  forwardRef
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'extra-listbox',
   standalone: true,
-  imports: [Listbox, FormsModule],
+  imports: [Listbox, FormsModule, SharedModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraListboxComponent), multi: true },
-  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraListboxComponent), multi: true }],
   template: `
     <p-listbox
       [options]="options"
@@ -29,10 +40,23 @@ import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
       (onChange)="onChangeHandler($event)"
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlurHandler($event)"
-    ></p-listbox>
-  `,
+    >
+      <!-- project only templates with pTemplate so PrimeNG listbox will detect them -->
+      <ng-content select="ng-template[pTemplate]"></ng-content>
+
+      <!-- forward captured item template into p-listbox preserving context -->
+      <ng-template pTemplate="item" let-item>
+        @if (itemTpl) {
+          <ng-container
+            [ngTemplateOutlet]="itemTpl?.template"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-container>
+        }
+      </ng-template>
+    </p-listbox>
+  `
 })
-export class ExtraListboxComponent implements ControlValueAccessor {
+export class ExtraListboxComponent implements ControlValueAccessor, AfterContentInit {
   @Input() options: any[] = [];
   @Input() optionLabel = 'label';
   @Input() optionValue: string | undefined = undefined;
@@ -51,12 +75,28 @@ export class ExtraListboxComponent implements ControlValueAccessor {
 
   protected modelValue: any = null;
 
+  @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+  itemTpl?: PrimeTemplate;
+
   private _disabled = false;
   private _onChange: (value: any) => void = () => {};
   private _onTouched: () => void = () => {};
 
   get isDisabled(): boolean {
     return this._disabled;
+  }
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((tpl) => {
+      switch (tpl.getType()) {
+        case 'item':
+          this.itemTpl = tpl;
+          break;
+      }
+    });
+    this.cdr.detectChanges();
   }
 
   onChangeHandler(event: ListboxChangeEvent): void {

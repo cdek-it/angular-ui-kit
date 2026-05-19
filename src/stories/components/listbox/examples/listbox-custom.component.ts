@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { Listbox } from 'primeng/listbox';
+import { ExtraListboxComponent } from '../../../../lib/components/listbox/listbox.component';
 import { SharedModule } from 'primeng/api';
 
 const options = [
@@ -11,7 +11,7 @@ const options = [
 ];
 
 const template = `
-<p-listbox [formControl]="ctrl" [options]="options" optionLabel="name">
+<extra-listbox [formControl]="ctrl" [options]="options" optionLabel="name">
   <ng-template pTemplate="item" let-item>
     <i [class]="item.icon"></i>
     <div class="p-listbox-option-label-group">
@@ -19,14 +19,14 @@ const template = `
       <small class="p-listbox-option-caption">{{ item.description }}</small>
     </div>
   </ng-template>
-</p-listbox>
+</extra-listbox>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-listbox-custom',
   standalone: true,
-  imports: [Listbox, SharedModule, ReactiveFormsModule],
+  imports: [ExtraListboxComponent, SharedModule, ReactiveFormsModule],
   template,
   styles,
 })
@@ -54,9 +54,9 @@ import { SharedModule } from 'primeng/api';
 @Component({
   selector: 'app-listbox-custom',
   standalone: true,
-  imports: [Listbox, SharedModule, ReactiveFormsModule],
+        imports: [ExtraListboxComponent, SharedModule, ReactiveFormsModule],
   template: \`
-    <p-listbox [formControl]="ctrl" [options]="options" optionLabel="name">
+    <extra-listbox [formControl]="ctrl" [options]="options" optionLabel="name">
       <ng-template pTemplate="item" let-item>
         <i [class]="item.icon"></i>
         <div class="p-listbox-option-label-group">
@@ -64,7 +64,7 @@ import { SharedModule } from 'primeng/api';
           <small class="p-listbox-option-caption">{{ item.description }}</small>
         </div>
       </ng-template>
-    </p-listbox>
+    </extra-listbox>
   \`,
 })
 export class ListboxCustomComponent {
