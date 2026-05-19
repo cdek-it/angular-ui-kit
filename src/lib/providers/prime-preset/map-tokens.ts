@@ -5,6 +5,7 @@ import type { AuraBaseDesignTokens } from '../../../../node_modules/@primeuix/th
 
 import tokens from './tokens/tokens.json';
 import { avatarCss } from './tokens/components/avatar';
+import { breadcrumbCss } from './tokens/components/breadcrumb';
 import { buttonCss } from './tokens/components/button';
 import { cardCss } from './tokens/components/card';
 import { checkboxCss } from './tokens/components/checkbox';
