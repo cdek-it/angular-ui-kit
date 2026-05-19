@@ -1,0 +1,51 @@
+export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string => `
+/* Стили границы */
+.p-inputotp.p-component .p-inputtext {
+  border-width: ${dt('inputotp.extend.borderWidth')};
+  padding-inline: 0;
+}
+
+/* ─── Disabled ─── */
+.p-inputotp.p-component .p-inputtext:disabled {
+  background: ${dt('inputtext.root.disabledBackground')};
+  color: ${dt('inputtext.root.disabledColor')};
+}
+
+/* ─── Readonly ─── */
+.p-inputotp.p-component .p-inputtext:enabled:read-only {
+  background: ${dt('inputtext.extend.readonlyBackground')};
+  color: ${dt('inputtext.root.color')};
+}
+
+/* ─── Focus ─── */
+.p-inputotp.p-component .p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+}
+
+/* ─── Invalid + Focus ─── */
+.p-inputotp.p-component .p-inputtext.p-invalid:focus {
+  border-color: ${dt('inputtext.root.invalidBorderColor')};
+  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.extend.invalid')};
+}
+
+/* ─── Small ─── */
+.p-inputotp.p-component .p-inputtext.p-inputtext-sm {
+  padding-block: ${dt('inputtext.root.sm.paddingY')};
+}
+
+/* ─── Base ─── */
+.p-inputotp.p-component .p-inputtext:not(.p-inputtext-sm):not(.p-inputtext-lg):not(.p-inputtext-xlg) {
+  padding-block: ${dt('inputtext.root.paddingY')};
+}
+
+/* ─── Large ─── */
+.p-inputotp.p-component .p-inputtext.p-inputtext-lg {
+  padding-block: ${dt('inputtext.root.lg.paddingY')};
+}
+
+/* ─── Extra Large ─── */
+.p-inputotp.p-component.p-inputotp-xlg .p-inputtext {
+  font-size: ${dt('inputtext.extend.extXlg.fontSize')};
+  padding-block: ${dt('inputtext.extend.extXlg.paddingY')};
+}
+`;
