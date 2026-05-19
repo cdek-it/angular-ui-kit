@@ -1,7 +1,7 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Listbox } from 'primeng/listbox';
-import { ListboxComponent } from '../../../lib/components/listbox/listbox.component';
+import { ExtraListboxComponent } from '../../../lib/components/listbox/listbox.component';
 import { ListboxCheckmarkComponent, Checkmark } from './examples/listbox-checkmark.component';
 import { ListboxFilterComponent, Filter } from './examples/listbox-filter.component';
 import { ListboxMultipleComponent, Multiple } from './examples/listbox-multiple.component';
@@ -9,18 +9,18 @@ import { ListboxGroupedComponent, Grouped } from './examples/listbox-grouped.com
 import { ListboxCustomComponent, Custom } from './examples/listbox-custom.component';
 import { ListboxDisabledComponent, Disabled } from './examples/listbox-disabled.component';
 
-type ListboxArgs = ListboxComponent;
+type ListboxArgs = ExtraListboxComponent;
 
 const meta: Meta<ListboxArgs> = {
   title: 'Components/Form/Listbox',
-  component: ListboxComponent,
+    component: ExtraListboxComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({
-      imports: [
-        ListboxComponent,
-        ReactiveFormsModule,
-        Listbox,
+      moduleMetadata({
+        imports: [
+          ExtraListboxComponent,
+          ReactiveFormsModule,
+          Listbox,
         ListboxCheckmarkComponent,
         ListboxFilterComponent,
         ListboxMultipleComponent,
@@ -37,7 +37,7 @@ const meta: Meta<ListboxArgs> = {
         component: `Список опций с поддержкой одиночного и множественного выбора. Поддерживает группировку, фильтрацию, галочку выбора и кастомные шаблоны пунктов.
 
 \`\`\`typescript
-import { ListboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -178,7 +178,7 @@ export const Default: Story = {
       options: defaultOptions,
     },
     template: `
-<listbox
+<extra-listbox
   [formControl]="ctrl"
   [options]="options"
   [optionLabel]="optionLabel"
@@ -188,7 +188,7 @@ export const Default: Story = {
   [checkmark]="checkmark"
   [scrollHeight]="scrollHeight"
   [emptyMessage]="emptyMessage"
-></listbox>`,
+></extra-listbox>`,
   }),
   parameters: {
     docs: {

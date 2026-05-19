@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ListboxComponent } from '../../../../lib/components/listbox/listbox.component';
+import { ExtraListboxComponent } from '../../../../lib/components/listbox/listbox.component';
 
 const options = [
   { label: 'New York', value: 'NY' },
@@ -12,14 +12,14 @@ const options = [
 ];
 
 const template = `
-<listbox [formControl]="ctrl" [options]="options" [checkmark]="true"></listbox>
+<extra-listbox [formControl]="ctrl" [options]="options" [checkmark]="true"></extra-listbox>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-listbox-checkmark',
   standalone: true,
-  imports: [ListboxComponent, ReactiveFormsModule],
+  imports: [ExtraListboxComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -41,14 +41,14 @@ export const Checkmark: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ListboxComponent } from '@cdek-it/angular-ui-kit';
+ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-listbox-checkmark',
   standalone: true,
-  imports: [ListboxComponent, ReactiveFormsModule],
+  imports: [ExtraListboxComponent, ReactiveFormsModule],
   template: \`
-    <listbox [formControl]="ctrl" [options]="options" [checkmark]="true"></listbox>
+    <extra-listbox [formControl]="ctrl" [options]="options" [checkmark]="true"></extra-listbox>
   \`,
 })
 export class ListboxCheckmarkComponent {

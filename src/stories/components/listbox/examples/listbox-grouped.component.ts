@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ListboxComponent } from '../../../../lib/components/listbox/listbox.component';
+import { ExtraListboxComponent } from '../../../../lib/components/listbox/listbox.component';
 
 const groupedOptions = [
   {
@@ -23,21 +23,21 @@ const groupedOptions = [
 ];
 
 const template = `
-<listbox
+<extra-listbox
   [formControl]="ctrl"
   [options]="options"
   [group]="true"
   optionLabel="label"
   optionGroupLabel="label"
   optionGroupChildren="items"
-></listbox>
+></extra-listbox>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-listbox-grouped',
   standalone: true,
-  imports: [ListboxComponent, ReactiveFormsModule],
+  imports: [ExtraListboxComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -59,21 +59,21 @@ export const Grouped: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ListboxComponent } from '@cdek-it/angular-ui-kit';
+ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-listbox-grouped',
   standalone: true,
-  imports: [ListboxComponent, ReactiveFormsModule],
+  imports: [ExtraListboxComponent, ReactiveFormsModule],
   template: \`
-    <listbox
+    <extra-listbox
       [formControl]="ctrl"
       [options]="options"
       [group]="true"
       optionLabel="label"
       optionGroupLabel="label"
       optionGroupChildren="items"
-    ></listbox>
+    ></extra-listbox>
   \`,
 })
 export class ListboxGroupedComponent {

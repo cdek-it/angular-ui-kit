@@ -3,12 +3,12 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 
 @Component({
-  selector: 'listbox',
+  selector: 'extra-listbox',
   standalone: true,
   imports: [Listbox, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ListboxComponent), multi: true },
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraListboxComponent), multi: true },
   ],
   template: `
     <p-listbox
@@ -32,7 +32,7 @@ import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
     ></p-listbox>
   `,
 })
-export class ListboxComponent implements ControlValueAccessor {
+export class ExtraListboxComponent implements ControlValueAccessor {
   @Input() options: any[] = [];
   @Input() optionLabel = 'label';
   @Input() optionValue: string | undefined = undefined;
