@@ -1,18 +1,15 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
-  ContentChildren,
-  ChangeDetectorRef,
   EventEmitter,
   Input,
   Output,
-  QueryList,
+  TemplateRef,
   forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
@@ -41,22 +38,18 @@ import { NgTemplateOutlet } from '@angular/common';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlurHandler($event)"
     >
-      <!-- project only templates with pTemplate so PrimeNG listbox will detect them -->
-      <ng-content select="ng-template[pTemplate]"></ng-content>
-
-      <!-- forward captured item template into p-listbox preserving context -->
-      <ng-template pTemplate="item" let-item>
-        @if (itemTpl) {
+      @if (itemTemplate) {
+        <ng-template pTemplate="item" let-item>
           <ng-container
-            [ngTemplateOutlet]="itemTpl?.template"
+            [ngTemplateOutlet]="itemTemplate"
             [ngTemplateOutletContext]="{ $implicit: item }"
           ></ng-container>
-        }
-      </ng-template>
+        </ng-template>
+      }
     </p-listbox>
   `
 })
-export class ExtraListboxComponent implements ControlValueAccessor, AfterContentInit {
+export class ExtraListboxComponent implements ControlValueAccessor {
   @Input() options: any[] = [];
   @Input() optionLabel = 'label';
   @Input() optionValue: string | undefined = undefined;
@@ -69,14 +62,13 @@ export class ExtraListboxComponent implements ControlValueAccessor, AfterContent
   @Input() optionGroupChildren: string | undefined = undefined;
   @Input() scrollHeight = '200px';
   @Input() emptyMessage: string | undefined = undefined;
+  @Input() itemTemplate: TemplateRef<any> | null = null;
 
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();
 
   protected modelValue: any = null;
 
-  @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-  itemTpl?: PrimeTemplate;
 
   private _disabled = false;
   private _onChange: (value: any) => void = () => {};
@@ -86,18 +78,6 @@ export class ExtraListboxComponent implements ControlValueAccessor, AfterContent
     return this._disabled;
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  ngAfterContentInit(): void {
-    this.templates.forEach((tpl) => {
-      switch (tpl.getType()) {
-        case 'item':
-          this.itemTpl = tpl;
-          break;
-      }
-    });
-    this.cdr.detectChanges();
-  }
 
   onChangeHandler(event: ListboxChangeEvent): void {
     // Обновляем внутреннее значение и уведомляем форму об изменении.

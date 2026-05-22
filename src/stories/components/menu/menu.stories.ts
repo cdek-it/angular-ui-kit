@@ -232,7 +232,7 @@ export const Custom: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Пункты меню с иконкой и описанием (caption). Поле caption передаётся через MenuModel.',
+        story: 'Кастомизация отображения пунктов меню через входной параметр `itemTemplate`. Передайте `ng-template` с произвольной разметкой — он получит объект пункта меню через `let-item`.',
       },
       source: {
         language: 'ts',
@@ -245,7 +245,36 @@ import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ExtraMenuComponent],
   template: \`
-    <extra-menu [model]="items"></extra-menu>
+    <extra-menu [model]="items" [itemTemplate]="customItem"></extra-menu>
+
+    <ng-template #customItem let-item>
+      <a
+        class="p-menu-item-link flex items-center gap-3 px-4 py-2"
+        role="menuitem"
+        tabindex="0"
+        [class.opacity-50]="item.disabled"
+        [attr.href]="item.url || null"
+        (click)="!item.disabled && item.command && item.command({ originalEvent: $event, item: item })"
+      >
+        @if (item.icon) {
+          <span
+            [class]="item.icon"
+            class="text-xl w-6 h-6 flex items-center justify-center rounded-full bg-primary text-white shrink-0"
+          ></span>
+        }
+        <div class="flex flex-col min-w-0">
+          <span class="p-menu-item-label font-semibold truncate">{{ item.label }}</span>
+          @if (item.caption) {
+            <small class="text-surface-400 text-xs truncate">{{ item.caption }}</small>
+          }
+        </div>
+        @if (item.badge) {
+          <span class="ml-auto text-xs font-bold bg-primary text-white rounded-full px-2 py-0.5">
+            {{ item.badge }}
+          </span>
+        }
+      </a>
+    </ng-template>
   \`,
 })
 export class MenuCustomComponent {
@@ -254,6 +283,7 @@ export class MenuCustomComponent {
       label: 'Создать отправление',
       caption: 'Оформление нового заказа',
       icon: 'ti ti-file-plus',
+      badge: 'Новое',
     },
     {
       label: 'Найти посылку',
@@ -265,6 +295,12 @@ export class MenuCustomComponent {
       label: 'Экспорт данных',
       caption: 'Выгрузка в CSV или Excel',
       icon: 'ti ti-download',
+    },
+    {
+      label: 'Удалить',
+      caption: 'Действие недоступно',
+      icon: 'ti ti-trash',
+      disabled: true,
     },
   ];
 }
