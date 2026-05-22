@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
 import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
@@ -20,11 +20,11 @@ const template = `
 
 <div class="flex flex-col gap-2 items-center justify-center min-h-48">
   @for (p of positions; track p.key) {
-    <p-button
+    <extra-button
       [label]="p.label"
-      severity="contrast"
-      (onClick)="show(p.key, p.position)"
-    ></p-button>
+      variant="outlined"
+      (click)="show(p.key, p.position)"
+    ></extra-button>
   }
 </div>
 `;
@@ -33,7 +33,7 @@ const styles = '';
 @Component({
   selector: 'app-toast-position',
   standalone: true,
-  imports: [ExtraToastComponent, Button],
+  imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -65,8 +65,7 @@ export const Position: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const POSITIONS = [
   { position: 'top-left', label: 'Вверх слева', key: 'pos-top-left' },
@@ -80,7 +79,7 @@ const POSITIONS = [
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [ExtraToastComponent, Button],
+  imports: [ExtraToastComponent, ExtraButtonComponent],
   template: \`
     @for (p of positions; track p.key) {
       <extra-toast [position]="p.position" [key]="p.key"></extra-toast>
@@ -88,11 +87,11 @@ const POSITIONS = [
 
     <div class="flex flex-col gap-2 items-center justify-center min-h-48">
       @for (p of positions; track p.key) {
-        <p-button
+        <extra-button
           [label]="p.label"
-          severity="contrast"
-          (onClick)="show(p.key, p.position)"
-        ></p-button>
+          variant="outlined"
+          (click)="show(p.key, p.position)"
+        ></extra-button>
       }
     </div>
   \`,

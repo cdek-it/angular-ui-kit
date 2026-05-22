@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
 import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
@@ -37,11 +37,11 @@ const template = `
 
 <div class="flex flex-wrap gap-2 mt-6">
   @for (s of sizes; track s.key) {
-    <p-button
+    <extra-button
       [label]="s.label"
-      severity="contrast"
-      (onClick)="show(s.cssVar)"
-    ></p-button>
+      variant="outlined"
+      (click)="show(s.cssVar)"
+    ></extra-button>
   }
 </div>
 `;
@@ -50,7 +50,7 @@ const styles = '';
 @Component({
   selector: 'app-toast-width',
   standalone: true,
-  imports: [ExtraToastComponent, Button],
+  imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -85,8 +85,7 @@ export const Width: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const SIZES = [
   { key: 'sm', label: 'Small (20rem)', cssVar: '20rem' },
@@ -98,7 +97,7 @@ const SIZES = [
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [ExtraToastComponent, Button],
+  imports: [ExtraToastComponent, ExtraButtonComponent],
   template: \`
     <extra-toast
       key="width-preview"
@@ -107,11 +106,11 @@ const SIZES = [
 
     <div class="flex flex-wrap gap-2">
       @for (s of sizes; track s.key) {
-        <p-button
+        <extra-button
           [label]="s.label"
-          severity="contrast"
-          (onClick)="show(s.cssVar)"
-        ></p-button>
+          variant="outlined"
+          (click)="show(s.cssVar)"
+        ></extra-button>
       }
     </div>
   \`,
