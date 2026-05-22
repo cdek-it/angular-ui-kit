@@ -13,22 +13,22 @@ type ListboxArgs = ExtraListboxComponent;
 
 const meta: Meta<ListboxArgs> = {
   title: 'Components/Form/Listbox',
-    component: ExtraListboxComponent,
+  component: ExtraListboxComponent,
   tags: ['autodocs'],
   decorators: [
-      moduleMetadata({
-        imports: [
-          ExtraListboxComponent,
-          ReactiveFormsModule,
-          Listbox,
+    moduleMetadata({
+      imports: [
+        ExtraListboxComponent,
+        ReactiveFormsModule,
+        Listbox,
         ListboxCheckmarkComponent,
         ListboxFilterComponent,
         ListboxMultipleComponent,
         ListboxGroupedComponent,
         ListboxCustomComponent,
-        ListboxDisabledComponent,
-      ],
-    }),
+        ListboxDisabledComponent
+      ]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-listbox' },
@@ -38,9 +38,9 @@ const meta: Meta<ListboxArgs> = {
 
 \`\`\`typescript
 import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     options: { table: { disable: true } },
@@ -53,8 +53,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'label' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     optionValue: {
       control: 'text',
@@ -62,8 +62,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     multiple: {
       control: 'boolean',
@@ -71,8 +71,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     filter: {
       control: 'boolean',
@@ -80,8 +80,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     filterPlaceHolder: {
       control: 'text',
@@ -89,8 +89,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     checkmark: {
       control: 'boolean',
@@ -98,8 +98,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     group: {
       control: 'boolean',
@@ -107,8 +107,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     scrollHeight: {
       control: 'text',
@@ -116,8 +116,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '200px' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     emptyMessage: {
       control: 'text',
@@ -125,8 +125,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     // ── Events ───────────────────────────────────────────────
     onFocus: {
@@ -134,17 +134,17 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<FocusEvent>' },
-      },
+        type: { summary: 'EventEmitter<FocusEvent>' }
+      }
     },
     onBlur: {
       control: false,
       description: 'Событие потери фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<FocusEvent>' },
-      },
-    },
+        type: { summary: 'EventEmitter<FocusEvent>' }
+      }
+    }
   },
   args: {
     optionLabel: 'label',
@@ -152,8 +152,8 @@ import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
     filter: false,
     checkmark: false,
     group: false,
-    scrollHeight: '200px',
-  },
+    scrollHeight: '200px'
+  }
 };
 
 export default meta;
@@ -164,7 +164,7 @@ const defaultOptions = [
   { label: 'Rome', value: 'RM' },
   { label: 'London', value: 'LDN' },
   { label: 'Istanbul', value: 'IST' },
-  { label: 'Paris', value: 'PRS' },
+  { label: 'Paris', value: 'PRS' }
 ];
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ export const Default: Story = {
     props: {
       ...args,
       ctrl: new FormControl(null),
-      options: defaultOptions,
+      options: defaultOptions
     },
     template: `
 <extra-listbox
@@ -188,15 +188,15 @@ export const Default: Story = {
   [checkmark]="checkmark"
   [scrollHeight]="scrollHeight"
   [emptyMessage]="emptyMessage"
-></extra-listbox>`,
+></extra-listbox>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Варианты ─────────────────────────────────────────────────────────────────
