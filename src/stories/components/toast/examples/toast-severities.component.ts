@@ -78,27 +78,47 @@ export const Severities: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
+import { Button } from 'primeng/button';
+
+const SEVERITIES = [
+  { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
+  { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
+  { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
+  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
+] as const;
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [ExtraToastComponent],
+  imports: [ExtraToastComponent, Button],
   template: \`
-    <extra-toast key="my-toast"></extra-toast>
-    <button (click)="show()">Показать</button>
+    <extra-toast key="severities"></extra-toast>
+
+    <div class="flex flex-wrap gap-2">
+      @for (s of severities; track s.type) {
+        <p-button
+          [label]="'Показать: ' + s.label"
+          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warn' : s.type"
+          variant="outlined"
+          (onClick)="show(s.type, s.icon)"
+        ></p-button>
+      }
+    </div>
   \`,
 })
 export class ExampleComponent {
+  readonly severities = SEVERITIES;
+
   constructor(private toastService: ExtraToastService) {}
 
-  show(): void {
+  show(severity: string, icon: string): void {
     this.toastService.add({
-      key: 'my-toast',
-      severity: 'info',
+      key: 'severities',
+      severity: severity as any,
       summary: 'Сообщение',
       detail: 'Подпись',
       life: 5000,
-      icon: 'ti ti-info-circle',
+      icon,
     });
   }
 }

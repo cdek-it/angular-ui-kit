@@ -84,8 +84,57 @@ export const Width: StoryObj = {
       source: {
         language: 'ts',
         code: `
-<extra-toast [pt]="{ root: { style: { '--p-toast-width': '30rem' } } }">
-</extra-toast>
+import { Component } from '@angular/core';
+import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
+import { Button } from 'primeng/button';
+
+const SIZES = [
+  { key: 'sm', label: 'Small (20rem)', cssVar: '20rem' },
+  { key: 'base', label: 'Base (25rem)', cssVar: '25rem' },
+  { key: 'lg', label: 'Large (30rem)', cssVar: '30rem' },
+  { key: 'xlg', label: 'X-Large (45rem)', cssVar: '45rem' },
+] as const;
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [ExtraToastComponent, Button],
+  template: \`
+    <extra-toast
+      key="width-preview"
+      [pt]="{ root: { style: { '--p-toast-width': currentWidth } } }"
+    ></extra-toast>
+
+    <div class="flex flex-wrap gap-2">
+      @for (s of sizes; track s.key) {
+        <p-button
+          [label]="s.label"
+          severity="contrast"
+          (onClick)="show(s.cssVar)"
+        ></p-button>
+      }
+    </div>
+  \`,
+})
+export class ExampleComponent {
+  readonly sizes = SIZES;
+  currentWidth = '25rem';
+
+  constructor(private toastService: ExtraToastService) {}
+
+  show(cssVar: string): void {
+    this.currentWidth = cssVar;
+    this.toastService.clear('width-preview');
+    this.toastService.add({
+      key: 'width-preview',
+      severity: 'info',
+      summary: 'Сообщение',
+      detail: 'Ширина: ' + cssVar,
+      life: 3000,
+      icon: 'ti ti-info-circle',
+    });
+  }
+}
         `,
       },
     },

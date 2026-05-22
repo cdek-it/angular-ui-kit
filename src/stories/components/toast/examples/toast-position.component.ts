@@ -64,12 +64,55 @@ export const Position: StoryObj = {
       source: {
         language: 'ts',
         code: `
-<extra-toast position="top-left" key="top-left"></extra-toast>
-<extra-toast position="top-center" key="top-center"></extra-toast>
-<extra-toast position="top-right" key="top-right"></extra-toast>
-<extra-toast position="bottom-left" key="bottom-left"></extra-toast>
-<extra-toast position="bottom-center" key="bottom-center"></extra-toast>
-<extra-toast position="bottom-right" key="bottom-right"></extra-toast>
+import { Component } from '@angular/core';
+import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
+import { Button } from 'primeng/button';
+
+const POSITIONS = [
+  { position: 'top-left', label: 'Вверх слева', key: 'pos-top-left' },
+  { position: 'top-center', label: 'Вверх по центру', key: 'pos-top-center' },
+  { position: 'top-right', label: 'Вверх справа', key: 'pos-top-right' },
+  { position: 'bottom-left', label: 'Вниз слева', key: 'pos-bottom-left' },
+  { position: 'bottom-center', label: 'Вниз по центру', key: 'pos-bottom-center' },
+  { position: 'bottom-right', label: 'Вниз справа', key: 'pos-bottom-right' },
+] as const;
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [ExtraToastComponent, Button],
+  template: \`
+    @for (p of positions; track p.key) {
+      <extra-toast [position]="p.position" [key]="p.key"></extra-toast>
+    }
+
+    <div class="flex flex-col gap-2 items-center justify-center min-h-48">
+      @for (p of positions; track p.key) {
+        <p-button
+          [label]="p.label"
+          severity="contrast"
+          (onClick)="show(p.key, p.position)"
+        ></p-button>
+      }
+    </div>
+  \`,
+})
+export class ExampleComponent {
+  readonly positions = POSITIONS;
+
+  constructor(private toastService: ExtraToastService) {}
+
+  show(key: string, position: string): void {
+    this.toastService.add({
+      key,
+      severity: 'info',
+      summary: 'Сообщение',
+      detail: 'Позиция: ' + position,
+      life: 3000,
+      icon: 'ti ti-info-circle',
+    });
+  }
+}
         `,
       },
     },

@@ -83,15 +83,53 @@ export const WithCloseButton: StoryObj = {
       source: {
         language: 'ts',
         code: `
-this.toastService.add({
-  key: 'my-toast',
-  severity: 'info',
-  summary: 'Сообщение',
-  detail: 'Подпись',
-  life: 5000,
-  icon: 'ti ti-info-circle',
-  closable: true,
-});
+import { Component } from '@angular/core';
+import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
+import { Button } from 'primeng/button';
+
+const SEVERITIES = [
+  { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
+  { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
+  { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
+  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
+] as const;
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [ExtraToastComponent, Button],
+  template: \`
+    <extra-toast key="with-close"></extra-toast>
+
+    <div class="flex flex-wrap gap-2">
+      @for (s of severities; track s.type) {
+        <p-button
+          [label]="'Показать: ' + s.label"
+          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warn' : s.type"
+          variant="outlined"
+          (onClick)="show(s.type, s.icon)"
+        ></p-button>
+      }
+    </div>
+  \`,
+})
+export class ExampleComponent {
+  readonly severities = SEVERITIES;
+
+  constructor(private toastService: ExtraToastService) {}
+
+  show(severity: string, icon: string): void {
+    this.toastService.add({
+      key: 'with-close',
+      severity: severity as any,
+      summary: 'Сообщение',
+      detail: 'Подпись',
+      life: 5000,
+      icon,
+      closable: true,
+    });
+  }
+}
         `,
       },
     },
