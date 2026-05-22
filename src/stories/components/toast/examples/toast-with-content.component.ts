@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
 import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
@@ -44,12 +44,12 @@ const template = `
 
 <div class="flex flex-wrap gap-2 mt-6">
   @for (s of severities; track s.type) {
-    <p-button
+    <extra-button
       [label]="'Показать: ' + s.label"
-      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warn' : s.type"
+      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : null"
       variant="outlined"
-      (onClick)="show(s.type, s.icon)"
-    ></p-button>
+      (click)="show(s.type, s.icon)"
+    ></extra-button>
   }
 </div>
 `;
@@ -58,7 +58,7 @@ const styles = '';
 @Component({
   selector: 'app-toast-with-content',
   standalone: true,
-  imports: [ExtraToastComponent, Button],
+  imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -91,8 +91,7 @@ export const WithContent: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
-import { Button } from 'primeng/button';
+import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
@@ -105,7 +104,7 @@ const SEVERITIES = [
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [ExtraToastComponent, Button],
+  imports: [ExtraToastComponent, ExtraButtonComponent],
   template: \`
     <extra-toast key="with-content">
       <ng-template #message let-message>
@@ -125,12 +124,12 @@ const SEVERITIES = [
 
     <div class="flex flex-wrap gap-2">
       @for (s of severities; track s.type) {
-        <p-button
+        <extra-button
           [label]="'Показать: ' + s.label"
-          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warn' : s.type"
+          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : null"
           variant="outlined"
-          (onClick)="show(s.type, s.icon)"
-        ></p-button>
+          (click)="show(s.type, s.icon)"
+        ></extra-button>
       }
     </div>
   \`,
