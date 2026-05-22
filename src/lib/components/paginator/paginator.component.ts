@@ -3,7 +3,7 @@ import { Paginator } from 'primeng/paginator';
 import type { PaginatorState } from 'primeng/types/paginator';
 
 @Component({
-  selector: 'paginator',
+  selector: 'extra-paginator',
   standalone: true,
   imports: [Paginator],
   template: `
@@ -24,7 +24,7 @@ import type { PaginatorState } from 'primeng/types/paginator';
     ></p-paginator>
   `,
 })
-export class PaginatorComponent {
+export class ExtraPaginatorComponent {
   @Input() first = 0;
   @Input() rows = 10;
   @Input() totalRecords = 0;

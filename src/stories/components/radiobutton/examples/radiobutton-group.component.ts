@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { RadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
+import { ExtraRadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
 
 const template = `
 <div class="bg-surface-ground flex flex-col gap-3">
   <div class="flex items-center gap-2">
-    <radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb1">Опция 1</label>
   </div>
   <div class="flex items-center gap-2">
-    <radiobutton inputId="rb2" name="group" value="2" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rb2" name="group" value="2" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb2">Опция 2</label>
   </div>
   <div class="flex items-center gap-2">
-    <radiobutton inputId="rb3" name="group" value="3" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rb3" name="group" value="3" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb3">Опция 3</label>
   </div>
 </div>
@@ -23,7 +23,7 @@ const template = `
 @Component({
   selector: 'app-radiobutton-group',
   standalone: true,
-  imports: [RadiobuttonComponent, FormsModule],
+  imports: [ExtraRadiobuttonComponent, FormsModule],
   template,
 })
 export class RadiobuttonGroupComponent {
@@ -41,19 +41,19 @@ export const Group: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { RadiobuttonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-radiobutton-group',
   standalone: true,
-  imports: [RadiobuttonComponent, FormsModule],
+  imports: [ExtraRadiobuttonComponent, FormsModule],
   template: \`
-    <radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb1">Опция 1</label>
-    <radiobutton inputId="rb2" name="group" value="2" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rb2" name="group" value="2" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb2">Опция 2</label>
-    <radiobutton inputId="rb3" name="group" value="3" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rb3" name="group" value="3" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb3">Опция 3</label>
   \`,
 })

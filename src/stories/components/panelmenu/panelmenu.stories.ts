@@ -1,17 +1,17 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { PanelMenuComponent } from '../../../lib/components/panelmenu/panelmenu.component';
+import { ExtraPanelMenuComponent } from '../../../lib/components/panelmenu/panelmenu.component';
 import { PanelMenuBasicComponent, Basic } from './examples/panelmenu-basic.component';
 import { PanelMenuMultipleComponent, Multiple } from './examples/panelmenu-multiple.component';
 import { PanelMenuCustomComponent, Custom } from './examples/panelmenu-custom.component';
 
-const meta: Meta<PanelMenuComponent> = {
+const meta: Meta<ExtraPanelMenuComponent> = {
   title: 'Components/Menu/PanelMenu',
-  component: PanelMenuComponent,
+  component: ExtraPanelMenuComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        PanelMenuComponent,
+        ExtraPanelMenuComponent,
         PanelMenuBasicComponent,
         PanelMenuMultipleComponent,
         PanelMenuCustomComponent,
@@ -24,7 +24,7 @@ const meta: Meta<PanelMenuComponent> = {
         component: `Аккордеон-меню с поддержкой вложенных подменю и раскрытием нескольких панелей.
 
 \`\`\`typescript
-import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -59,7 +59,7 @@ import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<PanelMenuComponent>;
+type Story = StoryObj<ExtraPanelMenuComponent>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
@@ -70,7 +70,7 @@ export const Default: Story = {
     if (args.multiple) parts.push(`[multiple]="true"`);
     if (args.tabindex !== undefined) parts.push(`[tabindex]="${args.tabindex}"`);
 
-    const template = `<panelmenu\n  ${parts.join('\n  ')}\n></panelmenu>`;
+    const template = `<extra-panelmenu\n  ${parts.join('\n  ')}\n></extra-panelmenu>`;
 
     return {
       props: {
