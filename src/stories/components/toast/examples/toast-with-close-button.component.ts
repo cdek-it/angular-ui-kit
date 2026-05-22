@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Button } from 'primeng/button';
-import { ToastComponent } from '../../../../lib/components/toast/toast.component';
-import { UiToastService } from '../../../../lib/components/toast/toast.service';
+import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
+import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
 const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
@@ -12,7 +12,7 @@ const SEVERITIES = [
 ] as const;
 
 const template = `
-<ui-toast key="with-close"></ui-toast>
+<extra-toast key="with-close"></extra-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of severities; track s.type) {
@@ -51,14 +51,14 @@ const styles = '';
 @Component({
   selector: 'app-toast-with-close-button',
   standalone: true,
-  imports: [ToastComponent, Button],
+  imports: [ExtraToastComponent, Button],
   template,
   styles,
 })
 export class ToastWithCloseButtonComponent {
   readonly severities = SEVERITIES;
 
-  constructor(private readonly toastService: UiToastService) {}
+  constructor(private readonly toastService: ExtraToastService) {}
 
   show(severity: string, icon: string): void {
     this.toastService.add({

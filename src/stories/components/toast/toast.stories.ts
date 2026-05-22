@@ -1,37 +1,64 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MessageService } from 'primeng/api';
-import { ToastComponent } from '../../../lib/components/toast/toast.component';
+import { Meta, applicationConfig, moduleMetadata } from '@storybook/angular';
+import { ExtraToastComponent } from '../../../lib/components/toast/toast.component';
+import { provideExtraToast } from '../../../lib/components/toast/provide-toast';
 import { ToastSeveritiesComponent, Severities } from './examples/toast-severities.component';
 import { ToastWithCloseButtonComponent, WithCloseButton } from './examples/toast-with-close-button.component';
 import { ToastWithContentComponent, WithContent } from './examples/toast-with-content.component';
 import { ToastWidthComponent, Width } from './examples/toast-width.component';
 import { ToastPositionComponent, Position } from './examples/toast-position.component';
 
-const meta: Meta<ToastComponent> = {
+const meta: Meta<ExtraToastComponent> = {
   title: 'Components/Feedback/Toast',
-  component: ToastComponent,
+  component: ExtraToastComponent,
   tags: ['autodocs'],
   decorators: [
+    applicationConfig({ providers: [provideExtraToast()] }),
     moduleMetadata({
       imports: [
-        ToastComponent,
+        ExtraToastComponent,
         ToastSeveritiesComponent,
         ToastWithCloseButtonComponent,
         ToastWithContentComponent,
         ToastWidthComponent,
         ToastPositionComponent,
       ],
-      providers: [MessageService],
     }),
   ],
   parameters: {
     designTokens: { prefix: '--p-toast' },
     docs: {
       description: {
-        component: `Компонент для отображения всплывающих уведомлений поверх интерфейса. Требует подключения \`UiToastService\`.
+        component: `Компонент для отображения всплывающих уведомлений поверх интерфейса.
+
+## Подключение
+
+Добавьте \`provideExtraToast()\` в провайдеры приложения:
 
 \`\`\`typescript
-import { ToastComponent, UiToastService } from '@cdek-it/angular-ui-kit';
+// app.config.ts
+import { provideExtraToast } from '@cdek-it/angular-ui-kit';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideExtraToast()],
+};
+\`\`\`
+
+## Использование
+
+\`\`\`typescript
+import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  imports: [ExtraToastComponent],
+  template: \`<extra-toast />\`,
+})
+export class AppComponent {
+  private toast = inject(ExtraToastService);
+
+  show() {
+    this.toast.add({ severity: 'success', summary: 'Готово', detail: 'Операция выполнена успешно' });
+  }
+}
 \`\`\``,
       },
     },

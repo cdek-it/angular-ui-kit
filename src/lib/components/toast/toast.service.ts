@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ToastSeverity } from './toast.component';
 
-export interface UiToastMessage {
+export interface ExtraToastMessage {
   key?: string;
   severity?: ToastSeverity;
   summary?: string;
@@ -13,14 +13,12 @@ export interface UiToastMessage {
   data?: unknown;
 }
 
-export { MessageService };
-
 @Injectable({ providedIn: 'root' })
-export class UiToastService {
+export class ExtraToastService {
 
   constructor(private readonly messageService: MessageService) {}
 
-  add(message: UiToastMessage): void {
+  add(message: ExtraToastMessage): void {
     this.messageService.add(message);
   }
 

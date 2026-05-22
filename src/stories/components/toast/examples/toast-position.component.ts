@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Button } from 'primeng/button';
-import { ToastComponent } from '../../../../lib/components/toast/toast.component';
-import { UiToastService } from '../../../../lib/components/toast/toast.service';
+import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
+import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
 const POSITIONS = [
   { position: 'top-left', label: 'Вверх слева', key: 'pos-top-left' },
@@ -15,7 +15,7 @@ const POSITIONS = [
 
 const template = `
 @for (p of positions; track p.key) {
-  <ui-toast [position]="p.position" [key]="p.key"></ui-toast>
+  <extra-toast [position]="p.position" [key]="p.key"></extra-toast>
 }
 
 <div class="flex flex-col gap-2 items-center justify-center min-h-48">
@@ -33,14 +33,14 @@ const styles = '';
 @Component({
   selector: 'app-toast-position',
   standalone: true,
-  imports: [ToastComponent, Button],
+  imports: [ExtraToastComponent, Button],
   template,
   styles,
 })
 export class ToastPositionComponent {
   readonly positions = POSITIONS;
 
-  constructor(private readonly toastService: UiToastService) {}
+  constructor(private readonly toastService: ExtraToastService) {}
 
   show(key: string, position: string): void {
     this.toastService.add({
@@ -64,12 +64,12 @@ export const Position: StoryObj = {
       source: {
         language: 'ts',
         code: `
-<ui-toast position="top-left" key="top-left"></ui-toast>
-<ui-toast position="top-center" key="top-center"></ui-toast>
-<ui-toast position="top-right" key="top-right"></ui-toast>
-<ui-toast position="bottom-left" key="bottom-left"></ui-toast>
-<ui-toast position="bottom-center" key="bottom-center"></ui-toast>
-<ui-toast position="bottom-right" key="bottom-right"></ui-toast>
+<extra-toast position="top-left" key="top-left"></extra-toast>
+<extra-toast position="top-center" key="top-center"></extra-toast>
+<extra-toast position="top-right" key="top-right"></extra-toast>
+<extra-toast position="bottom-left" key="bottom-left"></extra-toast>
+<extra-toast position="bottom-center" key="bottom-center"></extra-toast>
+<extra-toast position="bottom-right" key="bottom-right"></extra-toast>
         `,
       },
     },

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Button } from 'primeng/button';
-import { ToastComponent } from '../../../../lib/components/toast/toast.component';
-import { UiToastService } from '../../../../lib/components/toast/toast.service';
+import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
+import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
 const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
@@ -12,7 +12,7 @@ const SEVERITIES = [
 ] as const;
 
 const template = `
-<ui-toast key="severities"></ui-toast>
+<extra-toast key="severities"></extra-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of severities; track s.type) {
@@ -45,14 +45,14 @@ const styles = '';
 @Component({
   selector: 'app-toast-severities',
   standalone: true,
-  imports: [ToastComponent, Button],
+  imports: [ExtraToastComponent, Button],
   template,
   styles,
 })
 export class ToastSeveritiesComponent {
   readonly severities = SEVERITIES;
 
-  constructor(private readonly toastService: UiToastService) {}
+  constructor(private readonly toastService: ExtraToastService) {}
 
   show(severity: string, icon: string): void {
     this.toastService.add({
@@ -77,19 +77,19 @@ export const Severities: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ToastComponent, UiToastService } from '@cdek-it/angular-ui-kit';
+import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [ToastComponent],
+  imports: [ExtraToastComponent],
   template: \`
-    <ui-toast key="my-toast"></ui-toast>
+    <extra-toast key="my-toast"></extra-toast>
     <button (click)="show()">Показать</button>
   \`,
 })
 export class ExampleComponent {
-  constructor(private toastService: UiToastService) {}
+  constructor(private toastService: ExtraToastService) {}
 
   show(): void {
     this.toastService.add({

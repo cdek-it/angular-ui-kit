@@ -20,7 +20,7 @@ const SEVERITY_ICONS: Record<string, string> = {
 };
 
 @Component({
-  selector: 'ui-toast',
+  selector: 'extra-toast',
   standalone: true,
   imports: [Toast, SharedModule],
   template: `
@@ -38,7 +38,7 @@ const SEVERITY_ICONS: Record<string, string> = {
     </p-toast>
   `,
 })
-export class ToastComponent {
+export class ExtraToastComponent {
   @Input() position: ToastPosition = 'top-right';
   @Input() key: string | undefined = undefined;
   @Input() life = 5000;

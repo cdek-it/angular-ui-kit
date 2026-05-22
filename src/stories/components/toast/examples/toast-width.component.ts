@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Button } from 'primeng/button';
-import { ToastComponent } from '../../../../lib/components/toast/toast.component';
-import { UiToastService } from '../../../../lib/components/toast/toast.service';
+import { ExtraToastComponent } from '../../../../lib/components/toast/toast.component';
+import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
 const SIZES = [
   { key: 'sm', label: 'Small (20rem)', width: '20rem', cssVar: '20rem' },
@@ -12,10 +12,10 @@ const SIZES = [
 ] as const;
 
 const template = `
-<ui-toast
+<extra-toast
   key="width-preview"
   [pt]="{ root: { style: { '--p-toast-width': currentWidth } } }"
-></ui-toast>
+></extra-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of sizes; track s.key) {
@@ -50,7 +50,7 @@ const styles = '';
 @Component({
   selector: 'app-toast-width',
   standalone: true,
-  imports: [ToastComponent, Button],
+  imports: [ExtraToastComponent, Button],
   template,
   styles,
 })
@@ -58,7 +58,7 @@ export class ToastWidthComponent {
   readonly sizes = SIZES;
   currentWidth = '25rem';
 
-  constructor(private readonly toastService: UiToastService) {}
+  constructor(private readonly toastService: ExtraToastService) {}
 
   show(cssVar: string): void {
     this.currentWidth = cssVar;
@@ -84,8 +84,8 @@ export const Width: StoryObj = {
       source: {
         language: 'ts',
         code: `
-<ui-toast [pt]="{ root: { style: { '--p-toast-width': '30rem' } } }">
-</ui-toast>
+<extra-toast [pt]="{ root: { style: { '--p-toast-width': '30rem' } } }">
+</extra-toast>
         `,
       },
     },
