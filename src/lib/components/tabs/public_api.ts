@@ -1,0 +1,4 @@
+export * from './tabs.component';
+
+
+

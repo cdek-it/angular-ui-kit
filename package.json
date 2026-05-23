@@ -20,8 +20,9 @@
     "format:check": "prettier --check \"**/*.{js,ts,d.ts}\"",
     "build:check": "npm run format:check && npm run security:check",
     "build:storybook": "ng run angular-ui-kit:build-storybook",
+    "build:lib": "ng build angular-ui-kit-lib",
     "security:check": "npm audit --production --audit-level high",
-    "copy:dist": "cpx 'src/prime-preset/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/"
+    "copy:dist": "cpx 'src/lib/providers/prime-preset/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/"
   },
   "repository": "github:cdek-it/angular-ui-kit",
   "devDependencies": {
@@ -46,6 +47,7 @@
     "@primeng/themes": "20.4.0",
     "@storybook/addon-a11y": "10.1.8",
     "@storybook/addon-docs": "10.1.8",
+    "@storybook/addon-themes": "^10.1.8",
     "@storybook/angular": "10.1.8",
     "@tabler/icons-webfont": "3.35.0",
     "@types/jasmine": "5.1.13",
@@ -62,6 +64,8 @@
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage": "2.2.1",
     "karma-jasmine": "5.1.0",
+    "ng-packagr": "20.3.2",
+    "@primeuix/themes": "1.2.5",
     "karma-jasmine-html-reporter": "2.1.0",
     "prettier": "3.7.4",
     "primeng": "20.4.0",

@@ -9,7 +9,7 @@ export type BadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'seconda
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 
 @Component({
-  selector: 'button',
+  selector: 'extra-button',
   standalone: true,
   imports: [Button],
   template: `
@@ -35,7 +35,7 @@ type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
     ></p-button>
   `
 })
-export class ButtonComponent {
+export class ExtraButtonComponent {
   @Input() label = 'Button';
   @Input() variant: ButtonVariant = 'primary';
   @Input() severity: ButtonSeverity = null;

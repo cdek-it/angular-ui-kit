@@ -1,14 +1,17 @@
 import { applicationConfig, Preview } from '@storybook/angular';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
+import { withThemeByClassName } from '@storybook/addon-themes';
 import docJson from '../documentation.json';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import Preset from '../src/prime-preset/theme.preset';
+import Preset from '../src/lib/providers/prime-preset/theme.preset';
 
 import '!style-loader!css-loader!postcss-loader!sass-loader!../src/styles.scss';
 
 setCompodocJson(docJson);
+
+const DARK_MODE_SELECTOR = '.dark-mode';
 
 const preview: Preview = {
   decorators: [
@@ -19,15 +22,26 @@ const preview: Preview = {
           theme: {
             preset: Preset,
             options: {
-              darkModeSelector: false,
+              darkModeSelector: '.dark',
               cssLayer: false
             }
           }
         })
       ]
+    }),
+    withThemeByClassName({
+      themes: {
+        light: '',
+        dark: 'dark'
+      },
+      defaultTheme: 'light'
     })
   ],
   parameters: {
+    backgrounds: { disable: true },
+    docs: {
+      globals: { theme: 'light' },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
