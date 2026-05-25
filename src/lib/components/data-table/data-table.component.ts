@@ -12,7 +12,7 @@ export interface DataTableColumn {
 }
 
 @Component({
-  selector: 'data-table',
+  selector: 'extra-data-table',
   host: { style: 'display: block' },
   standalone: true,
   imports: [TableModule, PrimeTemplate],
@@ -75,7 +75,7 @@ export interface DataTableColumn {
     </p-table>
   `,
 })
-export class DataTableComponent {
+export class ExtraDataTableComponent {
   @Input() value: any[] = [];
   @Input() columns: DataTableColumn[] = [];
   @Input() stripedRows = false;

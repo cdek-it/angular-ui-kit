@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DataTableComponent } from '../../../lib/components/data-table/data-table.component';
+import { ExtraDataTableComponent } from '../../../lib/components/data-table/data-table.component';
 import { DataTableDefaultComponent } from './examples/data-table-default.component';
 import { DataTableStripedRowsComponent } from './examples/data-table-striped-rows.component';
 import { DataTableSelectableComponent } from './examples/data-table-selectable.component';
@@ -10,9 +10,9 @@ import { DataTableSelectionCheckboxComponent } from './examples/data-table-selec
 import { DataTableScrollVerticalComponent } from './examples/data-table-scroll-vertical.component';
 import { DataTableScrollHorizontalComponent } from './examples/data-table-scroll-horizontal.component';
 
-const meta: Meta<DataTableComponent> = {
+const meta: Meta<ExtraDataTableComponent> = {
   title: 'Components/Data/DataTable',
-  component: DataTableComponent,
+  component: ExtraDataTableComponent,
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -20,7 +20,7 @@ const meta: Meta<DataTableComponent> = {
         component: `Таблица данных с поддержкой сортировки, пагинации, выбора строк и прокрутки.
 
 \`\`\`typescript
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -147,7 +147,7 @@ import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<DataTableComponent>;
+type Story = StoryObj<ExtraDataTableComponent>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
@@ -164,14 +164,14 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-default',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table [value]="shipments" [columns]="columns"></data-table>
+    <extra-data-table [value]="shipments" [columns]="columns"></extra-data-table>
   \`,
 })
 export class DataTableDefaultComponent {
@@ -209,14 +209,14 @@ export const StripedRows: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-striped-rows',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table [value]="shipments" [columns]="columns" [stripedRows]="true"></data-table>
+    <extra-data-table [value]="shipments" [columns]="columns" [stripedRows]="true"></extra-data-table>
   \`,
 })
 export class DataTableStripedRowsComponent {
@@ -254,20 +254,20 @@ export const Selectable: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-selectable',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table
+    <extra-data-table
       [value]="shipments"
       [columns]="columns"
       selectionMode="single"
       [(selection)]="selected"
       dataKey="id"
-    ></data-table>
+    ></extra-data-table>
   \`,
 })
 export class DataTableSelectableComponent {
@@ -307,14 +307,14 @@ export const GridLines: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-grid-lines',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table [value]="shipments" [columns]="columns" [showGridlines]="true"></data-table>
+    <extra-data-table [value]="shipments" [columns]="columns" [showGridlines]="true"></extra-data-table>
   \`,
 })
 export class DataTableGridLinesComponent {
@@ -352,20 +352,20 @@ export const Pagination: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-pagination',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table
+    <extra-data-table
       [value]="shipments"
       [columns]="columns"
       [paginator]="true"
       [rows]="5"
       [rowsPerPageOptions]="[5, 10, 25]"
-    ></data-table>
+    ></extra-data-table>
   \`,
 })
 export class DataTablePaginationComponent {
@@ -399,20 +399,20 @@ export const SelectionRadio: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-selection-radio',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table
+    <extra-data-table
       [value]="shipments"
       [columns]="columns"
       selectionMode="single"
       [(selection)]="selected"
       dataKey="id"
-    ></data-table>
+    ></extra-data-table>
   \`,
 })
 export class DataTableSelectionRadioComponent {
@@ -447,20 +447,20 @@ export const SelectionCheckbox: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-selection-checkbox',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table
+    <extra-data-table
       [value]="shipments"
       [columns]="columns"
       selectionMode="multiple"
       [(selection)]="selected"
       dataKey="id"
-    ></data-table>
+    ></extra-data-table>
   \`,
 })
 export class DataTableSelectionCheckboxComponent {
@@ -495,19 +495,19 @@ export const ScrollVertical: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-scroll-vertical',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table
+    <extra-data-table
       [value]="shipments"
       [columns]="columns"
       [scrollable]="true"
       scrollHeight="400px"
-    ></data-table>
+    ></extra-data-table>
   \`,
 })
 export class DataTableScrollVerticalComponent {
@@ -540,14 +540,14 @@ export const ScrollHorizontal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-data-table-scroll-horizontal',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template: \`
-    <data-table [value]="shipments" [columns]="columns" [scrollable]="true"></data-table>
+    <extra-data-table [value]="shipments" [columns]="columns" [scrollable]="true"></extra-data-table>
   \`,
 })
 export class DataTableScrollHorizontalComponent {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '../../../../lib/components/data-table/data-table.component';
+import { ExtraDataTableComponent, DataTableColumn } from '../../../../lib/components/data-table/data-table.component';
 
 const BASE_SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', destination: 'Москва', status: 'В пути', weight: 2.5 },
@@ -21,19 +21,19 @@ const COLUMNS: DataTableColumn[] = [
 
 const template = `
 <div class="bg-surface-ground">
-  <data-table
+  <extra-data-table
     [value]="shipments"
     [columns]="columns"
     [scrollable]="true"
     scrollHeight="400px"
-  ></data-table>
+  ></extra-data-table>
 </div>
 `;
 
 @Component({
   selector: 'app-data-table-scroll-vertical',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template,
 })
 export class DataTableScrollVerticalComponent {

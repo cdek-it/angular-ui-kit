@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataTableComponent, DataTableColumn } from '../../../../lib/components/data-table/data-table.component';
+import { ExtraDataTableComponent, DataTableColumn } from '../../../../lib/components/data-table/data-table.component';
 
 const SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', destination: 'Москва', status: 'В пути', weight: 2.5, cost: 1200 },
@@ -19,14 +19,14 @@ const COLUMNS: DataTableColumn[] = [
 
 const template = `
 <div class="bg-surface-ground">
-  <data-table [value]="shipments" [columns]="columns" [stripedRows]="true"></data-table>
+  <extra-data-table [value]="shipments" [columns]="columns" [stripedRows]="true"></extra-data-table>
 </div>
 `;
 
 @Component({
   selector: 'app-data-table-striped-rows',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [ExtraDataTableComponent],
   template,
 })
 export class DataTableStripedRowsComponent {
