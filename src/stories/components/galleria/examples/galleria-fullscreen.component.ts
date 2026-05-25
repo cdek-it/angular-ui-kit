@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { PrimeTemplate } from 'primeng/api';
 import { GALLERIA_IMAGES } from './galleria-default.component';
 
 @Component({
   selector: 'app-galleria-fullscreen',
   standalone: true,
-  imports: [GalleriaModule, ButtonComponent, PrimeTemplate],
+  imports: [GalleriaModule, PrimeTemplate],
   template: `
     <button label="Открыть галерею" (click)="visible = true"></button>
 
