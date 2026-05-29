@@ -13,11 +13,11 @@ const SHIPMENTS = [
 ];
 
 @Component({
-  selector: 'app-p-data-table-striped-rows',
+  selector: 'app-primeng-table-pagination',
   standalone: true,
   imports: [TableModule],
   template: `
-    <p-table [value]="shipments" [stripedRows]="true">
+    <p-table [value]="shipments" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]">
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="trackNumber">Трек-номер <p-sortIcon field="trackNumber"></p-sortIcon></th>
@@ -39,6 +39,6 @@ const SHIPMENTS = [
     </p-table>
   `,
 })
-export class PDataTableStripedRowsComponent {
+export class PDataTablePaginationComponent {
   shipments = SHIPMENTS;
 }

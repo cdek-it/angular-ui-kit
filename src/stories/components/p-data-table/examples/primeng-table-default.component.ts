@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ExtraDataTableComponent, DataTableColumn } from '../../../../lib/components/data-table/data-table.component';
+import { TableModule } from 'primeng/table';
 
 const SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', destination: 'Москва', status: 'В пути', weight: 2.5, cost: 1200 },
@@ -12,33 +12,33 @@ const SHIPMENTS = [
   { id: 8, trackNumber: 'ЦД-00123463', destination: 'Ростов-на-Дону', status: 'Доставлен', weight: 2.1, cost: 980 },
 ];
 
-const COLUMNS: DataTableColumn[] = [
-  { field: 'trackNumber', header: 'Трек-номер', sortable: true },
-  { field: 'destination', header: 'Назначение', sortable: true },
-  { field: 'status', header: 'Статус', sortable: true },
-  { field: 'weight', header: 'Вес, кг', sortable: true },
-  { field: 'cost', header: 'Стоимость, ₽', sortable: true },
-];
-
-const template = `
-<div class="bg-surface-ground">
-  <extra-data-table
-    [value]="shipments"
-    [columns]="columns"
-    [paginator]="true"
-    [rows]="5"
-    [rowsPerPageOptions]="[5, 10, 25]"
-  ></extra-data-table>
-</div>
-`;
-
 @Component({
-  selector: 'app-data-table-pagination',
+  selector: 'app-primeng-table-default',
   standalone: true,
-  imports: [ExtraDataTableComponent],
-  template,
+  imports: [TableModule],
+  template: `
+    <p-table [value]="shipments">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="trackNumber">Трек-номер <p-sortIcon field="trackNumber"></p-sortIcon></th>
+          <th pSortableColumn="destination">Назначение <p-sortIcon field="destination"></p-sortIcon></th>
+          <th pSortableColumn="status">Статус <p-sortIcon field="status"></p-sortIcon></th>
+          <th pSortableColumn="weight">Вес, кг <p-sortIcon field="weight"></p-sortIcon></th>
+          <th pSortableColumn="cost">Стоимость, ₽ <p-sortIcon field="cost"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-shipment>
+        <tr>
+          <td>{{ shipment.trackNumber }}</td>
+          <td>{{ shipment.destination }}</td>
+          <td>{{ shipment.status }}</td>
+          <td>{{ shipment.weight }}</td>
+          <td>{{ shipment.cost }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  `,
 })
-export class DataTablePaginationComponent {
+export class PDataTableDefaultComponent {
   shipments = SHIPMENTS;
-  columns = COLUMNS;
 }

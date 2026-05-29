@@ -13,7 +13,7 @@ const ALL_SHIPMENTS = Array.from({ length: 500 }, (_, i) => ({
 const PAGE_SIZE = 50;
 
 @Component({
-  selector: 'app-p-data-table-lazy',
+  selector: 'app-primeng-table-lazy',
   standalone: true,
   imports: [TableModule],
   template: `

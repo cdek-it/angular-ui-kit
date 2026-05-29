@@ -10,7 +10,7 @@ const SHIPMENTS = [
 ];
 
 @Component({
-  selector: 'app-p-data-table-selectable',
+  selector: 'app-primeng-table-selectable',
   standalone: true,
   imports: [TableModule],
   template: `

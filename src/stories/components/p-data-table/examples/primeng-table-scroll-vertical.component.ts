@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
-const SHIPMENTS = [
+const BASE_SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', destination: 'Москва', status: 'В пути', weight: 2.5 },
   { id: 2, trackNumber: 'ЦД-00123457', destination: 'Новосибирск', status: 'Доставлен', weight: 0.8 },
   { id: 3, trackNumber: 'ЦД-00123458', destination: 'Екатеринбург', status: 'Задержан', weight: 5.2 },
   { id: 4, trackNumber: 'ЦД-00123459', destination: 'Казань', status: 'В пути', weight: 1.3 },
   { id: 5, trackNumber: 'ЦД-00123460', destination: 'Краснодар', status: 'Доставлен', weight: 3.7 },
+  { id: 6, trackNumber: 'ЦД-00123461', destination: 'Воронеж', status: 'Ожидание', weight: 0.5 },
+  { id: 7, trackNumber: 'ЦД-00123462', destination: 'Самара', status: 'В пути', weight: 8.0 },
+  { id: 8, trackNumber: 'ЦД-00123463', destination: 'Ростов-на-Дону', status: 'Доставлен', weight: 2.1 },
 ];
 
 @Component({
-  selector: 'app-p-data-table-selection-checkbox',
+  selector: 'app-primeng-table-scroll-vertical',
   standalone: true,
   imports: [TableModule],
   template: `
-    <p-table [value]="shipments" selectionMode="multiple" [(selection)]="selected" dataKey="id">
+    <p-table [value]="shipments" [scrollable]="true" scrollHeight="400px">
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 3rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-          </th>
           <th pSortableColumn="trackNumber">Трек-номер <p-sortIcon field="trackNumber"></p-sortIcon></th>
           <th pSortableColumn="destination">Назначение <p-sortIcon field="destination"></p-sortIcon></th>
           <th pSortableColumn="status">Статус <p-sortIcon field="status"></p-sortIcon></th>
@@ -27,10 +27,7 @@ const SHIPMENTS = [
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-shipment>
-        <tr [pSelectableRow]="shipment">
-          <td>
-            <p-tableCheckbox [value]="shipment"></p-tableCheckbox>
-          </td>
+        <tr>
           <td>{{ shipment.trackNumber }}</td>
           <td>{{ shipment.destination }}</td>
           <td>{{ shipment.status }}</td>
@@ -40,7 +37,6 @@ const SHIPMENTS = [
     </p-table>
   `,
 })
-export class PDataTableSelectionCheckboxComponent {
-  shipments = SHIPMENTS;
-  selected: any[] = [];
+export class PDataTableScrollVerticalComponent {
+  shipments = [...BASE_SHIPMENTS, ...BASE_SHIPMENTS, ...BASE_SHIPMENTS];
 }

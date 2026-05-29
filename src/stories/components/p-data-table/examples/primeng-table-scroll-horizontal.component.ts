@@ -10,7 +10,7 @@ const SHIPMENTS = [
 ];
 
 @Component({
-  selector: 'app-p-data-table-scroll-horizontal',
+  selector: 'app-primeng-table-scroll-horizontal',
   standalone: true,
   imports: [TableModule],
   template: `
