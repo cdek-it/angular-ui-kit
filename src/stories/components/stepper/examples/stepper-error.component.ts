@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { StepperComponent, StepperItem } from '../../../../lib/components/stepper/stepper.component';
+import { ExtraStepperComponent, ExtraStepperItem } from '../../../../lib/components/stepper/stepper.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <stepper value="2" [steps]="steps"></stepper>
+  <extra-stepper [value]="2" [steps]="steps"></extra-stepper>
 </div>
 `;
 const styles = '';
@@ -12,15 +12,15 @@ const styles = '';
 @Component({
   selector: 'app-stepper-error',
   standalone: true,
-  imports: [StepperComponent],
+  imports: [ExtraStepperComponent],
   template,
   styles,
 })
 export class StepperErrorComponent {
-  steps: StepperItem[] = [
-    { value: '1', label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-    { value: '2', label: 'Stepper', caption: 'caption', content: 'Step 2 Content (Invalid)', invalid: true },
-    { value: '3', label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true },
+  steps: ExtraStepperItem[] = [
+    { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
+    { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content (Invalid)', invalid: true },
+    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true },
   ];
 }
 
@@ -37,21 +37,21 @@ export const Error: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { StepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
+import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-stepper-error',
   standalone: true,
-  imports: [StepperComponent],
+  imports: [ExtraStepperComponent],
   template: \`
-    <stepper value="2" [steps]="steps"></stepper>
+    <extra-stepper [value]="2" [steps]="steps"></extra-stepper>
   \`,
 })
 export class StepperErrorComponent {
   steps: StepperItem[] = [
-    { value: '1', label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-    { value: '2', label: 'Stepper', caption: 'caption', content: 'Step 2 Content (Invalid)', invalid: true },
-    { value: '3', label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true },
+    { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
+    { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content (Invalid)', invalid: true },
+    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true },
   ];
 }
         `,

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { StepperComponent, StepperItem } from '../../../../lib/components/stepper/stepper.component';
+import { ExtraStepperComponent, ExtraStepperItem } from '../../../../lib/components/stepper/stepper.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <stepper value="1" [linear]="true" [steps]="steps"></stepper>
+  <extra-stepper [value]="1" [linear]="true" [steps]="steps"></extra-stepper>
 </div>
 `;
 const styles = '';
@@ -12,15 +12,15 @@ const styles = '';
 @Component({
   selector: 'app-stepper-linear',
   standalone: true,
-  imports: [StepperComponent],
+  imports: [ExtraStepperComponent],
   template,
   styles,
 })
 export class StepperLinearComponent {
-  steps: StepperItem[] = [
-    { value: '1', label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-    { value: '2', label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-    { value: '3', label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
+  steps: ExtraStepperItem[] = [
+    { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
+    { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
+    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
   ];
 }
 
@@ -36,21 +36,21 @@ export const Linear: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { StepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
+import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-stepper-linear',
   standalone: true,
-  imports: [StepperComponent],
+  imports: [ExtraStepperComponent],
   template: \`
-    <stepper value="1" [linear]="true" [steps]="steps"></stepper>
+    <extra-stepper [value]="1" [linear]="true" [steps]="steps"></extra-stepper>
   \`,
 })
 export class StepperLinearComponent {
   steps: StepperItem[] = [
-    { value: '1', label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-    { value: '2', label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-    { value: '3', label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
+    { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
+    { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
+    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
   ];
 }
         `,

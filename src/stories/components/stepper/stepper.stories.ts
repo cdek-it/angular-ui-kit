@@ -1,20 +1,20 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { StepperComponent } from '../../../lib/components/stepper/stepper.component';
+import { ExtraStepperComponent } from '../../../lib/components/stepper/stepper.component';
 import { StepperVerticalComponent, Vertical as VerticalStory } from './examples/stepper-vertical.component';
 import { StepperLinearComponent, Linear as LinearStory } from './examples/stepper-linear.component';
 import { StepperStepsOnlyComponent, StepsOnly as StepsOnlyStory } from './examples/stepper-steps-only.component';
 import { StepperErrorComponent, Error as ErrorStory } from './examples/stepper-error.component';
 
-type StepperArgs = StepperComponent;
+type StepperArgs = ExtraStepperComponent;
 
 const meta: Meta<StepperArgs> = {
   title: 'Components/Stepper',
-  component: StepperComponent,
+  component: ExtraStepperComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        StepperComponent,
+        ExtraStepperComponent,
         StepperVerticalComponent,
         StepperLinearComponent,
         StepperStepsOnlyComponent,
@@ -28,7 +28,7 @@ const meta: Meta<StepperArgs> = {
         component: `Пошаговый навигационный компонент для отображения прогресса через последовательность шагов.
 
 \`\`\`typescript
-import { StepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
+import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -36,12 +36,12 @@ import { StepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
   },
   argTypes: {
     value: {
-      control: 'text',
+      control: 'number',
       description: 'Значение активного шага',
       table: {
         category: 'Props',
         defaultValue: { summary: '1' },
-        type: { summary: 'string' },
+        type: { summary: 'number | undefined' },
       },
     },
     linear: {
@@ -99,16 +99,16 @@ export const Default: Story = {
     if (args.orientation === 'vertical')      parts.push(`orientation="vertical"`);
     if (!args.showPanels)                     parts.push(`[showPanels]="false"`);
 
-    const template = `<stepper\n  ${parts.join('\n  ')}\n></stepper>`;
+    const template = `<extra-stepper\n  ${parts.join('\n  ')}\n></extra-stepper>`;
 
     return { props: args, template };
   },
   args: {
-    value: '1',
+    value: 1,
     steps: [
-      { value: '1', label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-      { value: '2', label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-      { value: '3', label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
+      { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
+      { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
+      { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
     ],
     linear: false,
     orientation: 'horizontal',

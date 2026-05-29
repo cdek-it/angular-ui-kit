@@ -6,10 +6,10 @@ import { Step } from 'primeng/stepper';
 import { StepPanels } from 'primeng/stepper';
 import { StepPanel } from 'primeng/stepper';
 import { StepItem } from 'primeng/stepper';
-import { ButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '../button/button.component';
 
-export interface StepperItem {
-  value: string;
+export interface ExtraStepperItem {
+  value: number | undefined;
   label: string;
   caption?: string;
   content?: string;
@@ -18,10 +18,10 @@ export interface StepperItem {
 }
 
 @Component({
-  selector: 'stepper',
+  selector: 'extra-stepper',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, ButtonComponent, NgClass],
+  imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, ExtraButtonComponent, NgClass],
   template: `
     <p-stepper
       [value]="value"
@@ -52,10 +52,10 @@ export interface StepperItem {
                 <p class="m-0">{{ step.content }}</p>
                 <div class="flex pt-4">
                   @if (!first) {
-                    <button label="Назад" variant="outlined" (onClick)="activateCallback(steps[i - 1].value)"></button>
+                    <extra-button label="Назад" variant="outlined" (click)="activateCallback(steps[i - 1].value)"></extra-button>
                   }
                   @if (!last) {
-                    <button label="Вперёд" variant="secondary" class="ml-auto" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"></button>
+                    <extra-button label="Вперёд" variant="secondary" class="ml-auto" [disabled]="!!step.invalid" (click)="activateCallback(steps[i + 1].value)"></extra-button>
                   }
                 </div>
               </ng-template>
@@ -83,10 +83,10 @@ export interface StepperItem {
                   <p class="m-0">{{ step.content }}</p>
                   <div class="flex gap-2 pt-4">
                     @if (!first) {
-                      <button label="Назад" variant="outlined" (onClick)="activateCallback(steps[i - 1].value)"></button>
+                      <extra-button label="Назад" variant="outlined" (click)="activateCallback(steps[i - 1].value)"></extra-button>
                     }
                     @if (!last) {
-                      <button label="Вперёд" variant="secondary" [disabled]="!!step.invalid" (onClick)="activateCallback(steps[i + 1].value)"></button>
+                      <extra-button label="Вперёд" variant="secondary" [disabled]="!!step.invalid" (click)="activateCallback(steps[i + 1].value)"></extra-button>
                     }
                   </div>
                 </ng-template>
@@ -98,16 +98,16 @@ export interface StepperItem {
     </p-stepper>
   `,
 })
-export class StepperComponent {
-  @Input() value: string = '1';
-  @Input() steps: StepperItem[] = [];
+export class ExtraStepperComponent {
+  @Input() value: number | undefined = 1;
+  @Input() steps: ExtraStepperItem[] = [];
   @Input() linear = false;
   @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
   @Input() showPanels = true;
 
-  @Output() valueChange = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<number | undefined>();
 
-  onValueChange(newValue: string): void {
+  onValueChange(newValue: number | undefined): void {
     this.value = newValue;
     this.valueChange.emit(newValue);
   }
