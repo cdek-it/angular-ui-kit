@@ -1,9 +1,9 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { AccordionComponent, AccordionItem } from '../../../lib/components/accordion/accordion.component';
-import { AccordionMultipleComponent } from './examples/accordion-multiple.component';
-import { AccordionDisabledComponent } from './examples/accordion-disabled.component';
+import { ExtraAccordionComponent, ExtraAccordionItem } from '../../../lib/components/accordion/accordion.component';
+import { AccordionMultipleComponent, Multiple } from './examples/accordion-multiple.component';
+import { AccordionDisabledComponent, Disabled } from './examples/accordion-disabled.component';
 
-const defaultItems: AccordionItem[] = [
+const defaultItems: ExtraAccordionItem[] = [
   {
     value: '0',
     header: 'Данные отправления',
@@ -24,22 +24,14 @@ const defaultItems: AccordionItem[] = [
   },
 ];
 
-const commonTemplate = `
-<accordion
-  [items]="items"
-  [multiple]="multiple"
-  [activeValue]="activeValue"
-></accordion>
-`;
-
-const meta: Meta<AccordionComponent> = {
+const meta: Meta<ExtraAccordionComponent> = {
   title: 'Components/Panel/Accordion',
-  component: AccordionComponent,
+  component: ExtraAccordionComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        AccordionComponent,
+        ExtraAccordionComponent,
         AccordionMultipleComponent,
         AccordionDisabledComponent,
       ],
@@ -69,7 +61,7 @@ import { AccordionModule } from 'primeng/accordion';
     },
     activeValue: {
       control: 'text',
-      description: 'Значение активной панели (value из AccordionItem)',
+      description: 'Значение активной панели (value из ExtraAccordionItem)',
       table: {
         category: 'Props',
         defaultValue: { summary: "'0'" },
@@ -96,7 +88,7 @@ import { AccordionModule } from 'primeng/accordion';
 };
 
 export default meta;
-type Story = StoryObj<AccordionComponent>;
+type Story = StoryObj<ExtraAccordionComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 
@@ -108,7 +100,7 @@ export const Default: Story = {
     if (args.multiple) parts.push(`[multiple]="true"`);
     if (args.activeValue && args.activeValue !== '0') parts.push(`activeValue="${args.activeValue}"`);
 
-    const template = `<accordion\n  ${parts.join('\n  ')}\n></accordion>`;
+    const template = `<extra-accordion\n  ${parts.join('\n  ')}\n></extra-accordion>`;
 
     return { props: args, template };
   },
@@ -121,125 +113,4 @@ export const Default: Story = {
   },
 };
 
-// ── Stories ──────────────────────────────────────────────────────────────────
-
-export const Multiple: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { multiple: true, activeValue: '0' },
-  parameters: {
-    docs: {
-      description: { story: 'Режим множественного раскрытия — несколько панелей могут быть открыты одновременно.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { AccordionComponent, AccordionItem } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-accordion-multiple',
-  standalone: true,
-  imports: [AccordionComponent],
-  template: \`
-    <accordion [items]="items" [multiple]="true" activeValue="0"></accordion>
-  \`,
-})
-export class AccordionMultipleComponent {
-  items: AccordionItem[] = [
-    {
-      value: '0',
-      header: 'Данные отправления',
-      icon: 'ti ti-package',
-      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места',
-    },
-    {
-      value: '1',
-      header: 'Маршрут доставки',
-      icon: 'ti ti-map-pin',
-      content: 'Принят в Москве 14 апр 09:15 → Доставлен 15 апр 14:20',
-    },
-    {
-      value: '2',
-      header: 'Стоимость отправления',
-      icon: 'ti ti-receipt',
-      content: 'Итого: 525 ₽ · Оплачено: карта *4321',
-    },
-  ];
-}
-        `,
-      },
-    },
-  },
-};
-
-export const Disabled: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    items: [
-      {
-        value: '0',
-        header: 'Данные отправления',
-        icon: 'ti ti-package',
-        content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»',
-      },
-      {
-        value: '1',
-        header: 'Документы (недоступно)',
-        icon: 'ti ti-file-description',
-        content: 'Документация по отправлению временно недоступна.',
-        disabled: true,
-      },
-      {
-        value: '2',
-        header: 'Стоимость отправления',
-        icon: 'ti ti-receipt',
-        content: 'Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321',
-      },
-    ],
-    multiple: false,
-    activeValue: '0',
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Заблокированная панель — элемент недоступен для взаимодействия.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { AccordionComponent, AccordionItem } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-accordion-disabled',
-  standalone: true,
-  imports: [AccordionComponent],
-  template: \`
-    <accordion [items]="items" activeValue="0"></accordion>
-  \`,
-})
-export class AccordionDisabledComponent {
-  items: AccordionItem[] = [
-    {
-      value: '0',
-      header: 'Данные отправления',
-      icon: 'ti ti-package',
-      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места',
-    },
-    {
-      value: '1',
-      header: 'Документы (недоступно)',
-      icon: 'ti ti-file-description',
-      content: 'Документация по отправлению временно недоступна.',
-      disabled: true,
-    },
-    {
-      value: '2',
-      header: 'Стоимость отправления',
-      icon: 'ti ti-receipt',
-      content: 'Итого: 525 ₽ · Оплачено: карта *4321',
-    },
-  ];
-}
-        `,
-      },
-    },
-  },
-};
+export { Multiple, Disabled };
