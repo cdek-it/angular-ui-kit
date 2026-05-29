@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { BadgeComponent } from '../../../lib/components/badge/badge.component';
+import { ExtraBadgeComponent } from '../../../lib/components/badge/badge.component';
 import { BadgeSeverityComponent } from './examples/badge-severity.component';
 import { BadgeSizesComponent } from './examples/badge-sizes.component';
 import { BadgeDotComponent } from './examples/badge-dot.component';
@@ -8,13 +8,13 @@ export { Severity } from './examples/badge-severity.component';
 export { Sizes } from './examples/badge-sizes.component';
 export { Dot } from './examples/badge-dot.component';
 
-const meta: Meta<BadgeComponent> = {
+const meta: Meta<ExtraBadgeComponent> = {
   title: 'Components/Misc/Badge',
-  component: BadgeComponent,
+  component: ExtraBadgeComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [BadgeComponent, BadgeSeverityComponent, BadgeSizesComponent, BadgeDotComponent]
+      imports: [ExtraBadgeComponent, BadgeSeverityComponent, BadgeSizesComponent, BadgeDotComponent]
     })
   ],
   parameters: {
@@ -69,7 +69,7 @@ import { BadgeModule } from 'primeng/badge';
 };
 
 export default meta;
-type Story = StoryObj<BadgeComponent>;
+type Story = StoryObj<ExtraBadgeComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 export type SliderOrientation = 'horizontal' | 'vertical';
 
 @Component({
-  selector: 'slider',
+  selector: 'extra-slider',
   host: { style: 'display: block' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +15,7 @@ export type SliderOrientation = 'horizontal' | 'vertical';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SliderComponent),
+      useExisting: forwardRef(() => ExtraSliderComponent),
       multi: true,
     },
   ],
@@ -31,7 +31,7 @@ export type SliderOrientation = 'horizontal' | 'vertical';
     ></p-slider>
   `,
 })
-export class SliderComponent implements ControlValueAccessor, OnChanges, OnDestroy {
+export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, OnDestroy {
   @Input() min = 0;
   @Input() max = 100;
   @Input() step: number | undefined = undefined;

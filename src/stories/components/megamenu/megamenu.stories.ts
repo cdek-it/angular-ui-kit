@@ -1,13 +1,13 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
 
-const meta: Meta<MegaMenuComponent> = {
+const meta: Meta<ExtraMegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
-  component: MegaMenuComponent,
+  component: ExtraMegaMenuComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [MegaMenuComponent],
+      imports: [ExtraMegaMenuComponent],
     }),
   ],
   parameters: {
@@ -16,7 +16,7 @@ const meta: Meta<MegaMenuComponent> = {
         component: `Расширенное меню с поддержкой многоколоночных подменю. Поддерживает горизонтальную и вертикальную ориентацию.
 
 \`\`\`typescript
-import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
       story: {
@@ -61,7 +61,7 @@ import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<MegaMenuComponent>;
+type Story = StoryObj<ExtraMegaMenuComponent>;
 
 const baseItems: MegaMenuModel[] = [
   {
@@ -112,11 +112,11 @@ const baseItems: MegaMenuModel[] = [
 ];
 
 const commonTemplate = `
-<megamenu
+<extra-megamenu
   [model]="model"
   [orientation]="orientation"
   [disabled]="disabled"
-></megamenu>
+></extra-megamenu>
 `;
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -128,7 +128,7 @@ export const Default: Story = {
     if (args.orientation && args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
 
-    const template = `<megamenu\n  ${parts.join('\n  ')}\n></megamenu>`;
+    const template = `<extra-megamenu\n  ${parts.join('\n  ')}\n></extra-megamenu>`;
     return { props: { ...args, model: baseItems }, template };
   },
   parameters: {
@@ -154,12 +154,12 @@ export const Horizontal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items"></megamenu>\`,
+  imports: [ExtraMegaMenuComponent],
+  template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
 })
 export class HorizontalExample {
   items: MegaMenuModel[] = [
@@ -230,12 +230,12 @@ export const Vertical: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items" orientation="vertical"></megamenu>\`,
+  imports: [ExtraMegaMenuComponent],
+  template: \`<extra-megamenu [model]="items" orientation="vertical"></extra-megamenu>\`,
 })
 export class VerticalExample {
   items: MegaMenuModel[] = [
@@ -376,12 +376,12 @@ export const Custom: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items"></megamenu>\`,
+  imports: [ExtraMegaMenuComponent],
+  template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
 })
 export class CustomExample {
   items: MegaMenuModel[] = [
