@@ -21,6 +21,8 @@ import { megamenuCss } from './tokens/components/megamenu';
 import { selectCss } from './tokens/components/select';
 import { messageCss } from './tokens/components/message';
 import { inputotpCss } from './tokens/components/inputotp';
+import { carouselCss } from './tokens/components/carousel';
+import { galleriaCss } from './tokens/components/galleria';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -89,7 +91,15 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     passwordCss: {
       ...(tokens.components.password as unknown as ComponentsDesignTokens['password']),
       css: passwordCss
-    }
+    },
+    carousel: {
+      ...(tokens.components.carousel as unknown as ComponentsDesignTokens['carousel']),
+      css: carouselCss,
+    },
+    galleria: {
+      ...(tokens.components.galleria as unknown as ComponentsDesignTokens['galleria']),
+      css: galleriaCss,
+    },
   } as ComponentsDesignTokens,
 };
 
