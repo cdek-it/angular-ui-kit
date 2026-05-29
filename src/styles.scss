@@ -25,3 +25,11 @@ html {
 body .css-3rewwu {
   background: rgb(245 246 248);
 }
+
+body.dark-mode {
+  background: var(--p-content-background, #18181b);
+
+  .css-3rewwu {
+    background: var(--p-content-background, #18181b);
+  }
+}

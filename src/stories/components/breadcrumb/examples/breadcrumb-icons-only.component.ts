@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BreadcrumbComponent } from '../../../../lib/components/breadcrumb/breadcrumb.component';
+import { ExtraBreadcrumbComponent } from '../../../../lib/components/breadcrumb/breadcrumb.component';
 import { commonHome, iconOnlyItems } from '../breadcrumb.data';
 
 const template = `
 <div class="bg-surface-ground">
-  <breadcrumb [model]="model" [home]="home"></breadcrumb>
+  <extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
 </div>
 `;
 
 @Component({
   selector: 'app-breadcrumb-icons-only',
   standalone: true,
-  imports: [BreadcrumbComponent],
+  imports: [ExtraBreadcrumbComponent],
   template,
 })
 export class BreadcrumbIconsOnlyComponent {
@@ -31,14 +31,14 @@ export const IconsOnly: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { BreadcrumbComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraBreadcrumbComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-breadcrumb-icons-only',
   standalone: true,
   imports: [BreadcrumbComponent],
   template: \`
-    <breadcrumb [model]="model" [home]="home"></breadcrumb>
+    <extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
   \`,
 })
 export class BreadcrumbIconsOnlyComponent {

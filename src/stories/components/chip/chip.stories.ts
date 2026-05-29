@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ChipComponent } from '../../../lib/components/chip/chip.component';
+import { ExtraChipComponent as ChipComponent } from '../../../lib/components/chip/chip.component';
 import { ChipWithIconComponent, WithIcon as WithIconStory } from './examples/chip-with-icon.component';
 import { ChipRemovableComponent, Removable as RemovableStory } from './examples/chip-removable.component';
 import { ChipRemovableWithIconComponent, RemovableWithIcon as RemovableWithIconStory } from './examples/chip-removable-with-icon.component';
@@ -83,12 +83,12 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
 };
 
 const commonTemplate = `
-<chip
+<extra-chip
   [label]="label"
   [icon]="icon"
   [removable]="removable"
   [disabled]="disabled"
-></chip>
+></extra-chip>
 `;
 
 export default meta;
@@ -107,8 +107,8 @@ export const Default: Story = {
     if (args.disabled)  parts.push(`[disabled]="true"`);
 
     const template = parts.length
-      ? `<chip\n  ${parts.join('\n  ')}\n></chip>`
-      : `<chip></chip>`;
+      ? `<extra-chip\n  ${parts.join('\n  ')}\n></extra-chip>`
+      : `<extra-chip></extra-chip>`;
 
     return { props: args, template };
   },

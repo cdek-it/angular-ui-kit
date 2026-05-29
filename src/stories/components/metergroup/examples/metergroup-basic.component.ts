@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { MeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
+import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
 import { defaultValue } from '../metergroup.data';
 
 @Component({
   selector: 'app-metergroup-basic',
   standalone: true,
-  imports: [MeterGroupComponent],
+  imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <metergroup [value]="value"></metergroup>
+      <extra-metergroup [value]="value"></extra-metergroup>
     </div>
   `,
 })

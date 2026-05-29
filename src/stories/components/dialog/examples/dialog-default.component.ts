@@ -1,34 +1,33 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { Component } from '@angular/core';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <p-button (onClick)="visible = true" label="Создать заявку"></p-button>
+  <extra-button (click)="visible = true" label="Создать заявку"></extra-button>
 
   <ng-template #footer>
-    <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
-    <p-button label="Подтвердить" (onClick)="visible = false"></p-button>
+    <extra-button variant="text" label="Отмена" (click)="visible = false"></extra-button>
+    <extra-button label="Подтвердить" (click)="visible = false"></extra-button>
   </ng-template>
 
-  <dialog
+  <extra-dialog
     header="Подтверждение заявки"
     [visible]="visible"
     (visibleChange)="visible = $event"
     [footerTemplate]="footer"
   >
     <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению. Вес отправления: 3,5 кг, габариты: 40×30×20 см. Ориентировочный срок доставки — 3 рабочих дня.</p>
-  </dialog>
+  </extra-dialog>
 </div>
 `;
 
 @Component({
   selector: 'app-dialog-basic',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template,
 })
 export class DialogDefaultComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }

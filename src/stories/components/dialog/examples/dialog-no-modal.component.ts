@@ -1,17 +1,17 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { Component } from '@angular/core';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <p-button (onClick)="visible = true" label="Показать маршрут"></p-button>
+  <extra-button (click)="visible = true" label="Показать маршрут"></extra-button>
 
   <ng-template #footer>
-    <p-button variant="text" label="Отмена" (onClick)="visible = false"></p-button>
-    <p-button label="Сохранить" (onClick)="visible = false"></p-button>
+    <extra-button variant="text" label="Отмена" (click)="visible = false"></extra-button>
+    <extra-button label="Сохранить" (click)="visible = false"></extra-button>
   </ng-template>
 
-  <dialog
+  <extra-dialog
     header="Маршрут доставки"
     [modal]="false"
     [visible]="visible"
@@ -19,17 +19,16 @@ export const template = `
     [footerTemplate]="footer"
   >
     <p>Маршрут отправления CDEK-2025-00478312: Москва (склад) → Новосибирск (сортировочный центр) → Новосибирск (пункт выдачи). Это окно не блокирует основной контент страницы.</p>
-  </dialog>
+  </extra-dialog>
 </div>
 `;
 
 @Component({
   selector: 'app-dialog-no-modal',
   standalone: true,
-  imports: [DialogComponent, Button],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template,
 })
 export class DialogNoModalComponent {
-  @ViewChild('footer') footer!: TemplateRef<any>;
   visible = false;
 }

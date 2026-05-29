@@ -1,0 +1,2 @@
+export * from './toggleswitch.component';
+

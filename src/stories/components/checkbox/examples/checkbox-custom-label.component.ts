@@ -1,19 +1,19 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const styles = '';
 
 @Component({
   selector: 'app-checkbox-custom-label',
   standalone: true,
-  imports: [CheckboxComponent, ReactiveFormsModule],
+  imports: [ExtraCheckboxComponent, ReactiveFormsModule],
   styles,
   template: `
     <div class="flex items-center gap-3.5">
       @if (labelPosition === 'left') {
-        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
+        <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
       }
       <div class="flex flex-col gap-[3.5px]">
         <label [for]="inputId" [class]="labelClass">{{ label }}</label>
@@ -22,7 +22,7 @@ const styles = '';
         }
       </div>
       @if (labelPosition === 'right') {
-        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
+        <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
       }
     </div>
   `,
@@ -103,16 +103,16 @@ export const CustomLabel: StoryObj = {
         code: `
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-checkbox-custom-label',
   standalone: true,
-  imports: [CheckboxComponent, ReactiveFormsModule],
+  imports: [ExtraCheckboxComponent, ReactiveFormsModule],
   template: \`
     <div class="flex items-center gap-3.5">
       @if (labelPosition === 'left') {
-        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
+        <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
       }
       <div class="flex flex-col gap-[3.5px]">
         <label [for]="inputId" [class]="labelClass">{{ label }}</label>
@@ -121,7 +121,7 @@ import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
         }
       </div>
       @if (labelPosition === 'right') {
-        <checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></checkbox>
+        <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
       }
     </div>
   \`,
