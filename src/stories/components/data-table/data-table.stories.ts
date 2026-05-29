@@ -9,6 +9,8 @@ import { DataTableSelectionRadioComponent } from './examples/data-table-selectio
 import { DataTableSelectionCheckboxComponent } from './examples/data-table-selection-checkbox.component';
 import { DataTableScrollVerticalComponent } from './examples/data-table-scroll-vertical.component';
 import { DataTableScrollHorizontalComponent } from './examples/data-table-scroll-horizontal.component';
+import { DataTableCustomBodyComponent } from './examples/data-table-custom-body.component';
+import { DataTableLazyComponent } from './examples/data-table-lazy.component';
 
 const meta: Meta<ExtraDataTableComponent> = {
   title: 'Components/Data/DataTable',
@@ -567,3 +569,151 @@ export class DataTableScrollHorizontalComponent {
     },
   },
 };
+
+// ── CustomBody ────────────────────────────────────────────────────────────────
+
+export const CustomBody: Story = {
+  name: 'Custom Templates',
+  decorators: [moduleMetadata({ imports: [DataTableCustomBodyComponent] })],
+  render: () => ({ template: `<app-data-table-custom-body></app-data-table-custom-body>` }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Кастомные шаблоны для заголовка и тела таблицы. Передайте `ng-template` с директивой `pTemplate` внутрь `<extra-data-table>`. Поддерживаются шаблоны: `header`, `body`, `footer`, `caption`, `summary`, `emptymessage`, `rowexpansion`, `groupheader`, `groupfooter`, `paginatorleft`, `paginatorright`, `loadingicon`.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { PrimeTemplate } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
+
+@Component({
+  selector: 'app-data-table-custom-body',
+  standalone: true,
+  imports: [ExtraDataTableComponent, PrimeTemplate, TagModule],
+  template: \`
+    <extra-data-table [value]="shipments" [columns]="columns">
+
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          @for (col of columns; track col.field) {
+            <th [pSortableColumn]="col.sortable ? col.field : null">
+              {{ col.header }}
+              @if (col.sortable) { <p-sortIcon [field]="col.field"></p-sortIcon> }
+            </th>
+          }
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-row let-columns="columns">
+        <tr>
+          <td>{{ row.trackNumber }}</td>
+          <td>{{ row.destination }}</td>
+          <td>
+            <p-tag [value]="row.status" [severity]="getSeverity(row.status)"></p-tag>
+          </td>
+          <td>{{ row.weight }} кг</td>
+          <td><strong>{{ row.cost | currency:'RUB':'symbol':'1.0-0':'ru' }}</strong></td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr><td colspan="5" class="text-center p-4">Нет данных для отображения</td></tr>
+      </ng-template>
+
+    </extra-data-table>
+  \`,
+})
+export class DataTableCustomBodyComponent {
+  shipments = [...];
+  columns: DataTableColumn[] = [
+    { field: 'trackNumber', header: 'Трек-номер', sortable: true },
+    { field: 'destination', header: 'Назначение', sortable: true },
+    { field: 'status', header: 'Статус', sortable: true },
+    { field: 'weight', header: 'Вес, кг', sortable: true },
+    { field: 'cost', header: 'Стоимость, ₽', sortable: true },
+  ];
+
+  getSeverity(status: string) {
+    switch (status) {
+      case 'Доставлен': return 'success';
+      case 'В пути': return 'info';
+      case 'Задержан': return 'danger';
+      default: return 'warn';
+    }
+  }
+}
+        `,
+      },
+    },
+  },
+};
+
+// ── Lazy loading ──────────────────────────────────────────────────────────────
+
+export const LazyLoading: Story = {
+  name: 'Lazy Loading',
+  decorators: [moduleMetadata({ imports: [DataTableLazyComponent] })],
+  render: () => ({ template: `<app-data-table-lazy></app-data-table-lazy>` }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ленивая подгрузка данных с сервера при пагинации/сортировке. Используйте `[lazy]="true"`, `[totalRecords]` и `(onLazyLoad)` для управления загрузкой.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component, OnInit } from '@angular/core';
+import { ExtraDataTableComponent, DataTableColumn } from '@cdek-it/angular-ui-kit';
+import { TableLazyLoadEvent } from 'primeng/types/table';
+
+@Component({
+  selector: 'app-data-table-lazy',
+  standalone: true,
+  imports: [ExtraDataTableComponent],
+  template: \`
+    <extra-data-table
+      [value]="shipments"
+      [columns]="columns"
+      [lazy]="true"
+      [loading]="loading"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]"
+      [totalRecords]="totalRecords"
+      (onLazyLoad)="onLazyLoad($event)"
+    ></extra-data-table>
+  \`,
+})
+export class DataTableLazyComponent implements OnInit {
+  shipments: any[] = [];
+  columns: DataTableColumn[] = [
+    { field: 'trackNumber', header: 'Трек-номер', sortable: true },
+    { field: 'destination', header: 'Назначение', sortable: true },
+    { field: 'status', header: 'Статус', sortable: true },
+    { field: 'weight', header: 'Вес, кг', sortable: true },
+    { field: 'cost', header: 'Стоимость, ₽', sortable: true },
+  ];
+  totalRecords = 0;
+  loading = true;
+
+  onLazyLoad(event: TableLazyLoadEvent): void {
+    this.loading = true;
+    // Запрос к серверу с event.first, event.rows, event.sortField, event.sortOrder
+    myApiService.getShipments(event).subscribe(result => {
+      this.shipments = result.data;
+      this.totalRecords = result.total;
+      this.loading = false;
+    });
+  }
+}
+        `,
+      },
+    },
+  },
+};
+
