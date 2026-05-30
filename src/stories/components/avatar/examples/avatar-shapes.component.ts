@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { AvatarComponent } from '../../../../lib/components/avatar/avatar.component';
+import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex items-center gap-4">
-    <avatar label="S"></avatar>
-    <avatar label="C" shape="circle"></avatar>
+    <extra-avatar label="S"></extra-avatar>
+    <extra-avatar label="C" shape="circle"></extra-avatar>
   </div>
 </div>
 `;
@@ -15,7 +15,7 @@ const styles = '';
 @Component({
   selector: 'app-avatar-shapes',
   standalone: true,
-  imports: [AvatarComponent],
+    imports: [ExtraAvatarComponent],
   template,
   styles,
 })
@@ -34,16 +34,16 @@ export const Shapes: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { AvatarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-avatar-shapes',
   standalone: true,
-  imports: [AvatarComponent],
+  imports: [ExtraAvatarComponent],
   template: \`
     <div class="flex items-center gap-4">
-      <avatar label="S"></avatar>
-      <avatar label="C" shape="circle"></avatar>
+      <extra-avatar label="S"></extra-avatar>
+      <extra-avatar label="C" shape="circle"></extra-avatar>
     </div>
   \`,
 })

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SliderComponent } from '../../../../lib/components/slider/slider.component';
+import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
 <div class="bg-surface-ground" style="height: 220px">
-  <slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></slider>
+  <extra-slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -13,7 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-slider-vertical',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  imports: [ExtraSliderComponent, FormsModule],
   template,
   styles,
 })
@@ -33,15 +33,15 @@ export const Vertical: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-vertical',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  imports: [ExtraSliderComponent, FormsModule],
   template: \`
     <div style="height: 220px">
-      <slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></slider>
+      <extra-slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></extra-slider>
     </div>
   \`,
 })

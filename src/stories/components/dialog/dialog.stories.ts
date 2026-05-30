@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DialogComponent } from '../../../lib/components/dialog/dialog.component';
+import { ExtraDialogComponent } from '../../../lib/components/dialog/dialog.component';
 import { DialogDefaultComponent, template as dialogDefaultTemplate } from './examples/dialog-default.component';
 import { DialogSmallComponent, template as dialogSmallTemplate } from './examples/dialog-small.component';
 import { DialogLargeComponent, template as dialogLargeTemplate } from './examples/dialog-large.component';
@@ -8,19 +8,19 @@ import { DialogNoModalComponent, template as dialogNoModalTemplate } from './exa
 import { DialogNoHeaderComponent, template as dialogNoHeaderTemplate } from './examples/dialog-no-header.component';
 import { DialogDynamicComponent } from './examples/dialog-dynamic.component';
 
-const meta: Meta<DialogComponent> = {
+const meta: Meta<ExtraDialogComponent> = {
   title: 'Components/Overlay/Dialog',
-  component: DialogComponent,
+  component: ExtraDialogComponent,
   tags: ['autodocs'],
   parameters: {
     docs: {
-      description: {
-        component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
+          description: {
+                component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
 
-\`\`\`typescript
-import { DialogComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+        \`\`\`typescript
+        import { ExtraDialogComponent } from '@cdek-it/angular-ui-kit';
+        \`\`\``,
+              },
     },
     designTokens: { prefix: '--p-dialog' },
   },
@@ -119,7 +119,7 @@ import { DialogComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<DialogComponent>;
+type Story = StoryObj<ExtraDialogComponent>;
 
 // ── Basic ─────────────────────────────────────────────────────────────────────
 
@@ -136,12 +136,12 @@ export const Basic: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-basic',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template: \`${dialogDefaultTemplate}\`,
 })
 export class DialogBasicComponent {
@@ -166,12 +166,12 @@ export const Small: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-small',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template: \`${dialogSmallTemplate}\`,
 })
 export class DialogSmallComponent {
@@ -196,12 +196,12 @@ export const Large: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-large',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template: \`${dialogLargeTemplate}\`,
 })
 export class DialogLargeComponent {
@@ -226,12 +226,12 @@ export const ExtraLarge: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-extra-large',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template: \`${dialogExtraLargeTemplate}\`,
 })
 export class DialogExtraLargeComponent {
@@ -256,12 +256,12 @@ export const NoModal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-no-modal',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template: \`${dialogNoModalTemplate}\`,
 })
 export class DialogNoModalComponent {
@@ -286,12 +286,12 @@ export const NoHeader: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DialogComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template: \`${dialogNoHeaderTemplate}\`,
 })
 export class DialogNoHeaderComponent {
@@ -312,24 +312,24 @@ export const Dynamic: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Программное открытие диалога через `UiDialogService`. Содержимое — любой Angular-компонент, получающий `DynamicDialogRef` для закрытия.',
+        story: 'Программное открытие диалога через `ExtraDialogService`. Содержимое — любой Angular-компонент, получающий `DynamicDialogRef` для закрытия.',
       },
       source: {
         language: 'ts',
         code: `
 import { Component, Injector } from '@angular/core';
-import { ButtonComponent, DynamicDialogRef, UiDialogService } from '@cdek-it/angular-ui-kit';
+import { ExtraButtonComponent, DynamicDialogRef, ExtraDialogService } from '@cdek-it/angular-ui-kit';
 
 // Содержимое диалога
 @Component({
   selector: 'app-dialog-dynamic-content',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ExtraButtonComponent],
   template: \`
     <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
     <div class="flex justify-end gap-2 mt-4">
-      <button variant="text" label="Отмена" (click)="ref.close()"></button>
-      <button label="Подтвердить" (click)="ref.close(true)"></button>
+      <extra-button variant="text" label="Отмена" (click)="ref.close()"></extra-button>
+      <extra-button label="Подтвердить" (click)="ref.close(true)"></extra-button>
     </div>
   \`,
 })
@@ -348,7 +348,7 @@ export class DialogDynamicContentComponent {
 })
 export class DialogDynamicComponent {
   constructor(
-    private readonly dialogService: UiDialogService,
+    private readonly dialogService: ExtraDialogService,
     private readonly injector: Injector,
   ) {}
 

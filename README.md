@@ -1,36 +1,73 @@
 # angular-ui-kit
 
-angular-ui-kit - это пресет темы для primeng, а также storybook с демонстрацией и документацией используемых компонентов.
-Он позволяет быстро и легко строить новые интерфейсы в фирменном стиле CDEK.
+`angular-ui-kit` — это полноценная библиотека UI-компонентов и сервисов для Angular с готовыми стилями, storybook для демонстрации и документацией.
+Библиотека позволяет быстро и удобно добавлять готовые фирменные компоненты CDEK в приложения.
 
 ## Использование
 
-1. Установите пакет @cdek-it/angular-ui-kit
+1. Установите пакет `@cdek-it/angular-ui-kit`
 
 ```shell
 npm install @cdek-it/angular-ui-kit
 ```
 
-2. Импортируйте пресет темы в ваш angular-проект
+2. Подключите провайдеры в ваш angular-проект. Важно: для корректной работы стилей необходимо использовать `provideExtraThemes()` в списке провайдеров, например:
 
 ```ts
-import Preset from '@cdek-it/angular-ui-kit/dist/theme.preset.ts';
+import { provideExtraThemes } from '@cdek-it/angular-ui-kit';
+import { provideBrowserGlobalErrorListeners } from '@angular/platform-browser';
+import { importProvidersFrom } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    ...,
-    provideAnimations(),
-    providePrimeNG({
-      theme: {
-        preset: Preset,
-        options: {
-          darkModeSelector: false,
-          cssLayer: false
-        }
-      }
-    })
+    provideBrowserGlobalErrorListeners(),
+    importProvidersFrom(BrowserModule),
+    provideExtraThemes(),
   ]
 };
+```
+
+`provideExtraThemes()` необходим для правильной интеграции стилей библиотеки в приложение.
+
+## Пример использования компонентов
+
+Ниже простой пример использования входящих в библиотеку компонентов (вариант — `extra-button` и `extra-tag`). Вставьте в шаблон компонента или story:
+
+```html
+<div style="display: flex; flex-direction: column; gap: 16px; padding: 16px">
+  <extra-button label="hello"></extra-button>
+  <extra-button label="hello" [rounded]="true"></extra-button>
+  <extra-button label="hello" [text]="true"></extra-button>
+  <extra-tag [value]="'tag content'"></extra-tag>
+</div>
+```
+
+Примечание: Нужно добавить импорт соответствующего модуля/компонентов библиотеки в ваш модуль или компонент. Пример для standalone-компонента (используется `imports` в декораторе):
+
+```ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ExtraButtonComponent, ExtraTagComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [
+    ExtraButtonComponent,
+    CommonModule,
+    ExtraTagComponent,
+  ],
+  template: `
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 16px">
+      <extra-button label="hello"></extra-button>
+      <extra-button label="hello" [rounded]="true"></extra-button>
+      <extra-button label="hello" [text]="true"></extra-button>
+      <extra-tag [value]="'tag content'"></extra-tag>
+    </div>
+  `
+})
+export class AppExample {}
 ```
 
 ## Используемые технологии и связанные зависимости
@@ -48,11 +85,14 @@ export const appConfig: ApplicationConfig = {
 
 - Storybook 10
 
+Важно: на данный момент компоненты библиотеки не работают без Zone.js. Убедитесь, что ваше приложение использует zone (Zone.js должен быть подключён). В большинстве стандартных Angular-приложений Zone.js подключён по умолчанию.
+
 ## Структура проекта
 
 - `src/app` - базовое angular-приложение. Может использоваться как плейграунд для разработки и отладки.
 - `src/stories` - набор story с компонентами для storybook.
-- `src/prime-preset` - пресет темы для primeng, а также токены.
+- `src/prime-preset` - пресет темы и токены (используется библиотекой для совместимости с PrimeNG).
+- `src/lib` - исходники компонентов и сервисов библиотеки (компоненты, сервисы, модули и публичный API).
 
 ## Запуск storybook
 
@@ -77,33 +117,3 @@ npm run storybook
 3. Убедитесь, что все состояния компонента выглядят верно. Если нет - смотрите раздел "[Правила доработки компонентов](#Правила доработки компонентов)" ниже.
 4. Создать pull request в `main`, прикрепить его в задачу. Задачу отдать на ревью разработчикам и дизайнерам.
    В случае замечаний ориентируемся на пункт `3` выше.
-
-## Правила доработки компонентов
-
-### Компоненты primeng
-
-Если компонент несоответствует дизайну в figma, то:
-
-1. Проверяем верность токенов. Если есть ошибки - сообщаем мейнтейнеру.
-2. Если токены верны, и проблему можно решить кастомизацией css - согласуем доработки с мейнтейнером.
-3. Если кастомизации css недостаточно, но можно решить проблему через шаблоны - согласуем доработки с мейнтейнером. Пример ниже.
-Например, для `inputtext` нужен крестик с очисткой. Непосредственно такой опции в primeng нет, но можно использовать `p-inputIcon` с иконкой крестика, и следующим `source`-кодом в story:
-
-```
-// template
-<p-inputIcon>
-    <input pInputText [(ngModel)]="value" placeholder="Input with clear icon" />
-    <i class="ti ti-cross" (click)="onClearClick()"></i>
-</p-inputIcon>
-
-// ts
-onClearClick() {
-  this.value = '';
-}
-```
-Важно, что бы в story был верный `source`-код, что бы разработчики могли просто его копировать и с минимальными доработками использовать у себя.
-4. Если вариантов решения проблемы через способы выше нет - сообщаем мейнтейнеру. Далее будет подниматься вопрос о необходимости написания своего компонента.
-
-### Кастомные компоненты
-
-*todo будут разработаны при необходимости*

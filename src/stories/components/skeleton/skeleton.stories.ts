@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { SkeletonComponent } from '../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent as SkeletonComponent } from '../../../lib/components/skeleton/skeleton.component';
 import { SkeletonRectanglesComponent, Rectangles } from './examples/skeleton-rectangles.component';
 import { SkeletonCircleComponent, Circle } from './examples/skeleton-circle.component';
 import { SkeletonCardPlaceholderComponent, CardPlaceholder } from './examples/skeleton-card-placeholder.component';
@@ -121,8 +121,8 @@ export const Default: Story = {
     if (args.borderRadius) parts.push(`borderRadius="${args.borderRadius}"`);
 
     const template = parts.length
-      ? `<skeleton\n  ${parts.join('\n  ')}\n></skeleton>`
-      : `<skeleton></skeleton>`;
+      ? `<extra-skeleton\n  ${parts.join('\n  ')}\n></extra-skeleton>`
+      : `<extra-skeleton></extra-skeleton>`;
 
     return { props: { ...args, size: effectiveSize }, template };
   },
