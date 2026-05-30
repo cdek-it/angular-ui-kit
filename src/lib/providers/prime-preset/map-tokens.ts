@@ -24,6 +24,7 @@ import { inputotpCss } from './tokens/components/inputotp';
 import { carouselCss } from './tokens/components/carousel';
 import { galleriaCss } from './tokens/components/galleria';
 import { confirmDialogCss } from './tokens/components/confirm-dialog';
+import { drawerCss } from './tokens/components/drawer';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -104,6 +105,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     confirmdialog: {
       ...(tokens.components.confirmdialog as unknown as ComponentsDesignTokens['confirmdialog']),
       css: confirmDialogCss
+    },
+    drawer: {
+      ...(tokens.components.drawer as unknown as ComponentsDesignTokens['drawer']),
+      css: drawerCss
     }
   } as ComponentsDesignTokens
 };
