@@ -36,18 +36,18 @@ export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-dialog {
-    width: ${dt('sizing.80x')};
+    width: ${dt('overlay.width')};
   }
 
   .p-dialog.p-component.p-dialog-sm {
-    width: ${dt('overlay.sm.width')};
+    width: ${dt('sizing.80x')};
   }
 
   .p-dialog.p-component.p-dialog-lg {
-    width: ${dt('overlay.lg.width')};
+    width: ${dt('sizing.120x')};
   }
 
   .p-dialog.p-component.p-dialog-xlg {
-    width: ${dt('overlay.xlg.width')};
+    width: ${dt('sizing.128x')};
   }
 `;
