@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { DrawerComponent } from '../../../../lib/components/drawer/drawer.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDrawerComponent } from '../../../../lib/components/drawer/drawer.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<button label="Open Drawer" (click)="visible = true"></button>
+<extra-button label="Open Drawer" (click)="visible = true"></extra-button>
 
-<drawer [(visible)]="visible" header="With Footer">
+<extra-drawer [(visible)]="visible" header="With Footer">
   <p>Drawer content with footer actions.</p>
 
   <ng-template #drawerFooter>
     <div class="flex justify-end gap-3">
-      <button label="Cancel" variant="outlined" (click)="visible = false"></button>
-      <button label="Save" (click)="visible = false"></button>
+      <extra-button label="Cancel" variant="outlined" (click)="visible = false"></extra-button>
+      <extra-button label="Save" (click)="visible = false"></extra-button>
     </div>
   </ng-template>
-</drawer>
+</extra-drawer>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-drawer-with-footer',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -42,25 +42,25 @@ export const WithFooter: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DrawerComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-drawer-with-footer',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template: \`
-    <button label="Open Drawer" (click)="visible = true"></button>
+    <extra-button label="Open Drawer" (click)="visible = true"></extra-button>
 
-    <drawer [(visible)]="visible" header="With Footer">
+    <extra-drawer [(visible)]="visible" header="With Footer">
       <p>Drawer content with footer actions.</p>
 
       <ng-template #drawerFooter>
         <div class="flex justify-end gap-3">
-          <button label="Cancel" variant="outlined" (click)="visible = false"></button>
-          <button label="Save" (click)="visible = false"></button>
+          <extra-button label="Cancel" variant="outlined" (click)="visible = false"></extra-button>
+          <extra-button label="Save" (click)="visible = false"></extra-button>
         </div>
       </ng-template>
-    </drawer>
+    </extra-drawer>
   \`,
 })
 export class DrawerWithFooterComponent {

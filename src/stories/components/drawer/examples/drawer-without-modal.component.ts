@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { DrawerComponent } from '../../../../lib/components/drawer/drawer.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDrawerComponent } from '../../../../lib/components/drawer/drawer.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<button label="Without Modal" (click)="visible = true"></button>
+<extra-button label="Without Modal" (click)="visible = true"></extra-button>
 
-<drawer [(visible)]="visible" header="Without Modal" [modal]="false">
+<extra-drawer [(visible)]="visible" header="Without Modal" [modal]="false">
   <p>Drawer without backdrop overlay.</p>
-</drawer>
+</extra-drawer>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-drawer-without-modal',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -35,18 +35,18 @@ export const WithoutModal: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DrawerComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-drawer-without-modal',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template: \`
-    <button label="Without Modal" (click)="visible = true"></button>
+    <extra-button label="Without Modal" (click)="visible = true"></extra-button>
 
-    <drawer [(visible)]="visible" header="Without Modal" [modal]="false">
+    <extra-drawer [(visible)]="visible" header="Without Modal" [modal]="false">
       <p>Drawer without backdrop overlay.</p>
-    </drawer>
+    </extra-drawer>
   \`,
 })
 export class DrawerWithoutModalComponent {

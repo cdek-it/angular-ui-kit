@@ -1,38 +1,38 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { DrawerComponent } from '../../../../lib/components/drawer/drawer.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDrawerComponent } from '../../../../lib/components/drawer/drawer.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="flex flex-wrap gap-3">
-  <button label="Default" (click)="visibleDefault = true"></button>
-  <button label="Small" (click)="visibleSm = true"></button>
-  <button label="Large" (click)="visibleLg = true"></button>
-  <button label="Extra Large" (click)="visibleXlg = true"></button>
+  <extra-button label="Default" (click)="visibleDefault = true"></extra-button>
+  <extra-button label="Small" (click)="visibleSm = true"></extra-button>
+  <extra-button label="Large" (click)="visibleLg = true"></extra-button>
+  <extra-button label="Extra Large" (click)="visibleXlg = true"></extra-button>
 </div>
 
-<drawer [(visible)]="visibleDefault" header="Default">
+<extra-drawer [(visible)]="visibleDefault" header="Default">
   <p>Default size drawer content.</p>
-</drawer>
+</extra-drawer>
 
-<drawer [(visible)]="visibleSm" header="Small" size="sm">
+<extra-drawer [(visible)]="visibleSm" header="Small" size="sm">
   <p>Small size drawer content.</p>
-</drawer>
+</extra-drawer>
 
-<drawer [(visible)]="visibleLg" header="Large" size="lg">
+<extra-drawer [(visible)]="visibleLg" header="Large" size="lg">
   <p>Large size drawer content.</p>
-</drawer>
+</extra-drawer>
 
-<drawer [(visible)]="visibleXlg" header="Extra Large" size="xlg">
+<extra-drawer [(visible)]="visibleXlg" header="Extra Large" size="xlg">
   <p>Extra large size drawer content.</p>
-</drawer>
+</extra-drawer>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-drawer-sizes',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -55,35 +55,35 @@ export const Sizes: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DrawerComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-drawer-sizes',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template: \`
     <div class="flex flex-wrap gap-3">
-      <button label="Default" (click)="visibleDefault = true"></button>
-      <button label="Small" (click)="visibleSm = true"></button>
-      <button label="Large" (click)="visibleLg = true"></button>
-      <button label="Extra Large" (click)="visibleXlg = true"></button>
+      <extra-button label="Default" (click)="visibleDefault = true"></extra-button>
+      <extra-button label="Small" (click)="visibleSm = true"></extra-button>
+      <extra-button label="Large" (click)="visibleLg = true"></extra-button>
+      <extra-button label="Extra Large" (click)="visibleXlg = true"></extra-button>
     </div>
 
-    <drawer [(visible)]="visibleDefault" header="Default">
+    <extra-drawer [(visible)]="visibleDefault" header="Default">
       <p>Default size drawer content.</p>
-    </drawer>
+    </extra-drawer>
 
-    <drawer [(visible)]="visibleSm" header="Small" size="sm">
+    <extra-drawer [(visible)]="visibleSm" header="Small" size="sm">
       <p>Small size drawer content.</p>
-    </drawer>
+    </extra-drawer>
 
-    <drawer [(visible)]="visibleLg" header="Large" size="lg">
+    <extra-drawer [(visible)]="visibleLg" header="Large" size="lg">
       <p>Large size drawer content.</p>
-    </drawer>
+    </extra-drawer>
 
-    <drawer [(visible)]="visibleXlg" header="Extra Large" size="xlg">
+    <extra-drawer [(visible)]="visibleXlg" header="Extra Large" size="xlg">
       <p>Extra large size drawer content.</p>
-    </drawer>
+    </extra-drawer>
   \`,
 })
 export class DrawerSizesComponent {

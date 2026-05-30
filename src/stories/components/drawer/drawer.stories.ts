@@ -1,28 +1,30 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DrawerComponent } from '../../../lib/components/drawer/drawer.component';
-import { ButtonComponent } from '../../../lib/components/button/button.component';
+import { ExtraDrawerComponent } from '../../../lib/components/drawer/drawer.component';
+import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
 import { DrawerSizesComponent, Sizes as SizesStory } from './examples/drawer-sizes.component';
 import { DrawerPositionComponent, Position as PositionStory } from './examples/drawer-position.component';
 import { DrawerWithFooterComponent, WithFooter as WithFooterStory } from './examples/drawer-with-footer.component';
 import { DrawerFullScreenComponent, FullScreen as FullScreenStory } from './examples/drawer-full-screen.component';
 import { DrawerWithoutModalComponent, WithoutModal as WithoutModalStory } from './examples/drawer-without-modal.component';
+import { DrawerWithCustomHeaderComponent, WithCustomHeader as WithCustomHeaderStory } from './examples/drawer-with-custom-header.component';
 
-type DrawerArgs = DrawerComponent & { visible: boolean };
+type DrawerArgs = ExtraDrawerComponent & { visible: boolean };
 
 const meta: Meta<DrawerArgs> = {
   title: 'Components/Overlay/Drawer',
-  component: DrawerComponent,
+  component: ExtraDrawerComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        DrawerComponent,
-        ButtonComponent,
+        ExtraDrawerComponent,
+        ExtraButtonComponent,
         DrawerSizesComponent,
         DrawerPositionComponent,
         DrawerWithFooterComponent,
         DrawerFullScreenComponent,
         DrawerWithoutModalComponent,
+        DrawerWithCustomHeaderComponent,
       ],
     }),
   ],
@@ -32,7 +34,7 @@ const meta: Meta<DrawerArgs> = {
         component: `Drawer — панель, отображаемая как оверлей у края экрана.
 
 \`\`\`typescript
-import { DrawerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -144,8 +146,8 @@ export const Default: Story = {
   render: (args) => ({
     props: { ...args, visible: false },
     template: `
-      <button label="Open Drawer" (click)="visible = true"></button>
-      <drawer
+      <extra-button label="Open Drawer" (click)="visible = true"></extra-button>
+      <extra-drawer
         [(visible)]="visible"
         [header]="header"
         [position]="position"
@@ -158,7 +160,7 @@ export const Default: Story = {
         [blockScroll]="blockScroll"
       >
         <p>Drawer content.</p>
-      </drawer>
+      </extra-drawer>
     `,
   }),
   args: {
@@ -200,3 +202,7 @@ export const FullScreen: Story = FullScreenStory;
 // ── WithoutModal ──────────────────────────────────────────────────────────────
 
 export const WithoutModal: Story = WithoutModalStory;
+
+// ── WithCustomHeader ─────────────────────────────────────────────────────────
+
+export const WithCustomHeader: Story = WithCustomHeaderStory;

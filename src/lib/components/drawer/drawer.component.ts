@@ -8,20 +8,20 @@ import {
 } from '@angular/core';
 import { Drawer } from 'primeng/drawer';
 import { SharedModule } from 'primeng/api';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
-  selector: 'drawer',
+  selector: 'extra-drawer',
   standalone: true,
-  imports: [Drawer, SharedModule, NgIf, NgTemplateOutlet],
+  imports: [Drawer, SharedModule, NgTemplateOutlet],
   template: `
     <p-drawer
       [visible]="visible"
-      [header]="header"
+      [header]="headerTemplate ? undefined : header"
       [modal]="modal"
       [fullScreen]="fullScreen"
       [dismissible]="dismissible"
-      [showCloseIcon]="showCloseIcon"
+      [closable]="showCloseIcon"
       [closeOnEscape]="closeOnEscape"
       [blockScroll]="blockScroll"
       [styleClass]="sizeClass"
@@ -32,13 +32,20 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
       (onHide)="onHide.emit()"
     >
       <ng-content></ng-content>
-      <ng-template pTemplate="footer" *ngIf="footerTemplate">
-        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-      </ng-template>
+      @if (headerTemplate) {
+        <ng-template pTemplate="header">
+          <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+        </ng-template>
+      }
+      @if (footerTemplate) {
+        <ng-template pTemplate="footer">
+          <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+        </ng-template>
+      }
     </p-drawer>
   `,
 })
-export class DrawerComponent {
+export class ExtraDrawerComponent {
   @Input() visible = false;
   @Input() header: string | undefined;
   @Input() position: 'left' | 'right' | 'top' | 'bottom' = 'right';
@@ -53,6 +60,9 @@ export class DrawerComponent {
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() onShow = new EventEmitter<void>();
   @Output() onHide = new EventEmitter<void>();
+
+  @ContentChild('drawerHeader') headerTemplate: TemplateRef<unknown> | null =
+    null;
 
   @ContentChild('drawerFooter') footerTemplate: TemplateRef<unknown> | null =
     null;

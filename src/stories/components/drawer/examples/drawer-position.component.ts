@@ -1,38 +1,38 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { DrawerComponent } from '../../../../lib/components/drawer/drawer.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDrawerComponent } from '../../../../lib/components/drawer/drawer.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="flex flex-wrap gap-3">
-  <button label="Left" (click)="visibleLeft = true"></button>
-  <button label="Right" (click)="visibleRight = true"></button>
-  <button label="Top" (click)="visibleTop = true"></button>
-  <button label="Bottom" (click)="visibleBottom = true"></button>
+  <extra-button label="Left" (click)="visibleLeft = true"></extra-button>
+  <extra-button label="Right" (click)="visibleRight = true"></extra-button>
+  <extra-button label="Top" (click)="visibleTop = true"></extra-button>
+  <extra-button label="Bottom" (click)="visibleBottom = true"></extra-button>
 </div>
 
-<drawer [(visible)]="visibleLeft" header="Left" position="left">
+<extra-drawer [(visible)]="visibleLeft" header="Left" position="left">
   <p>Left drawer content.</p>
-</drawer>
+</extra-drawer>
 
-<drawer [(visible)]="visibleRight" header="Right" position="right">
+<extra-drawer [(visible)]="visibleRight" header="Right" position="right">
   <p>Right drawer content.</p>
-</drawer>
+</extra-drawer>
 
-<drawer [(visible)]="visibleTop" header="Top" position="top">
+<extra-drawer [(visible)]="visibleTop" header="Top" position="top">
   <p>Top drawer content.</p>
-</drawer>
+</extra-drawer>
 
-<drawer [(visible)]="visibleBottom" header="Bottom" position="bottom">
+<extra-drawer [(visible)]="visibleBottom" header="Bottom" position="bottom">
   <p>Bottom drawer content.</p>
-</drawer>
+</extra-drawer>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-drawer-position',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -55,35 +55,35 @@ export const Position: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DrawerComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-drawer-position',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template: \`
     <div class="flex flex-wrap gap-3">
-      <button label="Left" (click)="visibleLeft = true"></button>
-      <button label="Right" (click)="visibleRight = true"></button>
-      <button label="Top" (click)="visibleTop = true"></button>
-      <button label="Bottom" (click)="visibleBottom = true"></button>
+      <extra-button label="Left" (click)="visibleLeft = true"></extra-button>
+      <extra-button label="Right" (click)="visibleRight = true"></extra-button>
+      <extra-button label="Top" (click)="visibleTop = true"></extra-button>
+      <extra-button label="Bottom" (click)="visibleBottom = true"></extra-button>
     </div>
 
-    <drawer [(visible)]="visibleLeft" header="Left" position="left">
+    <extra-drawer [(visible)]="visibleLeft" header="Left" position="left">
       <p>Left drawer content.</p>
-    </drawer>
+    </extra-drawer>
 
-    <drawer [(visible)]="visibleRight" header="Right" position="right">
+    <extra-drawer [(visible)]="visibleRight" header="Right" position="right">
       <p>Right drawer content.</p>
-    </drawer>
+    </extra-drawer>
 
-    <drawer [(visible)]="visibleTop" header="Top" position="top">
+    <extra-drawer [(visible)]="visibleTop" header="Top" position="top">
       <p>Top drawer content.</p>
-    </drawer>
+    </extra-drawer>
 
-    <drawer [(visible)]="visibleBottom" header="Bottom" position="bottom">
+    <extra-drawer [(visible)]="visibleBottom" header="Bottom" position="bottom">
       <p>Bottom drawer content.</p>
-    </drawer>
+    </extra-drawer>
   \`,
 })
 export class DrawerPositionComponent {

@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { DrawerComponent } from '../../../../lib/components/drawer/drawer.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDrawerComponent } from '../../../../lib/components/drawer/drawer.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<button label="Full Screen" (click)="visible = true"></button>
+<extra-button label="Full Screen" (click)="visible = true"></extra-button>
 
-<drawer [(visible)]="visible" header="Full Screen" [fullScreen]="true">
+<extra-drawer [(visible)]="visible" header="Full Screen" [fullScreen]="true">
   <p>Full screen drawer content.</p>
-</drawer>
+</extra-drawer>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-drawer-full-screen',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
   styles,
 })
@@ -35,18 +35,18 @@ export const FullScreen: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DrawerComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-drawer-full-screen',
   standalone: true,
-  imports: [DrawerComponent, ButtonComponent],
+  imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template: \`
-    <button label="Full Screen" (click)="visible = true"></button>
+    <extra-button label="Full Screen" (click)="visible = true"></extra-button>
 
-    <drawer [(visible)]="visible" header="Full Screen" [fullScreen]="true">
+    <extra-drawer [(visible)]="visible" header="Full Screen" [fullScreen]="true">
       <p>Full screen drawer content.</p>
-    </drawer>
+    </extra-drawer>
   \`,
 })
 export class DrawerFullScreenComponent {
