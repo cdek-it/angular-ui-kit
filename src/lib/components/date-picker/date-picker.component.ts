@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePicker, DatePickerMonthChangeEvent } from 'primeng/datepicker';
 import { InputNumber } from 'primeng/inputnumber';
 import { PrimeTemplate } from 'primeng/api';
 import { Select } from 'primeng/select';
@@ -34,7 +34,7 @@ export type DatePickerSelectionMode = 'single' | 'multiple' | 'range';
 export type DatePickerIconDisplay = 'input' | 'button';
 
 @Component({
-  selector: 'date-picker',
+  selector: 'extra-date-picker',
   host: { style: 'display: inline-flex' },
   standalone: true,
   imports: [DatePicker, InputNumber, PrimeTemplate, FormsModule, Select, Button],
@@ -75,12 +75,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
     >
       <ng-template pTemplate="header">
         <div class="p-datepicker-header p-datepicker-custom-header">
-          <p-button
-            severity="secondary"
-            [rounded]="true"
-            [text]="true"
-            (onClick)="navPrev($event)"
-          >
+          <p-button severity="secondary" [rounded]="true" [text]="true" (onClick)="navPrev($event)">
             <ng-template pTemplate="icon">
               <i class="ti ti-chevron-left" aria-hidden="true"></i>
             </ng-template>
@@ -105,12 +100,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
               class="p-datepicker-year-select"
             ></p-select>
           </div>
-          <p-button
-            severity="secondary"
-            [rounded]="true"
-            [text]="true"
-            (onClick)="navNext($event)"
-          >
+          <p-button severity="secondary" [rounded]="true" [text]="true" (onClick)="navNext($event)">
             <ng-template pTemplate="icon">
               <i class="ti ti-chevron-right" aria-hidden="true"></i>
             </ng-template>
@@ -163,9 +153,9 @@ export type DatePickerIconDisplay = 'input' | 'button';
         </ng-template>
       }
     </p-datepicker>
-  `,
+  `
 })
-export class DatePickerComponent implements AfterViewInit, OnDestroy {
+export class ExtraDatePickerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('dpRef') dpRef!: DatePicker;
 
   readonly months = MONTHS;
@@ -222,15 +212,15 @@ export class DatePickerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  onMonthChangeHandler(event: { month: number; year: number }): void {
-    this.dpCurrentMonth = event.month - 1;
-    this.dpCurrentYear = event.year;
+  onMonthChangeHandler(event: DatePickerMonthChangeEvent): void {
+    this.dpCurrentMonth = event.month ? event.month - 1 : new Date().getMonth();
+    this.dpCurrentYear = event.year || new Date().getFullYear();
     this.onMonthChange.emit(event);
   }
 
-  onYearChangeHandler(event: { month: number; year: number }): void {
-    this.dpCurrentMonth = event.month - 1;
-    this.dpCurrentYear = event.year;
+  onYearChangeHandler(event: DatePickerMonthChangeEvent): void {
+    this.dpCurrentMonth = event.month ? event.month - 1 : new Date().getMonth();
+    this.dpCurrentYear = event.year || new Date().getFullYear();
     this.onYearChange.emit(event);
   }
 
@@ -355,8 +345,7 @@ export class DatePickerComponent implements AfterViewInit, OnDestroy {
   }
 
   private getPanelElement(): HTMLElement | null {
-    return (this.dpRef as any)?.content?.nativeElement
-      ?? document.querySelector('.p-datepicker-panel');
+    return (this.dpRef as any)?.content?.nativeElement ?? document.querySelector('.p-datepicker-panel');
   }
 
   private parseDateKey(key: string): Date | null {

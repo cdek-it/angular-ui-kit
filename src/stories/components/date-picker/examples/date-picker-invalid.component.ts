@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '../../../../lib/components/date-picker/date-picker.component';
+import { ExtraDatePickerComponent } from '../../../../lib/components/date-picker/date-picker.component';
 
 const template = `
-<date-picker
+<extra-date-picker
   [value]="date"
   (valueChange)="date = $event"
   [invalid]="true"
   placeholder="Некорректная дата"
-></date-picker>
+></extra-date-picker>
 `;
 
 @Component({
   selector: 'app-date-picker-invalid',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template,
 })
 export class DatePickerInvalidComponent {

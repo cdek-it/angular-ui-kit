@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DatePickerComponent } from '../../../lib/components/date-picker/date-picker.component';
+import { ExtraDatePickerComponent } from '../../../lib/components/date-picker/date-picker.component';
 import { DatePickerBasicComponent } from './examples/date-picker-basic.component';
 import { DatePickerRangeComponent } from './examples/date-picker-range.component';
 import { DatePickerTimeComponent } from './examples/date-picker-time.component';
@@ -9,16 +9,16 @@ import { DatePickerDisabledComponent } from './examples/date-picker-disabled.com
 import { DatePickerInvalidComponent } from './examples/date-picker-invalid.component';
 import { DatePickerClearIconComponent } from './examples/date-picker-clear-icon.component';
 
-type DatePickerArgs = DatePickerComponent & {};
+type DatePickerArgs = ExtraDatePickerComponent & {};
 
 const meta: Meta<DatePickerArgs> = {
   title: 'Components/Form/DatePicker',
-  component: DatePickerComponent,
+  component: ExtraDatePickerComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        DatePickerComponent,
+        ExtraDatePickerComponent,
         DatePickerBasicComponent,
         DatePickerRangeComponent,
         DatePickerTimeComponent,
@@ -36,7 +36,7 @@ const meta: Meta<DatePickerArgs> = {
         component: `Компонент выбора даты и времени. [Figma Design](https://www.figma.com/design/4TYeki0MDLhfPGJstbIicf/UI-kit-PrimeFace-(DS)?node-id=484-5726).
 
 \`\`\`typescript
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -178,7 +178,7 @@ import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
 };
 
 const commonTemplate = `
-<date-picker
+<extra-date-picker
   [size]="size"
   [selectionMode]="selectionMode"
   [showIcon]="showIcon"
@@ -191,7 +191,7 @@ const commonTemplate = `
   [readonly]="readonly"
   [placeholder]="placeholder"
   [dateFormat]="dateFormat"
-></date-picker>
+></extra-date-picker>
 `;
 
 export default meta;
@@ -216,8 +216,8 @@ export const Default: Story = {
     if (args.readonly) parts.push(`[readonly]="true"`);
 
     const template = parts.length
-      ? `<date-picker\n  ${parts.join('\n  ')}\n></date-picker>`
-      : `<date-picker></date-picker>`;
+      ? `<extra-date-picker\n  ${parts.join('\n  ')}\n></extra-date-picker>`
+      : `<extra-date-picker></extra-date-picker>`;
 
     return { props: args, template };
   },
@@ -241,19 +241,19 @@ export const Range: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-range',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="dates"
       (valueChange)="dates = $event"
       selectionMode="range"
       placeholder="Период доставки"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerRangeComponent {
@@ -275,19 +275,19 @@ export const Time: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-time',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="date"
       (valueChange)="date = $event"
       [showTime]="true"
       placeholder="Дата и время отправки"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerTimeComponent {
@@ -309,19 +309,19 @@ export const ButtonBar: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-button-bar',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="date"
       (valueChange)="date = $event"
       [showButtonBar]="true"
       placeholder="Дата отгрузки"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerButtonBarComponent {
@@ -343,18 +343,18 @@ export const Inline: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-inline',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="date"
       (valueChange)="date = $event"
       [inline]="true"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerInlineComponent {
@@ -376,19 +376,19 @@ export const Disabled: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-disabled',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="date"
       (valueChange)="date = $event"
       [disabled]="true"
       placeholder="Дата заблокирована"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerDisabledComponent {
@@ -410,19 +410,19 @@ export const Invalid: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-invalid',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="date"
       (valueChange)="date = $event"
       [invalid]="true"
       placeholder="Некорректная дата"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerInvalidComponent {
@@ -444,19 +444,19 @@ export const ClearIcon: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-clear-icon',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [ExtraDatePickerComponent],
   template: \\\`
-    <date-picker
+    <extra-date-picker
       [value]="date"
       (valueChange)="date = $event"
       [showClear]="true"
       placeholder="Дата с очисткой"
-    ></date-picker>
+    ></extra-date-picker>
   \\\`,
 })
 export class DatePickerClearIconComponent {
