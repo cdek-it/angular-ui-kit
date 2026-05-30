@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Provider } from '@angular/core';
 import { Confirmation, ConfirmationService } from 'primeng/api';
 
 export type ConfirmDialogOptions = Pick<
@@ -6,12 +6,12 @@ export type ConfirmDialogOptions = Pick<
   'key' | 'message' | 'header' | 'icon' | 'acceptLabel' | 'rejectLabel' | 'accept' | 'reject' | 'acceptButtonProps'
 >;
 
+export function provideConfirmDialog(): Provider[] {
+  return [ConfirmationService, ConfirmDialogService];
+}
+
 @Injectable()
 export class ConfirmDialogService {
-  static providers() {
-    return [ConfirmationService, ConfirmDialogService];
-  }
-
   constructor(private readonly confirmationService: ConfirmationService) {}
 
   confirm(options: ConfirmDialogOptions): void {

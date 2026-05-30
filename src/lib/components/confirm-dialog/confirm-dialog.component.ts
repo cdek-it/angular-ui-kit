@@ -2,16 +2,16 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { PrimeTemplate } from 'primeng/api';
-import { ButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '../button/button.component';
 
-export type ConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
-export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';
+export type ExtraConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
+export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';
 
 @Component({
-  selector: 'confirm-dialog',
+  selector: 'extra-confirm-dialog',
   host: { style: 'display: contents' },
   standalone: true,
-  imports: [ConfirmDialog, ButtonComponent, PrimeTemplate, NgTemplateOutlet],
+  imports: [ConfirmDialog, ExtraButtonComponent, PrimeTemplate, NgTemplateOutlet],
   template: `
     <p-confirmDialog [key]="key" [styleClass]="computedClass" appendTo="body">
       <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
@@ -25,14 +25,14 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
               <i [class]="message.icon"></i>
               <span>{{ message.header }}</span>
             </div>
-            <button
-              class="p-dialog-close-button"
+            <extra-button
+              styleClass="p-dialog-close-button"
               variant="text"
               icon="ti ti-x"
               [rounded]="true"
               [iconOnly]="true"
               (click)="onReject()"
-            ></button>
+            ></extra-button>
           </div>
         }
         <div class="p-dialog-content">
@@ -44,26 +44,26 @@ export type ConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'dang
           </ng-container>
         } @else {
           <div class="p-dialog-footer">
-            <button
+            <extra-button
               [label]="message.rejectLabel"
               variant="text"
               (click)="onReject()"
-            ></button>
-            <button
+            ></extra-button>
+            <extra-button
               [label]="message.acceptLabel"
               [severity]="message.acceptButtonProps?.severity"
               (click)="onAccept()"
-            ></button>
+            ></extra-button>
           </div>
         }
       </ng-template>
     </p-confirmDialog>
   `,
 })
-export class ConfirmDialogComponent {
+export class ExtraConfirmDialogComponent {
   @Input() key = '';
-  @Input() size: ConfirmDialogSize = 'default';
-  @Input() severity: ConfirmDialogSeverity = 'default';
+  @Input() size: ExtraConfirmDialogSize = 'default';
+  @Input() severity: ExtraConfirmDialogSeverity = 'default';
   @Input() headerTemplate: TemplateRef<any> | null = null;
   @Input() footerTemplate: TemplateRef<any> | null = null;
 
@@ -73,7 +73,7 @@ export class ConfirmDialogComponent {
     else if (this.size === 'lg') classes.push('p-confirmdialog-lg');
     else if (this.size === 'xlg') classes.push('p-confirmdialog-xlg');
 
-    const severityMap: Record<ConfirmDialogSeverity, string> = {
+    const severityMap: Record<ExtraConfirmDialogSeverity, string> = {
       success: 'p-confirm-dialog-accept',
       info: 'p-confirm-dialog-info',
       warn: 'p-confirm-dialog-warn',
