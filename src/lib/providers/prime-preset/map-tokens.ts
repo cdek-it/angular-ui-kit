@@ -23,6 +23,7 @@ import { messageCss } from './tokens/components/message';
 import { inputotpCss } from './tokens/components/inputotp';
 import { carouselCss } from './tokens/components/carousel';
 import { galleriaCss } from './tokens/components/galleria';
+import { confirmDialogCss } from './tokens/components/confirm-dialog';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -31,62 +32,62 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     ...(tokens.components as unknown as ComponentsDesignTokens),
     avatar: {
       ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
-      css: avatarCss,
+      css: avatarCss
     },
     card: {
       ...(tokens.components.card as unknown as ComponentsDesignTokens['card']),
-      css: cardCss,
+      css: cardCss
     },
     checkbox: {
       ...(tokens.components.checkbox as unknown as ComponentsDesignTokens['checkbox']),
-      css: checkboxCss,
+      css: checkboxCss
     },
     button: {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
-      css: buttonCss,
+      css: buttonCss
     },
     message: {
       ...(tokens.components.message as unknown as ComponentsDesignTokens['message']),
-      css: messageCss,
+      css: messageCss
     },
     progressspinner: {
       ...(tokens.components.progressspinner as unknown as ComponentsDesignTokens['progressspinner']),
-      css: progressspinnerCss,
+      css: progressspinnerCss
     },
     inputotp: {
       ...(tokens.components.inputotp as unknown as ComponentsDesignTokens['inputotp']),
-      css: inputotpCss,
+      css: inputotpCss
     },
     inputtext: {
       ...(tokens.components.inputtext as unknown as ComponentsDesignTokens['inputtext']),
-      css: inputtextCss,
+      css: inputtextCss
     },
     inputmask: {
-      css: inputmaskCss,
+      css: inputmaskCss
     },
     inputgroup: {
       ...(tokens.components.inputgroup as unknown as ComponentsDesignTokens['inputgroup']),
-      css: inputgroupCss,
+      css: inputgroupCss
     },
     tag: {
       ...(tokens.components.tag as unknown as ComponentsDesignTokens['tag']),
-      css: tagCss,
+      css: tagCss
     },
     textarea: {
       ...(tokens.components.textarea as unknown as ComponentsDesignTokens['textarea']),
-      css: textareaCss,
+      css: textareaCss
     },
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
-      css: tooltipCss,
+      css: tooltipCss
     },
     megamenu: {
       ...(tokens.components.megamenu as unknown as ComponentsDesignTokens['megamenu']),
-      css: megamenuCss,
+      css: megamenuCss
     },
     select: {
       ...(tokens.components.select as unknown as ComponentsDesignTokens['select']),
-      css: selectCss,
+      css: selectCss
     },
     passwordCss: {
       ...(tokens.components.password as unknown as ComponentsDesignTokens['password']),
@@ -94,13 +95,17 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     },
     carousel: {
       ...(tokens.components.carousel as unknown as ComponentsDesignTokens['carousel']),
-      css: carouselCss,
+      css: carouselCss
     },
     galleria: {
       ...(tokens.components.galleria as unknown as ComponentsDesignTokens['galleria']),
-      css: galleriaCss,
+      css: galleriaCss
     },
-  } as ComponentsDesignTokens,
+    confirmdialog: {
+      ...(tokens.components.confirmdialog as unknown as ComponentsDesignTokens['confirmdialog']),
+      css: confirmDialogCss
+    }
+  } as ComponentsDesignTokens
 };
 
 export default presetTokens;
