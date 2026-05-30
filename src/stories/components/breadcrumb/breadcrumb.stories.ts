@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { BreadcrumbComponent } from '../../../lib/components/breadcrumb/breadcrumb.component';
+import { ExtraBreadcrumbComponent as BreadcrumbComponent } from '../../../lib/components/breadcrumb/breadcrumb.component';
 import { BreadcrumbBasicComponent, Basic } from './examples/breadcrumb-basic.component';
 import { BreadcrumbIconsOnlyComponent, IconsOnly } from './examples/breadcrumb-icons-only.component';
 import { commonHome, commonItems } from './breadcrumb.data';
@@ -60,7 +60,7 @@ export const Default: Story = {
   name: 'Default',
   render: (args) => ({
     props: args,
-    template: `<breadcrumb [model]="model" [home]="home"></breadcrumb>`,
+    template: `<extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>`,
   }),
   parameters: {
     docs: {

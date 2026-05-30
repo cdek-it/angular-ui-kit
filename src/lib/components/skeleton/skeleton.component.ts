@@ -5,7 +5,7 @@ export type SkeletonShape = 'rectangle' | 'circle';
 export type SkeletonAnimation = 'wave' | 'none';
 
 @Component({
-  selector: 'skeleton',
+  selector: 'extra-skeleton',
   host: { style: 'display: block' },
   standalone: true,
   imports: [Skeleton],
@@ -20,7 +20,7 @@ export type SkeletonAnimation = 'wave' | 'none';
     ></p-skeleton>
   `,
 })
-export class SkeletonComponent {
+export class ExtraSkeletonComponent {
   @Input() shape: SkeletonShape = 'rectangle';
   @Input() animation: SkeletonAnimation = 'wave';
   @Input() width = '100%';

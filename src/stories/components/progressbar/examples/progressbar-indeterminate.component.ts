@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ProgressBarComponent } from '../../../../lib/components/progressbar/progressbar.component';
+import { ExtraProgressBarComponent } from '../../../../lib/components/progressbar/progressbar.component';
 
 @Component({
   selector: 'app-progressbar-indeterminate',
   standalone: true,
-  imports: [ProgressBarComponent],
+  imports: [ExtraProgressBarComponent],
   template: `
     <div class="bg-surface-ground">
-      <progressbar mode="indeterminate"></progressbar>
+      <extra-progressbar mode="indeterminate"></extra-progressbar>
     </div>
   `,
 })

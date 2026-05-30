@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SliderComponent } from '../../../../lib/components/slider/slider.component';
+import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
 <div class="bg-surface-ground" style="width: 320px">
-  <slider [disabled]="true"></slider>
+  <extra-slider [disabled]="true"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -12,7 +12,7 @@ const styles = '';
 @Component({
   selector: 'app-slider-disabled',
   standalone: true,
-  imports: [SliderComponent],
+  imports: [ExtraSliderComponent],
   template,
   styles,
 })
@@ -29,14 +29,14 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-disabled',
   standalone: true,
-  imports: [SliderComponent],
+  imports: [ExtraSliderComponent],
   template: \`
-    <slider [disabled]="true"></slider>
+    <extra-slider [disabled]="true"></extra-slider>
   \`,
 })
 export class SliderDisabledComponent {}

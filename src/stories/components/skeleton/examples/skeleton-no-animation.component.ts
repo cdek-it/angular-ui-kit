@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
 <div class="bg-surface-ground">
   <div class="flex flex-col gap-3">
-    <skeleton animation="none" height="1rem"></skeleton>
-    <skeleton animation="none" height="1rem" width="75%"></skeleton>
-    <skeleton animation="none" shape="circle" size="4rem"></skeleton>
+    <extra-skeleton animation="none" height="1rem"></extra-skeleton>
+    <extra-skeleton animation="none" height="1rem" width="75%"></extra-skeleton>
+    <extra-skeleton animation="none" shape="circle" size="4rem"></extra-skeleton>
   </div>
 </div>
 `;
@@ -16,7 +16,7 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-no-animation',
   standalone: true,
-  imports: [SkeletonComponent],
+  imports: [ExtraSkeletonComponent],
   template,
   styles,
 })
@@ -41,9 +41,9 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   imports: [SkeletonComponent],
   template: \`
     <div class="flex flex-col gap-3">
-      <skeleton animation="none" height="1rem"></skeleton>
-      <skeleton animation="none" height="1rem" width="75%"></skeleton>
-      <skeleton animation="none" shape="circle" size="4rem"></skeleton>
+      <extra-skeleton animation="none" height="1rem"></extra-skeleton>
+      <extra-skeleton animation="none" height="1rem" width="75%"></extra-skeleton>
+      <extra-skeleton animation="none" shape="circle" size="4rem"></extra-skeleton>
     </div>
   \`,
 })

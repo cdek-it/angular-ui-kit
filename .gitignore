@@ -55,3 +55,7 @@ src/assets/components/themes
 /storybook-static
 /debug-storybook.log
 /documentation.json
+
+.playwright-mcp/*
+
+.claude/*
