@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ScrollPanelComponent } from '../../../lib/components/scroll-panel/scroll-panel.component';
+import { ExtraScrollPanelComponent } from '../../../lib/components/scroll-panel/scroll-panel.component';
 import { ScrollPanelHorizontalComponent } from './examples/scroll-panel-horizontal.component';
 import { ScrollPanelBothComponent } from './examples/scroll-panel-both.component';
 
@@ -36,14 +36,14 @@ const BOTH_CONTENT = `
   </div>
 `;
 
-const meta: Meta<ScrollPanelComponent> = {
+const meta: Meta<ExtraScrollPanelComponent> = {
   title: 'Components/Panel/ScrollPanel',
-  component: ScrollPanelComponent,
+  component: ExtraScrollPanelComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        ScrollPanelComponent,
+        ExtraScrollPanelComponent,
         ScrollPanelHorizontalComponent,
         ScrollPanelBothComponent,
       ],
@@ -98,7 +98,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 };
 
 export default meta;
-type Story = StoryObj<ScrollPanelComponent>;
+type Story = StoryObj<ExtraScrollPanelComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 
@@ -112,7 +112,7 @@ export const Default: Story = {
     if (args.step !== 10) parts.push(`[step]="${args.step}"`);
 
     const attrStr = parts.length ? `\n  ${parts.join('\n  ')}\n` : '';
-    const template = `<scroll-panel${attrStr}>${TRACKING_CONTENT}</scroll-panel>`;
+    const template = `<extra-scroll-panel${attrStr}>${TRACKING_CONTENT}</extra-scroll-panel>`;
 
     return { props: args, template };
   },
@@ -130,7 +130,7 @@ export const Default: Story = {
 export const Horizontal: Story = {
   render: (args) => ({
     props: args,
-    template: `<scroll-panel [step]="step" height="80px" [width]="width">${HORIZONTAL_CONTENT}</scroll-panel>`,
+    template: `<extra-scroll-panel [step]="step" height="80px" [width]="width">${HORIZONTAL_CONTENT}</extra-scroll-panel>`,
   }),
   args: { step: 10, height: '80px', width: '100%' },
   parameters: {
@@ -140,18 +140,18 @@ export const Horizontal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ScrollPanelComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraScrollPanelComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-scroll-panel-horizontal',
   standalone: true,
-  imports: [ScrollPanelComponent],
+  imports: [ExtraScrollPanelComponent],
   template: \`
-    <scroll-panel height="80px">
+    <extra-scroll-panel height="80px">
       <p style="white-space: nowrap; margin: 0; line-height: 1.5">
         Заказ №ЦД-00123456 · Москва → Новосибирск · Принят 14 апр 09:15 · Передан перевозчику 14 апр 14:30 · Отправлен из Москвы 14 апр 23:50 · Прибыл в Новосибирск 15 апр 08:00 · Доставлен получателю 15 апр 14:20
       </p>
-    </scroll-panel>
+    </extra-scroll-panel>
   \`,
 })
 export class ScrollPanelHorizontalComponent {}
@@ -164,7 +164,7 @@ export class ScrollPanelHorizontalComponent {}
 export const Both: Story = {
   render: (args) => ({
     props: args,
-    template: `<scroll-panel [step]="step" [height]="height" [width]="width">${BOTH_CONTENT}</scroll-panel>`,
+    template: `<extra-scroll-panel [step]="step" [height]="height" [width]="width">${BOTH_CONTENT}</extra-scroll-panel>`,
   }),
   args: { step: 10, height: '200px', width: '50%' },
   parameters: {
@@ -174,14 +174,14 @@ export const Both: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ScrollPanelComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraScrollPanelComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-scroll-panel-both',
   standalone: true,
-  imports: [ScrollPanelComponent],
+  imports: [ExtraScrollPanelComponent],
   template: \`
-    <scroll-panel height="200px" width="50%">
+    <extra-scroll-panel height="200px" width="50%">
       <div style="width: max-content">
         <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Принят 14 апр · Доставлен 15 апр</p>
         <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123457 · Санкт-Петербург → Казань · 0.8 кг · 1 место · Принят 13 апр · Доставлен 15 апр</p>
@@ -189,7 +189,7 @@ import { ScrollPanelComponent } from '@cdek-it/angular-ui-kit';
         <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123459 · Нижний Новгород → Омск · 1.1 кг · 1 место · Принят 14 апр · Ожидает отправки</p>
         <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123460 · Самара → Ростов-на-Дону · 3.7 кг · 4 места · Принят 11 апр · Доставлен 14 апр</p>
       </div>
-    </scroll-panel>
+    </extra-scroll-panel>
   \`,
 })
 export class ScrollPanelBothComponent {}

@@ -1,15 +1,39 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ButtonComponent } from '../../../lib/components/button/button.component';
+import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
+import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
+import { ButtonTextComponent, Text } from './examples/button-text.component';
+import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
+import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
+import { ButtonOutlinedComponent, Outlined } from './examples/button-outlined.component';
+import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
+import { ButtonIconComponent, Icon } from './examples/button-icon.component';
+import { Extra } from './examples/button-extra.component';
+import { ButtonDisabledComponent, Disabled } from './examples/button-disabled.component';
+import { Base, ButtonBaseComponent } from './examples/button-base.component';
+import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
 
-type ButtonArgs = ButtonComponent & { onClick?: (event: MouseEvent) => void };
+type ButtonArgs = ExtraButtonComponent & { onClick?: (event: MouseEvent) => void };
 
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
-  component: ButtonComponent,
+  component: ExtraButtonComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ButtonComponent]
+      imports: [
+        ExtraButtonComponent,
+        ButtonSizesComponent,
+        ButtonBadgeComponent,
+        ButtonBaseComponent,
+        ButtonDisabledComponent,
+        ButtonIconComponent,
+        ButtonLoadingComponent,
+        ButtonOutlinedComponent,
+        ButtonRoundedComponent,
+        ButtonSeverityComponent,
+        ButtonSizesComponent,
+        ButtonTextComponent
+      ]
     })
   ],
   parameters: {
@@ -18,10 +42,10 @@ const meta: Meta<ButtonArgs> = {
         component: `Интерактивный элемент интерфейса. Используется для инициации действий, отправки форм и навигации.
 
 \`\`\`typescript
-import { ButtonModule } from 'primeng/button';
-\`\`\``,
-      },
-    },
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -31,8 +55,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'Button' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     severity: {
       control: 'select',
@@ -41,8 +65,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'null' },
-        type: { summary: "'success' | 'info' | 'warning' | 'danger' | null" },
-      },
+        type: { summary: "'success' | 'info' | 'warning' | 'danger' | null" }
+      }
     },
     variant: {
       control: 'select',
@@ -51,8 +75,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'primary' },
-        type: { summary: "'primary' | 'secondary' | 'outlined' | 'text' | 'link'" },
-      },
+        type: { summary: "'primary' | 'secondary' | 'outlined' | 'text' | 'link'" }
+      }
     },
     size: {
       control: 'select',
@@ -61,8 +85,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'base' },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     icon: {
       control: 'text',
@@ -70,8 +94,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     iconPos: {
       control: 'select',
@@ -80,8 +104,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'null' },
-        type: { summary: "'prefix' | 'postfix' | null" },
-      },
+        type: { summary: "'prefix' | 'postfix' | null" }
+      }
     },
     iconOnly: {
       control: 'boolean',
@@ -89,8 +113,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     rounded: {
       control: 'boolean',
@@ -98,8 +122,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -107,8 +131,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     loading: {
       control: 'boolean',
@@ -116,8 +140,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -125,8 +149,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     ariaLabel: {
       control: 'text',
@@ -134,8 +158,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     autofocus: {
       control: 'boolean',
@@ -143,8 +167,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     tabindex: {
       control: 'number',
@@ -152,8 +176,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     text: {
       control: 'boolean',
@@ -161,8 +185,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     // ── Badge ────────────────────────────────────────────────
     badge: {
@@ -171,8 +195,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Badge',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     badgeSeverity: {
       control: 'select',
@@ -181,8 +205,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Badge',
         defaultValue: { summary: 'null' },
-        type: { summary: "'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null" },
-      },
+        type: { summary: "'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null" }
+      }
     },
     showBadge: {
       control: 'boolean',
@@ -190,8 +214,8 @@ import { ButtonModule } from 'primeng/button';
       table: {
         category: 'Badge',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     // ── Events ───────────────────────────────────────────────
     onClick: {
@@ -199,9 +223,9 @@ import { ButtonModule } from 'primeng/button';
       description: 'Событие клика по кнопке',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<MouseEvent>' },
-      },
-    },
+        type: { summary: 'EventEmitter<MouseEvent>' }
+      }
+    }
   },
   args: {
     showBadge: false,
@@ -209,12 +233,12 @@ import { ButtonModule } from 'primeng/button';
     badgeSeverity: null,
     fluid: false,
     autofocus: false,
-    text: false,
-  },
+    text: false
+  }
 };
 
 const commonTemplate = `
-<button
+<extra-button
   [label]="label"
   [variant]="variant"
   [severity]="severity"
@@ -233,7 +257,7 @@ const commonTemplate = `
   [autofocus]="autofocus"
   [tabindex]="tabindex"
   [text]="text"
-></button>
+></extra-button>
 `;
 
 export default meta;
@@ -257,192 +281,21 @@ export const Default: Story = {
     if (args.loading) parts.push(`[loading]="true"`);
 
     const template = parts.length
-      ? `<button\n  ${parts.join('\n  ')}\n></button>`
-      : `<button></button>`;
+      ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
+      : `<extra-button></extra-button>`;
 
     return { props: args, template };
   },
   args: {
-    label: 'Button',
+    label: 'Button'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
-// ── Stories ──────────────────────────────────────────────────────────────────
-
-export const Sizes: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', size: 'large' },
-  parameters: {
-    docs: {
-      description: { story: 'Все доступные размеры: small, base, large, xlarge.' },
-      source: {
-        code: `
-<button size="small" label="Button" />
-<button label="Button" />
-<button size="large" label="Button" />
-<button size="xlarge" label="Button" />`,
-      },
-    },
-  },
-};
-
-export const Icons: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', icon: 'ti ti-check' },
-  parameters: {
-    docs: {
-      description: { story: 'Кнопки с иконками (префикс по умолчанию).' },
-      source: {
-        code: `<button label="Button" icon="ti ti-check" />`,
-      },
-    },
-  },
-};
-
-export const IconOnly: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { icon: 'ti ti-check', iconOnly: true },
-  parameters: {
-    docs: {
-      description: { story: 'Кнопки без текста, только с иконкой.' },
-      source: {
-        code: `<button icon="ti ti-check" [iconOnly]="true" />`,
-      },
-    },
-  },
-};
-
-export const Loading: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', loading: true },
-  parameters: {
-    docs: {
-      description: { story: 'Состояние загрузки с индикатором.' },
-      source: {
-        code: `<button label="Button" [loading]="true" />`,
-      },
-    },
-  },
-};
-
-export const Rounded: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', rounded: true },
-  parameters: {
-    docs: {
-      description: { story: 'Скруглённая форма кнопок.' },
-      source: {
-        code: `<button label="Button" [rounded]="true" />`,
-      },
-    },
-  },
-};
-
-export const Text: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', variant: 'text' },
-  parameters: {
-    docs: {
-      description: { story: 'Текстовый вариант кнопки (без заливки и границ).' },
-      source: {
-        code: `<button label="Button" variant="text" />`,
-      },
-    },
-  },
-};
-
-export const Link: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Link Button', variant: 'link' },
-  parameters: {
-    docs: {
-      description: { story: 'Кнопка в виде ссылки.' },
-      source: {
-        code: `<button label="Link Button" variant="link" />`,
-      },
-    },
-  },
-};
-
-export const Severity: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', severity: 'success' },
-  parameters: {
-    docs: {
-      description: { story: 'Цветовые схемы для различных контекстов: success, info, warning, danger.' },
-      source: {
-        code: `<button severity="success" label="Button" />`,
-      },
-    },
-  },
-};
-
-export const Disabled: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: { label: 'Button', disabled: true },
-  parameters: {
-    docs: {
-      description: { story: 'Состояние кнопки, при котором взаимодействие заблокировано.' },
-      source: {
-        code: `<button label="Button" [disabled]="true" />`,
-      },
-    },
-  },
-};
-
-export const Badge: Story = {
-  render: (args) => ({
-    props: args,
-    template: commonTemplate,
-  }),
-  args: {
-    label: 'Emails',
-    badge: '8',
-    severity: 'success',
-    badgeSeverity: 'danger',
-    showBadge: true,
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Примеры использования бейджей на кнопках с позиционированием в углу.' },
-      source: {
-        code: `<button label="Emails" badge="8" severity="success" badgeSeverity="danger" [showBadge]="true" />`,
-      },
-    },
-  },
-};
-
+export { Sizes, Text, Severity, Rounded, Outlined, Loading, Icon, Extra, Disabled, Base, Badge };

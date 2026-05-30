@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ScrollPanel } from 'primeng/scrollpanel';
 
 @Component({
-  selector: 'scroll-panel',
+  selector: 'extra-scroll-panel',
   host: { style: 'display: block' },
   standalone: true,
   imports: [ScrollPanel],
@@ -15,7 +15,7 @@ import { ScrollPanel } from 'primeng/scrollpanel';
     </p-scrollpanel>
   `,
 })
-export class ScrollPanelComponent {
+export class ExtraScrollPanelComponent {
   @Input() step = 10;
   @Input() height = '100px';
   @Input() width = '100%';

@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
-import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <button (click)="visible = true" label="Открыть диалог"></button>
+  <extra-button (click)="visible = true" label="Открыть диалог"></extra-button>
 
   <ng-template #footer>
     <div class="flex justify-end w-full">
-      <button label="Закрыть" (click)="visible = false"></button>
+      <extra-button label="Закрыть" (click)="visible = false"></extra-button>
     </div>
   </ng-template>
 
-  <dialog
+  <extra-dialog
     [showHeader]="false"
     [dismissableMask]="true"
     [visible]="visible"
@@ -20,14 +20,14 @@ export const template = `
     [footerTemplate]="footer"
   >
     <p>Заявка на доставку принята в обработку. Трек-номер будет присвоен в течение 15 минут и отправлен на указанный email.</p>
-  </dialog>
+  </extra-dialog>
 </div>
 `;
 
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template,
 })
 export class DialogNoHeaderComponent {

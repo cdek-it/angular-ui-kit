@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { TagComponent } from '../../../../lib/components/tag/tag.component';
+import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <tag value="Success" severity="success"></tag>
+  <extra-tag value="Success" severity="success"></extra-tag>
 </div>
 `;
 
 @Component({
   selector: 'app-tag-severity',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template,
 })
 export class TagSeverityComponent { }
@@ -27,14 +27,14 @@ export const Severity: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { TagComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tag-severity',
   standalone: true,
-  imports: [TagComponent],
+  imports: [ExtraTagComponent],
   template: \`
-    <tag value="Success" severity="success"></tag>
+    <extra-tag value="Success" severity="success"></extra-tag>
   \`,
 })
 export class TagSeverityComponent {}

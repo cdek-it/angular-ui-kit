@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { SliderComponent } from '../../../lib/components/slider/slider.component';
+import { ExtraSliderComponent as SliderComponent } from '../../../lib/components/slider/slider.component';
 import { SliderRangeComponent, Range } from './examples/slider-range.component';
 import { SliderStepComponent, Step } from './examples/slider-step.component';
 import { SliderVerticalComponent, Vertical } from './examples/slider-vertical.component';
@@ -26,7 +26,7 @@ const meta: Meta<SliderComponent> = {
         component: `Слайдер позволяет выбрать числовое значение или диапазон путём перемещения ползунка.
 
 \`\`\`typescript
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -117,8 +117,8 @@ export const Default: Story = {
     if (args.disabled)                     parts.push(`[disabled]="true"`);
 
     const template = parts.length
-      ? `<slider\n  ${parts.join('\n  ')}\n></slider>`
-      : `<slider></slider>`;
+      ? `<extra-slider\n  ${parts.join('\n  ')}\n></extra-slider>`
+      : `<extra-slider></extra-slider>`;
 
     return { props: args, template };
   },

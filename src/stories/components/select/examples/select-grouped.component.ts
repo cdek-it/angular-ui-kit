@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const GROUPED_OPTIONS = [
   {
@@ -28,7 +28,7 @@ const template = `
     <span>{{ group.label }}</span>
   </div>
 </ng-template>
-<select-field
+<extra-select
   [formControl]="control"
   [options]="options"
   optionLabel="label"
@@ -40,14 +40,14 @@ const template = `
   [size]="size"
   [showClear]="showClear"
   [readonly]="readonly"
-></select-field>
+></extra-select>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-select-grouped',
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -82,11 +82,11 @@ export const Grouped = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
     <ng-template #groupTpl let-group>
       <div class="flex items-center gap-2">
@@ -94,7 +94,7 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
         <span>{{ group.label }}</span>
       </div>
     </ng-template>
-    <select-field
+    <extra-select
       [formControl]="control"
       [options]="options"
       optionLabel="label"
@@ -103,7 +103,7 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       [group]="true"
       placeholder="Выберите город..."
       [optionGroupTemplate]="groupTpl"
-    ></select-field>
+    ></extra-select>
   \`,
 })
 export class SelectGroupedExample {

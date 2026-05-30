@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SelectComponent } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -15,12 +15,12 @@ export const Disabled: StoryObj = {
     return {
       props: { control, options: OPTIONS },
       template: `
-        <select-field
+        <extra-select
           [formControl]="control"
           [options]="options"
           optionLabel="name"
           placeholder="Выберите город..."
-        ></select-field>
+        ></extra-select>
       `,
     };
   },
@@ -28,7 +28,7 @@ export const Disabled: StoryObj = {
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [SelectComponent, ReactiveFormsModule],
+        imports: [ExtraSelectComponent, ReactiveFormsModule],
       },
     }),
   ],
@@ -41,18 +41,18 @@ export const Disabled: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
-    <select-field
+    <extra-select
       [formControl]="control"
       [options]="options"
       optionLabel="name"
       placeholder="Выберите город..."
-    ></select-field>
+    ></extra-select>
   \`,
 })
 export class SelectDisabledExample {

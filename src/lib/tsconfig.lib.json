@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "es2022",
+    "target": "es2022",
+    "baseUrl": "./features",
+    "stripInternal": true,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "outDir": "../build",
+    "rootDir": ".",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "types": ["node"],
+    "paths": {
+      "@cdek-it/angular-ui-kit/*": ["./*/public_api"]
+    }
+  },
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": false,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  },
+  "files": ["./public_api.ts"]
+}

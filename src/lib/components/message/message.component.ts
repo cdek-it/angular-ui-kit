@@ -13,7 +13,7 @@ const SEVERITY_ICONS: Record<string, string> = {
 };
 
 @Component({
-  selector: 'ui-message',
+  selector: 'extra-message',
   standalone: true,
   imports: [Message, ButtonDirective, SharedModule],
   template: `
@@ -42,7 +42,7 @@ const SEVERITY_ICONS: Record<string, string> = {
     </p-message>
   `,
 })
-export class MessageComponent {
+export class ExtraMessageComponent {
   @Input() severity: MessageSeverity = 'info';
   @Input() summary = '';
   @Input() detail = '';

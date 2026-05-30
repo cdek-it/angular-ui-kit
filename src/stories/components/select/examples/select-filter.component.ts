@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -11,7 +11,7 @@ const OPTIONS = [
 ];
 
 const template = `
-<select-field
+<extra-select
   [formControl]="control"
   [options]="options"
   optionLabel="name"
@@ -20,14 +20,14 @@ const template = `
   [showClear]="true"
   [size]="size"
   [readonly]="readonly"
-></select-field>
+></extra-select>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-select-filter',
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -61,20 +61,20 @@ export const Filter = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
-    <select-field
+    <extra-select
       [formControl]="control"
       [options]="options"
       optionLabel="name"
       placeholder="Выберите город..."
       [filter]="true"
       [showClear]="true"
-    ></select-field>
+    ></extra-select>
   \`,
 })
 export class SelectFilterExample {
