@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { AvatarComponent } from '../../../../lib/components/avatar/avatar.component';
+import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex items-center gap-4">
-    <avatar label="P"></avatar>
-    <avatar label="V" size="large"></avatar>
-    <avatar label="U" size="xlarge"></avatar>
+    <extra-avatar label="P"></extra-avatar>
+    <extra-avatar label="V" size="large"></extra-avatar>
+    <extra-avatar label="U" size="xlarge"></extra-avatar>
   </div>
 </div>
 `;
@@ -17,7 +17,7 @@ const styles = '';
   selector: 'app-avatar-label',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AvatarComponent],
+  imports: [ExtraAvatarComponent],
   template,
   styles,
 })
@@ -36,18 +36,18 @@ export const Label: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { AvatarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-avatar-label',
   standalone: true,
+  imports: [ExtraAvatarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AvatarComponent],
   template: \`
     <div class="flex items-center gap-4">
-      <avatar label="P"></avatar>
-      <avatar label="V" size="large"></avatar>
-      <avatar label="U" size="xlarge"></avatar>
+      <extra-avatar label="P"></extra-avatar>
+      <extra-avatar label="V" size="large"></extra-avatar>
+      <extra-avatar label="U" size="xlarge"></extra-avatar>
     </div>
   \`,
 })

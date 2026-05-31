@@ -1,9 +1,11 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { ChipComponent } from '../../../../lib/components/chip/chip.component';
+import { Component } from '@angular/core';
+import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <chip label="Хрупкий груз" [removable]="true"></chip>
+  <extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>
 </div>
 `;
 const styles = '';
@@ -11,8 +13,8 @@ const styles = '';
 @Component({
   selector: 'app-chip-removable',
   standalone: true,
+  imports: [ExtraChipComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ChipComponent],
   template,
   styles,
 })
@@ -29,15 +31,15 @@ export const Removable = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ChipComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-chip-removable',
   standalone: true,
+  imports: [ExtraChipComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ChipComponent],
   template: \`
-    <chip label="Хрупкий груз" [removable]="true"></chip>
+    <extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>
   \`,
 })
 export class ChipRemovableComponent {}

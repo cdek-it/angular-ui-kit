@@ -5,18 +5,23 @@ import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
+import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 
 export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
 
+export interface AnimationEvent extends NativeAnimationEvent {}
+
+// export class AnimationEvent
+
 @Component({
-  selector: 'select-field',
+  selector: 'extra-select',
   standalone: true,
   imports: [Select, NgClass, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
+      useExisting: forwardRef(() => ExtraSelectComponent),
       multi: true,
     },
   ],
@@ -82,7 +87,7 @@ export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
     </ng-template>
   `,
 })
-export class SelectComponent implements ControlValueAccessor, OnInit {
+export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -121,8 +126,8 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
 
   @Output() onClear = new EventEmitter<Event>();
   @Output() onFilter = new EventEmitter<SelectFilterEvent>();
-  @Output() onShow = new EventEmitter<Event>();
-  @Output() onHide = new EventEmitter<Event>();
+  @Output() onShow = new EventEmitter<AnimationEvent>();
+  @Output() onHide = new EventEmitter<AnimationEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 

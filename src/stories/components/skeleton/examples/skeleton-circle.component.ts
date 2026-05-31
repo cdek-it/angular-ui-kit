@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
 <div class="bg-surface-ground">
   <div class="flex items-center gap-4">
-    <skeleton shape="circle" size="3rem"></skeleton>
-    <skeleton shape="circle" size="4rem"></skeleton>
-    <skeleton shape="circle" size="6rem"></skeleton>
+    <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
+    <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
+    <extra-skeleton shape="circle" size="6rem"></extra-skeleton>
   </div>
 </div>
 `;
@@ -17,7 +17,7 @@ const styles = '';
   selector: 'app-skeleton-circle',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SkeletonComponent],
+  imports: [ExtraSkeletonComponent],
   template,
   styles,
 })
@@ -40,12 +40,12 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-skeleton-circle',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SkeletonComponent],
+  imports: [ExtraSkeletonComponent],
   template: \`
-    <div class="flex items-center gap-4">
-      <skeleton shape="circle" size="3rem"></skeleton>
-      <skeleton shape="circle" size="4rem"></skeleton>
-      <skeleton shape="circle" size="6rem"></skeleton>
+      <div class="flex items-center gap-4">
+      <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
+      <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
+      <extra-skeleton shape="circle" size="6rem"></extra-skeleton>
     </div>
   \`,
 })

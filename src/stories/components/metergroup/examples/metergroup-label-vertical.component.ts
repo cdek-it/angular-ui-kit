@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
+import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
 import { defaultValue } from '../metergroup.data';
 
@@ -8,10 +8,10 @@ import { defaultValue } from '../metergroup.data';
   selector: 'app-metergroup-label-vertical',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MeterGroupComponent],
+  imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <metergroup [value]="value" labelOrientation="vertical"></metergroup>
+      <extra-metergroup [value]="value" labelOrientation="vertical"></extra-metergroup>
     </div>
   `,
 })
@@ -30,16 +30,16 @@ export const LabelVertical: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
 import { MeterItem } from 'primeng/metergroup';
 
 @Component({
   selector: 'app-metergroup-label-vertical',
   standalone: true,
+  imports: [ExtraMeterGroupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MeterGroupComponent],
   template: \`
-    <metergroup [value]="value" labelOrientation="vertical"></metergroup>
+    <extra-metergroup [value]="value" labelOrientation="vertical"></extra-metergroup>
   \`,
 })
 export class MeterGroupLabelVerticalComponent {

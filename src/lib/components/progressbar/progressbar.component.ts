@@ -4,7 +4,7 @@ import { ProgressBar } from 'primeng/progressbar';
 export type ProgressBarMode = 'determinate' | 'indeterminate';
 
 @Component({
-  selector: 'progressbar',
+  selector: 'extra-progressbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressBar],
@@ -16,7 +16,7 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
     ></p-progressbar>
   `,
 })
-export class ProgressBarComponent {
+export class ExtraProgressBarComponent {
   @Input() value = 0;
   @Input() mode: ProgressBarMode = 'determinate';
   @Input() showValue = true;

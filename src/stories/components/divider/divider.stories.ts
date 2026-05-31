@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { DividerComponent } from '../../../lib/components/divider/divider.component';
+import { ExtraDividerComponent as DividerComponent } from '../../../lib/components/divider/divider.component';
 import { DividerWithContentComponent, WithContent as WithContentStory } from './examples/divider-with-content.component';
 import { DividerWithIconComponent, WithIcon as WithIconStory } from './examples/divider-with-icon.component';
 import { DividerAlignLeftComponent, AlignLeft as AlignLeftStory } from './examples/divider-align-left.component';
@@ -65,11 +65,11 @@ import { DividerModule } from 'primeng/divider';
 };
 
 const commonTemplate = `
-<divider
+<extra-divider
   [layout]="layout"
   [type]="type"
   [align]="align"
-></divider>
+></extra-divider>
 `;
 
 export default meta;
@@ -87,8 +87,8 @@ export const Default: Story = {
     if (args.align && args.align !== 'center') parts.push(`align="${args.align}"`);
 
     const template = parts.length
-      ? `<divider\n  ${parts.join('\n  ')}\n></divider>`
-      : `<divider></divider>`;
+      ? `<extra-divider\n  ${parts.join('\n  ')}\n></extra-divider>`
+      : `<extra-divider></extra-divider>`;
 
     return { props: args, template };
   },
@@ -127,7 +127,7 @@ export const Vertical: Story = {
     docs: {
       description: { story: 'Вертикальный разделитель для разделения контента по горизонтали.' },
       source: {
-        code: `<divider layout="vertical"></divider>`,
+        code: `<extra-divider layout="vertical"></extra-divider>`,
       },
     },
   },
@@ -147,7 +147,7 @@ export const TypeDashed: Story = {
     docs: {
       description: { story: 'Разделитель с пунктирной линией.' },
       source: {
-        code: `<divider type="dashed"></divider>`,
+         code: `<extra-divider type="dashed"></extra-divider>`,
       },
     },
   },
@@ -165,7 +165,7 @@ export const TypeDotted: Story = {
     docs: {
       description: { story: 'Разделитель с точечной линией.' },
       source: {
-        code: `<divider type="dotted"></divider>`,
+         code: `<extra-divider type="dotted"></extra-divider>`,
       },
     },
   },

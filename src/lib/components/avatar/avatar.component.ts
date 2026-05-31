@@ -6,7 +6,7 @@ export type AvatarSize = 'normal' | 'large' | 'xlarge';
 export type AvatarShape = 'square' | 'circle';
 
 @Component({
-  selector: 'avatar',
+  selector: 'extra-avatar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Avatar],
@@ -20,7 +20,7 @@ export type AvatarShape = 'square' | 'circle';
     ></p-avatar>
   `,
 })
-export class AvatarComponent {
+export class ExtraAvatarComponent {
   @Input() label = '';
   @Input() icon = '';
   @Input() image = '';
@@ -40,7 +40,7 @@ export class AvatarComponent {
 }
 
 @Component({
-  selector: 'avatar-group',
+  selector: 'extra-avatar-group',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarGroup],
@@ -50,4 +50,4 @@ export class AvatarComponent {
     </p-avatar-group>
   `,
 })
-export class AvatarGroupComponent { }
+export class ExtraAvatarGroupComponent { }

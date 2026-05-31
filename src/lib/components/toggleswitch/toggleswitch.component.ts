@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
-  selector: 'toggleswitch',
+  selector: 'extra-toggleswitch',
   standalone: true,
   imports: [ToggleSwitch, FormsModule],
   template: `
@@ -18,13 +18,13 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
     ></p-toggleswitch>
   `,
 })
-export class ToggleSwitchComponent implements ControlValueAccessor {
+export class ExtraToggleSwitchComponent implements ControlValueAccessor {
   @Output() onChange = new EventEmitter<unknown>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
   modelValue = false;
-  
+
   private _disabled = false;
 
   private _onChange: (value: boolean) => void = () => {};

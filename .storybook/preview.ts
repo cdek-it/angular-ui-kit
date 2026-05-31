@@ -4,8 +4,27 @@ import { withThemeByClassName } from '@storybook/addon-themes';
 import docJson from '../documentation.json';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { GalleriaItemSlot } from 'primeng/galleria';
 
-import Preset from '../src/prime-preset/theme.preset';
+// Fix PrimeNG bug: GalleriaItemSlot's main item slot has no `type` attribute,
+// so the `item` setter's forEach loop never matches and context stays stale on updates.
+(function patchGalleriaItemSlot() {
+    const desc = Object.getOwnPropertyDescriptor(GalleriaItemSlot.prototype, 'item');
+    if (desc?.set) {
+        const orig = desc.set;
+        Object.defineProperty(GalleriaItemSlot.prototype, 'item', {
+            ...desc,
+            set(value: unknown) {
+                orig.call(this, value);
+                if ((this as any).context?.$implicit !== value) {
+                    (this as any).context = { $implicit: value };
+                }
+            }
+        });
+    }
+}());
+
+import Preset from '../src/lib/providers/prime-preset/theme.preset';
 
 import '!style-loader!css-loader!postcss-loader!sass-loader!../src/styles.scss';
 

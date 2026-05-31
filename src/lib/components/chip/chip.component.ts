@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '
 import { Chip } from 'primeng/chip';
 
 @Component({
-  selector: 'chip',
+  selector: 'extra-chip',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Chip],
@@ -16,7 +16,7 @@ import { Chip } from 'primeng/chip';
     ></p-chip>
   `,
 })
-export class ChipComponent {
+export class ExtraChipComponent {
   @Input() label = '';
   @Input() icon = '';
   @Input() removable = false;

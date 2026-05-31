@@ -1,11 +1,13 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { DividerComponent } from '../../../../lib/components/divider/divider.component';
+import { Component } from '@angular/core';
+import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <divider align="left">
+  <extra-divider align="left">
     <span>Отправитель</span>
-  </divider>
+  </extra-divider>
 </div>
 `;
 const styles = '';
@@ -14,7 +16,7 @@ const styles = '';
   selector: 'app-divider-align-left',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DividerComponent],
+  imports: [ExtraDividerComponent],
   template,
   styles,
 })
@@ -31,17 +33,17 @@ export const AlignLeft = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { DividerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-divider-align-left',
   standalone: true,
+  imports: [ExtraDividerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DividerComponent],
   template: \`
-    <divider align="left">
+    <extra-divider align="left">
       <span>Отправитель</span>
-    </divider>
+    </extra-divider>
   \`,
 })
 export class DividerAlignLeftComponent {}

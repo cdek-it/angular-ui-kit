@@ -6,7 +6,7 @@ import { ProgressSpinner } from 'primeng/progressspinner';
 export type ProgressSpinnerSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'progressspinner',
+  selector: 'extra-progressspinner',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressSpinner],
@@ -20,7 +20,7 @@ export type ProgressSpinnerSize = 'small' | 'medium' | 'large' | 'xlarge';
     ></p-progressSpinner>
   `
 })
-export class ProgressSpinnerComponent {
+export class ExtraProgressSpinnerComponent {
   @Input() size: ProgressSpinnerSize = 'medium';
   @Input() multicolor = true;
   @Input() strokeWidth = '2';

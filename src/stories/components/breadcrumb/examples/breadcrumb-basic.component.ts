@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BreadcrumbComponent } from '../../../../lib/components/breadcrumb/breadcrumb.component';
+import { ExtraBreadcrumbComponent } from '../../../../lib/components/breadcrumb/breadcrumb.component';
 import { commonHome, commonItems } from '../breadcrumb.data';
 
 const template = `
 <div class="bg-surface-ground">
-  <breadcrumb [model]="model" [home]="home"></breadcrumb>
+  <extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
 </div>
 `;
 
@@ -13,7 +13,7 @@ const template = `
   selector: 'app-breadcrumb-basic',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BreadcrumbComponent],
+  imports: [ExtraBreadcrumbComponent],
   template,
 })
 export class BreadcrumbBasicComponent {
@@ -32,15 +32,15 @@ export const Basic: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { BreadcrumbComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraBreadcrumbComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-breadcrumb-basic',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BreadcrumbComponent],
+  imports: [ExtraBreadcrumbComponent],
   template: \`
-    <breadcrumb [model]="model" [home]="home"></breadcrumb>
+    <extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
   \`,
 })
 export class BreadcrumbBasicComponent {

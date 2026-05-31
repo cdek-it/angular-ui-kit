@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/angular';
 
-export { ButtonComponent } from '../../../../lib/components/button/button.component';
+export { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 export const Extra: StoryObj = {
   render: (args) => ({

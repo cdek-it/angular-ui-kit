@@ -1,10 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BadgeComponent, BadgeSize } from '../../../../lib/components/badge/badge.component';
+import { ExtraBadgeComponent, BadgeSize } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <badge [value]="value" [size]="size"></badge>
+  <extra-badge [value]="value" [size]="size"></extra-badge>
 </div>
 `;
 
@@ -14,7 +14,7 @@ const styles = '';
   selector: 'app-badge-sizes',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BadgeComponent],
+  imports: [ExtraBadgeComponent],
   template,
   styles
 })
@@ -52,7 +52,7 @@ export const Sizes: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { BadgeComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-badge-sizes',

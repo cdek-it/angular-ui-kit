@@ -4,7 +4,7 @@ import { Tag } from 'primeng/tag';
 export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger';
 
 @Component({
-  selector: 'tag',
+  selector: 'extra-tag',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Tag],
@@ -17,7 +17,7 @@ export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' 
     ></p-tag>
   `,
 })
-export class TagComponent {
+export class ExtraTagComponent {
   @Input() value = '';
   @Input() severity: TagSeverity = 'primary';
   @Input() rounded = false;

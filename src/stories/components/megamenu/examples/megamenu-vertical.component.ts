@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
 
-const template = `<megamenu [model]="items" orientation="vertical"></megamenu>`;
+const template = `<extra-megamenu [model]="items" orientation="vertical"></extra-megamenu>`;
 
 @Component({
   selector: 'app-megamenu-vertical',
   standalone: true,
-  imports: [MegaMenuComponent],
+  imports: [ExtraMegaMenuComponent],
   template,
 })
 export class MegaMenuVerticalComponent {

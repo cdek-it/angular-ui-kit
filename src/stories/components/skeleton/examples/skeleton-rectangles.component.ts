@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
 <div class="bg-surface-ground">
   <div class="flex flex-col gap-3">
-    <skeleton height="1rem"></skeleton>
-    <skeleton height="1rem" width="75%"></skeleton>
-    <skeleton height="1rem" width="50%"></skeleton>
+    <extra-skeleton height="1rem"></extra-skeleton>
+    <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+    <extra-skeleton height="1rem" width="50%"></extra-skeleton>
   </div>
 </div>
 `;
@@ -17,7 +17,7 @@ const styles = '';
   selector: 'app-skeleton-rectangles',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SkeletonComponent],
+  imports: [ExtraSkeletonComponent],
   template,
   styles,
 })
@@ -40,12 +40,12 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-skeleton-rectangles',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SkeletonComponent],
+  imports: [ExtraSkeletonComponent],
   template: \`
     <div class="flex flex-col gap-3">
-      <skeleton height="1rem"></skeleton>
-      <skeleton height="1rem" width="75%"></skeleton>
-      <skeleton height="1rem" width="50%"></skeleton>
+      <extra-skeleton height="1rem"></extra-skeleton>
+      <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+      <extra-skeleton height="1rem" width="50%"></extra-skeleton>
     </div>
   \`,
 })

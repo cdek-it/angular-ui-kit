@@ -3,7 +3,7 @@ import { PanelMenu } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'panelmenu',
+  selector: 'extra-panelmenu',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PanelMenu],
@@ -15,7 +15,7 @@ import { MenuItem } from 'primeng/api';
     ></p-panelmenu>
   `,
 })
-export class PanelMenuComponent implements AfterViewChecked {
+export class ExtraPanelMenuComponent implements AfterViewChecked {
   @Input() model: MenuItem[] = [];
   @Input() multiple = false;
   @Input() tabindex: number | undefined = undefined;

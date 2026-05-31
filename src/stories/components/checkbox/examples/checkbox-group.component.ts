@@ -2,13 +2,13 @@ import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const template = `
 <div class="bg-surface-ground flex flex-col gap-4">
-  <checkbox value="Pizza" [(ngModel)]="selectedItems"></checkbox>
-  <checkbox value="Burger" [(ngModel)]="selectedItems"></checkbox>
-  <checkbox value="Sushi" [(ngModel)]="selectedItems"></checkbox>
+  <extra-checkbox value="Pizza" [(ngModel)]="selectedItems"></extra-checkbox>
+  <extra-checkbox value="Burger" [(ngModel)]="selectedItems"></extra-checkbox>
+  <extra-checkbox value="Sushi" [(ngModel)]="selectedItems"></extra-checkbox>
 </div>
 `;
 
@@ -16,7 +16,7 @@ const template = `
   selector: 'app-checkbox-group',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CheckboxComponent, FormsModule, JsonPipe],
+  imports: [ExtraCheckboxComponent, FormsModule, JsonPipe],
   template,
 })
 export class CheckboxGroupComponent {
@@ -35,18 +35,18 @@ export const Group: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox-group',
   standalone: true,
+  imports: [ExtraCheckboxComponent, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CheckboxComponent, FormsModule],
   template: \`
-    <checkbox value="Pizza" [(ngModel)]="selectedItems"></checkbox>
-    <checkbox value="Burger" [(ngModel)]="selectedItems"></checkbox>
-    <checkbox value="Sushi" [(ngModel)]="selectedItems"></checkbox>
+    <extra-checkbox value="Pizza" [(ngModel)]="selectedItems"></extra-checkbox>
+    <extra-checkbox value="Burger" [(ngModel)]="selectedItems"></extra-checkbox>
+    <extra-checkbox value="Sushi" [(ngModel)]="selectedItems"></extra-checkbox>
   \`,
 })
 export class CheckboxGroupComponent {

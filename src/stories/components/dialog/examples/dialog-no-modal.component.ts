@@ -1,17 +1,20 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { ButtonComponent } from '../../../../lib/components/button/button.component';
 import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { Component } from '@angular/core';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
 export const template = `
 <div class="bg-surface-ground">
-  <button (click)="visible = true" label="Показать маршрут"></button>
+  <extra-button (click)="visible = true" label="Показать маршрут"></extra-button>
 
   <ng-template #footer>
-    <button variant="text" label="Отмена" (click)="visible = false"></button>
-    <button label="Сохранить" (click)="visible = false"></button>
+    <extra-button variant="text" label="Отмена" (click)="visible = false"></extra-button>
+    <extra-button label="Сохранить" (click)="visible = false"></extra-button>
   </ng-template>
 
-  <dialog
+  <extra-dialog
     header="Маршрут доставки"
     [modal]="false"
     [visible]="visible"
@@ -19,7 +22,7 @@ export const template = `
     [footerTemplate]="footer"
   >
     <p>Маршрут отправления CDEK-2025-00478312: Москва (склад) → Новосибирск (сортировочный центр) → Новосибирск (пункт выдачи). Это окно не блокирует основной контент страницы.</p>
-  </dialog>
+  </extra-dialog>
 </div>
 `;
 
@@ -27,7 +30,7 @@ export const template = `
   selector: 'app-dialog-no-modal',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DialogComponent, ButtonComponent],
+  imports: [ExtraDialogComponent, ExtraButtonComponent],
   template,
 })
 export class DialogNoModalComponent {

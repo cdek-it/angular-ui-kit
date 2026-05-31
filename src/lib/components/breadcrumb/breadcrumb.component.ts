@@ -3,7 +3,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'breadcrumb',
+  selector: 'extra-breadcrumb',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Breadcrumb],
@@ -14,7 +14,7 @@ import { MenuItem } from 'primeng/api';
     ></p-breadcrumb>
   `,
 })
-export class BreadcrumbComponent {
+export class ExtraBreadcrumbComponent {
   @Input() model: MenuItem[] = [];
   @Input() home: MenuItem | undefined = undefined;
 }

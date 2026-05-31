@@ -1,17 +1,17 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { AvatarComponent, AvatarGroupComponent } from '../../../../lib/components/avatar/avatar.component';
+import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <avatar-group>
-    <avatar image="assets/images/avatar/amyelsner.png" shape="circle"></avatar>
-    <avatar image="assets/images/avatar/asiyajavayant.png" shape="circle"></avatar>
-    <avatar image="assets/images/avatar/xuxuefeng.png" shape="circle"></avatar>
-    <avatar image="assets/images/avatar/ionibowcher.png" shape="circle"></avatar>
-    <avatar image="assets/images/avatar/stephenshaw.png" shape="circle"></avatar>
-    <avatar label="+2" shape="circle"></avatar>
-  </avatar-group>
+  <extra-avatar-group>
+    <extra-avatar image="assets/images/avatar/amyelsner.png" shape="circle"></extra-avatar>
+    <extra-avatar image="assets/images/avatar/asiyajavayant.png" shape="circle"></extra-avatar>
+    <extra-avatar image="assets/images/avatar/xuxuefeng.png" shape="circle"></extra-avatar>
+    <extra-avatar image="assets/images/avatar/ionibowcher.png" shape="circle"></extra-avatar>
+    <extra-avatar image="assets/images/avatar/stephenshaw.png" shape="circle"></extra-avatar>
+    <extra-avatar label="+2" shape="circle"></extra-avatar>
+  </extra-avatar-group>
 </div>
 `;
 const styles = '';
@@ -20,7 +20,7 @@ const styles = '';
   selector: 'app-avatar-group',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AvatarComponent, AvatarGroupComponent],
+  imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent],
   template,
   styles,
 })
@@ -39,20 +39,20 @@ export const Group: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-avatar-group',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AvatarComponent, AvatarGroupComponent],
+  imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent],
   template: \`
-    <avatar-group>
-      <avatar image="assets/images/avatar/amyelsner.png" shape="circle"></avatar>
-      <avatar image="assets/images/avatar/asiyajavayant.png" shape="circle"></avatar>
-      <avatar image="assets/images/avatar/xuxuefeng.png" shape="circle"></avatar>
-      <avatar label="+2" shape="circle"></avatar>
-    </avatar-group>
+    <extra-avatar-group>
+      <extra-avatar image="assets/images/avatar/amyelsner.png" shape="circle"></extra-avatar>
+      <extra-avatar image="assets/images/avatar/asiyajavayant.png" shape="circle"></extra-avatar>
+      <extra-avatar image="assets/images/avatar/xuxuefeng.png" shape="circle"></extra-avatar>
+      <extra-avatar label="+2" shape="circle"></extra-avatar>
+    </extra-avatar-group>
   \`,
 })
 export class AvatarGroupExampleComponent {}

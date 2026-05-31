@@ -3,7 +3,7 @@ import { TieredMenu } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'tieredmenu',
+  selector: 'extra-tieredmenu',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TieredMenu],
@@ -15,7 +15,7 @@ import { MenuItem } from 'primeng/api';
     ></p-tieredmenu>
   `,
 })
-export class TieredMenuComponent implements AfterViewChecked {
+export class ExtraTieredMenuComponent implements AfterViewChecked {
   @Input() model: MenuItem[] = [];
   @Input() autoDisplay = true;
   @Input() tabindex: number | undefined = undefined;
