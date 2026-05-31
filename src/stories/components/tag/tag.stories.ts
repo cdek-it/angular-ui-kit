@@ -1,7 +1,7 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTagComponent } from '../../../lib/components/tag/tag.component';
-import { TagSeverityComponent, Severity } from './examples/tag-severity.component';
-import { TagRoundedComponent, Rounded } from './examples/tag-rounded.component';
+import { Severity, TagSeverityComponent } from './examples/tag-severity.component';
+import { Rounded, TagRoundedComponent } from './examples/tag-rounded.component';
 import { TagIconComponent, WithIcon } from './examples/tag-icon.component';
 
 type TagArgs = ExtraTagComponent;
@@ -12,21 +12,16 @@ const meta: Meta<TagArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraTagComponent,
-        TagSeverityComponent,
-        TagRoundedComponent,
-        TagIconComponent,
-      ],
-    }),
+      imports: [ExtraTagComponent, TagSeverityComponent, TagRoundedComponent, TagIconComponent]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-tag' },
     docs: {
       description: {
-        component: `Компонент для цветового выделения и классификации элементов интерфейса.`,
-      },
-    },
+        component: `Компонент для цветового выделения и классификации элементов интерфейса.`
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -35,8 +30,8 @@ const meta: Meta<TagArgs> = {
       description: 'Текст тега',
       table: {
         category: 'Props',
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     severity: {
       control: 'select',
@@ -45,8 +40,8 @@ const meta: Meta<TagArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "'primary'" },
-        type: { summary: "'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger'" },
-      },
+        type: { summary: "'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger'" }
+      }
     },
     rounded: {
       control: 'boolean',
@@ -54,24 +49,24 @@ const meta: Meta<TagArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     icon: {
       control: 'text',
       description: 'CSS-класс иконки (например ti ti-check)',
       table: {
         category: 'Props',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+      }
+    }
   },
   args: {
     value: 'Tag',
     severity: 'primary',
     rounded: false,
-    icon: '',
-  },
+    icon: ''
+  }
 };
 
 export default meta;
@@ -96,19 +91,17 @@ export const Default: Story = {
     if (args.rounded) parts.push(`[rounded]="true"`);
     if (args.icon) parts.push(`icon="${args.icon}"`);
 
-    const template = parts.length
-      ? `<extra-tag\n  ${parts.join('\n  ')}\n></extra-tag>`
-      : `<extra-tag></extra-tag>`;
+    const template = parts.length ? `<extra-tag\n  ${parts.join('\n  ')}\n></extra-tag>` : `<extra-tag></extra-tag>`;
 
     return { props: args, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 export { WithIcon, Rounded, Severity };

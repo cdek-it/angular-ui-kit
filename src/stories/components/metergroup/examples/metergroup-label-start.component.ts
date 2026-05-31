@@ -3,17 +3,17 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
 import { defaultValue } from '../metergroup.data';
-
+// todo написать extrameteritem
 @Component({
   selector: 'app-metergroup-label-start',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MeterGroupComponent],
+  imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
       <extra-metergroup [value]="value" labelPosition="start"></extra-metergroup>
     </div>
-  `,
+  `
 })
 export class MeterGroupLabelStartComponent {
   value: MeterItem[] = defaultValue;
@@ -31,7 +31,6 @@ export const LabelStart: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
 // todo проверить meter item
 @Component({
   selector: 'app-metergroup-label-start',

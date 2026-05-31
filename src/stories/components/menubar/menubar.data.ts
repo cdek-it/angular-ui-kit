@@ -2,7 +2,7 @@ import { MenuItem } from 'primeng/api';
 
 export const basicItems: MenuItem[] = [
   {
-    label: 'Features',
+    label: 'Features'
   },
   {
     label: 'Projects',
@@ -12,9 +12,9 @@ export const basicItems: MenuItem[] = [
       { label: 'UI Kit' },
       {
         label: 'Templates',
-        items: [{ label: 'Apollo' }, { label: 'Ultima' }],
-      },
-    ],
+        items: [{ label: 'Apollo' }, { label: 'Ultima' }]
+      }
+    ]
   },
   {
     icon: 'ti ti-user',
@@ -26,8 +26,8 @@ export const basicItems: MenuItem[] = [
       { label: 'UI Kit' },
       {
         label: 'Templates',
-        items: [{ label: 'Apollo' }, { label: 'Ultima' }],
-      },
-    ],
-  },
+        items: [{ label: 'Apollo' }, { label: 'Ultima' }]
+      }
+    ]
+  }
 ];

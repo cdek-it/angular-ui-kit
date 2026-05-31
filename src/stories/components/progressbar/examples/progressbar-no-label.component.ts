@@ -1,6 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { ProgressBarComponent } from '../../../../lib/components/progressbar/progressbar.component';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraProgressBarComponent } from '../../../../lib/components/progressbar/progressbar.component';
 
 @Component({
@@ -12,6 +10,6 @@ import { ExtraProgressBarComponent } from '../../../../lib/components/progressba
     <div class="bg-surface-ground">
       <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
     </div>
-  `,
+  `
 })
 export class ProgressBarNoLabelComponent {}

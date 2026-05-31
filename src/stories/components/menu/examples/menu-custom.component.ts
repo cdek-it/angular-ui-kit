@@ -40,7 +40,7 @@ const template = `
   selector: 'app-menu-custom',
   standalone: true,
   imports: [ExtraMenuComponent],
-  template,
+  template
 })
 export class MenuCustomComponent {
   items: ExtraMenuModel[] = [
@@ -48,24 +48,24 @@ export class MenuCustomComponent {
       label: 'Создать отправление',
       caption: 'Оформление нового заказа',
       icon: 'ti ti-file-plus',
-      badge: 'Новое',
+      badge: 'Новое'
     },
     {
       label: 'Найти посылку',
       caption: 'Поиск по трек-номеру',
-      icon: 'ti ti-map-pin',
+      icon: 'ti ti-map-pin'
     },
     { separator: true },
     {
       label: 'Экспорт данных',
       caption: 'Выгрузка в CSV или Excel',
-      icon: 'ti ti-download',
+      icon: 'ti ti-download'
     },
     {
       label: 'Удалить',
       caption: 'Действие недоступно',
       icon: 'ti ti-trash',
-      disabled: true,
-    },
+      disabled: true
+    }
   ];
 }

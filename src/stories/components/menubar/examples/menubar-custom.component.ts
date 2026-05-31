@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { Menubar } from 'primeng/menubar';
 import { Badge } from 'primeng/badge';
@@ -37,14 +37,14 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Menubar, Badge, SharedModule],
   template,
-  styles,
+  styles
 })
 export class MenubarCustomComponent {
   items: MenuItem[] = [
     {
       label: 'Home',
       icon: 'ti ti-home',
-      description: 'Перейти на главную',
+      description: 'Перейти на главную'
     },
     {
       label: 'Features',
@@ -55,26 +55,26 @@ export class MenubarCustomComponent {
         {
           label: 'Core',
           icon: 'ti ti-cpu',
-          description: 'Основные возможности',
+          description: 'Основные возможности'
         },
         {
           label: 'UI Kit',
           icon: 'ti ti-palette',
-          description: 'UI компоненты',
-        },
-      ],
+          description: 'UI компоненты'
+        }
+      ]
     },
     {
       label: 'Settings',
       icon: 'ti ti-settings',
-      description: 'Настройки приложения',
-    },
+      description: 'Настройки приложения'
+    }
   ];
 }
 
 export const Custom: StoryObj = {
   render: () => ({
-    template: `<app-menubar-custom></app-menubar-custom>`,
+    template: `<app-menubar-custom></app-menubar-custom>`
   }),
   parameters: {
     docs: {
@@ -83,9 +83,6 @@ export const Custom: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Menubar } from 'primeng/menubar';
-import { Badge } from 'primeng/badge';
-import { MenuItem, SharedModule } from 'primeng/api';
 
 @Component({
   selector: 'app-menubar-custom',
@@ -129,8 +126,8 @@ export class MenubarCustomComponent {
     { label: 'Settings', icon: 'ti ti-settings', description: 'Настройки приложения' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

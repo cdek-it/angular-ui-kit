@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
@@ -16,7 +16,7 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraSliderComponent, FormsModule],
   template,
-  styles,
+  styles
 })
 export class SliderStepComponent {
   value = 50;
@@ -24,7 +24,7 @@ export class SliderStepComponent {
 
 export const Step: StoryObj = {
   render: () => ({
-    template: `<app-slider-step></app-slider-step>`,
+    template: `<app-slider-step></app-slider-step>`
   }),
   parameters: {
     docs: {
@@ -33,7 +33,6 @@ export const Step: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -48,8 +47,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 export class SliderStepComponent {
   value = 50;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

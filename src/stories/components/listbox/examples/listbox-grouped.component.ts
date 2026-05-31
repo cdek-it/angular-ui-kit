@@ -9,17 +9,17 @@ const groupedOptions = [
     items: [
       { label: 'Берлин', value: 'BE' },
       { label: 'Франкфурт', value: 'FR' },
-      { label: 'Гамбург', value: 'HA' },
-    ],
+      { label: 'Гамбург', value: 'HA' }
+    ]
   },
   {
     label: 'США',
     items: [
       { label: 'Чикаго', value: 'CH' },
       { label: 'Лос-Анджелес', value: 'LA' },
-      { label: 'Нью-Йорк', value: 'NY' },
-    ],
-  },
+      { label: 'Нью-Йорк', value: 'NY' }
+    ]
+  }
 ];
 
 const template = `
@@ -39,7 +39,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraListboxComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class ListboxGroupedComponent {
   ctrl = new FormControl(null);
@@ -48,7 +48,7 @@ export class ListboxGroupedComponent {
 
 export const Grouped: StoryObj = {
   render: () => ({
-    template: `<app-listbox-grouped></app-listbox-grouped>`,
+    template: `<app-listbox-grouped></app-listbox-grouped>`
   }),
   parameters: {
     controls: { disable: true },
@@ -57,8 +57,6 @@ export const Grouped: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
  import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -95,8 +93,8 @@ export class ListboxGroupedComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

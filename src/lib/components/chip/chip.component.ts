@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Chip } from 'primeng/chip';
 
 @Component({
@@ -14,7 +14,7 @@ import { Chip } from 'primeng/chip';
       [disabled]="disabled"
       (onRemove)="onRemove.emit($event)"
     ></p-chip>
-  `,
+  `
 })
 export class ExtraChipComponent {
   @Input() label = '';

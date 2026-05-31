@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -22,18 +22,18 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarGroupExampleComponent {}
 
 export const Group: StoryObj = {
   render: () => ({
-    template: `<app-avatar-group></app-avatar-group>`,
+    template: `<app-avatar-group></app-avatar-group>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Группа аватаров с перекрытием.',
+        story: 'Группа аватаров с перекрытием.'
       },
       source: {
         language: 'ts',
@@ -56,8 +56,8 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
   \`,
 })
 export class AvatarGroupExampleComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

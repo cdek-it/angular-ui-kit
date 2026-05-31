@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
@@ -19,13 +19,13 @@ const styles = '';
   imports: [ExtraSkeletonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class SkeletonNoAnimationComponent {}
 
 export const NoAnimation: StoryObj = {
   render: () => ({
-    template: `<app-skeleton-no-animation></app-skeleton-no-animation>`,
+    template: `<app-skeleton-no-animation></app-skeleton-no-animation>`
   }),
   parameters: {
     docs: {
@@ -50,8 +50,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class SkeletonNoAnimationComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -17,7 +17,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class DrawerWithoutModalComponent {
   visible = false;
@@ -25,7 +25,7 @@ export class DrawerWithoutModalComponent {
 
 export const WithoutModal: StoryObj = {
   render: () => ({
-    template: `<app-drawer-without-modal></app-drawer-without-modal>`,
+    template: `<app-drawer-without-modal></app-drawer-without-modal>`
   }),
   parameters: {
     controls: { disable: true },
@@ -34,7 +34,6 @@ export const WithoutModal: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -52,8 +51,8 @@ import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-
 export class DrawerWithoutModalComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

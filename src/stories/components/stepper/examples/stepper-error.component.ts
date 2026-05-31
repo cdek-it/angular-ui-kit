@@ -14,20 +14,20 @@ const styles = '';
   standalone: true,
   imports: [ExtraStepperComponent],
   template,
-  styles,
+  styles
 })
 export class StepperErrorComponent {
   steps: ExtraStepperItem[] = [
     { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
     { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content (Invalid)', invalid: true },
-    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true },
+    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true }
   ];
 }
 
 export const Error: StoryObj = {
   name: 'Error (Invalid step)',
   render: () => ({
-    template: `<app-stepper-error></app-stepper-error>`,
+    template: `<app-stepper-error></app-stepper-error>`
   }),
   parameters: {
     controls: { disable: true },
@@ -36,7 +36,6 @@ export const Error: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -54,8 +53,8 @@ export class StepperErrorComponent {
     { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content', disabled: true },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

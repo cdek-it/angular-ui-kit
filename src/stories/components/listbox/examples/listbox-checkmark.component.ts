@@ -8,7 +8,7 @@ const options = [
   { label: 'Rome', value: 'RM' },
   { label: 'London', value: 'LDN' },
   { label: 'Istanbul', value: 'IST' },
-  { label: 'Paris', value: 'PRS' },
+  { label: 'Paris', value: 'PRS' }
 ];
 
 const template = `
@@ -21,7 +21,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraListboxComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class ListboxCheckmarkComponent {
   ctrl = new FormControl(null);
@@ -30,7 +30,7 @@ export class ListboxCheckmarkComponent {
 
 export const Checkmark: StoryObj = {
   render: () => ({
-    template: `<app-listbox-checkmark></app-listbox-checkmark>`,
+    template: `<app-listbox-checkmark></app-listbox-checkmark>`
   }),
   parameters: {
     controls: { disable: true },
@@ -39,8 +39,6 @@ export const Checkmark: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
  import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -59,8 +57,8 @@ export class ListboxCheckmarkComponent {
     { label: 'London', value: 'LDN' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

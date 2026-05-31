@@ -22,7 +22,7 @@ import type { PaginatorState } from 'primeng/types/paginator';
       [alwaysShow]="alwaysShow"
       (onPageChange)="onPageChange.emit($event)"
     ></p-paginator>
-  `,
+  `
 })
 export class ExtraPaginatorComponent {
   @Input() first = 0;

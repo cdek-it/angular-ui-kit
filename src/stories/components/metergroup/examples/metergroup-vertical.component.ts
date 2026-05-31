@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
@@ -15,7 +15,7 @@ import { defaultValue } from '../metergroup.data';
         <extra-metergroup [value]="value" orientation="vertical"></extra-metergroup>
       </div>
     </div>
-  `,
+  `
 })
 export class MeterGroupVerticalComponent {
   value: MeterItem[] = defaultValue;
@@ -33,7 +33,6 @@ export const Vertical: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
 
 @Component({
   selector: 'app-metergroup-vertical',

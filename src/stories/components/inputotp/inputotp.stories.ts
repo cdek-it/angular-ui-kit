@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
 import { Disabled } from './examples/inputotp-disabled.component';
@@ -15,11 +15,8 @@ const meta: Meta<InputOtpArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraInputOtpComponent,
-        ReactiveFormsModule,
-      ],
-    }),
+      imports: [ExtraInputOtpComponent, ReactiveFormsModule]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-inputotp' },
@@ -29,9 +26,9 @@ const meta: Meta<InputOtpArgs> = {
 
 \`\`\`typescript
 import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     length: {
@@ -40,8 +37,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '4' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     mask: {
       control: 'boolean',
@@ -49,8 +46,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     integerOnly: {
       control: 'boolean',
@@ -58,8 +55,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     size: {
       control: 'select',
@@ -68,8 +65,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
 
     readonly: {
@@ -78,8 +75,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     tabindex: {
       control: 'number',
@@ -87,8 +84,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'null' },
-        type: { summary: 'number | null' },
-      },
+        type: { summary: 'number | null' }
+      }
     },
     autofocus: {
       control: 'boolean',
@@ -96,8 +93,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
 
     // Hidden props
@@ -117,25 +114,25 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие изменения значения',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<InputOtpChangeEvent>' },
-      },
+        type: { summary: 'EventEmitter<InputOtpChangeEvent>' }
+      }
     },
     onFocus: {
       control: false,
       description: 'Событие фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
+        type: { summary: 'EventEmitter<Event>' }
+      }
     },
     onBlur: {
       control: false,
       description: 'Событие потери фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
-    },
+        type: { summary: 'EventEmitter<Event>' }
+      }
+    }
   },
   args: {
     length: 4,
@@ -144,8 +141,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
     readonly: false,
     autofocus: false,
     tabindex: null,
-    size: 'base' as const,
-  },
+    size: 'base' as const
+  }
 };
 
 export default meta;
@@ -172,10 +169,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 export { Disabled, Readonly, Invalid, Mask, IntegerOnly };

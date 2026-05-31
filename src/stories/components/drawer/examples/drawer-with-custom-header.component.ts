@@ -24,7 +24,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class DrawerWithCustomHeaderComponent {
   visible = false;
@@ -32,7 +32,7 @@ export class DrawerWithCustomHeaderComponent {
 
 export const WithCustomHeader: StoryObj = {
   render: () => ({
-    template: `<app-drawer-with-custom-header></app-drawer-with-custom-header>`,
+    template: `<app-drawer-with-custom-header></app-drawer-with-custom-header>`
   }),
   parameters: {
     controls: { disable: true },
@@ -41,7 +41,6 @@ export const WithCustomHeader: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -66,8 +65,8 @@ import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-
 export class DrawerWithCustomHeaderComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

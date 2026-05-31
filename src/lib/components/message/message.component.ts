@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Message } from 'primeng/message';
 import { ButtonDirective } from 'primeng/button';
 import { SharedModule } from 'primeng/api';
@@ -9,7 +9,7 @@ const SEVERITY_ICONS: Record<string, string> = {
   info: 'ti ti-info-circle',
   success: 'ti ti-circle-check',
   warn: 'ti ti-alert-triangle',
-  error: 'ti ti-alert-circle',
+  error: 'ti ti-alert-circle'
 };
 
 @Component({
@@ -40,7 +40,7 @@ const SEVERITY_ICONS: Record<string, string> = {
         }
       </ng-template>
     </p-message>
-  `,
+  `
 })
 export class ExtraMessageComponent {
   @Input() severity: MessageSeverity = 'info';

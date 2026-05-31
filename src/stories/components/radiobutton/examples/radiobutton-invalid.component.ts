@@ -22,7 +22,6 @@ const template = `
   changeDetection: ChangeDetectionStrategy.OnPush,
   template,
   imports: [ExtraRadiobuttonComponent, FormsModule],
-  template
 })
 export class RadiobuttonInvalidComponent {
   selected = '2';
@@ -40,7 +39,6 @@ export const Invalid: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-radiobutton-invalid',

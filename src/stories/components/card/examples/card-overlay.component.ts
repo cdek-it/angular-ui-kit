@@ -24,15 +24,15 @@ const styles = '';
 @Component({
   selector: 'app-card-overlay',
   standalone: true,
-    imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
+  imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
   template,
-  styles,
+  styles
 })
 export class CardOverlayComponent {}
 
 export const Overlay: StoryObj = {
   render: () => ({
-    template: `<app-card-overlay></app-card-overlay>`,
+    template: `<app-card-overlay></app-card-overlay>`
   }),
   parameters: {
     docs: {
@@ -40,8 +40,6 @@ export const Overlay: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
 import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -63,8 +61,8 @@ import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-ki
   \`,
 })
 export class CardOverlayComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

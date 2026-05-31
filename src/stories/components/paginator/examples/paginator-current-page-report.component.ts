@@ -19,7 +19,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraPaginatorComponent],
   template,
-  styles,
+  styles
 })
 export class PaginatorCurrentPageReportComponent {
   first = 0;
@@ -33,19 +33,17 @@ export class PaginatorCurrentPageReportComponent {
 
 export const CurrentPageReport = {
   render: () => ({
-    template: `<app-paginator-current-page-report></app-paginator-current-page-report>`,
+    template: `<app-paginator-current-page-report></app-paginator-current-page-report>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Пагинатор с отображением текущей страницы и общего числа страниц.',
+        story: 'Пагинатор с отображением текущей страницы и общего числа страниц.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
-import type { PaginatorState } from 'primeng/types/paginator';
 
 @Component({
   selector: 'app-paginator-current-page-report',
@@ -71,8 +69,8 @@ export class PaginatorCurrentPageReportComponent {
     this.rows = event.rows ?? 10;
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

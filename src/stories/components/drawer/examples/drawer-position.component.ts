@@ -34,7 +34,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class DrawerPositionComponent {
   visibleLeft = false;
@@ -45,7 +45,7 @@ export class DrawerPositionComponent {
 
 export const Position: StoryObj = {
   render: () => ({
-    template: `<app-drawer-position></app-drawer-position>`,
+    template: `<app-drawer-position></app-drawer-position>`
   }),
   parameters: {
     controls: { disable: true },
@@ -54,7 +54,6 @@ export const Position: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -92,8 +91,8 @@ export class DrawerPositionComponent {
   visibleTop = false;
   visibleBottom = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

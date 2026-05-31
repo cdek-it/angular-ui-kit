@@ -8,7 +8,7 @@ const SIZES = [
   { key: 'sm', label: 'Small (20rem)', width: '20rem', cssVar: '20rem' },
   { key: 'base', label: 'Base (25rem)', width: '25rem', cssVar: '25rem' },
   { key: 'lg', label: 'Large (30rem)', width: '30rem', cssVar: '30rem' },
-  { key: 'xlg', label: 'X-Large (45rem)', width: '45rem', cssVar: '45rem' },
+  { key: 'xlg', label: 'X-Large (45rem)', width: '45rem', cssVar: '45rem' }
 ] as const;
 
 const template = `
@@ -52,7 +52,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class ToastWidthComponent {
   readonly sizes = SIZES;
@@ -69,14 +69,14 @@ export class ToastWidthComponent {
       summary: 'Сообщение',
       detail: 'Ширина: ' + cssVar,
       life: 3000,
-      icon: 'ti ti-info-circle',
+      icon: 'ti ti-info-circle'
     });
   }
 }
 
 export const Width: StoryObj = {
   render: () => ({
-    template: `<app-toast-width></app-toast-width>`,
+    template: `<app-toast-width></app-toast-width>`
   }),
   parameters: {
     docs: {
@@ -84,7 +84,6 @@ export const Width: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const SIZES = [
@@ -134,8 +133,8 @@ export class ExampleComponent {
     });
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

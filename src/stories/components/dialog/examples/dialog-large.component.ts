@@ -1,7 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
-import { DialogComponent } from '../../../../lib/components/dialog/dialog.component';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
@@ -31,7 +28,7 @@ export const template = `
   standalone: true,
   imports: [ExtraDialogComponent, ExtraButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template,
+  template
 })
 export class DialogLargeComponent {
   visible = false;

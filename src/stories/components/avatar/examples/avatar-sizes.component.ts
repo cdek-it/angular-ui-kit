@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -19,18 +19,18 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraAvatarComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarSizesComponent {}
 
 export const Sizes: StoryObj = {
   render: () => ({
-    template: `<app-avatar-sizes></app-avatar-sizes>`,
+    template: `<app-avatar-sizes></app-avatar-sizes>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Все доступные размеры аватара: normal, large, xlarge.',
+        story: 'Все доступные размеры аватара: normal, large, xlarge.'
       },
       source: {
         language: 'ts',
@@ -52,8 +52,8 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class AvatarSizesComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

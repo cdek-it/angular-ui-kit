@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -18,18 +18,18 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraAvatarComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarShapesComponent {}
 
 export const Shapes: StoryObj = {
   render: () => ({
-    template: `<app-avatar-shapes></app-avatar-shapes>`,
+    template: `<app-avatar-shapes></app-avatar-shapes>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Формы аватара: square (по умолчанию) и circle.',
+        story: 'Формы аватара: square (по умолчанию) и circle.'
       },
       source: {
         language: 'ts',
@@ -50,8 +50,8 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class AvatarShapesComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

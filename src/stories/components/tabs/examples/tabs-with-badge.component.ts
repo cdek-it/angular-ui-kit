@@ -34,7 +34,6 @@ export const WithBadge: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
 
 @Component({

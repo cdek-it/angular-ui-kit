@@ -55,7 +55,6 @@ export const ScrollVertical: StoryObj = {
       source: {
         language: 'ts',
         code: `import { Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
 
 const BASE_SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', destination: 'Москва', status: 'В пути', weight: 2.5 },

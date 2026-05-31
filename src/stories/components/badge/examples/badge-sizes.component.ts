@@ -1,6 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraBadgeComponent, BadgeSize } from '../../../../lib/components/badge/badge.component';
+import { BadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">

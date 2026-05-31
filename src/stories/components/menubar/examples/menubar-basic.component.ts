@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
 import { MenubarComponent } from '../../../../lib/components/menubar/menubar.component';
@@ -17,7 +17,7 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MenubarComponent],
   template,
-  styles,
+  styles
 })
 export class MenubarBasicComponent {
   items: MenuItem[] = basicItems;
@@ -25,7 +25,7 @@ export class MenubarBasicComponent {
 
 export const Basic: StoryObj = {
   render: () => ({
-    template: `<app-menubar-basic></app-menubar-basic>`,
+    template: `<app-menubar-basic></app-menubar-basic>`
   }),
   parameters: {
     docs: {
@@ -34,7 +34,6 @@ export const Basic: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { MenubarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -77,8 +76,8 @@ export class MenubarBasicComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

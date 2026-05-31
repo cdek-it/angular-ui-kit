@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
@@ -16,7 +16,7 @@ const styles = '';
       <extra-checkbox [binary]="true" [(ngModel)]="checked" inputId="checkbox"></extra-checkbox>
       <label for="checkbox" class="checkbox-label">Checkbox</label>
     </form>
-  `,
+  `
 })
 export class CheckboxLabelComponent {
   checked = false;
@@ -30,7 +30,7 @@ export const Label: StoryObj = {
         <extra-checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked" inputId="checkbox"></extra-checkbox>
         <label for="checkbox" class="checkbox-label">Checkbox</label>
       </form>
-    `,
+    `
   }),
   parameters: {
     docs: {
@@ -57,8 +57,8 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 export class CheckboxLabelComponent {
   control = new FormControl(false);
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

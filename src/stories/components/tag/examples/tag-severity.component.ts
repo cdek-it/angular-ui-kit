@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
@@ -13,17 +13,19 @@ const template = `
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraTagComponent],
-  template,
+  template
 })
-export class TagSeverityComponent { }
+export class TagSeverityComponent {}
 
 export const Severity: StoryObj = {
   render: () => ({
-    template: `<app-tag-severity></app-tag-severity>`,
+    template: `<app-tag-severity></app-tag-severity>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Вариант цветового оформления. Доступные значения: primary, secondary, success, info, warn, danger.' },
+      description: {
+        story: 'Вариант цветового оформления. Доступные значения: primary, secondary, success, info, warn, danger.'
+      },
       source: {
         language: 'ts',
         code: `
@@ -40,8 +42,8 @@ import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class TagSeverityComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

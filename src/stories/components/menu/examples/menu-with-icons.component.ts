@@ -11,7 +11,7 @@ const template = `
   selector: 'app-menu-with-icons',
   standalone: true,
   imports: [ExtraMenuComponent],
-  template,
+  template
 })
 export class MenuWithIconsComponent {
   items: ExtraMenuModel[] = [
@@ -20,6 +20,6 @@ export class MenuWithIconsComponent {
     { label: 'Сохранить черновик', icon: 'ti ti-device-floppy' },
     { separator: true },
     { label: 'Распечатать накладную', icon: 'ti ti-printer' },
-    { label: 'Экспорт данных', icon: 'ti ti-download' },
+    { label: 'Экспорт данных', icon: 'ti ti-download' }
   ];
 }

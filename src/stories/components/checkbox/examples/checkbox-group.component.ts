@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
@@ -17,7 +17,7 @@ const template = `
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraCheckboxComponent, FormsModule, JsonPipe],
-  template,
+  template
 })
 export class CheckboxGroupComponent {
   selectedItems: string[] = ['Pizza'];
@@ -25,7 +25,7 @@ export class CheckboxGroupComponent {
 
 export const Group: StoryObj = {
   render: () => ({
-    template: `<app-checkbox-group></app-checkbox-group>`,
+    template: `<app-checkbox-group></app-checkbox-group>`
   }),
   parameters: {
     controls: { disable: true },
@@ -36,7 +36,6 @@ export const Group: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox-group',
@@ -52,8 +51,8 @@ import { FormsModule } from '@angular/forms';
 export class CheckboxGroupComponent {
   selectedItems: string[] = ['Pizza'];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

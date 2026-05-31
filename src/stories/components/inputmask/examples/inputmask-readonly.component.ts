@@ -8,28 +8,27 @@ export const Readonly: StoryObj = {
     const control = new FormControl('12-34-56');
     return {
       props: { ...args, control },
-      template: `<extra-input-mask mask="99-99-99" placeholder="99-99-99" [readonly]="true" [formControl]="control"></extra-input-mask>`,
+      template: `<extra-input-mask mask="99-99-99" placeholder="99-99-99" [readonly]="true" [formControl]="control"></extra-input-mask>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraInputMaskComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraInputMaskComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.',
+        story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -40,8 +39,8 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 export class ReadonlyExample {
   control = new FormControl('12-34-56');
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

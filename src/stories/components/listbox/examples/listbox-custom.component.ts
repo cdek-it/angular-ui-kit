@@ -6,7 +6,7 @@ import { ExtraListboxComponent } from '../../../../lib/components/listbox/listbo
 const options = [
   { name: 'Profile', description: 'Manage your account', icon: 'ti ti-user' },
   { name: 'Settings', description: 'App preferences', icon: 'ti ti-settings' },
-  { name: 'Messages', description: 'Your inbox', icon: 'ti ti-message' },
+  { name: 'Messages', description: 'Your inbox', icon: 'ti ti-message' }
 ];
 
 const template = `
@@ -25,7 +25,7 @@ const template = `
   selector: 'app-listbox-custom',
   standalone: true,
   imports: [ExtraListboxComponent, ReactiveFormsModule],
-  template,
+  template
 })
 export class ListboxCustomComponent {
   ctrl = new FormControl(null);
@@ -34,7 +34,7 @@ export class ListboxCustomComponent {
 
 export const Custom: StoryObj = {
   render: () => ({
-    template: `<app-listbox-custom></app-listbox-custom>`,
+    template: `<app-listbox-custom></app-listbox-custom>`
   }),
   parameters: {
     controls: { disable: true },
@@ -43,8 +43,6 @@ export const Custom: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -71,10 +69,8 @@ export class ListboxCustomComponent {
     { name: 'Messages', description: 'Your inbox', icon: 'ti ti-message' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
-
-

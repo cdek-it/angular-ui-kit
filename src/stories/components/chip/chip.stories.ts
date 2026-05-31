@@ -1,8 +1,11 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraChipComponent as ChipComponent } from '../../../lib/components/chip/chip.component';
 import { ChipWithIconComponent, WithIcon as WithIconStory } from './examples/chip-with-icon.component';
 import { ChipRemovableComponent, Removable as RemovableStory } from './examples/chip-removable.component';
-import { ChipRemovableWithIconComponent, RemovableWithIcon as RemovableWithIconStory } from './examples/chip-removable-with-icon.component';
+import {
+  ChipRemovableWithIconComponent,
+  RemovableWithIcon as RemovableWithIconStory
+} from './examples/chip-removable-with-icon.component';
 import { ChipDisabledComponent, Disabled as DisabledStory } from './examples/chip-disabled.component';
 
 type ChipArgs = ChipComponent & { onRemove?: (event: MouseEvent) => void };
@@ -18,9 +21,9 @@ const meta: Meta<ChipArgs> = {
         ChipWithIconComponent,
         ChipRemovableComponent,
         ChipRemovableWithIconComponent,
-        ChipDisabledComponent,
-      ],
-    }),
+        ChipDisabledComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -29,10 +32,10 @@ const meta: Meta<ChipArgs> = {
 
 \`\`\`typescript
 import { ChipComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-chip' },
+    designTokens: { prefix: '--p-chip' }
   },
   argTypes: {
     label: {
@@ -41,8 +44,8 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     icon: {
       control: 'text',
@@ -50,8 +53,8 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     removable: {
       control: 'boolean',
@@ -59,8 +62,8 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -68,18 +71,18 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     onRemove: {
       control: false,
       description: 'Событие удаления чипа',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<MouseEvent>' },
-      },
-    },
-  },
+        type: { summary: 'EventEmitter<MouseEvent>' }
+      }
+    }
+  }
 };
 
 const commonTemplate = `
@@ -101,10 +104,10 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.label)     parts.push(`label="${args.label}"`);
-    if (args.icon)      parts.push(`icon="${args.icon}"`);
+    if (args.label) parts.push(`label="${args.label}"`);
+    if (args.icon) parts.push(`icon="${args.icon}"`);
     if (args.removable) parts.push(`[removable]="true"`);
-    if (args.disabled)  parts.push(`[disabled]="true"`);
+    if (args.disabled) parts.push(`[disabled]="true"`);
 
     const template = parts.length
       ? `<extra-chip\n  ${parts.join('\n  ')}\n></extra-chip>`
@@ -116,15 +119,15 @@ export const Default: Story = {
     label: 'В пути',
     icon: '',
     removable: false,
-    disabled: false,
+    disabled: false
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── WithIcon ──────────────────────────────────────────────────────────────────

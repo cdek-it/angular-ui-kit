@@ -12,35 +12,30 @@ import { StoryObj } from '@storybook/angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Textarea, FloatLabel, ReactiveFormsModule, IconField, InputIcon],
   template: `
-<div class="w-80">
-  <p-floatlabel variant="in">
-    @if (showClear) {
-      <p-iconfield>
-        <textarea
-          pTextarea
-          id="fl-textarea"
-          rows="3"
-          [formControl]="control"
-        ></textarea>
-        <p-inputicon
-          class="ti ti-x"
-          [style.visibility]="control.value ? 'visible' : 'hidden'"
-          [style.pointerEvents]="control.value ? 'auto' : 'none'"
-          (click)="control.setValue('')"
-        ></p-inputicon>
-      </p-iconfield>
-    } @else {
-      <textarea
-        pTextarea
-        id="fl-textarea"
-        rows="3"
-        [formControl]="control"
-      ></textarea>
-    }
-    <label for="fl-textarea">{{ label }}@if (required) {<span class="text-red-500 ml-0.5">*</span>}</label>
-  </p-floatlabel>
-</div>
-  `,
+    <div class="w-80">
+      <p-floatlabel variant="in">
+        @if (showClear) {
+          <p-iconfield>
+            <textarea pTextarea id="fl-textarea" rows="3" [formControl]="control"></textarea>
+            <p-inputicon
+              class="ti ti-x"
+              [style.visibility]="control.value ? 'visible' : 'hidden'"
+              [style.pointerEvents]="control.value ? 'auto' : 'none'"
+              (click)="control.setValue('')"
+            ></p-inputicon>
+          </p-iconfield>
+        } @else {
+          <textarea pTextarea id="fl-textarea" rows="3" [formControl]="control"></textarea>
+        }
+        <label for="fl-textarea"
+          >{{ label }}
+          @if (required) {
+            <span class="text-red-500 ml-0.5">*</span>
+          }
+        </label>
+      </p-floatlabel>
+    </div>
+  `
 })
 export class TextareaFloatLabelComponent {
   control = new FormControl('');
@@ -89,9 +84,6 @@ export const FloatLabelStory: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Textarea } from 'primeng/textarea';
-import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,

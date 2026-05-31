@@ -71,9 +71,6 @@ export const CustomBody: StoryObj = {
       source: {
         language: 'ts',
         code: `import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
 
 const SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', destination: 'Москва', status: 'В пути', weight: 2.5, cost: 1200 },

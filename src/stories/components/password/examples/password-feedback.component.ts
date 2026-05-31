@@ -13,7 +13,7 @@ const template = `
   selector: 'app-password-feedback',
   standalone: true,
   imports: [ExtraPasswordComponent, FormsModule],
-  template,
+  template
 })
 export class PasswordFeedbackComponent {
   value: string | null = null;
@@ -21,7 +21,7 @@ export class PasswordFeedbackComponent {
 
 export const Feedback: StoryObj = {
   render: () => ({
-    template: `<app-password-feedback></app-password-feedback>`,
+    template: `<app-password-feedback></app-password-feedback>`
   }),
   parameters: {
     docs: {
@@ -29,8 +29,6 @@ export const Feedback: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -44,8 +42,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 export class PasswordFeedbackComponent {
   value: string | null = null;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

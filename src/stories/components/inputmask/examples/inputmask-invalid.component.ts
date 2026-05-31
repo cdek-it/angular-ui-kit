@@ -8,22 +8,22 @@ export const Invalid: StoryObj = {
     const control = new FormControl('', Validators.required);
     return {
       props: { ...args, control },
-      template: `<extra-input-mask mask="99-99-99" placeholder="Обязательное поле" [formControl]="control"></extra-input-mask>`,
+      template: `<extra-input-mask mask="99-99-99" placeholder="Обязательное поле" [formControl]="control"></extra-input-mask>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraInputMaskComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraInputMaskComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Невалидное состояние — определяется через валидаторы `FormControl`.',
+        story: 'Невалидное состояние — определяется через валидаторы `FormControl`.'
       },
       source: {
         language: 'ts',
@@ -40,8 +40,8 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 export class InvalidExample {
   control = new FormControl('', Validators.required);
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

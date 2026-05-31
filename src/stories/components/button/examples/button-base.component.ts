@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Button, ButtonIconPosition } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
 

@@ -22,13 +22,13 @@ const styles = '';
   standalone: true,
   imports: [ExtraCardComponent, SharedModule],
   template,
-  styles,
+  styles
 })
 export class CardWithoutFooterComponent {}
 
 export const WithoutFooter: StoryObj = {
   render: () => ({
-    template: `<app-card-without-footer></app-card-without-footer>`,
+    template: `<app-card-without-footer></app-card-without-footer>`
   }),
   parameters: {
     docs: {
@@ -36,8 +36,6 @@ export const WithoutFooter: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
 import { ExtraCardComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -56,8 +54,8 @@ import { ExtraCardComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class CardWithoutFooterComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

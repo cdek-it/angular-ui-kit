@@ -14,19 +14,19 @@ const styles = '';
   standalone: true,
   imports: [ExtraStepperComponent],
   template,
-  styles,
+  styles
 })
 export class StepperVerticalComponent {
   steps: ExtraStepperItem[] = [
     { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
     { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
+    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' }
   ];
 }
 
 export const Vertical: StoryObj = {
   render: () => ({
-    template: `<app-stepper-vertical></app-stepper-vertical>`,
+    template: `<app-stepper-vertical></app-stepper-vertical>`
   }),
   parameters: {
     controls: { disable: true },
@@ -35,7 +35,6 @@ export const Vertical: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -53,8 +52,8 @@ export class StepperVerticalComponent {
     { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

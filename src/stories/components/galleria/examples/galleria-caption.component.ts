@@ -27,7 +27,7 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
         </div>
       </ng-template>
     </p-galleria>
-  `,
+  `
 })
 export class GalleriaCaptionComponent {
   readonly images = GALLERIA_IMAGES;

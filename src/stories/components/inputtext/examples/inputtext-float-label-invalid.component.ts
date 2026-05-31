@@ -57,7 +57,6 @@ export const FloatLabelInvalid: StoryObj = {
 import { Component } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,

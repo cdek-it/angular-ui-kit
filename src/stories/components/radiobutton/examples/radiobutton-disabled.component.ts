@@ -39,7 +39,6 @@ export const Disabled: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-radiobutton-disabled',

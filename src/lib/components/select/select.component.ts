@@ -1,7 +1,16 @@
-import { Component, EventEmitter, forwardRef, inject, Injector, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
@@ -22,8 +31,8 @@ export interface AnimationEvent extends NativeAnimationEvent {}
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraSelectComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     @if (floatLabel) {
@@ -70,22 +79,31 @@ export interface AnimationEvent extends NativeAnimationEvent {}
       >
         @if (optionTemplate) {
           <ng-template pTemplate="item" let-option>
-            <ng-container [ngTemplateOutlet]="optionTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="optionTemplate"
+              [ngTemplateOutletContext]="{ $implicit: option }"
+            ></ng-container>
           </ng-template>
         }
         @if (selectedItemTemplate) {
           <ng-template pTemplate="selectedItem" let-option>
-            <ng-container [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="selectedItemTemplate"
+              [ngTemplateOutletContext]="{ $implicit: option }"
+            ></ng-container>
           </ng-template>
         }
         @if (optionGroupTemplate) {
           <ng-template pTemplate="group" let-group>
-            <ng-container [ngTemplateOutlet]="optionGroupTemplate" [ngTemplateOutletContext]="{ $implicit: group }"></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="optionGroupTemplate"
+              [ngTemplateOutletContext]="{ $implicit: group }"
+            ></ng-container>
           </ng-template>
         }
       </p-select>
     </ng-template>
-  `,
+  `
 })
 export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
@@ -149,7 +167,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   get selectClasses(): Record<string, boolean> {
     return {
       'p-select-xlg': this.size === 'xlarge',
-      'p-invalid': this.invalid,
+      'p-invalid': this.invalid
     };
   }
 

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
@@ -15,13 +15,13 @@ const styles = '';
   imports: [ExtraSliderComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class SliderDisabledComponent {}
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-slider-disabled></app-slider-disabled>`,
+    template: `<app-slider-disabled></app-slider-disabled>`
   }),
   parameters: {
     docs: {
@@ -42,8 +42,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class SliderDisabledComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

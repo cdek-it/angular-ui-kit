@@ -26,13 +26,13 @@ const styles = '';
   standalone: true,
   imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
   template,
-  styles,
+  styles
 })
 export class CardWithoutSubtitleComponent {}
 
 export const WithoutSubtitle: StoryObj = {
   render: () => ({
-    template: `<app-card-without-subtitle></app-card-without-subtitle>`,
+    template: `<app-card-without-subtitle></app-card-without-subtitle>`
   }),
   parameters: {
     docs: {
@@ -40,8 +40,6 @@ export const WithoutSubtitle: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
 import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -63,8 +61,8 @@ import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-ki
   \`,
 })
 export class CardWithoutSubtitleComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

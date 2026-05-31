@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Rating } from 'primeng/rating';
 
@@ -13,8 +13,8 @@ export type RatingValue = number | null;
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraRatingComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-rating
@@ -28,7 +28,7 @@ export type RatingValue = number | null;
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-rating>
-  `,
+  `
 })
 export class ExtraRatingComponent implements ControlValueAccessor {
   @Input() stars = 5;

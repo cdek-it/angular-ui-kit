@@ -1,9 +1,12 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { InputTextClearComponent, ClearButton } from './examples/inputtext-clear.component';
-import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
-import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
+import { ClearButton, InputTextClearComponent } from './examples/inputtext-clear.component';
+import { FloatLabelStory, InputTextFloatLabelComponent } from './examples/inputtext-float-label.component';
+import {
+  FloatLabelInvalid,
+  InputTextFloatLabelInvalidComponent
+} from './examples/inputtext-float-label-invalid.component';
 import { Disabled } from './examples/inputtext-disabled.component';
 import { InputTextReadonlyComponent, Readonly } from './examples/inputtext-readonly.component';
 import { Invalid } from './examples/inputtext-invalid.component';
@@ -22,9 +25,9 @@ const meta: Meta<InputTextArgs> = {
         InputTextFloatLabelComponent,
         InputTextFloatLabelInvalidComponent,
         InputTextReadonlyComponent,
-        InputTextClearComponent,
-      ],
-    }),
+        InputTextClearComponent
+      ]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-inputtext' },
@@ -34,9 +37,9 @@ const meta: Meta<InputTextArgs> = {
 
 \`\`\`typescript
 import { InputTextModule } from 'primeng/inputtext';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -46,8 +49,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -56,8 +59,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -65,8 +68,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     invalid: {
       control: 'boolean',
@@ -74,8 +77,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     readonly: {
       control: 'boolean',
@@ -83,8 +86,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showClear: {
       control: 'boolean',
@@ -92,8 +95,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -101,8 +104,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
@@ -115,9 +118,9 @@ import { InputTextModule } from 'primeng/inputtext';
       description: 'Событие очистки поля (при showClear)',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<void>' },
-      },
-    },
+        type: { summary: 'EventEmitter<void>' }
+      }
+    }
   },
   args: {
     placeholder: 'Введите текст...',
@@ -126,8 +129,8 @@ import { InputTextModule } from 'primeng/inputtext';
     invalid: false,
     readonly: false,
     showClear: false,
-    fluid: false,
-  },
+    fluid: false
+  }
 };
 
 export default meta;
@@ -157,10 +160,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

@@ -45,7 +45,6 @@ export const Default = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraConfirmDialogComponent, ConfirmDialogService, ExtraButtonComponent, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
 
 @Component({

@@ -35,8 +35,6 @@ export const WithSelected: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({

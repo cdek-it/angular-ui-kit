@@ -28,7 +28,7 @@ export class InputGroupAddonRightComponent {
 
 export const AddonRight: StoryObj = {
   render: () => ({
-    template: `<app-inputgroup-addon-right></app-inputgroup-addon-right>`,
+    template: `<app-inputgroup-addon-right></app-inputgroup-addon-right>`
   }),
   parameters: {
     docs: {
@@ -36,8 +36,6 @@ export const AddonRight: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -54,8 +52,8 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
 export class InputGroupAddonRightComponent {
   value = '';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

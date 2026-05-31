@@ -14,19 +14,19 @@ const styles = '';
   standalone: true,
   imports: [ExtraStepperComponent],
   template,
-  styles,
+  styles
 })
 export class StepperStepsOnlyComponent {
   steps: ExtraStepperItem[] = [
     { value: 1, label: 'Stepper', caption: 'caption' },
     { value: 2, label: 'Stepper', caption: 'caption' },
-    { value: 3, label: 'Stepper', caption: 'caption' },
+    { value: 3, label: 'Stepper', caption: 'caption' }
   ];
 }
 
 export const StepsOnly: StoryObj = {
   render: () => ({
-    template: `<app-stepper-steps-only></app-stepper-steps-only>`,
+    template: `<app-stepper-steps-only></app-stepper-steps-only>`
   }),
   parameters: {
     controls: { disable: true },
@@ -35,7 +35,6 @@ export const StepsOnly: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -53,8 +52,8 @@ export class StepperStepsOnlyComponent {
     { value: 3, label: 'Stepper', caption: 'caption' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

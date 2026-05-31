@@ -24,7 +24,7 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
         <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
       </ng-template>
     </p-galleria>
-  `,
+  `
 })
 export class GalleriaThumbnailsComponent {
   readonly images = GALLERIA_IMAGES;

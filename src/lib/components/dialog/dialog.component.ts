@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { PrimeTemplate } from 'primeng/api';
@@ -36,7 +36,7 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
         </ng-template>
       }
     </p-dialog>
-  `,
+  `
 })
 export class ExtraDialogComponent {
   @Input() header = '';

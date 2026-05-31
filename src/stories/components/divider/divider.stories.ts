@@ -1,8 +1,11 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraDividerComponent as DividerComponent } from '../../../lib/components/divider/divider.component';
-import { DividerWithContentComponent, WithContent as WithContentStory } from './examples/divider-with-content.component';
+import {
+  DividerWithContentComponent,
+  WithContent as WithContentStory
+} from './examples/divider-with-content.component';
 import { DividerWithIconComponent, WithIcon as WithIconStory } from './examples/divider-with-icon.component';
-import { DividerAlignLeftComponent, AlignLeft as AlignLeftStory } from './examples/divider-align-left.component';
+import { AlignLeft as AlignLeftStory, DividerAlignLeftComponent } from './examples/divider-align-left.component';
 
 const meta: Meta<DividerComponent> = {
   title: 'Components/Panel/Divider',
@@ -10,13 +13,8 @@ const meta: Meta<DividerComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        DividerComponent,
-        DividerWithContentComponent,
-        DividerWithIconComponent,
-        DividerAlignLeftComponent,
-      ],
-    }),
+      imports: [DividerComponent, DividerWithContentComponent, DividerWithIconComponent, DividerAlignLeftComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -25,10 +23,10 @@ const meta: Meta<DividerComponent> = {
 
 \`\`\`typescript
 import { DividerModule } from 'primeng/divider';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-divider' },
+    designTokens: { prefix: '--p-divider' }
   },
   argTypes: {
     layout: {
@@ -38,8 +36,8 @@ import { DividerModule } from 'primeng/divider';
       table: {
         category: 'Props',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     type: {
       control: 'select',
@@ -48,8 +46,8 @@ import { DividerModule } from 'primeng/divider';
       table: {
         category: 'Props',
         defaultValue: { summary: 'solid' },
-        type: { summary: "'solid' | 'dashed' | 'dotted'" },
-      },
+        type: { summary: "'solid' | 'dashed' | 'dotted'" }
+      }
     },
     align: {
       control: 'select',
@@ -58,10 +56,10 @@ import { DividerModule } from 'primeng/divider';
       table: {
         category: 'Props',
         defaultValue: { summary: 'center' },
-        type: { summary: "'left' | 'center' | 'right' | 'top' | 'bottom'" },
-      },
-    },
-  },
+        type: { summary: "'left' | 'center' | 'right' | 'top' | 'bottom'" }
+      }
+    }
+  }
 };
 
 const commonTemplate = `
@@ -95,15 +93,15 @@ export const Default: Story = {
   args: {
     layout: 'horizontal',
     type: 'solid',
-    align: 'center',
+    align: 'center'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── WithContent ───────────────────────────────────────────────────────────────
@@ -121,16 +119,16 @@ export const Vertical: Story = {
   args: {
     layout: 'vertical',
     type: 'solid',
-    align: 'center',
+    align: 'center'
   },
   parameters: {
     docs: {
       description: { story: 'Вертикальный разделитель для разделения контента по горизонтали.' },
       source: {
-        code: `<extra-divider layout="vertical"></extra-divider>`,
-      },
-    },
-  },
+        code: `<extra-divider layout="vertical"></extra-divider>`
+      }
+    }
+  }
 };
 
 // ── Type ──────────────────────────────────────────────────────────────────────
@@ -141,16 +139,16 @@ export const TypeDashed: Story = {
   args: {
     layout: 'horizontal',
     type: 'dashed',
-    align: 'center',
+    align: 'center'
   },
   parameters: {
     docs: {
       description: { story: 'Разделитель с пунктирной линией.' },
       source: {
-         code: `<extra-divider type="dashed"></extra-divider>`,
-      },
-    },
-  },
+        code: `<extra-divider type="dashed"></extra-divider>`
+      }
+    }
+  }
 };
 
 export const TypeDotted: Story = {
@@ -159,16 +157,16 @@ export const TypeDotted: Story = {
   args: {
     layout: 'horizontal',
     type: 'dotted',
-    align: 'center',
+    align: 'center'
   },
   parameters: {
     docs: {
       description: { story: 'Разделитель с точечной линией.' },
       source: {
-         code: `<extra-divider type="dotted"></extra-divider>`,
-      },
-    },
-  },
+        code: `<extra-divider type="dotted"></extra-divider>`
+      }
+    }
+  }
 };
 
 // ── Align ─────────────────────────────────────────────────────────────────────

@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { Avatar } from 'primeng/avatar';
 import { AvatarGroup } from 'primeng/avatargroup';
 
@@ -18,7 +18,7 @@ export type AvatarShape = 'square' | 'circle';
       [size]="primeSize"
       [shape]="shape"
     ></p-avatar>
-  `,
+  `
 })
 export class ExtraAvatarComponent {
   @Input() label = '';
@@ -48,6 +48,6 @@ export class ExtraAvatarComponent {
     <p-avatar-group>
       <ng-content></ng-content>
     </p-avatar-group>
-  `,
+  `
 })
-export class ExtraAvatarGroupComponent { }
+export class ExtraAvatarGroupComponent {}

@@ -34,7 +34,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class DrawerSizesComponent {
   visibleDefault = false;
@@ -45,7 +45,7 @@ export class DrawerSizesComponent {
 
 export const Sizes: StoryObj = {
   render: () => ({
-    template: `<app-drawer-sizes></app-drawer-sizes>`,
+    template: `<app-drawer-sizes></app-drawer-sizes>`
   }),
   parameters: {
     controls: { disable: true },
@@ -54,7 +54,6 @@ export const Sizes: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -92,8 +91,8 @@ export class DrawerSizesComponent {
   visibleLg = false;
   visibleXlg = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

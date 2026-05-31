@@ -1,11 +1,4 @@
-import {
-  Component,
-  ContentChild,
-  EventEmitter,
-  Input,
-  Output,
-  TemplateRef,
-} from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { Drawer } from 'primeng/drawer';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
@@ -43,7 +36,7 @@ import { NgTemplateOutlet } from '@angular/common';
         </ng-template>
       }
     </p-drawer>
-  `,
+  `
 })
 export class ExtraDrawerComponent {
   @Input() visible = false;
@@ -61,11 +54,9 @@ export class ExtraDrawerComponent {
   @Output() onShow = new EventEmitter<void>();
   @Output() onHide = new EventEmitter<void>();
 
-  @ContentChild('drawerHeader') headerTemplate: TemplateRef<unknown> | null =
-    null;
+  @ContentChild('drawerHeader') headerTemplate: TemplateRef<unknown> | null = null;
 
-  @ContentChild('drawerFooter') footerTemplate: TemplateRef<unknown> | null =
-    null;
+  @ContentChild('drawerFooter') footerTemplate: TemplateRef<unknown> | null = null;
 
   get sizeClass(): string {
     if (this.size === 'default') return '';

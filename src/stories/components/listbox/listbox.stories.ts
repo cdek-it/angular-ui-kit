@@ -1,13 +1,13 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Listbox } from 'primeng/listbox';
 import { ExtraListboxComponent } from '../../../lib/components/listbox/listbox.component';
-import { ListboxCheckmarkComponent, Checkmark } from './examples/listbox-checkmark.component';
-import { ListboxFilterComponent, Filter } from './examples/listbox-filter.component';
+import { Checkmark, ListboxCheckmarkComponent } from './examples/listbox-checkmark.component';
+import { Filter, ListboxFilterComponent } from './examples/listbox-filter.component';
 import { ListboxMultipleComponent, Multiple } from './examples/listbox-multiple.component';
-import { ListboxGroupedComponent, Grouped } from './examples/listbox-grouped.component';
-import { ListboxCustomComponent, Custom } from './examples/listbox-custom.component';
-import { ListboxDisabledComponent, Disabled } from './examples/listbox-disabled.component';
+import { Grouped, ListboxGroupedComponent } from './examples/listbox-grouped.component';
+import { Custom, ListboxCustomComponent } from './examples/listbox-custom.component';
+import { Disabled, ListboxDisabledComponent } from './examples/listbox-disabled.component';
 
 type ListboxArgs = ExtraListboxComponent;
 

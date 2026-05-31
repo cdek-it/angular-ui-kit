@@ -8,17 +8,17 @@ const GROUPED_OPTIONS = [
     items: [
       { label: 'Берлин', value: 'BE' },
       { label: 'Франкфурт', value: 'FR' },
-      { label: 'Гамбург', value: 'HA' },
-    ],
+      { label: 'Гамбург', value: 'HA' }
+    ]
   },
   {
     label: 'США',
     items: [
       { label: 'Чикаго', value: 'CH' },
       { label: 'Лос-Анджелес', value: 'LA' },
-      { label: 'Нью-Йорк', value: 'NY' },
-    ],
-  },
+      { label: 'Нью-Йорк', value: 'NY' }
+    ]
+  }
 ];
 
 const template = `
@@ -49,7 +49,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectGroupedComponent {
   @Input() size: SelectSize = 'base';
@@ -71,8 +71,14 @@ export class SelectGroupedComponent {
 
 export const Grouped = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`,
+    props: {
+      size: args['size'],
+      showClear: args['showClear'],
+      readonly: args['readonly'],
+      disabled: args['disabled'],
+      invalid: args['invalid']
+    },
+    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
   }),
   parameters: {
     docs: {
@@ -125,8 +131,8 @@ export class SelectGroupedExample {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

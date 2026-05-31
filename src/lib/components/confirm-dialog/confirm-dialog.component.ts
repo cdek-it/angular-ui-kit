@@ -16,8 +16,10 @@ export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 
     <p-confirmDialog [key]="key" [styleClass]="computedClass" appendTo="body">
       <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
         @if (headerTemplate) {
-          <ng-container [ngTemplateOutlet]="headerTemplate"
-            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }">
+          <ng-container
+            [ngTemplateOutlet]="headerTemplate"
+            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }"
+          >
           </ng-container>
         } @else {
           <div class="p-dialog-header">
@@ -39,16 +41,14 @@ export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 
           <p>{{ message.message }}</p>
         </div>
         @if (footerTemplate) {
-          <ng-container [ngTemplateOutlet]="footerTemplate"
-            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }">
+          <ng-container
+            [ngTemplateOutlet]="footerTemplate"
+            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }"
+          >
           </ng-container>
         } @else {
           <div class="p-dialog-footer">
-            <extra-button
-              [label]="message.rejectLabel"
-              variant="text"
-              (click)="onReject()"
-            ></extra-button>
+            <extra-button [label]="message.rejectLabel" variant="text" (click)="onReject()"></extra-button>
             <extra-button
               [label]="message.acceptLabel"
               [severity]="message.acceptButtonProps?.severity"
@@ -58,7 +58,7 @@ export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 
         }
       </ng-template>
     </p-confirmDialog>
-  `,
+  `
 })
 export class ExtraConfirmDialogComponent {
   @Input() key = '';
@@ -79,7 +79,7 @@ export class ExtraConfirmDialogComponent {
       warn: 'p-confirm-dialog-warn',
       help: 'p-confirm-dialog-help',
       danger: 'p-confirm-dialog-error',
-      default: '',
+      default: ''
     };
     if (severityMap[this.severity]) classes.push(severityMap[this.severity]);
 

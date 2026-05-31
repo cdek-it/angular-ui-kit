@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Skeleton } from 'primeng/skeleton';
 
 export type SkeletonShape = 'rectangle' | 'circle';
@@ -19,7 +19,7 @@ export type SkeletonAnimation = 'wave' | 'none';
       [size]="size"
       [borderRadius]="borderRadius"
     ></p-skeleton>
-  `,
+  `
 })
 export class ExtraSkeletonComponent {
   @Input() shape: SkeletonShape = 'rectangle';

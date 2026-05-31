@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
@@ -11,9 +11,7 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraCheckboxComponent, FormsModule],
   styles,
-  template: `
-    <extra-checkbox [binary]="true" [invalid]="true" [(ngModel)]="checked"></extra-checkbox>
-  `,
+  template: ` <extra-checkbox [binary]="true" [invalid]="true" [(ngModel)]="checked"></extra-checkbox> `
 })
 export class CheckboxInvalidComponent {
   checked = false;
@@ -22,7 +20,7 @@ export class CheckboxInvalidComponent {
 export const Invalid: StoryObj = {
   render: (args) => ({
     props: { ...args, checked: false },
-    template: `<extra-checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked"></extra-checkbox>`,
+    template: `<extra-checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked"></extra-checkbox>`
   }),
   args: { invalid: true },
   parameters: {
@@ -47,8 +45,8 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 export class CheckboxInvalidComponent {
   control = new FormControl(false, [Validators.requiredTrue]);
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

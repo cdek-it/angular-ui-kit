@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
 import { MenubarComponent } from '../../../../lib/components/menubar/menubar.component';
@@ -16,13 +16,13 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MenubarComponent],
   template,
-  styles,
+  styles
 })
 export class MenubarWithIconComponent {
   items: MenuItem[] = [
     {
       label: 'Home',
-      icon: 'ti ti-home',
+      icon: 'ti ti-home'
     },
     {
       label: 'Features',
@@ -36,29 +36,29 @@ export class MenubarWithIconComponent {
           icon: 'ti ti-template',
           items: [
             { label: 'Apollo', icon: 'ti ti-rocket' },
-            { label: 'Ultima', icon: 'ti ti-diamond' },
-          ],
-        },
-      ],
+            { label: 'Ultima', icon: 'ti ti-diamond' }
+          ]
+        }
+      ]
     },
     {
       label: 'Projects',
       icon: 'ti ti-folder',
       items: [
         { label: 'Active', icon: 'ti ti-circle-check' },
-        { label: 'Archived', icon: 'ti ti-archive' },
-      ],
+        { label: 'Archived', icon: 'ti ti-archive' }
+      ]
     },
     {
       label: 'Settings',
-      icon: 'ti ti-settings',
-    },
+      icon: 'ti ti-settings'
+    }
   ];
 }
 
 export const WithIcon: StoryObj = {
   render: () => ({
-    template: `<app-menubar-with-icon></app-menubar-with-icon>`,
+    template: `<app-menubar-with-icon></app-menubar-with-icon>`
   }),
   parameters: {
     docs: {
@@ -67,7 +67,6 @@ export const WithIcon: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { MenubarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -110,8 +109,8 @@ export class MenubarWithIconComponent {
     { label: 'Settings', icon: 'ti ti-settings' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

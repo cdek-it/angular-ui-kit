@@ -13,7 +13,7 @@ const template = `
   selector: 'app-menu-popup',
   standalone: true,
   imports: [ExtraMenuComponent, ExtraButtonComponent],
-  template,
+  template
 })
 export class MenuPopupComponent {
   @ViewChild('menuRef') menuRef!: ExtraMenuComponent;
@@ -22,7 +22,7 @@ export class MenuPopupComponent {
     { label: 'Создать отправление', icon: 'ti ti-file-plus' },
     { label: 'Найти по трек-номеру', icon: 'ti ti-search' },
     { separator: true },
-    { label: 'Экспорт данных', icon: 'ti ti-download' },
+    { label: 'Экспорт данных', icon: 'ti ti-download' }
   ];
 
   toggle(event: Event): void {

@@ -31,7 +31,6 @@ export const LabelVertical: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
 
 @Component({
   selector: 'app-metergroup-label-vertical',

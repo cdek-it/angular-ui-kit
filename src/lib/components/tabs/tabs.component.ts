@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Tabs } from 'primeng/tabs';
-import { TabList } from 'primeng/tabs';
-import { Tab } from 'primeng/tabs';
-import { TabPanels } from 'primeng/tabs';
-import { TabPanel } from 'primeng/tabs';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 import { Badge } from 'primeng/badge';
 
 export interface TabItem {
@@ -21,27 +17,16 @@ export interface TabItem {
   standalone: true,
   imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge],
   template: `
-    <p-tabs
-      [value]="value"
-      [scrollable]="scrollable"
-      [lazy]="lazy"
-      (valueChange)="value = $event"
-    >
+    <p-tabs [value]="value" [scrollable]="scrollable" [lazy]="lazy" (valueChange)="value = $event">
       <p-tablist>
         @for (tab of tabs; track tab.value) {
-          <p-tab
-            [value]="tab.value"
-            [disabled]="tab.disabled || false"
-          >
+          <p-tab [value]="tab.value" [disabled]="tab.disabled || false">
             @if (tab.icon) {
               <i class="text-xl" [class]="tab.icon"></i>
             }
             <span>{{ tab.label }}</span>
             @if (tab.badge) {
-              <p-badge
-                [value]="tab.badge"
-                [severity]="tab.badgeSeverity || 'success'"
-              ></p-badge>
+              <p-badge [value]="tab.badge" [severity]="tab.badgeSeverity || 'success'"></p-badge>
             }
           </p-tab>
         }
@@ -54,7 +39,7 @@ export interface TabItem {
         }
       </p-tabpanels>
     </p-tabs>
-  `,
+  `
 })
 export class ExtraTabsComponent {
   @Input() value: string | number | undefined = '0';

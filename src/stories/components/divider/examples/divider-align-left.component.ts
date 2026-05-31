@@ -1,6 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { DividerComponent } from '../../../../lib/components/divider/divider.component';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
@@ -18,13 +16,13 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraDividerComponent],
   template,
-  styles,
+  styles
 })
 export class DividerAlignLeftComponent {}
 
 export const AlignLeft = {
   render: () => ({
-    template: `<app-divider-align-left></app-divider-align-left>`,
+    template: `<app-divider-align-left></app-divider-align-left>`
   }),
   parameters: {
     docs: {
@@ -32,7 +30,6 @@ export const AlignLeft = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -47,8 +44,8 @@ import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class DividerAlignLeftComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

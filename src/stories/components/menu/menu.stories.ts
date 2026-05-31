@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraMenuComponent } from '../../../lib/components/menu/menu.component';
 import { MenuPopupComponent } from './examples/menu-popup.component';
 import { MenuBasicComponent } from './examples/menu-basic.component';
@@ -17,10 +17,10 @@ const meta: Meta<ExtraMenuComponent> = {
 
 \`\`\`typescript
 import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-menu' },
+    designTokens: { prefix: '--p-menu' }
   },
   argTypes: {
     model: {
@@ -28,8 +28,8 @@ import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив пунктов меню.',
       table: {
         category: 'Props',
-        type: { summary: 'ExtraMenuModel[]' },
-      },
+        type: { summary: 'ExtraMenuModel[]' }
+      }
     },
     popup: {
       control: 'boolean',
@@ -37,10 +37,10 @@ import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-  },
+        type: { summary: 'boolean' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -55,7 +55,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Меню вызывается по нажатию на кнопку. Используйте метод toggle() для показа/скрытия.',
+        story: 'Меню вызывается по нажатию на кнопку. Используйте метод toggle() для показа/скрытия.'
       },
       source: {
         language: 'ts',
@@ -86,10 +86,10 @@ export class MenuPopupComponent {
     this.menuRef.toggle(event);
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Basic ─────────────────────────────────────────────────────────────────────
@@ -101,7 +101,7 @@ export const Basic: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый вариант inline-меню без иконок.',
+        story: 'Базовый вариант inline-меню без иконок.'
       },
       source: {
         language: 'ts',
@@ -125,10 +125,10 @@ export class MenuBasicComponent {
     { label: 'Экспорт' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── WithIcons ─────────────────────────────────────────────────────────────────
@@ -140,13 +140,11 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Пункты меню с иконками.',
+        story: 'Пункты меню с иконками.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-with-icons',
@@ -166,10 +164,10 @@ export class MenuWithIconsComponent {
     { label: 'Экспорт данных', icon: 'ti ti-download' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Grouped ───────────────────────────────────────────────────────────────────
@@ -181,13 +179,11 @@ export const Grouped: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Группировка пунктов меню через label у родительского элемента.',
+        story: 'Группировка пунктов меню через label у родительского элемента.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-grouped',
@@ -217,10 +213,10 @@ export class MenuGroupedComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Custom ────────────────────────────────────────────────────────────────────
@@ -232,13 +228,12 @@ export const Custom: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Кастомизация отображения пунктов меню через входной параметр `itemTemplate`. Передайте `ng-template` с произвольной разметкой — он получит объект пункта меню через `let-item`.',
+        story:
+          'Кастомизация отображения пунктов меню через входной параметр `itemTemplate`. Передайте `ng-template` с произвольной разметкой — он получит объект пункта меню через `let-item`.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-custom',
@@ -304,8 +299,8 @@ export class MenuCustomComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

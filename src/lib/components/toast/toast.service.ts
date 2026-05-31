@@ -15,7 +15,6 @@ export interface ExtraToastMessage {
 
 @Injectable({ providedIn: 'root' })
 export class ExtraToastService {
-
   constructor(private readonly messageService: MessageService) {}
 
   add(message: ExtraToastMessage): void {

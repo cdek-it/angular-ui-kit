@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
@@ -14,7 +14,12 @@ const styles = '';
   template: `
     <div class="flex items-center gap-3.5">
       @if (labelPosition === 'left') {
-        <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
+        <extra-checkbox
+          [formControl]="formControl"
+          [inputId]="inputId"
+          [binary]="true"
+          [invalid]="invalid"
+        ></extra-checkbox>
       }
       <div class="flex flex-col gap-[3.5px]">
         <label [for]="inputId" [class]="labelClass">{{ label }}</label>
@@ -23,10 +28,15 @@ const styles = '';
         }
       </div>
       @if (labelPosition === 'right') {
-        <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
+        <extra-checkbox
+          [formControl]="formControl"
+          [inputId]="inputId"
+          [binary]="true"
+          [invalid]="invalid"
+        ></extra-checkbox>
       }
     </div>
-  `,
+  `
 })
 export class CheckboxCustomLabelComponent {
   @Input() label = 'Checkbox';
@@ -67,43 +77,42 @@ export const CustomLabel: StoryObj = {
         [disabled]="disabled"
         inputId="custom-label"
       ></app-checkbox-custom-label>
-    `,
+    `
   }),
   args: {
     label: 'Checkbox',
     caption: 'caption',
     labelPosition: 'left',
     invalid: false,
-    disabled: false,
+    disabled: false
   },
   argTypes: {
     label: {
       control: 'text',
       description: 'Текст метки',
-      table: { category: 'Props' },
+      table: { category: 'Props' }
     },
     caption: {
       control: 'text',
       description: 'Подпись под меткой',
-      table: { category: 'Props' },
+      table: { category: 'Props' }
     },
     labelPosition: {
       control: 'select',
       options: ['left', 'right'],
       description: 'Позиция чекбокса относительно метки',
-      table: { category: 'Props', defaultValue: { summary: 'left' } },
-    },
+      table: { category: 'Props', defaultValue: { summary: 'left' } }
+    }
   },
   parameters: {
     docs: {
       description: {
-        story: 'Чекбокс с label и caption. Управляйте состоянием через Controls.',
+        story: 'Чекбокс с label и caption. Управляйте состоянием через Controls.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component, Input, OnChanges } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -154,8 +163,8 @@ export class CheckboxCustomLabelComponent implements OnChanges {
     }
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

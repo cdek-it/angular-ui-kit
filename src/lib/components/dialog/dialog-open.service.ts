@@ -11,9 +11,7 @@ export { DynamicDialogRef, DynamicDialogConfig };
 
 @Injectable({ providedIn: 'root' })
 export class ExtraDialogService {
-
-  constructor(private readonly injector: Injector) {
-  }
+  constructor(private readonly injector: Injector) {}
 
   open<T>(componentType: Type<T>, config: ExtraDynamicDialogConfig = {}): DynamicDialogRef<T> | null {
     const { size, styleClass, ...rest } = config;
@@ -22,7 +20,7 @@ export class ExtraDialogService {
 
     const childInjector = Injector.create({
       providers: [DialogService],
-      parent: this.injector,
+      parent: this.injector
     });
 
     const dialogService = childInjector.get(DialogService);
@@ -30,7 +28,7 @@ export class ExtraDialogService {
     return dialogService.open(componentType, {
       ...rest,
       ...(mergedStyleClass && { styleClass: mergedStyleClass }),
-      appendTo: rest.appendTo ?? 'body',
+      appendTo: rest.appendTo ?? 'body'
     });
   }
 

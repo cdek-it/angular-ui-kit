@@ -1,6 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { ChipComponent } from '../../../../lib/components/chip/chip.component';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
@@ -16,13 +14,13 @@ const styles = '';
   imports: [ExtraChipComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class ChipRemovableWithIconComponent {}
 
 export const RemovableWithIcon = {
   render: () => ({
-    template: `<app-chip-removable-with-icon></app-chip-removable-with-icon>`,
+    template: `<app-chip-removable-with-icon></app-chip-removable-with-icon>`
   }),
   parameters: {
     docs: {
@@ -30,7 +28,6 @@ export const RemovableWithIcon = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -43,8 +40,8 @@ import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class ChipRemovableWithIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { OverlayBadge } from 'primeng/overlaybadge';
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../lib/components/avatar/avatar.component';
 
@@ -8,8 +8,8 @@ const meta: Meta<ExtraAvatarComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent, OverlayBadge],
-    }),
+      imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent, OverlayBadge]
+    })
   ],
   parameters: {
     docs: {
@@ -18,10 +18,10 @@ const meta: Meta<ExtraAvatarComponent> = {
 
 \`\`\`typescript
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-avatar' },
+    designTokens: { prefix: '--p-avatar' }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -31,8 +31,8 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     icon: {
       control: 'text',
@@ -40,8 +40,8 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     image: {
       control: 'text',
@@ -49,8 +49,8 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -59,8 +59,8 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: 'normal' },
-        type: { summary: "'normal' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'normal' | 'large' | 'xlarge'" }
+      }
     },
     shape: {
       control: 'select',
@@ -69,10 +69,10 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       table: {
         category: 'Props',
         defaultValue: { summary: 'square' },
-        type: { summary: "'square' | 'circle'" },
-      },
-    },
-  },
+        type: { summary: "'square' | 'circle'" }
+      }
+    }
+  }
 };
 
 const commonTemplate = `
@@ -110,15 +110,15 @@ export const Default: Story = {
   args: {
     label: 'A',
     size: 'normal',
-    shape: 'square',
+    shape: 'square'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Label ────────────────────────────────────────────────────────────────────
@@ -130,10 +130,10 @@ export const Label: Story = {
     docs: {
       description: { story: 'Аватар с текстовой меткой.' },
       source: {
-        code: `<extra-avatar label="A"></extra-avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar label="A"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Icon ─────────────────────────────────────────────────────────────────────
@@ -145,10 +145,10 @@ export const Icon: Story = {
     docs: {
       description: { story: 'Аватар с иконкой.' },
       source: {
-        code: `<extra-avatar icon="ti ti-user"></extra-avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar icon="ti ti-user"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Image ────────────────────────────────────────────────────────────────────
@@ -158,12 +158,14 @@ export const Image: Story = {
   args: { image: '/assets/images/avatar/avatar.png', size: 'normal', shape: 'square' },
   parameters: {
     docs: {
-      description: { story: 'Аватар с изображением. shape="square" — без обрезки, shape="circle" — с обрезкой по кругу.' },
-      source: {
-        code: `<extra-avatar image="/assets/images/avatar/avatar.png"></extra-avatar>`,
+      description: {
+        story: 'Аватар с изображением. shape="square" — без обрезки, shape="circle" — с обрезкой по кругу.'
       },
-    },
-  },
+      source: {
+        code: `<extra-avatar image="/assets/images/avatar/avatar.png"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Sizes ────────────────────────────────────────────────────────────────────
@@ -175,10 +177,10 @@ export const Sizes: Story = {
     docs: {
       description: { story: 'Размер аватара. Доступны: normal, large, xlarge.' },
       source: {
-        code: `<extra-avatar label="L" size="large"></extra-avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar label="L" size="large"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Shapes ───────────────────────────────────────────────────────────────────
@@ -190,10 +192,10 @@ export const Shapes: Story = {
     docs: {
       description: { story: 'Форма аватара. circle — круглый, square — квадратный (по умолчанию).' },
       source: {
-        code: `<extra-avatar label="C" shape="circle"></extra-avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar label="C" shape="circle"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Group ────────────────────────────────────────────────────────────────────
@@ -211,7 +213,7 @@ export const Group: Story = {
         <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
         <extra-avatar label="+2" shape="circle"></extra-avatar>
       </extra-avatar-group>
-    `,
+    `
   }),
   parameters: {
     docs: {
@@ -221,10 +223,10 @@ export const Group: Story = {
   <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
   <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
   <extra-avatar label="+2" shape="circle"></extra-avatar>
-</extra-avatar-group>`,
-      },
-    },
-  },
+</extra-avatar-group>`
+      }
+    }
+  }
 };
 
 // ── LabelWithBadge ───────────────────────────────────────────────────────────
@@ -236,7 +238,7 @@ export const LabelWithBadge: Story = {
       <p-overlay-badge value="4" severity="danger">
         <extra-avatar label="U" size="xlarge"></extra-avatar>
       </p-overlay-badge>
-    `,
+    `
   }),
   parameters: {
     docs: {
@@ -244,10 +246,10 @@ export const LabelWithBadge: Story = {
       source: {
         code: `<p-overlay-badge value="4" severity="danger">
   <extra-avatar label="U" size="xlarge"></extra-avatar>
-</p-overlay-badge>`,
-      },
-    },
-  },
+</p-overlay-badge>`
+      }
+    }
+  }
 };
 
 // ── IconWithBadge ────────────────────────────────────────────────────────────
@@ -259,7 +261,7 @@ export const IconWithBadge: Story = {
       <p-overlay-badge value="8" severity="success">
         <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
       </p-overlay-badge>
-    `,
+    `
   }),
   parameters: {
     docs: {
@@ -267,10 +269,10 @@ export const IconWithBadge: Story = {
       source: {
         code: `<p-overlay-badge value="8" severity="success">
   <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
-</p-overlay-badge>`,
-      },
-    },
-  },
+</p-overlay-badge>`
+      }
+    }
+  }
 };
 
 // ── ImageWithBadge ───────────────────────────────────────────────────────────
@@ -282,7 +284,7 @@ export const ImageWithBadge: Story = {
       <p-overlay-badge value="8" severity="success">
         <extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge"></extra-avatar>
       </p-overlay-badge>
-    `,
+    `
   }),
   parameters: {
     docs: {
@@ -290,8 +292,8 @@ export const ImageWithBadge: Story = {
       source: {
         code: `<p-overlay-badge value="8" severity="success">
   <extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge"></extra-avatar>
-</p-overlay-badge>`,
-      },
-    },
-  },
+</p-overlay-badge>`
+      }
+    }
+  }
 };

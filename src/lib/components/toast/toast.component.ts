@@ -16,7 +16,7 @@ const SEVERITY_ICONS: Record<string, string> = {
   info: 'ti ti-info-circle',
   success: 'ti ti-circle-check',
   warn: 'ti ti-alert-triangle',
-  error: 'ti ti-alert-circle',
+  error: 'ti ti-alert-circle'
 };
 
 @Component({
@@ -36,7 +36,7 @@ const SEVERITY_ICONS: Record<string, string> = {
         </div>
       </ng-template>
     </p-toast>
-  `,
+  `
 })
 export class ExtraToastComponent {
   @Input() position: ToastPosition = 'top-right';

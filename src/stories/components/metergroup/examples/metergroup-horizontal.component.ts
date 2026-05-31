@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
@@ -13,7 +13,7 @@ import { defaultValue } from '../metergroup.data';
     <div class="bg-surface-ground">
       <extra-metergroup [value]="value" orientation="horizontal"></extra-metergroup>
     </div>
-  `,
+  `
 })
 export class MeterGroupHorizontalComponent {
   value: MeterItem[] = defaultValue;
@@ -31,7 +31,6 @@ export const Horizontal: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
 
 @Component({
   selector: 'app-metergroup-horizontal',

@@ -1,7 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { Slider } from 'primeng/slider';
 import type { SliderSlideEndEvent } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 import { Subscription } from 'rxjs';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
@@ -16,8 +26,8 @@ export type SliderOrientation = 'horizontal' | 'vertical';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraSliderComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-slider
@@ -29,7 +39,7 @@ export type SliderOrientation = 'horizontal' | 'vertical';
       [orientation]="orientation"
       (onSlideEnd)="onSlideEnd.emit($event)"
     ></p-slider>
-  `,
+  `
 })
 export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, OnDestroy {
   @Input() min = 0;
@@ -49,7 +59,7 @@ export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, On
   private readonly _sub: Subscription;
 
   constructor() {
-    this._sub = this.control.valueChanges.subscribe(v => this._onChange(v));
+    this._sub = this.control.valueChanges.subscribe((v) => this._onChange(v));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

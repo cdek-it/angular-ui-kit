@@ -7,9 +7,7 @@ import { MenuItem } from 'primeng/api';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Menubar],
-  template: `
-    <p-menubar [model]="model"></p-menubar>
-  `,
+  template: ` <p-menubar [model]="model"></p-menubar> `
 })
 export class MenubarComponent {
   @Input() model: MenuItem[] = [];

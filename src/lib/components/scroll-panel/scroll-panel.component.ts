@@ -7,13 +7,10 @@ import { ScrollPanel } from 'primeng/scrollpanel';
   standalone: true,
   imports: [ScrollPanel],
   template: `
-    <p-scrollpanel
-      [step]="step"
-      [style]="{ width: width, height: height }"
-    >
+    <p-scrollpanel [step]="step" [style]="{ width: width, height: height }">
       <ng-content></ng-content>
     </p-scrollpanel>
-  `,
+  `
 })
 export class ExtraScrollPanelComponent {
   @Input() step = 10;

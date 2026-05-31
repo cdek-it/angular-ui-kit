@@ -21,7 +21,7 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraTextareaComponent, FormsModule],
   template,
-  styles,
+  styles
 })
 export class TextareaAutoResizeComponent {
   value = '';
@@ -29,20 +29,20 @@ export class TextareaAutoResizeComponent {
 
 export const AutoResize: StoryObj = {
   render: () => ({
-    template: `<app-textarea-autoresize></app-textarea-autoresize>`,
+    template: `<app-textarea-autoresize></app-textarea-autoresize>`
   }),
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Режим авторасширения — поле увеличивается по высоте по мере ввода текста.',
+        story: 'Режим авторасширения — поле увеличивается по высоте по мере ввода текста.'
       },
       source: {
         language: 'ts',
         code: `@Component({
   template: \`${template}\`,
-})`,
-      },
-    },
-  },
+})`
+      }
+    }
+  }
 };

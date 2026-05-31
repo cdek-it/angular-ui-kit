@@ -13,7 +13,7 @@ const template = `
   selector: 'app-password-toggle',
   standalone: true,
   imports: [ExtraPasswordComponent, FormsModule],
-  template,
+  template
 })
 export class PasswordToggleComponent {
   value: string | null = null;
@@ -21,7 +21,7 @@ export class PasswordToggleComponent {
 
 export const ToggleMask: StoryObj = {
   render: () => ({
-    template: `<app-password-toggle></app-password-toggle>`,
+    template: `<app-password-toggle></app-password-toggle>`
   }),
   parameters: {
     docs: {
@@ -29,8 +29,6 @@ export const ToggleMask: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -44,8 +42,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 export class PasswordToggleComponent {
   value: string | null = null;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

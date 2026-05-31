@@ -83,10 +83,7 @@ export const Custom: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { TieredMenu } from 'primeng/tieredmenu';
-import { Badge } from 'primeng/badge';
 
 @Component({
   selector: 'app-tieredmenu-custom',

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { StoryObj } from '@storybook/angular';
 
@@ -45,7 +45,6 @@ export const Badge: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-button-text',

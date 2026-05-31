@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
@@ -13,13 +13,13 @@ const template = `
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraTagComponent],
-  template,
+  template
 })
-export class TagRoundedComponent { }
+export class TagRoundedComponent {}
 
 export const Rounded: StoryObj = {
   render: () => ({
-    template: `<app-tag-rounded></app-tag-rounded>`,
+    template: `<app-tag-rounded></app-tag-rounded>`
   }),
   parameters: {
     docs: {
@@ -40,8 +40,8 @@ import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class TagRoundedComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -8,16 +8,16 @@ export const Disabled: StoryObj = {
     const control = new FormControl({ value: 'Текст в заблокированном поле', disabled: true });
     return {
       props: { ...args, control },
-      template: `<extra-textarea [formControl]="control" placeholder="Введите текст..."></extra-textarea>`,
+      template: `<extra-textarea [formControl]="control" placeholder="Введите текст..."></extra-textarea>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraTextareaComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraTextareaComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -27,7 +27,6 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -38,8 +37,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 export class DisabledExample {
   control = new FormControl({ value: '', disabled: true });
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

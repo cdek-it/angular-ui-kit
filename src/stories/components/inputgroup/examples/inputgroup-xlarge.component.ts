@@ -28,7 +28,7 @@ export class InputGroupXlargeComponent {
 
 export const Sizes: StoryObj = {
   render: () => ({
-    template: `<app-inputgroup-xlarge></app-inputgroup-xlarge>`,
+    template: `<app-inputgroup-xlarge></app-inputgroup-xlarge>`
   }),
   parameters: {
     docs: {
@@ -36,8 +36,6 @@ export const Sizes: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -54,8 +52,8 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
 export class InputGroupXlargeComponent {
   value = '';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

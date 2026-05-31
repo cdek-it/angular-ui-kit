@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { GalleriaComponent } from '../../../lib/components/galleria/galleria.component';
 import { GalleriaDefaultComponent } from './examples/galleria-default.component';
 import { GalleriaThumbnailsComponent } from './examples/galleria-thumbnails.component';
@@ -17,10 +17,10 @@ const meta: Meta<GalleriaComponent> = {
 
 \`\`\`typescript
 import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-galleria' },
+    designTokens: { prefix: '--p-galleria' }
   },
   argTypes: {
     value: {
@@ -28,8 +28,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив изображений для галереи',
       table: {
         category: 'Props',
-        type: { summary: 'GalleriaItem[]' },
-      },
+        type: { summary: 'GalleriaItem[]' }
+      }
     },
     numVisible: {
       control: 'number',
@@ -37,8 +37,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '3' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     showItemNavigators: {
       control: 'boolean',
@@ -46,8 +46,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showThumbnails: {
       control: 'boolean',
@@ -55,8 +55,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showIndicators: {
       control: 'boolean',
@@ -64,8 +64,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     circular: {
       control: 'boolean',
@@ -73,8 +73,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     autoPlay: {
       control: 'boolean',
@@ -82,8 +82,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     transitionInterval: {
       control: 'number',
@@ -91,8 +91,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '4000' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     fullScreen: {
       control: 'boolean',
@@ -100,8 +100,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     visible: {
       control: 'boolean',
@@ -109,32 +109,32 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     activeIndexChange: {
       control: false,
       description: 'Событие смены активного изображения',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<number>' },
-      },
+        type: { summary: 'EventEmitter<number>' }
+      }
     },
     visibleChange: {
       control: false,
       description: 'Событие изменения видимости (полноэкранный режим)',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<boolean>' },
-      },
+        type: { summary: 'EventEmitter<boolean>' }
+      }
     },
     containerClass: { table: { disable: true } },
     containerStyle: { table: { disable: true } },
     responsiveOptions: { table: { disable: true } },
     showIndicatorsOnItem: { table: { disable: true } },
     showItemNavigatorsOnHover: { table: { disable: true } },
-    showThumbnailNavigators: { table: { disable: true } },
-  },
+    showThumbnailNavigators: { table: { disable: true } }
+  }
 };
 
 export default meta;
@@ -149,13 +149,12 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример галереи с навигацией и индикаторами, без миниатюр.',
+        story: 'Базовый пример галереи с навигацией и индикаторами, без миниатюр.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-default',
@@ -180,10 +179,10 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 export class AppGalleriaDefaultComponent {
   images = [ /* массив GalleriaItem */ ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Thumbnails ────────────────────────────────────────────────────────────────
@@ -195,13 +194,11 @@ export const Thumbnails: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Галерея с панелью миниатюр для навигации.',
+        story: 'Галерея с панелью миниатюр для навигации.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-thumbnails',
@@ -229,10 +226,10 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 export class AppGalleriaThumbnailsComponent {
   images = [ /* массив GalleriaItem */ ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Caption ───────────────────────────────────────────────────────────────────
@@ -244,13 +241,11 @@ export const Caption: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Галерея с подписью к каждому изображению.',
+        story: 'Галерея с подписью к каждому изображению.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-caption',
@@ -282,10 +277,10 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 export class AppGalleriaCaptionComponent {
   images = [ /* массив GalleriaItem */ ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── FullScreen ────────────────────────────────────────────────────────────────
@@ -297,12 +292,11 @@ export const FullScreen: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Галерея в полноэкранном режиме — открывается по кнопке.',
+        story: 'Галерея в полноэкранном режиме — открывается по кнопке.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { GalleriaComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -337,10 +331,10 @@ export class AppGalleriaFullscreenComponent {
   images = [ /* массив GalleriaItem */ ];
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Autoplay ──────────────────────────────────────────────────────────────────
@@ -352,13 +346,11 @@ export const Autoplay: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Галерея с автоматической сменой изображений каждые 3 секунды.',
+        story: 'Галерея с автоматической сменой изображений каждые 3 секунды.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-autoplay',
@@ -384,8 +376,8 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 export class AppGalleriaAutoplayComponent {
   images = [ /* массив GalleriaItem */ ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

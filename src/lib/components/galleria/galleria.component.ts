@@ -1,4 +1,13 @@
-import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, ViewChild, AfterContentInit } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChild
+} from '@angular/core';
 import { Galleria, GalleriaModule } from 'primeng/galleria';
 import { PrimeTemplate } from 'primeng/api';
 
@@ -36,7 +45,7 @@ export interface GalleriaItem {
       (activeIndexChange)="activeIndexChange.emit($event)"
       (visibleChange)="visibleChange.emit($event)"
     ></p-galleria>
-  `,
+  `
 })
 export class GalleriaComponent implements AfterContentInit {
   @ViewChild(Galleria, { static: true }) private galleriaRef!: Galleria;

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { OverlayBadge } from 'primeng/overlaybadge';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
@@ -23,24 +23,23 @@ const styles = '';
   imports: [ExtraAvatarComponent, OverlayBadge],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class AvatarLabelBadgeComponent {}
 // todo разобраться со стори, почему primeng здесь
 export const LabelWithBadge: StoryObj = {
   render: () => ({
-    template: `<app-avatar-label-badge></app-avatar-label-badge>`,
+    template: `<app-avatar-label-badge></app-avatar-label-badge>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Аватары с текстом и бейджем через OverlayBadge.',
+        story: 'Аватары с текстом и бейджем через OverlayBadge.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { OverlayBadge } from 'primeng/overlaybadge';
 import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -60,8 +59,8 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class AvatarLabelBadgeComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
