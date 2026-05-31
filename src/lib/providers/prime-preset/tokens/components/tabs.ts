@@ -1,4 +1,4 @@
-const tabsCss = ({ dt }: { dt: (token: string) => string }): string => `
+export const tabsCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* Переопределение overflow для видимости активной линии */
 .p-tabs .p-tablist.p-tablist,
@@ -22,5 +22,3 @@ const tabsCss = ({ dt }: { dt: (token: string) => string }): string => `
   border-bottom: 0.15rem solid ${dt('tabs.tablist.borderColor')};
 }
 `;
-
-export { tabsCss };
