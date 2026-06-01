@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, inject, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgClass } from '@angular/common';
 import { FileUpload } from 'primeng/fileupload';
 import { ProgressBar } from 'primeng/progressbar';
 import { Message } from 'primeng/message';
@@ -10,7 +9,7 @@ import { ExtraButtonComponent } from '../button/button.component';
 @Component({
   selector: 'fileupload',
   standalone: true,
-  imports: [FileUpload, ProgressBar, Message, PrimeTemplate, ExtraButtonComponent, NgClass],
+  imports: [FileUpload, ProgressBar, Message, PrimeTemplate, ExtraButtonComponent],
   host: { style: 'display: contents' },
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FileUploadComponent), multi: true }],
   template: `
@@ -85,8 +84,8 @@ import { ExtraButtonComponent } from '../button/button.component';
                       </span>
                     </div>
                   </div>
-                  <button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
-                    (click)="onRemoveFile(file, removeFileCallback, i)"></button>
+                  <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
+                    (click)="onRemoveFile(file, removeFileCallback, i)"></extra-button>
                 </div>
               }
             </div>
@@ -102,17 +101,17 @@ import { ExtraButtonComponent } from '../button/button.component';
                       <span class="fu-file-card__size">Загружено</span>
                     </div>
                   </div>
-                  <button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
-                    (click)="removeUploadedFileCallback(i)"></button>
+                  <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
+                    (click)="removeUploadedFileCallback(i)"></extra-button>
                 </div>
               }
             </div>
           }
           @if (selectedFiles.length > 0 || uploadedFiles.length > 0) {
             <div class="fu-footer">
-              <button label="Отправить" [disabled]="!selectedFiles.length" (click)="uploadCb?.()"></button>
-              <button label="Очистить" severity="danger" variant="text"
-                [disabled]="!selectedFiles.length && !uploadedFiles.length" (click)="onClearUpload()"></button>
+              <extra-button label="Отправить" [disabled]="!selectedFiles.length" (click)="uploadCb?.()"></extra-button>
+              <extra-button label="Очистить" severity="danger" variant="text"
+                [disabled]="!selectedFiles.length && !uploadedFiles.length" (click)="onClearUpload()"></extra-button>
             </div>
           }
         </div>
