@@ -11,13 +11,13 @@ const template = `
   selector: 'app-menu-basic',
   standalone: true,
   imports: [ExtraMenuComponent],
-  template,
+  template
 })
 export class MenuBasicComponent {
   items: ExtraMenuModel[] = [
     { label: 'Новый заказ' },
     { label: 'Поиск отправления' },
     { separator: true },
-    { label: 'Экспорт' },
+    { label: 'Экспорт' }
   ];
 }

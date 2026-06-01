@@ -16,8 +16,7 @@ export interface ExtraMenuModel extends MenuItem {
     <p-menu #menuRef [model]="model" [popup]="popup" [appendTo]="popup ? 'body' : null">
       <ng-template pTemplate="item" let-item>
         @if (itemTemplate) {
-          <ng-container [ngTemplateOutlet]="itemTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item }">
+          <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: item }">
           </ng-container>
         } @else {
           <a
@@ -44,7 +43,7 @@ export interface ExtraMenuModel extends MenuItem {
         }
       </ng-template>
     </p-menu>
-  `,
+  `
 })
 export class ExtraMenuComponent {
   @ViewChild('menuRef') menuRef!: Menu;

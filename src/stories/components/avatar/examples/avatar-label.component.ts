@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -16,20 +16,21 @@ const styles = '';
 @Component({
   selector: 'app-avatar-label',
   standalone: true,
-    imports: [ExtraAvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraAvatarComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarLabelComponent {}
 
 export const Label: StoryObj = {
   render: () => ({
-    template: `<app-avatar-label></app-avatar-label>`,
+    template: `<app-avatar-label></app-avatar-label>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Аватары с текстовой меткой разных размеров.',
+        story: 'Аватары с текстовой меткой разных размеров.'
       },
       source: {
         language: 'ts',
@@ -41,6 +42,7 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-avatar-label',
   standalone: true,
   imports: [ExtraAvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
     <div class="flex items-center gap-4">
       <extra-avatar label="P"></extra-avatar>
@@ -50,8 +52,8 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class AvatarLabelComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

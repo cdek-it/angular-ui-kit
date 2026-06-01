@@ -15,13 +15,13 @@ const template = `
   selector: 'app-message-with-close-button',
   standalone: true,
   imports: [ExtraMessageComponent],
-  template,
+  template
 })
 export class MessageWithCloseButtonComponent {}
 
 export const WithCloseButton: StoryObj = {
   render: () => ({
-    template: `<app-message-with-close-button></app-message-with-close-button>`,
+    template: `<app-message-with-close-button></app-message-with-close-button>`
   }),
   parameters: {
     controls: { disable: true },
@@ -29,8 +29,8 @@ export const WithCloseButton: StoryObj = {
       description: { story: 'Сообщения с кнопкой закрытия.' },
       source: {
         language: 'html',
-        code: `<extra-message severity="info" summary="Message" detail="caption" [closable]="true"></extra-message>`,
-      },
-    },
-  },
+        code: `<extra-message severity="info" summary="Message" detail="caption" [closable]="true"></extra-message>`
+      }
+    }
+  }
 };

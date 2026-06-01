@@ -76,10 +76,6 @@ export const Custom: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
-import { Badge } from 'primeng/badge';
 
 @Component({
   selector: 'app-panelmenu-custom',

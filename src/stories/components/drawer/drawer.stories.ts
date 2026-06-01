@@ -1,12 +1,18 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraDrawerComponent } from '../../../lib/components/drawer/drawer.component';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
 import { DrawerSizesComponent, Sizes as SizesStory } from './examples/drawer-sizes.component';
 import { DrawerPositionComponent, Position as PositionStory } from './examples/drawer-position.component';
 import { DrawerWithFooterComponent, WithFooter as WithFooterStory } from './examples/drawer-with-footer.component';
 import { DrawerFullScreenComponent, FullScreen as FullScreenStory } from './examples/drawer-full-screen.component';
-import { DrawerWithoutModalComponent, WithoutModal as WithoutModalStory } from './examples/drawer-without-modal.component';
-import { DrawerWithCustomHeaderComponent, WithCustomHeader as WithCustomHeaderStory } from './examples/drawer-with-custom-header.component';
+import {
+  DrawerWithoutModalComponent,
+  WithoutModal as WithoutModalStory
+} from './examples/drawer-without-modal.component';
+import {
+  DrawerWithCustomHeaderComponent,
+  WithCustomHeader as WithCustomHeaderStory
+} from './examples/drawer-with-custom-header.component';
 
 type DrawerArgs = ExtraDrawerComponent & { visible: boolean };
 
@@ -24,9 +30,9 @@ const meta: Meta<DrawerArgs> = {
         DrawerWithFooterComponent,
         DrawerFullScreenComponent,
         DrawerWithoutModalComponent,
-        DrawerWithCustomHeaderComponent,
-      ],
-    }),
+        DrawerWithCustomHeaderComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -35,10 +41,10 @@ const meta: Meta<DrawerArgs> = {
 
 \`\`\`typescript
 import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-drawer' },
+    designTokens: { prefix: '--p-drawer' }
   },
   argTypes: {
     visible: {
@@ -47,8 +53,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     header: {
       control: 'text',
@@ -56,8 +62,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     position: {
       control: 'select',
@@ -66,8 +72,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'right' },
-        type: { summary: "'left' | 'right' | 'top' | 'bottom'" },
-      },
+        type: { summary: "'left' | 'right' | 'top' | 'bottom'" }
+      }
     },
     size: {
       control: 'select',
@@ -76,8 +82,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'default' },
-        type: { summary: "'default' | 'sm' | 'lg' | 'xlg'" },
-      },
+        type: { summary: "'default' | 'sm' | 'lg' | 'xlg'" }
+      }
     },
     modal: {
       control: 'boolean',
@@ -85,8 +91,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fullScreen: {
       control: 'boolean',
@@ -94,8 +100,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     dismissible: {
       control: 'boolean',
@@ -103,8 +109,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showCloseIcon: {
       control: 'boolean',
@@ -112,8 +118,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     closeOnEscape: {
       control: 'boolean',
@@ -121,8 +127,8 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     blockScroll: {
       control: 'boolean',
@@ -130,10 +136,10 @@ import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
-    },
-  },
+        type: { summary: 'boolean' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -161,7 +167,7 @@ export const Default: Story = {
       >
         <p>Drawer content.</p>
       </extra-drawer>
-    `,
+    `
   }),
   args: {
     header: 'Drawer',
@@ -172,15 +178,15 @@ export const Default: Story = {
     dismissible: true,
     showCloseIcon: true,
     closeOnEscape: true,
-    blockScroll: true,
+    blockScroll: true
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Sizes ─────────────────────────────────────────────────────────────────────

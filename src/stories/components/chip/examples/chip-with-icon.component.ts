@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
@@ -12,14 +12,15 @@ const styles = '';
   selector: 'app-chip-with-icon',
   standalone: true,
   imports: [ExtraChipComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class ChipWithIconComponent {}
 
 export const WithIcon = {
   render: () => ({
-    template: `<app-chip-with-icon></app-chip-with-icon>`,
+    template: `<app-chip-with-icon></app-chip-with-icon>`
   }),
   parameters: {
     docs: {
@@ -27,20 +28,20 @@ export const WithIcon = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-chip-with-icon',
   standalone: true,
   imports: [ExtraChipComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
     <extra-chip label="В пути" icon="ti ti-map-pin"></extra-chip>
   \`,
 })
 export class ChipWithIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -8,7 +8,7 @@ const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
   { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
   { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
-  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
+  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' }
 ] as const;
 
 const template = `
@@ -53,7 +53,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class ToastWithCloseButtonComponent {
   readonly severities = SEVERITIES;
@@ -68,14 +68,14 @@ export class ToastWithCloseButtonComponent {
       detail: 'Подпись',
       life: 5000,
       icon,
-      closable: true,
+      closable: true
     });
   }
 }
 
 export const WithCloseButton: StoryObj = {
   render: () => ({
-    template: `<app-toast-with-close-button></app-toast-with-close-button>`,
+    template: `<app-toast-with-close-button></app-toast-with-close-button>`
   }),
   parameters: {
     docs: {
@@ -83,7 +83,6 @@ export const WithCloseButton: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const SEVERITIES = [
@@ -129,8 +128,8 @@ export class ExampleComponent {
     });
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

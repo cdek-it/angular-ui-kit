@@ -42,7 +42,7 @@ import { Divider } from 'primeng/divider';
         </ng-template>
       </extra-password>
     </div>
-  `,
+  `
 })
 export class PasswordTemplateComponent {
   value: string | null = null;
@@ -78,10 +78,7 @@ export const Template: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
-import { Divider } from 'primeng/divider';
 
 @Component({
   standalone: true,

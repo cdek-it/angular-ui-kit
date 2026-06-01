@@ -30,8 +30,10 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
     >
       <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
         @if (itemTemplate) {
-          <ng-container [ngTemplateOutlet]="itemTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item, hasSubmenu: hasSubmenu }">
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item, hasSubmenu: hasSubmenu }"
+          >
           </ng-container>
         } @else {
           <a
@@ -63,7 +65,7 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
         }
       </ng-template>
     </p-megamenu>
-  `,
+  `
 })
 export class ExtraMegaMenuComponent {
   @Input() model: MegaMenuItem[] = [];

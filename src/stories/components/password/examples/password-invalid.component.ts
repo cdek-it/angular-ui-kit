@@ -13,7 +13,7 @@ const template = `
   selector: 'app-password-invalid',
   standalone: true,
   imports: [ExtraPasswordComponent, FormsModule],
-  template,
+  template
 })
 export class PasswordInvalidComponent {
   value: string | null = null;
@@ -21,7 +21,7 @@ export class PasswordInvalidComponent {
 
 export const Invalid: StoryObj = {
   render: () => ({
-    template: `<app-password-invalid></app-password-invalid>`,
+    template: `<app-password-invalid></app-password-invalid>`
   }),
   parameters: {
     docs: {
@@ -29,8 +29,6 @@ export const Invalid: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -44,8 +42,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 export class PasswordInvalidComponent {
   value: string | null = null;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

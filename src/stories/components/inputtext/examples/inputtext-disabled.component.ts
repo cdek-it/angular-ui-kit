@@ -7,17 +7,17 @@ export const Disabled: StoryObj = {
   render: (args) => {
     const control = new FormControl({ value: '', disabled: true });
     return {
-        props: { ...args, control },
-        template: `<extra-input-text [formControl]="control" placeholder="Введите текст..."></extra-input-text>`,
+      props: { ...args, control },
+      template: `<extra-input-text [formControl]="control" placeholder="Введите текст..."></extra-input-text>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraInputTextComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraInputTextComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -27,7 +27,6 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -38,8 +37,8 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 export class DisabledExample {
   control = new FormControl({ value: '', disabled: true });
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

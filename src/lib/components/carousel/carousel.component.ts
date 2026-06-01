@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
 import { NgTemplateOutlet } from '@angular/common';
 import { Carousel } from 'primeng/carousel';
 import { PrimeTemplate } from 'primeng/api';
-import type { CarouselResponsiveOptions, CarouselPageEvent } from 'primeng/types/carousel';
+import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 
 export type CarouselOrientation = 'horizontal' | 'vertical';
 
@@ -27,7 +27,10 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
     >
       @if (itemTemplate) {
         <ng-template pTemplate="item" let-data>
-          <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: data }"
+          ></ng-container>
         </ng-template>
       }
       @if (headerTemplate) {
@@ -41,7 +44,7 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
         </ng-template>
       }
     </p-carousel>
-  `,
+  `
 })
 export class CarouselComponent {
   @Input() value: any[] = [];

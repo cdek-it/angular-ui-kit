@@ -1,4 +1,4 @@
-import { Component, Input, ContentChild, TemplateRef, HostBinding } from '@angular/core';
+import { Component, ContentChild, HostBinding, Input, TemplateRef } from '@angular/core';
 import { Timeline } from 'primeng/timeline';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';

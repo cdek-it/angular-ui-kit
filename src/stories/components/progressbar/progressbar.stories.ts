@@ -119,7 +119,6 @@ export const Indeterminate: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-progressbar-indeterminate',
@@ -150,8 +149,6 @@ export const NoLabel: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-progressbar-no-label',

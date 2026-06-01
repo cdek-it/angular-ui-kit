@@ -9,6 +9,6 @@ import { InputGroupAddon } from 'primeng/inputgroupaddon';
     <p-inputgroup-addon>
       <ng-content></ng-content>
     </p-inputgroup-addon>
-  `,
+  `
 })
 export class ExtraInputGroupAddonComponent {}

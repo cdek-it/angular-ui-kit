@@ -5,7 +5,7 @@ import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/sel
 const OPTIONS = [
   { name: 'Профиль', description: 'Настройки аккаунта', icon: 'ti ti-user' },
   { name: 'Настройки', description: 'Параметры приложения', icon: 'ti ti-settings' },
-  { name: 'Сообщения', description: 'Входящие', icon: 'ti ti-message' },
+  { name: 'Сообщения', description: 'Входящие', icon: 'ti ti-message' }
 ];
 
 const template = `
@@ -36,7 +36,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectCustomComponent {
   @Input() size: SelectSize = 'base';
@@ -58,8 +58,14 @@ export class SelectCustomComponent {
 
 export const Custom = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-custom [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`,
+    props: {
+      size: args['size'],
+      showClear: args['showClear'],
+      readonly: args['readonly'],
+      disabled: args['disabled'],
+      invalid: args['invalid']
+    },
+    template: `<app-select-custom [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`
   }),
   parameters: {
     docs: {
@@ -101,8 +107,8 @@ export class SelectCustomExample {
     { name: 'Сообщения', description: 'Входящие', icon: 'ti ti-message' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

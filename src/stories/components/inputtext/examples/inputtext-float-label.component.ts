@@ -55,9 +55,7 @@ export const FloatLabelStory: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,

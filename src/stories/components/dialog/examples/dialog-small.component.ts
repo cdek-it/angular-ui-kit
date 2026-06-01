@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
 
@@ -26,8 +26,9 @@ export const template = `
 @Component({
   selector: 'app-dialog-small',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraDialogComponent, ExtraButtonComponent],
-  template,
+  template
 })
 export class DialogSmallComponent {
   visible = false;

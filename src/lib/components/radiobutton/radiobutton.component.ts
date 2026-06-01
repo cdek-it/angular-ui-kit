@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 
 export type RadiobuttonVariant = 'outlined' | 'filled';
@@ -8,13 +8,14 @@ export type RadiobuttonSize = 'small' | 'base' | 'large';
 @Component({
   selector: 'extra-radiobutton',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadioButton, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraRadiobuttonComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-radiobutton
@@ -34,7 +35,7 @@ export type RadiobuttonSize = 'small' | 'base' | 'large';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-radiobutton>
-  `,
+  `
 })
 export class ExtraRadiobuttonComponent implements ControlValueAccessor {
   @Input() value: any = null;

@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Password } from 'primeng/password';
@@ -17,8 +26,8 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraPasswordComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     @if (floatLabel) {
@@ -66,7 +75,7 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
         }
       </p-password>
     </ng-template>
-  `,
+  `
 })
 export class ExtraPasswordComponent implements ControlValueAccessor {
   @ContentChild('header') headerTemplate: TemplateRef<any> | null = null;

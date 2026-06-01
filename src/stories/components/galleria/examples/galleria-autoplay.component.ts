@@ -23,7 +23,7 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
         <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
       </ng-template>
     </p-galleria>
-  `,
+  `
 })
 export class GalleriaAutoplayComponent {
   readonly images = GALLERIA_IMAGES;

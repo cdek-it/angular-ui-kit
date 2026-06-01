@@ -1,4 +1,14 @@
-import { Component, Input, Output, EventEmitter, booleanAttribute, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
@@ -6,7 +16,6 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
 export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
-
 
 @Component({
   selector: 'extra-input-text',

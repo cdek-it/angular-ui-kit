@@ -6,7 +6,7 @@ const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
   { name: 'Санкт-Петербург', code: 'SPB' },
-  { name: 'Екатеринбург', code: 'EKB' },
+  { name: 'Екатеринбург', code: 'EKB' }
 ];
 
 const template = `
@@ -30,7 +30,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectFloatLabelComponent {
   @Input() showClear = false;
@@ -53,16 +53,22 @@ export class SelectFloatLabelComponent {
 export const FloatLabelStory = {
   name: 'FloatLabel',
   render: (args: any) => ({
-    props: { showClear: args['showClear'], label: 'Город', readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-float-label [showClear]="showClear" [label]="label" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-float-label>`,
+    props: {
+      showClear: args['showClear'],
+      label: 'Город',
+      readonly: args['readonly'],
+      disabled: args['disabled'],
+      invalid: args['invalid']
+    },
+    template: `<app-select-float-label [showClear]="showClear" [label]="label" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-float-label>`
   }),
   argTypes: {
-    size: { table: { disable: true } },
+    size: { table: { disable: true } }
   },
   parameters: {
     docs: {
       description: {
-        story: 'Плавающая метка внутри поля. Используйте пропс `floatLabel` для встроенной интеграции с `p-floatlabel`.',
+        story: 'Плавающая метка внутри поля. Используйте пропс `floatLabel` для встроенной интеграции с `p-floatlabel`.'
       },
       source: {
         language: 'ts',
@@ -96,8 +102,8 @@ export class SelectFloatLabelExample {
     { name: 'Санкт-Петербург', code: 'SPB' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

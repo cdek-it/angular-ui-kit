@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTabsComponent } from '../../../lib/components/tabs/tabs.component';
 import { TabsWithBadgeComponent, WithBadge } from './examples/tabs-with-badge.component';
 import { TabsWithDisabledComponent, WithDisabled } from './examples/tabs-with-disabled.component';
@@ -76,7 +76,7 @@ export const Default: Story = {
     parts.push(`value="${args.value}"`);
     parts.push(`[tabs]="tabs"`);
     if (args.scrollable) parts.push(`[scrollable]="true"`);
-    if (args.lazy)       parts.push(`[lazy]="true"`);
+    if (args.lazy) parts.push(`[lazy]="true"`);
 
     const template = `<extra-tabs\n  ${parts.join('\n  ')}\n></extra-tabs>`;
 
@@ -87,18 +87,18 @@ export const Default: Story = {
     tabs: [
       { value: '0', label: 'Tab 1', icon: 'ti ti-user', content: 'Tab 1 Content' },
       { value: '1', label: 'Tab 2', icon: 'ti ti-settings', content: 'Tab 2 Content' },
-      { value: '2', label: 'Tab 3', icon: 'ti ti-bell', content: 'Tab 3 Content' },
+      { value: '2', label: 'Tab 3', icon: 'ti ti-bell', content: 'Tab 3 Content' }
     ],
     scrollable: false,
-    lazy: false,
+    lazy: false
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента с иконками. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента с иконками. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 export { WithBadge, WithDisabled };

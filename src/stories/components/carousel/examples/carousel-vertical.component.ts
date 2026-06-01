@@ -3,7 +3,7 @@ import { CarouselComponent } from '../../../../lib/components/carousel/carousel.
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: `Lorem Ipsum ${i + 1}`,
-  subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, saepe.',
+  subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, saepe.'
 }));
 
 const template = `
@@ -30,7 +30,7 @@ const styles = '';
   standalone: true,
   imports: [CarouselComponent],
   template,
-  styles,
+  styles
 })
 export class CarouselVerticalComponent {
   slides = SLIDES;
@@ -38,17 +38,16 @@ export class CarouselVerticalComponent {
 
 export const Vertical = {
   render: () => ({
-    template: `<app-carousel-vertical></app-carousel-vertical>`,
+    template: `<app-carousel-vertical></app-carousel-vertical>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Карусель с вертикальной ориентацией.',
+        story: 'Карусель с вертикальной ориентацией.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { CarouselComponent } from '@cdek-it/angular-ui-kit';
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
@@ -81,8 +80,8 @@ const SLIDES = Array.from({ length: 8 }, (_, i) => ({
 export class CarouselVerticalComponent {
   slides = SLIDES;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

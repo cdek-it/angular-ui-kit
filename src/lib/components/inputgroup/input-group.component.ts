@@ -12,7 +12,7 @@ export type InputGroupSize = 'small' | 'base' | 'large' | 'xlarge';
     <p-inputgroup [ngClass]="sizeClass">
       <ng-content></ng-content>
     </p-inputgroup>
-  `,
+  `
 })
 export class ExtraInputGroupComponent {
   @Input() size: InputGroupSize = 'base';

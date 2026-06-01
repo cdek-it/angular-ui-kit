@@ -8,7 +8,7 @@ const options = [
   { label: 'Rome', value: 'RM' },
   { label: 'London', value: 'LDN' },
   { label: 'Istanbul', value: 'IST' },
-  { label: 'Paris', value: 'PRS' },
+  { label: 'Paris', value: 'PRS' }
 ];
 
 const template = `
@@ -21,7 +21,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraListboxComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class ListboxDisabledComponent {
   ctrl = new FormControl({ value: null, disabled: true });
@@ -30,7 +30,7 @@ export class ListboxDisabledComponent {
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-listbox-disabled></app-listbox-disabled>`,
+    template: `<app-listbox-disabled></app-listbox-disabled>`
   }),
   parameters: {
     controls: { disable: true },
@@ -39,8 +39,6 @@ export const Disabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
  import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -59,8 +57,8 @@ export class ListboxDisabledComponent {
     { label: 'London', value: 'LDN' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

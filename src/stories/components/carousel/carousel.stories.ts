@@ -1,13 +1,16 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { CarouselComponent } from '../../../lib/components/carousel/carousel.component';
 import { CarouselVerticalComponent, Vertical as VerticalStory } from './examples/carousel-vertical.component';
-import { CarouselAutoplayComponent, Autoplay as AutoplayStory } from './examples/carousel-autoplay.component';
+import { Autoplay as AutoplayStory, CarouselAutoplayComponent } from './examples/carousel-autoplay.component';
 
-type CarouselArgs = Pick<CarouselComponent, 'numVisible' | 'numScroll' | 'circular' | 'orientation' | 'autoplayInterval' | 'showIndicators' | 'showNavigators'>;
+type CarouselArgs = Pick<
+  CarouselComponent,
+  'numVisible' | 'numScroll' | 'circular' | 'orientation' | 'autoplayInterval' | 'showIndicators' | 'showNavigators'
+>;
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: `Lorem Ipsum ${i + 1}`,
-  subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, saepe.',
+  subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, saepe.'
 }));
 
 const meta: Meta<CarouselArgs> = {
@@ -16,12 +19,8 @@ const meta: Meta<CarouselArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        CarouselComponent,
-        CarouselVerticalComponent,
-        CarouselAutoplayComponent,
-      ],
-    }),
+      imports: [CarouselComponent, CarouselVerticalComponent, CarouselAutoplayComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -30,10 +29,10 @@ const meta: Meta<CarouselArgs> = {
 
 \`\`\`typescript
 import { CarouselComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-carousel' },
+    designTokens: { prefix: '--p-carousel' }
   },
   argTypes: {
     numVisible: {
@@ -42,8 +41,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '1' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     numScroll: {
       control: { type: 'number', min: 1 },
@@ -51,8 +50,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '1' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     circular: {
       control: 'boolean',
@@ -60,8 +59,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     orientation: {
       control: { type: 'select' },
@@ -70,8 +69,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     autoplayInterval: {
       control: { type: 'number', min: 0 },
@@ -79,8 +78,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     showIndicators: {
       control: 'boolean',
@@ -88,8 +87,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showNavigators: {
       control: 'boolean',
@@ -97,9 +96,9 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     numVisible: 5,
@@ -108,8 +107,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
     orientation: 'horizontal',
     autoplayInterval: 0,
     showIndicators: true,
-    showNavigators: true,
-  },
+    showNavigators: true
+  }
 };
 
 export default meta;
@@ -139,15 +138,15 @@ export const Default: Story = {
         [showNavigators]="showNavigators"
         [itemTemplate]="itemTpl"
       ></carousel>
-    `,
+    `
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Vertical ──────────────────────────────────────────────────────────────────

@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  forwardRef,
   Input,
   Output,
-  TemplateRef,
-  forwardRef
+  TemplateRef
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
@@ -69,7 +69,6 @@ export class ExtraListboxComponent implements ControlValueAccessor {
 
   protected modelValue: any = null;
 
-
   private _disabled = false;
   private _onChange: (value: any) => void = () => {};
   private _onTouched: () => void = () => {};
@@ -77,7 +76,6 @@ export class ExtraListboxComponent implements ControlValueAccessor {
   get isDisabled(): boolean {
     return this._disabled;
   }
-
 
   onChangeHandler(event: ListboxChangeEvent): void {
     // Обновляем внутреннее значение и уведомляем форму об изменении.

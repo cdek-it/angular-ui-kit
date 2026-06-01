@@ -1,11 +1,24 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraPaginatorComponent } from '../../../lib/components/paginator/paginator.component';
-import { PaginatorCurrentPageReportComponent, CurrentPageReport as CurrentPageReportStory } from './examples/paginator-current-page-report.component';
-import { PaginatorRowsPerPageComponent, RowsPerPage as RowsPerPageStory } from './examples/paginator-rows-per-page.component';
+import {
+  CurrentPageReport as CurrentPageReportStory,
+  PaginatorCurrentPageReportComponent
+} from './examples/paginator-current-page-report.component';
+import {
+  PaginatorRowsPerPageComponent,
+  RowsPerPage as RowsPerPageStory
+} from './examples/paginator-rows-per-page.component';
 
 type PaginatorArgs = Pick<
   ExtraPaginatorComponent,
-  'totalRecords' | 'rows' | 'pageLinkSize' | 'showFirstLastIcon' | 'showPageLinks' | 'showCurrentPageReport' | 'showJumpToPageInput' | 'alwaysShow'
+  | 'totalRecords'
+  | 'rows'
+  | 'pageLinkSize'
+  | 'showFirstLastIcon'
+  | 'showPageLinks'
+  | 'showCurrentPageReport'
+  | 'showJumpToPageInput'
+  | 'alwaysShow'
 >;
 
 const meta: Meta<PaginatorArgs> = {
@@ -14,12 +27,8 @@ const meta: Meta<PaginatorArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraPaginatorComponent,
-        PaginatorCurrentPageReportComponent,
-        PaginatorRowsPerPageComponent,
-      ],
-    }),
+      imports: [ExtraPaginatorComponent, PaginatorCurrentPageReportComponent, PaginatorRowsPerPageComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -28,10 +37,10 @@ const meta: Meta<PaginatorArgs> = {
 
 \`\`\`typescript
 import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-paginator' },
+    designTokens: { prefix: '--p-paginator' }
   },
   argTypes: {
     totalRecords: {
@@ -40,8 +49,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     rows: {
       control: { type: 'number', min: 1 },
@@ -49,8 +58,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '10' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     pageLinkSize: {
       control: { type: 'number', min: 1 },
@@ -58,8 +67,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '5' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     showFirstLastIcon: {
       control: 'boolean',
@@ -67,8 +76,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showPageLinks: {
       control: 'boolean',
@@ -76,8 +85,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showCurrentPageReport: {
       control: 'boolean',
@@ -85,8 +94,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showJumpToPageInput: {
       control: 'boolean',
@@ -94,8 +103,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     alwaysShow: {
       control: 'boolean',
@@ -103,9 +112,9 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     totalRecords: 120,
@@ -115,8 +124,8 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
     showPageLinks: true,
     showCurrentPageReport: false,
     showJumpToPageInput: false,
-    alwaysShow: true,
-  },
+    alwaysShow: true
+  }
 };
 
 export default meta;
@@ -139,15 +148,15 @@ export const Default: Story = {
         [showJumpToPageInput]="showJumpToPageInput"
         [alwaysShow]="alwaysShow"
       ></extra-paginator>
-    `,
+    `
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── CurrentPageReport ─────────────────────────────────────────────────────────
@@ -162,7 +171,7 @@ export const RowsPerPage: Story = {
     ...RowsPerPageStory.parameters,
     docs: {
       ...RowsPerPageStory.parameters?.docs,
-      story: { height: '200px' },
-    },
-  },
+      story: { height: '200px' }
+    }
+  }
 };

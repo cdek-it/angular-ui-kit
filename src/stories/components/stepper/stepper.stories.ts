@@ -1,9 +1,9 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraStepperComponent } from '../../../lib/components/stepper/stepper.component';
 import { StepperVerticalComponent, Vertical as VerticalStory } from './examples/stepper-vertical.component';
-import { StepperLinearComponent, Linear as LinearStory } from './examples/stepper-linear.component';
+import { Linear as LinearStory, StepperLinearComponent } from './examples/stepper-linear.component';
 import { StepperStepsOnlyComponent, StepsOnly as StepsOnlyStory } from './examples/stepper-steps-only.component';
-import { StepperErrorComponent, Error as ErrorStory } from './examples/stepper-error.component';
+import { Error as ErrorStory, StepperErrorComponent } from './examples/stepper-error.component';
 
 type StepperArgs = ExtraStepperComponent;
 
@@ -18,9 +18,9 @@ const meta: Meta<StepperArgs> = {
         StepperVerticalComponent,
         StepperLinearComponent,
         StepperStepsOnlyComponent,
-        StepperErrorComponent,
-      ],
-    }),
+        StepperErrorComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -29,10 +29,10 @@ const meta: Meta<StepperArgs> = {
 
 \`\`\`typescript
 import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-stepper' },
+    designTokens: { prefix: '--p-stepper' }
   },
   argTypes: {
     value: {
@@ -41,8 +41,8 @@ import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '1' },
-        type: { summary: 'number | undefined' },
-      },
+        type: { summary: 'number | undefined' }
+      }
     },
     linear: {
       control: 'boolean',
@@ -50,8 +50,8 @@ import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     orientation: {
       control: 'radio',
@@ -60,8 +60,8 @@ import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     showPanels: {
       control: 'boolean',
@@ -69,18 +69,18 @@ import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     steps: {
       control: 'object',
       description: 'Массив шагов',
       table: {
         category: 'Props',
-        type: { summary: 'StepperItem[]' },
-      },
-    },
-  },
+        type: { summary: 'StepperItem[]' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -95,9 +95,9 @@ export const Default: Story = {
 
     parts.push(`[value]="value"`);
     parts.push(`[steps]="steps"`);
-    if (args.linear)                          parts.push(`[linear]="true"`);
-    if (args.orientation === 'vertical')      parts.push(`orientation="vertical"`);
-    if (!args.showPanels)                     parts.push(`[showPanels]="false"`);
+    if (args.linear) parts.push(`[linear]="true"`);
+    if (args.orientation === 'vertical') parts.push(`orientation="vertical"`);
+    if (!args.showPanels) parts.push(`[showPanels]="false"`);
 
     const template = `<extra-stepper\n  ${parts.join('\n  ')}\n></extra-stepper>`;
 
@@ -108,19 +108,19 @@ export const Default: Story = {
     steps: [
       { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
       { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-      { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
+      { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' }
     ],
     linear: false,
     orientation: 'horizontal',
-    showPanels: true,
+    showPanels: true
   },
   parameters: {
     docs: {
       description: {
-        story: 'Горизонтальный степпер. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Горизонтальный степпер. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Vertical ──────────────────────────────────────────────────────────────────

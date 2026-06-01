@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraBreadcrumbComponent } from '../../../../lib/components/breadcrumb/breadcrumb.component';
 import { commonHome, commonItems } from '../breadcrumb.data';
@@ -12,8 +12,9 @@ const template = `
 @Component({
   selector: 'app-breadcrumb-basic',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraBreadcrumbComponent],
-  template,
+  template
 })
 export class BreadcrumbBasicComponent {
   home = commonHome;
@@ -22,7 +23,7 @@ export class BreadcrumbBasicComponent {
 
 export const Basic: StoryObj = {
   render: () => ({
-    template: `<app-breadcrumb-basic></app-breadcrumb-basic>`,
+    template: `<app-breadcrumb-basic></app-breadcrumb-basic>`
   }),
   parameters: {
     docs: {
@@ -36,7 +37,8 @@ import { ExtraBreadcrumbComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-breadcrumb-basic',
   standalone: true,
-  imports: [BreadcrumbComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraBreadcrumbComponent],
   template: \`
     <extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
   \`,
@@ -49,8 +51,8 @@ export class BreadcrumbBasicComponent {
     { label: 'Ноутбуки' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

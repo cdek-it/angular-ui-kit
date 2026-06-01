@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { SharedModule } from 'primeng/api';
 import { ExtraCardComponent as CardComponent } from '../../../lib/components/card/card.component';
 import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
@@ -22,7 +22,7 @@ const meta: Meta<CardArgs> = {
         CardOverlayComponent,
         CardWithoutHeaderComponent,
         CardWithoutFooterComponent,
-        CardWithoutSubtitleComponent,
+        CardWithoutSubtitleComponent
       ]
     })
   ],
@@ -33,10 +33,10 @@ const meta: Meta<CardArgs> = {
 
 \`\`\`typescript
 import { CardModule } from 'primeng/card';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-card' },
+    designTokens: { prefix: '--p-card' }
   },
   argTypes: {
     title: {
@@ -45,8 +45,8 @@ import { CardModule } from 'primeng/card';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     subtitle: {
       control: 'text',
@@ -54,8 +54,8 @@ import { CardModule } from 'primeng/card';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     overlay: {
       control: 'boolean',
@@ -63,10 +63,10 @@ import { CardModule } from 'primeng/card';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-  },
+        type: { summary: 'boolean' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -102,22 +102,22 @@ export const Default: Story = {
   },
   args: {
     title: 'Заголовок',
-    subtitle: 'Подзаголовок',
+    subtitle: 'Подзаголовок'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Overlay ───────────────────────────────────────────────────────────────────
 
 export const Overlay: Story = {
   render: () => ({
-    template: `<app-card-overlay></app-card-overlay>`,
+    template: `<app-card-overlay></app-card-overlay>`
   }),
   parameters: {
     docs: {
@@ -126,7 +126,6 @@ export const Overlay: Story = {
         language: 'ts',
         code: `
     import { Component } from '@angular/core';
-    import { SharedModule } from 'primeng/api';
     import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
     @Component({
@@ -146,10 +145,10 @@ export const Overlay: Story = {
     })
     export class CardWithoutHeaderComponent {}
             `,
-  selector: 'app-card-without-header',
-  standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
-  template: `
+        selector: 'app-card-without-header',
+        standalone: true,
+        imports: [CardComponent, ButtonComponent, SharedModule],
+        template: `
     <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <ng-template pTemplate="content">
         <p class="text-sm">Карточка без изображения в шапке.</p>
@@ -161,26 +160,24 @@ export const Overlay: Story = {
   \`,
 })
 export class CardWithoutHeaderComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── WithoutFooter ─────────────────────────────────────────────────────────────
 
 export const WithoutFooter: Story = {
   render: () => ({
-    template: `<app-card-without-footer></app-card-without-footer>`,
+    template: `<app-card-without-footer></app-card-without-footer>`
   }),
   parameters: {
     docs: {
       description: { story: 'Карточка без футера с действиями.' },
       source: {
         language: 'ts',
-            code: `
-        import { Component } from '@angular/core';
-        import { SharedModule } from 'primeng/api';
+        code: `
         import { ExtraCardComponent } from '@cdek-it/angular-ui-kit';
 
         @Component({
@@ -201,27 +198,24 @@ export const WithoutFooter: Story = {
           \`,
         })
         export class CardWithoutFooterComponent {}
-                `,
-      },
-    },
-  },
+                `
+      }
+    }
+  }
 };
 
 // ── WithoutSubtitle ───────────────────────────────────────────────────────────
 
 export const WithoutSubtitle: Story = {
   render: () => ({
-    template: `<app-card-without-subtitle></app-card-without-subtitle>`,
+    template: `<app-card-without-subtitle></app-card-without-subtitle>`
   }),
   parameters: {
     docs: {
       description: { story: 'Карточка без подзаголовка.' },
       source: {
         language: 'ts',
-            code: `
-        import { Component } from '@angular/core';
-        import { SharedModule } from 'primeng/api';
-        import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+        code: `
 
         @Component({
           selector: 'app-card-without-subtitle',
@@ -244,8 +238,8 @@ export const WithoutSubtitle: Story = {
           \`,
         })
         export class CardWithoutSubtitleComponent {}
-                `,
-      },
-    },
-  },
+                `
+      }
+    }
+  }
 };

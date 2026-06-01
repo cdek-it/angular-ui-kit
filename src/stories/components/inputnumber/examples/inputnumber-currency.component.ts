@@ -37,7 +37,6 @@ export const Currency: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraProgressSpinnerComponent } from '../../../../lib/components/progressspinner/progressspinner.component';
 
@@ -9,6 +9,7 @@ const template = `
 @Component({
   selector: 'progressspinner-monochrome',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraProgressSpinnerComponent],
   template
 })
@@ -40,6 +41,7 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'progressspinner-monochrome',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraProgressSpinnerComponent],
   template: \`<extra-progressspinner [multicolor]="false"></extra-progressspinner>\`
 })

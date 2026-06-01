@@ -47,13 +47,13 @@ const template = `
   selector: 'app-message-with-content',
   standalone: true,
   imports: [ExtraMessageComponent],
-  template,
+  template
 })
 export class MessageWithContentComponent {}
 
 export const WithContent: StoryObj = {
   render: () => ({
-    template: `<app-message-with-content></app-message-with-content>`,
+    template: `<app-message-with-content></app-message-with-content>`
   }),
   parameters: {
     controls: { disable: true },
@@ -71,8 +71,8 @@ export const WithContent: StoryObj = {
     <div class="text-sm">Cell 2</div>
   </div>
 </extra-message>
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -10,7 +10,7 @@ const POSITIONS = [
   { position: 'top-right', label: 'Вверх справа', key: 'pos-top-right' },
   { position: 'bottom-left', label: 'Вниз слева', key: 'pos-bottom-left' },
   { position: 'bottom-center', label: 'Вниз по центру', key: 'pos-bottom-center' },
-  { position: 'bottom-right', label: 'Вниз справа', key: 'pos-bottom-right' },
+  { position: 'bottom-right', label: 'Вниз справа', key: 'pos-bottom-right' }
 ] as const;
 
 const template = `
@@ -35,7 +35,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class ToastPositionComponent {
   readonly positions = POSITIONS;
@@ -49,14 +49,14 @@ export class ToastPositionComponent {
       summary: 'Сообщение',
       detail: 'Позиция: ' + position,
       life: 3000,
-      icon: 'ti ti-info-circle',
+      icon: 'ti ti-info-circle'
     });
   }
 }
 
 export const Position: StoryObj = {
   render: () => ({
-    template: `<app-toast-position></app-toast-position>`,
+    template: `<app-toast-position></app-toast-position>`
   }),
   parameters: {
     docs: {
@@ -64,7 +64,6 @@ export const Position: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const POSITIONS = [
@@ -112,8 +111,8 @@ export class ExampleComponent {
     });
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

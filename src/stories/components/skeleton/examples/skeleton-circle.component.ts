@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
@@ -16,19 +16,22 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-circle',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraSkeletonComponent],
   template,
-  styles,
+  styles
 })
 export class SkeletonCircleComponent {}
 
 export const Circle: StoryObj = {
   render: () => ({
-    template: `<app-skeleton-circle></app-skeleton-circle>`,
+    template: `<app-skeleton-circle></app-skeleton-circle>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Круглые заглушки для аватаров и иконок — например, фото курьера или транспортного средства.' },
+      description: {
+        story: 'Круглые заглушки для аватаров и иконок — например, фото курьера или транспортного средства.'
+      },
       source: {
         language: 'ts',
         code: `
@@ -38,7 +41,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-skeleton-circle',
   standalone: true,
-  imports: [SkeletonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSkeletonComponent],
   template: \`
       <div class="flex items-center gap-4">
       <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
@@ -48,8 +52,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class SkeletonCircleComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

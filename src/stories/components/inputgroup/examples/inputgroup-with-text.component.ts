@@ -28,16 +28,16 @@ export class InputGroupWithTextComponent {
 
 export const WithText: StoryObj = {
   render: () => ({
-    template: `<app-inputgroup-with-text></app-inputgroup-with-text>`,
+    template: `<app-inputgroup-with-text></app-inputgroup-with-text>`
   }),
   parameters: {
     docs: {
-      description: { story: 'В качестве наполнения аддона можно использовать обычный текст — например, символ валюты или префикс.' },
+      description: {
+        story: 'В качестве наполнения аддона можно использовать обычный текст — например, символ валюты или префикс.'
+      },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -54,8 +54,8 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
 export class InputGroupWithTextComponent {
   value = '';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -7,7 +7,11 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
   selector: 'app-inputtext-readonly',
   standalone: true,
   imports: [ExtraInputTextComponent, ReactiveFormsModule, FormsModule],
-  template: `<extra-input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-input-text>`
+  template: `<extra-input-text
+    [formControl]="control"
+    [readonly]="true"
+    placeholder="Введите текст..."
+  ></extra-input-text>`
 })
 export class InputTextReadonlyComponent {
   control = new FormControl('');
@@ -35,7 +39,6 @@ export const Readonly: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 

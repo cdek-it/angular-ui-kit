@@ -28,16 +28,16 @@ export class InputGroupDisabledComponent {
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-inputgroup-disabled></app-inputgroup-disabled>`,
+    template: `<app-inputgroup-disabled></app-inputgroup-disabled>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Отключённое состояние — аддоны автоматически получают стили disabled вместе с полем ввода.' },
+      description: {
+        story: 'Отключённое состояние — аддоны автоматически получают стили disabled вместе с полем ввода.'
+      },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -54,8 +54,8 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
 export class InputGroupDisabledComponent {
   value = '';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -13,7 +13,7 @@ const template = `
   selector: 'app-password-disabled',
   standalone: true,
   imports: [ExtraPasswordComponent, FormsModule],
-  template,
+  template
 })
 export class PasswordDisabledComponent {
   value: string | null = 'secret123';
@@ -21,7 +21,7 @@ export class PasswordDisabledComponent {
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-password-disabled></app-password-disabled>`,
+    template: `<app-password-disabled></app-password-disabled>`
   }),
   parameters: {
     docs: {
@@ -29,8 +29,6 @@ export const Disabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -44,8 +42,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 export class PasswordDisabledComponent {
   value: string | null = 'secret123';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

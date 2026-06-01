@@ -73,7 +73,6 @@ export const Sizes = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraConfirmDialogComponent, ExtraConfirmDialogSize, ConfirmDialogService, ExtraButtonComponent, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
 
 interface SizeItem {

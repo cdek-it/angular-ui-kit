@@ -20,7 +20,7 @@ const styles = '';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputMask, FloatLabel, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class InputMaskFloatLabelComponent {
   readonly control = new FormControl('');
@@ -29,22 +29,19 @@ export class InputMaskFloatLabelComponent {
 export const FloatLabelStory: StoryObj = {
   name: 'FloatLabel',
   render: () => ({
-    template: `<app-inputmask-float-label></app-inputmask-float-label>`,
+    template: `<app-inputmask-float-label></app-inputmask-float-label>`
   }),
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
         story:
-          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию. Требует нативный `<p-inputmask>` как прямой дочерний элемент `p-floatlabel`.',
+          'Интеграция с `p-floatlabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию. Требует нативный `<p-inputmask>` как прямой дочерний элемент `p-floatlabel`.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
-import { FloatLabel } from 'primeng/floatlabel';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-inputmask-float-label',
@@ -60,8 +57,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class InputMaskFloatLabelComponent {
   readonly control = new FormControl('');
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

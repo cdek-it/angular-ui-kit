@@ -1,11 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Stepper } from 'primeng/stepper';
-import { StepList } from 'primeng/stepper';
-import { Step } from 'primeng/stepper';
-import { StepPanels } from 'primeng/stepper';
-import { StepPanel } from 'primeng/stepper';
-import { StepItem } from 'primeng/stepper';
+import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from 'primeng/stepper';
 import { ExtraButtonComponent } from '../button/button.component';
 
 export interface ExtraStepperItem {
@@ -23,11 +18,7 @@ export interface ExtraStepperItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, ExtraButtonComponent, NgClass],
   template: `
-    <p-stepper
-      [value]="value"
-      [linear]="linear"
-      (valueChange)="onValueChange($event)"
-    >
+    <p-stepper [value]="value" [linear]="linear" (valueChange)="onValueChange($event)">
       @if (orientation === 'horizontal') {
         <p-step-list>
           @for (step of steps; track step.value) {
@@ -52,10 +43,20 @@ export interface ExtraStepperItem {
                 <p class="m-0">{{ step.content }}</p>
                 <div class="flex pt-4">
                   @if (!first) {
-                    <extra-button label="Назад" variant="outlined" (click)="activateCallback(steps[i - 1].value)"></extra-button>
+                    <extra-button
+                      label="Назад"
+                      variant="outlined"
+                      (click)="activateCallback(steps[i - 1].value)"
+                    ></extra-button>
                   }
                   @if (!last) {
-                    <extra-button label="Вперёд" variant="secondary" class="ml-auto" [disabled]="!!step.invalid" (click)="activateCallback(steps[i + 1].value)"></extra-button>
+                    <extra-button
+                      label="Вперёд"
+                      variant="secondary"
+                      class="ml-auto"
+                      [disabled]="!!step.invalid"
+                      (click)="activateCallback(steps[i + 1].value)"
+                    ></extra-button>
                   }
                 </div>
               </ng-template>
@@ -83,10 +84,19 @@ export interface ExtraStepperItem {
                   <p class="m-0">{{ step.content }}</p>
                   <div class="flex gap-2 pt-4">
                     @if (!first) {
-                      <extra-button label="Назад" variant="outlined" (click)="activateCallback(steps[i - 1].value)"></extra-button>
+                      <extra-button
+                        label="Назад"
+                        variant="outlined"
+                        (click)="activateCallback(steps[i - 1].value)"
+                      ></extra-button>
                     }
                     @if (!last) {
-                      <extra-button label="Вперёд" variant="secondary" [disabled]="!!step.invalid" (click)="activateCallback(steps[i + 1].value)"></extra-button>
+                      <extra-button
+                        label="Вперёд"
+                        variant="secondary"
+                        [disabled]="!!step.invalid"
+                        (click)="activateCallback(steps[i + 1].value)"
+                      ></extra-button>
                     }
                   </div>
                 </ng-template>
@@ -96,7 +106,7 @@ export interface ExtraStepperItem {
         }
       }
     </p-stepper>
-  `,
+  `
 })
 export class ExtraStepperComponent {
   @Input() value: number | undefined = 1;

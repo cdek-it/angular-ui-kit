@@ -17,7 +17,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraDrawerComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class DrawerFullScreenComponent {
   visible = false;
@@ -25,7 +25,7 @@ export class DrawerFullScreenComponent {
 
 export const FullScreen: StoryObj = {
   render: () => ({
-    template: `<app-drawer-full-screen></app-drawer-full-screen>`,
+    template: `<app-drawer-full-screen></app-drawer-full-screen>`
   }),
   parameters: {
     controls: { disable: true },
@@ -34,7 +34,6 @@ export const FullScreen: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -52,8 +51,8 @@ import { ExtraDrawerComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-
 export class DrawerFullScreenComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

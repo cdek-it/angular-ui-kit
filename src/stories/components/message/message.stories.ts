@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraMessageComponent } from '../../../lib/components/message/message.component';
 import { MessageSeveritiesComponent, Severities } from './examples/message-severities.component';
 import { MessageWithCloseButtonComponent, WithCloseButton } from './examples/message-with-close-button.component';
@@ -16,9 +16,9 @@ const meta: Meta<MessageArgs> = {
         ExtraMessageComponent,
         MessageSeveritiesComponent,
         MessageWithCloseButtonComponent,
-        MessageWithContentComponent,
-      ],
-    }),
+        MessageWithContentComponent
+      ]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-message' },
@@ -28,9 +28,9 @@ const meta: Meta<MessageArgs> = {
 
 \`\`\`typescript
 import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -41,23 +41,23 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'info' },
-        type: { summary: "'info' | 'success' | 'warn' | 'error' | 'secondary' | 'contrast'" },
-      },
+        type: { summary: "'info' | 'success' | 'warn' | 'error' | 'secondary' | 'contrast'" }
+      }
     },
     summary: {
       control: 'text',
       description: 'Заголовок сообщения.',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     detail: {
       control: 'text',
       description: 'Подробный текст сообщения.',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     icon: {
       control: 'text',
       description: 'CSS-класс иконки. По умолчанию подбирается по severity.',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     closable: {
       control: 'boolean',
@@ -65,8 +65,8 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     life: {
       control: 'number',
@@ -74,8 +74,8 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     // ── Events ───────────────────────────────────────────────
     onClose: {
@@ -83,16 +83,16 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие закрытия сообщения.',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
-    },
+        type: { summary: 'EventEmitter<Event>' }
+      }
+    }
   },
   args: {
     severity: 'info',
     summary: 'Message',
     detail: 'caption',
-    closable: false,
-  },
+    closable: false
+  }
 };
 
 export default meta;
@@ -115,10 +115,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Вариации ─────────────────────────────────────────────────────────────────
