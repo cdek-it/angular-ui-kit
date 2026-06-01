@@ -1,6 +1,6 @@
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../lib/shared';
 
-export const basicItems: MenuItem[] = [
+export const basicItems: ExtraMenuItem[] = [
   {
     label: 'Features'
   },

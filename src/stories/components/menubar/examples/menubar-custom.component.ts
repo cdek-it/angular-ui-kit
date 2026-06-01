@@ -1,32 +1,31 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { Menubar } from 'primeng/menubar';
-import { Badge } from 'primeng/badge';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
+import { ExtraMenubarComponent, ExtraMenubarItemDirective } from '../../../../lib/components/menubar/menubar.component';
 
 const template = `
 <div class="min-h-[300px]">
-<p-menubar [model]="items">
-  <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu" let-root="root">
-    <a class="p-menubar-item-link flex items-center gap-2">
-      @if (item.icon) {
-        <span [class]="'p-menubar-item-icon ' + item.icon"></span>
-      }
-      <div class="menubar-item-label">
-        <span class="p-menubar-item-label">{{ item.label }}</span>
-        @if (item['description']) {
-          <small class="menubar-item-caption">{{ item['description'] }}</small>
+  <extra-menubar [model]="items">
+    <ng-template extraMenubarItem let-item let-hasSubmenu="hasSubmenu" let-root="root">
+      <a class="p-menubar-item-link flex items-center gap-2">
+        @if (item.icon) {
+          <span [class]="'p-menubar-item-icon ' + item.icon"></span>
         }
-      </div>
-      @if (item['badge']) {
-        <p-badge [value]="item['badge']"></p-badge>
-      }
-      @if (hasSubmenu) {
-        <span [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
-      }
-    </a>
-  </ng-template>
-</p-menubar>
+        <div class="menubar-item-label">
+          <span class="p-menubar-item-label">{{ item.label }}</span>
+          @if (item['description']) {
+            <small class="menubar-item-caption">{{ item['description'] }}</small>
+          }
+        </div>
+        @if (item['badge']) {
+          <span class="text-xs font-bold bg-primary text-white rounded-full px-2 py-0.5">{{ item['badge'] }}</span>
+        }
+        @if (hasSubmenu) {
+          <span [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
+        }
+      </a>
+    </ng-template>
+  </extra-menubar>
 </div>
 `;
 const styles = '';
@@ -35,12 +34,12 @@ const styles = '';
   selector: 'app-menubar-custom',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Menubar, Badge, SharedModule],
+  imports: [ExtraMenubarComponent, ExtraMenubarItemDirective],
   template,
   styles
 })
 export class MenubarCustomComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Home',
       icon: 'ti ti-home',
@@ -83,38 +82,39 @@ export const Custom: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { ExtraMenubarComponent, ExtraMenubarItemDirective, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menubar-custom',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Menubar, Badge, SharedModule],
+  imports: [ExtraMenubarComponent, ExtraMenubarItemDirective],
   template: \`
-    <p-menubar [model]="items">
-      <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu" let-root="root">
-        <a class="p-menubar-item-link flex items-center gap-2">
-          @if (item.icon) {
-            <span [class]="'p-menubar-item-icon ' + item.icon"></span>
+  <extra-menubar [model]="items">
+    <ng-template extraMenubarItem let-item let-hasSubmenu="hasSubmenu" let-root="root">
+      <a class="p-menubar-item-link flex items-center gap-2">
+        @if (item.icon) {
+          <span [class]="'p-menubar-item-icon ' + item.icon"></span>
+        }
+        <div class="menubar-item-label">
+          <span class="p-menubar-item-label">{{ item.label }}</span>
+          @if (item['description']) {
+            <small class="menubar-item-caption">{{ item['description'] }}</small>
           }
-          <div class="menubar-item-label">
-            <span class="p-menubar-item-label">{{ item.label }}</span>
-            @if (item['description']) {
-              <small class="menubar-item-caption">{{ item['description'] }}</small>
-            }
-          </div>
-          @if (item['badge']) {
-            <p-badge [value]="item['badge']"></p-badge>
-          }
-          @if (hasSubmenu) {
-            <span [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
-          }
-        </a>
-      </ng-template>
-    </p-menubar>
+        </div>
+        @if (item['badge']) {
+          <span class="text-xs font-bold bg-primary text-white rounded-full px-2 py-0.5">{{ item['badge'] }}</span>
+        }
+        @if (hasSubmenu) {
+          <span [class]="root ? 'p-menubar-submenu-icon ti ti-chevron-down' : 'p-menubar-submenu-icon ti ti-chevron-right'"></span>
+        }
+      </a>
+    </ng-template>
+  </extra-menubar>
   \`,
 })
 export class MenubarCustomComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     { label: 'Home', icon: 'ti ti-home', description: 'Перейти на главную' },
     {
       label: 'Features', icon: 'ti ti-star', description: 'Explore features', badge: 'New',

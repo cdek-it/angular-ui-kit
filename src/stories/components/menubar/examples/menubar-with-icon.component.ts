@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
-import { MenubarComponent } from '../../../../lib/components/menubar/menubar.component';
+import { ExtraMenuItem } from '../../../../lib/shared';
+import { ExtraMenubarComponent } from '../../../../lib/components/menubar/menubar.component';
 
 const template = `
 <div class="min-h-[300px]">
-  <menubar [model]="items"></menubar>
+  <extra-menubar [model]="items"></extra-menubar>
 </div>
 `;
 const styles = '';
@@ -14,12 +14,12 @@ const styles = '';
   selector: 'app-menubar-with-icon',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MenubarComponent],
+  imports: [ExtraMenubarComponent],
   template,
   styles
 })
 export class MenubarWithIconComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Home',
       icon: 'ti ti-home'
@@ -67,19 +67,19 @@ export const WithIcon: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MenubarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMenubarComponent, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menubar-with-icon',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MenubarComponent],
+  imports: [ExtraMenubarComponent],
   template: \`
-    <menubar [model]="items"></menubar>
+    <extra-menubar [model]="items"></extra-menubar>
   \`,
 })
 export class MenubarWithIconComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     { label: 'Home', icon: 'ti ti-home' },
     {
       label: 'Features',
