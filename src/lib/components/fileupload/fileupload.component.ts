@@ -4,12 +4,12 @@ import { FileUpload } from 'primeng/fileupload';
 import { ProgressBar } from 'primeng/progressbar';
 import { Message } from 'primeng/message';
 import { PrimeTemplate } from 'primeng/api';
-import { ButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'fileupload',
   standalone: true,
-  imports: [FileUpload, ProgressBar, Message, PrimeTemplate, ButtonComponent, NgClass],
+  imports: [FileUpload, ProgressBar, Message, PrimeTemplate, ExtraButtonComponent, NgClass],
   host: { style: 'display: contents' },
   template: `
     <p-fileupload
