@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatePicker, DatePickerMonthChangeEvent } from 'primeng/datepicker';
-import { InputNumber } from 'primeng/inputnumber';
+import { InputText } from 'primeng/inputtext';
 import { PrimeTemplate } from 'primeng/api';
 import { Select } from 'primeng/select';
 import { Button } from 'primeng/button';
@@ -57,7 +57,7 @@ export type DatePickerIconDisplay = 'input' | 'button';
       multi: true
     }
   ],
-  imports: [DatePicker, InputNumber, PrimeTemplate, FormsModule, Select, Button],
+  imports: [DatePicker, InputText, PrimeTemplate, FormsModule, Select, Button],
   template: `
     <p-datepicker
       #dpRef
@@ -144,30 +144,34 @@ export type DatePickerIconDisplay = 'input' | 'button';
           <div class="p-datepicker-time-picker p-datepicker-time-picker-custom" (keydown)="$event.stopPropagation()">
             <div class="p-datepicker-time-field">
               <label class="p-datepicker-time-label">Часы</label>
-              <p-inputNumber
-                [ngModel]="dpRef.currentHour"
-                (onBlur)="onTimeBlur()"
-                (onInput)="onHourInput($event)"
-                [min]="0"
-                [max]="23"
-                [format]="false"
-                inputStyleClass="p-datepicker-time-input"
-              ></p-inputNumber>
+              <input
+                type="text"
+                inputmode="numeric"
+                maxlength="2"
+                pattern="[0-9]{2}"
+                pInputText
+                class="p-datepicker-time-input"
+                [value]="hourInput"
+                (input)="onHourFieldInput($event)"
+                (blur)="onHourFieldBlur()"
+              />
             </div>
             <div class="p-datepicker-separator">
               <span>:</span>
             </div>
             <div class="p-datepicker-time-field">
               <label class="p-datepicker-time-label">Минуты</label>
-              <p-inputNumber
-                [ngModel]="dpRef.currentMinute"
-                (onBlur)="onTimeBlur()"
-                (onInput)="onMinuteInput($event)"
-                [min]="0"
-                [max]="59"
-                [format]="false"
-                inputStyleClass="p-datepicker-time-input"
-              ></p-inputNumber>
+              <input
+                type="text"
+                inputmode="numeric"
+                maxlength="2"
+                pattern="[0-9]{2}"
+                pInputText
+                class="p-datepicker-time-input"
+                [value]="minuteInput"
+                (input)="onMinuteFieldInput($event)"
+                (blur)="onMinuteFieldBlur()"
+              />
             </div>
           </div>
         </ng-template>
@@ -185,6 +189,9 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
 
   dpCurrentMonth = new Date().getMonth();
   dpCurrentYear = new Date().getFullYear();
+
+  hourInput = '00';
+  minuteInput = '00';
 
   modelValue: Date | Date[] | null = null;
   disabled = false;
@@ -281,18 +288,80 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
     }
   }
 
-  onHourInput(event: { value: number | null }): void {
-    const clamped = Math.min(23, Math.max(0, event.value ?? 0));
+  onHourFieldInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const cleaned = input.value.replace(/\D/g, '').slice(0, 2);
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+    }
+    this.hourInput = cleaned;
+    if (cleaned.length === 2) {
+      const parsed = parseInt(cleaned, 10);
+      if (!isNaN(parsed)) {
+        this.dpRef.currentHour = Math.min(23, Math.max(0, parsed));
+      }
+    }
+  }
+
+  onHourFieldBlur(): void {
+    const parsed = parseInt(this.hourInput, 10);
+    const clamped = isNaN(parsed) ? 0 : Math.min(23, Math.max(0, parsed));
     this.dpRef.currentHour = clamped;
-  }
-
-  onMinuteInput(event: { value: number | null }): void {
-    const clamped = Math.min(59, Math.max(0, event.value ?? 0));
-    this.dpRef.currentMinute = clamped;
-  }
-
-  onTimeBlur(): void {
+    this.hourInput = String(clamped).padStart(2, '0');
     (this.dpRef as any).updateTime();
+    this.cdr.markForCheck();
+  }
+
+  onMinuteFieldInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const cleaned = input.value.replace(/\D/g, '').slice(0, 2);
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+    }
+    this.minuteInput = cleaned;
+    if (cleaned.length === 2) {
+      const parsed = parseInt(cleaned, 10);
+      if (!isNaN(parsed)) {
+        this.dpRef.currentMinute = Math.min(59, Math.max(0, parsed));
+      }
+    }
+  }
+
+  onMinuteFieldBlur(): void {
+    const parsed = parseInt(this.minuteInput, 10);
+    const clamped = isNaN(parsed) ? 0 : Math.min(59, Math.max(0, parsed));
+    this.dpRef.currentMinute = clamped;
+    this.minuteInput = String(clamped).padStart(2, '0');
+    (this.dpRef as any).updateTime();
+    this.cdr.markForCheck();
+  }
+
+  private syncTimeInputs(): void {
+    if (!this.dpRef) return;
+    const h = this.dpRef.currentHour ?? 0;
+    const m = this.dpRef.currentMinute ?? 0;
+    this.hourInput = String(h).padStart(2, '0');
+    this.minuteInput = String(m).padStart(2, '0');
+    this.cdr.markForCheck();
+  }
+
+  private selectOverlayGuard: ((e: MouseEvent) => void) | null = null;
+
+  private attachSelectOverlayGuard(): void {
+    if (this.selectOverlayGuard) return;
+    this.selectOverlayGuard = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.p-select-overlay')) {
+        e.stopPropagation();
+      }
+    };
+    document.addEventListener('mousedown', this.selectOverlayGuard, true);
+  }
+
+  private detachSelectOverlayGuard(): void {
+    if (!this.selectOverlayGuard) return;
+    document.removeEventListener('mousedown', this.selectOverlayGuard, true);
+    this.selectOverlayGuard = null;
   }
 
   // ── Range hover preview ──────────────────────────────────────────────────
@@ -303,12 +372,15 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
 
   onPanelShow(): void {
     this.syncCurrentDate();
+    this.syncTimeInputs();
+    this.attachSelectOverlayGuard();
     if (this.selectionMode === 'range') {
       this.attachRangePreview();
     }
   }
 
   onPanelClose(): void {
+    this.detachSelectOverlayGuard();
     this.detachRangePreview();
     this._onTouched();
   }
@@ -342,6 +414,7 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
 
   ngOnDestroy(): void {
     this.detachRangePreview();
+    this.detachSelectOverlayGuard();
   }
 
   private attachRangePreview(): void {
