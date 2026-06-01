@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { ChipComponent } from '../../../../lib/components/chip/chip.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <chip label="Хрупкий груз" [removable]="true"></chip>
+  <extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>
 </div>
 `;
 const styles = '';
@@ -11,15 +11,16 @@ const styles = '';
 @Component({
   selector: 'app-chip-removable',
   standalone: true,
-  imports: [ChipComponent],
+  imports: [ExtraChipComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class ChipRemovableComponent {}
 
 export const Removable = {
   render: () => ({
-    template: `<app-chip-removable></app-chip-removable>`,
+    template: `<app-chip-removable></app-chip-removable>`
   }),
   parameters: {
     docs: {
@@ -27,20 +28,20 @@ export const Removable = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ChipComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-chip-removable',
   standalone: true,
-  imports: [ChipComponent],
+  imports: [ExtraChipComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <chip label="Хрупкий груз" [removable]="true"></chip>
+    <extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>
   \`,
 })
 export class ChipRemovableComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

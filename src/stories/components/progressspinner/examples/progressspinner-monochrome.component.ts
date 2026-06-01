@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ProgressSpinnerComponent } from '../../../../lib/components/progressspinner/progressspinner.component';
+import { ExtraProgressSpinnerComponent } from '../../../../lib/components/progressspinner/progressspinner.component';
 
 const template = `
-<progressspinner [size]="size" [multicolor]="multicolor"></progressspinner>
+<extra-progressspinner [size]="size" [multicolor]="multicolor"></extra-progressspinner>
 `;
 
 @Component({
   selector: 'progressspinner-monochrome',
   standalone: true,
-  imports: [ProgressSpinnerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraProgressSpinnerComponent],
   template
 })
 export class ProgressSpinnerMonochromeComponent {
@@ -35,13 +36,14 @@ export const Monochrome: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'progressspinner-monochrome',
   standalone: true,
-  imports: [ProgressSpinnerComponent],
-  template: \`<progressspinner [multicolor]="false"></progressspinner>\`
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraProgressSpinnerComponent],
+  template: \`<extra-progressspinner [multicolor]="false"></extra-progressspinner>\`
 })
 export class ProgressSpinnerMonochromeComponent {}
         `

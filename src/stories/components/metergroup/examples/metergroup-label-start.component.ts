@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
+import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
 import { defaultValue } from '../metergroup.data';
-
+// todo написать extrameteritem
 @Component({
   selector: 'app-metergroup-label-start',
   standalone: true,
-  imports: [MeterGroupComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <metergroup [value]="value" labelPosition="start"></metergroup>
+      <extra-metergroup [value]="value" labelPosition="start"></extra-metergroup>
     </div>
-  `,
+  `
 })
 export class MeterGroupLabelStartComponent {
   value: MeterItem[] = defaultValue;
@@ -29,15 +30,15 @@ export const LabelStart: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
-
+import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
+// todo проверить meter item
 @Component({
   selector: 'app-metergroup-label-start',
   standalone: true,
-  imports: [MeterGroupComponent],
+  imports: [ExtraMeterGroupComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <metergroup [value]="value" labelPosition="start"></metergroup>
+    <extra-metergroup [value]="value" labelPosition="start"></extra-metergroup>
   \`,
 })
 export class MeterGroupLabelStartComponent {

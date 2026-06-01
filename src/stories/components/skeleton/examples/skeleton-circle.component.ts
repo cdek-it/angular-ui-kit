@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
 <div class="bg-surface-ground">
   <div class="flex items-center gap-4">
-    <skeleton shape="circle" size="3rem"></skeleton>
-    <skeleton shape="circle" size="4rem"></skeleton>
-    <skeleton shape="circle" size="6rem"></skeleton>
+    <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
+    <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
+    <extra-skeleton shape="circle" size="6rem"></extra-skeleton>
   </div>
 </div>
 `;
@@ -16,19 +16,22 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-circle',
   standalone: true,
-  imports: [SkeletonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSkeletonComponent],
   template,
-  styles,
+  styles
 })
 export class SkeletonCircleComponent {}
 
 export const Circle: StoryObj = {
   render: () => ({
-    template: `<app-skeleton-circle></app-skeleton-circle>`,
+    template: `<app-skeleton-circle></app-skeleton-circle>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Круглые заглушки для аватаров и иконок — например, фото курьера или транспортного средства.' },
+      description: {
+        story: 'Круглые заглушки для аватаров и иконок — например, фото курьера или транспортного средства.'
+      },
       source: {
         language: 'ts',
         code: `
@@ -38,18 +41,19 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-skeleton-circle',
   standalone: true,
-  imports: [SkeletonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSkeletonComponent],
   template: \`
-    <div class="flex items-center gap-4">
-      <skeleton shape="circle" size="3rem"></skeleton>
-      <skeleton shape="circle" size="4rem"></skeleton>
-      <skeleton shape="circle" size="6rem"></skeleton>
+      <div class="flex items-center gap-4">
+      <extra-skeleton shape="circle" size="3rem"></extra-skeleton>
+      <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
+      <extra-skeleton shape="circle" size="6rem"></extra-skeleton>
     </div>
   \`,
 })
 export class SkeletonCircleComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
