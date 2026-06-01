@@ -37,7 +37,11 @@ import { ExtraButtonComponent } from '../button/button.component';
     >
       <ng-template pTemplate="header" let-uploadCallback="uploadCallback" let-clearCallback="clearCallback">
         <div class="fu-header" [attr.data-ref]="storeCallbacks(uploadCallback, clearCallback)">
-          <div class="fu-dropzone" [class.fu-dropzone--disabled]="disabled" (click)="onChooseClick()">
+          <div class="fu-dropzone"
+            [class.fu-dropzone--disabled]="disabled"
+            (click)="onChooseClick()"
+            (dragover)="$event.preventDefault()"
+            (drop)="onDrop($event)">
             <i class="ti ti-upload fu-dropzone__icon"></i>
             <div class="fu-dropzone__info">
               <span class="fu-dropzone__title">{{ dropzoneTitle }}</span>
@@ -160,6 +164,13 @@ export class FileUploadComponent {
     this.uploadCbRef = upload;
     this.clearCbRef = clear;
     return '';
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    const files = event.dataTransfer?.files;
+    if (!files?.length || this.disabled) return;
+    this.fuRef.onFileSelect({ target: { files } } as unknown as Event);
   }
 
   onChooseClick(): void {
