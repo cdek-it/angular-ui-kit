@@ -109,6 +109,25 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   color: ${dt('button.colorScheme.light.text.primary.color')};
 }
 
+.p-datepicker-clear-icon {
+  display: flex;
+  align-items: center;
+  inset-inline-end: var(--p-form-field-padding-x);
+  color: ${dt('datepicker.inputIcon.color')};
+}
+
+.p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
+  inset-inline-end: calc((var(--p-form-field-padding-x) * 1.5) + var(--p-icon-size));
+}
+
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-dropdown .p-icon,
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-input-icon,
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-clear-icon .ti-x {
+  font-size: var(--p-form-field-lg-font-size);
+  width: var(--p-form-field-lg-font-size);
+  height: var(--p-form-field-lg-font-size);
+}
+
 /* ─── Clear icon: скрываем при пустом значении ─── */
 .p-datepicker.p-datepicker:not(.p-inputwrapper-filled) .p-datepicker-clear-icon,
 .p-datepicker.p-datepicker:has(.p-datepicker-input:placeholder-shown) .p-datepicker-clear-icon {
