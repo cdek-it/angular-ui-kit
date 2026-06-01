@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, inject, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { FileUpload } from 'primeng/fileupload';
 import { ProgressBar } from 'primeng/progressbar';
@@ -11,6 +12,7 @@ import { ExtraButtonComponent } from '../button/button.component';
   standalone: true,
   imports: [FileUpload, ProgressBar, Message, PrimeTemplate, ExtraButtonComponent, NgClass],
   host: { style: 'display: contents' },
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FileUploadComponent), multi: true }],
   template: `
     <p-fileupload
       #fuRef
@@ -118,7 +120,7 @@ import { ExtraButtonComponent } from '../button/button.component';
     </p-fileupload>
   `,
 })
-export class FileUploadComponent {
+export class FileUploadComponent implements ControlValueAccessor {
   private el = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
   @ViewChild('fuRef') fuRef!: FileUpload;
@@ -155,6 +157,26 @@ export class FileUploadComponent {
 
   private uploadCbRef: (() => void) | null = null;
   private clearCbRef: (() => void) | null = null;
+  private onChange: (files: File[]) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  writeValue(files: File[]): void {
+    this.selectedFiles = files ?? [];
+    this.cdr.markForCheck();
+  }
+
+  registerOnChange(fn: (files: File[]) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this.cdr.markForCheck();
+  }
 
   get uploadCb(): (() => void) | null {
     return this.uploadCbRef;
@@ -205,6 +227,8 @@ export class FileUploadComponent {
       this.cdr.markForCheck();
     }, 40);
 
+    this.onChange(this.selectedFiles);
+    this.onTouched();
     this.cdr.detectChanges();
     this.onSelectEvent.emit(event);
   }
@@ -218,6 +242,7 @@ export class FileUploadComponent {
       this.totalSizePercent = 0;
       this.uploadSuccess = true;
       this.isUploading = false;
+      this.onChange([]);
       this.cdr.detectChanges();
     }, 1500);
     this.onUpload.emit(event);
@@ -231,6 +256,7 @@ export class FileUploadComponent {
     if (this.totalSize <= 0) {
       this.isUploading = false;
     }
+    this.onChange(this.selectedFiles);
     this.cdr.detectChanges();
   }
 
@@ -242,6 +268,7 @@ export class FileUploadComponent {
     this.totalSizePercent = 0;
     this.uploadSuccess = false;
     this.isUploading = false;
+    this.onChange([]);
     this.cdr.detectChanges();
   }
 }

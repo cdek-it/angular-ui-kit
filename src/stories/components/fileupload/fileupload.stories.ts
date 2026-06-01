@@ -2,6 +2,7 @@ import { Meta, StoryObj, applicationConfig, moduleMetadata } from '@storybook/an
 import { provideHttpClient } from '@angular/common/http';
 import { FileUploadComponent } from '../../../lib/components/fileupload/fileupload.component';
 import { FileUploadDefaultComponent } from './examples/fileupload-default.component';
+import { FileUploadFormComponent } from './examples/fileupload-form.component';
 
 const meta: Meta<FileUploadComponent> = {
   title: 'Components/Form/FileUpload',
@@ -10,7 +11,7 @@ const meta: Meta<FileUploadComponent> = {
   decorators: [
     applicationConfig({ providers: [provideHttpClient()] }),
     moduleMetadata({
-      imports: [FileUploadDefaultComponent],
+      imports: [FileUploadDefaultComponent, FileUploadFormComponent],
     }),
   ],
   parameters: {
@@ -81,6 +82,37 @@ import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
 
 export default meta;
 type Story = StoryObj<FileUploadComponent>;
+
+export const WithForm: Story = {
+  name: 'Reactive Form',
+  render: () => ({
+    template: `<app-fileupload-form></app-fileupload-form>`,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Пример использования компонента как formControl в реактивной форме с валидацией required.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  standalone: true,
+  imports: [FileUploadComponent, ReactiveFormsModule],
+  template: \`<fileupload [formControl]="control"></fileupload>\`,
+})
+export class ExampleComponent {
+  control = new FormControl<File[]>([], { validators: [Validators.required] });
+}
+        `,
+      },
+    },
+  },
+};
 
 export const Default: Story = {
   name: 'Default',
