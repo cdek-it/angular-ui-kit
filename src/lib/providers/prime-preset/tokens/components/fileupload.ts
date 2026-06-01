@@ -42,6 +42,10 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
   border-color: ${dt('fileupload.content.highlightBorderColor')};
 }
 
+.fu-dropzone.fu-dropzone--disabled:hover {
+  border-color: ${dt('fileupload.extend.extContent.highlightBorderDefault')};
+}
+
 .fu-dropzone__icon {
   font-size: ${dt('fileupload.extend.extDragNdrop.iconSize')};
   color: ${dt('content.color')};

@@ -37,7 +37,7 @@ import { ExtraButtonComponent } from '../button/button.component';
     >
       <ng-template pTemplate="header" let-uploadCallback="uploadCallback" let-clearCallback="clearCallback">
         <div class="fu-header" [attr.data-ref]="storeCallbacks(uploadCallback, clearCallback)">
-          <div class="fu-dropzone" (click)="onChooseClick()">
+          <div class="fu-dropzone" [class.fu-dropzone--disabled]="disabled" (click)="onChooseClick()">
             <i class="ti ti-upload fu-dropzone__icon"></i>
             <div class="fu-dropzone__info">
               <span class="fu-dropzone__title">{{ dropzoneTitle }}</span>
