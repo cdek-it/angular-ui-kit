@@ -1,5 +1,17 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild
+} from '@angular/core';
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatePicker, DatePickerMonthChangeEvent } from 'primeng/datepicker';
 import { InputNumber } from 'primeng/inputnumber';
 import { PrimeTemplate } from 'primeng/api';
@@ -37,11 +49,19 @@ export type DatePickerIconDisplay = 'input' | 'button';
   selector: 'extra-date-picker',
   host: { style: 'display: inline-flex' },
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraDatePickerComponent),
+      multi: true
+    }
+  ],
   imports: [DatePicker, InputNumber, PrimeTemplate, FormsModule, Select, Button],
   template: `
     <p-datepicker
       #dpRef
-      [ngModel]="value"
+      [ngModel]="modelValue"
       (ngModelChange)="onValueChange($event)"
       [dateFormat]="dateFormat"
       [selectionMode]="selectionMode"
@@ -155,7 +175,9 @@ export type DatePickerIconDisplay = 'input' | 'button';
     </p-datepicker>
   `
 })
-export class ExtraDatePickerComponent implements AfterViewInit, OnDestroy {
+export class ExtraDatePickerComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
+  private readonly cdr = inject(ChangeDetectorRef);
+
   @ViewChild('dpRef') dpRef!: DatePicker;
 
   readonly months = MONTHS;
@@ -164,8 +186,8 @@ export class ExtraDatePickerComponent implements AfterViewInit, OnDestroy {
   dpCurrentMonth = new Date().getMonth();
   dpCurrentYear = new Date().getFullYear();
 
-  @Input() value: Date | Date[] | null = null;
-  @Output() valueChange = new EventEmitter<Date | Date[] | null>();
+  modelValue: Date | Date[] | null = null;
+  disabled = false;
 
   @Input() dateFormat = 'dd.mm.yy';
   @Input() selectionMode: DatePickerSelectionMode = 'single';
@@ -178,7 +200,6 @@ export class ExtraDatePickerComponent implements AfterViewInit, OnDestroy {
   @Input() hourFormat = '24';
   @Input() showClear = false;
   @Input() placeholder: string | undefined = undefined;
-  @Input() disabled = false;
   @Input() readonly = false;
   @Input() invalid = false;
   @Input() minDate: Date | undefined = undefined;
@@ -243,8 +264,11 @@ export class ExtraDatePickerComponent implements AfterViewInit, OnDestroy {
   }
 
   onValueChange(val: Date | Date[] | null): void {
-    this.value = val;
-    this.valueChange.emit(val);
+    this.modelValue = val;
+    this._onChange(val);
+    if (this.inline) {
+      this._onTouched();
+    }
     if (this.selectionMode === 'range' && Array.isArray(val)) {
       if (val[1]) {
         this.rangeStart = null;
@@ -286,10 +310,34 @@ export class ExtraDatePickerComponent implements AfterViewInit, OnDestroy {
 
   onPanelClose(): void {
     this.detachRangePreview();
+    this._onTouched();
   }
 
   onDateSelected(event: any): void {
     this.onSelect.emit(event);
+  }
+
+  // ── ControlValueAccessor ──────────────────────────────────────────────────
+
+  private _onChange: (value: Date | Date[] | null) => void = () => {};
+  private _onTouched: () => void = () => {};
+
+  writeValue(value: Date | Date[] | null): void {
+    this.modelValue = value ?? null;
+    this.cdr.markForCheck();
+  }
+
+  registerOnChange(fn: (value: Date | Date[] | null) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   ngOnDestroy(): void {

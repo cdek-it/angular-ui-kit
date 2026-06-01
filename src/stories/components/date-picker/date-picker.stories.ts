@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '../../../lib/components/date-picker/date-picker.component';
 import { DatePickerBasicComponent } from './examples/date-picker-basic.component';
 import { DatePickerRangeComponent } from './examples/date-picker-range.component';
@@ -9,7 +10,9 @@ import { DatePickerDisabledComponent } from './examples/date-picker-disabled.com
 import { DatePickerInvalidComponent } from './examples/date-picker-invalid.component';
 import { DatePickerClearIconComponent } from './examples/date-picker-clear-icon.component';
 
-type DatePickerArgs = ExtraDatePickerComponent & {};
+type DatePickerArgs = ExtraDatePickerComponent & {
+  control: FormControl<Date | Date[] | null>;
+};
 
 const meta: Meta<DatePickerArgs> = {
   title: 'Components/Form/DatePicker',
@@ -18,6 +21,7 @@ const meta: Meta<DatePickerArgs> = {
   decorators: [
     moduleMetadata({
       imports: [
+        ReactiveFormsModule,
         ExtraDatePickerComponent,
         DatePickerBasicComponent,
         DatePickerRangeComponent,
@@ -33,7 +37,7 @@ const meta: Meta<DatePickerArgs> = {
   parameters: {
     docs: {
       description: {
-        component: `Компонент выбора даты и времени. [Figma Design](https://www.figma.com/design/4TYeki0MDLhfPGJstbIicf/UI-kit-PrimeFace-(DS)?node-id=484-5726).
+        component: `Компонент выбора даты и времени. Реализует \`ControlValueAccessor\` — работает с реактивными формами и \`ngModel\`. [Figma Design](https://www.figma.com/design/4TYeki0MDLhfPGJstbIicf/UI-kit-PrimeFace-(DS)?node-id=484-5726).
 
 \`\`\`typescript
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
@@ -115,7 +119,7 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
     },
     disabled: {
       control: 'boolean',
-      description: 'Отключает возможность ввода в поле',
+      description: 'Управляется через FormControl (setDisabledState)',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -152,14 +156,6 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'EventEmitter<Date>' },
       },
     },
-    valueChange: {
-      control: false,
-      description: 'Событие изменения значения',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Date | Date[] | null>' },
-      },
-    },
   },
   args: {
     size: 'medium',
@@ -179,6 +175,7 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 const commonTemplate = `
 <extra-date-picker
+  [formControl]="control"
   [size]="size"
   [selectionMode]="selectionMode"
   [showIcon]="showIcon"
@@ -187,11 +184,11 @@ const commonTemplate = `
   [showTime]="showTime"
   [inline]="inline"
   [invalid]="invalid"
-  [disabled]="disabled"
   [readonly]="readonly"
   [placeholder]="placeholder"
   [dateFormat]="dateFormat"
 ></extra-date-picker>
+<p style="margin-top:8px;font-size:13px;color:#666">Значение: {{ control.value ?? 'не выбрано' }}</p>
 `;
 
 export default meta;
@@ -200,7 +197,7 @@ type Story = StoryObj<DatePickerArgs>;
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
-    const parts: string[] = [];
+    const parts: string[] = ['[formControl]="control"'];
 
     if (args.size && args.size !== 'medium') parts.push(`size="${args.size}"`);
     if (args.selectionMode && args.selectionMode !== 'single') parts.push(`selectionMode="${args.selectionMode}"`);
@@ -212,14 +209,14 @@ export const Default: Story = {
     if (args.showTime) parts.push(`[showTime]="true"`);
     if (args.inline) parts.push(`[inline]="true"`);
     if (args.invalid) parts.push(`[invalid]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
 
-    const template = parts.length
-      ? `<extra-date-picker\n  ${parts.join('\n  ')}\n></extra-date-picker>`
-      : `<extra-date-picker></extra-date-picker>`;
+    const template = `<extra-date-picker\n  ${parts.join('\n  ')}\n></extra-date-picker>\n<p style="margin-top:8px;font-size:13px;color:#666">Значение: {{ control.value ?? 'не выбрано' }}</p>`;
 
-    return { props: args, template };
+    return {
+      props: { ...args, control: new FormControl<Date | null>(null) },
+      template,
+    };
   },
   args: { placeholder: 'Выберите дату доставки' },
   parameters: {
@@ -232,7 +229,10 @@ export const Default: Story = {
 };
 
 export const Range: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date[] | null>(null) },
+    template: commonTemplate,
+  }),
   args: { selectionMode: 'range', placeholder: 'Период доставки' },
   parameters: {
     docs: {
@@ -241,23 +241,23 @@ export const Range: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-range',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="dates"
-      (valueChange)="dates = $event"
+      [formControl]="datesControl"
       selectionMode="range"
       placeholder="Период доставки"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerRangeComponent {
-  dates: Date[] | null = null;
+  datesControl = new FormControl<Date[] | null>(null);
 }
         `,
       },
@@ -266,7 +266,10 @@ export class DatePickerRangeComponent {
 };
 
 export const Time: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date | null>(null) },
+    template: commonTemplate,
+  }),
   args: { showTime: true, placeholder: 'Дата и время отправки' },
   parameters: {
     docs: {
@@ -275,23 +278,23 @@ export const Time: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-time',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="date"
-      (valueChange)="date = $event"
+      [formControl]="dateControl"
       [showTime]="true"
       placeholder="Дата и время отправки"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerTimeComponent {
-  date: Date | null = null;
+  dateControl = new FormControl<Date | null>(null);
 }
         `,
       },
@@ -300,7 +303,10 @@ export class DatePickerTimeComponent {
 };
 
 export const ButtonBar: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date | null>(null) },
+    template: commonTemplate,
+  }),
   args: { showButtonBar: true, placeholder: 'Дата отгрузки' },
   parameters: {
     docs: {
@@ -309,23 +315,23 @@ export const ButtonBar: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-button-bar',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="date"
-      (valueChange)="date = $event"
+      [formControl]="dateControl"
       [showButtonBar]="true"
       placeholder="Дата отгрузки"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerButtonBarComponent {
-  date: Date | null = null;
+  dateControl = new FormControl<Date | null>(null);
 }
         `,
       },
@@ -334,7 +340,10 @@ export class DatePickerButtonBarComponent {
 };
 
 export const Inline: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date | null>(null) },
+    template: commonTemplate,
+  }),
   args: { inline: true, placeholder: undefined },
   parameters: {
     docs: {
@@ -343,22 +352,22 @@ export const Inline: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-inline',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="date"
-      (valueChange)="date = $event"
+      [formControl]="dateControl"
       [inline]="true"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerInlineComponent {
-  date: Date | null = null;
+  dateControl = new FormControl<Date | null>(null);
 }
         `,
       },
@@ -367,32 +376,34 @@ export class DatePickerInlineComponent {
 };
 
 export const Disabled: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { disabled: true, placeholder: 'Дата заблокирована' },
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date | null>({ value: null, disabled: true }) },
+    template: commonTemplate,
+  }),
+  args: { placeholder: 'Дата заблокирована' },
   parameters: {
     docs: {
-      description: { story: 'Заблокированное поле выбора даты.' },
+      description: { story: 'Заблокированное поле выбора даты (через FormControl).' },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-disabled',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="date"
-      (valueChange)="date = $event"
-      [disabled]="true"
+      [formControl]="dateControl"
       placeholder="Дата заблокирована"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerDisabledComponent {
-  date: Date | null = null;
+  dateControl = new FormControl<Date | null>({ value: null, disabled: true });
 }
         `,
       },
@@ -401,7 +412,10 @@ export class DatePickerDisabledComponent {
 };
 
 export const Invalid: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date | null>(null) },
+    template: commonTemplate,
+  }),
   args: { invalid: true, placeholder: 'Некорректная дата' },
   parameters: {
     docs: {
@@ -410,23 +424,23 @@ export const Invalid: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-invalid',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="date"
-      (valueChange)="date = $event"
+      [formControl]="dateControl"
       [invalid]="true"
       placeholder="Некорректная дата"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerInvalidComponent {
-  date: Date | null = null;
+  dateControl = new FormControl<Date | null>(null);
 }
         `,
       },
@@ -435,7 +449,10 @@ export class DatePickerInvalidComponent {
 };
 
 export const ClearIcon: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: { ...args, control: new FormControl<Date | null>(null) },
+    template: commonTemplate,
+  }),
   args: { showClear: true, placeholder: 'Дата с очисткой' },
   parameters: {
     docs: {
@@ -444,23 +461,23 @@ export const ClearIcon: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-date-picker-clear-icon',
   standalone: true,
-  imports: [ExtraDatePickerComponent],
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
   template: \\\`
     <extra-date-picker
-      [value]="date"
-      (valueChange)="date = $event"
+      [formControl]="dateControl"
       [showClear]="true"
       placeholder="Дата с очисткой"
     ></extra-date-picker>
   \\\`,
 })
 export class DatePickerClearIconComponent {
-  date: Date | null = null;
+  dateControl = new FormControl<Date | null>(null);
 }
         `,
       },
