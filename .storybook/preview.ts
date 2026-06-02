@@ -5,7 +5,7 @@ import docJson from '../documentation.json';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { GalleriaItemSlot } from 'primeng/galleria';
-
+import { RU_TRANSLATION } from '../src/prime-preset/locale/ru';
 // Fix PrimeNG bug: GalleriaItemSlot's main item slot has no `type` attribute,
 // so the `item` setter's forEach loop never matches and context stays stale on updates.
 (function patchGalleriaItemSlot() {
@@ -44,7 +44,8 @@ const preview: Preview = {
               darkModeSelector: '.dark',
               cssLayer: false
             }
-          }
+          },
+          translation: RU_TRANSLATION
         })
       ]
     }),

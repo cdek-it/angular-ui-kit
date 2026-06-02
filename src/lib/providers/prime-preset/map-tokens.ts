@@ -48,6 +48,7 @@ import { tieredmenuCss } from './tokens/components/tieredmenu';
 import { timelineCss } from './tokens/components/timeline';
 import { toastCss } from './tokens/components/toast';
 import { toggleswitchCss } from './tokens/components/toggleswitch';
+import { autocompleteCss } from './tokens/components/autocomplete';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -228,6 +229,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     toggleswitch: {
       ...(tokens.components.toggleswitch as unknown as ComponentsDesignTokens['toggleswitch']),
       css: toggleswitchCss
+    },
+    autocomplete: {
+      ...(tokens.components.autocomplete as unknown as ComponentsDesignTokens['autocomplete']),
+      css: autocompleteCss
     }
   } as ComponentsDesignTokens
 };
