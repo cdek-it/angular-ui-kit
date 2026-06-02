@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ScrollPanelComponent } from '../../../../lib/components/scroll-panel/scroll-panel.component';
+import { ExtraScrollPanelComponent } from '../../../../lib/components/scroll-panel/scroll-panel.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <scroll-panel height="200px">
+  <extra-scroll-panel height="200px">
     <div style="width: max-content">
       <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Принят 14 апр 09:15 · Доставлен 15 апр 14:20</p>
       <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123457 · Санкт-Петербург → Казань · 0.8 кг · 1 место · Принят 13 апр 11:00 · Доставлен 15 апр 10:30</p>
@@ -14,7 +14,7 @@ const template = `
       <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123462 · Пермь → Иркутск · 2.0 кг · 2 места · Принят 13 апр 09:30 · В пути</p>
       <p style="white-space: nowrap; margin: 0 0 0.5rem 0">№ЦД-00123463 · Воронеж → Красноярск · 4.5 кг · 3 места · Принят 12 апр 16:00 · В пути</p>
     </div>
-  </scroll-panel>
+  </extra-scroll-panel>
 </div>
 `;
 const styles = '';
@@ -22,7 +22,7 @@ const styles = '';
 @Component({
   selector: 'app-scroll-panel-both',
   standalone: true,
-  imports: [ScrollPanelComponent],
+  imports: [ExtraScrollPanelComponent],
   template,
   styles,
 })

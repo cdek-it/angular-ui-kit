@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Password } from 'primeng/password';
@@ -8,7 +17,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'password',
+  selector: 'extra-password',
   host: { style: 'display: block' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,9 +25,9 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordComponent),
-      multi: true,
-    },
+      useExisting: forwardRef(() => ExtraPasswordComponent),
+      multi: true
+    }
   ],
   template: `
     @if (floatLabel) {
@@ -66,9 +75,9 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
         }
       </p-password>
     </ng-template>
-  `,
+  `
 })
-export class PasswordComponent implements ControlValueAccessor {
+export class ExtraPasswordComponent implements ControlValueAccessor {
   @ContentChild('header') headerTemplate: TemplateRef<any> | null = null;
   @ContentChild('footer') footerTemplate: TemplateRef<any> | null = null;
 

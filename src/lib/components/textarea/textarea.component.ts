@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Textarea } from 'primeng/textarea';
@@ -8,20 +18,20 @@ import { InputIcon } from 'primeng/inputicon';
 export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'ui-textarea',
+  selector: 'extra-textarea',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Textarea, IconField, InputIcon, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextareaComponent),
-      multi: true,
-    },
+      useExisting: forwardRef(() => ExtraTextareaComponent),
+      multi: true
+    }
   ],
   template: `
     @if (showClear) {
-      <p-iconfield [ngClass]="{'!w-full': fluid}">
+      <p-iconfield [ngClass]="{ '!w-full': fluid }">
         <textarea
           pTextarea
           [ngClass]="sizeClass"
@@ -68,9 +78,9 @@ export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
         (onResize)="onResize.emit($event)"
       ></textarea>
     }
-  `,
+  `
 })
-export class TextareaComponent implements ControlValueAccessor, OnInit {
+export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -93,17 +103,17 @@ export class TextareaComponent implements ControlValueAccessor, OnInit {
     return this._ngControl?.invalid ?? false;
   }
 
-  @Output() onResize = new EventEmitter<{ height: string }>();
+  @Output() onResize = new EventEmitter<{ height: string } | {}>();
   @Output() onClear = new EventEmitter<void>();
 
   modelValue = '';
 
   private _onChange: (value: string) => void = () => {};
 
-  get primeSize(): 'small' | 'large' | undefined {
+  get primeSize(): 'small' | 'large' | never {
     if (this.size === 'small') return 'small';
     if (this.size === 'large') return 'large';
-    return undefined;
+    return undefined as never;
   }
 
   get sizeClass(): Record<string, boolean> {

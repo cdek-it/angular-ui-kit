@@ -1,22 +1,17 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { PanelMenuComponent } from '../../../lib/components/panelmenu/panelmenu.component';
-import { PanelMenuBasicComponent, Basic } from './examples/panelmenu-basic.component';
-import { PanelMenuMultipleComponent, Multiple } from './examples/panelmenu-multiple.component';
-import { PanelMenuCustomComponent, Custom } from './examples/panelmenu-custom.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { ExtraPanelMenuComponent } from '../../../lib/components/panelmenu/panelmenu.component';
+import { Basic, PanelMenuBasicComponent } from './examples/panelmenu-basic.component';
+import { Multiple, PanelMenuMultipleComponent } from './examples/panelmenu-multiple.component';
+import { Custom, PanelMenuCustomComponent } from './examples/panelmenu-custom.component';
 
-const meta: Meta<PanelMenuComponent> = {
+const meta: Meta<ExtraPanelMenuComponent> = {
   title: 'Components/Menu/PanelMenu',
-  component: PanelMenuComponent,
+  component: ExtraPanelMenuComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        PanelMenuComponent,
-        PanelMenuBasicComponent,
-        PanelMenuMultipleComponent,
-        PanelMenuCustomComponent,
-      ],
-    }),
+      imports: [ExtraPanelMenuComponent, PanelMenuBasicComponent, PanelMenuMultipleComponent, PanelMenuCustomComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -24,15 +19,15 @@ const meta: Meta<PanelMenuComponent> = {
         component: `Аккордеон-меню с поддержкой вложенных подменю и раскрытием нескольких панелей.
 
 \`\`\`typescript
-import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-panelmenu' },
+    designTokens: { prefix: '--p-panelmenu' }
   },
   argTypes: {
     model: {
-      table: { disable: true },
+      table: { disable: true }
     },
     multiple: {
       control: 'boolean',
@@ -40,8 +35,8 @@ import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     tabindex: {
       control: 'number',
@@ -49,17 +44,17 @@ import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+      }
+    }
   },
   args: {
-    multiple: false,
-  },
+    multiple: false
+  }
 };
 
 export default meta;
-type Story = StoryObj<PanelMenuComponent>;
+type Story = StoryObj<ExtraPanelMenuComponent>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
@@ -70,7 +65,7 @@ export const Default: Story = {
     if (args.multiple) parts.push(`[multiple]="true"`);
     if (args.tabindex !== undefined) parts.push(`[tabindex]="${args.tabindex}"`);
 
-    const template = `<panelmenu\n  ${parts.join('\n  ')}\n></panelmenu>`;
+    const template = `<extra-panelmenu\n  ${parts.join('\n  ')}\n></extra-panelmenu>`;
 
     return {
       props: {
@@ -78,30 +73,26 @@ export const Default: Story = {
         model: [
           {
             label: 'Отправления',
-            items: [
-              { label: 'Новые' },
-              { label: 'В пути' },
-              { label: 'Доставленные' },
-            ],
+            items: [{ label: 'Новые' }, { label: 'В пути' }, { label: 'Доставленные' }]
           },
           { label: 'Маршруты' },
           {
             label: 'Склады',
-            items: [{ label: 'Москва' }, { label: 'Новосибирск' }],
+            items: [{ label: 'Москва' }, { label: 'Новосибирск' }]
           },
-          { label: 'Настройки', disabled: true },
-        ],
+          { label: 'Настройки', disabled: true }
+        ]
       },
-      template,
+      template
     };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

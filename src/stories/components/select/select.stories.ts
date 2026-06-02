@@ -1,43 +1,45 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent } from '../../../lib/components/select/select.component';
-import { SelectFilterComponent, Filter as FilterStory } from './examples/select-filter.component';
-import { SelectGroupedComponent, Grouped as GroupedStory } from './examples/select-grouped.component';
-import { SelectCustomComponent, Custom as CustomStory } from './examples/select-custom.component';
-import { SelectEditableComponent, Editable as EditableStory } from './examples/select-editable.component';
+import { ExtraSelectComponent } from '../../../lib/components/select/select.component';
+import { Filter as FilterStory, SelectFilterComponent } from './examples/select-filter.component';
+import { Grouped as GroupedStory, SelectGroupedComponent } from './examples/select-grouped.component';
+import { Custom as CustomStory, SelectCustomComponent } from './examples/select-custom.component';
+import { Editable as EditableStory, SelectEditableComponent } from './examples/select-editable.component';
 import { Disabled as DisabledStory } from './examples/select-disabled.component';
-import { SelectFloatLabelComponent, FloatLabelStory } from './examples/select-float-label.component';
-
+import { FloatLabelStory, SelectFloatLabelComponent } from './examples/select-float-label.component';
 
 const BASIC_OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
   { name: 'Санкт-Петербург', code: 'SPB' },
   { name: 'Екатеринбург', code: 'EKB' },
-  { name: 'Казань', code: 'KZN' },
+  { name: 'Казань', code: 'KZN' }
 ];
 
-type SelectArgs = Pick<SelectComponent, 'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'checkmark'> & {
+type SelectArgs = Pick<
+  ExtraSelectComponent,
+  'size' | 'placeholder' | 'showClear' | 'filter' | 'readonly' | 'checkmark'
+> & {
   disabled: boolean;
   invalid: boolean;
 };
 
 const meta: Meta<SelectArgs> = {
   title: 'Components/Form/Select',
-  component: SelectComponent,
+  component: ExtraSelectComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        SelectComponent,
+        ExtraSelectComponent,
         ReactiveFormsModule,
         SelectFilterComponent,
         SelectGroupedComponent,
         SelectCustomComponent,
         SelectEditableComponent,
-        SelectFloatLabelComponent,
-      ],
-    }),
+        SelectFloatLabelComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -45,11 +47,11 @@ const meta: Meta<SelectArgs> = {
         component: `Выпадающий список для выбора одного значения из набора опций. Поддерживает фильтрацию, группировку, кастомные шаблоны и редактируемый ввод.
 
 \`\`\`typescript
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-select' },
+    designTokens: { prefix: '--p-select' }
   },
   argTypes: {
     size: {
@@ -59,8 +61,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     placeholder: {
       control: 'text',
@@ -68,8 +70,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     showClear: {
       control: 'boolean',
@@ -77,8 +79,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     filter: {
       control: 'boolean',
@@ -86,8 +88,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     readonly: {
       control: 'boolean',
@@ -95,8 +97,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     checkmark: {
       control: 'boolean',
@@ -104,8 +106,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -113,8 +115,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     invalid: {
       control: 'boolean',
@@ -122,9 +124,9 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     size: 'base',
@@ -134,8 +136,8 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
     readonly: false,
     checkmark: true,
     disabled: false,
-    invalid: false,
-  },
+    invalid: false
+  }
 };
 
 export default meta;
@@ -155,7 +157,7 @@ export const Default: Story = {
     return {
       props: { ...args, control, options: BASIC_OPTIONS },
       template: `
-        <select-field
+        <extra-select
           [formControl]="control"
           [options]="options"
           optionLabel="name"
@@ -165,17 +167,17 @@ export const Default: Story = {
           [filter]="filter"
           [readonly]="readonly"
           [checkmark]="checkmark"
-        ></select-field>
-      `,
+        ></extra-select>
+      `
     };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Filter ────────────────────────────────────────────────────────────────────

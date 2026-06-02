@@ -1,4 +1,14 @@
-import { Component, DestroyRef, forwardRef, inject, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
@@ -7,15 +17,15 @@ import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'input-otp',
+  selector: 'extra-input-otp',
   standalone: true,
   imports: [InputOtp, ReactiveFormsModule, NgClass],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputOtpComponent),
-      multi: true,
-    },
+      useExisting: forwardRef(() => ExtraInputOtpComponent),
+      multi: true
+    }
   ],
   template: `
     <p-inputotp
@@ -34,9 +44,9 @@ export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-inputotp>
-  `,
+  `
 })
-export class InputOtpComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
@@ -63,12 +73,10 @@ export class InputOtpComponent implements ControlValueAccessor, OnInit {
   ngOnInit(): void {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
 
-    this.control.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(v => {
-        this._onChange(v);
-        this._onTouched();
-      });
+    this.control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((v) => {
+      this._onChange(v);
+      this._onTouched();
+    });
   }
 
   get invalid(): boolean {

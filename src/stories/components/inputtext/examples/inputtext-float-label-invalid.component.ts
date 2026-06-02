@@ -1,23 +1,27 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { FloatLabel } from 'primeng/floatlabel';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-float-label-invalid',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule, NgIf],
+  imports: [ExtraInputTextComponent, FloatLabel, ReactiveFormsModule],
   template: `
-<div class="pt-6 w-64">
-  <p-floatlabel variant="in">
-    <input-text id="fl-invalid" [formControl]="control"></input-text>
-    <label for="fl-invalid">Обязательное поле<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
-  </p-floatlabel>
-</div>
-`,
+    <div class="pt-6 w-64">
+      <p-floatlabel variant="in">
+        <extra-input-text id="fl-invalid" [formControl]="control"></extra-input-text>
+        <label for="fl-invalid"
+          >Обязательное поле
+          @if (required) {
+            <span class="text-red-500 ml-0.5">*</span>
+          }
+        </label>
+      </p-floatlabel>
+    </div>
+  `
 })
 export class InputTextFloatLabelInvalidComponent {
   control = new FormControl('', Validators.required);
@@ -53,14 +57,13 @@ export const FloatLabelInvalid: StoryObj = {
 import { Component } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,
   imports: [InputTextComponent, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <input-text id="fl-invalid" [formControl]="control"></input-text>
+      <extra-input-text id="fl-invalid" [formControl]="control"></extra-input-text>
       <label for="fl-invalid">Обязательное поле<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,

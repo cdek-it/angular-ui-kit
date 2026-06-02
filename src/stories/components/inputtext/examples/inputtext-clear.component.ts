@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-clear',
   standalone: true,
-  imports: [InputTextComponent, ReactiveFormsModule],
-  template: `<input-text [formControl]="control" showClear placeholder="Введите текст..."></input-text>`,
+  imports: [ExtraInputTextComponent, ReactiveFormsModule],
+  template: `<extra-input-text [formControl]="control" showClear placeholder="Введите текст..."></extra-input-text>`
 })
 export class InputTextClearComponent {
   control = new FormControl('');
@@ -35,14 +35,12 @@ export const ClearButton: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
   imports: [InputTextComponent, ReactiveFormsModule],
-  template: \`<input-text [formControl]="control" showClear placeholder="Введите текст..."></input-text>\`,
+  template: \`<extra-input-text [formControl]="control" showClear placeholder="Введите текст..."></extra-input-text>\`,
 })
 export class ClearButtonExample {
   control = new FormControl('');

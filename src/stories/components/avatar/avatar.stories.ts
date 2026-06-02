@@ -1,15 +1,15 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { OverlayBadge } from 'primeng/overlaybadge';
-import { AvatarComponent, AvatarGroupComponent } from '../../../lib/components/avatar/avatar.component';
+import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../lib/components/avatar/avatar.component';
 
-const meta: Meta<AvatarComponent> = {
+const meta: Meta<ExtraAvatarComponent> = {
   title: 'Components/Misc/Avatar',
-  component: AvatarComponent,
+  component: ExtraAvatarComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [AvatarComponent, AvatarGroupComponent, OverlayBadge],
-    }),
+      imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent, OverlayBadge]
+    })
   ],
   parameters: {
     docs: {
@@ -17,11 +17,11 @@ const meta: Meta<AvatarComponent> = {
         component: `Аватар представляет пользователя или сущность. Может содержать текст, иконку или изображение. [PrimeNG Avatar](https://primeng.org/avatar).
 
 \`\`\`typescript
-import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-avatar' },
+    designTokens: { prefix: '--p-avatar' }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -31,8 +31,8 @@ import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     icon: {
       control: 'text',
@@ -40,8 +40,8 @@ import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     image: {
       control: 'text',
@@ -49,8 +49,8 @@ import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -59,8 +59,8 @@ import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'normal' },
-        type: { summary: "'normal' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'normal' | 'large' | 'xlarge'" }
+      }
     },
     shape: {
       control: 'select',
@@ -69,24 +69,24 @@ import { AvatarComponent, AvatarGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'square' },
-        type: { summary: "'square' | 'circle'" },
-      },
-    },
-  },
+        type: { summary: "'square' | 'circle'" }
+      }
+    }
+  }
 };
 
 const commonTemplate = `
-<avatar
+<extra-avatar
   [label]="label"
   [icon]="icon"
   [image]="image"
   [size]="size"
   [shape]="shape"
-></avatar>
+></extra-avatar>
 `;
 
 export default meta;
-type Story = StoryObj<AvatarComponent>;
+type Story = StoryObj<ExtraAvatarComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 
@@ -102,23 +102,23 @@ export const Default: Story = {
     if (args.shape && args.shape !== 'square') parts.push(`shape="${args.shape}"`);
 
     const template = parts.length
-      ? `<avatar\n  ${parts.join('\n  ')}\n></avatar>`
-      : `<avatar label="A"></avatar>`;
+      ? `<extra-avatar\n  ${parts.join('\n  ')}\n></extra-avatar>`
+      : `<extra-avatar label="A"></extra-avatar>`;
 
     return { props: args, template };
   },
   args: {
     label: 'A',
     size: 'normal',
-    shape: 'square',
+    shape: 'square'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Label ────────────────────────────────────────────────────────────────────
@@ -130,10 +130,10 @@ export const Label: Story = {
     docs: {
       description: { story: 'Аватар с текстовой меткой.' },
       source: {
-        code: `<avatar label="A"></avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar label="A"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Icon ─────────────────────────────────────────────────────────────────────
@@ -145,10 +145,10 @@ export const Icon: Story = {
     docs: {
       description: { story: 'Аватар с иконкой.' },
       source: {
-        code: `<avatar icon="ti ti-user"></avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar icon="ti ti-user"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Image ────────────────────────────────────────────────────────────────────
@@ -158,12 +158,14 @@ export const Image: Story = {
   args: { image: '/assets/images/avatar/avatar.png', size: 'normal', shape: 'square' },
   parameters: {
     docs: {
-      description: { story: 'Аватар с изображением. shape="square" — без обрезки, shape="circle" — с обрезкой по кругу.' },
-      source: {
-        code: `<avatar image="/assets/images/avatar/avatar.png"></avatar>`,
+      description: {
+        story: 'Аватар с изображением. shape="square" — без обрезки, shape="circle" — с обрезкой по кругу.'
       },
-    },
-  },
+      source: {
+        code: `<extra-avatar image="/assets/images/avatar/avatar.png"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Sizes ────────────────────────────────────────────────────────────────────
@@ -175,10 +177,10 @@ export const Sizes: Story = {
     docs: {
       description: { story: 'Размер аватара. Доступны: normal, large, xlarge.' },
       source: {
-        code: `<avatar label="L" size="large"></avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar label="L" size="large"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Shapes ───────────────────────────────────────────────────────────────────
@@ -190,10 +192,10 @@ export const Shapes: Story = {
     docs: {
       description: { story: 'Форма аватара. circle — круглый, square — квадратный (по умолчанию).' },
       source: {
-        code: `<avatar label="C" shape="circle"></avatar>`,
-      },
-    },
-  },
+        code: `<extra-avatar label="C" shape="circle"></extra-avatar>`
+      }
+    }
+  }
 };
 
 // ── Group ────────────────────────────────────────────────────────────────────
@@ -203,28 +205,28 @@ export const Shapes: Story = {
 export const Group: Story = {
   render: () => ({
     template: `
-      <avatar-group>
-        <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-        <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-        <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-        <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-        <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-        <avatar label="+2" shape="circle"></avatar>
-      </avatar-group>
-    `,
+      <extra-avatar-group>
+        <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+        <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+        <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+        <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+        <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+        <extra-avatar label="+2" shape="circle"></extra-avatar>
+      </extra-avatar-group>
+    `
   }),
   parameters: {
     docs: {
       description: { story: 'Группа аватаров с перекрытием.' },
       source: {
-        code: `<avatar-group>
-  <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-  <avatar image="/assets/images/avatar/avatar.png" shape="circle"></avatar>
-  <avatar label="+2" shape="circle"></avatar>
-</avatar-group>`,
-      },
-    },
-  },
+        code: `<extra-avatar-group>
+  <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+  <extra-avatar image="/assets/images/avatar/avatar.png" shape="circle"></extra-avatar>
+  <extra-avatar label="+2" shape="circle"></extra-avatar>
+</extra-avatar-group>`
+      }
+    }
+  }
 };
 
 // ── LabelWithBadge ───────────────────────────────────────────────────────────
@@ -234,20 +236,20 @@ export const LabelWithBadge: Story = {
     props: args,
     template: `
       <p-overlay-badge value="4" severity="danger">
-        <avatar label="U" size="xlarge"></avatar>
+        <extra-avatar label="U" size="xlarge"></extra-avatar>
       </p-overlay-badge>
-    `,
+    `
   }),
   parameters: {
     docs: {
       description: { story: 'Аватар с текстовой меткой и бейджем через OverlayBadge.' },
       source: {
         code: `<p-overlay-badge value="4" severity="danger">
-  <avatar label="U" size="xlarge"></avatar>
-</p-overlay-badge>`,
-      },
-    },
-  },
+  <extra-avatar label="U" size="xlarge"></extra-avatar>
+</p-overlay-badge>`
+      }
+    }
+  }
 };
 
 // ── IconWithBadge ────────────────────────────────────────────────────────────
@@ -257,20 +259,20 @@ export const IconWithBadge: Story = {
     props: args,
     template: `
       <p-overlay-badge value="8" severity="success">
-        <avatar icon="ti ti-user" size="xlarge"></avatar>
+        <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
       </p-overlay-badge>
-    `,
+    `
   }),
   parameters: {
     docs: {
       description: { story: 'Аватар с иконкой и бейджем через OverlayBadge.' },
       source: {
         code: `<p-overlay-badge value="8" severity="success">
-  <avatar icon="ti ti-user" size="xlarge"></avatar>
-</p-overlay-badge>`,
-      },
-    },
-  },
+  <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
+</p-overlay-badge>`
+      }
+    }
+  }
 };
 
 // ── ImageWithBadge ───────────────────────────────────────────────────────────
@@ -280,18 +282,18 @@ export const ImageWithBadge: Story = {
     props: args,
     template: `
       <p-overlay-badge value="8" severity="success">
-        <avatar image="/assets/images/avatar/avatar.png" size="xlarge"></avatar>
+        <extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge"></extra-avatar>
       </p-overlay-badge>
-    `,
+    `
   }),
   parameters: {
     docs: {
       description: { story: 'Аватар с изображением и бейджем через OverlayBadge.' },
       source: {
         code: `<p-overlay-badge value="8" severity="success">
-  <avatar image="/assets/images/avatar/avatar.png" size="xlarge"></avatar>
-</p-overlay-badge>`,
-      },
-    },
-  },
+  <extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge"></extra-avatar>
+</p-overlay-badge>`
+      }
+    }
+  }
 };

@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <password [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></password>
+  <extra-password [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-toggle',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
-  template,
+  imports: [ExtraPasswordComponent, FormsModule],
+  template
 })
 export class PasswordToggleComponent {
   value: string | null = null;
@@ -21,7 +21,7 @@ export class PasswordToggleComponent {
 
 export const ToggleMask: StoryObj = {
   render: () => ({
-    template: `<app-password-toggle></app-password-toggle>`,
+    template: `<app-password-toggle></app-password-toggle>`
   }),
   parameters: {
     docs: {
@@ -29,23 +29,21 @@ export const ToggleMask: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-toggle',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template: \`
-    <password [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></password>
+    <extra-password [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
   \`,
 })
 export class PasswordToggleComponent {
   value: string | null = null;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

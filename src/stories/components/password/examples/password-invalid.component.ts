@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <password [invalid]="true" [(ngModel)]="value" placeholder="Невалидный пароль"></password>
+  <extra-password [invalid]="true" [(ngModel)]="value" placeholder="Невалидный пароль"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-invalid',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
-  template,
+  imports: [ExtraPasswordComponent, FormsModule],
+  template
 })
 export class PasswordInvalidComponent {
   value: string | null = null;
@@ -21,7 +21,7 @@ export class PasswordInvalidComponent {
 
 export const Invalid: StoryObj = {
   render: () => ({
-    template: `<app-password-invalid></app-password-invalid>`,
+    template: `<app-password-invalid></app-password-invalid>`
   }),
   parameters: {
     docs: {
@@ -29,23 +29,21 @@ export const Invalid: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-invalid',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template: \`
-    <password [invalid]="true" [(ngModel)]="value" placeholder="Невалидный пароль"></password>
+    <extra-password [invalid]="true" [(ngModel)]="value" placeholder="Невалидный пароль"></extra-password>
   \`,
 })
 export class PasswordInvalidComponent {
   value: string | null = null;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -1,11 +1,11 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SelectComponent } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
-  { name: 'Санкт-Петербург', code: 'SPB' },
+  { name: 'Санкт-Петербург', code: 'SPB' }
 ];
 
 export const Disabled: StoryObj = {
@@ -15,22 +15,22 @@ export const Disabled: StoryObj = {
     return {
       props: { control, options: OPTIONS },
       template: `
-        <select-field
+        <extra-select
           [formControl]="control"
           [options]="options"
           optionLabel="name"
           placeholder="Выберите город..."
-        ></select-field>
-      `,
+        ></extra-select>
+      `
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [SelectComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraSelectComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -40,19 +40,18 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
-    <select-field
+    <extra-select
       [formControl]="control"
       [options]="options"
       optionLabel="name"
       placeholder="Выберите город..."
-    ></select-field>
+    ></extra-select>
   \`,
 })
 export class SelectDisabledExample {
@@ -62,8 +61,8 @@ export class SelectDisabledExample {
     { name: 'Москва', code: 'MSK' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

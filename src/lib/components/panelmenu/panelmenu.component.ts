@@ -3,19 +3,13 @@ import { PanelMenu } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'panelmenu',
+  selector: 'extra-panelmenu',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PanelMenu],
-  template: `
-    <p-panelmenu
-      [model]="model"
-      [multiple]="multiple"
-      [tabindex]="tabindex"
-    ></p-panelmenu>
-  `,
+  template: ` <p-panelmenu [model]="model" [multiple]="multiple" [tabindex]="tabindex"></p-panelmenu> `
 })
-export class PanelMenuComponent implements AfterViewChecked {
+export class ExtraPanelMenuComponent implements AfterViewChecked {
   @Input() model: MenuItem[] = [];
   @Input() multiple = false;
   @Input() tabindex: number | undefined = undefined;
@@ -45,8 +39,9 @@ export class PanelMenuComponent implements AfterViewChecked {
 
   private applyActiveClass(): void {
     const root = this.el.nativeElement;
-    root.querySelectorAll<HTMLElement>('.p-panelmenu-item-active')
-      .forEach(el => el.classList.remove('p-panelmenu-item-active'));
+    root
+      .querySelectorAll<HTMLElement>('.p-panelmenu-item-active')
+      .forEach((el) => el.classList.remove('p-panelmenu-item-active'));
 
     if (this.activeItemId) {
       const active = root.querySelector<HTMLElement>(`#${CSS.escape(this.activeItemId)}`);

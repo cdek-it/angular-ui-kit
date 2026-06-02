@@ -1,18 +1,18 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { ProgressBarComponent } from '../../../lib/components/progressbar/progressbar.component';
+import { ExtraProgressBarComponent } from '../../../lib/components/progressbar/progressbar.component';
 import { ProgressBarIndeterminateComponent } from './examples/progressbar-indeterminate.component';
 import { ProgressBarNoLabelComponent } from './examples/progressbar-no-label.component';
 
-type ProgressBarArgs = ProgressBarComponent;
+type ProgressBarArgs = ExtraProgressBarComponent;
 
 const meta: Meta<ProgressBarArgs> = {
   title: 'Components/Misc/ProgressBar',
-  component: ProgressBarComponent,
+  component: ExtraProgressBarComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        ProgressBarComponent,
+        ExtraProgressBarComponent,
         ProgressBarIndeterminateComponent,
         ProgressBarNoLabelComponent,
       ],
@@ -24,7 +24,7 @@ const meta: Meta<ProgressBarArgs> = {
         component: `Информирует пользователя о статусе длительного процесса.
 
 \`\`\`typescript
-import { ProgressBarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -64,11 +64,11 @@ import { ProgressBarComponent } from '@cdek-it/angular-ui-kit';
   },
 };
 
-const commonTemplate = `<progressbar
+const commonTemplate = `<extra-progressbar
   [value]="value"
   [mode]="mode"
   [showValue]="showValue"
-></progressbar>`;
+></extra-progressbar>`;
 
 export default meta;
 type Story = StoryObj<ProgressBarArgs>;
@@ -85,8 +85,8 @@ export const Default: Story = {
     if (!args.showValue) parts.push(`[showValue]="false"`);
 
     const template = parts.length
-      ? `<progressbar\n  ${parts.join('\n  ')}\n></progressbar>`
-      : `<progressbar></progressbar>`;
+      ? `<extra-progressbar\n  ${parts.join('\n  ')}\n></extra-progressbar>`
+      : `<extra-progressbar></extra-progressbar>`;
 
     return { props: args, template };
   },
@@ -119,15 +119,14 @@ export const Indeterminate: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ProgressBarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-progressbar-indeterminate',
   standalone: true,
-  imports: [ProgressBarComponent],
+  imports: [ExtraProgressBarComponent],
   template: \`
     <div class="bg-surface-ground">
-      <progressbar mode="indeterminate"></progressbar>
+      <extra-progressbar mode="indeterminate"></extra-progressbar>
     </div>
   \`,
 })
@@ -150,16 +149,14 @@ export const NoLabel: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ProgressBarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-progressbar-no-label',
   standalone: true,
-  imports: [ProgressBarComponent],
+  imports: [ExtraProgressBarComponent],
   template: \`
     <div class="bg-surface-ground">
-      <progressbar [value]="60" [showValue]="false"></progressbar>
+      <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
     </div>
   \`,
 })

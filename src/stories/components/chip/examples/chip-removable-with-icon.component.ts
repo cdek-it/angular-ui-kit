@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { ChipComponent } from '../../../../lib/components/chip/chip.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <chip label="Задержан" icon="ti ti-alert-triangle" [removable]="true"></chip>
+  <extra-chip label="Задержан" icon="ti ti-alert-triangle" [removable]="true"></extra-chip>
 </div>
 `;
 const styles = '';
@@ -11,15 +11,16 @@ const styles = '';
 @Component({
   selector: 'app-chip-removable-with-icon',
   standalone: true,
-  imports: [ChipComponent],
+  imports: [ExtraChipComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  styles,
+  styles
 })
 export class ChipRemovableWithIconComponent {}
 
 export const RemovableWithIcon = {
   render: () => ({
-    template: `<app-chip-removable-with-icon></app-chip-removable-with-icon>`,
+    template: `<app-chip-removable-with-icon></app-chip-removable-with-icon>`
   }),
   parameters: {
     docs: {
@@ -27,20 +28,20 @@ export const RemovableWithIcon = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ChipComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-chip-removable-with-icon',
   standalone: true,
-  imports: [ChipComponent],
+  imports: [ExtraChipComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <chip label="Задержан" icon="ti ti-alert-triangle" [removable]="true"></chip>
+    <extra-chip label="Задержан" icon="ti ti-alert-triangle" [removable]="true"></extra-chip>
   \`,
 })
 export class ChipRemovableWithIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const styles = '';
 
 @Component({
   selector: 'app-checkbox-invalid',
   standalone: true,
-  imports: [CheckboxComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraCheckboxComponent, FormsModule],
   styles,
-  template: `
-    <checkbox [binary]="true" [invalid]="true" [(ngModel)]="checked"></checkbox>
-  `,
+  template: ` <extra-checkbox [binary]="true" [invalid]="true" [(ngModel)]="checked"></extra-checkbox> `
 })
 export class CheckboxInvalidComponent {
   checked = false;
@@ -21,7 +20,7 @@ export class CheckboxInvalidComponent {
 export const Invalid: StoryObj = {
   render: (args) => ({
     props: { ...args, checked: false },
-    template: `<checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked"></checkbox>`,
+    template: `<extra-checkbox [binary]="true" [invalid]="invalid" [disabled]="disabled" [(ngModel)]="checked"></extra-checkbox>`
   }),
   args: { invalid: true },
   parameters: {
@@ -32,21 +31,22 @@ export const Invalid: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-checkbox-invalid',
   standalone: true,
-  imports: [CheckboxComponent, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraCheckboxComponent, ReactiveFormsModule],
   template: \`
-    <checkbox [binary]="true" [formControl]="control"></checkbox>
+    <extra-checkbox [binary]="true" [formControl]="control"></extra-checkbox>
   \`,
 })
 export class CheckboxInvalidComponent {
   control = new FormControl(false, [Validators.requiredTrue]);
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

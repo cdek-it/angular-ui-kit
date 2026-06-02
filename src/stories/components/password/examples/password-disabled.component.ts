@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <password [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></password>
+  <extra-password [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-disabled',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
-  template,
+  imports: [ExtraPasswordComponent, FormsModule],
+  template
 })
 export class PasswordDisabledComponent {
   value: string | null = 'secret123';
@@ -21,7 +21,7 @@ export class PasswordDisabledComponent {
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-password-disabled></app-password-disabled>`,
+    template: `<app-password-disabled></app-password-disabled>`
   }),
   parameters: {
     docs: {
@@ -29,23 +29,21 @@ export const Disabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-disabled',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template: \`
-    <password [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></password>
+    <extra-password [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></extra-password>
   \`,
 })
 export class PasswordDisabledComponent {
   value: string | null = 'secret123';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

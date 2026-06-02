@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Chip } from 'primeng/chip';
 
 @Component({
-  selector: 'chip',
+  selector: 'extra-chip',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Chip],
   template: `
     <p-chip
@@ -13,9 +14,9 @@ import { Chip } from 'primeng/chip';
       [disabled]="disabled"
       (onRemove)="onRemove.emit($event)"
     ></p-chip>
-  `,
+  `
 })
-export class ChipComponent {
+export class ExtraChipComponent {
   @Input() label = '';
   @Input() icon = '';
   @Input() removable = false;

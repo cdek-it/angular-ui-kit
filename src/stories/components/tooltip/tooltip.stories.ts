@@ -1,15 +1,13 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
-import { ButtonComponent } from '../../../lib/components/button/button.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { ExtraTooltipDirective as TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
+import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 
 const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
   title: 'Prime/Form/Tooltip',
   // @ts-ignore
   component: TooltipDirective,
   tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({ imports: [TooltipDirective, ButtonComponent] })
-  ],
+  decorators: [moduleMetadata({ imports: [TooltipDirective, ButtonComponent] })],
   parameters: {
     designTokens: { prefix: '--p-tooltip' },
     docs: {
@@ -17,22 +15,22 @@ const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
         component: `Компонент для отображения информационного текста при наведении на элемент.
 
 \`\`\`typescript
-import { TooltipDirective } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
     tooltip: {
       control: 'text',
       description: 'Текст внутри подсказки.',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     label: {
       control: 'text',
       description: 'Текст кнопки-примера (не является свойством директивы).',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     position: {
       control: 'select',
@@ -41,8 +39,8 @@ import { TooltipDirective } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'right' },
-        type: { summary: "'top' | 'bottom' | 'left' | 'right'" },
-      },
+        type: { summary: "'top' | 'bottom' | 'left' | 'right'" }
+      }
     },
     event: {
       control: 'select',
@@ -51,18 +49,18 @@ import { TooltipDirective } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'hover' },
-        type: { summary: "'hover' | 'focus' | 'both'" },
-      },
+        type: { summary: "'hover' | 'focus' | 'both'" }
+      }
     },
     showDelay: {
       control: 'number',
       description: 'Задержка перед появлением в миллисекундах.',
-      table: { category: 'Props', type: { summary: 'number' } },
+      table: { category: 'Props', type: { summary: 'number' } }
     },
     hideDelay: {
       control: 'number',
       description: 'Задержка перед скрытием в миллисекундах.',
-      table: { category: 'Props', type: { summary: 'number' } },
+      table: { category: 'Props', type: { summary: 'number' } }
     },
     disabled: {
       control: 'boolean',
@@ -70,32 +68,33 @@ import { TooltipDirective } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     tooltip: 'Это текст подсказки',
     label: 'Наведи на меня',
     position: 'right',
     event: 'hover',
-    disabled: false,
-  },
+    disabled: false
+  }
 };
 
 export default meta;
 type Story = StoryObj<TooltipDirective & { label?: string; isFocused?: boolean }>;
 
 const commonTemplate = `
-<button
-  [tooltip]="tooltip"
+<extra-button
+  [extra-tooltip]="tooltip"
   [position]="position"
   [event]="event"
   [showDelay]="showDelay"
   [hideDelay]="hideDelay"
   [disabled]="disabled"
   [label]="label || ''"
-></button>
+>
+</extra-button>
 `;
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -104,7 +103,7 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.tooltip) parts.push(`tooltip="${args.tooltip}"`);
+    if (args.tooltip) parts.push(`extra-tooltip="${args.tooltip}"`);
     if (args.position && args.position !== 'right') parts.push(`position="${args.position}"`);
     if (args.event && args.event !== 'hover') parts.push(`event="${args.event}"`);
     if (args.showDelay) parts.push(`[showDelay]="${args.showDelay}"`);
@@ -113,17 +112,17 @@ export const Default: Story = {
     if (args.label) parts.push(`label="${args.label}"`);
 
     const template = `
-<button ${parts.join('\n  ')}></button>
+<extra-button ${parts.join('\n  ')}></extra-button>
 `;
     return { props: args, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Вариации ─────────────────────────────────────────────────────────────────
@@ -139,7 +138,7 @@ export const Positions: Story = {
     docs: {
       description: { story: 'Различные варианты позиционирования (измените через Controls).' },
       source: {
-        code: `<button tooltip="Подсказка сверху" position="top" label="Сверху"></button>`
+        code: `<extra-button extra-tooltip="Подсказка сверху" position="top" label="Сверху"></extra-button>`
       }
     }
   }
@@ -156,7 +155,7 @@ export const Delay: Story = {
     docs: {
       description: { story: 'Подсказка может появляться или скрываться с задержкой в миллисекундах.' },
       source: {
-        code: `<button tooltip="Подсказка с задержкой 1с" [showDelay]="1000" label="Задержка появления (1с)"></button>`
+        code: `<extra-button extra-tooltip="Подсказка с задержкой 1с" [showDelay]="1000" label="Задержка появления (1с)"></extra-button>`
       }
     }
   }
@@ -168,7 +167,7 @@ export const EventFocus: Story = {
     props: args,
     template: `
 <input type="text"
-  [tooltip]="tooltip"
+  [extra-tooltip]="tooltip"
   [event]="event"
   [placeholder]="label || ''"
   style="padding: 0.5rem 1rem; border: 1px solid var(--p-surface-300); border-radius: var(--p-border-radius); outline: none; transition: border-color 0.2s; color: var(--p-text-color); background: var(--p-surface-0);"
@@ -188,7 +187,7 @@ export const EventFocus: Story = {
     docs: {
       description: { story: 'Подсказка может реагировать на фокус элемента вместо наведения.' },
       source: {
-        code: `<input type="text" tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
+        code: `<input type="text" extra-tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
       }
     }
   }

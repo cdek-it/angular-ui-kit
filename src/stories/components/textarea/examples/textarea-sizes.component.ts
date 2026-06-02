@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
+import { ExtraTextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
 export const Sizes: StoryObj = {
   name: 'Sizes',
@@ -8,41 +8,41 @@ export const Sizes: StoryObj = {
     const control = new FormControl('');
     return {
       props: { ...args, control },
-      template: `<ui-textarea [formControl]="control" [size]="size" [placeholder]="placeholder" [showClear]="showClear"></ui-textarea>`,
+      template: `<extra-textarea [formControl]="control" [size]="size" [placeholder]="placeholder" [showClear]="showClear"></extra-textarea>`
     };
   },
   args: {
     size: 'base',
-    placeholder: 'Введите текст...',
+    placeholder: 'Введите текст...'
   },
   argTypes: {
     size: {
       control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'],
-    },
+      options: ['small', 'base', 'large', 'xlarge']
+    }
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [TextareaComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraTextareaComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     docs: {
       description: {
-        story: 'Все доступные размеры компонента: small, base, large, xlarge. Выберите размер через Controls.',
+        story: 'Все доступные размеры компонента: small, base, large, xlarge. Выберите размер через Controls.'
       },
       source: {
         language: 'ts',
         code: `
-<ui-textarea size="small" placeholder="Введите текст..." [formControl]="control"></ui-textarea>
-<ui-textarea placeholder="Введите текст..." [formControl]="control"></ui-textarea>
-<ui-textarea size="large" placeholder="Введите текст..." [formControl]="control"></ui-textarea>
-<ui-textarea size="xlarge" placeholder="Введите текст..." [formControl]="control"></ui-textarea>
-        `,
-      },
-    },
-  },
+<extra-textarea size="small" placeholder="Введите текст..." [formControl]="control"></extra-textarea>
+<extra-textarea placeholder="Введите текст..." [formControl]="control"></extra-textarea>
+<extra-textarea size="large" placeholder="Введите текст..." [formControl]="control"></extra-textarea>
+<extra-textarea size="xlarge" placeholder="Введите текст..." [formControl]="control"></extra-textarea>
+        `
+      }
+    }
+  }
 };

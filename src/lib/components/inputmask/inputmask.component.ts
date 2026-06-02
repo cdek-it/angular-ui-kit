@@ -1,19 +1,28 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
 
 export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
 
-
 @Component({
-  selector: 'input-mask',
+  selector: 'extra-input-mask',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputMask, ReactiveFormsModule],
   host: {
     style: 'display: block',
-    '[class.input-mask-xlg]': 'size === "xlarge"',
+    '[class.input-mask-xlg]': 'size === "xlarge"'
   },
   template: `
     <p-inputmask
@@ -26,7 +35,6 @@ export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
       [readonly]="readonly"
       [placeholder]="placeholder"
       [fluid]="fluid"
-
       [characterPattern]="characterPattern"
       [keepBuffer]="keepBuffer"
       [invalid]="invalid"
@@ -39,9 +47,9 @@ export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
       (onKeydown)="onKeydownEvent.emit($event)"
       (onClear)="onClearEvent.emit($event)"
     ></p-inputmask>
-  `,
+  `
 })
-export class InputMaskComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
@@ -74,9 +82,7 @@ export class InputMaskComponent implements ControlValueAccessor, OnInit {
   ngOnInit(): void {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
 
-    this.control.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(v => this._onChange(v));
+    this.control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((v) => this._onChange(v));
   }
 
   get invalid(): boolean {

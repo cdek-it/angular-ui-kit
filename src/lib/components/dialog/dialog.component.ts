@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { PrimeTemplate } from 'primeng/api';
@@ -6,9 +6,10 @@ import { PrimeTemplate } from 'primeng/api';
 export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 
 @Component({
-  selector: 'dialog',
+  selector: 'extra-dialog',
   host: { style: 'display: contents' },
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Dialog, NgTemplateOutlet, PrimeTemplate],
   template: `
     <p-dialog
@@ -35,9 +36,9 @@ export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
         </ng-template>
       }
     </p-dialog>
-  `,
+  `
 })
-export class DialogComponent {
+export class ExtraDialogComponent {
   @Input() header = '';
   @Input() visible = false;
   @Input() modal = true;

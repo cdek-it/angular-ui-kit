@@ -1,27 +1,22 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
-import { InputMaskFloatLabelComponent, FloatLabelStory } from './examples/inputmask-float-label.component';
+import { ExtraInputMaskComponent } from '../../../lib/components/inputmask/inputmask.component';
+import { FloatLabelStory, InputMaskFloatLabelComponent } from './examples/inputmask-float-label.component';
 import { Sizes } from './examples/inputmask-sizes.component';
 import { Disabled } from './examples/inputmask-disabled.component';
 import { Readonly } from './examples/inputmask-readonly.component';
 import { Invalid } from './examples/inputmask-invalid.component';
 
-type InputMaskArgs = InputMaskComponent;
+type InputMaskArgs = ExtraInputMaskComponent;
 
 const meta: Meta<InputMaskArgs> = {
   title: 'Components/Form/InputMask',
-  component: InputMaskComponent,
+  component: ExtraInputMaskComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        InputMaskComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        InputMaskFloatLabelComponent,
-      ],
-    }),
+      imports: [ExtraInputMaskComponent, FormsModule, ReactiveFormsModule, InputMaskFloatLabelComponent]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-inputmask' },
@@ -30,10 +25,10 @@ const meta: Meta<InputMaskArgs> = {
         component: `Компонент текстового ввода по маске. Используется для ввода данных в определённом формате: дата, телефон, серийный номер и т.д.
 
 \`\`\`typescript
-import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
+    }
   },
   argTypes: {
     mask: {
@@ -42,8 +37,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     slotChar: {
       control: 'text',
@@ -51,8 +46,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'_'" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     unmask: {
       control: 'boolean',
@@ -60,8 +55,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     autoClear: {
       control: 'boolean',
@@ -69,8 +64,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showClear: {
       control: 'boolean',
@@ -78,8 +73,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     placeholder: {
       control: 'text',
@@ -87,8 +82,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -97,8 +92,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     readonly: {
       control: 'boolean',
@@ -106,8 +101,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -115,8 +110,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     characterPattern: {
       control: 'text',
@@ -124,8 +119,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'[A-Za-z]'" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     keepBuffer: {
       control: 'boolean',
@@ -133,8 +128,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     autocomplete: {
       control: 'text',
@@ -142,8 +137,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     control: { table: { disable: true } },
     invalid: { table: { disable: true } },
@@ -155,33 +150,33 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     onComplete: {
       control: false,
       description: 'Событие завершения ввода маски',
-      table: { category: 'Events', type: { summary: 'EventEmitter<void>' } },
+      table: { category: 'Events', type: { summary: 'EventEmitter<void>' } }
     },
     onFocusEvent: {
       control: false,
       description: 'Событие фокуса',
-      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } },
+      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } }
     },
     onBlurEvent: {
       control: false,
       description: 'Событие потери фокуса',
-      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } },
+      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } }
     },
     onInputEvent: {
       control: false,
       description: 'Событие ввода',
-      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } },
+      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } }
     },
     onKeydownEvent: {
       control: false,
       description: 'Событие нажатия клавиши',
-      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } },
+      table: { category: 'Events', type: { summary: 'EventEmitter<Event>' } }
     },
     onClearEvent: {
       control: false,
       description: 'Событие очистки поля',
-      table: { category: 'Events', type: { summary: 'EventEmitter<void>' } },
-    },
+      table: { category: 'Events', type: { summary: 'EventEmitter<void>' } }
+    }
   },
   args: {
     mask: '99-99-99',
@@ -192,8 +187,8 @@ import { InputMaskComponent } from '@cdek-it/angular-ui-kit';
     placeholder: '99-99-99',
     size: 'base',
     readonly: false,
-    fluid: false,
-  },
+    fluid: false
+  }
 };
 
 export default meta;
@@ -215,17 +210,17 @@ export const Default: Story = {
     if (args.fluid) parts.push(`[fluid]="true"`);
     parts.push(`[formControl]="control"`);
 
-    const template = `<input-mask\n  ${parts.join('\n  ')}\n></input-mask>`;
+    const template = `<extra-input-mask\n  ${parts.join('\n  ')}\n></extra-input-mask>`;
 
     return { props: { ...args, control: new FormControl('') }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 export { Sizes, FloatLabelStory as FloatLabel, Disabled, Readonly, Invalid };

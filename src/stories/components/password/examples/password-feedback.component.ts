@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></password>
+  <extra-password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-feedback',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
-  template,
+  imports: [ExtraPasswordComponent, FormsModule],
+  template
 })
 export class PasswordFeedbackComponent {
   value: string | null = null;
@@ -21,7 +21,7 @@ export class PasswordFeedbackComponent {
 
 export const Feedback: StoryObj = {
   render: () => ({
-    template: `<app-password-feedback></app-password-feedback>`,
+    template: `<app-password-feedback></app-password-feedback>`
   }),
   parameters: {
     docs: {
@@ -29,23 +29,21 @@ export const Feedback: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { PasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-feedback',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template: \`
-    <password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></password>
+    <extra-password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
   \`,
 })
 export class PasswordFeedbackComponent {
   value: string | null = null;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
 
-const template = `<megamenu [model]="items"></megamenu>`;
+const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
 
 @Component({
   selector: 'app-megamenu-horizontal',
   standalone: true,
-  imports: [MegaMenuComponent],
-  template,
+  imports: [ExtraMegaMenuComponent],
+  template
 })
 export class MegaMenuHorizontalComponent {
   items: MegaMenuModel[] = [
@@ -21,20 +21,20 @@ export class MegaMenuHorizontalComponent {
             items: [
               { label: 'Form', icon: 'ti ti-forms' },
               { label: 'Button', icon: 'ti ti-hand-click' },
-              { label: 'Table', icon: 'ti ti-table' },
-            ],
-          },
+              { label: 'Table', icon: 'ti ti-table' }
+            ]
+          }
         ],
         [
           {
             label: 'Charts',
             items: [
               { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
-              { label: 'Line Chart', icon: 'ti ti-chart-line' },
-            ],
-          },
-        ],
-      ],
+              { label: 'Line Chart', icon: 'ti ti-chart-line' }
+            ]
+          }
+        ]
+      ]
     },
     {
       label: 'Solutions',
@@ -45,16 +45,16 @@ export class MegaMenuHorizontalComponent {
             label: 'Business',
             items: [
               { label: 'Analytics', icon: 'ti ti-chart-dots' },
-              { label: 'CRM', icon: 'ti ti-users' },
-            ],
-          },
-        ],
-      ],
+              { label: 'CRM', icon: 'ti ti-users' }
+            ]
+          }
+        ]
+      ]
     },
     {
       label: 'Contact',
       icon: 'ti ti-mail',
-      disabled: true,
-    },
+      disabled: true
+    }
   ];
 }

@@ -1,22 +1,26 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { FloatLabel } from 'primeng/floatlabel';
-import { InputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
+import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 @Component({
   selector: 'app-inputtext-float-label',
   standalone: true,
-  imports: [InputTextComponent, FloatLabel, ReactiveFormsModule, NgIf],
+  imports: [ExtraInputTextComponent, FloatLabel, ReactiveFormsModule],
   template: `
-<div class="pt-6 w-64">
-  <p-floatlabel variant="in">
-    <input-text id="fl-name" [formControl]="control"></input-text>
-    <label for="fl-name">Имя<span *ngIf="required" class="text-red-500 ml-0.5">*</span></label>
-  </p-floatlabel>
-</div>
-`,
+    <div class="pt-6 w-64">
+      <p-floatlabel variant="in">
+        <extra-input-text id="fl-name" [formControl]="control"></extra-input-text>
+        <label for="fl-name"
+          >Имя
+          @if (required) {
+            <span class="text-red-500 ml-0.5">*</span>
+          }
+        </label>
+      </p-floatlabel>
+    </div>
+  `
 })
 export class InputTextFloatLabelComponent {
   control = new FormControl('');
@@ -51,16 +55,14 @@ export const FloatLabelStory: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextComponent } from '@cdek-it/angular-ui-kit';
-import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,
   imports: [InputTextComponent, FloatLabel, ReactiveFormsModule],
   template: \`
     <p-floatlabel variant="in">
-      <input-text id="fl-name" [formControl]="control"></input-text>
+      <extra-input-text id="fl-name" [formControl]="control"></extra-input-text>
       <label for="fl-name">Имя<span class="text-red-500 ml-0.5">*</span></label>
     </p-floatlabel>
   \`,

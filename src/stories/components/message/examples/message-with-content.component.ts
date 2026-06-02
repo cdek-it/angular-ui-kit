@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MessageComponent } from '../../../../lib/components/message/message.component';
+import { ExtraMessageComponent } from '../../../../lib/components/message/message.component';
 
 const template = `
 <div class="flex flex-col gap-4">
-  <ui-message severity="info" summary="Message" detail="caption" [closable]="true">
+  <extra-message severity="info" summary="Message" detail="caption" [closable]="true">
     <div class="mt-4">
       <div class="text-sm">CONTENT</div>
     </div>
@@ -12,8 +12,8 @@ const template = `
       <div class="text-sm">Cell 1</div>
       <div class="text-sm">Cell 2</div>
     </div>
-  </ui-message>
-  <ui-message severity="success" summary="Message" detail="caption" [closable]="true">
+  </extra-message>
+  <extra-message severity="success" summary="Message" detail="caption" [closable]="true">
     <div class="mt-4">
       <div class="text-sm">CONTENT</div>
     </div>
@@ -21,8 +21,8 @@ const template = `
       <div class="text-sm">Cell 1</div>
       <div class="text-sm">Cell 2</div>
     </div>
-  </ui-message>
-  <ui-message severity="warn" summary="Message" detail="caption" [closable]="true">
+  </extra-message>
+  <extra-message severity="warn" summary="Message" detail="caption" [closable]="true">
     <div class="mt-4">
       <div class="text-sm">CONTENT</div>
     </div>
@@ -30,8 +30,8 @@ const template = `
       <div class="text-sm">Cell 1</div>
       <div class="text-sm">Cell 2</div>
     </div>
-  </ui-message>
-  <ui-message severity="error" summary="Message" detail="caption" [closable]="true">
+  </extra-message>
+  <extra-message severity="error" summary="Message" detail="caption" [closable]="true">
     <div class="mt-4">
       <div class="text-sm">CONTENT</div>
     </div>
@@ -39,21 +39,21 @@ const template = `
       <div class="text-sm">Cell 1</div>
       <div class="text-sm">Cell 2</div>
     </div>
-  </ui-message>
+  </extra-message>
 </div>
 `;
 
 @Component({
   selector: 'app-message-with-content',
   standalone: true,
-  imports: [MessageComponent],
-  template,
+  imports: [ExtraMessageComponent],
+  template
 })
 export class MessageWithContentComponent {}
 
 export const WithContent: StoryObj = {
   render: () => ({
-    template: `<app-message-with-content></app-message-with-content>`,
+    template: `<app-message-with-content></app-message-with-content>`
   }),
   parameters: {
     controls: { disable: true },
@@ -62,7 +62,7 @@ export const WithContent: StoryObj = {
       source: {
         language: 'html',
         code: `
-<ui-message severity="info" summary="Message" detail="caption" [closable]="true">
+<extra-message severity="info" summary="Message" detail="caption" [closable]="true">
   <div class="mt-4">
     <div class="text-sm">CONTENT</div>
   </div>
@@ -70,9 +70,9 @@ export const WithContent: StoryObj = {
     <div class="text-sm">Cell 1</div>
     <div class="text-sm">Cell 2</div>
   </div>
-</ui-message>
-        `,
-      },
-    },
-  },
+</extra-message>
+        `
+      }
+    }
+  }
 };

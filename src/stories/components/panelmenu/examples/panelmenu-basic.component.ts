@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
-import { PanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
+import { ExtraPanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
 
 const template = `
 <div class="bg-surface-ground" style="width: 280px">
-  <panelmenu [model]="items"></panelmenu>
+  <extra-panelmenu [model]="items"></extra-panelmenu>
 </div>
 `;
 const styles = '';
@@ -13,9 +13,9 @@ const styles = '';
 @Component({
   selector: 'app-panelmenu-basic',
   standalone: true,
-  imports: [PanelMenuComponent],
+  imports: [ExtraPanelMenuComponent],
   template,
-  styles,
+  styles
 })
 export class PanelMenuBasicComponent {
   items: MenuItem[] = [
@@ -25,25 +25,21 @@ export class PanelMenuBasicComponent {
         { label: 'Новые' },
         { label: 'В пути' },
         { label: 'Доставленные' },
-        { label: 'Возвраты', items: [{ label: 'Ожидают' }, { label: 'Завершённые' }] },
-      ],
+        { label: 'Возвраты', items: [{ label: 'Ожидают' }, { label: 'Завершённые' }] }
+      ]
     },
     { label: 'Маршруты' },
     {
       label: 'Склады',
-      items: [
-        { label: 'Москва' },
-        { label: 'Новосибирск' },
-        { label: 'Екатеринбург' },
-      ],
+      items: [{ label: 'Москва' }, { label: 'Новосибирск' }, { label: 'Екатеринбург' }]
     },
-    { label: 'Настройки', disabled: true },
+    { label: 'Настройки', disabled: true }
   ];
 }
 
 export const Basic: StoryObj = {
   render: () => ({
-    template: `<app-panelmenu-basic></app-panelmenu-basic>`,
+    template: `<app-panelmenu-basic></app-panelmenu-basic>`
   }),
   parameters: {
     docs: {
@@ -51,16 +47,14 @@ export const Basic: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PanelMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-panelmenu-basic',
   standalone: true,
-  imports: [PanelMenuComponent],
+  imports: [ExtraPanelMenuComponent],
   template: \`
-    <panelmenu [model]="items"></panelmenu>
+    <extra-panelmenu [model]="items"></extra-panelmenu>
   \`,
 })
 export class PanelMenuBasicComponent {
@@ -86,8 +80,8 @@ export class PanelMenuBasicComponent {
     { label: 'Настройки', disabled: true },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
