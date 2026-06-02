@@ -188,7 +188,6 @@ const commonTemplate = `
   [placeholder]="placeholder"
   [dateFormat]="dateFormat"
 ></extra-date-picker>
-<p style="margin-top:8px;font-size:13px;color:#666">Значение: {{ control.value ?? 'не выбрано' }}</p>
 `;
 
 export default meta;
@@ -211,7 +210,7 @@ export const Default: Story = {
     if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
 
-    const template = `<extra-date-picker\n  ${parts.join('\n  ')}\n></extra-date-picker>\n<p style="margin-top:8px;font-size:13px;color:#666">Значение: {{ control.value ?? 'не выбрано' }}</p>`;
+    const template = `<extra-date-picker\n  ${parts.join('\n  ')}\n></extra-date-picker>`;
 
     return {
       props: { ...args, control: new FormControl<Date | null>(null) },

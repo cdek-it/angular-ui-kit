@@ -8,7 +8,6 @@ const template = `
   [showTime]="true"
   placeholder="Дата и время отправки"
 ></extra-date-picker>
-<p style="margin-top:8px;font-size:13px;color:#666">Значение: {{ dateControl.value ?? 'не выбрано' }}</p>
 `;
 
 @Component({
