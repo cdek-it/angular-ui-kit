@@ -24,6 +24,30 @@ import { carouselCss } from './tokens/components/carousel';
 import { galleriaCss } from './tokens/components/galleria';
 import { confirmDialogCss } from './tokens/components/confirm-dialog';
 import { drawerCss } from './tokens/components/drawer';
+import { datePickerCss } from './tokens/components/date-picker';
+import { accordionCss } from './tokens/components/accordion';
+import { badgeCss } from './tokens/components/badge';
+import { chipCss } from './tokens/components/chip';
+import { dataTableCss } from './tokens/components/data-table';
+import { dialogCss } from './tokens/components/dialog';
+import { dividerCss } from './tokens/components/divider';
+import { inputnumberCss } from './tokens/components/inputnumber';
+import { listboxCss } from './tokens/components/listbox';
+import { menuCss } from './tokens/components/menu';
+import { metergroupCss } from './tokens/components/metergroup';
+import { paginatorCss } from './tokens/components/paginator';
+import { panelmenuCss } from './tokens/components/panelmenu';
+import { progressbarCss } from './tokens/components/progressbar';
+import { radiobuttonCss } from './tokens/components/radiobutton';
+import { scrollPanelCss } from './tokens/components/scroll-panel';
+import { skeletonCss } from './tokens/components/skeleton';
+import { sliderCss } from './tokens/components/slider';
+import { stepperCss } from './tokens/components/stepper';
+import { tabsCss } from './tokens/components/tabs';
+import { tieredmenuCss } from './tokens/components/tieredmenu';
+import { timelineCss } from './tokens/components/timeline';
+import { toastCss } from './tokens/components/toast';
+import { toggleswitchCss } from './tokens/components/toggleswitch';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -108,6 +132,102 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     drawer: {
       ...(tokens.components.drawer as unknown as ComponentsDesignTokens['drawer']),
       css: drawerCss
+    },
+    datepicker: {
+      ...(tokens.components.datepicker as unknown as ComponentsDesignTokens['datepicker']),
+      css: datePickerCss
+    },
+    accordion: {
+      ...(tokens.components.accordion as unknown as ComponentsDesignTokens['accordion']),
+      css: accordionCss
+    },
+    badge: {
+      ...(tokens.components.badge as unknown as ComponentsDesignTokens['badge']),
+      css: badgeCss
+    },
+    chip: {
+      ...(tokens.components.chip as unknown as ComponentsDesignTokens['chip']),
+      css: chipCss
+    },
+    datatable: {
+      ...(tokens.components.datatable as unknown as ComponentsDesignTokens['datatable']),
+      css: dataTableCss
+    },
+    dialog: {
+      ...(tokens.components.dialog as unknown as ComponentsDesignTokens['dialog']),
+      css: dialogCss
+    },
+    divider: {
+      ...(tokens.components.divider as unknown as ComponentsDesignTokens['divider']),
+      css: dividerCss
+    },
+    inputnumber: {
+      ...(tokens.components.inputnumber as unknown as ComponentsDesignTokens['inputnumber']),
+      css: inputnumberCss
+    },
+    listbox: {
+      ...(tokens.components.listbox as unknown as ComponentsDesignTokens['listbox']),
+      css: listboxCss
+    },
+    menu: {
+      ...(tokens.components.menu as unknown as ComponentsDesignTokens['menu']),
+      css: menuCss
+    },
+    metergroup: {
+      ...(tokens.components.metergroup as unknown as ComponentsDesignTokens['metergroup']),
+      css: metergroupCss
+    },
+    paginator: {
+      ...(tokens.components.paginator as unknown as ComponentsDesignTokens['paginator']),
+      css: paginatorCss
+    },
+    panelmenu: {
+      ...(tokens.components.panelmenu as unknown as ComponentsDesignTokens['panelmenu']),
+      css: panelmenuCss
+    },
+    progressbar: {
+      ...(tokens.components.progressbar as unknown as ComponentsDesignTokens['progressbar']),
+      css: progressbarCss
+    },
+    radiobutton: {
+      ...(tokens.components.radiobutton as unknown as ComponentsDesignTokens['radiobutton']),
+      css: radiobuttonCss
+    },
+    scrollpanel: {
+      ...(tokens.components.scrollpanel as unknown as ComponentsDesignTokens['scrollpanel']),
+      css: scrollPanelCss
+    },
+    skeleton: {
+      ...(tokens.components.skeleton as unknown as ComponentsDesignTokens['skeleton']),
+      css: skeletonCss
+    },
+    slider: {
+      ...(tokens.components.slider as unknown as ComponentsDesignTokens['slider']),
+      css: sliderCss
+    },
+    stepper: {
+      ...(tokens.components.stepper as unknown as ComponentsDesignTokens['stepper']),
+      css: stepperCss
+    },
+    tabs: {
+      ...(tokens.components.tabs as unknown as ComponentsDesignTokens['tabs']),
+      css: tabsCss
+    },
+    tieredmenu: {
+      ...(tokens.components.tieredmenu as unknown as ComponentsDesignTokens['tieredmenu']),
+      css: tieredmenuCss
+    },
+    timeline: {
+      ...(tokens.components.timeline as unknown as ComponentsDesignTokens['timeline']),
+      css: timelineCss
+    },
+    toast: {
+      ...(tokens.components.toast as unknown as ComponentsDesignTokens['toast']),
+      css: toastCss
+    },
+    toggleswitch: {
+      ...(tokens.components.toggleswitch as unknown as ComponentsDesignTokens['toggleswitch']),
+      css: toggleswitchCss
     }
   } as ComponentsDesignTokens
 };
