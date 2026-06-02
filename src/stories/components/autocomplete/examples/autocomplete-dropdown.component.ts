@@ -52,8 +52,8 @@ export const Dropdown: StoryObj<ExtraAutoCompleteComponent> = {
       ...args,
       value: null,
       filtered: [] as string[],
-      search: (event: any) => {
-        props['filtered'] = CITIES.filter(c =>
+      search(this: any, event: any) {
+        this.filtered = CITIES.filter(c =>
           c.toLowerCase().includes((event.query || '').toLowerCase())
         );
       },
