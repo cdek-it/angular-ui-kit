@@ -1,13 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Skeleton } from 'primeng/skeleton';
 
 export type SkeletonShape = 'rectangle' | 'circle';
 export type SkeletonAnimation = 'wave' | 'none';
 
 @Component({
-  selector: 'skeleton',
+  selector: 'extra-skeleton',
   host: { style: 'display: block' },
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Skeleton],
   template: `
     <p-skeleton
@@ -18,9 +19,9 @@ export type SkeletonAnimation = 'wave' | 'none';
       [size]="size"
       [borderRadius]="borderRadius"
     ></p-skeleton>
-  `,
+  `
 })
-export class SkeletonComponent {
+export class ExtraSkeletonComponent {
   @Input() shape: SkeletonShape = 'rectangle';
   @Input() animation: SkeletonAnimation = 'wave';
   @Input() width = '100%';

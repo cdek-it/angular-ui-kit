@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { RadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
+import { ExtraRadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
 
 const template = `
 <div class="bg-surface-ground flex flex-col gap-3">
   <div class="flex items-center gap-2">
-    <radiobutton inputId="rd1" name="dis" value="1" [disabled]="true" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rd1" name="dis" value="1" [disabled]="true" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rd1">Опция 1</label>
   </div>
   <div class="flex items-center gap-2">
-    <radiobutton inputId="rd2" name="dis" value="2" [disabled]="true" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton inputId="rd2" name="dis" value="2" [disabled]="true" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rd2">Опция 2</label>
   </div>
 </div>
@@ -19,7 +19,8 @@ const template = `
 @Component({
   selector: 'app-radiobutton-disabled',
   standalone: true,
-  imports: [RadiobuttonComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraRadiobuttonComponent, FormsModule],
   template,
 })
 export class RadiobuttonDisabledComponent {
@@ -37,16 +38,16 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { RadiobuttonComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-radiobutton-disabled',
   standalone: true,
-  imports: [RadiobuttonComponent, FormsModule],
+  imports: [ExtraRadiobuttonComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <radiobutton name="dis" value="1" [disabled]="true" [(ngModel)]="selected"></radiobutton>
-    <radiobutton name="dis" value="2" [disabled]="true" [(ngModel)]="selected"></radiobutton>
+    <extra-radiobutton name="dis" value="1" [disabled]="true" [(ngModel)]="selected"></extra-radiobutton>
+    <extra-radiobutton name="dis" value="2" [disabled]="true" [(ngModel)]="selected"></extra-radiobutton>
   \`,
 })
 export class RadiobuttonDisabledComponent {

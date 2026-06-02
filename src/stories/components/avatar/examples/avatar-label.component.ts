@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { AvatarComponent } from '../../../../lib/components/avatar/avatar.component';
+import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex items-center gap-4">
-    <avatar label="P"></avatar>
-    <avatar label="V" size="large"></avatar>
-    <avatar label="U" size="xlarge"></avatar>
+    <extra-avatar label="P"></extra-avatar>
+    <extra-avatar label="V" size="large"></extra-avatar>
+    <extra-avatar label="U" size="xlarge"></extra-avatar>
   </div>
 </div>
 `;
@@ -16,42 +16,44 @@ const styles = '';
 @Component({
   selector: 'app-avatar-label',
   standalone: true,
-  imports: [AvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraAvatarComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarLabelComponent {}
 
 export const Label: StoryObj = {
   render: () => ({
-    template: `<app-avatar-label></app-avatar-label>`,
+    template: `<app-avatar-label></app-avatar-label>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Аватары с текстовой меткой разных размеров.',
+        story: 'Аватары с текстовой меткой разных размеров.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { AvatarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-avatar-label',
   standalone: true,
-  imports: [AvatarComponent],
+  imports: [ExtraAvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
     <div class="flex items-center gap-4">
-      <avatar label="P"></avatar>
-      <avatar label="V" size="large"></avatar>
-      <avatar label="U" size="xlarge"></avatar>
+      <extra-avatar label="P"></extra-avatar>
+      <extra-avatar label="V" size="large"></extra-avatar>
+      <extra-avatar label="U" size="xlarge"></extra-avatar>
     </div>
   \`,
 })
 export class AvatarLabelComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

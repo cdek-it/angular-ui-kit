@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectComponent } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
   { name: 'Санкт-Петербург', code: 'SPB' },
-  { name: 'Екатеринбург', code: 'EKB' },
+  { name: 'Екатеринбург', code: 'EKB' }
 ];
 
 const template = `
 <div class="pt-6 w-64">
-  <select-field
+  <extra-select
     inputId="select-fl"
     [formControl]="control"
     [options]="options"
@@ -20,7 +20,7 @@ const template = `
     [label]="label"
     [showClear]="showClear"
     [readonly]="readonly"
-  ></select-field>
+  ></extra-select>
 </div>
 `;
 const styles = '';
@@ -28,9 +28,9 @@ const styles = '';
 @Component({
   selector: 'app-select-float-label',
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectFloatLabelComponent {
   @Input() showClear = false;
@@ -53,30 +53,36 @@ export class SelectFloatLabelComponent {
 export const FloatLabelStory = {
   name: 'FloatLabel',
   render: (args: any) => ({
-    props: { showClear: args['showClear'], label: 'Город', readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-float-label [showClear]="showClear" [label]="label" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-float-label>`,
+    props: {
+      showClear: args['showClear'],
+      label: 'Город',
+      readonly: args['readonly'],
+      disabled: args['disabled'],
+      invalid: args['invalid']
+    },
+    template: `<app-select-float-label [showClear]="showClear" [label]="label" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-float-label>`
   }),
   argTypes: {
-    size: { table: { disable: true } },
+    size: { table: { disable: true } }
   },
   parameters: {
     docs: {
       description: {
-        story: 'Плавающая метка внутри поля. Используйте пропс `floatLabel` для встроенной интеграции с `p-floatlabel`.',
+        story: 'Плавающая метка внутри поля. Используйте пропс `floatLabel` для встроенной интеграции с `p-floatlabel`.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [SelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ReactiveFormsModule],
   template: \`
     <div class="pt-6 w-64">
-      <select-field
+      <extra-select
         inputId="select-fl"
         [formControl]="control"
         [options]="options"
@@ -84,7 +90,7 @@ import { SelectComponent } from '@cdek-it/angular-ui-kit';
         [floatLabel]="true"
         label="Город"
         [showClear]="true"
-      ></select-field>
+      ></extra-select>
     </div>
   \`,
 })
@@ -96,8 +102,8 @@ export class SelectFloatLabelExample {
     { name: 'Санкт-Петербург', code: 'SPB' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

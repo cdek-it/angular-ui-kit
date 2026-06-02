@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { MeterGroup, MeterItem } from 'primeng/metergroup';
 
 export type MeterGroupOrientation = 'horizontal' | 'vertical';
@@ -6,8 +6,9 @@ export type MeterGroupLabelPosition = 'start' | 'end';
 export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
 
 @Component({
-  selector: 'metergroup',
+  selector: 'extra-metergroup',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MeterGroup],
   template: `
     <p-metergroup
@@ -16,9 +17,9 @@ export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
       [labelPosition]="labelPosition"
       [labelOrientation]="labelOrientation"
     ></p-metergroup>
-  `,
+  `
 })
-export class MeterGroupComponent {
+export class ExtraMeterGroupComponent {
   @Input() value: MeterItem[] = [];
   @Input() orientation: MeterGroupOrientation = 'horizontal';
   @Input() labelPosition: MeterGroupLabelPosition = 'end';

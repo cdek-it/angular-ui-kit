@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
+import { ExtraTextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
 export const Readonly: StoryObj = {
   name: 'Readonly',
@@ -8,16 +8,16 @@ export const Readonly: StoryObj = {
     const control = new FormControl('Только для чтения — этот текст нельзя изменить.');
     return {
       props: { ...args, control },
-      template: `<ui-textarea [formControl]="control" [readonly]="true" placeholder="Введите текст..."></ui-textarea>`,
+      template: `<extra-textarea [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-textarea>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [TextareaComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraTextareaComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -27,19 +27,18 @@ export const Readonly: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TextareaComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [TextareaComponent, ReactiveFormsModule],
-  template: \`<ui-textarea [formControl]="control" [readonly]="true"></ui-textarea>\`,
+  imports: [ExtraTextareaComponent, ReactiveFormsModule],
+  template: \`<extra-textarea [formControl]="control" [readonly]="true"></extra-textarea>\`,
 })
 export class ReadonlyExample {
   control = new FormControl('Только для чтения.');
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

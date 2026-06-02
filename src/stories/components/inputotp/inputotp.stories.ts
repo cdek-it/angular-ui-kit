@@ -1,25 +1,22 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
+import { ExtraInputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
 import { Disabled } from './examples/inputotp-disabled.component';
 import { Invalid } from './examples/inputotp-invalid.component';
 import { Mask } from './examples/inputotp-mask.component';
 import { Readonly } from './examples/inputotp-readonly.component';
 import { IntegerOnly } from './examples/inputotp-integeronly.component';
 
-type InputOtpArgs = InputOtpComponent;
+type InputOtpArgs = ExtraInputOtpComponent;
 
 const meta: Meta<InputOtpArgs> = {
   title: 'Components/Form/InputOtp',
-  component: InputOtpComponent,
+  component: ExtraInputOtpComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        InputOtpComponent,
-        ReactiveFormsModule,
-      ],
-    }),
+      imports: [ExtraInputOtpComponent, ReactiveFormsModule]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-inputotp' },
@@ -28,10 +25,10 @@ const meta: Meta<InputOtpArgs> = {
         component: `Компонент для ввода одноразовых паролей (OTP).
 
 \`\`\`typescript
-import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
+    }
   },
   argTypes: {
     length: {
@@ -40,8 +37,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '4' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     mask: {
       control: 'boolean',
@@ -49,8 +46,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     integerOnly: {
       control: 'boolean',
@@ -58,8 +55,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     size: {
       control: 'select',
@@ -68,8 +65,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
 
     readonly: {
@@ -78,8 +75,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     tabindex: {
       control: 'number',
@@ -87,8 +84,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'null' },
-        type: { summary: 'number | null' },
-      },
+        type: { summary: 'number | null' }
+      }
     },
     autofocus: {
       control: 'boolean',
@@ -96,8 +93,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
 
     // Hidden props
@@ -117,25 +114,25 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие изменения значения',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<InputOtpChangeEvent>' },
-      },
+        type: { summary: 'EventEmitter<InputOtpChangeEvent>' }
+      }
     },
     onFocus: {
       control: false,
       description: 'Событие фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
+        type: { summary: 'EventEmitter<Event>' }
+      }
     },
     onBlur: {
       control: false,
       description: 'Событие потери фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
-    },
+        type: { summary: 'EventEmitter<Event>' }
+      }
+    }
   },
   args: {
     length: 4,
@@ -144,8 +141,8 @@ import { InputOtpComponent } from '@cdek-it/angular-ui-kit';
     readonly: false,
     autofocus: false,
     tabindex: null,
-    size: 'base' as const,
-  },
+    size: 'base' as const
+  }
 };
 
 export default meta;
@@ -165,17 +162,17 @@ export const Default: Story = {
     if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
     parts.push(`[formControl]="control"`);
 
-    const template = `<input-otp\n  ${parts.join('\n  ')}\n></input-otp>`;
+    const template = `<extra-input-otp\n  ${parts.join('\n  ')}\n></extra-input-otp>`;
 
     return { props: { ...args, control: new FormControl('') }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 export { Disabled, Readonly, Invalid, Mask, IntegerOnly };

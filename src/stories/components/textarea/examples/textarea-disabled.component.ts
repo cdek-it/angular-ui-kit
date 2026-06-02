@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { TextareaComponent } from '../../../../lib/components/textarea/textarea.component';
+import { ExtraTextareaComponent } from '../../../../lib/components/textarea/textarea.component';
 
 export const Disabled: StoryObj = {
   name: 'Disabled',
@@ -8,16 +8,16 @@ export const Disabled: StoryObj = {
     const control = new FormControl({ value: 'Текст в заблокированном поле', disabled: true });
     return {
       props: { ...args, control },
-      template: `<ui-textarea [formControl]="control" placeholder="Введите текст..."></ui-textarea>`,
+      template: `<extra-textarea [formControl]="control" placeholder="Введите текст..."></extra-textarea>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [TextareaComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraTextareaComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -27,19 +27,18 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TextareaComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [TextareaComponent, ReactiveFormsModule],
-  template: \`<ui-textarea [formControl]="control" placeholder="Введите текст..."></ui-textarea>\`,
+  imports: [ExtraTextareaComponent, ReactiveFormsModule],
+  template: \`<extra-textarea [formControl]="control" placeholder="Введите текст..."></extra-textarea>\`,
 })
 export class DisabledExample {
   control = new FormControl({ value: '', disabled: true });
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

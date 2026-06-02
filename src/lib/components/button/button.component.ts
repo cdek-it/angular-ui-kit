@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
@@ -9,8 +9,9 @@ export type BadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'seconda
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 
 @Component({
-  selector: 'button',
+  selector: 'extra-button',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   template: `
     <p-button
@@ -35,7 +36,7 @@ type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
     ></p-button>
   `
 })
-export class ButtonComponent {
+export class ExtraButtonComponent {
   @Input() label = 'Button';
   @Input() variant: ButtonVariant = 'primary';
   @Input() severity: ButtonSeverity = null;

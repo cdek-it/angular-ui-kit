@@ -13,7 +13,7 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
 }
 
 @Component({
-  selector: 'megamenu',
+  selector: 'extra-megamenu',
   host: { style: 'display: contents' },
   standalone: true,
   imports: [MegaMenu, PrimeTemplate, NgTemplateOutlet, Badge],
@@ -30,8 +30,10 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
     >
       <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
         @if (itemTemplate) {
-          <ng-container [ngTemplateOutlet]="itemTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item, hasSubmenu: hasSubmenu }">
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item, hasSubmenu: hasSubmenu }"
+          >
           </ng-container>
         } @else {
           <a
@@ -63,10 +65,10 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
         }
       </ng-template>
     </p-megamenu>
-  `,
+  `
 })
-export class MegaMenuComponent {
-  @Input() model: MegaMenuModel[] = [];
+export class ExtraMegaMenuComponent {
+  @Input() model: MegaMenuItem[] = [];
   @Input() orientation: MegaMenuOrientation = 'horizontal';
   @Input() breakpoint: string = '960px';
   @Input() scrollHeight: string = '';

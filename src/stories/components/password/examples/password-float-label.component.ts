@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { PasswordComponent } from '../../../../lib/components/password/password.component';
+import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 @Component({
   selector: 'app-password-float-label',
   standalone: true,
-  imports: [PasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, FormsModule],
   template: `
     <div class="pt-6 w-64">
-      <password
+      <extra-password
         [floatLabel]="true"
         [label]="label"
         [toggleMask]="toggleMask"
@@ -20,9 +20,9 @@ import { PasswordComponent } from '../../../../lib/components/password/password.
         [placeholder]="placeholder"
         [inputId]="'fl-password'"
         [(ngModel)]="value"
-      ></password>
+      ></extra-password>
     </div>
-  `,
+  `
 })
 export class PasswordFloatLabelComponent {
   @Input() feedback = true;
@@ -71,7 +71,7 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
       },
       source: {
         language: 'html',
-        code: `<password [floatLabel]="true" label="Пароль" inputId="fl-password" [(ngModel)]="value"></password>`,
+        code: `<extra-password [floatLabel]="true" label="Пароль" inputId="fl-password" [(ngModel)]="value"></extra-password>`,
       },
     },
   },
