@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { AutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
+import { ExtraAutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
 
 @Component({
   selector: 'app-autocomplete-disabled',
   standalone: true,
-  imports: [AutoCompleteComponent, FormsModule],
+  imports: [ExtraAutoCompleteComponent, FormsModule],
   template: `
     <div style="width: 320px">
-      <auto-complete [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></auto-complete>
+      <extra-auto-complete [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></extra-auto-complete>
     </div>
   `,
 })
@@ -29,14 +29,14 @@ export const Disabled: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-autocomplete-disabled',
   standalone: true,
-  imports: [AutoCompleteComponent, FormsModule],
+  imports: [ExtraAutoCompleteComponent, FormsModule],
   template: \`
-    <auto-complete [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></auto-complete>
+    <extra-auto-complete [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></extra-auto-complete>
   \`,
 })
 export class AutoCompleteDisabledComponent {

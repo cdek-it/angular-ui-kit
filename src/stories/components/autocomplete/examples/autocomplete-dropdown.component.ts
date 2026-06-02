@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { AutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
+import { ExtraAutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
 
 const CITIES = ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Самара', 'Омск'];
 
 @Component({
   selector: 'app-autocomplete-dropdown',
   standalone: true,
-  imports: [AutoCompleteComponent, FormsModule],
+  imports: [ExtraAutoCompleteComponent, FormsModule],
   template: `
-    <auto-complete
+    <extra-auto-complete
       [suggestions]="filtered"
       [dropdown]="true"
       [completeOnFocus]="true"
       placeholder="Выберите город"
       (completeMethod)="search($event)"
       [(ngModel)]="value"
-    ></auto-complete>
+    ></extra-auto-complete>
   `,
 })
 export class AutoCompleteDropdownComponent {
@@ -31,7 +31,7 @@ export class AutoCompleteDropdownComponent {
   }
 }
 
-export const Dropdown: StoryObj<AutoCompleteComponent> = {
+export const Dropdown: StoryObj<ExtraAutoCompleteComponent> = {
   render: (args) => {
     const parts: string[] = [];
 
@@ -46,7 +46,7 @@ export const Dropdown: StoryObj<AutoCompleteComponent> = {
     if (args.invalid)                      parts.push(`[invalid]="true"`);
     if (args.fluid)                        parts.push(`[fluid]="true"`);
 
-    const template = `<auto-complete\n  ${parts.join('\n  ')}\n></auto-complete>`;
+    const template = `<extra-auto-complete\n  ${parts.join('\n  ')}\n></extra-auto-complete>`;
 
     const props: Record<string, any> = {
       ...args,
@@ -75,21 +75,21 @@ export const Dropdown: StoryObj<AutoCompleteComponent> = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-autocomplete-dropdown',
   standalone: true,
-  imports: [AutoCompleteComponent, FormsModule],
+  imports: [ExtraAutoCompleteComponent, FormsModule],
   template: \`
-    <auto-complete
+    <extra-auto-complete
       [suggestions]="filtered"
       [dropdown]="true"
       [completeOnFocus]="true"
       placeholder="Выберите город"
       (completeMethod)="search($event)"
       [(ngModel)]="value"
-    ></auto-complete>
+    ></extra-auto-complete>
   \`,
 })
 export class AutoCompleteDropdownComponent {

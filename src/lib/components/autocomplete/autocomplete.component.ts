@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, comput
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent, AutoCompleteDropdownClickEvent } from 'primeng/autocomplete';
 
-export type AutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraAutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'auto-complete',
+  selector: 'extra-auto-complete',
   host: { style: 'display: block' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,7 +13,7 @@ export type AutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AutoCompleteComponent),
+      useExisting: forwardRef(() => ExtraAutoCompleteComponent),
       multi: true,
     },
   ],
@@ -60,7 +60,7 @@ export type AutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
     ></p-autocomplete>
   `,
 })
-export class AutoCompleteComponent implements ControlValueAccessor {
+export class ExtraAutoCompleteComponent implements ControlValueAccessor {
   @Input() suggestions: any[] = [];
   @Input() optionLabel: string | undefined = undefined;
   @Input() optionValue: string | undefined = undefined;
@@ -79,9 +79,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() delay = 300;
   @Input() scrollHeight = '200px';
   @Input() emptyMessage: string | undefined = undefined;
-  private _size = signal<AutoCompleteSize>('base');
-  @Input() set size(v: AutoCompleteSize) { this._size.set(v); }
-  get size(): AutoCompleteSize { return this._size(); }
+  private _size = signal<ExtraAutoCompleteSize>('base');
+  @Input() set size(v: ExtraAutoCompleteSize) { this._size.set(v); }
+  get size(): ExtraAutoCompleteSize { return this._size(); }
   @Input() disabled = false;
   @Input() readonly = false;
   @Input() invalid = false;

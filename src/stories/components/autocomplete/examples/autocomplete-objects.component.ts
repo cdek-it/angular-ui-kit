@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { AutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
+import { ExtraAutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
 
 interface City {
   name: string;
@@ -11,17 +11,17 @@ interface City {
 @Component({
   selector: 'app-autocomplete-objects',
   standalone: true,
-  imports: [AutoCompleteComponent, FormsModule],
+  imports: [ExtraAutoCompleteComponent, FormsModule],
   template: `
     <div style="width: 320px">
-      <auto-complete
+      <extra-auto-complete
         [suggestions]="filtered"
         optionLabel="name"
         [forceSelection]="true"
         placeholder="Поиск по объектам"
         (completeMethod)="search($event)"
         [(ngModel)]="value"
-      ></auto-complete>
+      ></extra-auto-complete>
     </div>
   `,
 })
@@ -55,7 +55,7 @@ export const Objects: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
 
 interface City {
   name: string;
@@ -65,16 +65,16 @@ interface City {
 @Component({
   selector: 'app-autocomplete-objects',
   standalone: true,
-  imports: [AutoCompleteComponent, FormsModule],
+  imports: [ExtraAutoCompleteComponent, FormsModule],
   template: \`
-    <auto-complete
+    <extra-auto-complete
       [suggestions]="filtered"
       optionLabel="name"
       [forceSelection]="true"
       placeholder="Поиск по объектам"
       (completeMethod)="search($event)"
       [(ngModel)]="value"
-    ></auto-complete>
+    ></extra-auto-complete>
   \`,
 })
 export class AutoCompleteObjectsComponent {

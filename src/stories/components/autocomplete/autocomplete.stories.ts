@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteComponent } from '../../../lib/components/autocomplete/autocomplete.component';
+import { ExtraAutoCompleteComponent } from '../../../lib/components/autocomplete/autocomplete.component';
 import { AutoCompleteDropdownComponent, Dropdown } from './examples/autocomplete-dropdown.component';
 import { AutoCompleteMultipleComponent, Multiple } from './examples/autocomplete-multiple.component';
 import { AutoCompleteObjectsComponent, Objects } from './examples/autocomplete-objects.component';
@@ -9,14 +9,14 @@ import { AutoCompleteInvalidComponent, Invalid } from './examples/autocomplete-i
 
 const CITIES = ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Самара', 'Омск'];
 
-const meta: Meta<AutoCompleteComponent> = {
+const meta: Meta<ExtraAutoCompleteComponent> = {
   title: 'Components/Form/AutoComplete',
-  component: AutoCompleteComponent,
+  component: ExtraAutoCompleteComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        AutoCompleteComponent,
+        ExtraAutoCompleteComponent,
         FormsModule,
         AutoCompleteDropdownComponent,
         AutoCompleteMultipleComponent,
@@ -33,7 +33,7 @@ const meta: Meta<AutoCompleteComponent> = {
         component: `Поле ввода с автодополнением, поддерживающее одиночный и множественный выбор, объекты, кнопку выпадающего списка и фильтрацию.
 
 \`\`\`typescript
-import { AutoCompleteComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
       story: { height: '300px' },
@@ -218,7 +218,7 @@ import { AutoCompleteComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<AutoCompleteComponent>;
+type Story = StoryObj<ExtraAutoCompleteComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
@@ -240,7 +240,7 @@ export const Default: Story = {
     parts.push(`(completeMethod)="search($event)"`);
     parts.push(`[(ngModel)]="value"`);
 
-    const template = `<auto-complete\n  ${parts.join('\n  ')}\n></auto-complete>`;
+    const template = `<extra-auto-complete\n  ${parts.join('\n  ')}\n></extra-auto-complete>`;
 
     const props: Record<string, any> = {
       ...args,
