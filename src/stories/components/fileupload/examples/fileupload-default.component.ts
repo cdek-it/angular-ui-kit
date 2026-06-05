@@ -16,7 +16,7 @@ import { FileUploadComponent } from '../../../../lib/components/fileupload/fileu
 })
 export class FileUploadDefaultComponent {
   @Input() multiple = true;
-  @Input() accept = 'image/*,.pdf,.doc,.docx';
+  @Input() accept = 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   @Input() maxFileSize = 1000000;
   @Input() disabled = false;
 }

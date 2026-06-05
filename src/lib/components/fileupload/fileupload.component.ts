@@ -127,7 +127,7 @@ export class FileUploadComponent implements ControlValueAccessor {
   @Input() name = 'files[]';
   @Input() url = '/api/upload';
   @Input() multiple = true;
-  @Input() accept = 'image/*,.pdf,.doc,.docx';
+  @Input() accept = 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   @Input() maxFileSize = 1000000;
   @Input() fileLimit: number | undefined = undefined;
   @Input() disabled = false;
@@ -191,7 +191,27 @@ export class FileUploadComponent implements ControlValueAccessor {
     event.preventDefault();
     const files = event.dataTransfer?.files;
     if (!files?.length || this.disabled) return;
-    this.fuRef.onFileSelect({ target: { files } } as unknown as Event);
+    const accepted = this.filterFilesByAccept(Array.from(files));
+    if (!accepted.length) return;
+    const dt = new DataTransfer();
+    accepted.forEach(f => dt.items.add(f));
+    this.fuRef.onFileSelect({ target: { files: dt.files } } as unknown as Event);
+  }
+
+  private filterFilesByAccept(files: File[]): File[] {
+    if (!this.accept) return files;
+    const types = this.accept.split(',').map(t => t.trim());
+    return files.filter(file =>
+      types.some(type => {
+        if (type.includes('*')) {
+          return file.type.startsWith(type.replace('*', ''));
+        }
+        if (type.startsWith('.')) {
+          return file.name.toLowerCase().endsWith(type.toLowerCase());
+        }
+        return file.type === type;
+      }),
+    );
   }
 
   onChooseClick(): void {

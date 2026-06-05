@@ -134,7 +134,7 @@ export const Default: Story = {
   }),
   args: {
     multiple: true,
-    accept: 'image/*,.pdf,.doc,.docx',
+    accept: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     maxFileSize: 1000000,
     disabled: false,
   },
@@ -156,7 +156,7 @@ import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
   template: \`
     <fileupload
       [multiple]="true"
-      accept="image/*,.pdf,.doc,.docx"
+      accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       [maxFileSize]="1000000"
     ></fileupload>
   \`,
