@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { CheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
+import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const styles = '';
 
 @Component({
   selector: 'app-checkbox-disabled',
   standalone: true,
-  imports: [CheckboxComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraCheckboxComponent, FormsModule],
   styles,
-  template: `
-    <checkbox [binary]="true" [disabled]="true" [(ngModel)]="checked"></checkbox>
-  `,
+  template: ` <extra-checkbox [binary]="true" [disabled]="true" [(ngModel)]="checked"></extra-checkbox> `
 })
 export class CheckboxDisabledComponent {
   checked = true;
@@ -21,7 +20,7 @@ export class CheckboxDisabledComponent {
 export const Disabled: StoryObj = {
   render: (args) => ({
     props: { ...args, checked: true },
-    template: `<checkbox [binary]="true" [disabled]="disabled" [invalid]="invalid" [(ngModel)]="checked"></checkbox>`,
+    template: `<extra-checkbox [binary]="true" [disabled]="disabled" [invalid]="invalid" [(ngModel)]="checked"></extra-checkbox>`
   }),
   args: { disabled: true },
   parameters: {
@@ -32,21 +31,22 @@ export const Disabled: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-checkbox-disabled',
   standalone: true,
-  imports: [CheckboxComponent, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraCheckboxComponent, ReactiveFormsModule],
   template: \`
-    <checkbox [binary]="true" [formControl]="control"></checkbox>
+    <extra-checkbox [binary]="true" [formControl]="control"></extra-checkbox>
   \`,
 })
 export class CheckboxDisabledComponent {
   control = new FormControl({ value: true, disabled: true });
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

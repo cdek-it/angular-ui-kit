@@ -1,20 +1,21 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
 export type CheckboxSize = 'small' | 'base' | 'large';
 export type CheckboxVariant = 'outlined' | 'filled';
 
 @Component({
-  selector: 'checkbox',
+  selector: 'extra-checkbox',
   standalone: true,
-  imports: [Checkbox],
+  imports: [Checkbox, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CheckboxComponent),
-      multi: true,
-    },
+      useExisting: forwardRef(() => ExtraCheckboxComponent),
+      multi: true
+    }
   ],
   template: `
     <p-checkbox
@@ -40,9 +41,9 @@ export type CheckboxVariant = 'outlined' | 'filled';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-checkbox>
-  `,
+  `
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class ExtraCheckboxComponent implements ControlValueAccessor {
   @Input() value: any = null;
   @Input() binary = false;
   @Input() disabled = false;
