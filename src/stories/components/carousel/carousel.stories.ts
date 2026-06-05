@@ -1,10 +1,10 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { CarouselComponent } from '../../../lib/components/carousel/carousel.component';
+import { ExtraCarouselComponent } from '../../../lib/components/carousel/carousel.component';
 import { CarouselVerticalComponent, Vertical as VerticalStory } from './examples/carousel-vertical.component';
 import { Autoplay as AutoplayStory, CarouselAutoplayComponent } from './examples/carousel-autoplay.component';
 
 type CarouselArgs = Pick<
-  CarouselComponent,
+  ExtraCarouselComponent,
   'numVisible' | 'numScroll' | 'circular' | 'orientation' | 'autoplayInterval' | 'showIndicators' | 'showNavigators'
 >;
 
@@ -15,11 +15,11 @@ const SLIDES = Array.from({ length: 8 }, (_, i) => ({
 
 const meta: Meta<CarouselArgs> = {
   title: 'Components/Media/Carousel',
-  component: CarouselComponent,
+  component: ExtraCarouselComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [CarouselComponent, CarouselVerticalComponent, CarouselAutoplayComponent]
+      imports: [ExtraCarouselComponent, CarouselVerticalComponent, CarouselAutoplayComponent]
     })
   ],
   parameters: {
@@ -28,7 +28,7 @@ const meta: Meta<CarouselArgs> = {
         component: `Компонент для отображения контента в виде слайдов с возможностью горизонтальной и вертикальной прокрутки, настройки количества видимых элементов и автовоспроизведения.
 
 \`\`\`typescript
-import { CarouselComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCarouselComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -127,7 +127,7 @@ export const Default: Story = {
           <span>{{ item.subtitle }}</span>
         </div>
       </ng-template>
-      <carousel
+      <extra-carousel
         [value]="slides"
         [numVisible]="numVisible"
         [numScroll]="numScroll"
@@ -137,7 +137,7 @@ export const Default: Story = {
         [showIndicators]="showIndicators"
         [showNavigators]="showNavigators"
         [itemTemplate]="itemTpl"
-      ></carousel>
+      ></extra-carousel>
     `
   }),
   parameters: {

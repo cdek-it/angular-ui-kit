@@ -7,7 +7,7 @@ import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types
 export type CarouselOrientation = 'horizontal' | 'vertical';
 
 @Component({
-  selector: 'carousel',
+  selector: 'extra-carousel',
   standalone: true,
   imports: [Carousel, NgTemplateOutlet, PrimeTemplate],
   template: `
@@ -46,7 +46,7 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
     </p-carousel>
   `
 })
-export class CarouselComponent {
+export class ExtraCarouselComponent {
   @Input() value: any[] = [];
   @Input() numVisible = 1;
   @Input() numScroll = 1;

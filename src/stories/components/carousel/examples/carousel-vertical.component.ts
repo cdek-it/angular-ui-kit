@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CarouselComponent } from '../../../../lib/components/carousel/carousel.component';
+import { ExtraCarouselComponent } from '../../../../lib/components/carousel/carousel.component';
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: `Lorem Ipsum ${i + 1}`,
@@ -14,13 +14,13 @@ const template = `
       <span>{{ item.subtitle }}</span>
     </div>
   </ng-template>
-  <carousel
+  <extra-carousel
     [value]="slides"
     orientation="vertical"
     [numVisible]="3"
     [numScroll]="1"
     [itemTemplate]="itemTpl"
-  ></carousel>
+  ></extra-carousel>
 </div>
 `;
 const styles = '';
@@ -28,7 +28,7 @@ const styles = '';
 @Component({
   selector: 'app-carousel-vertical',
   standalone: true,
-  imports: [CarouselComponent],
+  imports: [ExtraCarouselComponent],
   template,
   styles
 })
@@ -48,7 +48,7 @@ export const Vertical = {
       source: {
         language: 'ts',
         code: `
-import { CarouselComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCarouselComponent } from '@cdek-it/angular-ui-kit';
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: \`Lorem Ipsum \${i + 1}\`,
@@ -58,7 +58,7 @@ const SLIDES = Array.from({ length: 8 }, (_, i) => ({
 @Component({
   selector: 'app-carousel-vertical',
   standalone: true,
-  imports: [CarouselComponent],
+  imports: [ExtraCarouselComponent],
   template: \`
     <div style="height: 400px;">
       <ng-template #itemTpl let-item>
@@ -67,13 +67,13 @@ const SLIDES = Array.from({ length: 8 }, (_, i) => ({
           <span>{{ item.subtitle }}</span>
         </div>
       </ng-template>
-      <carousel
+      <extra-carousel
         [value]="slides"
         orientation="vertical"
         [numVisible]="3"
         [numScroll]="1"
         [itemTemplate]="itemTpl"
-      ></carousel>
+      ></extra-carousel>
     </div>
   \`,
 })
