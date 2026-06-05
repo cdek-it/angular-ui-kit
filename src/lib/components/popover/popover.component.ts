@@ -3,7 +3,7 @@ import { Popover } from 'primeng/popover';
 import { SharedModule } from 'primeng/api';
 
 @Component({
-  selector: 'popover',
+  selector: 'extra-popover',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Popover, SharedModule],
@@ -12,9 +12,9 @@ import { SharedModule } from 'primeng/api';
     <p-popover #op [dismissable]="dismissable" [appendTo]="appendTo">
       <ng-content></ng-content>
     </p-popover>
-  `,
+  `
 })
-export class PopoverComponent {
+export class ExtraPopoverComponent {
   @Input() dismissable = true;
   @Input() appendTo: string | HTMLElement = 'body';
 

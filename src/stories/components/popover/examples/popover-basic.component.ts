@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { PopoverComponent } from '../../../../lib/components/popover/popover.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraPopoverComponent } from '../../../../lib/components/popover/popover.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="min-h-[200px]">
   <div class="relative inline-block">
-    <button label="Показать" (click)="popover.toggle($event)"></button>
-    <popover #popover appendTo="self">
+    <extra-button label="Показать" (click)="popover.toggle($event)"></extra-button>
+    <extra-popover #popover appendTo="self">
       <p>Содержимое popover.</p>
-    </popover>
+    </extra-popover>
   </div>
 </div>
 `;
@@ -18,12 +18,12 @@ const styles = '';
 @Component({
   selector: 'app-popover-basic',
   standalone: true,
-  imports: [PopoverComponent, ButtonComponent],
+  imports: [ExtraPopoverComponent, ExtraButtonComponent],
   template,
   styles,
 })
 export class PopoverBasicComponent {
-  @ViewChild('popover') popover!: PopoverComponent;
+  @ViewChild('popover') popover!: ExtraPopoverComponent;
 }
 
 export const Basic: StoryObj = {
@@ -37,22 +37,22 @@ export const Basic: StoryObj = {
         language: 'ts',
         code: `
 import { Component, ViewChild } from '@angular/core';
-import { PopoverComponent } from '@cdek-it/angular-ui-kit';
-import { ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPopoverComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-popover-basic',
   standalone: true,
-  imports: [PopoverComponent, ButtonComponent],
+  imports: [ExtraPopoverComponent, ExtraButtonComponent],
   template: \`
-    <button label="Показать" (click)="popover.toggle($event)"></button>
-    <popover #popover appendTo="self">
+    <extra-button label="Показать" (click)="popover.toggle($event)"></extra-button>
+    <extra-popover #popover appendTo="self">
       <p>Содержимое popover.</p>
-    </popover>
+    </extra-popover>
   \`,
 })
 export class PopoverBasicComponent {
-  @ViewChild('popover') popover!: PopoverComponent;
+  @ViewChild('popover') popover!: ExtraPopoverComponent;
 }
         `,
       },

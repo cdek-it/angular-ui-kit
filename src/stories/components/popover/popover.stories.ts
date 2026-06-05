@@ -1,16 +1,16 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { PopoverComponent } from '../../../lib/components/popover/popover.component';
+import { ExtraPopoverComponent } from '../../../lib/components/popover/popover.component';
 import { PopoverBasicComponent } from './examples/popover-basic.component';
 import { PopoverRichContentComponent, RichContent } from './examples/popover-rich-content.component';
 
-const meta: Meta<PopoverComponent> = {
+const meta: Meta<ExtraPopoverComponent> = {
   title: 'Components/Overlay/Popover',
-  component: PopoverComponent,
+  component: ExtraPopoverComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        PopoverComponent,
+        ExtraPopoverComponent,
         PopoverBasicComponent,
         PopoverRichContentComponent,
       ],
@@ -22,7 +22,7 @@ const meta: Meta<PopoverComponent> = {
         component: `Всплывающее наложение, привязанное к целевому элементу.
 
 \`\`\`typescript
-import { PopoverComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPopoverComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -51,7 +51,7 @@ import { PopoverComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<PopoverComponent>;
+type Story = StoryObj<ExtraPopoverComponent>;
 
 export const Default: Story = {
   name: 'Default',
