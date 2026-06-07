@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
-import { PrimeTemplate } from 'primeng/api';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective,
+  ExtraGalleriaThumbnailDirective
+} from '../../../../lib/components/galleria/galleria.component';
 import { GALLERIA_IMAGES } from './galleria-default.component';
 
 @Component({
   selector: 'app-galleria-thumbnails',
   standalone: true,
-  imports: [GalleriaModule, PrimeTemplate],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbnailDirective],
   template: `
-    <p-galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="4"
       [showItemNavigators]="true"
@@ -17,13 +20,13 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
       [circular]="true"
       [containerStyle]="{ 'max-width': '800px' }"
     >
-      <ng-template pTemplate="item" let-item>
+      <ng-template extraGalleriaItem let-item>
         <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
       </ng-template>
-      <ng-template pTemplate="thumbnail" let-item>
+      <ng-template extraGalleriaThumbnail let-item>
         <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
       </ng-template>
-    </p-galleria>
+    </extra-galleria>
   `
 })
 export class GalleriaThumbnailsComponent {

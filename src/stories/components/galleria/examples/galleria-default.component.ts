@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
-import { PrimeTemplate } from 'primeng/api';
-import { GalleriaItem } from '../../../../lib/components/galleria/galleria.component';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective,
+  GalleriaItem
+} from '../../../../lib/components/galleria/galleria.component';
 
 export const GALLERIA_IMAGES: GalleriaItem[] = [
   {
@@ -37,9 +39,9 @@ export const GALLERIA_IMAGES: GalleriaItem[] = [
 @Component({
   selector: 'app-galleria-default',
   standalone: true,
-  imports: [GalleriaModule, PrimeTemplate],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective],
   template: `
-    <p-galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="4"
       [showItemNavigators]="true"
@@ -48,10 +50,10 @@ export const GALLERIA_IMAGES: GalleriaItem[] = [
       [circular]="true"
       [containerStyle]="{ 'max-width': '800px' }"
     >
-      <ng-template pTemplate="item" let-item>
+      <ng-template extraGalleriaItem let-item>
         <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
       </ng-template>
-    </p-galleria>
+    </extra-galleria>
   `
 })
 export class GalleriaDefaultComponent {

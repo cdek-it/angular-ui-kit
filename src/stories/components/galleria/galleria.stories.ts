@@ -1,14 +1,14 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { GalleriaComponent } from '../../../lib/components/galleria/galleria.component';
+import { ExtraGalleriaComponent } from '../../../lib/components/galleria/galleria.component';
 import { GalleriaDefaultComponent } from './examples/galleria-default.component';
 import { GalleriaThumbnailsComponent } from './examples/galleria-thumbnails.component';
 import { GalleriaCaptionComponent } from './examples/galleria-caption.component';
 import { GalleriaFullscreenComponent } from './examples/galleria-fullscreen.component';
 import { GalleriaAutoplayComponent } from './examples/galleria-autoplay.component';
 
-const meta: Meta<GalleriaComponent> = {
+const meta: Meta<ExtraGalleriaComponent> = {
   title: 'Components/Media/Galleria',
-  component: GalleriaComponent,
+  component: ExtraGalleriaComponent,
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -16,7 +16,7 @@ const meta: Meta<GalleriaComponent> = {
         component: `Компонент для отображения галереи изображений с поддержкой миниатюр, индикаторов, автовоспроизведения и полноэкранного режима.
 
 \`\`\`typescript
-import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -138,7 +138,7 @@ import { GalleriaComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<GalleriaComponent>;
+type Story = StoryObj<ExtraGalleriaComponent>;
 
 // ── Default ──────────────────────────────────────────────────────────────────
 
@@ -155,25 +155,25 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-default',
   standalone: true,
-  imports: [GalleriaComponent],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective],
   template: \`
-    <ng-template #itemTpl let-item>
-      <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
-    </ng-template>
-
-    <galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="5"
       [showItemNavigators]="true"
       [showIndicators]="true"
       [showThumbnails]="false"
       [circular]="true"
-      [itemTemplate]="itemTpl"
-    ></galleria>
+    >
+      <ng-template extraGalleriaItem let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+      </ng-template>
+    </extra-galleria>
   \`,
 })
 export class AppGalleriaDefaultComponent {
@@ -199,28 +199,32 @@ export const Thumbnails: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective,
+  ExtraGalleriaThumbnailDirective
+} from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-thumbnails',
   standalone: true,
-  imports: [GalleriaComponent],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbnailDirective],
   template: \`
-    <ng-template #itemTpl let-item>
-      <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template #thumbTpl let-item>
-      <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
-    </ng-template>
-
-    <galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="5"
       [showItemNavigators]="true"
       [showThumbnails]="true"
       [circular]="true"
-      [itemTemplate]="itemTpl"
-      [thumbnailTemplate]="thumbTpl"
-    ></galleria>
+    >
+      <ng-template extraGalleriaItem let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+      </ng-template>
+      <ng-template extraGalleriaThumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
+      </ng-template>
+    </extra-galleria>
   \`,
 })
 export class AppGalleriaThumbnailsComponent {
@@ -246,32 +250,36 @@ export const Caption: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective,
+  ExtraGalleriaCaptionDirective
+} from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-caption',
   standalone: true,
-  imports: [GalleriaComponent],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaCaptionDirective],
   template: \`
-    <ng-template #itemTpl let-item>
-      <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template #captionTpl let-item>
-      <div style="padding: 12px 16px;">
-        <h4 style="margin: 0 0 4px;">{{ item.title }}</h4>
-        <p style="margin: 0; opacity: 0.8; font-size: 0.875rem;">{{ item.description }}</p>
-      </div>
-    </ng-template>
-
-    <galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="5"
       [showItemNavigators]="true"
       [showThumbnails]="false"
       [showIndicators]="true"
       [circular]="true"
-      [itemTemplate]="itemTpl"
-      [captionTemplate]="captionTpl"
-    ></galleria>
+    >
+      <ng-template extraGalleriaItem let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+      </ng-template>
+      <ng-template extraGalleriaCaption let-item>
+        <div style="padding: 12px 16px;">
+          <h4 style="margin: 0 0 4px;">{{ item.title }}</h4>
+          <p style="margin: 0; opacity: 0.8; font-size: 0.875rem;">{{ item.description }}</p>
+        </div>
+      </ng-template>
+    </extra-galleria>
   \`,
 })
 export class AppGalleriaCaptionComponent {
@@ -297,23 +305,21 @@ export const FullScreen: Story = {
       source: {
         language: 'ts',
         code: `
-import { GalleriaComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective,
+  ExtraGalleriaThumbnailDirective
+} from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-fullscreen',
   standalone: true,
-  imports: [GalleriaComponent, ButtonComponent],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbnailDirective],
   template: \`
-    <ng-template #itemTpl let-item>
-      <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template #thumbTpl let-item>
-      <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
-    </ng-template>
-
     <button label="Открыть галерею" (click)="visible = true"></button>
 
-    <galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="5"
       [showItemNavigators]="true"
@@ -321,10 +327,15 @@ import { GalleriaComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
       [circular]="true"
       [fullScreen]="true"
       [visible]="visible"
-      [itemTemplate]="itemTpl"
-      [thumbnailTemplate]="thumbTpl"
       (visibleChange)="visible = $event"
-    ></galleria>
+    >
+      <ng-template extraGalleriaItem let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+      </ng-template>
+      <ng-template extraGalleriaThumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block;" />
+      </ng-template>
+    </extra-galleria>
   \`,
 })
 export class AppGalleriaFullscreenComponent {
@@ -351,17 +362,15 @@ export const Autoplay: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-galleria-autoplay',
   standalone: true,
-  imports: [GalleriaComponent],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective],
   template: \`
-    <ng-template #itemTpl let-item>
-      <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
-    </ng-template>
-
-    <galleria
+    <extra-galleria
       [value]="images"
       [showItemNavigators]="true"
       [showIndicators]="true"
@@ -369,8 +378,11 @@ export const Autoplay: Story = {
       [circular]="true"
       [autoPlay]="true"
       [transitionInterval]="3000"
-      [itemTemplate]="itemTpl"
-    ></galleria>
+    >
+      <ng-template extraGalleriaItem let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+      </ng-template>
+    </extra-galleria>
   \`,
 })
 export class AppGalleriaAutoplayComponent {
