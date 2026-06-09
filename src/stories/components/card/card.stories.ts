@@ -1,7 +1,7 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { SharedModule } from 'primeng/api';
-import { CardComponent } from '../../../lib/components/card/card.component';
-import { ButtonComponent } from '../../../lib/components/button/button.component';
+import { ExtraCardComponent as CardComponent } from '../../../lib/components/card/card.component';
+import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 import { CardOverlayComponent } from './examples/card-overlay.component';
 import { CardWithoutHeaderComponent } from './examples/card-without-header.component';
 import { CardWithoutFooterComponent } from './examples/card-without-footer.component';
@@ -22,7 +22,7 @@ const meta: Meta<CardArgs> = {
         CardOverlayComponent,
         CardWithoutHeaderComponent,
         CardWithoutFooterComponent,
-        CardWithoutSubtitleComponent,
+        CardWithoutSubtitleComponent
       ]
     })
   ],
@@ -33,10 +33,10 @@ const meta: Meta<CardArgs> = {
 
 \`\`\`typescript
 import { CardModule } from 'primeng/card';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-card' },
+    designTokens: { prefix: '--p-card' }
   },
   argTypes: {
     title: {
@@ -45,8 +45,8 @@ import { CardModule } from 'primeng/card';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     subtitle: {
       control: 'text',
@@ -54,8 +54,8 @@ import { CardModule } from 'primeng/card';
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     overlay: {
       control: 'boolean',
@@ -63,10 +63,10 @@ import { CardModule } from 'primeng/card';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-  },
+        type: { summary: 'boolean' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -85,7 +85,7 @@ export const Default: Story = {
 
     const attrs = parts.length ? `\n  ${parts.join('\n  ')}` : '';
     const template = `<div class="bg-surface-ground">
-  <card${attrs} style="width: 20rem">
+  <extra-card${attrs} style="width: 20rem">
     <ng-template pTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
@@ -93,31 +93,31 @@ export const Default: Story = {
       <p class="text-sm">Контент карточки. Гибкая область для любого содержимого.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
+      <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
     </ng-template>
-  </card>
+  </extra-card>
 </div>`;
 
     return { props: args, template };
   },
   args: {
     title: 'Заголовок',
-    subtitle: 'Подзаголовок',
+    subtitle: 'Подзаголовок'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Overlay ───────────────────────────────────────────────────────────────────
 
 export const Overlay: Story = {
   render: () => ({
-    template: `<app-card-overlay></app-card-overlay>`,
+    template: `<app-card-overlay></app-card-overlay>`
   }),
   parameters: {
     docs: {
@@ -125,58 +125,30 @@ export const Overlay: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+    import { Component } from '@angular/core';
+    import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
-@Component({
-  selector: 'app-card-overlay',
-  standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
-  template: \`
-    <card title="Заголовок" subtitle="Подзаголовок" [overlay]="true" style="width: 20rem">
-      <ng-template pTemplate="header">
-        <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
-          <i class="ti ti-photo text-3xl"></i>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <p class="text-sm">Карточка с тенью.</p>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true"></button>
-      </ng-template>
-    </card>
-  \`,
-})
-export class CardOverlayComponent {}
-        `,
-      },
-    },
-  },
-};
-
-// ── WithoutHeader ─────────────────────────────────────────────────────────────
-
-export const WithoutHeader: Story = {
-  render: () => ({
-    template: `<app-card-without-header></app-card-without-header>`,
-  }),
-  parameters: {
-    docs: {
-      description: { story: 'Карточка без изображения в шапке.' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-card-without-header',
-  standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
-  template: \`
+    @Component({
+      selector: 'app-card-without-header',
+      standalone: true,
+      imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
+      template: \`
+        <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
+          <ng-template pTemplate="content">
+            <p class="text-sm">Карточка без изображения в шапке.</p>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
+          </ng-template>
+        </extra-card>
+      \`,
+    })
+    export class CardWithoutHeaderComponent {}
+            `,
+        selector: 'app-card-without-header',
+        standalone: true,
+        imports: [CardComponent, ButtonComponent, SharedModule],
+        template: `
     <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <ng-template pTemplate="content">
         <p class="text-sm">Карточка без изображения в шапке.</p>
@@ -188,17 +160,17 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class CardWithoutHeaderComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── WithoutFooter ─────────────────────────────────────────────────────────────
 
 export const WithoutFooter: Story = {
   render: () => ({
-    template: `<app-card-without-footer></app-card-without-footer>`,
+    template: `<app-card-without-footer></app-card-without-footer>`
   }),
   parameters: {
     docs: {
@@ -206,39 +178,37 @@ export const WithoutFooter: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { CardComponent } from '@cdek-it/angular-ui-kit';
+        import { ExtraCardComponent } from '@cdek-it/angular-ui-kit';
 
-@Component({
-  selector: 'app-card-without-footer',
-  standalone: true,
-  imports: [CardComponent, SharedModule],
-  template: \`
-    <card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
-      <ng-template pTemplate="header">
-        <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
-          <i class="ti ti-photo text-3xl"></i>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <p class="text-sm">Карточка без футера.</p>
-      </ng-template>
-    </card>
-  \`,
-})
-export class CardWithoutFooterComponent {}
-        `,
-      },
-    },
-  },
+        @Component({
+          selector: 'app-card-without-footer',
+          standalone: true,
+          imports: [ExtraCardComponent, SharedModule],
+          template: \`
+            <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
+              <ng-template pTemplate="header">
+                <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
+                  <i class="ti ti-photo text-3xl"></i>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="content">
+                <p class="text-sm">Карточка без футера.</p>
+              </ng-template>
+            </extra-card>
+          \`,
+        })
+        export class CardWithoutFooterComponent {}
+                `
+      }
+    }
+  }
 };
 
 // ── WithoutSubtitle ───────────────────────────────────────────────────────────
 
 export const WithoutSubtitle: Story = {
   render: () => ({
-    template: `<app-card-without-subtitle></app-card-without-subtitle>`,
+    template: `<app-card-without-subtitle></app-card-without-subtitle>`
   }),
   parameters: {
     docs: {
@@ -246,33 +216,30 @@ export const WithoutSubtitle: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
 
-@Component({
-  selector: 'app-card-without-subtitle',
-  standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
-  template: \`
-    <card title="Заголовок" style="width: 20rem">
-      <ng-template pTemplate="header">
-        <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
-          <i class="ti ti-photo text-3xl"></i>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <p class="text-sm">Карточка без подзаголовка.</p>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true"></button>
-      </ng-template>
-    </card>
-  \`,
-})
-export class CardWithoutSubtitleComponent {}
-        `,
-      },
-    },
-  },
+        @Component({
+          selector: 'app-card-without-subtitle',
+          standalone: true,
+          imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
+          template: \`
+            <extra-card title="Заголовок" style="width: 20rem">
+              <ng-template pTemplate="header">
+                <div class="flex items-center justify-center h-8" style="background: var(--p-surface-100); color: var(--p-surface-400)">
+                  <i class="ti ti-photo text-3xl"></i>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="content">
+                <p class="text-sm">Карточка без подзаголовка.</p>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
+              </ng-template>
+            </extra-card>
+          \`,
+        })
+        export class CardWithoutSubtitleComponent {}
+                `
+      }
+    }
+  }
 };

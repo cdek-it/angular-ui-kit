@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { ProgressBarComponent } from '../../../../lib/components/progressbar/progressbar.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ExtraProgressBarComponent } from '../../../../lib/components/progressbar/progressbar.component';
 
 @Component({
   selector: 'app-progressbar-no-label',
   standalone: true,
-  imports: [ProgressBarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraProgressBarComponent],
   template: `
     <div class="bg-surface-ground">
-      <progressbar [value]="60" [showValue]="false"></progressbar>
+      <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
     </div>
-  `,
+  `
 })
 export class ProgressBarNoLabelComponent {}

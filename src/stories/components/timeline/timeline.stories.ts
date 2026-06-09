@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { TimelineComponent } from '../../../lib/components/timeline/timeline.component';
+import { ExtraTimelineComponent as TimelineComponent } from '../../../lib/components/timeline/timeline.component';
 
 type TimelineArgs = TimelineComponent & { verticalAlign: string; horizontalAlign: string };
 type Story = StoryObj<TimelineArgs>;
@@ -8,7 +8,7 @@ const defaultEvents = [
   { value: 'Заказ создан', caption: '15 апр 2026, 10:00' },
   { value: 'Принят на склад', caption: '16 апр 2026, 14:30' },
   { value: 'В пути', caption: '17 апр 2026, 09:15' },
-  { value: 'Доставлен', caption: '18 апр 2026, 11:45' },
+  { value: 'Доставлен', caption: '18 апр 2026, 11:45' }
 ];
 
 const meta: Meta<TimelineArgs> = {
@@ -20,9 +20,9 @@ const meta: Meta<TimelineArgs> = {
     docs: {
       description: {
         component:
-          'Компонент для визуализации последовательности событий в хронологическом порядке. Поддерживает горизонтальную и вертикальную ориентацию, кастомные маркеры.\n\n```typescript\nimport { TimelineComponent } from \'@cdek-it/angular-ui-kit\';\n```',
-      },
-    },
+          "Компонент для визуализации последовательности событий в хронологическом порядке. Поддерживает горизонтальную и вертикальную ориентацию, кастомные маркеры.\n\n```typescript\nimport { ExtraTimelineComponent as TimelineComponent } from '@cdek-it/angular-ui-kit';\n```"
+      }
+    }
   },
   argTypes: {
     value: {
@@ -30,8 +30,8 @@ const meta: Meta<TimelineArgs> = {
       description: 'Массив событий для отображения',
       table: {
         category: 'Props',
-        type: { summary: '{ value: string, caption?: string }[]' },
-      },
+        type: { summary: '{ value: string, caption?: string }[]' }
+      }
     },
     layout: {
       control: 'select',
@@ -40,8 +40,8 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "'vertical'" },
-        type: { summary: "'vertical' | 'horizontal'" },
-      },
+        type: { summary: "'vertical' | 'horizontal'" }
+      }
     },
     align: { table: { disable: true } },
     verticalAlign: {
@@ -52,9 +52,9 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "'left'" },
-        type: { summary: "'left' | 'right' | 'alternate'" },
+        type: { summary: "'left' | 'right' | 'alternate'" }
       },
-      if: { arg: 'layout', eq: 'vertical' },
+      if: { arg: 'layout', eq: 'vertical' }
     },
     horizontalAlign: {
       name: 'align',
@@ -64,9 +64,9 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "'top'" },
-        type: { summary: "'top' | 'bottom' | 'alternate'" },
+        type: { summary: "'top' | 'bottom' | 'alternate'" }
       },
-      if: { arg: 'layout', eq: 'horizontal' },
+      if: { arg: 'layout', eq: 'horizontal' }
     },
     showCaption: {
       control: 'boolean',
@@ -74,8 +74,8 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     line: {
       control: 'select',
@@ -84,8 +84,8 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "'solid'" },
-        type: { summary: "'solid' | 'dashed' | 'dotted' | 'none'" },
-      },
+        type: { summary: "'solid' | 'dashed' | 'dotted' | 'none'" }
+      }
     },
     icon: {
       control: 'text',
@@ -93,8 +93,8 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     markerColor: {
       control: 'color',
@@ -102,12 +102,12 @@ const meta: Meta<TimelineArgs> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     contentTemplate: { table: { disable: true } },
     oppositeTemplate: { table: { disable: true } },
-    markerTemplate: { table: { disable: true } },
+    markerTemplate: { table: { disable: true } }
   },
   args: {
     value: defaultEvents,
@@ -117,8 +117,8 @@ const meta: Meta<TimelineArgs> = {
     showCaption: true,
     line: 'solid',
     icon: '',
-    markerColor: '',
-  },
+    markerColor: ''
+  }
 };
 
 export default meta;
@@ -126,9 +126,7 @@ export default meta;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderStory(args: any) {
   const layout = args.layout ?? 'vertical';
-  const align = layout === 'horizontal'
-    ? (args.horizontalAlign ?? 'top')
-    : (args.verticalAlign ?? 'left');
+  const align = layout === 'horizontal' ? (args.horizontalAlign ?? 'top') : (args.verticalAlign ?? 'left');
 
   const defaultAlign = layout === 'horizontal' ? 'top' : 'left';
 
@@ -144,14 +142,14 @@ function renderStory(args: any) {
 
   const attrs = parts.join('\n  ');
 
-  const template = `<timeline
+  const template = `<extra-timeline
   ${attrs}
 >
   <ng-template #content let-event>
     <div>{{ event.value }}</div>
-    <small *ngIf="${args.showCaption}">{{ event.caption }}</small>
+    @if (${args.showCaption}) {<small>{{ event.caption }}</small>}
   </ng-template>
-</timeline>`;
+</extra-timeline>`;
 
   return { props: { ...args, value: args.value }, template };
 }
@@ -163,10 +161,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример. Используйте Controls для изменения ориентации и выравнивания.',
-      },
-    },
-  },
+        story: 'Базовый пример. Используйте Controls для изменения ориентации и выравнивания.'
+      }
+    }
+  }
 };
 
 // ── Horizontal ───────────────────────────────────────────────────────────────
@@ -175,15 +173,15 @@ export const Horizontal: Story = {
   render: (args) => renderStory(args),
   args: {
     layout: 'horizontal',
-    horizontalAlign: 'top',
+    horizontalAlign: 'top'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Горизонтальная ориентация через `layout="horizontal"` и `align="top"`.',
-      },
-    },
-  },
+        story: 'Горизонтальная ориентация через `layout="horizontal"` и `align="top"`.'
+      }
+    }
+  }
 };
 
 // ── Opposite ─────────────────────────────────────────────────────────────────
@@ -191,9 +189,7 @@ export const Opposite: Story = {
   name: 'Opposite',
   render: (args) => {
     const layout = args.layout ?? 'vertical';
-    const align = layout === 'horizontal'
-      ? (args.horizontalAlign ?? 'top')
-      : (args.verticalAlign ?? 'left');
+    const align = layout === 'horizontal' ? (args.horizontalAlign ?? 'top') : (args.verticalAlign ?? 'left');
 
     const defaultAlign = layout === 'horizontal' ? 'top' : 'left';
 
@@ -209,27 +205,28 @@ export const Opposite: Story = {
 
     const attrs = parts.join('\n  ');
 
-    const template = `<timeline
+    const template = `<extra-timeline
   ${attrs}
 >
   <ng-template #content let-event>{{ event.value }}</ng-template>
   <ng-template #opposite let-event>
     <small>{{ event.caption }}</small>
   </ng-template>
-</timeline>`;
+</extra-timeline>`;
 
     return { props: { ...args, value: args.value }, template };
   },
   args: {
-    verticalAlign: 'alternate',
+    verticalAlign: 'alternate'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Контент по другую сторону линии через шаблон `#opposite`. Отображается при `align="alternate"`, `"right"`, `"bottom"`.',
-      },
-    },
-  },
+        story:
+          'Контент по другую сторону линии через шаблон `#opposite`. Отображается при `align="alternate"`, `"right"`, `"bottom"`.'
+      }
+    }
+  }
 };
 
 // ── Dashed Line ──────────────────────────────────────────────────────────────
@@ -237,15 +234,15 @@ export const DashedLine: Story = {
   name: 'Dashed Line',
   render: (args) => renderStory(args),
   args: {
-    line: 'dashed',
+    line: 'dashed'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Пунктирная линия коннектора через проп `line="dashed"`. Другие варианты: `solid`, `dotted`, `none`.',
-      },
-    },
-  },
+        story: 'Пунктирная линия коннектора через проп `line="dashed"`. Другие варианты: `solid`, `dotted`, `none`.'
+      }
+    }
+  }
 };
 
 // ── Custom Icon ──────────────────────────────────────────────────────────────
@@ -254,15 +251,15 @@ export const CustomIcon: Story = {
   render: (args) => renderStory(args),
   args: {
     icon: 'ti ti-check',
-    markerColor: '#3182ce',
+    markerColor: '#3182ce'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Кастомная иконка вместо маркера через проп `icon` (CSS-класс иконки, например Tabler Icons).',
-      },
-    },
-  },
+        story: 'Кастомная иконка вместо маркера через проп `icon` (CSS-класс иконки, например Tabler Icons).'
+      }
+    }
+  }
 };
 
 // ── Marker Color ─────────────────────────────────────────────────────────────
@@ -270,13 +267,13 @@ export const MarkerColor: Story = {
   name: 'Marker Color',
   render: (args) => renderStory(args),
   args: {
-    markerColor: '#e53e3e',
+    markerColor: '#e53e3e'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Кастомный цвет маркера через проп `markerColor`.',
-      },
-    },
-  },
+        story: 'Кастомный цвет маркера через проп `markerColor`.'
+      }
+    }
+  }
 };

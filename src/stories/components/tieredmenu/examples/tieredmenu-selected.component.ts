@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
-import { TieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
+import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 
 const template = `
 <div class="bg-surface-ground" style="min-height: 280px">
-  <tieredmenu [model]="items"></tieredmenu>
+  <extra-tieredmenu [model]="items"></extra-tieredmenu>
 </div>
 `;
 const styles = '';
@@ -13,7 +13,7 @@ const styles = '';
 @Component({
   selector: 'app-tieredmenu-selected',
   standalone: true,
-  imports: [TieredMenuComponent],
+  imports: [ExtraTieredMenuComponent],
   template,
   styles,
 })
@@ -35,16 +35,14 @@ export const WithSelected: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { TieredMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tieredmenu-selected',
   standalone: true,
-  imports: [TieredMenuComponent],
+  imports: [ExtraTieredMenuComponent],
   template: \`
-    <tieredmenu [model]="items"></tieredmenu>
+    <extra-tieredmenu [model]="items"></extra-tieredmenu>
   \`,
 })
 export class TieredMenuSelectedComponent {

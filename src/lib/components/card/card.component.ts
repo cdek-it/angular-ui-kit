@@ -1,17 +1,10 @@
-import {
-  AfterContentInit,
-  ChangeDetectorRef,
-  Component,
-  ContentChildren,
-  Input,
-  QueryList,
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Card } from 'primeng/card';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
-  selector: 'card',
+  selector: 'extra-card',
   host: { style: 'display: block' },
   standalone: true,
   imports: [Card, SharedModule, NgTemplateOutlet],
@@ -45,9 +38,9 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
         </ng-template>
       }
     </p-card>
-  `,
+  `
 })
-export class CardComponent implements AfterContentInit {
+export class ExtraCardComponent implements AfterContentInit {
   @Input() title = '';
   @Input() subtitle = '';
   @Input() overlay = false;
@@ -61,11 +54,17 @@ export class CardComponent implements AfterContentInit {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
-    this.templates.forEach(tpl => {
+    this.templates.forEach((tpl) => {
       switch (tpl.getType()) {
-        case 'header':  this.headerTpl  = tpl; break;
-        case 'content': this.contentTpl = tpl; break;
-        case 'footer':  this.footerTpl  = tpl; break;
+        case 'header':
+          this.headerTpl = tpl;
+          break;
+        case 'content':
+          this.contentTpl = tpl;
+          break;
+        case 'footer':
+          this.footerTpl = tpl;
+          break;
       }
     });
     this.cdr.detectChanges();

@@ -1,14 +1,14 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { MegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
 
-const meta: Meta<MegaMenuComponent> = {
+const meta: Meta<ExtraMegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
-  component: MegaMenuComponent,
+  component: ExtraMegaMenuComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [MegaMenuComponent],
-    }),
+      imports: [ExtraMegaMenuComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -16,14 +16,14 @@ const meta: Meta<MegaMenuComponent> = {
         component: `Расширенное меню с поддержкой многоколоночных подменю. Поддерживает горизонтальную и вертикальную ориентацию.
 
 \`\`\`typescript
-import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
+import { ExtraMegaMenuComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
       },
       story: {
-        height: '300px',
-      },
+        height: '300px'
+      }
     },
-    designTokens: { prefix: '--p-megamenu' },
+    designTokens: { prefix: '--p-megamenu' }
   },
   argTypes: {
     model: {
@@ -31,8 +31,8 @@ import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив пунктов меню.',
       table: {
         category: 'Props',
-        type: { summary: 'MegaMenuModel[]' },
-      },
+        type: { summary: 'MegaMenuModel[]' }
+      }
     },
     orientation: {
       control: 'select',
@@ -41,8 +41,8 @@ import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -50,18 +50,18 @@ import { MegaMenuComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     orientation: 'horizontal',
-    disabled: false,
-  },
+    disabled: false
+  }
 };
 
 export default meta;
-type Story = StoryObj<MegaMenuComponent>;
+type Story = StoryObj<ExtraMegaMenuComponent>;
 
 const baseItems: MegaMenuModel[] = [
   {
@@ -74,20 +74,20 @@ const baseItems: MegaMenuModel[] = [
           items: [
             { label: 'Form', icon: 'ti ti-forms' },
             { label: 'Button', icon: 'ti ti-hand-click' },
-            { label: 'Table', icon: 'ti ti-table' },
-          ],
-        },
+            { label: 'Table', icon: 'ti ti-table' }
+          ]
+        }
       ],
       [
         {
           label: 'Charts',
           items: [
             { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
-            { label: 'Line Chart', icon: 'ti ti-chart-line' },
-          ],
-        },
-      ],
-    ],
+            { label: 'Line Chart', icon: 'ti ti-chart-line' }
+          ]
+        }
+      ]
+    ]
   },
   {
     label: 'Solutions',
@@ -98,25 +98,25 @@ const baseItems: MegaMenuModel[] = [
           label: 'Business',
           items: [
             { label: 'Analytics', icon: 'ti ti-chart-dots' },
-            { label: 'CRM', icon: 'ti ti-users' },
-          ],
-        },
-      ],
-    ],
+            { label: 'CRM', icon: 'ti ti-users' }
+          ]
+        }
+      ]
+    ]
   },
   {
     label: 'Contact',
     icon: 'ti ti-mail',
-    disabled: true,
-  },
+    disabled: true
+  }
 ];
 
 const commonTemplate = `
-<megamenu
+<extra-megamenu
   [model]="model"
   [orientation]="orientation"
   [disabled]="disabled"
-></megamenu>
+></extra-megamenu>
 `;
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -128,23 +128,23 @@ export const Default: Story = {
     if (args.orientation && args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
 
-    const template = `<megamenu\n  ${parts.join('\n  ')}\n></megamenu>`;
+    const template = `<extra-megamenu\n  ${parts.join('\n  ')}\n></extra-megamenu>`;
     return { props: { ...args, model: baseItems }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Horizontal ──────────────────────────────────────────────────────────────
 export const Horizontal: Story = {
   render: (args) => ({
     props: { ...args, model: baseItems },
-    template: commonTemplate,
+    template: commonTemplate
   }),
   args: { orientation: 'horizontal' },
   parameters: {
@@ -154,12 +154,12 @@ export const Horizontal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items"></megamenu>\`,
+  imports: [ExtraMegaMenuComponent],
+  template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
 })
 export class HorizontalExample {
   items: MegaMenuModel[] = [
@@ -210,17 +210,17 @@ export class HorizontalExample {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Vertical ────────────────────────────────────────────────────────────────
 export const Vertical: Story = {
   render: (args) => ({
     props: { ...args, model: baseItems },
-    template: commonTemplate,
+    template: commonTemplate
   }),
   args: { orientation: 'vertical' },
   parameters: {
@@ -229,13 +229,11 @@ export const Vertical: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items" orientation="vertical"></megamenu>\`,
+  imports: [ExtraMegaMenuComponent],
+  template: \`<extra-megamenu [model]="items" orientation="vertical"></extra-megamenu>\`,
 })
 export class VerticalExample {
   items: MegaMenuModel[] = [
@@ -286,10 +284,10 @@ export class VerticalExample {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Custom ──────────────────────────────────────────────────────────────────
@@ -306,15 +304,15 @@ const customItems: MegaMenuModel[] = [
               label: 'Form',
               description: 'Input, Select, Checkbox',
               icon: 'ti ti-forms',
-              badge: 'New',
+              badge: 'New'
             },
             {
               label: 'Button',
               description: 'Actions and triggers',
-              icon: 'ti ti-hand-click',
-            },
-          ],
-        },
+              icon: 'ti ti-hand-click'
+            }
+          ]
+        }
       ],
       [
         {
@@ -323,18 +321,18 @@ const customItems: MegaMenuModel[] = [
             {
               label: 'Bar Chart',
               description: 'Categorical comparison',
-              icon: 'ti ti-chart-bar',
+              icon: 'ti ti-chart-bar'
             },
             {
               label: 'Line Chart',
               description: 'Trends over time',
               icon: 'ti ti-chart-line',
-              badge: 'Beta',
-            },
-          ],
-        },
-      ],
-    ],
+              badge: 'Beta'
+            }
+          ]
+        }
+      ]
+    ]
   },
   {
     label: 'Solutions',
@@ -347,41 +345,39 @@ const customItems: MegaMenuModel[] = [
             {
               label: 'Analytics',
               description: 'Reports and dashboards',
-              icon: 'ti ti-chart-dots',
+              icon: 'ti ti-chart-dots'
             },
             {
               label: 'CRM',
               description: 'Customer management',
               icon: 'ti ti-users',
-              badge: 'Pro',
-            },
-          ],
-        },
-      ],
-    ],
-  },
+              badge: 'Pro'
+            }
+          ]
+        }
+      ]
+    ]
+  }
 ];
 
 export const Custom: Story = {
   render: (args) => ({
     props: { ...args, model: customItems },
-    template: commonTemplate,
+    template: commonTemplate
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Пункты меню с описанием (description) и бейджами.',
+        story: 'Пункты меню с описанием (description) и бейджами.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [MegaMenuComponent],
-  template: \`<megamenu [model]="items"></megamenu>\`,
+  imports: [ExtraMegaMenuComponent],
+  template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
 })
 export class CustomExample {
   items: MegaMenuModel[] = [
@@ -453,8 +449,8 @@ export class CustomExample {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
