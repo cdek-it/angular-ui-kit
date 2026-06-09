@@ -50,6 +50,7 @@ import { toastCss } from './tokens/components/toast';
 import { toggleswitchCss } from './tokens/components/toggleswitch';
 import { autocompleteCss } from './tokens/components/autocomplete';
 import { popoverCss } from './tokens/components/popover';
+import { selectbuttonCss } from './tokens/components/selectbutton';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -238,6 +239,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     popover: {
       ...(tokens.components.popover as unknown as ComponentsDesignTokens['popover']),
       css: popoverCss
+    },
+    selectbutton: {
+      ...(tokens.components.selectbutton as unknown as ComponentsDesignTokens['selectbutton']),
+      css: selectbuttonCss
     }
   } as ComponentsDesignTokens
 };
