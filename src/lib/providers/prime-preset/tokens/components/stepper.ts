@@ -1,4 +1,4 @@
-const stepperCss = ({ dt }: { dt: (token: string) => string }): string => `
+export const stepperCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* Caption - gap */
 .p-stepper .p-step-title {
@@ -62,5 +62,3 @@ const stepperCss = ({ dt }: { dt: (token: string) => string }): string => `
   background: ${dt('colorScheme.light.transparent')};
 }
 `;
-
-export { stepperCss };
