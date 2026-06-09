@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SliderComponent } from '../../../../lib/components/slider/slider.component';
+import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
 <div class="bg-surface-ground" style="height: 220px">
-  <slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></slider>
+  <extra-slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -13,9 +13,10 @@ const styles = '';
 @Component({
   selector: 'app-slider-vertical',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSliderComponent, FormsModule],
   template,
-  styles,
+  styles
 })
 export class SliderVerticalComponent {
   value = 50;
@@ -23,7 +24,7 @@ export class SliderVerticalComponent {
 
 export const Vertical: StoryObj = {
   render: () => ({
-    template: `<app-slider-vertical></app-slider-vertical>`,
+    template: `<app-slider-vertical></app-slider-vertical>`
   }),
   parameters: {
     docs: {
@@ -32,24 +33,24 @@ export const Vertical: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-vertical',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  imports: [ExtraSliderComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
     <div style="height: 220px">
-      <slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></slider>
+      <extra-slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></extra-slider>
     </div>
   \`,
 })
 export class SliderVerticalComponent {
   value = 50;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

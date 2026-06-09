@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { DividerComponent } from '../../../../lib/components/divider/divider.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <divider align="center">
+  <extra-divider align="center">
     <i class="ti ti-map-pin"></i>
-  </divider>
+  </extra-divider>
 </div>
 `;
 const styles = '';
@@ -13,15 +13,16 @@ const styles = '';
 @Component({
   selector: 'app-divider-with-icon',
   standalone: true,
-  imports: [DividerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraDividerComponent],
   template,
-  styles,
+  styles
 })
 export class DividerWithIconComponent {}
 
 export const WithIcon = {
   render: () => ({
-    template: `<app-divider-with-icon></app-divider-with-icon>`,
+    template: `<app-divider-with-icon></app-divider-with-icon>`
   }),
   parameters: {
     docs: {
@@ -29,22 +30,22 @@ export const WithIcon = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { DividerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-divider-with-icon',
   standalone: true,
-  imports: [DividerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraDividerComponent],
   template: \`
-    <divider align="center">
+    <extra-divider align="center">
       <i class="ti ti-map-pin"></i>
-    </divider>
+    </extra-divider>
   \`,
 })
 export class DividerWithIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

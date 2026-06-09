@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { SharedModule } from 'primeng/api';
-import { CardComponent } from '../../../../lib/components/card/card.component';
-import { ButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraCardComponent } from '../../../../lib/components/card/card.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <card title="Заголовок" style="width: 20rem">
+  <extra-card title="Заголовок" style="width: 20rem">
     <ng-template pTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
@@ -14,9 +14,9 @@ const template = `
       <p class="text-sm">Карточка без подзаголовка.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
+      <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
     </ng-template>
-  </card>
+  </extra-card>
 </div>
 `;
 const styles = '';
@@ -24,15 +24,15 @@ const styles = '';
 @Component({
   selector: 'app-card-without-subtitle',
   standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
+  imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
   template,
-  styles,
+  styles
 })
 export class CardWithoutSubtitleComponent {}
 
 export const WithoutSubtitle: StoryObj = {
   render: () => ({
-    template: `<app-card-without-subtitle></app-card-without-subtitle>`,
+    template: `<app-card-without-subtitle></app-card-without-subtitle>`
   }),
   parameters: {
     docs: {
@@ -40,16 +40,14 @@ export const WithoutSubtitle: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-card-without-subtitle',
   standalone: true,
   imports: [CardComponent, ButtonComponent, SharedModule],
   template: \`
-    <card title="Заголовок" style="width: 20rem">
+    <extra-card title="Заголовок" style="width: 20rem">
       <ng-template pTemplate="header">
         <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
       </ng-template>
@@ -57,14 +55,14 @@ import { CardComponent, ButtonComponent } from '@cdek-it/angular-ui-kit';
         <p class="text-sm">Карточка без подзаголовка.</p>
       </ng-template>
       <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true" class="w-full"></button>
+        <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
       </ng-template>
-    </card>
+    </extra-card>
   \`,
 })
 export class CardWithoutSubtitleComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

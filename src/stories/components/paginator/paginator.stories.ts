@@ -1,25 +1,34 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { PaginatorComponent } from '../../../lib/components/paginator/paginator.component';
-import { PaginatorCurrentPageReportComponent, CurrentPageReport as CurrentPageReportStory } from './examples/paginator-current-page-report.component';
-import { PaginatorRowsPerPageComponent, RowsPerPage as RowsPerPageStory } from './examples/paginator-rows-per-page.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { ExtraPaginatorComponent } from '../../../lib/components/paginator/paginator.component';
+import {
+  CurrentPageReport as CurrentPageReportStory,
+  PaginatorCurrentPageReportComponent
+} from './examples/paginator-current-page-report.component';
+import {
+  PaginatorRowsPerPageComponent,
+  RowsPerPage as RowsPerPageStory
+} from './examples/paginator-rows-per-page.component';
 
 type PaginatorArgs = Pick<
-  PaginatorComponent,
-  'totalRecords' | 'rows' | 'pageLinkSize' | 'showFirstLastIcon' | 'showPageLinks' | 'showCurrentPageReport' | 'showJumpToPageInput' | 'alwaysShow'
+  ExtraPaginatorComponent,
+  | 'totalRecords'
+  | 'rows'
+  | 'pageLinkSize'
+  | 'showFirstLastIcon'
+  | 'showPageLinks'
+  | 'showCurrentPageReport'
+  | 'showJumpToPageInput'
+  | 'alwaysShow'
 >;
 
 const meta: Meta<PaginatorArgs> = {
   title: 'Components/Data/Paginator',
-  component: PaginatorComponent,
+  component: ExtraPaginatorComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        PaginatorComponent,
-        PaginatorCurrentPageReportComponent,
-        PaginatorRowsPerPageComponent,
-      ],
-    }),
+      imports: [ExtraPaginatorComponent, PaginatorCurrentPageReportComponent, PaginatorRowsPerPageComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -27,11 +36,11 @@ const meta: Meta<PaginatorArgs> = {
         component: `Отображает навигацию по страницам для больших наборов данных.
 
 \`\`\`typescript
-import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-paginator' },
+    designTokens: { prefix: '--p-paginator' }
   },
   argTypes: {
     totalRecords: {
@@ -40,8 +49,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     rows: {
       control: { type: 'number', min: 1 },
@@ -49,8 +58,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '10' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     pageLinkSize: {
       control: { type: 'number', min: 1 },
@@ -58,8 +67,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '5' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     showFirstLastIcon: {
       control: 'boolean',
@@ -67,8 +76,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showPageLinks: {
       control: 'boolean',
@@ -76,8 +85,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showCurrentPageReport: {
       control: 'boolean',
@@ -85,8 +94,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showJumpToPageInput: {
       control: 'boolean',
@@ -94,8 +103,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     alwaysShow: {
       control: 'boolean',
@@ -103,9 +112,9 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     totalRecords: 120,
@@ -115,8 +124,8 @@ import { PaginatorComponent } from '@cdek-it/angular-ui-kit';
     showPageLinks: true,
     showCurrentPageReport: false,
     showJumpToPageInput: false,
-    alwaysShow: true,
-  },
+    alwaysShow: true
+  }
 };
 
 export default meta;
@@ -129,7 +138,7 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <paginator
+      <extra-paginator
         [totalRecords]="totalRecords"
         [rows]="rows"
         [pageLinkSize]="pageLinkSize"
@@ -138,16 +147,16 @@ export const Default: Story = {
         [showCurrentPageReport]="showCurrentPageReport"
         [showJumpToPageInput]="showJumpToPageInput"
         [alwaysShow]="alwaysShow"
-      ></paginator>
-    `,
+      ></extra-paginator>
+    `
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── CurrentPageReport ─────────────────────────────────────────────────────────
@@ -162,7 +171,7 @@ export const RowsPerPage: Story = {
     ...RowsPerPageStory.parameters,
     docs: {
       ...RowsPerPageStory.parameters?.docs,
-      story: { height: '200px' },
-    },
-  },
+      story: { height: '200px' }
+    }
+  }
 };

@@ -1,4 +1,14 @@
-import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
@@ -7,21 +17,21 @@ import { InputIcon } from 'primeng/inputicon';
 
 export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 
-
 @Component({
-  selector: 'input-text',
+  selector: 'extra-input-text',
   standalone: true,
   imports: [InputText, IconField, InputIcon, NgClass],
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputTextComponent),
-      multi: true,
-    },
+      useExisting: forwardRef(() => ExtraInputTextComponent),
+      multi: true
+    }
   ],
   template: `
     @if (showClear) {
-      <p-iconfield [ngClass]="{'!w-full': fluid}">
+      <p-iconfield [ngClass]="{ '!w-full': fluid }">
         <input
           pInputText
           [ngClass]="sizeClass"
@@ -29,7 +39,7 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
           [disabled]="disabled"
           [readOnly]="readonly"
           [invalid]="invalid"
-          [placeholder]="placeholder"
+          [attr.placeholder]="placeholder || null"
           [fluid]="fluid"
           [value]="modelValue"
           (input)="onInput($event)"
@@ -53,16 +63,16 @@ export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         [disabled]="disabled"
         [readOnly]="readonly"
         [invalid]="invalid"
-        [placeholder]="placeholder"
+        [attr.placeholder]="placeholder || null"
         [fluid]="fluid"
         [value]="modelValue"
         (input)="onInput($event)"
         (blur)="onTouched()"
       />
     }
-  `,
+  `
 })
-export class InputTextComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -73,7 +83,7 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder = '';
   @Input() size: InputTextSize = 'base';
   @Input() readonly = false;
-  @Input() showClear = false;
+  @Input({ transform: booleanAttribute }) showClear = false;
   @Input() fluid = false;
 
   disabled = false;
@@ -88,10 +98,10 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
 
   private _onChange: (value: string) => void = () => {};
 
-  get primeSize(): 'small' | 'large' | undefined {
+  get primeSize(): 'small' | 'large' | never {
     if (this.size === 'small') return 'small';
     if (this.size === 'large' || this.size === 'xlarge') return 'large';
-    return undefined;
+    return undefined as never;
   }
 
   get sizeClass(): Record<string, boolean> {

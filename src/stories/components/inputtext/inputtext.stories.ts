@@ -1,28 +1,33 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { ClearButton } from './examples/inputtext-clear.component';
-import { InputTextFloatLabelComponent, FloatLabelStory } from './examples/inputtext-float-label.component';
-import { InputTextFloatLabelInvalidComponent, FloatLabelInvalid } from './examples/inputtext-float-label-invalid.component';
+import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
+import { ClearButton, InputTextClearComponent } from './examples/inputtext-clear.component';
+import { FloatLabelStory, InputTextFloatLabelComponent } from './examples/inputtext-float-label.component';
+import {
+  FloatLabelInvalid,
+  InputTextFloatLabelInvalidComponent
+} from './examples/inputtext-float-label-invalid.component';
 import { Disabled } from './examples/inputtext-disabled.component';
-import { Readonly } from './examples/inputtext-readonly.component';
+import { InputTextReadonlyComponent, Readonly } from './examples/inputtext-readonly.component';
 import { Invalid } from './examples/inputtext-invalid.component';
 
-type InputTextArgs = InputTextComponent & { disabled: boolean; invalid: boolean };
+type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<InputTextArgs> = {
   title: 'Components/Form/InputText',
-  component: InputTextComponent,
+  component: ExtraInputTextComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        InputTextComponent,
+        ExtraInputTextComponent,
         ReactiveFormsModule,
         InputTextFloatLabelComponent,
         InputTextFloatLabelInvalidComponent,
-      ],
-    }),
+        InputTextReadonlyComponent,
+        InputTextClearComponent
+      ]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-inputtext' },
@@ -32,9 +37,9 @@ const meta: Meta<InputTextArgs> = {
 
 \`\`\`typescript
 import { InputTextModule } from 'primeng/inputtext';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -44,8 +49,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -54,8 +59,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -63,8 +68,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     invalid: {
       control: 'boolean',
@@ -72,8 +77,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     readonly: {
       control: 'boolean',
@@ -81,8 +86,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showClear: {
       control: 'boolean',
@@ -90,8 +95,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -99,8 +104,8 @@ import { InputTextModule } from 'primeng/inputtext';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
@@ -113,9 +118,9 @@ import { InputTextModule } from 'primeng/inputtext';
       description: 'Событие очистки поля (при showClear)',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<void>' },
-      },
-    },
+        type: { summary: 'EventEmitter<void>' }
+      }
+    }
   },
   args: {
     placeholder: 'Введите текст...',
@@ -124,8 +129,8 @@ import { InputTextModule } from 'primeng/inputtext';
     invalid: false,
     readonly: false,
     showClear: false,
-    fluid: false,
-  },
+    fluid: false
+  }
 };
 
 export default meta;
@@ -134,19 +139,19 @@ type Story = StoryObj<InputTextArgs>;
 // ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
+  render: (args: Record<string, unknown>) => {
     const parts: string[] = [];
 
-    if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.showClear) parts.push(`[showClear]="true"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
+    if (args['placeholder']) parts.push(`placeholder="${args['placeholder']}"`);
+    if (args['size'] && args['size'] !== 'base') parts.push(`size="${args['size']}"`);
+    if (args['readonly']) parts.push(`[readonly]="true"`);
+    if (args['showClear']) parts.push(`[showClear]="true"`);
+    if (args['fluid']) parts.push(`[fluid]="true"`);
 
     const validators = [];
-    if (args.invalid) validators.push(Validators.required);
+    if (args['invalid']) validators.push(Validators.required);
 
-    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
+    const control = new FormControl({ value: '', disabled: args['disabled'] as boolean }, validators);
 
     const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
 
@@ -155,10 +160,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

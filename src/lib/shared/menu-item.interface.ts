@@ -1,0 +1,36 @@
+export interface ExtraMenuItem {
+  label?: string;
+  icon?: string;
+  command?(event: { originalEvent?: Event; item: ExtraMenuItem }): void;
+  url?: string;
+  items?: ExtraMenuItem[];
+  expanded?: boolean;
+  disabled?: boolean;
+  visible?: boolean;
+  target?: string;
+  escape?: boolean;
+  routerLinkActiveOptions?: any;
+  separator?: boolean;
+  badge?: string;
+  tooltip?: string;
+  tooltipPosition?: string;
+  badgeStyleClass?: string;
+  style?: { [klass: string]: any } | null | undefined;
+  styleClass?: string;
+  title?: string;
+  id?: string;
+  automationId?: any;
+  tabindex?: string;
+  routerLink?: any;
+  queryParams?: { [k: string]: any };
+  fragment?: string;
+  queryParamsHandling?: any;
+  preserveFragment?: boolean;
+  skipLocationChange?: boolean;
+  replaceUrl?: boolean;
+  iconStyle?: { [klass: string]: any } | null | undefined;
+  iconClass?: string;
+  state?: { [k: string]: any };
+  tooltipOptions?: any;
+  [key: string]: any;
+}

@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
+import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
 <div class="bg-surface-ground">
   <div class="flex flex-col gap-3">
-    <skeleton height="1rem"></skeleton>
-    <skeleton height="1rem" width="75%"></skeleton>
-    <skeleton height="1rem" width="50%"></skeleton>
+    <extra-skeleton height="1rem"></extra-skeleton>
+    <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+    <extra-skeleton height="1rem" width="50%"></extra-skeleton>
   </div>
 </div>
 `;
@@ -16,19 +16,22 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-rectangles',
   standalone: true,
-  imports: [SkeletonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSkeletonComponent],
   template,
-  styles,
+  styles
 })
 export class SkeletonRectanglesComponent {}
 
 export const Rectangles: StoryObj = {
   render: () => ({
-    template: `<app-skeleton-rectangles></app-skeleton-rectangles>`,
+    template: `<app-skeleton-rectangles></app-skeleton-rectangles>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Прямоугольные строки-заглушки разной ширины — паттерн для списка отправлений или текстового контента.' },
+      description: {
+        story: 'Прямоугольные строки-заглушки разной ширины — паттерн для списка отправлений или текстового контента.'
+      },
       source: {
         language: 'ts',
         code: `
@@ -38,18 +41,19 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-skeleton-rectangles',
   standalone: true,
-  imports: [SkeletonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSkeletonComponent],
   template: \`
     <div class="flex flex-col gap-3">
-      <skeleton height="1rem"></skeleton>
-      <skeleton height="1rem" width="75%"></skeleton>
-      <skeleton height="1rem" width="50%"></skeleton>
+      <extra-skeleton height="1rem"></extra-skeleton>
+      <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+      <extra-skeleton height="1rem" width="50%"></extra-skeleton>
     </div>
   \`,
 })
 export class SkeletonRectanglesComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

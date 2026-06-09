@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
+import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
 import { iconValue } from '../metergroup.data';
 
 @Component({
   selector: 'app-metergroup-icon',
   standalone: true,
-  imports: [MeterGroupComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <metergroup [value]="value"></metergroup>
+      <extra-metergroup [value]="value"></extra-metergroup>
     </div>
-  `,
+  `
 })
 export class MeterGroupIconComponent {
   value: MeterItem[] = iconValue;
@@ -29,15 +30,15 @@ export const Icon: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { MeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
+import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-metergroup-icon',
   standalone: true,
-  imports: [MeterGroupComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraMeterGroupComponent],
   template: \`
-    <metergroup [value]="value"></metergroup>
+    <extra-metergroup [value]="value"></extra-metergroup>
   \`,
 })
 export class MeterGroupIconComponent {

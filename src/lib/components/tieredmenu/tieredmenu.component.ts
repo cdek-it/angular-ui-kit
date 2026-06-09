@@ -3,19 +3,13 @@ import { TieredMenu } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'tieredmenu',
+  selector: 'extra-tieredmenu',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TieredMenu],
-  template: `
-    <p-tieredmenu
-      [model]="model"
-      [autoDisplay]="autoDisplay"
-      [tabindex]="tabindex"
-    ></p-tieredmenu>
-  `,
+  template: ` <p-tieredmenu [model]="model" [autoDisplay]="autoDisplay" [tabindex]="tabindex"></p-tieredmenu> `
 })
-export class TieredMenuComponent implements AfterViewChecked {
+export class ExtraTieredMenuComponent implements AfterViewChecked {
   @Input() model: MenuItem[] = [];
   @Input() autoDisplay = true;
   @Input() tabindex: number | undefined = undefined;
@@ -45,8 +39,9 @@ export class TieredMenuComponent implements AfterViewChecked {
 
   private applyActiveClass(): void {
     const root = this.el.nativeElement;
-    root.querySelectorAll<HTMLElement>('.p-tieredmenu-item-checked')
-      .forEach(el => el.classList.remove('p-tieredmenu-item-checked'));
+    root
+      .querySelectorAll<HTMLElement>('.p-tieredmenu-item-checked')
+      .forEach((el) => el.classList.remove('p-tieredmenu-item-checked'));
 
     if (this.activeItemId) {
       const active = root.querySelector<HTMLElement>(`#${CSS.escape(this.activeItemId)}`);

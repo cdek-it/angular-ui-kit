@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BadgeComponent, BadgeSeverity, BadgeSize } from '../../../../lib/components/badge/badge.component';
+import { BadgeSeverity, BadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <badge [value]="value" [severity]="severity" [size]="size"></badge>
+  <extra-badge [value]="value" [severity]="severity" [size]="size"></extra-badge>
 </div>
 `;
 
@@ -13,7 +13,8 @@ const styles = '';
 @Component({
   selector: 'app-badge-severity',
   standalone: true,
-  imports: [BadgeComponent],
+  imports: [ExtraBadgeComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template,
   styles
 })
@@ -52,11 +53,12 @@ export const Severity: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { BadgeComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-badge-severity',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent],
   template: \`${template}\`
 })

@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { RadiobuttonComponent } from '../../../lib/components/radiobutton/radiobutton.component';
+import { ExtraRadiobuttonComponent as RadiobuttonComponent } from '../../../lib/components/radiobutton/radiobutton.component';
 import { RadiobuttonGroupComponent, Group } from './examples/radiobutton-group.component';
 import { RadiobuttonInvalidComponent, Invalid } from './examples/radiobutton-invalid.component';
 import { RadiobuttonDisabledComponent, Disabled } from './examples/radiobutton-disabled.component';
@@ -106,7 +106,7 @@ export const Default: Story = {
     if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
 
-    const template = `<radiobutton\n  ${parts.join('\n  ')}\n></radiobutton>`;
+    const template = `<extra-radiobutton\n  ${parts.join('\n  ')}\n></extra-radiobutton>`;
     return { props: { ...args, selected: 'option1' }, template };
   },
   parameters: {

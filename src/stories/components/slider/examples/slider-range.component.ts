@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SliderComponent } from '../../../../lib/components/slider/slider.component';
+import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></slider>
+  <extra-slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -13,9 +13,10 @@ const styles = '';
 @Component({
   selector: 'app-slider-range',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSliderComponent, FormsModule],
   template,
-  styles,
+  styles
 })
 export class SliderRangeComponent {
   value: number[] = [20, 80];
@@ -23,7 +24,7 @@ export class SliderRangeComponent {
 
 export const Range: StoryObj = {
   render: () => ({
-    template: `<app-slider-range></app-slider-range>`,
+    template: `<app-slider-range></app-slider-range>`
   }),
   parameters: {
     docs: {
@@ -32,22 +33,22 @@ export const Range: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-slider-range',
   standalone: true,
-  imports: [SliderComponent, FormsModule],
+  imports: [ExtraSliderComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></slider>
+    <extra-slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></extra-slider>
   \`,
 })
 export class SliderRangeComponent {
   value: number[] = [20, 80];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

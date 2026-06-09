@@ -1,25 +1,32 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { MenuItem } from 'primeng/api';
-import { TieredMenu } from 'primeng/tieredmenu';
 import { Badge } from 'primeng/badge';
-import { NgIf } from '@angular/common';
+import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 
 const template = `
 <div class="bg-surface-ground" style="min-height: 280px">
-  <p-tieredmenu [model]="items">
+  <extra-tieredmenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
       <a class="p-tieredmenu-item-link flex items-center gap-2 w-full">
-        <span *ngIf="item.icon" [class]="'p-tieredmenu-item-icon ' + item.icon"></span>
+        @if (item.icon) {
+          <span [class]="'p-tieredmenu-item-icon ' + item.icon"></span>
+        }
         <div class="p-tieredmenu-item-caption flex-1">
           <span class="p-tieredmenu-item-label">{{ item.label }}</span>
-          <small *ngIf="item['description']" class="p-tieredmenu-item-caption-text">{{ item['description'] }}</small>
+          @if (item['description']) {
+            <small class="p-tieredmenu-item-caption-text">{{ item['description'] }}</small>
+          }
         </div>
-        <p-badge *ngIf="item['badge']" [value]="item['badge']"></p-badge>
-        <span *ngIf="hasSubmenu" class="p-tieredmenu-submenu-icon ti ti-chevron-right"></span>
+        @if (item['badge']) {
+          <p-badge [value]="item['badge']"></p-badge>
+        }
+        @if (hasSubmenu) {
+          <span class="p-tieredmenu-submenu-icon ti ti-chevron-right"></span>
+        }
       </a>
     </ng-template>
-  </p-tieredmenu>
+  </extra-tieredmenu>
 </div>
 `;
 const styles = '';
@@ -27,7 +34,7 @@ const styles = '';
 @Component({
   selector: 'app-tieredmenu-custom',
   standalone: true,
-  imports: [TieredMenu, Badge, NgIf],
+  imports: [ExtraTieredMenuComponent, Badge],
   template,
   styles,
 })
@@ -76,27 +83,31 @@ export const Custom: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { TieredMenu } from 'primeng/tieredmenu';
-import { Badge } from 'primeng/badge';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-tieredmenu-custom',
   standalone: true,
-  imports: [TieredMenu, Badge, NgIf],
+  imports: [TieredMenu, Badge],
   template: \`
     <p-tieredmenu [model]="items">
       <ng-template #item let-item let-hasSubmenu="hasSubmenu">
         <a class="p-tieredmenu-item-link flex items-center gap-2 w-full">
-          <span *ngIf="item.icon" [class]="'p-tieredmenu-item-icon ' + item.icon"></span>
+          @if (item.icon) {
+            <span [class]="'p-tieredmenu-item-icon ' + item.icon"></span>
+          }
           <div class="p-tieredmenu-item-caption flex-1">
             <span class="p-tieredmenu-item-label">{{ item.label }}</span>
-            <small *ngIf="item['description']" class="p-tieredmenu-item-caption-text">{{ item['description'] }}</small>
+            @if (item['description']) {
+              <small class="p-tieredmenu-item-caption-text">{{ item['description'] }}</small>
+            }
           </div>
-          <p-badge *ngIf="item['badge']" [value]="item['badge']"></p-badge>
-          <span *ngIf="hasSubmenu" class="p-tieredmenu-submenu-icon ti ti-chevron-right"></span>
+          @if (item['badge']) {
+            <p-badge [value]="item['badge']"></p-badge>
+          }
+          @if (hasSubmenu) {
+            <span class="p-tieredmenu-submenu-icon ti ti-chevron-right"></span>
+          }
         </a>
       </ng-template>
     </p-tieredmenu>
