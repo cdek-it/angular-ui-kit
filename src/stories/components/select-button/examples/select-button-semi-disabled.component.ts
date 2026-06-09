@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { SelectButtonComponent, SelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <select-button [(ngModel)]="value" [options]="options"></select-button>
+  <select-button [formControl]="control" [options]="options"></select-button>
 </div>
 `;
 const styles = '';
@@ -13,12 +13,12 @@ const styles = '';
 @Component({
   selector: 'app-select-button-semi-disabled',
   standalone: true,
-  imports: [SelectButtonComponent, FormsModule],
+  imports: [SelectButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class SelectButtonSemiDisabledComponent {
-  value = '1';
+  control = new FormControl('1');
   options: SelectButtonItem[] = [
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2', disabled: true },
@@ -39,19 +39,19 @@ export const SemiDisabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-semi-disabled',
   standalone: true,
-  imports: [SelectButtonComponent, FormsModule],
+  imports: [SelectButtonComponent, ReactiveFormsModule],
   template: \`
-    <select-button [(ngModel)]="value" [options]="options"></select-button>
+    <select-button [formControl]="control" [options]="options"></select-button>
   \`,
 })
 export class SelectButtonSemiDisabledComponent {
-  value = '1';
+  control = new FormControl('1');
   options: SelectButtonItem[] = [
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2', disabled: true },

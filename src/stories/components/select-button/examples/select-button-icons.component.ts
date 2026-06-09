@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { SelectButtonComponent, SelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <select-button [(ngModel)]="value" [options]="options"></select-button>
+  <select-button [formControl]="control" [options]="options"></select-button>
 </div>
 `;
 const styles = '';
@@ -13,12 +13,12 @@ const styles = '';
 @Component({
   selector: 'app-select-button-icons',
   standalone: true,
-  imports: [SelectButtonComponent, FormsModule],
+  imports: [SelectButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class SelectButtonIconsComponent {
-  value = 'left';
+  control = new FormControl('left');
   options: SelectButtonItem[] = [
     { label: 'Left',   value: 'left',   icon: 'ti ti-align-left' },
     { label: 'Center', value: 'center', icon: 'ti ti-align-center' },
@@ -39,19 +39,19 @@ export const WithIcons: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-icons',
   standalone: true,
-  imports: [SelectButtonComponent, FormsModule],
+  imports: [SelectButtonComponent, ReactiveFormsModule],
   template: \`
-    <select-button [(ngModel)]="value" [options]="options"></select-button>
+    <select-button [formControl]="control" [options]="options"></select-button>
   \`,
 })
 export class SelectButtonIconsComponent {
-  value = 'left';
+  control = new FormControl('left');
   options: SelectButtonItem[] = [
     { label: 'Left',   value: 'left',   icon: 'ti ti-align-left' },
     { label: 'Center', value: 'center', icon: 'ti ti-align-center' },
