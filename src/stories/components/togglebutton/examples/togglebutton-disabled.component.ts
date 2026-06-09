@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
@@ -8,7 +8,7 @@ const template = `
   onLabel="Вкл"
   offLabel="Выкл"
   [disabled]="true"
-  [(ngModel)]="checked"
+  [formControl]="control"
 ></toggle-button>
 `;
 const styles = '';
@@ -16,12 +16,12 @@ const styles = '';
 @Component({
   selector: 'app-togglebutton-disabled',
   standalone: true,
-  imports: [ToggleButtonComponent, FormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class ToggleButtonDisabledComponent {
-  checked = false;
+  control = new FormControl(false);
 }
 
 export const Disabled: StoryObj = {
@@ -39,18 +39,18 @@ export const Disabled: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ToggleButtonComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-togglebutton-disabled',
   standalone: true,
-  imports: [ToggleButtonComponent, FormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <toggle-button onLabel="Вкл" offLabel="Выкл" [disabled]="true" [(ngModel)]="checked"></toggle-button>
+    <toggle-button onLabel="Вкл" offLabel="Выкл" [disabled]="true" [formControl]="control"></toggle-button>
   \`,
 })
 export class ToggleButtonDisabledComponent {
-  checked = false;
+  control = new FormControl(false);
 }
         `,
       },

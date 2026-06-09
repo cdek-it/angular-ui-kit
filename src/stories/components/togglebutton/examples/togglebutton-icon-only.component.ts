@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
@@ -8,7 +8,7 @@ const template = `
   onIcon="ti ti-star-filled"
   offIcon="ti ti-star"
   [iconOnly]="true"
-  [(ngModel)]="checked"
+  [formControl]="control"
 ></toggle-button>
 `;
 const styles = '';
@@ -16,12 +16,12 @@ const styles = '';
 @Component({
   selector: 'app-togglebutton-icon-only',
   standalone: true,
-  imports: [ToggleButtonComponent, FormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class ToggleButtonIconOnlyComponent {
-  checked = false;
+  control = new FormControl(false);
 }
 
 export const IconOnly: StoryObj = {
@@ -39,23 +39,23 @@ export const IconOnly: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ToggleButtonComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-togglebutton-icon-only',
   standalone: true,
-  imports: [ToggleButtonComponent, FormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template: \`
     <toggle-button
       onIcon="ti ti-star-filled"
       offIcon="ti ti-star"
       [iconOnly]="true"
-      [(ngModel)]="checked"
+      [formControl]="control"
     ></toggle-button>
   \`,
 })
 export class ToggleButtonIconOnlyComponent {
-  checked = false;
+  control = new FormControl(false);
 }
         `,
       },

@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<toggle-button size="xlg" onLabel="Вкл" offLabel="Выкл" [(ngModel)]="checked"></toggle-button>
+<toggle-button size="xlarge" onLabel="Вкл" offLabel="Выкл" [formControl]="control"></toggle-button>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-togglebutton-sizes',
   standalone: true,
-  imports: [ToggleButtonComponent, FormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class ToggleButtonSizesComponent {
-  checked = false;
+  control = new FormControl(false);
 }
 
 export const Sizes: StoryObj = {
@@ -27,25 +27,25 @@ export const Sizes: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Размер компонента задаётся через проп `size`: `sm`, `base`, `lg`, `xlg`.',
+        story: 'Размер компонента задаётся через проп `size`: `small`, `base`, `large`, `xlarge`.',
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
 import { ToggleButtonComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-togglebutton-sizes',
   standalone: true,
-  imports: [ToggleButtonComponent, FormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <toggle-button size="xlg" onLabel="Вкл" offLabel="Выкл" [(ngModel)]="checked"></toggle-button>
+    <toggle-button size="xlarge" onLabel="Вкл" offLabel="Выкл" [formControl]="control"></toggle-button>
   \`,
 })
 export class ToggleButtonSizesComponent {
-  checked = false;
+  control = new FormControl(false);
 }
         `,
       },

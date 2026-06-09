@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
 
-export type ToggleButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
+export type ToggleButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'toggle-button',
@@ -64,14 +64,14 @@ export class ToggleButtonComponent implements ControlValueAccessor {
   private _onTouched: () => void = () => {};
 
   get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'sm') return 'small';
-    if (this.size === 'lg' || this.size === 'xlg') return 'large';
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large' || this.size === 'xlarge') return 'large';
     return undefined;
   }
 
   get extraClasses(): Record<string, boolean> {
     return {
-      'p-togglebutton-xlg': this.size === 'xlg',
+      'p-togglebutton-xlarge': this.size === 'xlarge',
       'p-togglebutton-icon-only': this.iconOnly,
     };
   }

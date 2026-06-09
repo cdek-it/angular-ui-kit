@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ToggleButtonComponent } from '../../../lib/components/togglebutton/togglebutton.component';
 
 type ToggleButtonArgs = ToggleButtonComponent;
@@ -10,14 +10,14 @@ const meta: Meta<ToggleButtonArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ToggleButtonComponent, FormsModule],
+      imports: [ToggleButtonComponent, ReactiveFormsModule],
     }),
   ],
   parameters: {
     designTokens: { prefix: '--p-togglebutton' },
     docs: {
       description: {
-        component: `Кнопка-переключатель для выбора булевого значения. Поддерживает размеры \`sm\`, \`base\`, \`lg\`, \`xlg\`, иконки и icon-only вариант.`,
+        component: `Кнопка-переключатель для выбора булевого значения. Поддерживает размеры \`small\`, \`base\`, \`large\`, \`xlarge\`, иконки и icon-only вариант.`,
       },
     },
   },
@@ -69,12 +69,12 @@ const meta: Meta<ToggleButtonArgs> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'base', 'lg', 'xlg'],
+      options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер кнопки',
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'sm' | 'base' | 'lg' | 'xlg'" },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
     disabled: {
@@ -142,8 +142,10 @@ type Story = StoryObj<ToggleButtonArgs>;
 function buildTemplate(args: any): string {
   const parts: string[] = [];
 
-  parts.push(`onLabel="${args.onLabel}"`);
-  parts.push(`offLabel="${args.offLabel}"`);
+  if (!args.iconOnly) {
+    parts.push(`onLabel="${args.onLabel}"`);
+    parts.push(`offLabel="${args.offLabel}"`);
+  }
   if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
   if (args.onIcon) parts.push(`onIcon="${args.onIcon}"`);
   if (args.offIcon) parts.push(`offIcon="${args.offIcon}"`);
@@ -151,14 +153,14 @@ function buildTemplate(args: any): string {
   if (args.disabled) parts.push(`[disabled]="true"`);
   if (args.iconOnly) parts.push(`[iconOnly]="true"`);
   if (args.fluid) parts.push(`[fluid]="true"`);
-  parts.push(`[(ngModel)]="checked"`);
+  parts.push(`[formControl]="control"`);
 
   return `<toggle-button\n  ${parts.join('\n  ')}\n></toggle-button>`;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderStory(args: any) {
-  return { props: { ...args, checked: false }, template: buildTemplate(args) };
+  return { props: { ...args, control: new FormControl(false) }, template: buildTemplate(args) };
 }
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -177,11 +179,11 @@ export const Default: Story = {
 // ── Sizes ────────────────────────────────────────────────────────────────────
 export const Sizes: Story = {
   render: (args) => renderStory(args),
-  args: { size: 'xlg' },
+  args: { size: 'xlarge' },
   parameters: {
     docs: {
       description: {
-        story: 'Размер компонента задаётся через проп `size`: `sm`, `base`, `lg`, `xlg`.',
+        story: 'Размер компонента задаётся через проп `size`: `small`, `base`, `large`, `xlarge`.',
       },
     },
   },
