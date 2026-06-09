@@ -42,7 +42,7 @@ export class SelectButtonComponent implements ControlValueAccessor {
   @Input() optionLabel = 'label';
   @Input() optionValue = 'value';
   @Input() optionDisabled = 'disabled';
-  @Input() size: 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
+  @Input() size: 'base' | 'small' | 'large' | 'xLarge' = 'base';
   @Input() multiple = false;
   @Input() allowEmpty = true;
 
@@ -64,9 +64,9 @@ export class SelectButtonComponent implements ControlValueAccessor {
 
   get sizeClass(): string {
     const sizeMap: Record<string, string> = {
-      small: 'p-selectbutton-sm',
-      large: 'p-selectbutton-lg',
-      xlarge: 'p-selectbutton-xlg',
+      small: 'p-selectbutton-small',
+      large: 'p-selectbutton-large',
+      xLarge: 'p-selectbutton-xlarge',
     };
     return sizeMap[this.size] ?? '';
   }

@@ -45,12 +45,12 @@ import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit
     },
     size: {
       control: 'radio',
-      options: ['small', 'medium', 'large', 'xlarge'],
+      options: ['base', 'small', 'large', 'xLarge'],
       description: 'Размер компонента',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'medium' },
-        type: { summary: "'small' | 'medium' | 'large' | 'xlarge'" },
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'small' | 'large' | 'xLarge'" },
       },
     },
     multiple: {
@@ -94,7 +94,7 @@ export const Default: Story = {
 
     parts.push(`[(value)]="value"`);
     parts.push(`[options]="options"`);
-    if (args.size && args.size !== 'medium') parts.push(`size="${args.size}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.multiple)                        parts.push(`[multiple]="true"`);
     if (!args.allowEmpty)                     parts.push(`[allowEmpty]="false"`);
 
@@ -109,7 +109,7 @@ export const Default: Story = {
       { label: 'Option 2', value: '2' },
       { label: 'Option 3', value: '3' },
     ],
-    size: 'medium',
+    size: 'base',
     multiple: false,
     allowEmpty: true,
   },

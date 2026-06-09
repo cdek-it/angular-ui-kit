@@ -33,58 +33,58 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   border-color: ${dt('togglebutton.extend.hoverBorderColor')};
 }
 
-/* Size: sm */
-.p-selectbutton.p-selectbutton-sm.p-component .p-togglebutton.p-component {
+/* Size: small */
+.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton.p-component {
   line-height: ${dt('fonts.lineHeight.300')};
   height: ${dt('controls.iconOnly.600')};
 }
 
-.p-selectbutton.p-selectbutton-sm.p-component .p-togglebutton .p-togglebutton-label,
-.p-selectbutton.p-selectbutton-sm.p-component .p-togglebutton .p-togglebutton-content > span {
+.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-label,
+.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-content > span {
   line-height: ${dt('fonts.lineHeight.250')};
 }
 
-.p-selectbutton.p-selectbutton-sm.p-component .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-selectbutton-sm.p-component .p-togglebutton i {
+.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-icon,
+.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton i {
   font-size: ${dt('selectbutton.extend.iconSize.sm')};
 }
 
-/* Size: md (base) */
-.p-selectbutton.p-component:not(.p-selectbutton-sm):not(.p-selectbutton-lg):not(.p-selectbutton-xlg) .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-component:not(.p-selectbutton-sm):not(.p-selectbutton-lg):not(.p-selectbutton-xlg) .p-togglebutton i {
+/* Size: base */
+.p-selectbutton.p-component:not(.p-selectbutton-small):not(.p-selectbutton-large):not(.p-selectbutton-xlarge) .p-togglebutton .p-togglebutton-icon,
+.p-selectbutton.p-component:not(.p-selectbutton-small):not(.p-selectbutton-large):not(.p-selectbutton-xlarge) .p-togglebutton i {
   font-size: ${dt('selectbutton.extend.iconSize.md')};
 }
 
-/* Size: lg */
-.p-selectbutton.p-selectbutton-lg.p-component .p-togglebutton.p-component {
+/* Size: large */
+.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton.p-component {
   line-height: ${dt('fonts.lineHeight.550')};
   height: ${dt('controls.iconOnly.850')};
 }
 
-.p-selectbutton.p-selectbutton-lg.p-component .p-togglebutton .p-togglebutton-label,
-.p-selectbutton.p-selectbutton-lg.p-component .p-togglebutton .p-togglebutton-content > span {
+.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-label,
+.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-content > span {
   line-height: ${dt('fonts.lineHeight.550')};
 }
 
-.p-selectbutton.p-selectbutton-lg.p-component .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-selectbutton-lg.p-component .p-togglebutton i {
+.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-icon,
+.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton i {
   font-size: ${dt('selectbutton.extend.iconSize.lg')};
 }
 
-/* Size: xlg */
-.p-selectbutton.p-selectbutton-xlg.p-component .p-togglebutton.p-component {
+/* Size: xlarge */
+.p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton.p-component {
   font-size: ${dt('fonts.fontSize.600')};
   line-height: ${dt('fonts.lineHeight.550')};
   height: ${dt('controls.iconOnly.900')};
 }
 
-.p-selectbutton.p-selectbutton-xlg.p-component .p-togglebutton .p-togglebutton-label,
-.p-selectbutton.p-selectbutton-xlg.p-component .p-togglebutton .p-togglebutton-content > span {
+.p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-label,
+.p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-content > span {
   line-height: ${dt('fonts.lineHeight.700')};
 }
 
-.p-selectbutton.p-selectbutton-xlg.p-component .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-selectbutton-xlg.p-component .p-togglebutton i {
+.p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-icon,
+.p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton i {
   font-size: ${dt('selectbutton.extend.iconSize.xlg')};
 }
 `;
