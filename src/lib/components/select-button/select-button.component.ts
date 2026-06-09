@@ -29,20 +29,20 @@ export interface SelectButtonItem {
       [ngClass]="sizeClass"
     >
       <ng-template pTemplate="item" let-item>
-        @if (item['icon']) {
-          <i [class]="item['icon']"></i>
+        @if ($any(item)['icon']) {
+          <i [class]="$any(item)['icon']"></i>
         }
-        <span>{{ item[optionLabel] }}</span>
+        <span>{{ $any(item)[optionLabel] }}</span>
       </ng-template>
     </p-selectbutton>
   `,
 })
 export class SelectButtonComponent implements ControlValueAccessor {
-  @Input() options: any[] = [];
+  @Input() options: unknown[] = [];
   @Input() optionLabel = 'label';
   @Input() optionValue = 'value';
   @Input() optionDisabled = 'disabled';
-  @Input() size: 'default' | 'sm' | 'lg' | 'xlg' = 'default';
+  @Input() size: 'base' | 'small' | 'large' | 'xLarge' = 'base';
   @Input() multiple = false;
   @Input() allowEmpty = true;
 
@@ -63,7 +63,12 @@ export class SelectButtonComponent implements ControlValueAccessor {
   }
 
   get sizeClass(): string {
-    return this.size === 'default' ? '' : `p-selectbutton-${this.size}`;
+    const sizeMap: Record<string, string> = {
+      small: 'p-selectbutton-sm',
+      large: 'p-selectbutton-lg',
+      xLarge: 'p-selectbutton-xlg',
+    };
+    return sizeMap[this.size] ?? '';
   }
 
   writeValue(value: string | string[]): void {
