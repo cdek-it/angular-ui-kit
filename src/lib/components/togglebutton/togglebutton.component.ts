@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
@@ -40,6 +40,8 @@ export type ToggleButtonSize = 'small' | 'base' | 'large' | 'xlarge';
   `,
 })
 export class ToggleButtonComponent implements ControlValueAccessor {
+  constructor(private cdr: ChangeDetectorRef) {}
+
   @Input() onLabel = 'Вкл';
   @Input() offLabel = 'Выкл';
   @Input() onIcon: string | undefined = undefined;
@@ -96,5 +98,6 @@ export class ToggleButtonComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 }

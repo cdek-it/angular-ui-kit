@@ -226,12 +226,15 @@ export const IconOnly: Story = {
 
 // ── Disabled ─────────────────────────────────────────────────────────────────
 export const Disabled: Story = {
-  render: (args) => renderStory(args),
-  args: { disabled: true },
+  render: () => ({
+    props: { control: new FormControl({ value: false, disabled: true }) },
+    template: `<toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></toggle-button>`,
+  }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Отключённое состояние через `[disabled]="true"`.',
+        story: 'Отключённое состояние управляется через `FormControl`: `new FormControl({ value: false, disabled: true })` или `control.disable()`.',
       },
     },
   },

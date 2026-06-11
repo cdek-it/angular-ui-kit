@@ -7,7 +7,6 @@ const template = `
 <toggle-button
   onLabel="Вкл"
   offLabel="Выкл"
-  [disabled]="true"
   [formControl]="control"
 ></toggle-button>
 `;
@@ -21,7 +20,7 @@ const styles = '';
   styles,
 })
 export class ToggleButtonDisabledComponent {
-  control = new FormControl(false);
+  control = new FormControl({ value: false, disabled: true });
 }
 
 export const Disabled: StoryObj = {
@@ -32,7 +31,7 @@ export const Disabled: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Отключённое состояние через `[disabled]="true"`.',
+        story: 'Отключённое состояние управляется через `FormControl`: `new FormControl({ value: false, disabled: true })` или `control.disable()`.',
       },
       source: {
         language: 'ts',
@@ -46,11 +45,11 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
   standalone: true,
   imports: [ToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <toggle-button onLabel="Вкл" offLabel="Выкл" [disabled]="true" [formControl]="control"></toggle-button>
+    <toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></toggle-button>
   \`,
 })
 export class ToggleButtonDisabledComponent {
-  control = new FormControl(false);
+  control = new FormControl({ value: false, disabled: true });
 }
         `,
       },
