@@ -14,6 +14,7 @@ import { megamenuCss } from './tokens/components/megamenu';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
+import { selectbuttonCss } from './tokens/components/selectbutton';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -63,6 +64,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     tooltip: {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
       css: tooltipCss,
+    },
+    selectbutton: {
+      ...(tokens.components.selectbutton as unknown as ComponentsDesignTokens['selectbutton']),
+      css: selectbuttonCss,
     },
   } as ComponentsDesignTokens,
 };
