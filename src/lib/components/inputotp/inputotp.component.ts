@@ -14,7 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 
-export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-input-otp',
@@ -57,7 +57,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() mask = false;
   @Input() integerOnly = false;
   @Input() readonly = false;
-  @Input() size: InputOtpSize = 'base';
+  @Input() size: ExtraInputOtpSize = 'base';
   @Input() tabindex: number | null = null;
   @Input() autofocus = false;
 

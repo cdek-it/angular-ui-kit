@@ -4,8 +4,8 @@ import { NgClass } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { SharedModule } from 'primeng/api';
 
-export type InputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
-export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
+export type ExtraInputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
 
 @Component({
   selector: 'extra-input-number',
@@ -91,9 +91,9 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
   }
 
-  @Input() size: InputNumberSize = 'base';
+  @Input() size: ExtraInputNumberSize = 'base';
   @Input() showButtons = false;
-  @Input() buttonLayout: InputNumberButtonLayout = 'stacked';
+  @Input() buttonLayout: ExtraInputNumberButtonLayout = 'stacked';
   @Input() mode = 'decimal';
   @Input() currency: string | undefined;
   @Input() locale: string | undefined;

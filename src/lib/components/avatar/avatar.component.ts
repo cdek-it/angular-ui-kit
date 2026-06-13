@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular
 import { Avatar } from 'primeng/avatar';
 import { AvatarGroup } from 'primeng/avatargroup';
 
-export type AvatarSize = 'normal' | 'large' | 'xlarge';
-export type AvatarShape = 'square' | 'circle';
+export type ExtraAvatarSize = 'normal' | 'large' | 'xlarge';
+export type ExtraAvatarShape = 'square' | 'circle';
 
 @Component({
   selector: 'extra-avatar',
@@ -24,8 +24,8 @@ export class ExtraAvatarComponent {
   @Input() label = '';
   @Input() icon = '';
   @Input() image = '';
-  @Input() size: AvatarSize = 'normal';
-  @Input() shape: AvatarShape = 'square';
+  @Input() size: ExtraAvatarSize = 'normal';
+  @Input() shape: ExtraAvatarShape = 'square';
 
   @HostBinding('class') get hostClass(): string {
     const classes = ['ui-avatar'];

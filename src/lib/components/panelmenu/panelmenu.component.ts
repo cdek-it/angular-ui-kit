@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input } from '@angular/core';
 import { PanelMenu } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../shared';
 
 @Component({
   selector: 'extra-panelmenu',
@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
   template: ` <p-panelmenu [model]="model" [multiple]="multiple" [tabindex]="tabindex"></p-panelmenu> `
 })
 export class ExtraPanelMenuComponent implements AfterViewChecked {
-  @Input() model: MenuItem[] = [];
+  @Input() model: ExtraMenuItem[] = [];
   @Input() multiple = false;
   @Input() tabindex: number | undefined = undefined;
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { BadgeSeverity, BadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
+import { ExtraBadgeSeverity, ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
@@ -20,8 +20,8 @@ const styles = '';
 })
 export class BadgeSeverityComponent {
   @Input() value: string | number = '8';
-  @Input() severity: BadgeSeverity = 'success';
-  @Input() size: BadgeSize = 'base';
+  @Input() severity: ExtraBadgeSeverity = 'success';
+  @Input() size: ExtraBadgeSize = 'base';
 }
 
 export const Severity: StoryObj = {

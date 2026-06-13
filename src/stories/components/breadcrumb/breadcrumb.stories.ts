@@ -30,7 +30,7 @@ const meta: Meta<BreadcrumbArgs> = {
       description: 'Массив элементов меню',
       table: {
         category: 'Props',
-        type: { summary: 'MenuItem[]' }
+        type: { summary: 'ExtraMenuItem[]' }
       }
     },
     home: {
@@ -38,7 +38,7 @@ const meta: Meta<BreadcrumbArgs> = {
       description: 'Элемент для иконки «Домой»',
       table: {
         category: 'Props',
-        type: { summary: 'MenuItem' }
+        type: { summary: 'ExtraMenuItem' }
       }
     }
   },

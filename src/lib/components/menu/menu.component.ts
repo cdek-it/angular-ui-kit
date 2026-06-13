@@ -1,9 +1,10 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Menu } from 'primeng/menu';
-import { MenuItem, PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
+import { ExtraMenuItem } from '../../shared';
 
-export interface ExtraMenuModel extends MenuItem {
+export interface ExtraMenuModel extends ExtraMenuItem {
   caption?: string;
 }
 

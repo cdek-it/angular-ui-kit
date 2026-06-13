@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 
 const template = `
@@ -18,7 +18,7 @@ const styles = '';
   styles,
 })
 export class TieredMenuSelectedComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     { label: 'Отправления', icon: 'ti ti-package' },
     { label: 'Маршруты', icon: 'ti ti-route' },
     { label: 'Склады', icon: 'ti ti-building-warehouse' },
@@ -35,7 +35,7 @@ export const WithSelected: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTieredMenuComponent, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tieredmenu-selected',
@@ -46,7 +46,7 @@ import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class TieredMenuSelectedComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     { label: 'Отправления', icon: 'ti ti-package' },
     { label: 'Маршруты', icon: 'ti ti-route' },
     { label: 'Склады', icon: 'ti ti-building-warehouse' },

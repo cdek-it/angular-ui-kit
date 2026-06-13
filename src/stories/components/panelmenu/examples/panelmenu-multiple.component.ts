@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { ExtraPanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
 
 const template = `
@@ -18,7 +18,7 @@ const styles = '';
   styles
 })
 export class PanelMenuMultipleComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Отправления',
       icon: 'ti ti-package',
@@ -53,7 +53,7 @@ export const Multiple: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPanelMenuComponent, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-panelmenu-multiple',
@@ -64,7 +64,7 @@ import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class PanelMenuMultipleComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Отправления',
       icon: 'ti ti-package',

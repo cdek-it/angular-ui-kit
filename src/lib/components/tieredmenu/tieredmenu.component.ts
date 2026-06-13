@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input } from '@angular/core';
 import { TieredMenu } from 'primeng/tieredmenu';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../shared';
 
 @Component({
   selector: 'extra-tieredmenu',
@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
   template: ` <p-tieredmenu [model]="model" [autoDisplay]="autoDisplay" [tabindex]="tabindex"></p-tieredmenu> `
 })
 export class ExtraTieredMenuComponent implements AfterViewChecked {
-  @Input() model: MenuItem[] = [];
+  @Input() model: ExtraMenuItem[] = [];
   @Input() autoDisplay = true;
   @Input() tabindex: number | undefined = undefined;
 
