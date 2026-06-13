@@ -13,7 +13,7 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
 
-export type InputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-input-mask',
@@ -62,7 +62,7 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
   @Input() showClear = false;
   @Input() unmask = false;
   @Input() placeholder = '';
-  @Input() size: InputMaskSize = 'base';
+  @Input() size: ExtraInputMaskSize = 'base';
   @Input() readonly = false;
   @Input() fluid = false;
   @Input() characterPattern = '[A-Za-z]';
