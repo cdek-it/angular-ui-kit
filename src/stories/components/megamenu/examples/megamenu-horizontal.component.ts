@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '../../../../lib/components/megamenu/megamenu.component';
 
 const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
 
@@ -10,7 +10,7 @@ const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
   template
 })
 export class MegaMenuHorizontalComponent {
-  items: MegaMenuModel[] = [
+  items: ExtraMegaMenuItem[] = [
     {
       label: 'Products',
       icon: 'ti ti-box',

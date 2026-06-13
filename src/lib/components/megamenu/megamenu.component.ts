@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MegaMenu } from 'primeng/megamenu';
 import { MegaMenuItem, PrimeTemplate } from 'primeng/api';
@@ -6,11 +6,10 @@ import { Badge } from 'primeng/badge';
 
 export type MegaMenuOrientation = 'horizontal' | 'vertical';
 
-export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
-  description?: string;
-  badge?: string;
-  items?: MegaMenuModel[][] | MegaMenuModel[];
-}
+export type ExtraMegaMenuItem = MegaMenuItem;
+
+@Directive({ selector: '[extraMegaMenuItem]', standalone: true })
+export class ExtraMegaMenuItemDirective {}
 
 @Component({
   selector: 'extra-megamenu',
@@ -68,7 +67,7 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
   `
 })
 export class ExtraMegaMenuComponent {
-  @Input() model: MegaMenuItem[] = [];
+  @Input() model: ExtraMegaMenuItem[] = [];
   @Input() orientation: MegaMenuOrientation = 'horizontal';
   @Input() breakpoint: string = '960px';
   @Input() scrollHeight: string = '';
@@ -76,5 +75,5 @@ export class ExtraMegaMenuComponent {
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() tabindex: number = 0;
-  @Input() itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraMegaMenuItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 }

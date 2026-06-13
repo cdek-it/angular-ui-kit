@@ -1,5 +1,5 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '../../../lib/components/megamenu/megamenu.component';
 
 const meta: Meta<ExtraMegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
@@ -31,7 +31,7 @@ import { ExtraMegaMenuComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив пунктов меню.',
       table: {
         category: 'Props',
-        type: { summary: 'MegaMenuModel[]' }
+        type: { summary: 'ExtraMegaMenuItem[]' }
       }
     },
     orientation: {
@@ -63,7 +63,7 @@ import { ExtraMegaMenuComponent } from '@cdek-it/angular-ui-kit';
 export default meta;
 type Story = StoryObj<ExtraMegaMenuComponent>;
 
-const baseItems: MegaMenuModel[] = [
+const baseItems: ExtraMegaMenuItem[] = [
   {
     label: 'Products',
     icon: 'ti ti-box',
@@ -154,7 +154,7 @@ export const Horizontal: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraMegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
@@ -162,7 +162,7 @@ import { ExtraMegaMenuComponent, MegaMenuModel } from '@cdek-it/angular-ui-kit';
   template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
 })
 export class HorizontalExample {
-  items: MegaMenuModel[] = [
+  items: ExtraMegaMenuItem[] = [
     {
       label: 'Products',
       icon: 'ti ti-box',
@@ -236,7 +236,7 @@ export const Vertical: Story = {
   template: \`<extra-megamenu [model]="items" orientation="vertical"></extra-megamenu>\`,
 })
 export class VerticalExample {
-  items: MegaMenuModel[] = [
+  items: ExtraMegaMenuItem[] = [
     {
       label: 'Products',
       icon: 'ti ti-box',
@@ -291,7 +291,7 @@ export class VerticalExample {
 };
 
 // ── Custom ──────────────────────────────────────────────────────────────────
-const customItems: MegaMenuModel[] = [
+const customItems: ExtraMegaMenuItem[] = [
   {
     label: 'Products',
     icon: 'ti ti-box',
@@ -380,7 +380,7 @@ export const Custom: Story = {
   template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
 })
 export class CustomExample {
-  items: MegaMenuModel[] = [
+  items: ExtraMegaMenuItem[] = [
     {
       label: 'Products',
       icon: 'ti ti-box',
