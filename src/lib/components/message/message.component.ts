@@ -3,7 +3,7 @@ import { Message } from 'primeng/message';
 import { ButtonDirective } from 'primeng/button';
 import { SharedModule } from 'primeng/api';
 
-export type MessageSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
+export type ExtraMessageSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
 
 const SEVERITY_ICONS: Record<string, string> = {
   info: 'ti ti-info-circle',
@@ -43,7 +43,7 @@ const SEVERITY_ICONS: Record<string, string> = {
   `
 })
 export class ExtraMessageComponent {
-  @Input() severity: MessageSeverity = 'info';
+  @Input() severity: ExtraMessageSeverity = 'info';
   @Input() summary = '';
   @Input() detail = '';
   @Input() icon: string | undefined = undefined;
