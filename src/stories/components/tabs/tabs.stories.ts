@@ -18,7 +18,7 @@ const meta: Meta<ExtraTabsComponent> = {
         component: `Организует контент по вкладкам с возможностью переключения между ними.
 
 \`\`\`typescript
-import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
+import { ExtraTabsComponent, ExtraTabItem } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -57,7 +57,7 @@ import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
       description: 'Массив вкладок',
       table: {
         category: 'Props',
-        type: { summary: 'TabItem[]' }
+        type: { summary: 'ExtraTabItem[]' }
       }
     }
   }

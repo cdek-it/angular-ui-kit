@@ -15,7 +15,7 @@ import { Textarea } from 'primeng/textarea';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
-export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraTextareaSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-textarea',
@@ -89,7 +89,7 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
   }
 
   @Input() placeholder = '';
-  @Input() size: TextareaSize = 'base';
+  @Input() size: ExtraTextareaSize = 'base';
   @Input() readonly = false;
   @Input() showClear = false;
   @Input() fluid = false;

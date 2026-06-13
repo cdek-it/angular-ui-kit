@@ -1,9 +1,9 @@
 import { Injectable, Injector, Type } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DialogSize } from './dialog.component';
+import { ExtraDialogSize } from './dialog.component';
 
 export type ExtraDynamicDialogConfig<DataType = any> = Omit<DynamicDialogConfig<DataType>, 'styleClass'> & {
-  size?: DialogSize;
+  size?: ExtraDialogSize;
   styleClass?: string;
 };
 
@@ -32,7 +32,7 @@ export class ExtraDialogService {
     });
   }
 
-  private toSizeClass(size?: DialogSize): string {
+  private toSizeClass(size?: ExtraDialogSize): string {
     if (size === 'sm') return 'p-dialog-sm';
     if (size === 'lg') return 'p-dialog-lg';
     if (size === 'xlg') return 'p-dialog-xlg';

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ProgressBar } from 'primeng/progressbar';
 
-export type ProgressBarMode = 'determinate' | 'indeterminate';
+export type ExtraProgressBarMode = 'determinate' | 'indeterminate';
 
 @Component({
   selector: 'extra-progressbar',
@@ -12,6 +12,6 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
 })
 export class ExtraProgressBarComponent {
   @Input() value = 0;
-  @Input() mode: ProgressBarMode = 'determinate';
+  @Input() mode: ExtraProgressBarMode = 'determinate';
   @Input() showValue = true;
 }

@@ -28,7 +28,7 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/ang
       description: 'Массив изображений для галереи',
       table: {
         category: 'Props',
-        type: { summary: 'GalleriaItem[]' }
+        type: { summary: 'ExtraGalleriaItem[]' }
       }
     },
     numVisible: {
@@ -177,7 +177,7 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/ang
   \`,
 })
 export class AppGalleriaDefaultComponent {
-  images = [ /* массив GalleriaItem */ ];
+  images = [ /* массив ExtraGalleriaItem */ ];
 }
         `
       }
@@ -228,7 +228,7 @@ import {
   \`,
 })
 export class AppGalleriaThumbnailsComponent {
-  images = [ /* массив GalleriaItem */ ];
+  images = [ /* массив ExtraGalleriaItem */ ];
 }
         `
       }
@@ -283,7 +283,7 @@ import {
   \`,
 })
 export class AppGalleriaCaptionComponent {
-  images = [ /* массив GalleriaItem */ ];
+  images = [ /* массив ExtraGalleriaItem */ ];
 }
         `
       }
@@ -339,7 +339,7 @@ import {
   \`,
 })
 export class AppGalleriaFullscreenComponent {
-  images = [ /* массив GalleriaItem */ ];
+  images = [ /* массив ExtraGalleriaItem */ ];
   visible = false;
 }
         `
@@ -386,7 +386,7 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/ang
   \`,
 })
 export class AppGalleriaAutoplayComponent {
-  images = [ /* массив GalleriaItem */ ];
+  images = [ /* массив ExtraGalleriaItem */ ];
 }
         `
       }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { PrimeTemplate } from 'primeng/api';
 
-export interface GalleriaItem {
+export interface ExtraGalleriaItem {
   itemImageSrc: string;
   thumbnailImageSrc?: string;
   alt?: string;
@@ -101,7 +101,7 @@ export class ExtraGalleriaFooterDirective {}
   `
 })
 export class ExtraGalleriaComponent {
-  @Input() value: GalleriaItem[] = [];
+  @Input() value: ExtraGalleriaItem[] = [];
   @Input() numVisible = 3;
   @Input() showItemNavigators = false;
   @Input() showItemNavigatorsOnHover = false;

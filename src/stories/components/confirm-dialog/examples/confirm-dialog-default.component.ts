@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraConfirmDialogComponent } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
+import { ExtraConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 const template = `
 <div class="bg-surface-ground">
@@ -18,7 +18,7 @@ const template = `
   template,
 })
 export class ConfirmDialogDefaultComponent {
-  constructor(private confirmDialogService: ConfirmDialogService) {}
+  constructor(private confirmDialogService: ExtraConfirmDialogService) {}
 
   showConfirm(): void {
     this.confirmDialogService.confirm({
@@ -45,20 +45,20 @@ export const Default = {
       source: {
         language: 'ts',
         code: `
-import { ExtraConfirmDialogComponent, ConfirmDialogService, ExtraButtonComponent, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
+import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, ExtraButtonComponent, provideExtraConfirmDialog } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-confirm-dialog-default',
   standalone: true,
   imports: [ExtraConfirmDialogComponent, ExtraButtonComponent],
-  providers: [provideConfirmDialog()],
+  providers: [provideExtraConfirmDialog()],
   template: \`
     <extra-button label="Показать диалог" severity="success" (click)="showConfirm()"></extra-button>
     <extra-confirm-dialog key="cd-default"></extra-confirm-dialog>
   \`,
 })
 export class ConfirmDialogDefaultComponent {
-  constructor(private confirmDialogService: ConfirmDialogService) {}
+  constructor(private confirmDialogService: ExtraConfirmDialogService) {}
 
   showConfirm(): void {
     this.confirmDialogService.confirm({

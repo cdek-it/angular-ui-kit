@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { SharedModule } from 'primeng/api';
 
-export type ToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
-export type ToastPosition =
+export type ExtraToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
+export type ExtraToastPosition =
   | 'top-right'
   | 'top-left'
   | 'top-center'
@@ -39,7 +39,7 @@ const SEVERITY_ICONS: Record<string, string> = {
   `
 })
 export class ExtraToastComponent {
-  @Input() position: ToastPosition = 'top-right';
+  @Input() position: ExtraToastPosition = 'top-right';
   @Input() key: string | undefined = undefined;
   @Input() life = 5000;
   @Input() pt: Record<string, any> | undefined = undefined;

@@ -4,7 +4,7 @@ import {
   ExtraConfirmDialogComponent,
   ExtraConfirmDialogSize,
 } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
+import { ExtraConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 interface SizeItem {
   key: ExtraConfirmDialogSize;
@@ -46,7 +46,7 @@ const template = `
 export class ConfirmDialogSizesComponent {
   sizes = SIZES;
 
-  constructor(private confirmDialogService: ConfirmDialogService) {}
+  constructor(private confirmDialogService: ExtraConfirmDialogService) {}
 
   showConfirm(size: SizeItem): void {
     this.confirmDialogService.confirm({
@@ -73,7 +73,7 @@ export const Sizes = {
       source: {
         language: 'ts',
         code: `
-import { ExtraConfirmDialogComponent, ExtraConfirmDialogSize, ConfirmDialogService, ExtraButtonComponent, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
+import { ExtraConfirmDialogComponent, ExtraConfirmDialogSize, ExtraConfirmDialogService, ExtraButtonComponent, provideExtraConfirmDialog } from '@cdek-it/angular-ui-kit';
 
 interface SizeItem {
   key: ExtraConfirmDialogSize;
@@ -91,7 +91,7 @@ const SIZES: SizeItem[] = [
   selector: 'app-confirm-dialog-sizes',
   standalone: true,
   imports: [ExtraConfirmDialogComponent, ExtraButtonComponent],
-  providers: [provideConfirmDialog()],
+  providers: [provideExtraConfirmDialog()],
   template: \`
     <extra-confirm-dialog key="cd-size-sm" size="sm"></extra-confirm-dialog>
     <extra-confirm-dialog key="cd-size-default"></extra-confirm-dialog>
@@ -107,7 +107,7 @@ const SIZES: SizeItem[] = [
 })
 export class ConfirmDialogSizesComponent {
   sizes = SIZES;
-  constructor(private confirmDialogService: ConfirmDialogService) {}
+  constructor(private confirmDialogService: ExtraConfirmDialogService) {}
 
   showConfirm(size: SizeItem): void {
     this.confirmDialogService.confirm({

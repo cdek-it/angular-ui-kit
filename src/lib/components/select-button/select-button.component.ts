@@ -4,7 +4,7 @@ import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { SelectButton } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
 
-export interface SelectButtonItem {
+export interface ExtraSelectButtonItem {
   label: string;
   value: string;
   icon?: string;
@@ -12,7 +12,7 @@ export interface SelectButtonItem {
 }
 
 @Component({
-  selector: 'select-button',
+  selector: 'extra-select-button',
   standalone: true,
   imports: [SelectButton, SharedModule, FormsModule, NgClass],
   template: `
@@ -37,7 +37,7 @@ export interface SelectButtonItem {
     </p-selectbutton>
   `,
 })
-export class SelectButtonComponent implements ControlValueAccessor {
+export class ExtraSelectButtonComponent implements ControlValueAccessor {
   @Input() options: unknown[] = [];
   @Input() optionLabel = 'label';
   @Input() optionValue = 'value';

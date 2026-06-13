@@ -41,9 +41,9 @@ const YEARS = (() => {
   return result;
 })();
 
-export type DatePickerSize = 'small' | 'medium' | 'large' | 'xlarge';
-export type DatePickerSelectionMode = 'single' | 'multiple' | 'range';
-export type DatePickerIconDisplay = 'input' | 'button';
+export type ExtraDatePickerSize = 'small' | 'medium' | 'large' | 'xlarge';
+export type ExtraDatePickerSelectionMode = 'single' | 'multiple' | 'range';
+export type ExtraDatePickerIconDisplay = 'input' | 'button';
 
 @Component({
   selector: 'extra-date-picker',
@@ -197,10 +197,10 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   disabled = false;
 
   @Input() dateFormat = 'dd.mm.yy';
-  @Input() selectionMode: DatePickerSelectionMode = 'single';
-  @Input() size: DatePickerSize = 'medium';
+  @Input() selectionMode: ExtraDatePickerSelectionMode = 'single';
+  @Input() size: ExtraDatePickerSize = 'medium';
   @Input() showIcon = true;
-  @Input() iconDisplay: DatePickerIconDisplay = 'input';
+  @Input() iconDisplay: ExtraDatePickerIconDisplay = 'input';
   @Input() inline = false;
   @Input() showButtonBar = false;
   @Input() showTime = false;

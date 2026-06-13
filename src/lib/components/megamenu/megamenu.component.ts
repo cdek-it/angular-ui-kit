@@ -4,7 +4,7 @@ import { MegaMenu } from 'primeng/megamenu';
 import { MegaMenuItem, PrimeTemplate } from 'primeng/api';
 import { Badge } from 'primeng/badge';
 
-export type MegaMenuOrientation = 'horizontal' | 'vertical';
+export type ExtraMegaMenuOrientation = 'horizontal' | 'vertical';
 
 export type ExtraMegaMenuItem = MegaMenuItem;
 
@@ -68,7 +68,7 @@ export class ExtraMegaMenuItemDirective {}
 })
 export class ExtraMegaMenuComponent {
   @Input() model: ExtraMegaMenuItem[] = [];
-  @Input() orientation: MegaMenuOrientation = 'horizontal';
+  @Input() orientation: ExtraMegaMenuOrientation = 'horizontal';
   @Input() breakpoint: string = '960px';
   @Input() scrollHeight: string = '';
   @Input() disabled: boolean = false;

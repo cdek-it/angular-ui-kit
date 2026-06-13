@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Ou
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
-export type CheckboxSize = 'small' | 'base' | 'large';
-export type CheckboxVariant = 'outlined' | 'filled';
+export type ExtraCheckboxSize = 'small' | 'base' | 'large';
+export type ExtraCheckboxVariant = 'outlined' | 'filled';
 
 @Component({
   selector: 'extra-checkbox',
@@ -50,8 +50,8 @@ export class ExtraCheckboxComponent implements ControlValueAccessor {
   @Input() readonly = false;
   @Input() indeterminate = false;
   @Input() invalid = false;
-  @Input() size: CheckboxSize = 'base';
-  @Input() variant: CheckboxVariant = 'outlined';
+  @Input() size: ExtraCheckboxSize = 'base';
+  @Input() variant: ExtraCheckboxVariant = 'outlined';
   @Input() checkboxIcon: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;

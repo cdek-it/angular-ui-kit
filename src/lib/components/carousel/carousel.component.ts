@@ -4,7 +4,7 @@ import { Carousel } from 'primeng/carousel';
 import { PrimeTemplate } from 'primeng/api';
 import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 
-export type CarouselOrientation = 'horizontal' | 'vertical';
+export type ExtraCarouselOrientation = 'horizontal' | 'vertical';
 
 @Component({
   selector: 'extra-carousel',
@@ -51,7 +51,7 @@ export class ExtraCarouselComponent {
   @Input() numVisible = 1;
   @Input() numScroll = 1;
   @Input() circular = false;
-  @Input() orientation: CarouselOrientation = 'horizontal';
+  @Input() orientation: ExtraCarouselOrientation = 'horizontal';
   @Input() autoplayInterval = 0;
   @Input() showIndicators = true;
   @Input() showNavigators = true;

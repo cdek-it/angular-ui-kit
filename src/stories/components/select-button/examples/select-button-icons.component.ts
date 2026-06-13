@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { SelectButtonComponent, SelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
+import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <select-button [formControl]="control" [options]="options"></select-button>
+  <extra-select-button [formControl]="control" [options]="options"></extra-select-button>
 </div>
 `;
 const styles = '';
@@ -13,13 +13,13 @@ const styles = '';
 @Component({
   selector: 'app-select-button-icons',
   standalone: true,
-  imports: [SelectButtonComponent, ReactiveFormsModule],
+  imports: [ExtraSelectButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
 export class SelectButtonIconsComponent {
   control = new FormControl('left');
-  options: SelectButtonItem[] = [
+  options: ExtraSelectButtonItem[] = [
     { label: 'Left',   value: 'left',   icon: 'ti ti-align-left' },
     { label: 'Center', value: 'center', icon: 'ti ti-align-center' },
     { label: 'Right',  value: 'right',  icon: 'ti ti-align-right' },
@@ -40,19 +40,19 @@ export const WithIcons: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
-import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-icons',
   standalone: true,
-  imports: [SelectButtonComponent, ReactiveFormsModule],
+  imports: [ExtraSelectButtonComponent, ReactiveFormsModule],
   template: \`
-    <select-button [formControl]="control" [options]="options"></select-button>
+    <extra-select-button [formControl]="control" [options]="options"></extra-select-button>
   \`,
 })
 export class SelectButtonIconsComponent {
   control = new FormControl('left');
-  options: SelectButtonItem[] = [
+  options: ExtraSelectButtonItem[] = [
     { label: 'Left',   value: 'left',   icon: 'ti ti-align-left' },
     { label: 'Center', value: 'center', icon: 'ti ti-align-center' },
     { label: 'Right',  value: 'right',  icon: 'ti ti-align-right' },

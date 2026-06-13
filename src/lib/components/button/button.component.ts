@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
-export type ButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
-export type ButtonSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ButtonIconPos = 'prefix' | 'postfix' | null;
-export type BadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
+export type ExtraButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
+export type ExtraButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
+export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
+export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 
 @Component({
@@ -38,17 +38,17 @@ type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 })
 export class ExtraButtonComponent {
   @Input() label = 'Button';
-  @Input() variant: ButtonVariant = 'primary';
-  @Input() severity: ButtonSeverity = null;
-  @Input() size: ButtonSize = 'base';
+  @Input() variant: ExtraButtonVariant = 'primary';
+  @Input() severity: ExtraButtonSeverity = null;
+  @Input() size: ExtraButtonSize = 'base';
   @Input() rounded = false;
-  @Input() iconPos: ButtonIconPos = null;
+  @Input() iconPos: ExtraButtonIconPos = null;
   @Input() iconOnly = false;
   @Input() icon = '';
   @Input() disabled = false;
   @Input() loading = false;
   @Input() badge = '';
-  @Input() badgeSeverity: BadgeSeverity = null;
+  @Input() badgeSeverity: ExtraBadgeSeverity = null;
   @Input() showBadge = false;
   @Input() fluid = false;
   @Input() ariaLabel: string | undefined = undefined;

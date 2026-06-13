@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ToastSeverity } from './toast.component';
+import { ExtraToastSeverity } from './toast.component';
 
 export interface ExtraToastMessage {
   key?: string;
-  severity?: ToastSeverity;
+  severity?: ExtraToastSeverity;
   summary?: string;
   detail?: string;
   life?: number;

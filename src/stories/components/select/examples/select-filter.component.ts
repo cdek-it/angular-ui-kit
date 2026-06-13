@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -32,7 +32,7 @@ const styles = '';
   styles
 })
 export class SelectFilterComponent {
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() readonly = false;
   control = new FormControl(null);
   options = OPTIONS;

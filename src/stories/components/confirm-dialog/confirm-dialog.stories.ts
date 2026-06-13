@@ -3,7 +3,7 @@ import { ExtraConfirmDialogComponent as ConfirmDialogComponent } from '../../../
 import { ConfirmDialogDefaultComponent, Default as DefaultStory } from './examples/confirm-dialog-default.component';
 import { ConfirmDialogSeveritiesComponent, Severities } from './examples/confirm-dialog-severities.component';
 import { ConfirmDialogSizesComponent, Sizes as SizesStory } from './examples/confirm-dialog-sizes.component';
-import { provideConfirmDialog } from '../../../lib/components/confirm-dialog/confirm-dialog.service';
+import { provideExtraConfirmDialog } from '../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 const meta: Meta<ConfirmDialogComponent> = {
   title: 'Components/Overlay/ConfirmDialog',
@@ -16,7 +16,7 @@ const meta: Meta<ConfirmDialogComponent> = {
         ConfirmDialogSeveritiesComponent,
         ConfirmDialogSizesComponent,
       ],
-      providers: [provideConfirmDialog()],
+      providers: [provideExtraConfirmDialog()],
     }),
   ],
   parameters: {
@@ -25,7 +25,7 @@ const meta: Meta<ConfirmDialogComponent> = {
         component: `Компонент для подтверждения действий пользователя.
 
 \`\`\`typescript
-import { ExtraConfirmDialogComponent, ConfirmDialogService, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
+import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, provideExtraConfirmDialog } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },

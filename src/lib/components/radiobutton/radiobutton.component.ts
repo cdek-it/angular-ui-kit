@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Ou
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 
-export type RadiobuttonVariant = 'outlined' | 'filled';
-export type RadiobuttonSize = 'small' | 'base' | 'large';
+export type ExtraRadiobuttonVariant = 'outlined' | 'filled';
+export type ExtraRadiobuttonSize = 'small' | 'base' | 'large';
 
 @Component({
   selector: 'extra-radiobutton',
@@ -42,8 +42,8 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor {
   @Input() name: string | undefined = undefined;
   @Input() disabled = false;
   @Input() invalid = false;
-  @Input() variant: RadiobuttonVariant = 'outlined';
-  @Input() size: RadiobuttonSize = 'base';
+  @Input() variant: ExtraRadiobuttonVariant = 'outlined';
+  @Input() size: ExtraRadiobuttonSize = 'base';
   @Input() inputId: string | undefined = undefined;
   @Input() tabindex: number | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;

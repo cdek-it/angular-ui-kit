@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
 
 const GROUPED_OPTIONS = [
   {
@@ -52,7 +52,7 @@ const styles = '';
   styles
 })
 export class SelectGroupedComponent {
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() showClear = false;
   @Input() readonly = false;
   control = new FormControl(null);

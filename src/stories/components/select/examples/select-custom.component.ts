@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Профиль', description: 'Настройки аккаунта', icon: 'ti ti-user' },
@@ -39,7 +39,7 @@ const styles = '';
   styles
 })
 export class SelectCustomComponent {
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() showClear = false;
   @Input() readonly = false;
   control = new FormControl(null);

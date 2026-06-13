@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { ExtraConfirmDialogComponent } from '../../../../lib/components/confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
+import { ExtraConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 interface SeverityItem {
   type: 'success' | 'info' | 'warn' | 'help' | 'danger';
@@ -91,7 +91,7 @@ const template = `
 export class ConfirmDialogSeveritiesComponent {
   severities = SEVERITIES;
 
-  constructor(private confirmDialogService: ConfirmDialogService) {}
+  constructor(private confirmDialogService: ExtraConfirmDialogService) {}
 
   showConfirm(severity: SeverityItem): void {
     this.confirmDialogService.confirm({
@@ -119,7 +119,7 @@ export const Severities = {
       source: {
         language: 'ts',
         code: `
-import { ExtraConfirmDialogComponent, ConfirmDialogService, ExtraButtonComponent, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
+import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, ExtraButtonComponent, provideExtraConfirmDialog } from '@cdek-it/angular-ui-kit';
 
 interface SeverityItem {
   type: 'success' | 'info' | 'warn' | 'help' | 'danger';
@@ -143,7 +143,7 @@ const SEVERITIES: SeverityItem[] = [
   selector: 'app-confirm-dialog-severities',
   standalone: true,
   imports: [ExtraConfirmDialogComponent, ExtraButtonComponent],
-  providers: [provideConfirmDialog()],
+  providers: [provideExtraConfirmDialog()],
   template: \`
     <extra-confirm-dialog key="cd-severity-success" severity="success"></extra-confirm-dialog>
     <extra-confirm-dialog key="cd-severity-info" severity="info"></extra-confirm-dialog>
@@ -165,7 +165,7 @@ const SEVERITIES: SeverityItem[] = [
 })
 export class ConfirmDialogSeveritiesComponent {
   severities = SEVERITIES;
-  constructor(private confirmDialogService: ConfirmDialogService) {}
+  constructor(private confirmDialogService: ExtraConfirmDialogService) {}
 
   showConfirm(severity: SeverityItem): void {
     this.confirmDialogService.confirm({

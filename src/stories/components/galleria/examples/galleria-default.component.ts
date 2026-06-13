@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import {
   ExtraGalleriaComponent,
   ExtraGalleriaItemDirective,
-  GalleriaItem
+  ExtraGalleriaItem
 } from '../../../../lib/components/galleria/galleria.component';
 
-export const GALLERIA_IMAGES: GalleriaItem[] = [
+export const GALLERIA_IMAGES: ExtraGalleriaItem[] = [
   {
     itemImageSrc: '/assets/images/galleria/01.png',
     thumbnailImageSrc: '/assets/images/galleria/01.png',

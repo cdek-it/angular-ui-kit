@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Tag } from 'primeng/tag';
 
-export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger';
+export type ExtraTagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger';
 
 @Component({
   selector: 'extra-tag',
@@ -14,7 +14,7 @@ export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' 
 })
 export class ExtraTagComponent {
   @Input() value = '';
-  @Input() severity: TagSeverity = 'primary';
+  @Input() severity: ExtraTagSeverity = 'primary';
   @Input() rounded = false;
   @Input() icon = '';
 

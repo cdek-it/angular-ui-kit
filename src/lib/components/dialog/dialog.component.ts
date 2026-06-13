@@ -3,7 +3,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { PrimeTemplate } from 'primeng/api';
 
-export type DialogSize = 'sm' | 'default' | 'lg' | 'xlg';
+export type ExtraDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 
 @Component({
   selector: 'extra-dialog',
@@ -42,7 +42,7 @@ export class ExtraDialogComponent {
   @Input() header = '';
   @Input() visible = false;
   @Input() modal = true;
-  @Input() size: DialogSize = 'default';
+  @Input() size: ExtraDialogSize = 'default';
   @Input() dismissableMask = false;
   @Input() closeOnEscape = true;
   @Input() showHeader = true;

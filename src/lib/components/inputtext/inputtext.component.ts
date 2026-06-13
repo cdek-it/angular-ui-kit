@@ -15,7 +15,7 @@ import { InputText } from 'primeng/inputtext';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
-export type InputTextSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-input-text',
@@ -81,7 +81,7 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   }
 
   @Input() placeholder = '';
-  @Input() size: InputTextSize = 'base';
+  @Input() size: ExtraInputTextSize = 'base';
   @Input() readonly = false;
   @Input({ transform: booleanAttribute }) showClear = false;
   @Input() fluid = false;

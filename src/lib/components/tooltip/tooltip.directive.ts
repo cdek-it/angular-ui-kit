@@ -1,8 +1,8 @@
 import { Directive, Input } from '@angular/core';
 import { Tooltip } from 'primeng/tooltip';
 
-export type TooltipPosition = 'right' | 'left' | 'top' | 'bottom';
-export type TooltipEvent = 'hover' | 'focus' | 'both';
+export type ExtraTooltipPosition = 'right' | 'left' | 'top' | 'bottom';
+export type ExtraTooltipEvent = 'hover' | 'focus' | 'both';
 
 @Directive({
   selector: '[extra-tooltip]',
@@ -29,8 +29,8 @@ export type TooltipEvent = 'hover' | 'focus' | 'both';
 })
 export class ExtraTooltipDirective {
   @Input() tooltip: string | undefined;
-  @Input() position: TooltipPosition = 'right';
-  @Input() event: TooltipEvent = 'hover';
+  @Input() position: ExtraTooltipPosition = 'right';
+  @Input() event: ExtraTooltipEvent = 'hover';
   @Input() showDelay: number | undefined;
   @Input() hideDelay: number | undefined;
   @Input() disabled: boolean = false;

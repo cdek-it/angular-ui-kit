@@ -1,20 +1,20 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { SelectButtonComponent } from '../../../lib/components/select-button/select-button.component';
+import { ExtraSelectButtonComponent } from '../../../lib/components/select-button/select-button.component';
 import { SelectButtonSelectedComponent, Selected as SelectedStory } from './examples/select-button-selected.component';
 import { SelectButtonDisabledComponent, Disabled as DisabledStory } from './examples/select-button-disabled.component';
 import { SelectButtonSemiDisabledComponent, SemiDisabled as SemiDisabledStory } from './examples/select-button-semi-disabled.component';
 import { SelectButtonIconsComponent, WithIcons as WithIconsStory } from './examples/select-button-icons.component';
 
-type SelectButtonArgs = SelectButtonComponent;
+type SelectButtonArgs = ExtraSelectButtonComponent;
 
 const meta: Meta<SelectButtonArgs> = {
   title: 'Components/Form/SelectButton',
-  component: SelectButtonComponent,
+  component: ExtraSelectButtonComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        SelectButtonComponent,
+        ExtraSelectButtonComponent,
         SelectButtonSelectedComponent,
         SelectButtonDisabledComponent,
         SelectButtonSemiDisabledComponent,
@@ -28,7 +28,7 @@ const meta: Meta<SelectButtonArgs> = {
         component: `Группа кнопок-переключателей с поддержкой одиночного и множественного выбора.
 
 \`\`\`typescript
-import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -76,7 +76,7 @@ import { SelectButtonComponent, SelectButtonItem } from '@cdek-it/angular-ui-kit
       description: 'Массив опций',
       table: {
         category: 'Props',
-        type: { summary: 'SelectButtonItem[]' },
+        type: { summary: 'ExtraSelectButtonItem[]' },
       },
     },
   },
@@ -98,7 +98,7 @@ export const Default: Story = {
     if (args.multiple)                        parts.push(`[multiple]="true"`);
     if (!args.allowEmpty)                     parts.push(`[allowEmpty]="false"`);
 
-    const template = `<select-button\n  ${parts.join('\n  ')}\n></select-button>`;
+    const template = `<extra-select-button\n  ${parts.join('\n  ')}\n></extra-select-button>`;
 
     return { props: args, template };
   },

@@ -14,7 +14,7 @@ import { Password } from 'primeng/password';
 import { PrimeTemplate } from 'primeng/api';
 import { FloatLabel } from 'primeng/floatlabel';
 
-export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraPasswordSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-password',
@@ -85,7 +85,7 @@ export class ExtraPasswordComponent implements ControlValueAccessor {
   @Input() toggleMask = false;
   @Input() disabled = false;
   @Input() placeholder: string | undefined = undefined;
-  @Input() size: PasswordSize = 'base';
+  @Input() size: ExtraPasswordSize = 'base';
   @Input() variant: 'filled' | 'outlined' = 'outlined';
   @Input() fluid = false;
   @Input() invalid = false;

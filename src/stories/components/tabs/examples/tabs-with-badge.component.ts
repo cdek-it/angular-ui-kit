@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraTabsComponent, TabItem } from '../../../../lib/components/tabs/tabs.component';
+import { ExtraTabsComponent, ExtraTabItem } from '../../../../lib/components/tabs/tabs.component';
 
 const template = `
 <div class="bg-surface-ground">
@@ -17,7 +17,7 @@ const styles = '';
   styles
 })
 export class TabsWithBadgeComponent {
-  tabs: TabItem[] = [
+  tabs: ExtraTabItem[] = [
     { value: '0', label: 'Tab 1', icon: 'ti ti-user', badge: '99+', content: 'Tab 1 Content' },
     { value: '1', label: 'Tab 2', icon: 'ti ti-settings', badge: '5', content: 'Tab 2 Content' },
     { value: '2', label: 'Tab 3', icon: 'ti ti-bell', badge: '2', content: 'Tab 3 Content' }
@@ -34,7 +34,7 @@ export const WithBadge: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
+import { ExtraTabsComponent, ExtraTabItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tabs-with-badge',
@@ -45,7 +45,7 @@ import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class TabsWithBadgeComponent {
-  tabs: TabItem[] = [
+  tabs: ExtraTabItem[] = [
     { value: '0', label: 'Tab 1', icon: 'ti ti-user', badge: '99+', content: 'Tab 1 Content' },
     { value: '1', label: 'Tab 2', icon: 'ti ti-settings', badge: '5', content: 'Tab 2 Content' },
     { value: '2', label: 'Tab 3', icon: 'ti ti-bell', badge: '2', content: 'Tab 3 Content' },

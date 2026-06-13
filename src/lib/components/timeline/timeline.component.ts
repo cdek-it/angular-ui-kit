@@ -3,7 +3,7 @@ import { Timeline } from 'primeng/timeline';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
 
-export type TimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
+export type ExtraTimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
 
 @Component({
   selector: 'extra-timeline',
@@ -50,7 +50,7 @@ export class ExtraTimelineComponent {
   @Input() align: 'left' | 'right' | 'alternate' | 'top' | 'bottom' = 'left';
   @Input() layout: 'vertical' | 'horizontal' = 'vertical';
   @Input() showCaption: boolean = true;
-  @Input() line: TimelineLine = 'solid';
+  @Input() line: ExtraTimelineLine = 'solid';
   @Input() icon = '';
   @Input() markerColor = '';
 

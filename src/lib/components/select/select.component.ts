@@ -17,11 +17,11 @@ import { PrimeTemplate } from 'primeng/api';
 import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 
-export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
 
-export interface AnimationEvent extends NativeAnimationEvent {}
+export interface ExtraAnimationEvent extends NativeAnimationEvent {}
 
-// export class AnimationEvent
+// export class ExtraAnimationEvent
 
 @Component({
   selector: 'extra-select',
@@ -121,7 +121,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input() optionGroupChildren = 'items';
   @Input() group = false;
   @Input() placeholder = '';
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() filter = false;
   @Input() showClear = false;
   @Input() editable = false;
@@ -144,8 +144,8 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
 
   @Output() onClear = new EventEmitter<Event>();
   @Output() onFilter = new EventEmitter<SelectFilterEvent>();
-  @Output() onShow = new EventEmitter<AnimationEvent>();
-  @Output() onHide = new EventEmitter<AnimationEvent>();
+  @Output() onShow = new EventEmitter<ExtraAnimationEvent>();
+  @Output() onHide = new EventEmitter<ExtraAnimationEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 

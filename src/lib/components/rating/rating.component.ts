@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Ou
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Rating } from 'primeng/rating';
 
-export type RatingValue = number | null;
+export type ExtraRatingValue = number | null;
 
 @Component({
   selector: 'extra-rating',
@@ -40,22 +40,22 @@ export class ExtraRatingComponent implements ControlValueAccessor {
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();
 
-  modelValue: RatingValue = null;
+  modelValue: ExtraRatingValue = null;
 
-  private onChange: (value: RatingValue) => void = () => {};
+  private onChange: (value: ExtraRatingValue) => void = () => {};
   private onTouched: () => void = () => {};
 
-  handleChange(value: RatingValue): void {
+  handleChange(value: ExtraRatingValue): void {
     this.modelValue = value;
     this.onChange(value);
     this.onTouched();
   }
 
-  writeValue(value: RatingValue): void {
+  writeValue(value: ExtraRatingValue): void {
     this.modelValue = value;
   }
 
-  registerOnChange(fn: (value: RatingValue) => void): void {
+  registerOnChange(fn: (value: ExtraRatingValue) => void): void {
     this.onChange = fn;
   }
 

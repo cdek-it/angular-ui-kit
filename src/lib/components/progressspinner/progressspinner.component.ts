@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 // Let's import the component directly. Wait, index.d.ts exports { ProgressSpinner, ProgressSpinnerModule }. Either is fine. Let's use ProgressSpinner.
 import { ProgressSpinner } from 'primeng/progressspinner';
 
-export type ProgressSpinnerSize = 'small' | 'medium' | 'large' | 'xlarge';
+export type ExtraProgressSpinnerSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-progressspinner',
@@ -20,7 +20,7 @@ export type ProgressSpinnerSize = 'small' | 'medium' | 'large' | 'xlarge';
   `
 })
 export class ExtraProgressSpinnerComponent {
-  @Input() size: ProgressSpinnerSize = 'medium';
+  @Input() size: ExtraProgressSpinnerSize = 'medium';
   @Input() multicolor = true;
   @Input() strokeWidth = '2';
   @Input() fill = 'none';

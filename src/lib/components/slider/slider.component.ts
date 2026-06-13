@@ -14,7 +14,7 @@ import type { SliderSlideEndEvent } from 'primeng/slider';
 import { Slider } from 'primeng/slider';
 import { Subscription } from 'rxjs';
 
-export type SliderOrientation = 'horizontal' | 'vertical';
+export type ExtraSliderOrientation = 'horizontal' | 'vertical';
 
 @Component({
   selector: 'extra-slider',
@@ -46,7 +46,7 @@ export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, On
   @Input() max = 100;
   @Input() step: number | undefined = undefined;
   @Input() range = false;
-  @Input() orientation: SliderOrientation = 'horizontal';
+  @Input() orientation: ExtraSliderOrientation = 'horizontal';
   @Input() set disabled(value: boolean) {
     value ? this.control.disable() : this.control.enable();
   }

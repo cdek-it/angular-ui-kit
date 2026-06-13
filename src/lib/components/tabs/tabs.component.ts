@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 import { Badge } from 'primeng/badge';
 
-export interface TabItem {
+export interface ExtraTabItem {
   value: string;
   label: string;
   icon?: string;
@@ -43,7 +43,7 @@ export interface TabItem {
 })
 export class ExtraTabsComponent {
   @Input() value: string | number | undefined = '0';
-  @Input() tabs: TabItem[] = [];
+  @Input() tabs: ExtraTabItem[] = [];
   @Input() scrollable = false;
   @Input() lazy = false;
 }
