@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ContentChild,
+  Directive,
   EventEmitter,
   forwardRef,
   Input,
@@ -11,6 +13,9 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
+
+@Directive({ selector: '[extraListboxItem]', standalone: true })
+export class ExtraListboxItemDirective {}
 
 @Component({
   selector: 'extra-listbox',
@@ -62,7 +67,7 @@ export class ExtraListboxComponent implements ControlValueAccessor {
   @Input() optionGroupChildren: string | undefined = undefined;
   @Input() scrollHeight = '200px';
   @Input() emptyMessage: string | undefined = undefined;
-  @Input() itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraListboxItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();

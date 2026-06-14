@@ -39,8 +39,12 @@ const meta: Meta<DrawerArgs> = {
       description: {
         component: `Drawer — панель, отображаемая как оверлей у края экрана.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraDrawerHeader\` — кастомный заголовок (заменяет строковый \`header\`)
+- \`extraDrawerFooter\` — кастомный футер
+
 \`\`\`typescript
-import { ExtraDrawerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDrawerComponent, ExtraDrawerHeaderDirective, ExtraDrawerFooterDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },

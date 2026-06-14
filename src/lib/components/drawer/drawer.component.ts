@@ -1,7 +1,13 @@
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { Drawer } from 'primeng/drawer';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
+
+@Directive({ selector: '[extraDrawerHeader]', standalone: true })
+export class ExtraDrawerHeaderDirective {}
+
+@Directive({ selector: '[extraDrawerFooter]', standalone: true })
+export class ExtraDrawerFooterDirective {}
 
 @Component({
   selector: 'extra-drawer',
@@ -54,9 +60,9 @@ export class ExtraDrawerComponent {
   @Output() onShow = new EventEmitter<void>();
   @Output() onHide = new EventEmitter<void>();
 
-  @ContentChild('drawerHeader') headerTemplate: TemplateRef<unknown> | null = null;
+  @ContentChild(ExtraDrawerHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
 
-  @ContentChild('drawerFooter') footerTemplate: TemplateRef<unknown> | null = null;
+  @ContentChild(ExtraDrawerFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
 
   get sizeClass(): string {
     if (this.size === 'default') return '';

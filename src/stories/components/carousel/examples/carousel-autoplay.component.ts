@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { ExtraCarouselComponent } from '../../../../lib/components/carousel/carousel.component';
+import {
+  ExtraCarouselComponent,
+  ExtraCarouselItemDirective
+} from '../../../../lib/components/carousel/carousel.component';
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: `Lorem Ipsum ${i + 1}`,
@@ -7,27 +10,27 @@ const SLIDES = Array.from({ length: 8 }, (_, i) => ({
 }));
 
 const template = `
-<ng-template #itemTpl let-item>
-  <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
-    <span class="font-bold truncate">{{ item.title }}</span>
-    <span>{{ item.subtitle }}</span>
-  </div>
-</ng-template>
 <extra-carousel
   [value]="slides"
   [numVisible]="3"
   [numScroll]="1"
   [circular]="true"
   [autoplayInterval]="3000"
-  [itemTemplate]="itemTpl"
-></extra-carousel>
+>
+  <ng-template extraCarouselItem let-item>
+    <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
+      <span class="font-bold truncate">{{ item.title }}</span>
+      <span>{{ item.subtitle }}</span>
+    </div>
+  </ng-template>
+</extra-carousel>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-carousel-autoplay',
   standalone: true,
-  imports: [ExtraCarouselComponent],
+  imports: [ExtraCarouselComponent, ExtraCarouselItemDirective],
   template,
   styles
 })
@@ -47,7 +50,7 @@ export const Autoplay = {
       source: {
         language: 'ts',
         code: `
-import { ExtraCarouselComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCarouselComponent, ExtraCarouselItemDirective } from '@cdek-it/angular-ui-kit';
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: \`Lorem Ipsum \${i + 1}\`,
@@ -57,22 +60,22 @@ const SLIDES = Array.from({ length: 8 }, (_, i) => ({
 @Component({
   selector: 'app-carousel-autoplay',
   standalone: true,
-  imports: [ExtraCarouselComponent],
+  imports: [ExtraCarouselComponent, ExtraCarouselItemDirective],
   template: \`
-    <ng-template #itemTpl let-item>
-      <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
-        <span class="font-bold truncate">{{ item.title }}</span>
-        <span>{{ item.subtitle }}</span>
-      </div>
-    </ng-template>
     <extra-carousel
       [value]="slides"
       [numVisible]="3"
       [numScroll]="1"
       [circular]="true"
       [autoplayInterval]="3000"
-      [itemTemplate]="itemTpl"
-    ></extra-carousel>
+    >
+      <ng-template extraCarouselItem let-item>
+        <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
+          <span class="font-bold truncate">{{ item.title }}</span>
+          <span>{{ item.subtitle }}</span>
+        </div>
+      </ng-template>
+    </extra-carousel>
   \`,
 })
 export class CarouselAutoplayComponent {

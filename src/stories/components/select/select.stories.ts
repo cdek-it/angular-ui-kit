@@ -4,6 +4,10 @@ import { ExtraSelectComponent } from '../../../lib/components/select/select.comp
 import { Filter as FilterStory, SelectFilterComponent } from './examples/select-filter.component';
 import { Grouped as GroupedStory, SelectGroupedComponent } from './examples/select-grouped.component';
 import { Custom as CustomStory, SelectCustomComponent } from './examples/select-custom.component';
+import {
+  SelectedItem as SelectedItemStory,
+  SelectSelectedItemComponent
+} from './examples/select-selected-item.component';
 import { Editable as EditableStory, SelectEditableComponent } from './examples/select-editable.component';
 import { Disabled as DisabledStory } from './examples/select-disabled.component';
 import { FloatLabelStory, SelectFloatLabelComponent } from './examples/select-float-label.component';
@@ -36,6 +40,7 @@ const meta: Meta<SelectArgs> = {
         SelectFilterComponent,
         SelectGroupedComponent,
         SelectCustomComponent,
+        SelectSelectedItemComponent,
         SelectEditableComponent,
         SelectFloatLabelComponent
       ]
@@ -46,8 +51,13 @@ const meta: Meta<SelectArgs> = {
       description: {
         component: `Выпадающий список для выбора одного значения из набора опций. Поддерживает фильтрацию, группировку, кастомные шаблоны и редактируемый ввод.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraSelectOption\` — пункт списка (контекст \`let-option\`)
+- \`extraSelectSelectedItem\` — выбранное значение в закрытом состоянии (контекст \`let-option\`)
+- \`extraSelectOptionGroup\` — заголовок группы (контекст \`let-group\`)
+
 \`\`\`typescript
-import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent, ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSelectOptionGroupDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -191,6 +201,10 @@ export const Grouped: Story = GroupedStory;
 // ── Custom ────────────────────────────────────────────────────────────────────
 
 export const Custom: Story = CustomStory;
+
+// ── Selected Item ─────────────────────────────────────────────────────────────
+
+export const SelectedItem: Story = SelectedItemStory;
 
 // ── Editable ──────────────────────────────────────────────────────────────────
 

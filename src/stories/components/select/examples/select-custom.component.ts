@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
+import {
+  ExtraSelectComponent,
+  ExtraSelectOptionDirective,
+  ExtraSelectSize
+} from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Профиль', description: 'Настройки аккаунта', icon: 'ti ti-user' },
@@ -9,32 +13,32 @@ const OPTIONS = [
 ];
 
 const template = `
-<ng-template #optTpl let-option>
-  <div class="flex items-center gap-2">
-    <span [class]="option.icon"></span>
-    <div>
-      <div>{{ option.name }}</div>
-      <small class="text-surface-400">{{ option.description }}</small>
-    </div>
-  </div>
-</ng-template>
 <extra-select
   [formControl]="control"
   [options]="options"
   optionLabel="name"
   placeholder="Выберите пункт..."
-  [optionTemplate]="optTpl"
   [size]="size"
   [showClear]="showClear"
   [readonly]="readonly"
-></extra-select>
+>
+  <ng-template extraSelectOption let-option>
+    <div class="flex items-center gap-2">
+      <span [class]="option.icon"></span>
+      <div>
+        <div>{{ option.name }}</div>
+        <small class="text-surface-400">{{ option.description }}</small>
+      </div>
+    </div>
+  </ng-template>
+</extra-select>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-select-custom',
   standalone: true,
-  imports: [ExtraSelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ExtraSelectOptionDirective, ReactiveFormsModule],
   template,
   styles
 })
@@ -75,28 +79,28 @@ export const Custom = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent, ExtraSelectOptionDirective } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [ExtraSelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ExtraSelectOptionDirective, ReactiveFormsModule],
   template: \`
-    <ng-template #optTpl let-option>
-      <div class="flex items-center gap-2">
-        <span [class]="option.icon"></span>
-        <div>
-          <div>{{ option.name }}</div>
-          <small>{{ option.description }}</small>
-        </div>
-      </div>
-    </ng-template>
     <extra-select
       [formControl]="control"
       [options]="options"
       optionLabel="name"
       placeholder="Выберите пункт..."
-      [optionTemplate]="optTpl"
-    ></extra-select>
+    >
+      <ng-template extraSelectOption let-option>
+        <div class="flex items-center gap-2">
+          <span [class]="option.icon"></span>
+          <div>
+            <div>{{ option.name }}</div>
+            <small>{{ option.description }}</small>
+          </div>
+        </div>
+      </ng-template>
+    </extra-select>
   \`,
 })
 export class SelectCustomExample {

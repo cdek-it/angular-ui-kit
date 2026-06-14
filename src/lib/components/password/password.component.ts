@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  Directive,
   EventEmitter,
   forwardRef,
   Input,
@@ -15,6 +16,12 @@ import { PrimeTemplate } from 'primeng/api';
 import { FloatLabel } from 'primeng/floatlabel';
 
 export type ExtraPasswordSize = 'small' | 'base' | 'large' | 'xlarge';
+
+@Directive({ selector: '[extraPasswordHeader]', standalone: true })
+export class ExtraPasswordHeaderDirective {}
+
+@Directive({ selector: '[extraPasswordFooter]', standalone: true })
+export class ExtraPasswordFooterDirective {}
 
 @Component({
   selector: 'extra-password',
@@ -78,8 +85,8 @@ export type ExtraPasswordSize = 'small' | 'base' | 'large' | 'xlarge';
   `
 })
 export class ExtraPasswordComponent implements ControlValueAccessor {
-  @ContentChild('header') headerTemplate: TemplateRef<any> | null = null;
-  @ContentChild('footer') footerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraPasswordHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraPasswordFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
 
   @Input() feedback = true;
   @Input() toggleMask = false;

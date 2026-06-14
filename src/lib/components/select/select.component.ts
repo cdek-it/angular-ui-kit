@@ -1,5 +1,7 @@
 import {
   Component,
+  ContentChild,
+  Directive,
   EventEmitter,
   forwardRef,
   inject,
@@ -22,6 +24,15 @@ export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
 export interface ExtraAnimationEvent extends NativeAnimationEvent {}
 
 // export class ExtraAnimationEvent
+
+@Directive({ selector: '[extraSelectOption]', standalone: true })
+export class ExtraSelectOptionDirective {}
+
+@Directive({ selector: '[extraSelectSelectedItem]', standalone: true })
+export class ExtraSelectSelectedItemDirective {}
+
+@Directive({ selector: '[extraSelectOptionGroup]', standalone: true })
+export class ExtraSelectOptionGroupDirective {}
 
 @Component({
   selector: 'extra-select',
@@ -135,9 +146,11 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input() checkmarkIcon = 'ea5e';
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
-  @Input() optionTemplate: TemplateRef<any> | null = null;
-  @Input() selectedItemTemplate: TemplateRef<any> | null = null;
-  @Input() optionGroupTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraSelectOptionDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraSelectSelectedItemDirective, { read: TemplateRef }) selectedItemTemplate: TemplateRef<any> | null =
+    null;
+  @ContentChild(ExtraSelectOptionGroupDirective, { read: TemplateRef }) optionGroupTemplate: TemplateRef<any> | null =
+    null;
 
   disabled = false;
   modelValue: any = null;

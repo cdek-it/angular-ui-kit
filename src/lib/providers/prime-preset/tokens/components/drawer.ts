@@ -61,6 +61,17 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
   width: calc(100% - ${dt('drawer.extend.padding')} * 2);
 }
 
+/* Полноэкранный режим — drawer на весь экран, без отступов и без учёта размера */
+.p-drawer.p-component.p-drawer-full,
+.p-drawer.p-component.p-drawer-full.p-drawer-sm,
+.p-drawer.p-component.p-drawer-full.p-drawer-lg,
+.p-drawer.p-component.p-drawer-full.p-drawer-xlg {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
 `;
+
 
 export { drawerCss };

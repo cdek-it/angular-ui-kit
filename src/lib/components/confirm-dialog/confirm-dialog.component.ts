@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { PrimeTemplate } from 'primeng/api';
@@ -6,6 +6,12 @@ import { ExtraButtonComponent } from '../button/button.component';
 
 export type ExtraConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';
+
+@Directive({ selector: '[extraConfirmDialogHeader]', standalone: true })
+export class ExtraConfirmDialogHeaderDirective {}
+
+@Directive({ selector: '[extraConfirmDialogFooter]', standalone: true })
+export class ExtraConfirmDialogFooterDirective {}
 
 @Component({
   selector: 'extra-confirm-dialog',
@@ -64,8 +70,10 @@ export class ExtraConfirmDialogComponent {
   @Input() key = '';
   @Input() size: ExtraConfirmDialogSize = 'default';
   @Input() severity: ExtraConfirmDialogSeverity = 'default';
-  @Input() headerTemplate: TemplateRef<any> | null = null;
-  @Input() footerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraConfirmDialogHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null =
+    null;
+  @ContentChild(ExtraConfirmDialogFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null =
+    null;
 
   get computedClass(): string {
     const classes: string[] = [];

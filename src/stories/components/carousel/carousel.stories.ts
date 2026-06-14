@@ -1,7 +1,16 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { ExtraCarouselComponent } from '../../../lib/components/carousel/carousel.component';
+import {
+  ExtraCarouselComponent,
+  ExtraCarouselFooterDirective,
+  ExtraCarouselHeaderDirective,
+  ExtraCarouselItemDirective
+} from '../../../lib/components/carousel/carousel.component';
 import { CarouselVerticalComponent, Vertical as VerticalStory } from './examples/carousel-vertical.component';
 import { Autoplay as AutoplayStory, CarouselAutoplayComponent } from './examples/carousel-autoplay.component';
+import {
+  CarouselHeaderFooterComponent,
+  HeaderAndFooter as HeaderAndFooterStory
+} from './examples/carousel-header-footer.component';
 
 type CarouselArgs = Pick<
   ExtraCarouselComponent,
@@ -19,7 +28,15 @@ const meta: Meta<CarouselArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraCarouselComponent, CarouselVerticalComponent, CarouselAutoplayComponent]
+      imports: [
+        ExtraCarouselComponent,
+        ExtraCarouselItemDirective,
+        ExtraCarouselHeaderDirective,
+        ExtraCarouselFooterDirective,
+        CarouselVerticalComponent,
+        CarouselAutoplayComponent,
+        CarouselHeaderFooterComponent
+      ]
     })
   ],
   parameters: {
@@ -27,8 +44,13 @@ const meta: Meta<CarouselArgs> = {
       description: {
         component: `Компонент для отображения контента в виде слайдов с возможностью горизонтальной и вертикальной прокрутки, настройки количества видимых элементов и автовоспроизведения.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraCarouselItem\` — элемент слайда (контекст \`let-item\`)
+- \`extraCarouselHeader\` — шапка карусели
+- \`extraCarouselFooter\` — подвал карусели
+
 \`\`\`typescript
-import { ExtraCarouselComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraCarouselComponent, ExtraCarouselItemDirective, ExtraCarouselHeaderDirective, ExtraCarouselFooterDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -121,12 +143,6 @@ export const Default: Story = {
   render: (args) => ({
     props: { ...args, slides: SLIDES },
     template: `
-      <ng-template #itemTpl let-item>
-        <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
-          <span class="font-bold truncate">{{ item.title }}</span>
-          <span>{{ item.subtitle }}</span>
-        </div>
-      </ng-template>
       <extra-carousel
         [value]="slides"
         [numVisible]="numVisible"
@@ -136,8 +152,14 @@ export const Default: Story = {
         [autoplayInterval]="autoplayInterval"
         [showIndicators]="showIndicators"
         [showNavigators]="showNavigators"
-        [itemTemplate]="itemTpl"
-      ></extra-carousel>
+      >
+        <ng-template extraCarouselItem let-item>
+          <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
+            <span class="font-bold truncate">{{ item.title }}</span>
+            <span>{{ item.subtitle }}</span>
+          </div>
+        </ng-template>
+      </extra-carousel>
     `
   }),
   parameters: {
@@ -156,3 +178,7 @@ export const Vertical: Story = VerticalStory;
 // ── Autoplay ──────────────────────────────────────────────────────────────────
 
 export const Autoplay: Story = AutoplayStory;
+
+// ── Header & Footer ───────────────────────────────────────────────────────────
+
+export const HeaderAndFooter: Story = HeaderAndFooterStory;

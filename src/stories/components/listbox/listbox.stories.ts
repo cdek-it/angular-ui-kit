@@ -36,8 +36,11 @@ const meta: Meta<ListboxArgs> = {
       description: {
         component: `Список опций с поддержкой одиночного и множественного выбора. Поддерживает группировку, фильтрацию, галочку выбора и кастомные шаблоны пунктов.
 
+Шаблон (передаётся между тегами компонента):
+- \`extraListboxItem\` — пункт списка (контекст \`let-item\`)
+
 \`\`\`typescript
-import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     }

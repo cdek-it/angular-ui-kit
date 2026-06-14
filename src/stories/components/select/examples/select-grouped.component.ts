@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
+import {
+  ExtraSelectComponent,
+  ExtraSelectOptionGroupDirective,
+  ExtraSelectSize
+} from '../../../../lib/components/select/select.component';
 
 const GROUPED_OPTIONS = [
   {
@@ -22,12 +26,6 @@ const GROUPED_OPTIONS = [
 ];
 
 const template = `
-<ng-template #groupTpl let-group>
-  <div class="flex items-center gap-2">
-    <span class="ti ti-flag"></span>
-    <span>{{ group.label }}</span>
-  </div>
-</ng-template>
 <extra-select
   [formControl]="control"
   [options]="options"
@@ -36,18 +34,24 @@ const template = `
   optionGroupChildren="items"
   [group]="true"
   placeholder="Выберите город..."
-  [optionGroupTemplate]="groupTpl"
   [size]="size"
   [showClear]="showClear"
   [readonly]="readonly"
-></extra-select>
+>
+  <ng-template extraSelectOptionGroup let-group>
+    <div class="flex items-center gap-2">
+      <span class="ti ti-flag"></span>
+      <span>{{ group.label }}</span>
+    </div>
+  </ng-template>
+</extra-select>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-select-grouped',
   standalone: true,
-  imports: [ExtraSelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ExtraSelectOptionGroupDirective, ReactiveFormsModule],
   template,
   styles
 })
@@ -88,18 +92,12 @@ export const Grouped = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent, ExtraSelectOptionGroupDirective } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [ExtraSelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ExtraSelectOptionGroupDirective, ReactiveFormsModule],
   template: \`
-    <ng-template #groupTpl let-group>
-      <div class="flex items-center gap-2">
-        <span class="ti ti-flag"></span>
-        <span>{{ group.label }}</span>
-      </div>
-    </ng-template>
     <extra-select
       [formControl]="control"
       [options]="options"
@@ -108,8 +106,14 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
       optionGroupChildren="items"
       [group]="true"
       placeholder="Выберите город..."
-      [optionGroupTemplate]="groupTpl"
-    ></extra-select>
+    >
+      <ng-template extraSelectOptionGroup let-group>
+        <div class="flex items-center gap-2">
+          <span class="ti ti-flag"></span>
+          <span>{{ group.label }}</span>
+        </div>
+      </ng-template>
+    </extra-select>
   \`,
 })
 export class SelectGroupedExample {

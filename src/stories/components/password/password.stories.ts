@@ -7,6 +7,7 @@ import { Disabled, PasswordDisabledComponent } from './examples/password-disable
 import { Invalid, PasswordInvalidComponent } from './examples/password-invalid.component';
 import { FloatLabel, PasswordFloatLabelComponent } from './examples/password-float-label.component';
 import { PasswordTemplateComponent, Template } from './examples/password-template.component';
+import { PasswordHeaderComponent, Header } from './examples/password-header.component';
 
 const meta: Meta<ExtraPasswordComponent> = {
   title: 'Components/Form/Password',
@@ -22,7 +23,8 @@ const meta: Meta<ExtraPasswordComponent> = {
         PasswordDisabledComponent,
         PasswordInvalidComponent,
         PasswordFloatLabelComponent,
-        PasswordTemplateComponent
+        PasswordTemplateComponent,
+        PasswordHeaderComponent
       ]
     }),
     (story) => ({
@@ -36,8 +38,12 @@ const meta: Meta<ExtraPasswordComponent> = {
       description: {
         component: `Поле ввода пароля с поддержкой индикатора надёжности и переключения видимости.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraPasswordHeader\` — шапка панели надёжности
+- \`extraPasswordFooter\` — подвал панели надёжности
+
 \`\`\`typescript
-import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFooterDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       },
       story: { height: '280px' }
@@ -212,4 +218,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { ToggleMask, Feedback, Disabled, Invalid, FloatLabel, Template };
+export { ToggleMask, Feedback, Disabled, Invalid, FloatLabel, Template, Header };

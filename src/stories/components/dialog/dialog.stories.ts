@@ -9,6 +9,10 @@ import {
 } from './examples/dialog-extra-large.component';
 import { DialogNoModalComponent, template as dialogNoModalTemplate } from './examples/dialog-no-modal.component';
 import { DialogNoHeaderComponent, template as dialogNoHeaderTemplate } from './examples/dialog-no-header.component';
+import {
+  DialogCustomHeaderComponent,
+  template as dialogCustomHeaderTemplate
+} from './examples/dialog-custom-header.component';
 import { DialogDynamicComponent } from './examples/dialog-dynamic.component';
 
 const meta: Meta<ExtraDialogComponent> = {
@@ -20,8 +24,12 @@ const meta: Meta<ExtraDialogComponent> = {
       description: {
         component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
 
+        Шаблоны (передаются между тегами компонента):
+        - \`extraDialogHeader\` — кастомный заголовок (заменяет строковый \`header\`)
+        - \`extraDialogFooter\` — кастомный футер
+
         \`\`\`typescript
-        import { ExtraDialogComponent } from '@cdek-it/angular-ui-kit';
+        import { ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraDialogFooterDirective } from '@cdek-it/angular-ui-kit';
         \`\`\``
       }
     },
@@ -35,15 +43,6 @@ const meta: Meta<ExtraDialogComponent> = {
         category: 'Props',
         defaultValue: { summary: '' },
         type: { summary: 'string' }
-      }
-    },
-    headerTemplate: {
-      control: false,
-      description: 'Кастомный шаблон заголовка. При наличии заменяет строковый header',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: 'TemplateRef<any> | null' }
       }
     },
     size: {
@@ -139,12 +138,12 @@ export const Basic: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-basic',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogDefaultTemplate}\`,
 })
 export class DialogBasicComponent {
@@ -172,7 +171,7 @@ export const Small: Story = {
 @Component({
   selector: 'app-dialog-small',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogSmallTemplate}\`,
 })
 export class DialogSmallComponent {
@@ -200,7 +199,7 @@ export const Large: Story = {
 @Component({
   selector: 'app-dialog-large',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogLargeTemplate}\`,
 })
 export class DialogLargeComponent {
@@ -228,7 +227,7 @@ export const ExtraLarge: Story = {
 @Component({
   selector: 'app-dialog-extra-large',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogExtraLargeTemplate}\`,
 })
 export class DialogExtraLargeComponent {
@@ -256,7 +255,7 @@ export const NoModal: Story = {
 @Component({
   selector: 'app-dialog-no-modal',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogNoModalTemplate}\`,
 })
 export class DialogNoModalComponent {
@@ -284,10 +283,42 @@ export const NoHeader: Story = {
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogNoHeaderTemplate}\`,
 })
 export class DialogNoHeaderComponent {
+  visible = false;
+}
+        `
+      }
+    }
+  }
+};
+
+// ── Custom Header ─────────────────────────────────────────────────────────────
+
+export const CustomHeader: Story = {
+  name: 'Custom Header',
+  decorators: [moduleMetadata({ imports: [DialogCustomHeaderComponent] })],
+  render: () => ({ template: `<app-dialog-custom-header></app-dialog-custom-header>` }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Кастомный заголовок через директиву `extraDialogHeader`. Шаблон заменяет строковый проп `header`.'
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-custom-header',
+  standalone: true,
+  imports: [ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraButtonComponent],
+  template: \`${dialogCustomHeaderTemplate}\`,
+})
+export class DialogCustomHeaderComponent {
   visible = false;
 }
         `

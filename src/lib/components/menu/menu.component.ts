@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, Directive, Input, TemplateRef, ViewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Menu } from 'primeng/menu';
 import { PrimeTemplate } from 'primeng/api';
@@ -7,6 +7,9 @@ import { ExtraMenuItem } from '../../shared';
 export interface ExtraMenuModel extends ExtraMenuItem {
   caption?: string;
 }
+
+@Directive({ selector: '[extraMenuItem]', standalone: true })
+export class ExtraMenuItemDirective {}
 
 @Component({
   selector: 'extra-menu',
@@ -51,7 +54,7 @@ export class ExtraMenuComponent {
 
   @Input() model: ExtraMenuModel[] = [];
   @Input() popup = false;
-  @Input() itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraMenuItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 
   toggle(event: Event): void {
     this.menuRef.toggle(event);

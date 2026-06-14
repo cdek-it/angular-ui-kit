@@ -18,8 +18,11 @@ const meta: Meta<ExtraMenubarComponent> = {
       description: {
         component: `Горизонтальная навигационная панель с поддержкой вложенных выпадающих подменю.
 
+Шаблон (передаётся между тегами компонента):
+- \`extraMenubarItem\` — кастомный рендер пункта меню (контекст \`let-item\`, \`let-hasSubmenu="hasSubmenu"\`)
+
 \`\`\`typescript
-import { ExtraMenubarComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMenubarComponent, ExtraMenubarItemDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },

@@ -5,6 +5,7 @@ import { GalleriaThumbnailsComponent } from './examples/galleria-thumbnails.comp
 import { GalleriaCaptionComponent } from './examples/galleria-caption.component';
 import { GalleriaFullscreenComponent } from './examples/galleria-fullscreen.component';
 import { GalleriaAutoplayComponent } from './examples/galleria-autoplay.component';
+import { GalleriaIndicatorComponent } from './examples/galleria-indicator.component';
 
 const meta: Meta<ExtraGalleriaComponent> = {
   title: 'Components/Media/Galleria',
@@ -15,8 +16,16 @@ const meta: Meta<ExtraGalleriaComponent> = {
       description: {
         component: `Компонент для отображения галереи изображений с поддержкой миниатюр, индикаторов, автовоспроизведения и полноэкранного режима.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraGalleriaItem\` — основное изображение (контекст \`let-item\`)
+- \`extraGalleriaThumbnail\` — миниатюра (контекст \`let-item\`)
+- \`extraGalleriaCaption\` — подпись к изображению (контекст \`let-item\`)
+- \`extraGalleriaIndicator\` — индикатор (контекст \`let-index\`)
+- \`extraGalleriaHeader\` — шапка галереи
+- \`extraGalleriaFooter\` — подвал галереи
+
 \`\`\`typescript
-import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/angular-ui-kit';
+import { ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbnailDirective, ExtraGalleriaCaptionDirective, ExtraGalleriaIndicatorDirective, ExtraGalleriaHeaderDirective, ExtraGalleriaFooterDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -386,6 +395,78 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective } from '@cdek-it/ang
   \`,
 })
 export class AppGalleriaAutoplayComponent {
+  images = [ /* массив ExtraGalleriaItem */ ];
+}
+        `
+      }
+    }
+  }
+};
+
+// ── Indicator, Header & Footer ────────────────────────────────────────────────
+
+export const Indicator: Story = {
+  name: 'Indicator, Header & Footer',
+  decorators: [moduleMetadata({ imports: [GalleriaIndicatorComponent] })],
+  render: () => ({ template: `<app-galleria-indicator></app-galleria-indicator>` }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Кастомные индикатор (`extraGalleriaIndicator`), шапка (`extraGalleriaHeader`) и подвал (`extraGalleriaFooter`) одновременно. Для отображения индикаторов нужен `[showIndicators]="true"`.'
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective,
+  ExtraGalleriaIndicatorDirective,
+  ExtraGalleriaHeaderDirective,
+  ExtraGalleriaFooterDirective,
+} from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-galleria-indicator',
+  standalone: true,
+  imports: [
+    ExtraGalleriaComponent,
+    ExtraGalleriaItemDirective,
+    ExtraGalleriaIndicatorDirective,
+    ExtraGalleriaHeaderDirective,
+    ExtraGalleriaFooterDirective,
+  ],
+  template: \`
+    <extra-galleria
+      [value]="images"
+      [numVisible]="4"
+      [showItemNavigators]="true"
+      [showThumbnails]="false"
+      [showIndicators]="true"
+      [circular]="true"
+    >
+      <ng-template extraGalleriaHeader>
+        <div class="flex items-center justify-between p-3">
+          <span class="font-bold">Галерея СДЭК</span>
+        </div>
+      </ng-template>
+
+      <ng-template extraGalleriaItem let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+      </ng-template>
+
+      <ng-template extraGalleriaIndicator let-index>
+        <span style="display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff;"></span>
+      </ng-template>
+
+      <ng-template extraGalleriaFooter>
+        <div class="p-3 text-center text-sm" style="color: #fff;">Переключайте изображения стрелками</div>
+      </ng-template>
+    </extra-galleria>
+  \`,
+})
+export class AppGalleriaIndicatorComponent {
   images = [ /* массив ExtraGalleriaItem */ ];
 }
         `

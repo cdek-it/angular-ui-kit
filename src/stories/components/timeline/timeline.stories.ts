@@ -1,5 +1,10 @@
-import { Meta, StoryObj } from '@storybook/angular';
-import { ExtraTimelineComponent as TimelineComponent } from '../../../lib/components/timeline/timeline.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import {
+  ExtraTimelineComponent as TimelineComponent,
+  ExtraTimelineContentDirective,
+  ExtraTimelineMarkerDirective,
+  ExtraTimelineOppositeDirective
+} from '../../../lib/components/timeline/timeline.component';
 
 type TimelineArgs = TimelineComponent & { verticalAlign: string; horizontalAlign: string };
 type Story = StoryObj<TimelineArgs>;
@@ -15,12 +20,22 @@ const meta: Meta<TimelineArgs> = {
   title: 'Components/Data/Timeline',
   component: TimelineComponent,
   tags: ['autodocs'],
+  decorators: [
+    moduleMetadata({
+      imports: [
+        TimelineComponent,
+        ExtraTimelineContentDirective,
+        ExtraTimelineOppositeDirective,
+        ExtraTimelineMarkerDirective
+      ]
+    })
+  ],
   parameters: {
     designTokens: { prefix: '--p-timeline' },
     docs: {
       description: {
         component:
-          "Компонент для визуализации последовательности событий в хронологическом порядке. Поддерживает горизонтальную и вертикальную ориентацию, кастомные маркеры.\n\n```typescript\nimport { ExtraTimelineComponent as TimelineComponent } from '@cdek-it/angular-ui-kit';\n```"
+          "Компонент для визуализации последовательности событий в хронологическом порядке. Поддерживает горизонтальную и вертикальную ориентацию, кастомные маркеры.\n\nШаблоны (передаются между тегами компонента):\n- `extraTimelineContent` — контент события (контекст `let-event`)\n- `extraTimelineOpposite` — контент с противоположной стороны линии (контекст `let-event`)\n- `extraTimelineMarker` — кастомный маркер (контекст `let-event`)\n\n```typescript\nimport { ExtraTimelineComponent as TimelineComponent, ExtraTimelineContentDirective, ExtraTimelineOppositeDirective, ExtraTimelineMarkerDirective } from '@cdek-it/angular-ui-kit';\n```"
       }
     }
   },
@@ -104,10 +119,7 @@ const meta: Meta<TimelineArgs> = {
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
-    },
-    contentTemplate: { table: { disable: true } },
-    oppositeTemplate: { table: { disable: true } },
-    markerTemplate: { table: { disable: true } }
+    }
   },
   args: {
     value: defaultEvents,
@@ -145,7 +157,7 @@ function renderStory(args: any) {
   const template = `<extra-timeline
   ${attrs}
 >
-  <ng-template #content let-event>
+  <ng-template extraTimelineContent let-event>
     <div>{{ event.value }}</div>
     @if (${args.showCaption}) {<small>{{ event.caption }}</small>}
   </ng-template>
@@ -208,8 +220,8 @@ export const Opposite: Story = {
     const template = `<extra-timeline
   ${attrs}
 >
-  <ng-template #content let-event>{{ event.value }}</ng-template>
-  <ng-template #opposite let-event>
+  <ng-template extraTimelineContent let-event>{{ event.value }}</ng-template>
+  <ng-template extraTimelineOpposite let-event>
     <small>{{ event.caption }}</small>
   </ng-template>
 </extra-timeline>`;
@@ -223,7 +235,7 @@ export const Opposite: Story = {
     docs: {
       description: {
         story:
-          'Контент по другую сторону линии через шаблон `#opposite`. Отображается при `align="alternate"`, `"right"`, `"bottom"`.'
+          'Контент по другую сторону линии через директиву `extraTimelineOpposite`. Отображается при `align="alternate"`, `"right"`, `"bottom"`.'
       }
     }
   }
@@ -273,6 +285,71 @@ export const MarkerColor: Story = {
     docs: {
       description: {
         story: 'Кастомный цвет маркера через проп `markerColor`.'
+      }
+    }
+  }
+};
+
+// ── Custom Marker ─────────────────────────────────────────────────────────────
+export const CustomMarker: Story = {
+  name: 'Custom Marker',
+  render: (args) => ({
+    props: { ...args, value: defaultEvents },
+    template: `
+      <extra-timeline [value]="value" layout="vertical" align="left">
+        <ng-template extraTimelineContent let-event>
+          <div>{{ event.value }}</div>
+          <small>{{ event.caption }}</small>
+        </ng-template>
+        <ng-template extraTimelineMarker let-event>
+          <span
+            class="inline-flex items-center justify-center rounded-full"
+            style="width: 28px; height: 28px; background: var(--p-primary-color, #3b82f6); color: #fff;"
+          >
+            <i class="ti ti-check"></i>
+          </span>
+        </ng-template>
+      </extra-timeline>
+    `
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Полностью кастомный маркер через директиву `extraTimelineMarker` (контекст `let-event`). Заменяет дефолтный маркер и проп `icon`.'
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import {
+  ExtraTimelineComponent as TimelineComponent,
+  ExtraTimelineContentDirective,
+  ExtraTimelineMarkerDirective,
+} from '@cdek-it/angular-ui-kit';
+
+@Component({
+  standalone: true,
+  imports: [TimelineComponent, ExtraTimelineContentDirective, ExtraTimelineMarkerDirective],
+  template: \`
+    <extra-timeline [value]="events" layout="vertical" align="left">
+      <ng-template extraTimelineContent let-event>
+        <div>{{ event.value }}</div>
+        <small>{{ event.caption }}</small>
+      </ng-template>
+      <ng-template extraTimelineMarker let-event>
+        <span class="inline-flex items-center justify-center rounded-full"
+          style="width: 28px; height: 28px; background: #3b82f6; color: #fff;">
+          <i class="ti ti-check"></i>
+        </span>
+      </ng-template>
+    </extra-timeline>
+  \`,
+})
+export class TimelineCustomMarkerExample {
+  events = [ /* ... */ ];
+}
+        `
       }
     }
   }

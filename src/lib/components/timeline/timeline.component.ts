@@ -1,9 +1,18 @@
-import { Component, ContentChild, HostBinding, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, HostBinding, Input, TemplateRef } from '@angular/core';
 import { Timeline } from 'primeng/timeline';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
 
 export type ExtraTimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
+
+@Directive({ selector: '[extraTimelineContent]', standalone: true })
+export class ExtraTimelineContentDirective {}
+
+@Directive({ selector: '[extraTimelineOpposite]', standalone: true })
+export class ExtraTimelineOppositeDirective {}
+
+@Directive({ selector: '[extraTimelineMarker]', standalone: true })
+export class ExtraTimelineMarkerDirective {}
 
 @Component({
   selector: 'extra-timeline',
@@ -61,7 +70,7 @@ export class ExtraTimelineComponent {
     return this.markerColor || null;
   }
 
-  @ContentChild('content') contentTemplate?: TemplateRef<any>;
-  @ContentChild('opposite') oppositeTemplate?: TemplateRef<any>;
-  @ContentChild('marker') markerTemplate?: TemplateRef<any>;
+  @ContentChild(ExtraTimelineContentDirective, { read: TemplateRef }) contentTemplate?: TemplateRef<any>;
+  @ContentChild(ExtraTimelineOppositeDirective, { read: TemplateRef }) oppositeTemplate?: TemplateRef<any>;
+  @ContentChild(ExtraTimelineMarkerDirective, { read: TemplateRef }) markerTemplate?: TemplateRef<any>;
 }

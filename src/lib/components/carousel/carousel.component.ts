@@ -1,10 +1,19 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Carousel } from 'primeng/carousel';
 import { PrimeTemplate } from 'primeng/api';
 import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 
 export type ExtraCarouselOrientation = 'horizontal' | 'vertical';
+
+@Directive({ selector: '[extraCarouselItem]', standalone: true })
+export class ExtraCarouselItemDirective {}
+
+@Directive({ selector: '[extraCarouselHeader]', standalone: true })
+export class ExtraCarouselHeaderDirective {}
+
+@Directive({ selector: '[extraCarouselFooter]', standalone: true })
+export class ExtraCarouselFooterDirective {}
 
 @Component({
   selector: 'extra-carousel',
@@ -58,8 +67,8 @@ export class ExtraCarouselComponent {
   @Input() page = 0;
   @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
   @Input() verticalViewPortHeight = '300px';
-  @Input() itemTemplate: TemplateRef<any> | null = null;
-  @Input() headerTemplate: TemplateRef<any> | null = null;
-  @Input() footerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraCarouselItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraCarouselHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraCarouselFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
   @Output() onPage = new EventEmitter<CarouselPageEvent>();
 }

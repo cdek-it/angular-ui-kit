@@ -1,9 +1,24 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Directive,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { PrimeTemplate } from 'primeng/api';
 
 export type ExtraDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
+
+@Directive({ selector: '[extraDialogHeader]', standalone: true })
+export class ExtraDialogHeaderDirective {}
+
+@Directive({ selector: '[extraDialogFooter]', standalone: true })
+export class ExtraDialogFooterDirective {}
 
 @Component({
   selector: 'extra-dialog',
@@ -48,8 +63,8 @@ export class ExtraDialogComponent {
   @Input() showHeader = true;
   @Input() focusOnShow = false;
   @Input() appendTo: string = 'body';
-  @Input() headerTemplate: TemplateRef<any> | null = null;
-  @Input() footerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraDialogHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraDialogFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
   @Output() visibleChange = new EventEmitter<boolean>();
 
   get sizeClass(): string {

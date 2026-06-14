@@ -1,5 +1,6 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '../../../lib/components/megamenu/megamenu.component';
+import { MegaMenuTemplateComponent, Template as TemplateStory } from './examples/megamenu-template.component';
 
 const meta: Meta<ExtraMegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
@@ -7,7 +8,7 @@ const meta: Meta<ExtraMegaMenuComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraMegaMenuComponent]
+      imports: [ExtraMegaMenuComponent, MegaMenuTemplateComponent]
     })
   ],
   parameters: {
@@ -15,8 +16,11 @@ const meta: Meta<ExtraMegaMenuComponent> = {
       description: {
         component: `Расширенное меню с поддержкой многоколоночных подменю. Поддерживает горизонтальную и вертикальную ориентацию.
 
+Шаблон (передаётся между тегами компонента):
+- \`extraMegaMenuItem\` — кастомный рендер пункта меню (контекст \`let-item\`, \`let-hasSubmenu="hasSubmenu"\`)
+
 \`\`\`typescript
-import { ExtraMegaMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, ExtraMegaMenuItemDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       },
       story: {
@@ -368,7 +372,7 @@ export const Custom: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Пункты меню с описанием (description) и бейджами.'
+        story: 'Пункты меню с описанием (description) и бейджами — рендерятся дефолтным шаблоном компонента.'
       },
       source: {
         language: 'ts',
@@ -454,3 +458,7 @@ export class CustomExample {
     }
   }
 };
+
+// ── Item Template ─────────────────────────────────────────────────────────────
+
+export const Template: Story = TemplateStory;
