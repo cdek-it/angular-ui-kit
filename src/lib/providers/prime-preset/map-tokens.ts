@@ -47,6 +47,7 @@ import { tabsCss } from './tokens/components/tabs';
 import { tieredmenuCss } from './tokens/components/tieredmenu';
 import { timelineCss } from './tokens/components/timeline';
 import { toastCss } from './tokens/components/toast';
+import { togglebuttonCss } from './tokens/components/togglebutton';
 import { toggleswitchCss } from './tokens/components/toggleswitch';
 import { autocompleteCss } from './tokens/components/autocomplete';
 import { popoverCss } from './tokens/components/popover';
@@ -227,6 +228,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     toast: {
       ...(tokens.components.toast as unknown as ComponentsDesignTokens['toast']),
       css: toastCss
+    },
+    togglebutton: {
+      ...(tokens.components.togglebutton as unknown as ComponentsDesignTokens['togglebutton']),
+      css: togglebuttonCss
     },
     toggleswitch: {
       ...(tokens.components.toggleswitch as unknown as ComponentsDesignTokens['toggleswitch']),

@@ -14,6 +14,9 @@ import { megamenuCss } from './tokens/components/megamenu';
 import { progressspinnerCss } from './tokens/components/progressspinner';
 import { tagCss } from './tokens/components/tag';
 import { tooltipCss } from './tokens/components/tooltip';
+import { selectCss } from './tokens/components/select';
+import { messageCss } from './tokens/components/message';
+import { togglebuttonCss } from './tokens/components/togglebutton';
 import { selectbuttonCss } from './tokens/components/selectbutton';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
@@ -41,6 +44,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.button as unknown as ComponentsDesignTokens['button']),
       css: buttonCss,
     },
+    message: {
+      ...(tokens.components.message as unknown as ComponentsDesignTokens['message']),
+      css: messageCss,
+    },
     datepicker: {
       ...(tokens.components.datepicker as unknown as ComponentsDesignTokens['datepicker']),
       css: datePickerCss,
@@ -65,9 +72,17 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.tooltip as unknown as ComponentsDesignTokens['tooltip']),
       css: tooltipCss,
     },
+    select: {
+      ...(tokens.components.select as unknown as ComponentsDesignTokens['select']),
+      css: selectCss,
+    },
     selectbutton: {
       ...(tokens.components.selectbutton as unknown as ComponentsDesignTokens['selectbutton']),
       css: selectbuttonCss,
+    },
+    togglebutton: {
+      ...(tokens.components.togglebutton as unknown as ComponentsDesignTokens['togglebutton']),
+      css: togglebuttonCss,
     },
   } as ComponentsDesignTokens,
 };
