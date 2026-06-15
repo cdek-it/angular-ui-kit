@@ -7,6 +7,8 @@ export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
 export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
+type ExtraButtonSeverityValue = PrimeButtonSeverity;
+type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
 
 @Component({
   selector: 'extra-button',
@@ -66,13 +68,13 @@ export class ExtraButtonComponent {
     return this.iconPos === 'postfix' ? 'right' : 'left';
   }
 
-  get primeSeverity(): PrimeButtonSeverity | null {
+  get primeSeverity(): ExtraButtonSeverityValue | null {
     if (this.variant === 'secondary') return 'secondary';
     if (this.severity === 'warning') return 'warn';
     return this.severity;
   }
 
-  get primeBadgeSeverity(): PrimeBadgeSeverity {
+  get primeBadgeSeverity(): ExtraBadgeSeverityValue {
     if (this.badgeSeverity === 'warning') return 'warn';
     return this.badgeSeverity;
   }

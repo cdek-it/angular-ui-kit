@@ -14,6 +14,8 @@ import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
 
+export type ExtraListboxChangeEvent = ListboxChangeEvent;
+
 @Directive({ selector: '[extraListboxItem]', standalone: true })
 export class ExtraListboxItemDirective {}
 
@@ -82,7 +84,7 @@ export class ExtraListboxComponent implements ControlValueAccessor {
     return this._disabled;
   }
 
-  onChangeHandler(event: ListboxChangeEvent): void {
+  onChangeHandler(event: ExtraListboxChangeEvent): void {
     // Обновляем внутреннее значение и уведомляем форму об изменении.
     this.modelValue = event.value;
     this._onChange(event.value);

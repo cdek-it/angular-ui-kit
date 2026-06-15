@@ -4,6 +4,7 @@ import { MeterGroup, MeterItem } from 'primeng/metergroup';
 export type ExtraMeterGroupOrientation = 'horizontal' | 'vertical';
 export type ExtraMeterGroupLabelPosition = 'start' | 'end';
 export type ExtraMeterGroupLabelOrientation = 'horizontal' | 'vertical';
+export type ExtraMeterItem = MeterItem;
 
 @Component({
   selector: 'extra-metergroup',
@@ -20,7 +21,7 @@ export type ExtraMeterGroupLabelOrientation = 'horizontal' | 'vertical';
   `
 })
 export class ExtraMeterGroupComponent {
-  @Input() value: MeterItem[] = [];
+  @Input() value: ExtraMeterItem[] = [];
   @Input() orientation: ExtraMeterGroupOrientation = 'horizontal';
   @Input() labelPosition: ExtraMeterGroupLabelPosition = 'end';
   @Input() labelOrientation: ExtraMeterGroupLabelOrientation = 'horizontal';

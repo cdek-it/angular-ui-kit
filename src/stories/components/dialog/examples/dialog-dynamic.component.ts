@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
-import { DynamicDialogRef, ExtraDialogService } from '../../../../lib/components/dialog/dialog-open.service';
+import { ExtraDynamicDialogRef, ExtraDialogService } from '../../../../lib/components/dialog/dialog-open.service';
 
 // ── Содержимое диалога ────────────────────────────────────────────────────────
 
@@ -19,7 +19,7 @@ import { DynamicDialogRef, ExtraDialogService } from '../../../../lib/components
   `
 })
 export class DialogDynamicContentComponent {
-  constructor(readonly ref: DynamicDialogRef) {}
+  constructor(readonly ref: ExtraDynamicDialogRef) {}
 }
 
 // ── Компонент-триггер ─────────────────────────────────────────────────────────

@@ -15,6 +15,7 @@ import { Slider } from 'primeng/slider';
 import { Subscription } from 'rxjs';
 
 export type ExtraSliderOrientation = 'horizontal' | 'vertical';
+export type ExtraSliderSlideEndEvent = SliderSlideEndEvent;
 
 @Component({
   selector: 'extra-slider',
@@ -50,7 +51,7 @@ export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, On
   @Input() set disabled(value: boolean) {
     value ? this.control.disable() : this.control.enable();
   }
-  @Output() onSlideEnd = new EventEmitter<SliderSlideEndEvent>();
+  @Output() onSlideEnd = new EventEmitter<ExtraSliderSlideEndEvent>();
 
   readonly control = new FormControl<number | number[]>(0, { nonNullable: true });
 

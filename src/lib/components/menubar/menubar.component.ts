@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ContentChild, TemplateRef } from '@
 import { NgTemplateOutlet } from '@angular/common';
 import { Menubar } from 'primeng/menubar';
 import { PrimeTemplate } from 'primeng/api';
-import { ExtraMenuItem } from '../../shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 
 @Directive({ selector: '[extraMenubarItem]', standalone: true })
 export class ExtraMenubarItemDirective {}

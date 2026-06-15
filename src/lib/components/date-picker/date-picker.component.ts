@@ -18,6 +18,8 @@ import { PrimeTemplate } from 'primeng/api';
 import { Select } from 'primeng/select';
 import { Button } from 'primeng/button';
 
+export type ExtraDatePickerMonthChangeEvent = DatePickerMonthChangeEvent;
+
 const MONTHS = [
   { name: 'Январь', value: 0 },
   { name: 'Февраль', value: 1 },
@@ -240,13 +242,13 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
     }
   }
 
-  onMonthChangeHandler(event: DatePickerMonthChangeEvent): void {
+  onMonthChangeHandler(event: ExtraDatePickerMonthChangeEvent): void {
     this.dpCurrentMonth = event.month ? event.month - 1 : new Date().getMonth();
     this.dpCurrentYear = event.year || new Date().getFullYear();
     this.onMonthChange.emit(event);
   }
 
-  onYearChangeHandler(event: DatePickerMonthChangeEvent): void {
+  onYearChangeHandler(event: ExtraDatePickerMonthChangeEvent): void {
     this.dpCurrentMonth = event.month ? event.month - 1 : new Date().getMonth();
     this.dpCurrentYear = event.year || new Date().getFullYear();
     this.onYearChange.emit(event);

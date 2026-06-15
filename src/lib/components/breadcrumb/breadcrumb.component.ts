@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { ExtraMenuItem } from '../../shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 
 @Component({
   selector: 'extra-breadcrumb',

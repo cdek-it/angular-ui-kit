@@ -7,13 +7,13 @@ export type ExtraDynamicDialogConfig<DataType = any> = Omit<DynamicDialogConfig<
   styleClass?: string;
 };
 
-export { DynamicDialogRef, DynamicDialogConfig };
+export type ExtraDynamicDialogRef<T = any> = DynamicDialogRef<T>;
 
 @Injectable({ providedIn: 'root' })
 export class ExtraDialogService {
   constructor(private readonly injector: Injector) {}
 
-  open<T>(componentType: Type<T>, config: ExtraDynamicDialogConfig = {}): DynamicDialogRef<T> | null {
+  open<T>(componentType: Type<T>, config: ExtraDynamicDialogConfig = {}): ExtraDynamicDialogRef<T> | null {
     const { size, styleClass, ...rest } = config;
     const sizeClass = this.toSizeClass(size);
     const mergedStyleClass = [sizeClass, styleClass].filter(Boolean).join(' ');

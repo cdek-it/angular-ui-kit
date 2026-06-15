@@ -4,6 +4,11 @@ import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteSelectEvent, AutoC
 
 export type ExtraAutoCompleteSize = 'small' | 'base' | 'large' | 'xlarge';
 
+export type ExtraAutoCompleteCompleteEvent = AutoCompleteCompleteEvent;
+export type ExtraAutoCompleteSelectEvent = AutoCompleteSelectEvent;
+export type ExtraAutoCompleteUnselectEvent = AutoCompleteUnselectEvent;
+export type ExtraAutoCompleteDropdownClickEvent = AutoCompleteDropdownClickEvent;
+
 @Component({
   selector: 'extra-auto-complete',
   host: { style: 'display: block' },
@@ -94,10 +99,10 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor {
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() autofocus = false;
 
-  @Output() completeMethod = new EventEmitter<AutoCompleteCompleteEvent>();
-  @Output() onSelect = new EventEmitter<AutoCompleteSelectEvent>();
-  @Output() onUnselect = new EventEmitter<AutoCompleteUnselectEvent>();
-  @Output() onDropdownClick = new EventEmitter<AutoCompleteDropdownClickEvent>();
+  @Output() completeMethod = new EventEmitter<ExtraAutoCompleteCompleteEvent>();
+  @Output() onSelect = new EventEmitter<ExtraAutoCompleteSelectEvent>();
+  @Output() onUnselect = new EventEmitter<ExtraAutoCompleteUnselectEvent>();
+  @Output() onDropdownClick = new EventEmitter<ExtraAutoCompleteDropdownClickEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
   @Output() onClear = new EventEmitter<void>();

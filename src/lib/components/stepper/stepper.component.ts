@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from 'primeng/stepper';
-import { ExtraButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
 
 export interface ExtraStepperItem {
   value: number | undefined;

@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input } from '@angular/core';
 import { PanelMenu } from 'primeng/panelmenu';
-import { ExtraMenuItem } from '../../shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 
 @Component({
   selector: 'extra-panelmenu',

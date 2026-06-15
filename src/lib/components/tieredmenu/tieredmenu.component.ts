@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input } from '@angular/core';
 import { TieredMenu } from 'primeng/tieredmenu';
-import { ExtraMenuItem } from '../../shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 
 @Component({
   selector: 'extra-tieredmenu',

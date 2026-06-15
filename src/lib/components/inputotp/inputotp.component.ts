@@ -15,6 +15,7 @@ import { NgClass } from '@angular/common';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 
 export type ExtraInputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputOtpChangeEvent = InputOtpChangeEvent;
 
 @Component({
   selector: 'extra-input-otp',
@@ -63,7 +64,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
 
   disabled = false;
 
-  @Output() onChange = new EventEmitter<InputOtpChangeEvent>();
+  @Output() onChange = new EventEmitter<ExtraInputOtpChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -93,7 +94,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
     return { 'p-inputotp-xlg': this.size === 'xlarge' };
   }
 
-  onChangeHandler(event: InputOtpChangeEvent): void {
+  onChangeHandler(event: ExtraInputOtpChangeEvent): void {
     this.onChange.emit(event);
   }
 

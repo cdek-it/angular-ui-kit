@@ -5,6 +5,8 @@ import { PrimeTemplate } from 'primeng/api';
 import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 
 export type ExtraCarouselOrientation = 'horizontal' | 'vertical';
+export type ExtraCarouselPageEvent = CarouselPageEvent;
+export type ExtraCarouselResponsiveOptions = CarouselResponsiveOptions;
 
 @Directive({ selector: '[extraCarouselItem]', standalone: true })
 export class ExtraCarouselItemDirective {}
@@ -65,10 +67,10 @@ export class ExtraCarouselComponent {
   @Input() showIndicators = true;
   @Input() showNavigators = true;
   @Input() page = 0;
-  @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
+  @Input() responsiveOptions: ExtraCarouselResponsiveOptions[] | undefined;
   @Input() verticalViewPortHeight = '300px';
   @ContentChild(ExtraCarouselItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
   @ContentChild(ExtraCarouselHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
   @ContentChild(ExtraCarouselFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
-  @Output() onPage = new EventEmitter<CarouselPageEvent>();
+  @Output() onPage = new EventEmitter<ExtraCarouselPageEvent>();
 }

@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 import type { PaginatorState } from 'primeng/types/paginator';
 
+export type ExtraPaginatorState = PaginatorState;
+
 @Component({
   selector: 'extra-paginator',
   standalone: true,
@@ -37,5 +39,5 @@ export class ExtraPaginatorComponent {
   @Input() showPageLinks = true;
   @Input() pageLinkSize = 5;
   @Input() alwaysShow = true;
-  @Output() onPageChange = new EventEmitter<PaginatorState>();
+  @Output() onPageChange = new EventEmitter<ExtraPaginatorState>();
 }

@@ -337,13 +337,13 @@ export const Dynamic: Story = {
     docs: {
       description: {
         story:
-          'Программное открытие диалога через `ExtraDialogService`. Содержимое — любой Angular-компонент, получающий `DynamicDialogRef` для закрытия.'
+          'Программное открытие диалога через `ExtraDialogService`. Содержимое — любой Angular-компонент, получающий `ExtraDynamicDialogRef` для закрытия.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component, Injector } from '@angular/core';
-import { ExtraButtonComponent, DynamicDialogRef, ExtraDialogService } from '@cdek-it/angular-ui-kit';
+import { ExtraButtonComponent, ExtraDynamicDialogRef, ExtraDialogService } from '@cdek-it/angular-ui-kit';
 
 // Содержимое диалога
 @Component({
@@ -359,7 +359,7 @@ import { ExtraButtonComponent, DynamicDialogRef, ExtraDialogService } from '@cde
   \`,
 })
 export class DialogDynamicContentComponent {
-  constructor(readonly ref: DynamicDialogRef) {}
+  constructor(readonly ref: ExtraDynamicDialogRef) {}
 }
 
 // Компонент-триггер

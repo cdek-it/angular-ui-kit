@@ -4,6 +4,7 @@ import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 
 export type ExtraRadiobuttonVariant = 'outlined' | 'filled';
 export type ExtraRadiobuttonSize = 'small' | 'base' | 'large';
+export type ExtraRadioButtonClickEvent = RadioButtonClickEvent;
 
 @Component({
   selector: 'extra-radiobutton',
@@ -50,7 +51,7 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor {
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() autofocus = false;
 
-  @Output() onClick = new EventEmitter<RadioButtonClickEvent>();
+  @Output() onClick = new EventEmitter<ExtraRadioButtonClickEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -69,7 +70,7 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor {
     return this.variant === 'filled' ? 'filled' : undefined;
   }
 
-  onClickHandler(event: RadioButtonClickEvent): void {
+  onClickHandler(event: ExtraRadioButtonClickEvent): void {
     this._onChange(event.value);
     this._onTouched();
     this.onClick.emit(event);

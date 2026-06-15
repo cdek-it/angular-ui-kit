@@ -1,4 +1,4 @@
-export * from './index';
+export * from './menu-item.interface';
 
 
 

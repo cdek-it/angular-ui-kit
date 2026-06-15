@@ -20,6 +20,8 @@ import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 
 export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraSelectChangeEvent = SelectChangeEvent;
+export type ExtraSelectFilterEvent = SelectFilterEvent;
 
 export interface ExtraAnimationEvent extends NativeAnimationEvent {}
 
@@ -156,7 +158,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   modelValue: any = null;
 
   @Output() onClear = new EventEmitter<Event>();
-  @Output() onFilter = new EventEmitter<SelectFilterEvent>();
+  @Output() onFilter = new EventEmitter<ExtraSelectFilterEvent>();
   @Output() onShow = new EventEmitter<ExtraAnimationEvent>();
   @Output() onHide = new EventEmitter<ExtraAnimationEvent>();
   @Output() onFocus = new EventEmitter<Event>();
@@ -187,7 +189,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   private _onChange: (value: any) => void = () => {};
   private _onTouched: () => void = () => {};
 
-  onSelectChange(event: SelectChangeEvent): void {
+  onSelectChange(event: ExtraSelectChangeEvent): void {
     this.modelValue = event.value;
     this._onChange(event.value);
   }

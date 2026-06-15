@@ -4,6 +4,7 @@ import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
 export type ExtraCheckboxSize = 'small' | 'base' | 'large';
 export type ExtraCheckboxVariant = 'outlined' | 'filled';
+export type ExtraCheckboxChangeEvent = CheckboxChangeEvent;
 
 @Component({
   selector: 'extra-checkbox',
@@ -61,7 +62,7 @@ export class ExtraCheckboxComponent implements ControlValueAccessor {
   @Input() falseValue: any = false;
   @Input() autofocus = false;
 
-  @Output() onChange = new EventEmitter<CheckboxChangeEvent>();
+  @Output() onChange = new EventEmitter<ExtraCheckboxChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -82,7 +83,7 @@ export class ExtraCheckboxComponent implements ControlValueAccessor {
     return undefined;
   }
 
-  onChangeHandler(event: CheckboxChangeEvent): void {
+  onChangeHandler(event: ExtraCheckboxChangeEvent): void {
     this._onChange(event.checked);
     this._onTouched();
     this.onChange.emit(event);

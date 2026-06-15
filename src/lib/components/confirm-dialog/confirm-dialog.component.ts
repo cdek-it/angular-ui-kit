@@ -2,7 +2,7 @@ import { Component, ContentChild, Directive, Input, TemplateRef } from '@angular
 import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { PrimeTemplate } from 'primeng/api';
-import { ExtraButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
 
 export type ExtraConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';

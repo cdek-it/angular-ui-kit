@@ -2,7 +2,7 @@ import { Component, ContentChild, Directive, Input, TemplateRef, ViewChild } fro
 import { NgTemplateOutlet } from '@angular/common';
 import { Menu } from 'primeng/menu';
 import { PrimeTemplate } from 'primeng/api';
-import { ExtraMenuItem } from '../../shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 
 export interface ExtraMenuModel extends ExtraMenuItem {
   caption?: string;
