@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
-export type ExtraButtonVariant = 'primary' | 'secondary' | 'outlined' | 'text' | 'link';
+export type ExtraButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'text' | 'link';
 export type ExtraButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
 export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraButtonIconPos = 'prefix' | 'postfix' | null;
+export type ExtraButtonIconPosition = 'prefix' | 'postfix' | null;
 export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 type ExtraButtonSeverityValue = PrimeButtonSeverity;
@@ -23,11 +23,11 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
       [size]="primeSize"
       [styleClass]="size === 'xlarge' ? 'p-button-xlg' : ''"
       [rounded]="rounded"
-      [outlined]="variant === 'outlined'"
+      [outlined]="variant === 'tertiary'"
       [text]="variant === 'text' || text"
       [link]="variant === 'link'"
       [icon]="icon"
-      [iconPos]="primeIconPos"
+      [iconPos]="primeIconPosition"
       [severity]="primeSeverity"
       [badge]="showBadge ? badge || ' ' : undefined"
       [badgeSeverity]="primeBadgeSeverity"
@@ -44,7 +44,7 @@ export class ExtraButtonComponent {
   @Input() severity: ExtraButtonSeverity = null;
   @Input() size: ExtraButtonSize = 'base';
   @Input() rounded = false;
-  @Input() iconPos: ExtraButtonIconPos = null;
+  @Input() iconPosition: ExtraButtonIconPosition = null;
   @Input() iconOnly = false;
   @Input() icon = '';
   @Input() disabled = false;
@@ -64,8 +64,8 @@ export class ExtraButtonComponent {
     return undefined;
   }
 
-  get primeIconPos(): 'left' | 'right' {
-    return this.iconPos === 'postfix' ? 'right' : 'left';
+  get primeIconPosition(): 'left' | 'right' {
+    return this.iconPosition === 'postfix' ? 'right' : 'left';
   }
 
   get primeSeverity(): ExtraButtonSeverityValue | null {
