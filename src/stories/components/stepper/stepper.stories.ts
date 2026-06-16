@@ -8,7 +8,7 @@ import { Error as ErrorStory, StepperErrorComponent } from './examples/stepper-e
 type StepperArgs = ExtraStepperComponent;
 
 const meta: Meta<StepperArgs> = {
-  title: 'Components/Stepper',
+  title: 'Components/Panel/Stepper',
   component: ExtraStepperComponent,
   tags: ['autodocs'],
   decorators: [

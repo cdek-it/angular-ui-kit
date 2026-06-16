@@ -3,7 +3,7 @@ import { ExtraTooltipDirective as TooltipDirective } from '../../../lib/componen
 import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 
 const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
-  title: 'Prime/Form/Tooltip',
+  title: 'Components/Overlay/Tooltip',
   // @ts-ignore
   component: TooltipDirective,
   tags: ['autodocs'],
