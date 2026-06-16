@@ -35,7 +35,7 @@ export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         <input
           pInputText
           [ngClass]="sizeClass"
-          [pSize]="primeSize"
+          [pSize]="primeSize!"
           [disabled]="disabled"
           [readOnly]="readonly"
           [invalid]="invalid"
@@ -59,7 +59,7 @@ export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
       <input
         pInputText
         [ngClass]="sizeClass"
-        [pSize]="primeSize"
+        [pSize]="primeSize!"
         [disabled]="disabled"
         [readOnly]="readonly"
         [invalid]="invalid"
