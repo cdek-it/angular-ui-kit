@@ -4,7 +4,7 @@ import { TabsWithBadgeComponent, WithBadge } from './examples/tabs-with-badge.co
 import { TabsWithDisabledComponent, WithDisabled } from './examples/tabs-with-disabled.component';
 
 const meta: Meta<ExtraTabsComponent> = {
-  title: 'Components/Menu/Tabs',
+  title: 'Components/Panel/Tabs',
   component: ExtraTabsComponent,
   tags: ['autodocs'],
   decorators: [

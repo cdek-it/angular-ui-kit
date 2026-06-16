@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraMenuItem } from '../../../../lib/shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 import { ExtraMenubarComponent } from '../../../../lib/components/menubar/menubar.component';
 import { basicItems } from '../menubar.data';
 

@@ -1,4 +1,4 @@
-import { ExtraMenuItem } from '../../../lib/shared';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
 
 export const commonHome: ExtraMenuItem = { icon: 'ti ti-home', url: '#' };
 

@@ -4,7 +4,7 @@ import { Sizes, ProgressSpinnerSizesComponent } from './examples/progressspinner
 import { Monochrome, ProgressSpinnerMonochromeComponent } from './examples/progressspinner-monochrome.component';
 
 const meta: Meta<ExtraProgressSpinnerComponent> = {
-  title: 'Prime/Misc/ProgressSpinner',
+  title: 'Components/Misc/ProgressSpinner',
   component: ExtraProgressSpinnerComponent,
   tags: ['autodocs'],
   decorators: [
