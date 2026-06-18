@@ -1,14 +1,16 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
-export type CheckboxSize = 'small' | 'base' | 'large';
-export type CheckboxVariant = 'outlined' | 'filled';
+export type ExtraCheckboxSize = 'small' | 'base' | 'large';
+export type ExtraCheckboxVariant = 'outlined' | 'filled';
+export type ExtraCheckboxChangeEvent = CheckboxChangeEvent;
 
 @Component({
   selector: 'extra-checkbox',
   standalone: true,
   imports: [Checkbox, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -49,8 +51,8 @@ export class ExtraCheckboxComponent implements ControlValueAccessor {
   @Input() readonly = false;
   @Input() indeterminate = false;
   @Input() invalid = false;
-  @Input() size: CheckboxSize = 'base';
-  @Input() variant: CheckboxVariant = 'outlined';
+  @Input() size: ExtraCheckboxSize = 'base';
+  @Input() variant: ExtraCheckboxVariant = 'outlined';
   @Input() checkboxIcon: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
@@ -60,7 +62,7 @@ export class ExtraCheckboxComponent implements ControlValueAccessor {
   @Input() falseValue: any = false;
   @Input() autofocus = false;
 
-  @Output() onChange = new EventEmitter<CheckboxChangeEvent>();
+  @Output() onChange = new EventEmitter<ExtraCheckboxChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -81,7 +83,7 @@ export class ExtraCheckboxComponent implements ControlValueAccessor {
     return undefined;
   }
 
-  onChangeHandler(event: CheckboxChangeEvent): void {
+  onChangeHandler(event: ExtraCheckboxChangeEvent): void {
     this._onChange(event.checked);
     this._onTouched();
     this.onChange.emit(event);

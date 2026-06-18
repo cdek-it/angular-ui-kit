@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTooltipDirective as TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
 import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 
@@ -7,9 +7,7 @@ const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
   // @ts-ignore
   component: TooltipDirective,
   tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({ imports: [TooltipDirective, ButtonComponent] })
-  ],
+  decorators: [moduleMetadata({ imports: [TooltipDirective, ButtonComponent] })],
   parameters: {
     designTokens: { prefix: '--p-tooltip' },
     docs: {
@@ -18,21 +16,21 @@ const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
 
 \`\`\`typescript
 import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
     tooltip: {
       control: 'text',
       description: 'Текст внутри подсказки.',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     label: {
       control: 'text',
       description: 'Текст кнопки-примера (не является свойством директивы).',
-      table: { category: 'Props', type: { summary: 'string' } },
+      table: { category: 'Props', type: { summary: 'string' } }
     },
     position: {
       control: 'select',
@@ -41,8 +39,8 @@ import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-k
       table: {
         category: 'Props',
         defaultValue: { summary: 'right' },
-        type: { summary: "'top' | 'bottom' | 'left' | 'right'" },
-      },
+        type: { summary: "'top' | 'bottom' | 'left' | 'right'" }
+      }
     },
     event: {
       control: 'select',
@@ -51,18 +49,18 @@ import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-k
       table: {
         category: 'Props',
         defaultValue: { summary: 'hover' },
-        type: { summary: "'hover' | 'focus' | 'both'" },
-      },
+        type: { summary: "'hover' | 'focus' | 'both'" }
+      }
     },
     showDelay: {
       control: 'number',
       description: 'Задержка перед появлением в миллисекундах.',
-      table: { category: 'Props', type: { summary: 'number' } },
+      table: { category: 'Props', type: { summary: 'number' } }
     },
     hideDelay: {
       control: 'number',
       description: 'Задержка перед скрытием в миллисекундах.',
-      table: { category: 'Props', type: { summary: 'number' } },
+      table: { category: 'Props', type: { summary: 'number' } }
     },
     disabled: {
       control: 'boolean',
@@ -70,17 +68,17 @@ import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-k
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     tooltip: 'Это текст подсказки',
     label: 'Наведи на меня',
     position: 'right',
     event: 'hover',
-    disabled: false,
-  },
+    disabled: false
+  }
 };
 
 export default meta;
@@ -121,10 +119,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Вариации ─────────────────────────────────────────────────────────────────
@@ -189,7 +187,7 @@ export const EventFocus: Story = {
     docs: {
       description: { story: 'Подсказка может реагировать на фокус элемента вместо наведения.' },
       source: {
-         code: `<input type="text" extra-tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
+        code: `<input type="text" extra-tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
       }
     }
   }

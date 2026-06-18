@@ -1,11 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Textarea } from 'primeng/textarea';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 
-export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraTextareaSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-textarea',
@@ -16,12 +26,12 @@ export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraTextareaComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     @if (showClear) {
-      <p-iconfield [ngClass]="{'!w-full': fluid}">
+      <p-iconfield [ngClass]="{ '!w-full': fluid }">
         <textarea
           pTextarea
           [ngClass]="sizeClass"
@@ -68,7 +78,7 @@ export type TextareaSize = 'small' | 'base' | 'large' | 'xlarge';
         (onResize)="onResize.emit($event)"
       ></textarea>
     }
-  `,
+  `
 })
 export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
@@ -79,7 +89,7 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
   }
 
   @Input() placeholder = '';
-  @Input() size: TextareaSize = 'base';
+  @Input() size: ExtraTextareaSize = 'base';
   @Input() readonly = false;
   @Input() showClear = false;
   @Input() fluid = false;

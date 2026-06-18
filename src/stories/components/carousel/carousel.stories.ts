@@ -1,39 +1,60 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { CarouselComponent } from '../../../lib/components/carousel/carousel.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import {
+  ExtraCarouselComponent,
+  ExtraCarouselFooterDirective,
+  ExtraCarouselHeaderDirective,
+  ExtraCarouselItemDirective
+} from '../../../lib/components/carousel/carousel.component';
 import { CarouselVerticalComponent, Vertical as VerticalStory } from './examples/carousel-vertical.component';
-import { CarouselAutoplayComponent, Autoplay as AutoplayStory } from './examples/carousel-autoplay.component';
+import { Autoplay as AutoplayStory, CarouselAutoplayComponent } from './examples/carousel-autoplay.component';
+import {
+  CarouselHeaderFooterComponent,
+  HeaderAndFooter as HeaderAndFooterStory
+} from './examples/carousel-header-footer.component';
 
-type CarouselArgs = Pick<CarouselComponent, 'numVisible' | 'numScroll' | 'circular' | 'orientation' | 'autoplayInterval' | 'showIndicators' | 'showNavigators'>;
+type CarouselArgs = Pick<
+  ExtraCarouselComponent,
+  'numVisible' | 'numScroll' | 'circular' | 'orientation' | 'autoplayInterval' | 'showIndicators' | 'showNavigators'
+>;
 
 const SLIDES = Array.from({ length: 8 }, (_, i) => ({
   title: `Lorem Ipsum ${i + 1}`,
-  subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, saepe.',
+  subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, saepe.'
 }));
 
 const meta: Meta<CarouselArgs> = {
   title: 'Components/Media/Carousel',
-  component: CarouselComponent,
+  component: ExtraCarouselComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        CarouselComponent,
+        ExtraCarouselComponent,
+        ExtraCarouselItemDirective,
+        ExtraCarouselHeaderDirective,
+        ExtraCarouselFooterDirective,
         CarouselVerticalComponent,
         CarouselAutoplayComponent,
-      ],
-    }),
+        CarouselHeaderFooterComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
       description: {
         component: `Компонент для отображения контента в виде слайдов с возможностью горизонтальной и вертикальной прокрутки, настройки количества видимых элементов и автовоспроизведения.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraCarouselItem\` — элемент слайда (контекст \`let-item\`)
+- \`extraCarouselHeader\` — шапка карусели
+- \`extraCarouselFooter\` — подвал карусели
+
 \`\`\`typescript
-import { CarouselComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraCarouselComponent, ExtraCarouselItemDirective, ExtraCarouselHeaderDirective, ExtraCarouselFooterDirective } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-carousel' },
+    designTokens: { prefix: '--p-carousel' }
   },
   argTypes: {
     numVisible: {
@@ -42,8 +63,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '1' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     numScroll: {
       control: { type: 'number', min: 1 },
@@ -51,8 +72,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '1' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     circular: {
       control: 'boolean',
@@ -60,8 +81,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     orientation: {
       control: { type: 'select' },
@@ -70,8 +91,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     autoplayInterval: {
       control: { type: 'number', min: 0 },
@@ -79,8 +100,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     showIndicators: {
       control: 'boolean',
@@ -88,8 +109,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showNavigators: {
       control: 'boolean',
@@ -97,9 +118,9 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
-    },
+        type: { summary: 'boolean' }
+      }
+    }
   },
   args: {
     numVisible: 5,
@@ -108,8 +129,8 @@ import { CarouselComponent } from '@cdek-it/angular-ui-kit';
     orientation: 'horizontal',
     autoplayInterval: 0,
     showIndicators: true,
-    showNavigators: true,
-  },
+    showNavigators: true
+  }
 };
 
 export default meta;
@@ -122,13 +143,7 @@ export const Default: Story = {
   render: (args) => ({
     props: { ...args, slides: SLIDES },
     template: `
-      <ng-template #itemTpl let-item>
-        <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
-          <span class="font-bold truncate">{{ item.title }}</span>
-          <span>{{ item.subtitle }}</span>
-        </div>
-      </ng-template>
-      <carousel
+      <extra-carousel
         [value]="slides"
         [numVisible]="numVisible"
         [numScroll]="numScroll"
@@ -137,17 +152,23 @@ export const Default: Story = {
         [autoplayInterval]="autoplayInterval"
         [showIndicators]="showIndicators"
         [showNavigators]="showNavigators"
-        [itemTemplate]="itemTpl"
-      ></carousel>
-    `,
+      >
+        <ng-template extraCarouselItem let-item>
+          <div class="flex flex-col gap-3 px-3 py-3 border rounded min-w-0 overflow-hidden">
+            <span class="font-bold truncate">{{ item.title }}</span>
+            <span>{{ item.subtitle }}</span>
+          </div>
+        </ng-template>
+      </extra-carousel>
+    `
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Vertical ──────────────────────────────────────────────────────────────────
@@ -157,3 +178,7 @@ export const Vertical: Story = VerticalStory;
 // ── Autoplay ──────────────────────────────────────────────────────────────────
 
 export const Autoplay: Story = AutoplayStory;
+
+// ── Header & Footer ───────────────────────────────────────────────────────────
+
+export const HeaderAndFooter: Story = HeaderAndFooterStory;

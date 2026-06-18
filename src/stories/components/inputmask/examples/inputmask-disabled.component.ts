@@ -8,28 +8,27 @@ export const Disabled: StoryObj = {
     const control = new FormControl({ value: '12-34-56', disabled: true });
     return {
       props: { ...args, control },
-      template: `<extra-input-mask mask="99-99-99" placeholder="99-99-99" [formControl]="control"></extra-input-mask>`,
+      template: `<extra-input-mask mask="99-99-99" placeholder="99-99-99" [formControl]="control"></extra-input-mask>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraInputMaskComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraInputMaskComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Отключённое состояние — управляется через `FormControl`.',
+        story: 'Отключённое состояние — управляется через `FormControl`.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -40,8 +39,8 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 export class DisabledExample {
   control = new FormControl({ value: '12-34-56', disabled: true });
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

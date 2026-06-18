@@ -15,13 +15,13 @@ const template = `
   selector: 'app-message-severities',
   standalone: true,
   imports: [ExtraMessageComponent],
-  template,
+  template
 })
 export class MessageSeveritiesComponent {}
 
 export const Severities: StoryObj = {
   render: () => ({
-    template: `<app-message-severities></app-message-severities>`,
+    template: `<app-message-severities></app-message-severities>`
   }),
   parameters: {
     controls: { disable: true },
@@ -34,8 +34,8 @@ export const Severities: StoryObj = {
 <extra-message severity="success" summary="Message" detail="caption"></extra-message>
 <extra-message severity="warn" summary="Message" detail="caption"></extra-message>
 <extra-message severity="error" summary="Message" detail="caption"></extra-message>
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
@@ -11,14 +11,15 @@ const template = `
 @Component({
   selector: 'app-tag-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraTagComponent],
-  template,
+  template
 })
-export class TagIconComponent { }
+export class TagIconComponent {}
 
 export const WithIcon: StoryObj = {
   render: () => ({
-    template: `<app-tag-icon></app-tag-icon>`,
+    template: `<app-tag-icon></app-tag-icon>`
   }),
   parameters: {
     docs: {
@@ -32,14 +33,15 @@ import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-tag-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraTagComponent],
   template: \`
     <extra-tag value="Verified" severity="info" icon="ti ti-check"></extra-tag>
   \`,
 })
 export class TagIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

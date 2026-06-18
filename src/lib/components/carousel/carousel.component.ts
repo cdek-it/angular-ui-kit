@@ -1,13 +1,24 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Carousel } from 'primeng/carousel';
 import { PrimeTemplate } from 'primeng/api';
-import type { CarouselResponsiveOptions, CarouselPageEvent } from 'primeng/types/carousel';
+import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 
-export type CarouselOrientation = 'horizontal' | 'vertical';
+export type ExtraCarouselOrientation = 'horizontal' | 'vertical';
+export type ExtraCarouselPageEvent = CarouselPageEvent;
+export type ExtraCarouselResponsiveOptions = CarouselResponsiveOptions;
+
+@Directive({ selector: '[extraCarouselItem]', standalone: true })
+export class ExtraCarouselItemDirective {}
+
+@Directive({ selector: '[extraCarouselHeader]', standalone: true })
+export class ExtraCarouselHeaderDirective {}
+
+@Directive({ selector: '[extraCarouselFooter]', standalone: true })
+export class ExtraCarouselFooterDirective {}
 
 @Component({
-  selector: 'carousel',
+  selector: 'extra-carousel',
   standalone: true,
   imports: [Carousel, NgTemplateOutlet, PrimeTemplate],
   template: `
@@ -27,7 +38,10 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
     >
       @if (itemTemplate) {
         <ng-template pTemplate="item" let-data>
-          <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: data }"
+          ></ng-container>
         </ng-template>
       }
       @if (headerTemplate) {
@@ -41,22 +55,22 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
         </ng-template>
       }
     </p-carousel>
-  `,
+  `
 })
-export class CarouselComponent {
+export class ExtraCarouselComponent {
   @Input() value: any[] = [];
   @Input() numVisible = 1;
   @Input() numScroll = 1;
   @Input() circular = false;
-  @Input() orientation: CarouselOrientation = 'horizontal';
+  @Input() orientation: ExtraCarouselOrientation = 'horizontal';
   @Input() autoplayInterval = 0;
   @Input() showIndicators = true;
   @Input() showNavigators = true;
   @Input() page = 0;
-  @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
+  @Input() responsiveOptions: ExtraCarouselResponsiveOptions[] | undefined;
   @Input() verticalViewPortHeight = '300px';
-  @Input() itemTemplate: TemplateRef<any> | null = null;
-  @Input() headerTemplate: TemplateRef<any> | null = null;
-  @Input() footerTemplate: TemplateRef<any> | null = null;
-  @Output() onPage = new EventEmitter<CarouselPageEvent>();
+  @ContentChild(ExtraCarouselItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraCarouselHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraCarouselFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
+  @Output() onPage = new EventEmitter<ExtraCarouselPageEvent>();
 }

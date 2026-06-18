@@ -70,7 +70,6 @@ export const ScrollHorizontal: StoryObj = {
       source: {
         language: 'ts',
         code: `import { Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
 
 const SHIPMENTS = [
   { id: 1, trackNumber: 'ЦД-00123456', sender: 'Иванов И.И.', destination: 'Москва', status: 'В пути', weight: 2.5, cost: 1200, dimensions: '30×20×15 см' },

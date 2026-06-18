@@ -21,15 +21,15 @@ const styles = '';
 @Component({
   selector: 'app-card-without-header',
   standalone: true,
-    imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
+  imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
   template,
-  styles,
+  styles
 })
 export class CardWithoutHeaderComponent {}
 
 export const WithoutHeader: StoryObj = {
   render: () => ({
-    template: `<app-card-without-header></app-card-without-header>`,
+    template: `<app-card-without-header></app-card-without-header>`
   }),
   parameters: {
     docs: {
@@ -37,8 +37,6 @@ export const WithoutHeader: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { SharedModule } from 'primeng/api';
 import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -57,8 +55,8 @@ import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-ki
   \`,
 })
 export class CardWithoutHeaderComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

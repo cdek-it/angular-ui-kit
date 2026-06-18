@@ -1,16 +1,15 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MegaMenu } from 'primeng/megamenu';
 import { MegaMenuItem, PrimeTemplate } from 'primeng/api';
 import { Badge } from 'primeng/badge';
 
-export type MegaMenuOrientation = 'horizontal' | 'vertical';
+export type ExtraMegaMenuOrientation = 'horizontal' | 'vertical';
 
-export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
-  description?: string;
-  badge?: string;
-  items?: MegaMenuModel[][] | MegaMenuModel[];
-}
+export type ExtraMegaMenuItem = MegaMenuItem;
+
+@Directive({ selector: '[extraMegaMenuItem]', standalone: true })
+export class ExtraMegaMenuItemDirective {}
 
 @Component({
   selector: 'extra-megamenu',
@@ -30,8 +29,10 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
     >
       <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
         @if (itemTemplate) {
-          <ng-container [ngTemplateOutlet]="itemTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item, hasSubmenu: hasSubmenu }">
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item, hasSubmenu: hasSubmenu }"
+          >
           </ng-container>
         } @else {
           <a
@@ -63,16 +64,16 @@ export interface MegaMenuModel extends Omit<MegaMenuItem, 'items'> {
         }
       </ng-template>
     </p-megamenu>
-  `,
+  `
 })
 export class ExtraMegaMenuComponent {
-  @Input() model: MegaMenuItem[] = [];
-  @Input() orientation: MegaMenuOrientation = 'horizontal';
+  @Input() model: ExtraMegaMenuItem[] = [];
+  @Input() orientation: ExtraMegaMenuOrientation = 'horizontal';
   @Input() breakpoint: string = '960px';
   @Input() scrollHeight: string = '';
   @Input() disabled: boolean = false;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() tabindex: number = 0;
-  @Input() itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraMegaMenuItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 }

@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { SharedModule } from 'primeng/api';
 
-export type ToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
-export type ToastPosition =
+export type ExtraToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
+export type ExtraToastPosition =
   | 'top-right'
   | 'top-left'
   | 'top-center'
@@ -16,7 +16,7 @@ const SEVERITY_ICONS: Record<string, string> = {
   info: 'ti ti-info-circle',
   success: 'ti ti-circle-check',
   warn: 'ti ti-alert-triangle',
-  error: 'ti ti-alert-circle',
+  error: 'ti ti-alert-circle'
 };
 
 @Component({
@@ -36,10 +36,10 @@ const SEVERITY_ICONS: Record<string, string> = {
         </div>
       </ng-template>
     </p-toast>
-  `,
+  `
 })
 export class ExtraToastComponent {
-  @Input() position: ToastPosition = 'top-right';
+  @Input() position: ExtraToastPosition = 'top-right';
   @Input() key: string | undefined = undefined;
   @Input() life = 5000;
   @Input() pt: Record<string, any> | undefined = undefined;

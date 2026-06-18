@@ -7,17 +7,17 @@ export const Invalid: StoryObj = {
   render: (args) => {
     const control = new FormControl('', Validators.required);
     return {
-        props: { ...args, control },
-        template: `<extra-input-text [formControl]="control" placeholder="Обязательное поле"></extra-input-text>`,
+      props: { ...args, control },
+      template: `<extra-input-text [formControl]="control" placeholder="Обязательное поле"></extra-input-text>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraInputTextComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraInputTextComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -38,8 +38,8 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 export class InvalidExample {
   control = new FormControl('', Validators.required);
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

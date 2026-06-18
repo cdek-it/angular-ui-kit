@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
+import {
+  ExtraPasswordComponent,
+  ExtraPasswordFooterDirective
+} from '../../../../lib/components/password/password.component';
 import { Divider } from 'primeng/divider';
 
 @Component({
   selector: 'app-password-template',
   standalone: true,
-  imports: [ExtraPasswordComponent, Divider, FormsModule],
+  imports: [ExtraPasswordComponent, ExtraPasswordFooterDirective, Divider, FormsModule],
   template: `
     <div style="width: 280px">
       <extra-password
@@ -19,7 +22,7 @@ import { Divider } from 'primeng/divider';
         mediumLabel="Средний"
         strongLabel="Надёжный"
       >
-        <ng-template #footer>
+        <ng-template extraPasswordFooter>
           <p-divider />
           <div class="p-password-rules">
             <div class="p-password-rule">
@@ -42,7 +45,7 @@ import { Divider } from 'primeng/divider';
         </ng-template>
       </extra-password>
     </div>
-  `,
+  `
 })
 export class PasswordTemplateComponent {
   value: string | null = null;
@@ -67,25 +70,22 @@ export class PasswordTemplateComponent {
 export const Template: StoryObj = {
   name: 'Template',
   render: () => ({
-    template: `<app-password-template></app-password-template>`,
+    template: `<app-password-template></app-password-template>`
   }),
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Кастомный контент через `ng-template`: разделитель и список требований к паролю с tabler-иконками.',
+        story: 'Кастомный контент через `ng-template`: разделитель и список требований к паролю с tabler-иконками.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
-import { Divider } from 'primeng/divider';
+import { ExtraPasswordComponent, ExtraPasswordFooterDirective } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [ExtraPasswordComponent, Divider, FormsModule],
+  imports: [ExtraPasswordComponent, ExtraPasswordFooterDirective, Divider, FormsModule],
   template: \`
     <extra-password
       [(ngModel)]="value"
@@ -96,7 +96,7 @@ import { Divider } from 'primeng/divider';
       mediumLabel="Средний"
       strongLabel="Надёжный"
     >
-      <ng-template #footer>
+      <ng-template extraPasswordFooter>
         <p-divider />
         <div class="p-password-rules">
           <div class="p-password-rule">
@@ -139,8 +139,8 @@ export class PasswordTemplateExample {
     return (this.value ?? '').length >= 8;
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

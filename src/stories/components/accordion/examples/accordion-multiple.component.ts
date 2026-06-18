@@ -12,7 +12,7 @@ const template = `
   selector: 'app-accordion-multiple',
   standalone: true,
   imports: [ExtraAccordionComponent],
-  template,
+  template
 })
 export class AccordionMultipleComponent {
   items: ExtraAccordionItem[] = [
@@ -20,26 +20,27 @@ export class AccordionMultipleComponent {
       value: '0',
       header: 'Данные отправления',
       icon: 'ti ti-package',
-      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»',
+      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»'
     },
     {
       value: '1',
       header: 'Маршрут доставки',
       icon: 'ti ti-map-pin',
-      content: 'Принят в Москве 14 апр 09:15 → Сортировочный центр 14 апр 14:30 → Передан перевозчику → Прибыл в Новосибирск 15 апр 08:00 → Доставлен 15 апр 14:20',
+      content:
+        'Принят в Москве 14 апр 09:15 → Сортировочный центр 14 апр 14:30 → Передан перевозчику → Прибыл в Новосибирск 15 апр 08:00 → Доставлен 15 апр 14:20'
     },
     {
       value: '2',
       header: 'Стоимость отправления',
       icon: 'ti ti-receipt',
-      content: 'Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321',
-    },
+      content: 'Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321'
+    }
   ];
 }
 
 export const Multiple: StoryObj = {
   render: () => ({
-    template: `<app-accordion-multiple></app-accordion-multiple>`,
+    template: `<app-accordion-multiple></app-accordion-multiple>`
   }),
   parameters: {
     docs: {
@@ -47,7 +48,6 @@ export const Multiple: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraAccordionComponent, ExtraAccordionItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -80,8 +80,8 @@ export class AccordionMultipleComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

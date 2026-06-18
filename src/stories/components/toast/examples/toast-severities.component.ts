@@ -8,7 +8,7 @@ const SEVERITIES = [
   { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
   { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
   { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
-  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
+  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' }
 ] as const;
 
 const template = `
@@ -47,7 +47,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraToastComponent, ExtraButtonComponent],
   template,
-  styles,
+  styles
 })
 export class ToastSeveritiesComponent {
   readonly severities = SEVERITIES;
@@ -61,14 +61,14 @@ export class ToastSeveritiesComponent {
       summary: 'Сообщение',
       detail: 'Подпись',
       life: 5000,
-      icon,
+      icon
     });
   }
 }
 
 export const Severities: StoryObj = {
   render: () => ({
-    template: `<app-toast-severities></app-toast-severities>`,
+    template: `<app-toast-severities></app-toast-severities>`
   }),
   parameters: {
     docs: {
@@ -76,7 +76,6 @@ export const Severities: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
 const SEVERITIES = [
@@ -121,8 +120,8 @@ export class ExampleComponent {
     });
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

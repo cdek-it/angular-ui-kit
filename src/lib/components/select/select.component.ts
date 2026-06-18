@@ -1,18 +1,40 @@
-import { Component, EventEmitter, forwardRef, inject, Injector, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  Directive,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
 import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 
-export type SelectSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraSelectChangeEvent = SelectChangeEvent;
+export type ExtraSelectFilterEvent = SelectFilterEvent;
 
-export interface AnimationEvent extends NativeAnimationEvent {}
+export interface ExtraAnimationEvent extends NativeAnimationEvent {}
 
-// export class AnimationEvent
+// export class ExtraAnimationEvent
+
+@Directive({ selector: '[extraSelectOption]', standalone: true })
+export class ExtraSelectOptionDirective {}
+
+@Directive({ selector: '[extraSelectSelectedItem]', standalone: true })
+export class ExtraSelectSelectedItemDirective {}
+
+@Directive({ selector: '[extraSelectOptionGroup]', standalone: true })
+export class ExtraSelectOptionGroupDirective {}
 
 @Component({
   selector: 'extra-select',
@@ -22,8 +44,8 @@ export interface AnimationEvent extends NativeAnimationEvent {}
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraSelectComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     @if (floatLabel) {
@@ -70,22 +92,31 @@ export interface AnimationEvent extends NativeAnimationEvent {}
       >
         @if (optionTemplate) {
           <ng-template pTemplate="item" let-option>
-            <ng-container [ngTemplateOutlet]="optionTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="optionTemplate"
+              [ngTemplateOutletContext]="{ $implicit: option }"
+            ></ng-container>
           </ng-template>
         }
         @if (selectedItemTemplate) {
           <ng-template pTemplate="selectedItem" let-option>
-            <ng-container [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: option }"></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="selectedItemTemplate"
+              [ngTemplateOutletContext]="{ $implicit: option }"
+            ></ng-container>
           </ng-template>
         }
         @if (optionGroupTemplate) {
           <ng-template pTemplate="group" let-group>
-            <ng-container [ngTemplateOutlet]="optionGroupTemplate" [ngTemplateOutletContext]="{ $implicit: group }"></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="optionGroupTemplate"
+              [ngTemplateOutletContext]="{ $implicit: group }"
+            ></ng-container>
           </ng-template>
         }
       </p-select>
     </ng-template>
-  `,
+  `
 })
 export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
@@ -103,7 +134,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input() optionGroupChildren = 'items';
   @Input() group = false;
   @Input() placeholder = '';
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() filter = false;
   @Input() showClear = false;
   @Input() editable = false;
@@ -117,17 +148,19 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input() checkmarkIcon = 'ea5e';
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
-  @Input() optionTemplate: TemplateRef<any> | null = null;
-  @Input() selectedItemTemplate: TemplateRef<any> | null = null;
-  @Input() optionGroupTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraSelectOptionDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraSelectSelectedItemDirective, { read: TemplateRef }) selectedItemTemplate: TemplateRef<any> | null =
+    null;
+  @ContentChild(ExtraSelectOptionGroupDirective, { read: TemplateRef }) optionGroupTemplate: TemplateRef<any> | null =
+    null;
 
   disabled = false;
   modelValue: any = null;
 
   @Output() onClear = new EventEmitter<Event>();
-  @Output() onFilter = new EventEmitter<SelectFilterEvent>();
-  @Output() onShow = new EventEmitter<AnimationEvent>();
-  @Output() onHide = new EventEmitter<AnimationEvent>();
+  @Output() onFilter = new EventEmitter<ExtraSelectFilterEvent>();
+  @Output() onShow = new EventEmitter<ExtraAnimationEvent>();
+  @Output() onHide = new EventEmitter<ExtraAnimationEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -149,14 +182,14 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   get selectClasses(): Record<string, boolean> {
     return {
       'p-select-xlg': this.size === 'xlarge',
-      'p-invalid': this.invalid,
+      'p-invalid': this.invalid
     };
   }
 
   private _onChange: (value: any) => void = () => {};
   private _onTouched: () => void = () => {};
 
-  onSelectChange(event: SelectChangeEvent): void {
+  onSelectChange(event: ExtraSelectChangeEvent): void {
     this.modelValue = event.value;
     this._onChange(event.value);
   }

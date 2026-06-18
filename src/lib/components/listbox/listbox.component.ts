@@ -1,16 +1,23 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ContentChild,
+  Directive,
   EventEmitter,
+  forwardRef,
   Input,
   Output,
-  TemplateRef,
-  forwardRef
+  TemplateRef
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
+
+export type ExtraListboxChangeEvent = ListboxChangeEvent;
+
+@Directive({ selector: '[extraListboxItem]', standalone: true })
+export class ExtraListboxItemDirective {}
 
 @Component({
   selector: 'extra-listbox',
@@ -62,13 +69,12 @@ export class ExtraListboxComponent implements ControlValueAccessor {
   @Input() optionGroupChildren: string | undefined = undefined;
   @Input() scrollHeight = '200px';
   @Input() emptyMessage: string | undefined = undefined;
-  @Input() itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraListboxItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();
 
   protected modelValue: any = null;
-
 
   private _disabled = false;
   private _onChange: (value: any) => void = () => {};
@@ -78,8 +84,7 @@ export class ExtraListboxComponent implements ControlValueAccessor {
     return this._disabled;
   }
 
-
-  onChangeHandler(event: ListboxChangeEvent): void {
+  onChangeHandler(event: ExtraListboxChangeEvent): void {
     // Обновляем внутреннее значение и уведомляем форму об изменении.
     this.modelValue = event.value;
     this._onChange(event.value);

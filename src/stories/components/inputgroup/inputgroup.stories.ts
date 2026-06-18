@@ -1,13 +1,13 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { ExtraInputGroupComponent } from '../../../lib/components/inputgroup/input-group.component';
 import { ExtraInputGroupAddonComponent } from '../../../lib/components/inputgroup/input-group-addon.component';
 import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 import { InputGroupWithTextComponent, WithText } from './examples/inputgroup-with-text.component';
-import { InputGroupDisabledComponent, Disabled } from './examples/inputgroup-disabled.component';
+import { Disabled, InputGroupDisabledComponent } from './examples/inputgroup-disabled.component';
 import { InputGroupXlargeComponent, Sizes } from './examples/inputgroup-xlarge.component';
-import { InputGroupAddonRightComponent, AddonRight } from './examples/inputgroup-addon-right.component';
-import { InputGroupAddonBothComponent, AddonBoth } from './examples/inputgroup-addon-both.component';
+import { AddonRight, InputGroupAddonRightComponent } from './examples/inputgroup-addon-right.component';
+import { AddonBoth, InputGroupAddonBothComponent } from './examples/inputgroup-addon-both.component';
 
 const meta: Meta<ExtraInputGroupComponent> = {
   title: 'Components/Form/InputGroup',
@@ -66,9 +66,7 @@ export const Default: Story = {
     const groupParts: string[] = [];
     if (args.size && args.size !== 'base') groupParts.push(`size="${args.size}"`);
 
-    const groupOpen = groupParts.length
-      ? `<extra-input-group ${groupParts.join(' ')}>`
-      : `<extra-input-group>`;
+    const groupOpen = groupParts.length ? `<extra-input-group ${groupParts.join(' ')}>` : `<extra-input-group>`;
 
     const inputSize = args.size && args.size !== 'base' ? ` size="${args.size}"` : '';
 
@@ -83,10 +81,10 @@ ${groupOpen}
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример группы ввода с иконкой. Используйте Controls для изменения размера.',
-      },
-    },
-  },
+        story: 'Базовый пример группы ввода с иконкой. Используйте Controls для изменения размера.'
+      }
+    }
+  }
 };
 
 export { WithText, AddonRight, AddonBoth, Disabled, Sizes };

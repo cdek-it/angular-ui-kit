@@ -70,7 +70,6 @@ export const Extra: StoryObj = {
     text: { control: 'boolean' }
   },
   parameters: {
-
     docs: {
       description: {
         story: 'Интерактивный пример с пропсами, соответствующими Figma-компоненту Button.'
@@ -106,4 +105,3 @@ export const Badge: StoryObj = {
     }
   }
 };
-

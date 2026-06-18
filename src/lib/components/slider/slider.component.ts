@@ -1,10 +1,21 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { Slider } from 'primeng/slider';
 import type { SliderSlideEndEvent } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 import { Subscription } from 'rxjs';
 
-export type SliderOrientation = 'horizontal' | 'vertical';
+export type ExtraSliderOrientation = 'horizontal' | 'vertical';
+export type ExtraSliderSlideEndEvent = SliderSlideEndEvent;
 
 @Component({
   selector: 'extra-slider',
@@ -16,8 +27,8 @@ export type SliderOrientation = 'horizontal' | 'vertical';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraSliderComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-slider
@@ -29,18 +40,18 @@ export type SliderOrientation = 'horizontal' | 'vertical';
       [orientation]="orientation"
       (onSlideEnd)="onSlideEnd.emit($event)"
     ></p-slider>
-  `,
+  `
 })
 export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, OnDestroy {
   @Input() min = 0;
   @Input() max = 100;
   @Input() step: number | undefined = undefined;
   @Input() range = false;
-  @Input() orientation: SliderOrientation = 'horizontal';
+  @Input() orientation: ExtraSliderOrientation = 'horizontal';
   @Input() set disabled(value: boolean) {
     value ? this.control.disable() : this.control.enable();
   }
-  @Output() onSlideEnd = new EventEmitter<SliderSlideEndEvent>();
+  @Output() onSlideEnd = new EventEmitter<ExtraSliderSlideEndEvent>();
 
   readonly control = new FormControl<number | number[]>(0, { nonNullable: true });
 
@@ -49,7 +60,7 @@ export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, On
   private readonly _sub: Subscription;
 
   constructor() {
-    this._sub = this.control.valueChanges.subscribe(v => this._onChange(v));
+    this._sub = this.control.valueChanges.subscribe((v) => this._onChange(v));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

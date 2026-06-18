@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { PanelMenu } from 'primeng/panelmenu';
 import { Badge } from 'primeng/badge';
 
@@ -31,7 +31,7 @@ const styles = '';
   styles
 })
 export class PanelMenuCustomComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Дашборд',
       icon: 'ti ti-layout-dashboard',
@@ -76,10 +76,7 @@ export const Custom: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
-import { Badge } from 'primeng/badge';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-panelmenu-custom',
@@ -102,7 +99,7 @@ import { Badge } from 'primeng/badge';
   \`,
 })
 export class PanelMenuCustomComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Дашборд',
       icon: 'ti ti-layout-dashboard',

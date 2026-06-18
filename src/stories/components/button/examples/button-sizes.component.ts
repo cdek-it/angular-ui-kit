@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
@@ -18,6 +18,7 @@ const styles = '';
 @Component({
   selector: 'app-button-sizes',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraButtonComponent],
   template,
   styles
@@ -37,13 +38,13 @@ export const Sizes: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-button-sizes',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    Button
+    ExtraButtonComponent
   ],
   template: ${template},
   styles: ${styles}

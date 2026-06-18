@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, forwardRef, inject, Injector, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, inject, Injector, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { SharedModule } from 'primeng/api';
 
-export type InputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
-export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
+export type ExtraInputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
 
 @Component({
   selector: 'extra-input-number',
@@ -15,8 +15,8 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraInputNumberComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-inputNumber
@@ -48,16 +48,40 @@ export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
     >
       @if (!incrementButtonIcon) {
         <ng-template pTemplate="incrementbuttonicon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
         </ng-template>
       }
       @if (!decrementButtonIcon) {
         <ng-template pTemplate="decrementbuttonicon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14" />
+          </svg>
         </ng-template>
       }
     </p-inputNumber>
-  `,
+  `
 })
 export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
@@ -67,9 +91,9 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
   }
 
-  @Input() size: InputNumberSize = 'base';
+  @Input() size: ExtraInputNumberSize = 'base';
   @Input() showButtons = false;
-  @Input() buttonLayout: InputNumberButtonLayout = 'stacked';
+  @Input() buttonLayout: ExtraInputNumberButtonLayout = 'stacked';
   @Input() mode = 'decimal';
   @Input() currency: string | undefined;
   @Input() locale: string | undefined;

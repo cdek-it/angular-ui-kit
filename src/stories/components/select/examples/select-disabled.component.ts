@@ -5,7 +5,7 @@ import { ExtraSelectComponent } from '../../../../lib/components/select/select.c
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
-  { name: 'Санкт-Петербург', code: 'SPB' },
+  { name: 'Санкт-Петербург', code: 'SPB' }
 ];
 
 export const Disabled: StoryObj = {
@@ -21,16 +21,16 @@ export const Disabled: StoryObj = {
           optionLabel="name"
           placeholder="Выберите город..."
         ></extra-select>
-      `,
+      `
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraSelectComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraSelectComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -40,7 +40,6 @@ export const Disabled: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -62,8 +61,8 @@ export class SelectDisabledExample {
     { name: 'Москва', code: 'MSK' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

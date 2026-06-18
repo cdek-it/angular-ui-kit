@@ -1,9 +1,9 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraSkeletonComponent as SkeletonComponent } from '../../../lib/components/skeleton/skeleton.component';
-import { SkeletonRectanglesComponent, Rectangles } from './examples/skeleton-rectangles.component';
-import { SkeletonCircleComponent, Circle } from './examples/skeleton-circle.component';
-import { SkeletonCardPlaceholderComponent, CardPlaceholder } from './examples/skeleton-card-placeholder.component';
-import { SkeletonNoAnimationComponent, NoAnimation } from './examples/skeleton-no-animation.component';
+import { Rectangles, SkeletonRectanglesComponent } from './examples/skeleton-rectangles.component';
+import { Circle, SkeletonCircleComponent } from './examples/skeleton-circle.component';
+import { CardPlaceholder, SkeletonCardPlaceholderComponent } from './examples/skeleton-card-placeholder.component';
+import { NoAnimation, SkeletonNoAnimationComponent } from './examples/skeleton-no-animation.component';
 
 const meta: Meta<SkeletonComponent> = {
   title: 'Components/Misc/Skeleton',
@@ -16,9 +16,9 @@ const meta: Meta<SkeletonComponent> = {
         SkeletonRectanglesComponent,
         SkeletonCircleComponent,
         SkeletonCardPlaceholderComponent,
-        SkeletonNoAnimationComponent,
-      ],
-    }),
+        SkeletonNoAnimationComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -27,10 +27,10 @@ const meta: Meta<SkeletonComponent> = {
 
 \`\`\`typescript
 import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-skeleton' },
+    designTokens: { prefix: '--p-skeleton' }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -41,8 +41,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'rectangle' },
-        type: { summary: "'rectangle' | 'circle'" },
-      },
+        type: { summary: "'rectangle' | 'circle'" }
+      }
     },
     animation: {
       control: 'select',
@@ -51,8 +51,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'wave' },
-        type: { summary: "'wave' | 'none'" },
-      },
+        type: { summary: "'wave' | 'none'" }
+      }
     },
     width: {
       control: 'text',
@@ -60,8 +60,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '100%' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     height: {
       control: 'text',
@@ -69,8 +69,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '1rem' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'text',
@@ -78,8 +78,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     borderRadius: {
       control: 'text',
@@ -87,16 +87,16 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+      }
+    }
   },
   args: {
     shape: 'rectangle',
     animation: 'wave',
     width: '100%',
-    height: '1rem',
-  },
+    height: '1rem'
+  }
 };
 
 export default meta;
@@ -129,10 +129,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

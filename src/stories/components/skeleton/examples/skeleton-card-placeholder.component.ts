@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
@@ -19,15 +19,16 @@ const styles = '';
 @Component({
   selector: 'app-skeleton-card-placeholder',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraSkeletonComponent],
   template,
-  styles,
+  styles
 })
 export class SkeletonCardPlaceholderComponent {}
 
 export const CardPlaceholder: StoryObj = {
   render: () => ({
-    template: `<app-skeleton-card-placeholder></app-skeleton-card-placeholder>`,
+    template: `<app-skeleton-card-placeholder></app-skeleton-card-placeholder>`
   }),
   parameters: {
     docs: {
@@ -41,7 +42,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-skeleton-card-placeholder',
   standalone: true,
-  imports: [SkeletonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraSkeletonComponent],
   template: \`
     <div class="flex gap-4">
       <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
@@ -54,8 +56,8 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class SkeletonCardPlaceholderComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

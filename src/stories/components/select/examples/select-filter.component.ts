@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
   { name: 'Санкт-Петербург', code: 'SPB' },
   { name: 'Екатеринбург', code: 'EKB' },
-  { name: 'Казань', code: 'KZN' },
+  { name: 'Казань', code: 'KZN' }
 ];
 
 const template = `
@@ -29,10 +29,10 @@ const styles = '';
   standalone: true,
   imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectFilterComponent {
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() readonly = false;
   control = new FormControl(null);
   options = OPTIONS;
@@ -51,7 +51,7 @@ export class SelectFilterComponent {
 export const Filter = {
   render: (args: any) => ({
     props: { size: args['size'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-filter [size]="size" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-filter>`,
+    template: `<app-select-filter [size]="size" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-filter>`
   }),
   parameters: {
     docs: {
@@ -85,8 +85,8 @@ export class SelectFilterExample {
     { name: 'Санкт-Петербург', code: 'SPB' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

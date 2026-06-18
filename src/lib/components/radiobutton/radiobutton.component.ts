@@ -1,20 +1,22 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 
-export type RadiobuttonVariant = 'outlined' | 'filled';
-export type RadiobuttonSize = 'small' | 'base' | 'large';
+export type ExtraRadiobuttonVariant = 'outlined' | 'filled';
+export type ExtraRadiobuttonSize = 'small' | 'base' | 'large';
+export type ExtraRadioButtonClickEvent = RadioButtonClickEvent;
 
 @Component({
   selector: 'extra-radiobutton',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RadioButton, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraRadiobuttonComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-radiobutton
@@ -34,22 +36,22 @@ export type RadiobuttonSize = 'small' | 'base' | 'large';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-radiobutton>
-  `,
+  `
 })
 export class ExtraRadiobuttonComponent implements ControlValueAccessor {
   @Input() value: any = null;
   @Input() name: string | undefined = undefined;
   @Input() disabled = false;
   @Input() invalid = false;
-  @Input() variant: RadiobuttonVariant = 'outlined';
-  @Input() size: RadiobuttonSize = 'base';
+  @Input() variant: ExtraRadiobuttonVariant = 'outlined';
+  @Input() size: ExtraRadiobuttonSize = 'base';
   @Input() inputId: string | undefined = undefined;
   @Input() tabindex: number | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() autofocus = false;
 
-  @Output() onClick = new EventEmitter<RadioButtonClickEvent>();
+  @Output() onClick = new EventEmitter<ExtraRadioButtonClickEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -68,7 +70,7 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor {
     return this.variant === 'filled' ? 'filled' : undefined;
   }
 
-  onClickHandler(event: RadioButtonClickEvent): void {
+  onClickHandler(event: ExtraRadioButtonClickEvent): void {
     this._onChange(event.value);
     this._onTouched();
     this.onClick.emit(event);

@@ -1,13 +1,15 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { MeterGroup, MeterItem } from 'primeng/metergroup';
 
-export type MeterGroupOrientation = 'horizontal' | 'vertical';
-export type MeterGroupLabelPosition = 'start' | 'end';
-export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
+export type ExtraMeterGroupOrientation = 'horizontal' | 'vertical';
+export type ExtraMeterGroupLabelPosition = 'start' | 'end';
+export type ExtraMeterGroupLabelOrientation = 'horizontal' | 'vertical';
+export type ExtraMeterItem = MeterItem;
 
 @Component({
   selector: 'extra-metergroup',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MeterGroup],
   template: `
     <p-metergroup
@@ -16,13 +18,13 @@ export type MeterGroupLabelOrientation = 'horizontal' | 'vertical';
       [labelPosition]="labelPosition"
       [labelOrientation]="labelOrientation"
     ></p-metergroup>
-  `,
+  `
 })
 export class ExtraMeterGroupComponent {
-  @Input() value: MeterItem[] = [];
-  @Input() orientation: MeterGroupOrientation = 'horizontal';
-  @Input() labelPosition: MeterGroupLabelPosition = 'end';
-  @Input() labelOrientation: MeterGroupLabelOrientation = 'horizontal';
+  @Input() value: ExtraMeterItem[] = [];
+  @Input() orientation: ExtraMeterGroupOrientation = 'horizontal';
+  @Input() labelPosition: ExtraMeterGroupLabelPosition = 'end';
+  @Input() labelOrientation: ExtraMeterGroupLabelOrientation = 'horizontal';
 
   @HostBinding('style.display') get hostDisplay() {
     return this.orientation === 'vertical' ? 'flex' : null;

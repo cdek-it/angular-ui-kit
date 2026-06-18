@@ -8,7 +8,7 @@ const options = [
   { label: 'Rome', value: 'RM' },
   { label: 'London', value: 'LDN' },
   { label: 'Istanbul', value: 'IST' },
-  { label: 'Paris', value: 'PRS' },
+  { label: 'Paris', value: 'PRS' }
 ];
 
 const template = `
@@ -21,7 +21,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraListboxComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class ListboxMultipleComponent {
   ctrl = new FormControl([]);
@@ -30,7 +30,7 @@ export class ListboxMultipleComponent {
 
 export const Multiple: StoryObj = {
   render: () => ({
-    template: `<app-listbox-multiple></app-listbox-multiple>`,
+    template: `<app-listbox-multiple></app-listbox-multiple>`
   }),
   parameters: {
     controls: { disable: true },
@@ -39,8 +39,6 @@ export const Multiple: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
  import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -59,8 +57,8 @@ export class ListboxMultipleComponent {
     { label: 'London', value: 'LDN' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

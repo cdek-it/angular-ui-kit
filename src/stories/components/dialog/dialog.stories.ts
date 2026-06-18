@@ -1,11 +1,18 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraDialogComponent } from '../../../lib/components/dialog/dialog.component';
 import { DialogDefaultComponent, template as dialogDefaultTemplate } from './examples/dialog-default.component';
 import { DialogSmallComponent, template as dialogSmallTemplate } from './examples/dialog-small.component';
 import { DialogLargeComponent, template as dialogLargeTemplate } from './examples/dialog-large.component';
-import { DialogExtraLargeComponent, template as dialogExtraLargeTemplate } from './examples/dialog-extra-large.component';
+import {
+  DialogExtraLargeComponent,
+  template as dialogExtraLargeTemplate
+} from './examples/dialog-extra-large.component';
 import { DialogNoModalComponent, template as dialogNoModalTemplate } from './examples/dialog-no-modal.component';
 import { DialogNoHeaderComponent, template as dialogNoHeaderTemplate } from './examples/dialog-no-header.component';
+import {
+  DialogCustomHeaderComponent,
+  template as dialogCustomHeaderTemplate
+} from './examples/dialog-custom-header.component';
 import { DialogDynamicComponent } from './examples/dialog-dynamic.component';
 
 const meta: Meta<ExtraDialogComponent> = {
@@ -14,15 +21,19 @@ const meta: Meta<ExtraDialogComponent> = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-          description: {
-                component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
+      description: {
+        component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
+
+        Шаблоны (передаются между тегами компонента):
+        - \`extraDialogHeader\` — кастомный заголовок (заменяет строковый \`header\`)
+        - \`extraDialogFooter\` — кастомный футер
 
         \`\`\`typescript
-        import { ExtraDialogComponent } from '@cdek-it/angular-ui-kit';
-        \`\`\``,
-              },
+        import { ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraDialogFooterDirective } from '@cdek-it/angular-ui-kit';
+        \`\`\``
+      }
     },
-    designTokens: { prefix: '--p-dialog' },
+    designTokens: { prefix: '--p-dialog' }
   },
   argTypes: {
     header: {
@@ -31,17 +42,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: '' },
-        type: { summary: 'string' },
-      },
-    },
-    headerTemplate: {
-      control: false,
-      description: 'Кастомный шаблон заголовка. При наличии заменяет строковый header',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: 'TemplateRef<any> | null' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -50,8 +52,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'default' },
-        type: { summary: "'sm' | 'default' | 'lg' | 'xlg'" },
-      },
+        type: { summary: "'sm' | 'default' | 'lg' | 'xlg'" }
+      }
     },
     modal: {
       control: 'boolean',
@@ -59,8 +61,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     dismissableMask: {
       control: 'boolean',
@@ -68,8 +70,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     closeOnEscape: {
       control: 'boolean',
@@ -77,8 +79,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showHeader: {
       control: 'boolean',
@@ -86,8 +88,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     focusOnShow: {
       control: 'boolean',
@@ -95,8 +97,8 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     appendTo: {
       control: 'text',
@@ -104,18 +106,18 @@ const meta: Meta<ExtraDialogComponent> = {
       table: {
         category: 'Props',
         defaultValue: { summary: "'body'" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     visibleChange: {
       control: false,
       description: 'Изменение видимости диалога',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<boolean>' },
-      },
-    },
-  },
+        type: { summary: 'EventEmitter<boolean>' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -130,27 +132,27 @@ export const Basic: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример диалогового окна с заголовком, контентом и кнопками действий.',
+        story: 'Базовый пример диалогового окна с заголовком, контентом и кнопками действий.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-basic',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogDefaultTemplate}\`,
 })
 export class DialogBasicComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Small ─────────────────────────────────────────────────────────────────────
@@ -165,22 +167,20 @@ export const Small: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-small',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogSmallTemplate}\`,
 })
 export class DialogSmallComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Large ─────────────────────────────────────────────────────────────────────
@@ -195,22 +195,20 @@ export const Large: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-large',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogLargeTemplate}\`,
 })
 export class DialogLargeComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Extra Large ───────────────────────────────────────────────────────────────
@@ -225,22 +223,20 @@ export const ExtraLarge: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-extra-large',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogExtraLargeTemplate}\`,
 })
 export class DialogExtraLargeComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── No Modal ──────────────────────────────────────────────────────────────────
@@ -255,22 +251,20 @@ export const NoModal: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-no-modal',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogNoModalTemplate}\`,
 })
 export class DialogNoModalComponent {
   visible = false;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Show Header ───────────────────────────────────────────────────────────────
@@ -285,22 +279,52 @@ export const NoHeader: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-no-header',
   standalone: true,
-  imports: [ExtraDialogComponent, ExtraButtonComponent],
+  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
   template: \`${dialogNoHeaderTemplate}\`,
 })
 export class DialogNoHeaderComponent {
   visible = false;
 }
-        `,
+        `
+      }
+    }
+  }
+};
+
+// ── Custom Header ─────────────────────────────────────────────────────────────
+
+export const CustomHeader: Story = {
+  name: 'Custom Header',
+  decorators: [moduleMetadata({ imports: [DialogCustomHeaderComponent] })],
+  render: () => ({ template: `<app-dialog-custom-header></app-dialog-custom-header>` }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Кастомный заголовок через директиву `extraDialogHeader`. Шаблон заменяет строковый проп `header`.'
       },
-    },
-  },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-dialog-custom-header',
+  standalone: true,
+  imports: [ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraButtonComponent],
+  template: \`${dialogCustomHeaderTemplate}\`,
+})
+export class DialogCustomHeaderComponent {
+  visible = false;
+}
+        `
+      }
+    }
+  }
 };
 
 // ── Dynamic ───────────────────────────────────────────────────────────────────
@@ -312,13 +336,14 @@ export const Dynamic: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Программное открытие диалога через `ExtraDialogService`. Содержимое — любой Angular-компонент, получающий `DynamicDialogRef` для закрытия.',
+        story:
+          'Программное открытие диалога через `ExtraDialogService`. Содержимое — любой Angular-компонент, получающий `ExtraDynamicDialogRef` для закрытия.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component, Injector } from '@angular/core';
-import { ExtraButtonComponent, DynamicDialogRef, ExtraDialogService } from '@cdek-it/angular-ui-kit';
+import { ExtraButtonComponent, ExtraDynamicDialogRef, ExtraDialogService } from '@cdek-it/angular-ui-kit';
 
 // Содержимое диалога
 @Component({
@@ -334,7 +359,7 @@ import { ExtraButtonComponent, DynamicDialogRef, ExtraDialogService } from '@cde
   \`,
 })
 export class DialogDynamicContentComponent {
-  constructor(readonly ref: DynamicDialogRef) {}
+  constructor(readonly ref: ExtraDynamicDialogRef) {}
 }
 
 // Компонент-триггер
@@ -358,8 +383,8 @@ export class DialogDynamicComponent {
       modal: true,
     });
   }
-}`,
-      },
-    },
-  },
+}`
+      }
+    }
+  }
 };

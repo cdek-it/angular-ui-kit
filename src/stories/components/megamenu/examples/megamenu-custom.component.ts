@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '../../../../lib/components/megamenu/megamenu.component';
 
 const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
 
@@ -7,10 +7,10 @@ const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
   selector: 'app-megamenu-custom',
   standalone: true,
   imports: [ExtraMegaMenuComponent],
-  template,
+  template
 })
 export class MegaMenuCustomComponent {
-  items: MegaMenuModel[] = [
+  items: ExtraMegaMenuItem[] = [
     {
       label: 'Products',
       icon: 'ti ti-box',
@@ -23,15 +23,15 @@ export class MegaMenuCustomComponent {
                 label: 'Form',
                 description: 'Input, Select, Checkbox',
                 icon: 'ti ti-forms',
-                badge: 'New',
+                badge: 'New'
               },
               {
                 label: 'Button',
                 description: 'Actions and triggers',
-                icon: 'ti ti-hand-click',
-              },
-            ],
-          },
+                icon: 'ti ti-hand-click'
+              }
+            ]
+          }
         ],
         [
           {
@@ -40,18 +40,18 @@ export class MegaMenuCustomComponent {
               {
                 label: 'Bar Chart',
                 description: 'Categorical comparison',
-                icon: 'ti ti-chart-bar',
+                icon: 'ti ti-chart-bar'
               },
               {
                 label: 'Line Chart',
                 description: 'Trends over time',
                 icon: 'ti ti-chart-line',
-                badge: 'Beta',
-              },
-            ],
-          },
-        ],
-      ],
+                badge: 'Beta'
+              }
+            ]
+          }
+        ]
+      ]
     },
     {
       label: 'Solutions',
@@ -64,18 +64,18 @@ export class MegaMenuCustomComponent {
               {
                 label: 'Analytics',
                 description: 'Reports and dashboards',
-                icon: 'ti ti-chart-dots',
+                icon: 'ti ti-chart-dots'
               },
               {
                 label: 'CRM',
                 description: 'Customer management',
                 icon: 'ti ti-users',
-                badge: 'Pro',
-              },
-            ],
-          },
-        ],
-      ],
-    },
+                badge: 'Pro'
+              }
+            ]
+          }
+        ]
+      ]
+    }
   ];
 }

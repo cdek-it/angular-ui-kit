@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 import { basicItems } from '../tieredmenu.data';
 
@@ -19,7 +19,7 @@ const styles = '';
   styles,
 })
 export class TieredMenuBasicComponent {
-  items: MenuItem[] = basicItems;
+  items: ExtraMenuItem[] = basicItems;
 }
 
 export const Basic: StoryObj = {
@@ -32,9 +32,7 @@ export const Basic: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraTieredMenuComponent, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tieredmenu-basic',
@@ -45,7 +43,7 @@ import { ExtraTieredMenuComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class TieredMenuBasicComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Отправления',
       icon: 'ti ti-package',

@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import {
+  ExtraSelectComponent,
+  ExtraSelectOptionGroupDirective,
+  ExtraSelectSize
+} from '../../../../lib/components/select/select.component';
 
 const GROUPED_OPTIONS = [
   {
@@ -8,26 +12,20 @@ const GROUPED_OPTIONS = [
     items: [
       { label: 'Берлин', value: 'BE' },
       { label: 'Франкфурт', value: 'FR' },
-      { label: 'Гамбург', value: 'HA' },
-    ],
+      { label: 'Гамбург', value: 'HA' }
+    ]
   },
   {
     label: 'США',
     items: [
       { label: 'Чикаго', value: 'CH' },
       { label: 'Лос-Анджелес', value: 'LA' },
-      { label: 'Нью-Йорк', value: 'NY' },
-    ],
-  },
+      { label: 'Нью-Йорк', value: 'NY' }
+    ]
+  }
 ];
 
 const template = `
-<ng-template #groupTpl let-group>
-  <div class="flex items-center gap-2">
-    <span class="ti ti-flag"></span>
-    <span>{{ group.label }}</span>
-  </div>
-</ng-template>
 <extra-select
   [formControl]="control"
   [options]="options"
@@ -36,23 +34,29 @@ const template = `
   optionGroupChildren="items"
   [group]="true"
   placeholder="Выберите город..."
-  [optionGroupTemplate]="groupTpl"
   [size]="size"
   [showClear]="showClear"
   [readonly]="readonly"
-></extra-select>
+>
+  <ng-template extraSelectOptionGroup let-group>
+    <div class="flex items-center gap-2">
+      <span class="ti ti-flag"></span>
+      <span>{{ group.label }}</span>
+    </div>
+  </ng-template>
+</extra-select>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-select-grouped',
   standalone: true,
-  imports: [ExtraSelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ExtraSelectOptionGroupDirective, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectGroupedComponent {
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() showClear = false;
   @Input() readonly = false;
   control = new FormControl(null);
@@ -71,8 +75,14 @@ export class SelectGroupedComponent {
 
 export const Grouped = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`,
+    props: {
+      size: args['size'],
+      showClear: args['showClear'],
+      readonly: args['readonly'],
+      disabled: args['disabled'],
+      invalid: args['invalid']
+    },
+    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
   }),
   parameters: {
     docs: {
@@ -82,18 +92,12 @@ export const Grouped = {
         code: `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectComponent, ExtraSelectOptionGroupDirective } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [ExtraSelectComponent, ReactiveFormsModule],
+  imports: [ExtraSelectComponent, ExtraSelectOptionGroupDirective, ReactiveFormsModule],
   template: \`
-    <ng-template #groupTpl let-group>
-      <div class="flex items-center gap-2">
-        <span class="ti ti-flag"></span>
-        <span>{{ group.label }}</span>
-      </div>
-    </ng-template>
     <extra-select
       [formControl]="control"
       [options]="options"
@@ -102,8 +106,14 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
       optionGroupChildren="items"
       [group]="true"
       placeholder="Выберите город..."
-      [optionGroupTemplate]="groupTpl"
-    ></extra-select>
+    >
+      <ng-template extraSelectOptionGroup let-group>
+        <div class="flex items-center gap-2">
+          <span class="ti ti-flag"></span>
+          <span>{{ group.label }}</span>
+        </div>
+      </ng-template>
+    </extra-select>
   \`,
 })
 export class SelectGroupedExample {
@@ -125,8 +135,8 @@ export class SelectGroupedExample {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -29,7 +29,7 @@ export class InputGroupAddonBothComponent {
 
 export const AddonBoth: StoryObj = {
   render: () => ({
-    template: `<app-inputgroup-addon-both></app-inputgroup-addon-both>`,
+    template: `<app-inputgroup-addon-both></app-inputgroup-addon-both>`
   }),
   parameters: {
     docs: {
@@ -37,8 +37,6 @@ export const AddonBoth: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -56,8 +54,8 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
 export class InputGroupAddonBothComponent {
   value = '';
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

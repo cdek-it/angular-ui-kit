@@ -1,11 +1,17 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { PrimeTemplate } from 'primeng/api';
-import { ExtraButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
 
 export type ExtraConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';
+
+@Directive({ selector: '[extraConfirmDialogHeader]', standalone: true })
+export class ExtraConfirmDialogHeaderDirective {}
+
+@Directive({ selector: '[extraConfirmDialogFooter]', standalone: true })
+export class ExtraConfirmDialogFooterDirective {}
 
 @Component({
   selector: 'extra-confirm-dialog',
@@ -16,8 +22,10 @@ export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 
     <p-confirmDialog [key]="key" [styleClass]="computedClass" appendTo="body">
       <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
         @if (headerTemplate) {
-          <ng-container [ngTemplateOutlet]="headerTemplate"
-            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }">
+          <ng-container
+            [ngTemplateOutlet]="headerTemplate"
+            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }"
+          >
           </ng-container>
         } @else {
           <div class="p-dialog-header">
@@ -39,16 +47,14 @@ export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 
           <p>{{ message.message }}</p>
         </div>
         @if (footerTemplate) {
-          <ng-container [ngTemplateOutlet]="footerTemplate"
-            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }">
+          <ng-container
+            [ngTemplateOutlet]="footerTemplate"
+            [ngTemplateOutletContext]="{ $implicit: message, onAccept, onReject }"
+          >
           </ng-container>
         } @else {
           <div class="p-dialog-footer">
-            <extra-button
-              [label]="message.rejectLabel"
-              variant="text"
-              (click)="onReject()"
-            ></extra-button>
+            <extra-button [label]="message.rejectLabel" variant="text" (click)="onReject()"></extra-button>
             <extra-button
               [label]="message.acceptLabel"
               [severity]="message.acceptButtonProps?.severity"
@@ -58,14 +64,16 @@ export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 
         }
       </ng-template>
     </p-confirmDialog>
-  `,
+  `
 })
 export class ExtraConfirmDialogComponent {
   @Input() key = '';
   @Input() size: ExtraConfirmDialogSize = 'default';
   @Input() severity: ExtraConfirmDialogSeverity = 'default';
-  @Input() headerTemplate: TemplateRef<any> | null = null;
-  @Input() footerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraConfirmDialogHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null =
+    null;
+  @ContentChild(ExtraConfirmDialogFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null =
+    null;
 
   get computedClass(): string {
     const classes: string[] = [];
@@ -79,7 +87,7 @@ export class ExtraConfirmDialogComponent {
       warn: 'p-confirm-dialog-warn',
       help: 'p-confirm-dialog-help',
       danger: 'p-confirm-dialog-error',
-      default: '',
+      default: ''
     };
     if (severityMap[this.severity]) classes.push(severityMap[this.severity]);
 

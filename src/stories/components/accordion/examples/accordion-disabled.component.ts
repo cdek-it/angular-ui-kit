@@ -12,7 +12,7 @@ const template = `
   selector: 'app-accordion-disabled',
   standalone: true,
   imports: [ExtraAccordionComponent],
-  template,
+  template
 })
 export class AccordionDisabledComponent {
   items: ExtraAccordionItem[] = [
@@ -20,27 +20,27 @@ export class AccordionDisabledComponent {
       value: '0',
       header: 'Данные отправления',
       icon: 'ti ti-package',
-      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»',
+      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»'
     },
     {
       value: '1',
       header: 'Документы (недоступно)',
       icon: 'ti ti-file-description',
       content: 'Документация по отправлению временно недоступна.',
-      disabled: true,
+      disabled: true
     },
     {
       value: '2',
       header: 'Стоимость отправления',
       icon: 'ti ti-receipt',
-      content: 'Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321',
-    },
+      content: 'Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321'
+    }
   ];
 }
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-accordion-disabled></app-accordion-disabled>`,
+    template: `<app-accordion-disabled></app-accordion-disabled>`
   }),
   parameters: {
     docs: {
@@ -48,7 +48,6 @@ export const Disabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraAccordionComponent, ExtraAccordionItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -82,8 +81,8 @@ export class AccordionDisabledComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

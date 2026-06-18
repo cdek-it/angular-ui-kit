@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraRatingComponent } from '../../../../lib/components/rating/rating.component';
@@ -12,8 +12,9 @@ const template = `
 @Component({
   selector: 'app-rating-disabled',
   standalone: true,
-  imports: [ExtraRatingComponent, FormsModule],
-  template
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template,
+  imports: [ExtraRatingComponent, FormsModule]
 })
 export class RatingDisabledComponent {
   value = 2;
@@ -21,7 +22,7 @@ export class RatingDisabledComponent {
 
 export const Disabled: StoryObj = {
   render: () => ({
-    template: `<app-rating-disabled></app-rating-disabled>`,
+    template: `<app-rating-disabled></app-rating-disabled>`
   }),
   parameters: {
     docs: {
@@ -31,12 +32,12 @@ export const Disabled: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { RatingComponent } from '@cdek-it/angular-ui-kit';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-rating-disabled',
   standalone: true,
-  imports: [RatingComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraRatingComponent, FormsModule],
   template: \`
     <extra-rating [(ngModel)]="value" [disabled]="true"></extra-rating>
   \`,
@@ -44,8 +45,8 @@ import { FormsModule } from '@angular/forms';
 export class RatingDisabledComponent {
   value = 2;
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

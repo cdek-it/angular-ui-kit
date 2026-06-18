@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { Badge } from 'primeng/badge';
 import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 
@@ -39,7 +39,7 @@ const styles = '';
   styles,
 })
 export class TieredMenuCustomComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Дашборд',
       icon: 'ti ti-home',
@@ -83,10 +83,8 @@ export const Custom: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 import { TieredMenu } from 'primeng/tieredmenu';
-import { Badge } from 'primeng/badge';
 
 @Component({
   selector: 'app-tieredmenu-custom',
@@ -117,7 +115,7 @@ import { Badge } from 'primeng/badge';
   \`,
 })
 export class TieredMenuCustomComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     { label: 'Дашборд', icon: 'ti ti-home', description: 'Перейти на главную' },
     { label: 'Отправления', icon: 'ti ti-package', description: 'Управление заказами', badge: 'New',
       items: [

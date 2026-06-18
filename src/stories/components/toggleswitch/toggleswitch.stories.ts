@@ -76,7 +76,6 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({

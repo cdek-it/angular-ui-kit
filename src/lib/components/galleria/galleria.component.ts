@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, ViewChild, AfterContentInit } from '@angular/core';
-import { Galleria, GalleriaModule } from 'primeng/galleria';
+import { Component, ContentChild, Directive, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GalleriaModule } from 'primeng/galleria';
 import { PrimeTemplate } from 'primeng/api';
 
-export interface GalleriaItem {
+export interface ExtraGalleriaItem {
   itemImageSrc: string;
   thumbnailImageSrc?: string;
   alt?: string;
@@ -10,10 +11,28 @@ export interface GalleriaItem {
   description?: string;
 }
 
+@Directive({ selector: '[extraGalleriaItem]', standalone: true })
+export class ExtraGalleriaItemDirective {}
+
+@Directive({ selector: '[extraGalleriaThumbnail]', standalone: true })
+export class ExtraGalleriaThumbnailDirective {}
+
+@Directive({ selector: '[extraGalleriaCaption]', standalone: true })
+export class ExtraGalleriaCaptionDirective {}
+
+@Directive({ selector: '[extraGalleriaIndicator]', standalone: true })
+export class ExtraGalleriaIndicatorDirective {}
+
+@Directive({ selector: '[extraGalleriaHeader]', standalone: true })
+export class ExtraGalleriaHeaderDirective {}
+
+@Directive({ selector: '[extraGalleriaFooter]', standalone: true })
+export class ExtraGalleriaFooterDirective {}
+
 @Component({
-  selector: 'galleria',
+  selector: 'extra-galleria',
   standalone: true,
-  imports: [GalleriaModule],
+  imports: [CommonModule, GalleriaModule, PrimeTemplate],
   host: { style: 'display: contents' },
   template: `
     <p-galleria
@@ -35,14 +54,54 @@ export interface GalleriaItem {
       [responsiveOptions]="responsiveOptions"
       (activeIndexChange)="activeIndexChange.emit($event)"
       (visibleChange)="visibleChange.emit($event)"
-    ></p-galleria>
-  `,
+    >
+      <ng-template pTemplate="item" let-item>
+        @if (itemTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-container>
+        }
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        @if (thumbnailTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="thumbnailTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-container>
+        }
+      </ng-template>
+      <ng-template pTemplate="caption" let-item>
+        @if (captionTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="captionTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-container>
+        }
+      </ng-template>
+      <ng-template pTemplate="indicator" let-item>
+        @if (indicatorTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="indicatorTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-container>
+        }
+      </ng-template>
+      <ng-template pTemplate="header">
+        @if (headerTemplate) {
+          <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+        }
+      </ng-template>
+      <ng-template pTemplate="footer">
+        @if (footerTemplate) {
+          <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+        }
+      </ng-template>
+    </p-galleria>
+  `
 })
-export class GalleriaComponent implements AfterContentInit {
-  @ViewChild(Galleria, { static: true }) private galleriaRef!: Galleria;
-  @ContentChildren(PrimeTemplate) private userTemplates!: QueryList<PrimeTemplate>;
-
-  @Input() value: GalleriaItem[] = [];
+export class ExtraGalleriaComponent {
+  @Input() value: ExtraGalleriaItem[] = [];
   @Input() numVisible = 3;
   @Input() showItemNavigators = false;
   @Input() showItemNavigatorsOnHover = false;
@@ -59,37 +118,13 @@ export class GalleriaComponent implements AfterContentInit {
   @Input() containerStyle: Record<string, string> | undefined = undefined;
   @Input() responsiveOptions: any[] | undefined = undefined;
 
+  @ContentChild(ExtraGalleriaItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraGalleriaThumbnailDirective, { read: TemplateRef }) thumbnailTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraGalleriaCaptionDirective, { read: TemplateRef }) captionTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraGalleriaIndicatorDirective, { read: TemplateRef }) indicatorTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraGalleriaHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraGalleriaFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
+
   @Output() activeIndexChange = new EventEmitter<number>();
   @Output() visibleChange = new EventEmitter<boolean>();
-
-  ngAfterContentInit(): void {
-    this.syncTemplates();
-    this.userTemplates.changes.subscribe(() => this.syncTemplates());
-  }
-
-  private syncTemplates(): void {
-    const ref = this.galleriaRef as any;
-    this.userTemplates.forEach((tpl) => {
-      switch (tpl.getType()) {
-        case 'item':
-          ref._itemTemplate = tpl.template;
-          break;
-        case 'thumbnail':
-          ref._thumbnailTemplate = tpl.template;
-          break;
-        case 'caption':
-          ref.captionTemplate = tpl.template;
-          break;
-        case 'header':
-          ref.headerTemplate = tpl.template;
-          break;
-        case 'footer':
-          ref.footerTemplate = tpl.template;
-          break;
-        case 'indicator':
-          ref.indicatorTemplate = tpl.template;
-          break;
-      }
-    });
-  }
 }

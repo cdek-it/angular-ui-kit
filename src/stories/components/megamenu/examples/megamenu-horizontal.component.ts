@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ExtraMegaMenuComponent, MegaMenuModel } from '../../../../lib/components/megamenu/megamenu.component';
+import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '../../../../lib/components/megamenu/megamenu.component';
 
 const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
 
@@ -7,10 +7,10 @@ const template = `<extra-megamenu [model]="items"></extra-megamenu>`;
   selector: 'app-megamenu-horizontal',
   standalone: true,
   imports: [ExtraMegaMenuComponent],
-  template,
+  template
 })
 export class MegaMenuHorizontalComponent {
-  items: MegaMenuModel[] = [
+  items: ExtraMegaMenuItem[] = [
     {
       label: 'Products',
       icon: 'ti ti-box',
@@ -21,20 +21,20 @@ export class MegaMenuHorizontalComponent {
             items: [
               { label: 'Form', icon: 'ti ti-forms' },
               { label: 'Button', icon: 'ti ti-hand-click' },
-              { label: 'Table', icon: 'ti ti-table' },
-            ],
-          },
+              { label: 'Table', icon: 'ti ti-table' }
+            ]
+          }
         ],
         [
           {
             label: 'Charts',
             items: [
               { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
-              { label: 'Line Chart', icon: 'ti ti-chart-line' },
-            ],
-          },
-        ],
-      ],
+              { label: 'Line Chart', icon: 'ti ti-chart-line' }
+            ]
+          }
+        ]
+      ]
     },
     {
       label: 'Solutions',
@@ -45,16 +45,16 @@ export class MegaMenuHorizontalComponent {
             label: 'Business',
             items: [
               { label: 'Analytics', icon: 'ti ti-chart-dots' },
-              { label: 'CRM', icon: 'ti ti-users' },
-            ],
-          },
-        ],
-      ],
+              { label: 'CRM', icon: 'ti ti-users' }
+            ]
+          }
+        ]
+      ]
     },
     {
       label: 'Contact',
       icon: 'ti ti-mail',
-      disabled: true,
-    },
+      disabled: true
+    }
   ];
 }

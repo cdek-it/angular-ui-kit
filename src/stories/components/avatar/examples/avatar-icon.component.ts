@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -16,20 +16,21 @@ const styles = '';
 @Component({
   selector: 'app-avatar-icon',
   standalone: true,
-    imports: [ExtraAvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraAvatarComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarIconComponent {}
 
 export const Icon: StoryObj = {
   render: () => ({
-    template: `<app-avatar-icon></app-avatar-icon>`,
+    template: `<app-avatar-icon></app-avatar-icon>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Аватары с иконкой разных размеров.',
+        story: 'Аватары с иконкой разных размеров.'
       },
       source: {
         language: 'ts',
@@ -40,6 +41,7 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-avatar-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraAvatarComponent],
   template: \`
     <div class="flex items-center gap-4">
@@ -50,8 +52,8 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class AvatarIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

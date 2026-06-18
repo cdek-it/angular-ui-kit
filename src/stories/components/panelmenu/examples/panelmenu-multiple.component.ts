@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { MenuItem } from 'primeng/api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { ExtraPanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
 
 const template = `
@@ -15,10 +15,10 @@ const styles = '';
   standalone: true,
   imports: [ExtraPanelMenuComponent],
   template,
-  styles,
+  styles
 })
 export class PanelMenuMultipleComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Отправления',
       icon: 'ti ti-package',
@@ -29,27 +29,23 @@ export class PanelMenuMultipleComponent {
         {
           label: 'Возвраты',
           icon: 'ti ti-arrow-back',
-          items: [{ label: 'Ожидают' }, { label: 'Завершённые' }],
-        },
-      ],
+          items: [{ label: 'Ожидают' }, { label: 'Завершённые' }]
+        }
+      ]
     },
     { label: 'Маршруты', icon: 'ti ti-route' },
     {
       label: 'Склады',
       icon: 'ti ti-building-warehouse',
-      items: [
-        { label: 'Москва' },
-        { label: 'Новосибирск' },
-        { label: 'Екатеринбург' },
-      ],
+      items: [{ label: 'Москва' }, { label: 'Новосибирск' }, { label: 'Екатеринбург' }]
     },
-    { label: 'Настройки', icon: 'ti ti-settings', disabled: true },
+    { label: 'Настройки', icon: 'ti ti-settings', disabled: true }
   ];
 }
 
 export const Multiple: StoryObj = {
   render: () => ({
-    template: `<app-panelmenu-multiple></app-panelmenu-multiple>`,
+    template: `<app-panelmenu-multiple></app-panelmenu-multiple>`
   }),
   parameters: {
     docs: {
@@ -57,9 +53,7 @@ export const Multiple: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPanelMenuComponent, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-panelmenu-multiple',
@@ -70,7 +64,7 @@ import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class PanelMenuMultipleComponent {
-  items: MenuItem[] = [
+  items: ExtraMenuItem[] = [
     {
       label: 'Отправления',
       icon: 'ti ti-package',
@@ -90,8 +84,8 @@ export class PanelMenuMultipleComponent {
     { label: 'Настройки', icon: 'ti ti-settings', disabled: true },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

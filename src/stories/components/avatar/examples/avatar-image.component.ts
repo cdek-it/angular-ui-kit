@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -16,20 +16,21 @@ const styles = '';
 @Component({
   selector: 'app-avatar-image',
   standalone: true,
-    imports: [ExtraAvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraAvatarComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarImageComponent {}
 
 export const Image: StoryObj = {
   render: () => ({
-    template: `<app-avatar-image></app-avatar-image>`,
+    template: `<app-avatar-image></app-avatar-image>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Аватары с изображением разных размеров.',
+        story: 'Аватары с изображением разных размеров.'
       },
       source: {
         language: 'ts',
@@ -41,6 +42,7 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-avatar-image',
   standalone: true,
   imports: [ExtraAvatarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
     <div class="flex items-center gap-4">
       <extra-avatar image="assets/images/avatar/amyelsner.png"></extra-avatar>
@@ -50,8 +52,8 @@ import { ExtraAvatarComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class AvatarImageComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

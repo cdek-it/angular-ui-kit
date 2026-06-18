@@ -16,7 +16,7 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-toggleswitch>
-  `,
+  `
 })
 export class ExtraToggleSwitchComponent implements ControlValueAccessor {
   @Output() onChange = new EventEmitter<unknown>();
@@ -30,7 +30,7 @@ export class ExtraToggleSwitchComponent implements ControlValueAccessor {
   private _onChange: (value: boolean) => void = () => {};
   private _onTouched: () => void = () => {};
 
- constructor(@Optional() @Self() private ngControl: NgControl) {
+  constructor(@Optional() @Self() private ngControl: NgControl) {
     if (ngControl) {
       ngControl.valueAccessor = this;
     }

@@ -95,7 +95,6 @@ export const LazyLoading: StoryObj = {
       source: {
         language: 'ts',
         code: `import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
 
 const ALL_SHIPMENTS = Array.from({ length: 500 }, (_, i) => ({
   id: i + 1,

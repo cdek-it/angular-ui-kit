@@ -1,8 +1,8 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { ExtraRatingComponent } from '../../../lib/components/rating/rating.component';
 import { RatingReadonlyComponent, ReadOnly } from './examples/rating-readonly.component';
-import { RatingDisabledComponent, Disabled } from './examples/rating-disabled.component';
+import { Disabled, RatingDisabledComponent } from './examples/rating-disabled.component';
 
 type RatingArgs = ExtraRatingComponent;
 
@@ -105,10 +105,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

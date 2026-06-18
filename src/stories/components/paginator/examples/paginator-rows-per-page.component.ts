@@ -19,7 +19,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraPaginatorComponent],
   template,
-  styles,
+  styles
 })
 export class PaginatorRowsPerPageComponent {
   first = 0;
@@ -33,19 +33,17 @@ export class PaginatorRowsPerPageComponent {
 
 export const RowsPerPage = {
   render: () => ({
-    template: `<app-paginator-rows-per-page></app-paginator-rows-per-page>`,
+    template: `<app-paginator-rows-per-page></app-paginator-rows-per-page>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Пагинатор с выбором количества строк на странице и переходом на конкретную страницу.',
+        story: 'Пагинатор с выбором количества строк на странице и переходом на конкретную страницу.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
-import type { PaginatorState } from 'primeng/types/paginator';
 
 @Component({
   selector: 'app-paginator-rows-per-page',
@@ -71,8 +69,8 @@ export class PaginatorRowsPerPageComponent {
     this.rows = event.rows ?? 10;
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

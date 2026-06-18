@@ -8,16 +8,16 @@ export const Invalid: StoryObj = {
     const control = new FormControl('', Validators.required);
     return {
       props: { ...args, control },
-      template: `<extra-textarea [formControl]="control" placeholder="Обязательное поле"></extra-textarea>`,
+      template: `<extra-textarea [formControl]="control" placeholder="Обязательное поле"></extra-textarea>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraTextareaComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraTextareaComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
@@ -38,8 +38,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 export class InvalidExample {
   control = new FormControl('', Validators.required);
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

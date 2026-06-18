@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraTabsComponent, TabItem } from '../../../../lib/components/tabs/tabs.component';
+import { ExtraTabsComponent, ExtraTabItem } from '../../../../lib/components/tabs/tabs.component';
 
 const template = `
 <div class="bg-surface-ground">
@@ -17,7 +17,7 @@ const styles = '';
   styles
 })
 export class TabsWithDisabledComponent {
-  tabs: TabItem[] = [
+  tabs: ExtraTabItem[] = [
     { value: '0', label: 'Active Tab', icon: 'ti ti-user', content: 'Active Tab Content' },
     { value: '1', label: 'Default Tab', icon: 'ti ti-settings', content: 'Default Tab Content' },
     { value: '2', label: 'Disabled Tab', icon: 'ti ti-bell', disabled: true, content: 'Disabled Tab Content' }
@@ -34,8 +34,7 @@ export const WithDisabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
+import { ExtraTabsComponent, ExtraTabItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tabs-with-disabled',
@@ -46,7 +45,7 @@ import { ExtraTabsComponent, TabItem } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class TabsWithDisabledComponent {
-  tabs: TabItem[] = [
+  tabs: ExtraTabItem[] = [
     { value: '0', label: 'Active Tab', icon: 'ti ti-user', content: 'Active Tab Content' },
     { value: '1', label: 'Default Tab', icon: 'ti ti-settings', content: 'Default Tab Content' },
     { value: '2', label: 'Disabled Tab', icon: 'ti ti-bell', disabled: true, content: 'Disabled Tab Content' },

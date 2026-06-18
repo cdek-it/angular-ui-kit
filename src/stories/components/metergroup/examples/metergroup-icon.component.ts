@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
 import { MeterItem } from 'primeng/metergroup';
@@ -7,12 +7,13 @@ import { iconValue } from '../metergroup.data';
 @Component({
   selector: 'app-metergroup-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
       <extra-metergroup [value]="value"></extra-metergroup>
     </div>
-  `,
+  `
 })
 export class MeterGroupIconComponent {
   value: MeterItem[] = iconValue;
@@ -30,11 +31,11 @@ export const Icon: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
-import { MeterItem } from 'primeng/metergroup';
 
 @Component({
   selector: 'app-metergroup-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
   template: \`
     <extra-metergroup [value]="value"></extra-metergroup>

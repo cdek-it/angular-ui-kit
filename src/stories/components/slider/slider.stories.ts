@@ -1,9 +1,9 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent as SliderComponent } from '../../../lib/components/slider/slider.component';
-import { SliderRangeComponent, Range } from './examples/slider-range.component';
+import { Range, SliderRangeComponent } from './examples/slider-range.component';
 import { SliderStepComponent, Step } from './examples/slider-step.component';
 import { SliderVerticalComponent, Vertical } from './examples/slider-vertical.component';
-import { SliderDisabledComponent, Disabled } from './examples/slider-disabled.component';
+import { Disabled, SliderDisabledComponent } from './examples/slider-disabled.component';
 
 const meta: Meta<SliderComponent> = {
   title: 'Components/Form/Slider',
@@ -16,9 +16,9 @@ const meta: Meta<SliderComponent> = {
         SliderRangeComponent,
         SliderStepComponent,
         SliderVerticalComponent,
-        SliderDisabledComponent,
-      ],
-    }),
+        SliderDisabledComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -27,10 +27,10 @@ const meta: Meta<SliderComponent> = {
 
 \`\`\`typescript
 import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-slider' },
+    designTokens: { prefix: '--p-slider' }
   },
   argTypes: {
     min: {
@@ -39,8 +39,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     max: {
       control: 'number',
@@ -48,8 +48,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '100' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     step: {
       control: 'number',
@@ -57,8 +57,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'number | undefined' },
-      },
+        type: { summary: 'number | undefined' }
+      }
     },
     range: {
       control: 'boolean',
@@ -66,8 +66,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     orientation: {
       control: 'select',
@@ -76,8 +76,8 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -85,18 +85,18 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     onSlideEnd: {
       control: false,
       description: 'Событие завершения перетаскивания ползунка',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<SliderSlideEndEvent>' },
-      },
-    },
-  },
+        type: { summary: 'EventEmitter<SliderSlideEndEvent>' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -109,12 +109,12 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.min !== 0)                    parts.push(`[min]="${args.min}"`);
-    if (args.max !== 100)                  parts.push(`[max]="${args.max}"`);
-    if (args.step !== undefined)           parts.push(`[step]="${args.step}"`);
-    if (args.range)                        parts.push(`[range]="true"`);
+    if (args.min !== 0) parts.push(`[min]="${args.min}"`);
+    if (args.max !== 100) parts.push(`[max]="${args.max}"`);
+    if (args.step !== undefined) parts.push(`[step]="${args.step}"`);
+    if (args.range) parts.push(`[range]="true"`);
     if (args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
-    if (args.disabled)                     parts.push(`[disabled]="true"`);
+    if (args.disabled) parts.push(`[disabled]="true"`);
 
     const template = parts.length
       ? `<extra-slider\n  ${parts.join('\n  ')}\n></extra-slider>`
@@ -128,15 +128,15 @@ export const Default: Story = {
     step: undefined,
     range: false,
     orientation: 'horizontal',
-    disabled: false,
+    disabled: false
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

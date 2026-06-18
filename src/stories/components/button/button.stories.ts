@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
 import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
 import { ButtonTextComponent, Text } from './examples/button-text.component';

@@ -11,7 +11,7 @@ const template = `
   selector: 'app-menu-grouped',
   standalone: true,
   imports: [ExtraMenuComponent],
-  template,
+  template
 })
 export class MenuGroupedComponent {
   items: ExtraMenuModel[] = [
@@ -20,16 +20,16 @@ export class MenuGroupedComponent {
       items: [
         { label: 'Новый заказ', icon: 'ti ti-plus' },
         { label: 'Список заказов', icon: 'ti ti-list' },
-        { label: 'Архив', icon: 'ti ti-archive' },
-      ],
+        { label: 'Архив', icon: 'ti ti-archive' }
+      ]
     },
     {
       label: 'Отправления',
       items: [
         { label: 'Создать накладную', icon: 'ti ti-file-invoice' },
         { label: 'Отследить посылку', icon: 'ti ti-map-pin' },
-        { label: 'Отменить отправление', icon: 'ti ti-ban' },
-      ],
-    },
+        { label: 'Отменить отправление', icon: 'ti ti-ban' }
+      ]
+    }
   ];
 }

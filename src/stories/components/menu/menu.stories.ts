@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraMenuComponent } from '../../../lib/components/menu/menu.component';
 import { MenuPopupComponent } from './examples/menu-popup.component';
 import { MenuBasicComponent } from './examples/menu-basic.component';
@@ -15,12 +15,15 @@ const meta: Meta<ExtraMenuComponent> = {
       description: {
         component: `Компонент навигационного меню. Поддерживает режим popup (по нажатию на триггер) и inline-отображение, группировку пунктов и пункты с описанием (caption).
 
+Шаблон (передаётся между тегами компонента):
+- \`extraMenuItem\` — кастомный рендер пункта меню (контекст \`let-item\`)
+
 \`\`\`typescript
-import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraMenuComponent, ExtraMenuItemDirective } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-menu' },
+    designTokens: { prefix: '--p-menu' }
   },
   argTypes: {
     model: {
@@ -28,8 +31,8 @@ import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив пунктов меню.',
       table: {
         category: 'Props',
-        type: { summary: 'ExtraMenuModel[]' },
-      },
+        type: { summary: 'ExtraMenuModel[]' }
+      }
     },
     popup: {
       control: 'boolean',
@@ -37,10 +40,10 @@ import { ExtraMenuComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
-  },
+        type: { summary: 'boolean' }
+      }
+    }
+  }
 };
 
 export default meta;
@@ -55,7 +58,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Меню вызывается по нажатию на кнопку. Используйте метод toggle() для показа/скрытия.',
+        story: 'Меню вызывается по нажатию на кнопку. Используйте метод toggle() для показа/скрытия.'
       },
       source: {
         language: 'ts',
@@ -86,10 +89,10 @@ export class MenuPopupComponent {
     this.menuRef.toggle(event);
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Basic ─────────────────────────────────────────────────────────────────────
@@ -101,7 +104,7 @@ export const Basic: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый вариант inline-меню без иконок.',
+        story: 'Базовый вариант inline-меню без иконок.'
       },
       source: {
         language: 'ts',
@@ -125,10 +128,10 @@ export class MenuBasicComponent {
     { label: 'Экспорт' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── WithIcons ─────────────────────────────────────────────────────────────────
@@ -140,13 +143,11 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Пункты меню с иконками.',
+        story: 'Пункты меню с иконками.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-with-icons',
@@ -166,10 +167,10 @@ export class MenuWithIconsComponent {
     { label: 'Экспорт данных', icon: 'ti ti-download' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Grouped ───────────────────────────────────────────────────────────────────
@@ -181,13 +182,11 @@ export const Grouped: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Группировка пунктов меню через label у родительского элемента.',
+        story: 'Группировка пунктов меню через label у родительского элемента.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-grouped',
@@ -217,10 +216,10 @@ export class MenuGroupedComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 // ── Custom ────────────────────────────────────────────────────────────────────
@@ -232,49 +231,48 @@ export const Custom: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Кастомизация отображения пунктов меню через входной параметр `itemTemplate`. Передайте `ng-template` с произвольной разметкой — он получит объект пункта меню через `let-item`.',
+        story:
+          'Кастомизация отображения пунктов меню через директиву `extraMenuItem`. Передайте `ng-template` с произвольной разметкой — он получит объект пункта меню через `let-item`.'
       },
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-custom',
   standalone: true,
-  imports: [ExtraMenuComponent],
+  imports: [ExtraMenuComponent, ExtraMenuItemDirective],
   template: \`
-    <extra-menu [model]="items" [itemTemplate]="customItem"></extra-menu>
-
-    <ng-template #customItem let-item>
-      <a
-        class="p-menu-item-link flex items-center gap-3 px-4 py-2"
-        role="menuitem"
-        tabindex="0"
-        [class.opacity-50]="item.disabled"
-        [attr.href]="item.url || null"
-        (click)="!item.disabled && item.command && item.command({ originalEvent: $event, item: item })"
-      >
-        @if (item.icon) {
-          <span
-            [class]="item.icon"
-            class="text-xl w-6 h-6 flex items-center justify-center rounded-full bg-primary text-white shrink-0"
-          ></span>
-        }
-        <div class="flex flex-col min-w-0">
-          <span class="p-menu-item-label font-semibold truncate">{{ item.label }}</span>
-          @if (item.caption) {
-            <small class="text-surface-400 text-xs truncate">{{ item.caption }}</small>
+    <extra-menu [model]="items">
+      <ng-template extraMenuItem let-item>
+        <a
+          class="p-menu-item-link flex items-center gap-3 px-4 py-2"
+          role="menuitem"
+          tabindex="0"
+          [class.opacity-50]="item.disabled"
+          [attr.href]="item.url || null"
+          (click)="!item.disabled && item.command && item.command({ originalEvent: $event, item: item })"
+        >
+          @if (item.icon) {
+            <span
+              [class]="item.icon"
+              class="text-xl w-6 h-6 flex items-center justify-center rounded-full bg-primary text-white shrink-0"
+            ></span>
           }
-        </div>
-        @if (item.badge) {
-          <span class="ml-auto text-xs font-bold bg-primary text-white rounded-full px-2 py-0.5">
-            {{ item.badge }}
-          </span>
-        }
-      </a>
-    </ng-template>
+          <div class="flex flex-col min-w-0">
+            <span class="p-menu-item-label font-semibold truncate">{{ item.label }}</span>
+            @if (item.caption) {
+              <small class="text-surface-400 text-xs truncate">{{ item.caption }}</small>
+            }
+          </div>
+          @if (item.badge) {
+            <span class="ml-auto text-xs font-bold bg-primary text-white rounded-full px-2 py-0.5">
+              {{ item.badge }}
+            </span>
+          }
+        </a>
+      </ng-template>
+    </extra-menu>
   \`,
 })
 export class MenuCustomComponent {
@@ -304,8 +302,8 @@ export class MenuCustomComponent {
     },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

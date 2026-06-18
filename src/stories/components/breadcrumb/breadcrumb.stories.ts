@@ -1,6 +1,6 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraBreadcrumbComponent as BreadcrumbComponent } from '../../../lib/components/breadcrumb/breadcrumb.component';
-import { BreadcrumbBasicComponent, Basic } from './examples/breadcrumb-basic.component';
+import { Basic, BreadcrumbBasicComponent } from './examples/breadcrumb-basic.component';
 import { BreadcrumbIconsOnlyComponent, IconsOnly } from './examples/breadcrumb-icons-only.component';
 import { commonHome, commonItems } from './breadcrumb.data';
 
@@ -12,20 +12,16 @@ const meta: Meta<BreadcrumbArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        BreadcrumbComponent,
-        BreadcrumbBasicComponent,
-        BreadcrumbIconsOnlyComponent,
-      ],
-    }),
+      imports: [BreadcrumbComponent, BreadcrumbBasicComponent, BreadcrumbIconsOnlyComponent]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-breadcrumb' },
     docs: {
       description: {
-        component: `Компонент навигации, показывающий путь к текущей странице.`,
-      },
-    },
+        component: `Компонент навигации, показывающий путь к текущей странице.`
+      }
+    }
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
@@ -34,22 +30,22 @@ const meta: Meta<BreadcrumbArgs> = {
       description: 'Массив элементов меню',
       table: {
         category: 'Props',
-        type: { summary: 'MenuItem[]' },
-      },
+        type: { summary: 'ExtraMenuItem[]' }
+      }
     },
     home: {
       control: 'object',
       description: 'Элемент для иконки «Домой»',
       table: {
         category: 'Props',
-        type: { summary: 'MenuItem' },
-      },
-    },
+        type: { summary: 'ExtraMenuItem' }
+      }
+    }
   },
   args: {
     model: commonItems,
-    home: commonHome,
-  },
+    home: commonHome
+  }
 };
 
 export default meta;
@@ -60,15 +56,15 @@ export const Default: Story = {
   name: 'Default',
   render: (args) => ({
     props: args,
-    template: `<extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>`,
+    template: `<extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

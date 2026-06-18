@@ -173,8 +173,6 @@ export const Both: Story = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraScrollPanelComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-scroll-panel-both',

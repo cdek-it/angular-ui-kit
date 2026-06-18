@@ -1,4 +1,4 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraTextareaComponent } from '../../../lib/components/textarea/textarea.component';
 import { Disabled } from './examples/textarea-disabled.component';
@@ -16,13 +16,8 @@ const meta: Meta<TextareaArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraTextareaComponent,
-        ReactiveFormsModule,
-        TextareaAutoResizeComponent,
-        TextareaFloatLabelComponent,
-      ],
-    }),
+      imports: [ExtraTextareaComponent, ReactiveFormsModule, TextareaAutoResizeComponent, TextareaFloatLabelComponent]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-textarea' },
@@ -32,9 +27,9 @@ const meta: Meta<TextareaArgs> = {
 
 \`\`\`typescript
 import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     placeholder: {
@@ -43,8 +38,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -53,8 +48,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -62,8 +57,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     invalid: {
       control: 'boolean',
@@ -71,8 +66,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     readonly: {
       control: 'boolean',
@@ -80,8 +75,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     showClear: {
       control: 'boolean',
@@ -89,8 +84,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -98,8 +93,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     autoResize: {
       control: 'boolean',
@@ -107,8 +102,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     rows: {
       control: 'number',
@@ -116,8 +111,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '3' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     cols: {
       control: 'number',
@@ -125,8 +120,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
@@ -138,17 +133,17 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие изменения высоты поля (при autoResize)',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<{ height: string }>' },
-      },
+        type: { summary: 'EventEmitter<{ height: string }>' }
+      }
     },
     onClear: {
       control: false,
       description: 'Событие очистки поля (при showClear)',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<void>' },
-      },
-    },
+        type: { summary: 'EventEmitter<void>' }
+      }
+    }
   },
   args: {
     placeholder: 'Введите текст...',
@@ -159,8 +154,8 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
     showClear: false,
     fluid: false,
     autoResize: false,
-    rows: 3,
-  },
+    rows: 3
+  }
 };
 
 export default meta;
@@ -193,10 +188,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────

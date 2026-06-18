@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraSelectComponent, SelectSize } from '../../../../lib/components/select/select.component';
+import { ExtraSelectComponent, ExtraSelectSize } from '../../../../lib/components/select/select.component';
 
 const OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
   { name: 'Москва', code: 'MSK' },
-  { name: 'Санкт-Петербург', code: 'SPB' },
+  { name: 'Санкт-Петербург', code: 'SPB' }
 ];
 
 const template = `
@@ -27,10 +27,10 @@ const styles = '';
   standalone: true,
   imports: [ExtraSelectComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectEditableComponent {
-  @Input() size: SelectSize = 'base';
+  @Input() size: ExtraSelectSize = 'base';
   @Input() showClear = false;
   @Input() readonly = false;
   control = new FormControl(null);
@@ -49,8 +49,14 @@ export class SelectEditableComponent {
 
 export const Editable = {
   render: (args: any) => ({
-    props: { size: args['size'], showClear: args['showClear'], readonly: args['readonly'], disabled: args['disabled'], invalid: args['invalid'] },
-    template: `<app-select-editable [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-editable>`,
+    props: {
+      size: args['size'],
+      showClear: args['showClear'],
+      readonly: args['readonly'],
+      disabled: args['disabled'],
+      invalid: args['invalid']
+    },
+    template: `<app-select-editable [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-editable>`
   }),
   parameters: {
     docs: {
@@ -83,8 +89,8 @@ export class SelectEditableExample {
     { name: 'Санкт-Петербург', code: 'SPB' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

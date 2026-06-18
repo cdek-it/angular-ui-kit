@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraInputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
@@ -21,23 +20,22 @@ export const Sizes: Story = {
         [placeholder]="placeholder"
         [formControl]="control"
       ></extra-input-mask>
-    `,
+    `
   }),
   args: {
     mask: '99-99-99',
     size: 'small',
-    placeholder: '99-99-99',
+    placeholder: '99-99-99'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Размеры поля: small, base, large, xlarge. Переключайте через Controls.',
+        story: 'Размеры поля: small, base, large, xlarge. Переключайте через Controls.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -48,8 +46,8 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 export class SizesExample {
   control = new FormControl('');
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

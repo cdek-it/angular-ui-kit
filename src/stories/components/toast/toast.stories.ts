@@ -1,11 +1,11 @@
-import { Meta, applicationConfig, moduleMetadata } from '@storybook/angular';
+import { applicationConfig, Meta, moduleMetadata } from '@storybook/angular';
 import { ExtraToastComponent } from '../../../lib/components/toast/toast.component';
 import { provideExtraToast } from '../../../lib/components/toast/provide-toast';
-import { ToastSeveritiesComponent, Severities } from './examples/toast-severities.component';
+import { Severities, ToastSeveritiesComponent } from './examples/toast-severities.component';
 import { ToastWithCloseButtonComponent, WithCloseButton } from './examples/toast-with-close-button.component';
 import { ToastWithContentComponent, WithContent } from './examples/toast-with-content.component';
 import { ToastWidthComponent, Width } from './examples/toast-width.component';
-import { ToastPositionComponent, Position } from './examples/toast-position.component';
+import { Position, ToastPositionComponent } from './examples/toast-position.component';
 
 const meta: Meta<ExtraToastComponent> = {
   title: 'Components/Feedback/Toast',
@@ -20,9 +20,9 @@ const meta: Meta<ExtraToastComponent> = {
         ToastWithCloseButtonComponent,
         ToastWithContentComponent,
         ToastWidthComponent,
-        ToastPositionComponent,
-      ],
-    }),
+        ToastPositionComponent
+      ]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-toast' },
@@ -59,9 +59,9 @@ export class AppComponent {
     this.toast.add({ severity: 'success', summary: 'Готово', detail: 'Операция выполнена успешно' });
   }
 }
-\`\`\``,
-      },
-    },
+\`\`\``
+      }
+    }
   },
   argTypes: {
     position: {
@@ -71,11 +71,14 @@ export class AppComponent {
       table: {
         category: 'Props',
         defaultValue: { summary: 'top-right' },
-        type: { summary: "'top-right' | 'top-left' | 'top-center' | 'bottom-right' | 'bottom-left' | 'bottom-center' | 'center'" },
-      },
+        type: {
+          summary:
+            "'top-right' | 'top-left' | 'top-center' | 'bottom-right' | 'bottom-left' | 'bottom-center' | 'center'"
+        }
+      }
     },
     key: {
-      table: { disable: true },
+      table: { disable: true }
     },
     life: {
       control: 'number',
@@ -83,15 +86,15 @@ export class AppComponent {
       table: {
         category: 'Props',
         defaultValue: { summary: '5000' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+      }
+    }
   },
   args: {
     position: 'top-right',
     key: undefined,
-    life: 5000,
-  },
+    life: 5000
+  }
 };
 
 export default meta;

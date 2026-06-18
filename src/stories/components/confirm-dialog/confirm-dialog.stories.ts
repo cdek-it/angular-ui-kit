@@ -3,7 +3,11 @@ import { ExtraConfirmDialogComponent as ConfirmDialogComponent } from '../../../
 import { ConfirmDialogDefaultComponent, Default as DefaultStory } from './examples/confirm-dialog-default.component';
 import { ConfirmDialogSeveritiesComponent, Severities } from './examples/confirm-dialog-severities.component';
 import { ConfirmDialogSizesComponent, Sizes as SizesStory } from './examples/confirm-dialog-sizes.component';
-import { provideConfirmDialog } from '../../../lib/components/confirm-dialog/confirm-dialog.service';
+import {
+  ConfirmDialogTemplatesComponent,
+  Templates as TemplatesStory
+} from './examples/confirm-dialog-templates.component';
+import { provideExtraConfirmDialog } from '../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 const meta: Meta<ConfirmDialogComponent> = {
   title: 'Components/Overlay/ConfirmDialog',
@@ -15,19 +19,26 @@ const meta: Meta<ConfirmDialogComponent> = {
         ConfirmDialogDefaultComponent,
         ConfirmDialogSeveritiesComponent,
         ConfirmDialogSizesComponent,
+        ConfirmDialogTemplatesComponent
       ],
-      providers: [provideConfirmDialog()],
-    }),
+      providers: [provideExtraConfirmDialog()]
+    })
   ],
   parameters: {
     docs: {
       description: {
         component: `Компонент для подтверждения действий пользователя.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraConfirmDialogHeader\` — кастомный заголовок
+- \`extraConfirmDialogFooter\` — кастомный футер
+
+Контекст шаблонов: \`let-message\`, \`let-onAccept="onAccept"\`, \`let-onReject="onReject"\`.
+
 \`\`\`typescript
-import { ExtraConfirmDialogComponent, ConfirmDialogService, provideConfirmDialog } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, provideExtraConfirmDialog } from '@cdek-it/angular-ui-kit';
+\`\`\``
+      }
     },
     designTokens: { prefix: '--p-confirmdialog' }
   },
@@ -77,3 +88,7 @@ export const SeveritiesStory: Story = Severities;
 // ── Sizes ─────────────────────────────────────────────────────────────────────
 
 export const Sizes: Story = SizesStory;
+
+// ── Templates ─────────────────────────────────────────────────────────────────
+
+export const Templates: Story = TemplatesStory;

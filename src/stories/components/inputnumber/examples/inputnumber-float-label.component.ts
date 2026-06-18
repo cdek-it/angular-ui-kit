@@ -50,10 +50,6 @@ export const FloatLabelStory: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputNumber } from 'primeng/inputnumber';
-import { FloatLabel } from 'primeng/floatlabel';
-import { SharedModule } from 'primeng/api';
 
 @Component({
   standalone: true,

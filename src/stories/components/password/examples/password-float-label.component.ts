@@ -22,7 +22,7 @@ import { ExtraPasswordComponent } from '../../../../lib/components/password/pass
         [(ngModel)]="value"
       ></extra-password>
     </div>
-  `,
+  `
 })
 export class PasswordFloatLabelComponent {
   @Input() feedback = true;

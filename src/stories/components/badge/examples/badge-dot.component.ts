@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraBadgeComponent, BadgeSeverity, BadgeSize } from '../../../../lib/components/badge/badge.component';
+import { ExtraBadgeSeverity, ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
@@ -13,13 +13,14 @@ const styles = '';
 @Component({
   selector: 'app-badge-dot',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraBadgeComponent],
   template,
   styles
 })
 export class BadgeDotComponent {
-  @Input() severity: BadgeSeverity = 'primary';
-  @Input() size: BadgeSize = 'base';
+  @Input() severity: ExtraBadgeSeverity = 'primary';
+  @Input() size: ExtraBadgeSize = 'base';
 }
 
 export const Dot: StoryObj = {
@@ -51,6 +52,7 @@ import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   selector: 'app-badge-dot',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BadgeComponent],
   template: \`${template}\`
 })

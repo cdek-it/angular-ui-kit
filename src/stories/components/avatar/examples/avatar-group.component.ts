@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../../lib/components/avatar/avatar.component';
 
@@ -19,20 +19,21 @@ const styles = '';
 @Component({
   selector: 'app-avatar-group',
   standalone: true,
-    imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent],
   template,
-  styles,
+  styles
 })
 export class AvatarGroupExampleComponent {}
 
 export const Group: StoryObj = {
   render: () => ({
-    template: `<app-avatar-group></app-avatar-group>`,
+    template: `<app-avatar-group></app-avatar-group>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Группа аватаров с перекрытием.',
+        story: 'Группа аватаров с перекрытием.'
       },
       source: {
         language: 'ts',
@@ -43,6 +44,7 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
 @Component({
   selector: 'app-avatar-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent],
   template: \`
     <extra-avatar-group>
@@ -54,8 +56,8 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
   \`,
 })
 export class AvatarGroupExampleComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

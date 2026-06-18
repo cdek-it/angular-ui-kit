@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
@@ -13,15 +13,16 @@ const styles = '';
 @Component({
   selector: 'app-divider-with-content',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraDividerComponent],
   template,
-  styles,
+  styles
 })
 export class DividerWithContentComponent {}
 
 export const WithContent = {
   render: () => ({
-    template: `<app-divider-with-content></app-divider-with-content>`,
+    template: `<app-divider-with-content></app-divider-with-content>`
   }),
   parameters: {
     docs: {
@@ -29,13 +30,13 @@ export const WithContent = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-divider-with-content',
   standalone: true,
   imports: [ExtraDividerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
     <extra-divider align="center">
       <span>Москва → Новосибирск</span>
@@ -43,8 +44,8 @@ import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class DividerWithContentComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

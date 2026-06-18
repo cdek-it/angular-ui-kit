@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
-import { PrimeTemplate } from 'primeng/api';
+import {
+  ExtraGalleriaComponent,
+  ExtraGalleriaItemDirective
+} from '../../../../lib/components/galleria/galleria.component';
 import { GALLERIA_IMAGES } from './galleria-default.component';
 
 @Component({
   selector: 'app-galleria-autoplay',
   standalone: true,
-  imports: [GalleriaModule, PrimeTemplate],
+  imports: [ExtraGalleriaComponent, ExtraGalleriaItemDirective],
   template: `
-    <p-galleria
+    <extra-galleria
       [value]="images"
       [numVisible]="4"
       [showItemNavigators]="true"
@@ -19,11 +21,11 @@ import { GALLERIA_IMAGES } from './galleria-default.component';
       [transitionInterval]="3000"
       [containerStyle]="{ 'max-width': '800px' }"
     >
-      <ng-template pTemplate="item" let-item>
+      <ng-template extraGalleriaItem let-item>
         <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
       </ng-template>
-    </p-galleria>
-  `,
+    </extra-galleria>
+  `
 })
 export class GalleriaAutoplayComponent {
   readonly images = GALLERIA_IMAGES;

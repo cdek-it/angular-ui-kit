@@ -1,10 +1,21 @@
-import { Component, DestroyRef, forwardRef, inject, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 
-export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraInputOtpChangeEvent = InputOtpChangeEvent;
 
 @Component({
   selector: 'extra-input-otp',
@@ -14,8 +25,8 @@ export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraInputOtpComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     <p-inputotp
@@ -34,7 +45,7 @@ export type InputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
       (onFocus)="onFocus.emit($event)"
       (onBlur)="onBlur.emit($event)"
     ></p-inputotp>
-  `,
+  `
 })
 export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
@@ -47,13 +58,13 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() mask = false;
   @Input() integerOnly = false;
   @Input() readonly = false;
-  @Input() size: InputOtpSize = 'base';
+  @Input() size: ExtraInputOtpSize = 'base';
   @Input() tabindex: number | null = null;
   @Input() autofocus = false;
 
   disabled = false;
 
-  @Output() onChange = new EventEmitter<InputOtpChangeEvent>();
+  @Output() onChange = new EventEmitter<ExtraInputOtpChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -63,12 +74,10 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   ngOnInit(): void {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
 
-    this.control.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(v => {
-        this._onChange(v);
-        this._onTouched();
-      });
+    this.control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((v) => {
+      this._onChange(v);
+      this._onTouched();
+    });
   }
 
   get invalid(): boolean {
@@ -85,7 +94,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
     return { 'p-inputotp-xlg': this.size === 'xlarge' };
   }
 
-  onChangeHandler(event: InputOtpChangeEvent): void {
+  onChangeHandler(event: ExtraInputOtpChangeEvent): void {
     this.onChange.emit(event);
   }
 

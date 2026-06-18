@@ -8,28 +8,27 @@ export const Readonly: StoryObj = {
     const control = new FormControl('1234');
     return {
       props: { ...args, control },
-      template: `<extra-input-otp [readonly]="true" [formControl]="control"></extra-input-otp>`,
+      template: `<extra-input-otp [readonly]="true" [formControl]="control"></extra-input-otp>`
     };
   },
   decorators: [
     (story: any) => ({
       ...story(),
       moduleMetadata: {
-        imports: [ExtraInputOtpComponent, ReactiveFormsModule],
-      },
-    }),
+        imports: [ExtraInputOtpComponent, ReactiveFormsModule]
+      }
+    })
   ],
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.',
+        story: 'Режим только для чтения — поле отображает значение, но недоступно для редактирования.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
@@ -40,8 +39,8 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
 export class ReadonlyExample {
   control = new FormControl('1234');
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

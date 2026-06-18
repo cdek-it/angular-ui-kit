@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
@@ -13,15 +13,16 @@ const styles = '';
 @Component({
   selector: 'app-divider-with-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraDividerComponent],
   template,
-  styles,
+  styles
 })
 export class DividerWithIconComponent {}
 
 export const WithIcon = {
   render: () => ({
-    template: `<app-divider-with-icon></app-divider-with-icon>`,
+    template: `<app-divider-with-icon></app-divider-with-icon>`
   }),
   parameters: {
     docs: {
@@ -29,12 +30,12 @@ export const WithIcon = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
 import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-divider-with-icon',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraDividerComponent],
   template: \`
     <extra-divider align="center">
@@ -43,8 +44,8 @@ import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class DividerWithIconComponent {}
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

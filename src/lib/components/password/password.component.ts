@@ -1,11 +1,27 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Directive,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Password } from 'primeng/password';
 import { PrimeTemplate } from 'primeng/api';
 import { FloatLabel } from 'primeng/floatlabel';
 
-export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraPasswordSize = 'small' | 'base' | 'large' | 'xlarge';
+
+@Directive({ selector: '[extraPasswordHeader]', standalone: true })
+export class ExtraPasswordHeaderDirective {}
+
+@Directive({ selector: '[extraPasswordFooter]', standalone: true })
+export class ExtraPasswordFooterDirective {}
 
 @Component({
   selector: 'extra-password',
@@ -17,8 +33,8 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraPasswordComponent),
-      multi: true,
-    },
+      multi: true
+    }
   ],
   template: `
     @if (floatLabel) {
@@ -66,17 +82,17 @@ export type PasswordSize = 'small' | 'base' | 'large' | 'xlarge';
         }
       </p-password>
     </ng-template>
-  `,
+  `
 })
 export class ExtraPasswordComponent implements ControlValueAccessor {
-  @ContentChild('header') headerTemplate: TemplateRef<any> | null = null;
-  @ContentChild('footer') footerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraPasswordHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
+  @ContentChild(ExtraPasswordFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
 
   @Input() feedback = true;
   @Input() toggleMask = false;
   @Input() disabled = false;
   @Input() placeholder: string | undefined = undefined;
-  @Input() size: PasswordSize = 'base';
+  @Input() size: ExtraPasswordSize = 'base';
   @Input() variant: 'filled' | 'outlined' = 'outlined';
   @Input() fluid = false;
   @Input() invalid = false;

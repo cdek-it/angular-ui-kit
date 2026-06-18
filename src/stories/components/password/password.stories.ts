@@ -1,12 +1,13 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '../../../lib/components/password/password.component';
 import { PasswordToggleComponent, ToggleMask } from './examples/password-toggle.component';
-import { PasswordFeedbackComponent, Feedback } from './examples/password-feedback.component';
-import { PasswordDisabledComponent, Disabled } from './examples/password-disabled.component';
-import { PasswordInvalidComponent, Invalid } from './examples/password-invalid.component';
-import { PasswordFloatLabelComponent, FloatLabel } from './examples/password-float-label.component';
+import { Feedback, PasswordFeedbackComponent } from './examples/password-feedback.component';
+import { Disabled, PasswordDisabledComponent } from './examples/password-disabled.component';
+import { Invalid, PasswordInvalidComponent } from './examples/password-invalid.component';
+import { FloatLabel, PasswordFloatLabelComponent } from './examples/password-float-label.component';
 import { PasswordTemplateComponent, Template } from './examples/password-template.component';
+import { PasswordHeaderComponent, Header } from './examples/password-header.component';
 
 const meta: Meta<ExtraPasswordComponent> = {
   title: 'Components/Form/Password',
@@ -23,12 +24,13 @@ const meta: Meta<ExtraPasswordComponent> = {
         PasswordInvalidComponent,
         PasswordFloatLabelComponent,
         PasswordTemplateComponent,
-      ],
+        PasswordHeaderComponent
+      ]
     }),
     (story) => ({
       ...story(),
-      template: `<div style="padding: 4px">${story().template}</div>`,
-    }),
+      template: `<div style="padding: 4px">${story().template}</div>`
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-password' },
@@ -36,12 +38,16 @@ const meta: Meta<ExtraPasswordComponent> = {
       description: {
         component: `Поле ввода пароля с поддержкой индикатора надёжности и переключения видимости.
 
+Шаблоны (передаются между тегами компонента):
+- \`extraPasswordHeader\` — шапка панели надёжности
+- \`extraPasswordFooter\` — подвал панели надёжности
+
 \`\`\`typescript
-import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
+import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFooterDirective } from '@cdek-it/angular-ui-kit';
+\`\`\``
       },
-      story: { height: '280px' },
-    },
+      story: { height: '280px' }
+    }
   },
   argTypes: {
     feedback: {
@@ -50,8 +56,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     toggleMask: {
       control: 'boolean',
@@ -59,8 +65,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     placeholder: {
       control: 'text',
@@ -68,8 +74,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     size: {
       control: 'select',
@@ -78,8 +84,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'base' },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -87,8 +93,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     invalid: {
       control: 'boolean',
@@ -96,8 +102,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -105,8 +111,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     floatLabel: {
       control: 'boolean',
@@ -114,8 +120,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     label: {
       control: 'text',
@@ -123,8 +129,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     // Hidden props
     variant: { table: { disable: true } },
@@ -146,17 +152,17 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
+        type: { summary: 'EventEmitter<Event>' }
+      }
     },
     onBlur: {
       control: false,
       description: 'Событие потери фокуса',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
-    },
+        type: { summary: 'EventEmitter<Event>' }
+      }
+    }
   },
   args: {
     feedback: true,
@@ -167,8 +173,8 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
     invalid: false,
     fluid: false,
     floatLabel: false,
-    label: 'Пароль',
-  },
+    label: 'Пароль'
+  }
 };
 
 export default meta;
@@ -195,20 +201,21 @@ export const Default: Story = {
 
     parts.push(`[(ngModel)]="value"`);
 
-    const template = parts.length > 1
-      ? `<password\n  ${parts.join('\n  ')}\n></extra-password>`
-      : `<extra-password ${parts.join(' ')}></extra-password>`;
+    const template =
+      parts.length > 1
+        ? `<password\n  ${parts.join('\n  ')}\n></extra-password>`
+        : `<extra-password ${parts.join(' ')}></extra-password>`;
 
     return { props: { ...args, value: null }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { ToggleMask, Feedback, Disabled, Invalid, FloatLabel, Template };
+export { ToggleMask, Feedback, Disabled, Invalid, FloatLabel, Template, Header };
