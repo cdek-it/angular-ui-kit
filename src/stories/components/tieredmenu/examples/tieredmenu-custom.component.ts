@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraMenuItem } from '../../../../lib/shared';
+import { ExtraMenuItem } from '../../../../lib/shared/public_api';
 import { Badge } from 'primeng/badge';
 import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 

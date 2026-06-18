@@ -1,4 +1,4 @@
-import { ExtraMenuItem } from '../../../lib/shared';
+import { ExtraMenuItem } from '../../../lib/shared/public_api';
 
 export const commonHome: ExtraMenuItem = { icon: 'ti ti-home', url: '#' };
 
