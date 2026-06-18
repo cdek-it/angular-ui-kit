@@ -15,19 +15,19 @@ export const confirmDialogCss = ({ dt }: { dt: (token: string) => string }): str
 
   /* Размеры */
   .p-confirmdialog.p-dialog {
-    width: ${dt('dimension.overlayWidth.base')};
+    width: ${dt('confirmdialog.extend.dimension_overlayWidth_base')};
   }
 
   .p-confirmdialog-sm.p-dialog {
-    width: ${dt('dimension.overlayWidth.sm')};
+    width: ${dt('confirmdialog.extend.dimension_overlayWidth_sm')};
   }
 
   .p-confirmdialog-lg.p-dialog {
-    width: ${dt('dimension.overlayWidth.lg')};
+    width: ${dt('confirmdialog.extend.dimension_overlayWidth_lg')};
   }
 
   .p-confirmdialog-xlg.p-dialog {
-    width: ${dt('dimension.overlayWidth.xlg')};
+    width: ${dt('confirmdialog.extend.dimension_overlayWidth_xlg')};
   }
 
   /* Цвета иконок по severity */

@@ -16,10 +16,10 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
   }
 
   .p-password-meter-text {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    font-family: ${dt('password.extend.fonts_fontFamily_base')};
+    font-size: ${dt('password.extend.fonts_fontSize_200')};
+    font-weight: ${dt('password.extend.fonts_fontWeight_regular')};
+    line-height: ${dt('password.extend.fonts_lineHeight_250')};
     color: ${dt('password.overlay.color')};
   }
 
@@ -31,7 +31,7 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
 
   /* ─── Invalid + Focus ─── */
   .p-password:has(.p-inputtext.p-invalid:focus) {
-    box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.invalid')};
+    box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('password.extend.focusRing_invalid')};
     border-radius: ${dt('inputtext.root.borderRadius')};
   }
 
@@ -41,20 +41,20 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
 
   /* ─── FloatLabel ─── */
   .p-floatlabel:has(.p-password) label {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-weight: ${dt('floatlabel.root.fontWeight')};
-    line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('floatlabel.root.color')};
+    font-family: ${dt('password.extend.fonts_fontFamily_base')};
+    font-weight: ${dt('password.extend.floatlabel_root_fontWeight')};
+    line-height: ${dt('password.extend.fonts_lineHeight_250')};
+    color: ${dt('password.extend.floatlabel_root_color')};
   }
 
   .p-floatlabel:has(.p-password) .p-floatlabel-active label {
-    font-weight: ${dt('floatlabel.root.active.fontWeight')};
+    font-weight: ${dt('password.extend.floatlabel_root_active_fontWeight')};
   }
 
   .p-floatlabel-in .p-password .p-inputtext {
-    font-family: ${dt('fonts.fontFamily.base')};
-    padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
-    padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
+    font-family: ${dt('password.extend.fonts_fontFamily_base')};
+    padding-block-start: ${dt('password.extend.floatlabel_in_input_paddingTop')};
+    padding-block-end: ${dt('password.extend.floatlabel_in_input_paddingBottom')};
   }
 
   /* ─── Кастомный контент (правила пароля) ─── */
@@ -71,20 +71,20 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
     display: flex;
     align-items: center;
     gap: ${dt('password.content.gap')};
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    font-family: ${dt('password.extend.fonts_fontFamily_base')};
+    font-size: ${dt('password.extend.fonts_fontSize_200')};
+    font-weight: ${dt('password.extend.fonts_fontWeight_regular')};
+    line-height: ${dt('password.extend.fonts_lineHeight_250')};
     color: ${dt('password.overlay.color')};
   }
 
   /* ─── Состояния иконок правил ─── */
   .p-password-rule i {
-    font-size: ${dt('fonts.fontSize.200')};
+    font-size: ${dt('password.extend.fonts_fontSize_200')};
   }
 
   .p-password-rule .ti-circle {
-    color: ${dt('surface.400')};
+    color: ${dt('password.extend.surface_400')};
   }
 
   .p-password-rule .ti-circle-check {

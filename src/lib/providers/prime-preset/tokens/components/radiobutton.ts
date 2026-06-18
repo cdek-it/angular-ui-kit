@@ -3,7 +3,7 @@ export const radiobuttonCss = ({ dt }: { dt: (token: string) => string }): strin
 .p-radiobutton:not(.p-disabled):not(.p-invalid):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box,
 .p-radiobutton-checked:not(.p-disabled):not(.p-invalid):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
   outline: none;
-  box-shadow: 0 0 0 ${dt('radiobutton.focusRing.width')} ${dt('focusRing.success')};
+  box-shadow: 0 0 0 ${dt('radiobutton.focusRing.width')} ${dt('radiobutton.extend.focusRing_success')};
 }
 
 /* Focus ring с красным цветом для состояний с ошибкой */
@@ -11,6 +11,6 @@ export const radiobuttonCss = ({ dt }: { dt: (token: string) => string }): strin
 .p-radiobutton.p-invalid:not(.p-disabled):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box,
 .p-radiobutton-checked.p-invalid .p-radiobutton-box,
 .p-radiobutton-checked.p-invalid:not(.p-disabled):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
-  box-shadow: 0 0 0 ${dt('radiobutton.focusRing.width')} ${dt('focusRing.invalid')};
+  box-shadow: 0 0 0 ${dt('radiobutton.focusRing.width')} ${dt('radiobutton.extend.focusRing_invalid')};
 }
 `;

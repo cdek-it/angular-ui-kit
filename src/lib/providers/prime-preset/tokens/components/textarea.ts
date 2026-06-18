@@ -3,17 +3,17 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 /* --- Base --- */
 .p-textarea {
   border-width: ${dt('textarea.extend.borderWidth')};
-  line-height: ${dt('fonts.lineHeight.250')};
+  line-height: ${dt('textarea.extend.fonts_lineHeight_250')};
   min-height: ${dt('textarea.extend.minHeight')};
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('textarea.extend.fonts_fontFamily_base')};
 }
 
 .p-textarea::placeholder {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('textarea.extend.fonts_fontFamily_base')};
 }
 
 .p-floatlabel:has(.p-textarea) label {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('textarea.extend.fonts_fontFamily_base')};
 }
 
 /* --- Sizes --- */
@@ -42,7 +42,7 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 /* --- Invalid + Focus --- */
 .p-textarea.p-invalid:focus {
   border-color: ${dt('textarea.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('focusRing.invalid')};
+  box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('textarea.extend.focusRing_invalid')};
 }
 
 /* --- ClearButton (showClear) --- */
@@ -52,11 +52,11 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .p-iconfield:has(.p-textarea) .p-textarea {
-  padding-right: ${dt('form.padding.700')};
+  padding-right: ${dt('textarea.extend.form_padding_700')};
 }
 
 .p-iconfield:has(.p-textarea) .p-inputicon {
-  top: ${dt('form.padding.500')};
+  top: ${dt('textarea.extend.form_padding_500')};
   transform: none;
   font-size: ${dt('textarea.extend.iconSize')};
   width: ${dt('textarea.extend.iconSize')};

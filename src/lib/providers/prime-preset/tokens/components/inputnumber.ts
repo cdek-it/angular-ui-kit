@@ -2,15 +2,15 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 
 /* ─── Базовые стили ─── */
 .p-inputnumber .p-inputnumber-input {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('inputnumber.extend.fonts_fontFamily_base')};
 }
 
 .p-inputnumber .p-inputnumber-input::placeholder {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('inputnumber.extend.fonts_fontFamily_base')};
 }
 
 .p-floatlabel:has(.p-inputnumber) label {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('inputnumber.extend.fonts_fontFamily_base')};
 }
 
 /* ─── Кнопки увеличения/уменьшения ─── */

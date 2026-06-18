@@ -50,7 +50,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 .p-datepicker-today.p-datepicker-today > .p-datepicker-day:not(.p-datepicker-day-selected) {
-  border: ${dt('form.borderWidth')} solid ${dt(
+  border: ${dt('datepicker.extend.form_borderWidth')} solid ${dt(
   'datepicker.extend.extToday.borderColor'
 )};
 }
@@ -73,16 +73,16 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 
 /* ─── Weekday header text ─── */
 .p-datepicker-weekday {
-  font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
-  font-weight: ${dt('fonts.fontWeight.demibold')};
+  font-family: ${dt('datepicker.extend.fonts_fontFamily_base')};
+  font-size: ${dt('datepicker.extend.fonts_fontSize_300')};
+  font-weight: ${dt('datepicker.extend.fonts_fontWeight_demibold')};
 }
 
 /* ─── Day cell text ─── */
 .p-datepicker-day {
-  font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
+  font-family: ${dt('datepicker.extend.fonts_fontFamily_base')};
+  font-size: ${dt('datepicker.extend.fonts_fontSize_300')};
+  font-weight: ${dt('datepicker.extend.fonts_fontWeight_regular')};
 }
 
 /* ─── Скрываем нативный time picker (заменён кастомным в footer) ─── */
@@ -94,7 +94,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   background: transparent;
   color: ${dt('button.colorScheme.light.text.primary.color')};
   border: 0 none;
-  font-family: ${dt('fonts.fontFamily.heading')};
+  font-family: ${dt('datepicker.extend.fonts_fontFamily_heading')};
   font-weight: ${dt('button.root.label.fontWeight')};
   transition: background-color ${dt('button.root.transitionDuration')};
 }
@@ -141,7 +141,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   justify-content: center;
   gap: ${dt('datepicker.timePicker.gap')};
   padding: ${dt('datepicker.timePicker.padding')};
-  border-top: ${dt('form.borderWidth')} solid ${dt('datepicker.panel.borderColor')};
+  border-top: ${dt('datepicker.extend.form_borderWidth')} solid ${dt('datepicker.panel.borderColor')};
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-time-field {
@@ -153,9 +153,9 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-time-label {
-  font-family: ${dt('fonts.fontFamily.heading')};
-  font-size: ${dt('fonts.fontSize.100')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
+  font-family: ${dt('datepicker.extend.fonts_fontFamily_heading')};
+  font-size: ${dt('datepicker.extend.fonts_fontSize_100')};
+  font-weight: ${dt('datepicker.extend.fonts_fontWeight_regular')};
   line-height: 1;
   color: ${dt('datepicker.extend.extTimePicker.color')};
 }
@@ -167,12 +167,12 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 .p-datepicker-time-picker-custom .p-datepicker-separator {
-  font-family: ${dt('fonts.fontFamily.heading')};
-  font-size: ${dt('fonts.fontSize.100')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
+  font-family: ${dt('datepicker.extend.fonts_fontFamily_heading')};
+  font-size: ${dt('datepicker.extend.fonts_fontSize_100')};
+  font-weight: ${dt('datepicker.extend.fonts_fontWeight_regular')};
   line-height: 1;
   color: ${dt('datepicker.extend.extTimePicker.color')};
-  margin-top: calc(${dt('fonts.fontSize.100')} + ${dt('datepicker.timePicker.buttonGap')});
+  margin-top: calc(${dt('datepicker.extend.fonts_fontSize_100')} + ${dt('datepicker.timePicker.buttonGap')});
 }
 
 :is(.p-datepicker-month-select, .p-datepicker-year-select) .p-select-dropdown {
@@ -180,7 +180,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 :is(.p-datepicker-month-select, .p-datepicker-year-select) .p-select-label {
-  width: ${dt('dimension.size.1000')};
+  width: ${dt('datepicker.extend.dimension_size_1000')};
 }
 
 `;

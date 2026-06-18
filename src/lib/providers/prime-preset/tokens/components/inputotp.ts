@@ -25,7 +25,7 @@ export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string =
 /* ─── Invalid + Focus ─── */
 .p-inputotp.p-component .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.invalid')};
+  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputotp.extend.focusRing_invalid')};
 }
 
 /* ─── Small ─── */
