@@ -1,5 +1,7 @@
 import json, re, sys
-BASE="src/lib/providers/prime-preset/tokens/tokens.json"  # текущий боевой = эталон значений
+# Эталон значений = pre-migration снимок (фикстура). Можно переопределить argv[2].
+# Использование: python3 validate.py <candidate> [<baseline>]
+DEFAULT_BASE="scripts/tokens/baseline.json"
 def get(t,p):
     c=t
     for x in p.split("."):
@@ -22,8 +24,10 @@ def mkres(t,mode):
             return r(node,d+1)
         return re.sub(r"\{([^}]+)\}",rp,val)
     return r
-def main(cand):
-    base=json.load(open(BASE)); new=json.load(open(cand))
+def main(cand, base_path):
+    base=json.load(open(base_path)); new=json.load(open(cand))
+    if base_path==cand:
+        print("WARN: baseline == candidate — EQUIV-проверка вырождена (сравнение файла с собой)")
     # equivalence
     for mode in ("light","dark"):
         rb=mkres(base,mode); rn=mkres(new,mode)
@@ -59,5 +63,7 @@ def main(cand):
     print(f"R11_PRIMITIVE_REFS={len(prim_refs)} {sorted(set(prim_refs))[:5]}")
     if dang: globals()['FAIL']=True
 if __name__=="__main__":
-    FAIL=False; main(sys.argv[1])
+    cand=sys.argv[1]
+    base=sys.argv[2] if len(sys.argv)>2 else DEFAULT_BASE
+    FAIL=False; main(cand, base)
     sys.exit(1 if FAIL else 0)
