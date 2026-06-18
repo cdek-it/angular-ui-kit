@@ -31,7 +31,7 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
 
   /* ─── Invalid + Focus ─── */
   .p-password:has(.p-inputtext.p-invalid:focus) {
-    box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.extend.invalid')};
+    box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.invalid')};
     border-radius: ${dt('inputtext.root.borderRadius')};
   }
 

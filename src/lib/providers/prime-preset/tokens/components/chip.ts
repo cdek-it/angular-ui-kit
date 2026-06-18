@@ -30,7 +30,7 @@ export const chipCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* ─── Focus ring иконки удаления ─── */
   .p-chip-remove-icon:focus-visible {
-    outline: ${dt('chip.removeIcon.focusRing.width')} solid ${dt('focusRing.extend.success')};
+    outline: ${dt('chip.removeIcon.focusRing.width')} solid ${dt('focusRing.success')};
   }
 
   /* ─── Disabled состояние ─── */

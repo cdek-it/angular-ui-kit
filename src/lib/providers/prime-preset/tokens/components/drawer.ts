@@ -8,7 +8,7 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* Нижняя граница и внутренние отступы заголовка */
 .p-drawer.p-component .p-drawer-header {
   border-bottom: 1px solid ${dt('drawer.extend.extHeader.borderColor')};
-  padding: ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.100')} ${dt('overlay.modal.padding.300')};
+  padding: ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')} ${dt('dimension.space.400')} ${dt('overlay.modal.padding.300')};
 }
 
 /* Типографика */

@@ -12,7 +12,7 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .checkbox-label--hover {
-  color: ${dt('text.primaryColor')};
+  color: ${dt('text.brand')};
 }
 
 .checkbox-label--disabled {
@@ -21,7 +21,7 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .checkbox-caption {
-  color: ${dt('text.secondaryColor')};
+  color: ${dt('text.subtle')};
   font-family: ${dt('fonts.fontFamily.heading')};
   font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
@@ -29,11 +29,11 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .checkbox-caption--hover {
-  color: ${dt('text.primaryColor')};
+  color: ${dt('text.brand')};
 }
 
 .checkbox-caption--disabled {
-  color: ${dt('text.disabledColor')};
+  color: ${dt('text.disabled')};
 }
 
 /* Переопределение ширины border для checkbox */
@@ -62,13 +62,13 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 .p-checkbox:not(.p-disabled):not(.p-checkbox-checked):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box,
 .p-checkbox-checked:not(.p-disabled):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box,
 .p-checkbox-indeterminate:not(.p-disabled):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box {
-  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.focusRing')} ${dt('focusRing.extend.success')};
+  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.focusRing')} ${dt('focusRing.success')};
 }
 
 /* Focus ring с красным цветом для состояний с ошибкой */
 .p-checkbox.p-invalid .p-checkbox-box,
 .p-checkbox-checked.p-invalid .p-checkbox-box,
 .p-checkbox-indeterminate.p-invalid .p-checkbox-box {
-  box-shadow: 0 0 0 ${dt('focusRing.width')} ${dt('focusRing.extend.invalid')};
+  box-shadow: 0 0 0 ${dt('focusRing.width')} ${dt('focusRing.invalid')};
 }
 `;

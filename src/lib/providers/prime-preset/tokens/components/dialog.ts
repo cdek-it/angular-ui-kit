@@ -36,7 +36,7 @@ export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-dialog {
-    width: ${dt('overlay.width')};
+    width: ${dt('dimension.overlayWidth.base')};
   }
 
   .p-dialog.p-component.p-dialog-sm {

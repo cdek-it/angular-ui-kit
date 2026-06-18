@@ -15,7 +15,7 @@ export const confirmDialogCss = ({ dt }: { dt: (token: string) => string }): str
 
   /* Размеры */
   .p-confirmdialog.p-dialog {
-    width: ${dt('overlay.width')};
+    width: ${dt('dimension.overlayWidth.base')};
   }
 
   .p-confirmdialog-sm.p-dialog {

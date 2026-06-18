@@ -19,7 +19,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   /* ─── Invalid + Focus ─── */
   .p-select.p-component.p-invalid.p-focus {
     border-color: ${dt('select.root.invalidBorderColor')};
-    box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('focusRing.extend.invalid')};
+    box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('focusRing.invalid')};
   }
 
   /* ─── Readonly ─── */

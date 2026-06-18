@@ -42,7 +42,7 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 /* --- Invalid + Focus --- */
 .p-textarea.p-invalid:focus {
   border-color: ${dt('textarea.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('focusRing.extend.invalid')};
+  box-shadow: 0 0 0 ${dt('textarea.focusRing.width')} ${dt('focusRing.invalid')};
 }
 
 /* --- ClearButton (showClear) --- */
