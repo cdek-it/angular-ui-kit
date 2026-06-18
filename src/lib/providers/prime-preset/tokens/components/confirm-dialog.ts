@@ -19,15 +19,15 @@ export const confirmDialogCss = ({ dt }: { dt: (token: string) => string }): str
   }
 
   .p-confirmdialog-sm.p-dialog {
-    width: ${dt('sizing.80x')};
+    width: ${dt('dimension.overlayWidth.sm')};
   }
 
   .p-confirmdialog-lg.p-dialog {
-    width: ${dt('sizing.120x')};
+    width: ${dt('dimension.overlayWidth.lg')};
   }
 
   .p-confirmdialog-xlg.p-dialog {
-    width: ${dt('sizing.128x')};
+    width: ${dt('dimension.overlayWidth.xlg')};
   }
 
   /* Цвета иконок по severity */

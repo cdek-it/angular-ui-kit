@@ -180,7 +180,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 :is(.p-datepicker-month-select, .p-datepicker-year-select) .p-select-label {
-  width: ${dt('sizing.24x')};
+  width: ${dt('dimension.size.1000')};
 }
 
 `;

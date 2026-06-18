@@ -14,7 +14,7 @@ export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-dialog .p-dialog-header {
-    border-bottom: ${dt('borderWidth.100')} solid ${dt('dialog.root.borderColor')};
+    border-bottom: ${dt('dimension.borderWidth.100')} solid ${dt('dialog.root.borderColor')};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,14 +40,14 @@ export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-dialog.p-component.p-dialog-sm {
-    width: ${dt('sizing.80x')};
+    width: ${dt('dimension.overlayWidth.sm')};
   }
 
   .p-dialog.p-component.p-dialog-lg {
-    width: ${dt('sizing.120x')};
+    width: ${dt('dimension.overlayWidth.lg')};
   }
 
   .p-dialog.p-component.p-dialog-xlg {
-    width: ${dt('sizing.128x')};
+    width: ${dt('dimension.overlayWidth.xlg')};
   }
 `;

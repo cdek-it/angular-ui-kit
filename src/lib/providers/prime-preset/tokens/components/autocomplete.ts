@@ -138,8 +138,8 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete.p-component .p-inputtext-xlg .p-autocomplete-chip {
-    padding-top: ${dt('spacing.2x')};
-    padding-bottom: ${dt('spacing.2x')};
+    padding-top: ${dt('dimension.space.200')};
+    padding-bottom: ${dt('dimension.space.200')};
     font-size: ${dt('fonts.fontSize.300')};
   }
 `;
