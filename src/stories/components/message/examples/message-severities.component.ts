@@ -6,8 +6,8 @@ const template = `
 <div class="flex flex-col gap-4">
   <extra-message severity="info" summary="Message" detail="caption"></extra-message>
   <extra-message severity="success" summary="Message" detail="caption"></extra-message>
-  <extra-message severity="warn" summary="Message" detail="caption"></extra-message>
-  <extra-message severity="error" summary="Message" detail="caption"></extra-message>
+  <extra-message severity="warning" summary="Message" detail="caption"></extra-message>
+  <extra-message severity="danger" summary="Message" detail="caption"></extra-message>
 </div>
 `;
 
@@ -32,8 +32,8 @@ export const Severities: StoryObj = {
         code: `
 <extra-message severity="info" summary="Message" detail="caption"></extra-message>
 <extra-message severity="success" summary="Message" detail="caption"></extra-message>
-<extra-message severity="warn" summary="Message" detail="caption"></extra-message>
-<extra-message severity="error" summary="Message" detail="caption"></extra-message>
+<extra-message severity="warning" summary="Message" detail="caption"></extra-message>
+<extra-message severity="danger" summary="Message" detail="caption"></extra-message>
         `
       }
     }

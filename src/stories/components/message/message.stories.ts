@@ -36,12 +36,12 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
     // ── Props ────────────────────────────────────────────────
     severity: {
       control: 'select',
-      options: ['info', 'success', 'warn', 'error', 'secondary', 'contrast'],
+      options: ['info', 'success', 'warning', 'danger', 'secondary', 'contrast'],
       description: 'Тип сообщения.',
       table: {
         category: 'Props',
         defaultValue: { summary: 'info' },
-        type: { summary: "'info' | 'success' | 'warn' | 'error' | 'secondary' | 'contrast'" }
+        type: { summary: "'info' | 'success' | 'warning' | 'danger' | 'secondary' | 'contrast'" }
       }
     },
     summary: {

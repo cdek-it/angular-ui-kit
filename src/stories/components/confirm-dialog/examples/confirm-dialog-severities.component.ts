@@ -4,8 +4,8 @@ import { ExtraConfirmDialogComponent } from '../../../../lib/components/confirm-
 import { ExtraConfirmDialogService } from '../../../../lib/components/confirm-dialog/confirm-dialog.service';
 
 interface SeverityItem {
-  type: 'success' | 'info' | 'warn' | 'help' | 'danger';
-  buttonSeverity: 'success' | 'info' | 'warn' | 'help' | 'danger';
+  type: 'success' | 'info' | 'warning' | 'help' | 'danger';
+  buttonSeverity: 'success' | 'info' | 'warning' | 'help' | 'danger';
   icon: string;
   label: string;
   header: string;
@@ -33,8 +33,8 @@ const SEVERITIES: SeverityItem[] = [
     acceptLabel: 'Понятно',
   },
   {
-    type: 'warn',
-    buttonSeverity: 'warn',
+    type: 'warning',
+    buttonSeverity: 'warning',
     icon: 'ti ti-alert-triangle',
     label: 'Предупреждение',
     header: 'Предупреждение',
@@ -65,7 +65,7 @@ const template = `
 <div class="bg-surface-ground">
   <extra-confirm-dialog key="cd-severity-success" severity="success"></extra-confirm-dialog>
   <extra-confirm-dialog key="cd-severity-info" severity="info"></extra-confirm-dialog>
-  <extra-confirm-dialog key="cd-severity-warn" severity="warn"></extra-confirm-dialog>
+  <extra-confirm-dialog key="cd-severity-warn" severity="warning"></extra-confirm-dialog>
   <extra-confirm-dialog key="cd-severity-help" severity="help"></extra-confirm-dialog>
   <extra-confirm-dialog key="cd-severity-danger" severity="danger"></extra-confirm-dialog>
 
@@ -122,8 +122,8 @@ export const Severities = {
 import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, ExtraButtonComponent, provideExtraConfirmDialog } from '@cdek-it/angular-ui-kit';
 
 interface SeverityItem {
-  type: 'success' | 'info' | 'warn' | 'help' | 'danger';
-  buttonSeverity: 'success' | 'info' | 'warn' | 'help' | 'danger';
+  type: 'success' | 'info' | 'warning' | 'help' | 'danger';
+  buttonSeverity: 'success' | 'info' | 'warning' | 'help' | 'danger';
   icon: string;
   label: string;
   header: string;
@@ -134,7 +134,7 @@ interface SeverityItem {
 const SEVERITIES: SeverityItem[] = [
   { type: 'success', buttonSeverity: 'success', icon: 'ti ti-circle-check', label: 'Успех', header: 'Успех', message: 'Операция выполнена успешно.', acceptLabel: 'OK' },
   { type: 'info', buttonSeverity: 'info', icon: 'ti ti-info-circle', label: 'Информация', header: 'Информация', message: 'Это информационное сообщение.', acceptLabel: 'Понятно' },
-  { type: 'warn', buttonSeverity: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение', header: 'Предупреждение', message: 'Внимание! Это действие может иметь последствия.', acceptLabel: 'Продолжить' },
+  { type: 'warning', buttonSeverity: 'warning', icon: 'ti ti-alert-triangle', label: 'Предупреждение', header: 'Предупреждение', message: 'Внимание! Это действие может иметь последствия.', acceptLabel: 'Продолжить' },
   { type: 'help', buttonSeverity: 'help', icon: 'ti ti-help-circle', label: 'Справка', header: 'Справка', message: 'Нужна помощь с этим действием?', acceptLabel: 'Да' },
   { type: 'danger', buttonSeverity: 'danger', icon: 'ti ti-circle-x', label: 'Удаление', header: 'Подтверждение', message: 'Это действие нельзя отменить. Продолжить?', acceptLabel: 'Удалить' },
 ];
@@ -147,7 +147,7 @@ const SEVERITIES: SeverityItem[] = [
   template: \`
     <extra-confirm-dialog key="cd-severity-success" severity="success"></extra-confirm-dialog>
     <extra-confirm-dialog key="cd-severity-info" severity="info"></extra-confirm-dialog>
-    <extra-confirm-dialog key="cd-severity-warn" severity="warn"></extra-confirm-dialog>
+    <extra-confirm-dialog key="cd-severity-warn" severity="warning"></extra-confirm-dialog>
     <extra-confirm-dialog key="cd-severity-help" severity="help"></extra-confirm-dialog>
     <extra-confirm-dialog key="cd-severity-danger" severity="danger"></extra-confirm-dialog>
 

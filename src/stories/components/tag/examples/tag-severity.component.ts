@@ -24,7 +24,7 @@ export const Severity: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Вариант цветового оформления. Доступные значения: primary, secondary, success, info, warn, danger.'
+        story: 'Вариант цветового оформления. Доступные значения: primary, secondary, success, info, warning, danger.'
       },
       source: {
         language: 'ts',

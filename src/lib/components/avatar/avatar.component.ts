@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular
 import { Avatar } from 'primeng/avatar';
 import { AvatarGroup } from 'primeng/avatargroup';
 
-export type ExtraAvatarSize = 'normal' | 'large' | 'xlarge';
+export type ExtraAvatarSize = 'base' | 'large' | 'xlarge';
 export type ExtraAvatarShape = 'square' | 'circle';
 
 @Component({
@@ -24,7 +24,7 @@ export class ExtraAvatarComponent {
   @Input() label = '';
   @Input() icon = '';
   @Input() image = '';
-  @Input() size: ExtraAvatarSize = 'normal';
+  @Input() size: ExtraAvatarSize = 'base';
   @Input() shape: ExtraAvatarShape = 'square';
 
   @HostBinding('class') get hostClass(): string {
@@ -34,8 +34,8 @@ export class ExtraAvatarComponent {
     return classes.join(' ');
   }
 
-  get primeSize(): 'normal' | 'large' | 'xlarge' | undefined {
-    return this.size === 'normal' ? undefined : this.size;
+  get primeSize(): 'large' | 'xlarge' | undefined {
+    return this.size === 'base' ? undefined : this.size;
   }
 }
 

@@ -25,12 +25,12 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
   argTypes: {
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large', 'xlarge'],
+      options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер спиннера (задает вычисленные CSS-классы).',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'medium' },
-        type: { summary: "'small' | 'medium' | 'large' | 'xlarge'" },
+        defaultValue: { summary: 'base' },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
     multicolor: {
@@ -62,7 +62,7 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
     },
   },
   args: {
-    size: 'medium',
+    size: 'base',
     multicolor: true,
     strokeWidth: '2',
     fill: 'none',
@@ -79,7 +79,7 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.size && args.size !== 'medium') parts.push(`size="${args.size}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (!args.multicolor) parts.push(`[multicolor]="false"`);
     if (args.strokeWidth && args.strokeWidth !== '2') parts.push(`strokeWidth="${args.strokeWidth}"`);
     if (args.fill && args.fill !== 'none') parts.push(`fill="${args.fill}"`);

@@ -3,13 +3,15 @@ import { Message } from 'primeng/message';
 import { ButtonDirective } from 'primeng/button';
 import { SharedModule } from 'primeng/api';
 
-export type ExtraMessageSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
+export type ExtraMessageSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast';
+
+type PrimeMessageSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
 
 const SEVERITY_ICONS: Record<string, string> = {
   info: 'ti ti-info-circle',
   success: 'ti ti-circle-check',
-  warn: 'ti ti-alert-triangle',
-  error: 'ti ti-alert-circle'
+  warning: 'ti ti-alert-triangle',
+  danger: 'ti ti-alert-circle'
 };
 
 @Component({
@@ -17,7 +19,7 @@ const SEVERITY_ICONS: Record<string, string> = {
   standalone: true,
   imports: [Message, ButtonDirective, SharedModule],
   template: `
-    <p-message [severity]="severity" [closable]="false" [life]="life">
+    <p-message [severity]="primeSeverity" [closable]="false" [life]="life">
       <ng-template pTemplate="container" let-closeCallback="closeCallback">
         <div class="p-message-accent-line"></div>
         <i [class]="resolvedIcon + ' p-message-icon'"></i>
@@ -54,5 +56,11 @@ export class ExtraMessageComponent {
 
   get resolvedIcon(): string {
     return this.icon ?? SEVERITY_ICONS[this.severity] ?? 'ti ti-info-circle';
+  }
+
+  get primeSeverity(): PrimeMessageSeverity {
+    if (this.severity === 'warning') return 'warn';
+    if (this.severity === 'danger') return 'error';
+    return this.severity;
   }
 }
