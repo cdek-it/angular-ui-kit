@@ -23,7 +23,7 @@
 
 Привязаны к смыслу (фон, текст, бордер и т.д.):
 
-#### ### color-background
+#### color-background
 
 | Название | Светлая тема | Тёмная тема | Использование |
 |----------|--------------|------------|----------------|
@@ -36,7 +36,7 @@
 | background.info.bold | `#3b82f6` (blue-500) | `#2563eb` | Информация |
 | background.help.bold | `#a855f7` (purple-500) | `#9333ea` | Справка |
 
-#### ### color-text
+#### color-text
 
 | Название | Светлая тема | Тёмная тема | Использование |
 |----------|--------------|------------|----------------|
@@ -47,7 +47,7 @@
 | text.onBold | `#ffffff` | `#ffffff` | Текст на ярких фонах |
 | text.link | `#16a34a` (green-600) | `#22c55e` | Ссылки |
 
-#### ### color-border
+#### color-border
 
 | Название | Светлая тема | Тёмная тема | Использование |
 |----------|--------------|------------|----------------|
@@ -55,7 +55,7 @@
 | border.subtle | `#e4e4e7` (zinc-200) | `#3f3f46` | Мягкий бордер |
 | border.muted | `#f4f4f5` (zinc-100) | `#3f3f46` | Едва заметный бордер |
 
-#### ### color-icon
+#### color-icon
 
 | Название | Светлая тема | Тёмная тема | Использование |
 |----------|--------------|------------|----------------|
@@ -83,13 +83,13 @@
 
 | Токен | Значение | CSS переменная | Использование |
 |-------|----------|----------------|----------------|
-| ### radius-none | 0rem | `--p-radius-0` | Прямые углы |
-| ### radius-100 | 0.25rem (4px) | `--p-radius-100` | Небольшое скругление |
-| ### radius-200 | 0.5rem (8px) | `--p-radius-200` | Стандартное скругление |
-| ### radius-300 | 0.75rem (12px) | `--p-radius-300` | Умеренное скругление |
-| ### radius-400 | 1rem (16px) | `--p-radius-400` | Выраженное скругление |
-| ### radius-500 | 1.5rem (24px) | `--p-radius-500` | Большое скругление |
-| ### radius-max | 71.357rem (pill) | `--p-radius-max` | Круглая кнопка, таблетка |
+| radius-none | 0rem | `--p-radius-0` | Прямые углы |
+| radius-100 | 0.25rem (4px) | `--p-radius-100` | Небольшое скругление |
+| radius-200 | 0.5rem (8px) | `--p-radius-200` | Стандартное скругление |
+| radius-300 | 0.75rem (12px) | `--p-radius-300` | Умеренное скругление |
+| radius-400 | 1rem (16px) | `--p-radius-400` | Выраженное скругление |
+| radius-500 | 1.5rem (24px) | `--p-radius-500` | Большое скругление |
+| radius-max | 71.357rem (pill) | `--p-radius-max` | Круглая кнопка, таблетка |
 
 ## Типография (Typography)
 
@@ -97,8 +97,8 @@
 
 | Категория | Семейство | Использование |
 |-----------|-----------|----------------|
-| ### font-heading | TT Fellows | Заголовки, крупный текст |
-| ### font-base | PT Sans | Основной текст, интерфейс |
+| font-heading | TT Fellows | Заголовки, крупный текст |
+| font-base | PT Sans | Основной текст, интерфейс |
 
 ### Размеры шрифта
 
@@ -117,35 +117,35 @@
 
 | Вес | Значение | CSS переменная | Использование |
 |-----|----------|----------------|----------------|
-| ### font-weight-regular | 400 | `--p-font-weight-regular` | Основной текст |
-| ### font-weight-medium | 500 | `--p-font-weight-medium` | Label, emphasis |
-| ### font-weight-demibold | 600 | `--p-font-weight-demibold` | Подзаголовки, heading |
-| ### font-weight-bold | 700 | `--p-font-weight-bold` | Заголовки, выделение |
+| font-weight-regular | 400 | `--p-font-weight-regular` | Основной текст |
+| font-weight-medium | 500 | `--p-font-weight-medium` | Label, emphasis |
+| font-weight-demibold | 600 | `--p-font-weight-demibold` | Подзаголовки, heading |
+| font-weight-bold | 700 | `--p-font-weight-bold` | Заголовки, выделение |
 
 ### Высота строки (Line height)
 
 | Токен | Значение | Использование |
 |-------|----------|----------------|
-| ### line-height-250 | 1rem | Caption, маленький текст |
-| ### line-height-300 | 1.0714rem | Label small |
-| ### line-height-400 | 1.2857rem | Label, body small |
-| ### line-height-500 | 1.5rem | Body, основной текст |
-| ### line-height-550 | 1.5714rem | Body large |
-| ### line-height-600 | 1.7143rem | Heading small |
-| ### line-height-700 | 1.8571rem | Heading medium |
-| ### line-height-900 | 2.7857rem | Heading large |
-| ### line-height-auto | auto | Автоматическая высота |
+| line-height-250 | 1rem | Caption, маленький текст |
+| line-height-300 | 1.0714rem | Label small |
+| line-height-400 | 1.2857rem | Label, body small |
+| line-height-500 | 1.5rem | Body, основной текст |
+| line-height-550 | 1.5714rem | Body large |
+| line-height-600 | 1.7143rem | Heading small |
+| line-height-700 | 1.8571rem | Heading medium |
+| line-height-900 | 2.7857rem | Heading large |
+| line-height-auto | auto | Автоматическая высота |
 
 ## Тени (Shadows)
 
 | Уровень | CSS переменная | Использование |
 |---------|----------------|----------------|
-| ### shadow-none | `--p-shadow-none` | Без тени |
-| ### shadow-100 | `--p-shadow-100` | Лёгкая тень (hover) |
-| ### shadow-200 | `--p-shadow-200` | Мягкая тень |
-| ### shadow-300 | `--p-shadow-300` | Средняя тень |
-| ### shadow-400 | `--p-shadow-400` | Глубокая тень |
-| ### shadow-500 | `--p-shadow-500` | Очень глубокая тень (модальные окна) |
+| shadow-none | `--p-shadow-none` | Без тени |
+| shadow-100 | `--p-shadow-100` | Лёгкая тень (hover) |
+| shadow-200 | `--p-shadow-200` | Мягкая тень |
+| shadow-300 | `--p-shadow-300` | Средняя тень |
+| shadow-400 | `--p-shadow-400` | Глубокая тень |
+| shadow-500 | `--p-shadow-500` | Очень глубокая тень (модальные окна) |
 
 ## Прозрачность (Opacity)
 
