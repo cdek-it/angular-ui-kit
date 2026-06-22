@@ -1,6 +1,8 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import { validateFile } from './validate.mjs';
+import { validateFile, crossLinkWarnings, duplicateNodeIdErrors, validateAll } from './validate.mjs';
+
+const FIX = 'scripts/figma-code-connect/__fixtures__';
 
 test('valid fixture passes', async () => {
   const errors = await validateFile('scripts/figma-code-connect/__fixtures__/valid.figma.md');
@@ -30,4 +32,37 @@ test('unknown status value fails', async () => {
 test('closing fence with language fails', async () => {
   const errors = await validateFile('scripts/figma-code-connect/__fixtures__/invalid-closing-fence-language.figma.md');
   assert.ok(errors.some(e => /closing fence/i.test(e)));
+});
+
+test('dangling cross-link is a warning, not an error', async () => {
+  const path = `${FIX}/invalid-dangling-cross-link.figma.md`;
+  const warnings = await crossLinkWarnings(path);
+  assert.ok(warnings.some(w => /dangling cross-link/i.test(w) && /does-not-exist/.test(w)));
+  // It must NOT surface as a hard error — forward references are allowed.
+  const errors = await validateFile(path);
+  assert.deepEqual(errors, []);
+});
+
+test('valid fixture has no dangling cross-link warnings', async () => {
+  const warnings = await crossLinkWarnings(`${FIX}/valid.figma.md`);
+  assert.deepEqual(warnings, []);
+});
+
+test('duplicate nodeId across files is an error', async () => {
+  const errors = await duplicateNodeIdErrors([
+    `${FIX}/valid.figma.md`,
+    `${FIX}/invalid-dup-nodeid.figma.md`,
+  ]);
+  assert.ok(errors.some(e => /not unique/i.test(e) && /1:2/.test(e)));
+});
+
+test('unique nodeIds produce no duplicate error', async () => {
+  const errors = await duplicateNodeIdErrors([`${FIX}/valid.figma.md`]);
+  assert.deepEqual(errors, []);
+});
+
+test('validateAll separates errors from warnings', async () => {
+  const { errors, warnings } = await validateAll([`${FIX}/invalid-dangling-cross-link.figma.md`]);
+  assert.deepEqual(errors, []);
+  assert.ok(warnings.some(w => /dangling cross-link/i.test(w)));
 });
