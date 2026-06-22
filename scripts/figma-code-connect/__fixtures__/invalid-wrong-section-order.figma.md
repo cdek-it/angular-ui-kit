@@ -22,7 +22,7 @@ Figma nodeId: `1:3`
 
 ```html
 <extra-fixture size="sm" />
-```html
+```
 
 ## Props mapping
 | Figma | Angular | Type | Notes |

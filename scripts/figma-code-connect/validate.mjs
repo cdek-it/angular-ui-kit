@@ -24,8 +24,12 @@ export async function validateFile(path) {
       break;
     }
   }
-  for (const f of [...body.matchAll(/^```(\w*)$/gm)])
-    if (!f[1]) errors.push(`${path}: code-fence without language`);
+  const fences = [...body.matchAll(/^```(\w*)$/gm)];
+  for (let i = 0; i < fences.length; i++) {
+    // Only opening fences (even index: 0, 2, 4, …) must carry a language.
+    // Closing fences (odd index) are bare ``` per CommonMark spec.
+    if (i % 2 === 0 && !fences[i][1]) errors.push(`${path}: code-fence without language`);
+  }
   return errors;
 }
 

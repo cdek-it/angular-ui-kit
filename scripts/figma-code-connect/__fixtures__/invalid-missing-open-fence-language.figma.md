@@ -25,7 +25,7 @@ updated: 2026-06-22
 ### Default
 Figma nodeId: `1:3`
 
-```html
+```
 <extra-fixture size="sm" />
 ```
 

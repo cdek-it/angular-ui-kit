@@ -16,3 +16,8 @@ test('wrong section order fails', async () => {
   const errors = await validateFile('scripts/figma-code-connect/__fixtures__/invalid-wrong-section-order.figma.md');
   assert.ok(errors.some(e => /order/i.test(e)));
 });
+
+test('missing open fence language fails', async () => {
+  const errors = await validateFile('scripts/figma-code-connect/__fixtures__/invalid-missing-open-fence-language.figma.md');
+  assert.ok(errors.some(e => /code-fence/i.test(e)));
+});

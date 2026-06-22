@@ -96,7 +96,7 @@ npm run validate:figma-cc
 ✓ Наличие и корректность YAML frontmatter  
 ✓ Обязательные поля: `component`, `selector`, `import.{symbol,from}`, `figma.{fileKey,nodeId,componentKey,name}`, `status`, `updated`  
 ✓ Правильный порядок секций (Overview → Props mapping → Variants → Slots → Related → Do/Don't)  
-✓ Все code-fences содержат явный язык программирования  
+✓ Открывающие code-fences содержат явный язык программирования (закрывающие — без языка, стандарт CommonMark)  
 ✓ Опциональные поля (если present): `deprecated.{replaceWith,since,reason}`  
 
 ### Примеры ошибок
@@ -111,7 +111,7 @@ src/lib/button/button.figma.md: missing field figma
 # ❌ Нарушен порядок секций
 src/lib/button/button.figma.md: section order violation near ## Related
 
-# ❌ Code-fence без языка
+# ❌ Открывающий code-fence без языка
 src/lib/button/button.figma.md: code-fence without language
 ```
 

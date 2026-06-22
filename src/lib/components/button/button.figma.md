@@ -50,7 +50,7 @@ Figma: `<Button.Base>`, variant=primary, size=base, state=default — nodeId `16
 
 ```html
 <extra-button label="Сохранить"></extra-button>
-```html
+```
 
 ### Secondary / Base (вторичная кнопка)
 
@@ -58,7 +58,7 @@ Figma: `<Button.Base>`, variant=tertiary (в коде: `variant="secondary"`), s
 
 ```html
 <extra-button variant="secondary" label="Отмена"></extra-button>
-```html
+```
 
 ### Outlined / Large (контурная кнопка, большой размер)
 
@@ -66,7 +66,7 @@ Figma: `<Button.Base>`, variant=outlined, size=large, state=default
 
 ```html
 <extra-button variant="outlined" size="large" label="Подробнее"></extra-button>
-```html
+```
 
 ### Text / Base (текстовая кнопка)
 
@@ -74,7 +74,7 @@ Figma: `<Button.Base>`, variant=text, size=base, state=default
 
 ```html
 <extra-button variant="text" label="Ссылка-кнопка"></extra-button>
-```html
+```
 
 ### Link / Base (кнопка-ссылка)
 
@@ -82,7 +82,7 @@ Figma: `<Button.Base>`, variant=link, size=base, state=default
 
 ```html
 <extra-button variant="link" label="Перейти"></extra-button>
-```html
+```
 
 ### С иконкой слева (prefix)
 
@@ -94,7 +94,7 @@ Figma: `<Button.Base>`, icon-position=prefix, icon-only=false
   icon="pi pi-plus"
   iconPos="prefix"
 ></extra-button>
-```html
+```
 
 ### Только иконка (icon-only)
 
@@ -106,7 +106,7 @@ Figma: `<Button.Base>`, icon-only=true
   [iconOnly]="true"
   ariaLabel="Удалить"
 ></extra-button>
-```html
+```
 
 ### Состояние загрузки (loading)
 
@@ -114,7 +114,7 @@ Figma: `<Button.Base>`, state=loading
 
 ```html
 <extra-button label="Отправка..." [loading]="true"></extra-button>
-```html
+```
 
 ### Danger (деструктивное действие)
 
@@ -124,7 +124,7 @@ Figma: `<Button.Danger>`, nodeId `162:5457`, componentKey `071aae3b46b09cd249c18
 
 ```html
 <extra-button severity="danger" label="Удалить" icon="pi pi-trash"></extra-button>
-```html
+```
 
 ### С бейджем
 
@@ -135,7 +135,7 @@ Figma: `<Button.Danger>`, nodeId `162:5457`, componentKey `071aae3b46b09cd249c18
   badge="3"
   badgeSeverity="danger"
 ></extra-button>
-```html
+```
 
 ### Скруглённая (rounded)
 
@@ -143,13 +143,13 @@ Figma: `<Button.Base>`, rounded=true
 
 ```html
 <extra-button [rounded]="true" label="Округлая"></extra-button>
-```html
+```
 
 ### Fluid (на всю ширину)
 
 ```html
 <extra-button [fluid]="true" label="Во всю ширину"></extra-button>
-```html
+```
 
 ## Slots
 
@@ -164,6 +164,7 @@ Figma: `<Button.Base>`, rounded=true
 ## Do / Don't
 
 **Do:**
+- Используйте `variant="text"` для текстовых кнопок; `[text]="true"` оставлен только как алиас для совместимости с PrimeNG.
 - Используйте `variant="primary"` для единственного главного действия на экране
 - Для деструктивных действий задавайте `severity="danger"` и добавляйте иконку через [icons.md](../../figma-code-connect/icons.md)
 - При кнопке только с иконкой всегда задавайте `ariaLabel` для доступности
