@@ -5,19 +5,24 @@
 ## Структура директории
 
 ```
-src/lib/figma-code-connect/
-├── README.md                   # Этот файл
-├── schema.md                   # Полная спецификация формата .figma.md
-├── conventions.md              # Соглашения и best practices (Task 3)
-├── tokens.md                   # Дизайн токены (Task 4)
-├── icons.md                    # Доступные иконки (Task 4)
-├── missing.md                  # Список компонентов без Code Connect (Task 4)
+src/lib/figma-code-connect/          # Глобальные справочные документы
+├── README.md                        # Этот файл
+├── schema.md                        # Полная спецификация формата .figma.md
+├── conventions.md                   # Соглашения и best practices
+├── tokens.md                        # Дизайн токены
+├── icons.md                         # Доступные иконки
+└── missing.md                       # Список компонентов без Code Connect
+
+src/lib/components/                  # Контрактные файлы (colocated с компонентом)
 ├── button/
-│   └── button.figma.md         # Документация Button (Task 5)
-├── input-text/
-│   └── input-text.figma.md     # Документация InputText (Task 6)
+│   ├── button.component.ts
+│   └── button.figma.md             # Code Connect для Button
+├── inputtext/
+│   ├── inputtext.component.ts
+│   └── inputtext.figma.md          # Code Connect для InputText
 └── dialog/
-    └── dialog.figma.md         # Документация Dialog (Task 7)
+    ├── dialog.component.ts
+    └── dialog.figma.md             # Code Connect для Dialog
 ```
 
 ## Описание
@@ -34,7 +39,7 @@ src/lib/figma-code-connect/
 ### Для разработчиков
 
 1. **Читайте** [`schema.md`](./schema.md) для понимания структуры файлов
-2. **Смотрите примеры** в директориях компонентов (`button/`, `input-text/`, `dialog/`)
+2. **Смотрите примеры** рядом с компонентами (`src/lib/components/{button,inputtext,dialog}/<name>.figma.md`)
 3. **Следуйте соглашениям** из [`conventions.md`](./conventions.md)
 4. **Валидируйте** свои файлы перед коммитом:
    ```bash
