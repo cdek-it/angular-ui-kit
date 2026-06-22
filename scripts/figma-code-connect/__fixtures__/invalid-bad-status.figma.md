@@ -9,7 +9,7 @@ figma:
   nodeId: '1:2'
   componentKey: stable-key
   name: 'Fixture'
-status: stable
+status: nonsense
 updated: '2026-06-22'
 ---
 

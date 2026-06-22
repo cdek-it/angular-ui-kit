@@ -21,3 +21,13 @@ test('missing open fence language fails', async () => {
   const errors = await validateFile('scripts/figma-code-connect/__fixtures__/invalid-missing-open-fence-language.figma.md');
   assert.ok(errors.some(e => /code-fence/i.test(e)));
 });
+
+test('unknown status value fails', async () => {
+  const errors = await validateFile('scripts/figma-code-connect/__fixtures__/invalid-bad-status.figma.md');
+  assert.ok(errors.some(e => /unknown status/i.test(e)));
+});
+
+test('closing fence with language fails', async () => {
+  const errors = await validateFile('scripts/figma-code-connect/__fixtures__/invalid-closing-fence-language.figma.md');
+  assert.ok(errors.some(e => /closing fence/i.test(e)));
+});

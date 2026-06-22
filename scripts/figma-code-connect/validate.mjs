@@ -4,6 +4,7 @@ import yaml from 'js-yaml';
 const REQUIRED_FIELDS = ['component', 'selector', 'import', 'figma', 'status', 'updated'];
 const REQUIRED_FIGMA = ['fileKey', 'nodeId', 'componentKey', 'name'];
 const SECTION_ORDER = ['## Overview', '## Props mapping', '## Variants', '## Slots', '## Related', "## Do / Don't"];
+const ALLOWED_STATUSES = ['stable', 'beta', 'deprecated', 'orphan-code'];
 
 export async function validateFile(path) {
   const errors = [];
@@ -15,6 +16,9 @@ export async function validateFile(path) {
   catch (e) { errors.push(`${path}: invalid YAML: ${e.message}`); return errors; }
   for (const f of REQUIRED_FIELDS) if (!(f in fm)) errors.push(`${path}: missing field ${f}`);
   if (fm.figma) for (const f of REQUIRED_FIGMA) if (!(f in fm.figma)) errors.push(`${path}: missing figma.${f}`);
+  if ('status' in fm && !ALLOWED_STATUSES.includes(fm.status)) {
+    errors.push(`${path}: unknown status "${fm.status}", expected one of: ${ALLOWED_STATUSES.join(' | ')}`);
+  }
   const body = m[2];
   const positions = SECTION_ORDER.map(s => body.indexOf(`\n${s}`));
   const present = positions.map((p, i) => [p, i]).filter(([p]) => p !== -1);
@@ -29,6 +33,7 @@ export async function validateFile(path) {
     // Only opening fences (even index: 0, 2, 4, …) must carry a language.
     // Closing fences (odd index) are bare ``` per CommonMark spec.
     if (i % 2 === 0 && !fences[i][1]) errors.push(`${path}: code-fence without language`);
+    if (i % 2 === 1 && fences[i][1]) errors.push(`${path}: closing fence has language "${fences[i][1]}", must be bare`);
   }
   return errors;
 }
