@@ -65,6 +65,8 @@ isOpen = false;
 
 Figma: `<Dialog>`, modal=true, size=lg, show-header=true
 
+Для добавления иконки в заголовок используйте [иконки](../../figma-code-connect/icons.md).
+
 ```html
 <extra-dialog
   size="lg"
@@ -72,7 +74,7 @@ Figma: `<Dialog>`, modal=true, size=lg, show-header=true
 >
   <ng-template extraDialogHeader>
     <div class="flex items-center gap-2">
-      <i class="ti ti-truck-delivery text-primary text-xl"></i>
+      <!-- иконка через icons.md -->
       <span class="font-semibold">Детали отправления</span>
     </div>
   </ng-template>
