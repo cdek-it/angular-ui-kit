@@ -17,7 +17,7 @@
 - Жёсткий порядок секций тела: `## Overview` → `## Props mapping` → `## Variants` → `## Slots` → `## Related` → `## Do / Don't`.
 - Все code-fence обязаны иметь язык (`html`, `ts`, `scss`).
 - Никаких inline-значений токенов/иконок — только ссылки на `tokens.md` / `icons.md`.
-- Figma fileKey проекта: `Khh7arsuXss3ncqy1Dz3OZ` (UI Kit v2.0). nodeId/componentKey пилотов вытаскивать через Figma MCP. Если MCP недоступен — `nodeId: null`, `componentKey: null`, `status: orphan-code`.
+- Figma fileKey — per-component: берётся из Figma MCP для каждого компонента и может различаться (linked libraries). Базовый файл-точка-входа: `Khh7arsuXss3ncqy1Dz3OZ` (UI Kit v2.0); компоненты могут жить в связанных файлах библиотек. nodeId/componentKey пилотов вытаскивать через Figma MCP. Если MCP недоступен — `fileKey/nodeId/componentKey: null`, `status: orphan-code`.
 - Дата `updated:` во всех файлах = `2026-06-22`.
 - Никаких рантайм-зависимостей. validator — devDependency `js-yaml`.
 - Не модифицировать `.env`, `angular.json`, существующие `*.component.ts`. Создаём только новые файлы.

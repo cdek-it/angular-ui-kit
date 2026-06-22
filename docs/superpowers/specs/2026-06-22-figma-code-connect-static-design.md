@@ -57,7 +57,7 @@ import:
   symbol: ExtraButtonComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: <figma-file-key>
+  fileKey: <figma-file-key>                # per-component; берётся из Figma MCP для каждого компонента; может различаться при использовании linked libraries
   nodeId: '123:456'                      # ID родительского componentSet (или массив)
   componentKey: <stable-component-key>
   name: 'Button'                         # имя в Figma (для отладки)
