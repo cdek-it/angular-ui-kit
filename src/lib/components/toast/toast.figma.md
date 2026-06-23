@@ -7,7 +7,7 @@ import:
 figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '15953:4478'
-  componentKey: 'f7e3a50f6293d15d502b50c6e5ef453f5b18c863'
+  componentKey: 'e62d7e276583e57fc42b31096f545e591ec18979'
   name: '<Toast>'
 status: stable
 updated: '2026-06-23'

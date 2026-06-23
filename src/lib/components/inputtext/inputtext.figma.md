@@ -125,7 +125,6 @@ Figma: `<InputText>`, state=readonly — nodeId `14978:17413`
 ## Related
 
 - [InputGroup](../inputgroup/inputgroup.figma.md) — обёртка с prefix/suffix-слотами
-- [FormField](../form-field/form-field.figma.md) — label, подсказка, сообщение об ошибке
 - [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний поля
 - [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
 
