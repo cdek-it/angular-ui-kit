@@ -5,7 +5,7 @@ import:
   symbol: ExtraInputGroupComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '437:3505'
   componentKey: '5804ce15e658506c41002f48bf003b500ceceef1'
   name: '<InputGroup>'
@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraInputGroupComponent` — обёртка, объединяющая поле ввода (`<extra-input-text>`) с присоединёнными аддонами (текст, единица измерения, иконка, кнопка) слева и/или справа в единый визуальный блок. Аддоны проецируются как дочерние элементы `<extra-input-group-addon>`.
 
-Компонент соответствует Figma-компоненту `<InputGroup>` (nodeId `437:3505`, fileKey `HOLKdvQJ8jCLeX17s9d0Yf`, библиотека «UI Kit (DS) v2.0»). Позиция аддонов определяется Figma-свойством `addon-position` (`left`, `right`, `left & right`), а само вкладываемое поле — свойством `change-field`.
+Компонент соответствует Figma-компоненту `<InputGroup>` (nodeId `437:3505`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Позиция аддонов определяется Figma-свойством `addon-position` (`left`, `right`, `left & right`), а само вкладываемое поле — свойством `change-field`.
 
 ## Props mapping
 

@@ -5,7 +5,7 @@ import:
   symbol: ExtraTooltipDirective
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '24:1369'
   componentKey: '82ea6ac996902209774a682f0bf448bc307261e6'
   name: '<Tooltip>'

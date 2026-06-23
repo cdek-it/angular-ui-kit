@@ -5,7 +5,7 @@ import:
   symbol: ExtraCheckboxComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '16:13529'
   componentKey: 'ce267dfcda08b2861c4aa2aea4af70194735c9f0'
   name: '<Checkbox>'

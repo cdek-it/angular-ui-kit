@@ -5,7 +5,7 @@ import:
   symbol: ExtraDialogComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '520:6620'
   componentKey: 'e22e66372cf0eaa8dae30d765325f4ed2b51ca42'
   name: '<Dialog>'
@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraDialogComponent` — модальное диалоговое окно поверх основного контента страницы. Оборачивает PrimeNG `p-dialog` и расширяет его поддержкой структурных директив для кастомного заголовка и футера, а также типизированным свойством `size`.
 
-Компонент соответствует Figma-компоненту `<Dialog>` (nodeId `520:6620`, fileKey `HOLKdvQJ8jCLeX17s9d0Yf`, библиотека «UI Kit (DS) v2.0»). Для программного открытия с произвольным содержимым используйте `ExtraDialogService` (см. Storybook «Dynamic»).
+Компонент соответствует Figma-компоненту `<Dialog>` (nodeId `520:6620`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Для программного открытия с произвольным содержимым используйте `ExtraDialogService` (см. Storybook «Dynamic»).
 
 ## Props mapping
 

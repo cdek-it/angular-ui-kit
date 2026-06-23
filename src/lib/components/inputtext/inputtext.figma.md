@@ -5,7 +5,7 @@ import:
   symbol: ExtraInputTextComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '15:13444'
   componentKey: 'b8bc649d1acf7132183bed9af9df322dcab6ab9e'
   name: '<InputText>'
@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraInputTextComponent` — атомарное однострочное поле для ввода короткого свободного текста (имя, email, строка поиска). Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
-Компонент соответствует Figma-компоненту `<InputText>` (nodeId `15:13444`, fileKey `HOLKdvQJ8jCLeX17s9d0Yf`, библиотека «UI Kit (DS) v2.0»). Label, подсказка и сообщение об ошибке навешиваются снаружи — через `<extra-input-group>` или `<extra-form-field>`.
+Компонент соответствует Figma-компоненту `<InputText>` (nodeId `15:13444`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Label, подсказка и сообщение об ошибке навешиваются снаружи — через `<extra-input-group>` или `<extra-form-field>`.
 
 ## Props mapping
 

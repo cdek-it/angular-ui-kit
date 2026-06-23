@@ -5,7 +5,7 @@ import:
   symbol: ExtraConfirmDialogComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '520:6928'
   componentKey: 'e1f6d8c2a20ec5d1f54b0936b7ce81e9345c3943'
   name: '<ConfirmDialog>'
@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraConfirmDialogComponent` — модальное окно подтверждения действия (`role=alertdialog`): прерывает пользователя вопросом и требует явного ответа «подтвердить / отменить». В отличие от `ExtraDialog`, оно не принимает произвольного тела — содержимое (заголовок, текст, подписи кнопок, иконка) задаётся декларативно через `ExtraConfirmDialogService.confirm(...)`. Компонент оборачивает PrimeNG `p-confirmDialog` и расширяет его типизированными свойствами `size` и `severity`, а также структурными директивами для кастомных заголовка и футера.
 
-Компонент соответствует Figma-компоненту `<ConfirmDialog>` (nodeId `520:6928`, fileKey `HOLKdvQJ8jCLeX17s9d0Yf`, библиотека «UI Kit (DS) v2.0»). Открытие выполняется императивно через сервис; зарегистрируйте провайдеры функцией `provideExtraConfirmDialog()`.
+Компонент соответствует Figma-компоненту `<ConfirmDialog>` (nodeId `520:6928`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Открытие выполняется императивно через сервис; зарегистрируйте провайдеры функцией `provideExtraConfirmDialog()`.
 
 ## Props mapping
 

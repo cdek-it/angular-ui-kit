@@ -5,7 +5,7 @@ import:
   symbol: ExtraTagComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '21:1238'
   componentKey: '7dd396d5b311b096c403e1c4764dcbf700eddfbd'
   name: '<Tag>'

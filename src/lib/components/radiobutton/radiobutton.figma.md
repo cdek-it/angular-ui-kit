@@ -5,7 +5,7 @@ import:
   symbol: ExtraRadiobuttonComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'HOLKdvQJ8jCLeX17s9d0Yf'
+  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '17:13535'
   componentKey: 'b2f1d57bdcaefad98286b9316272c0b64bb268d8'
   name: '<RadioButton>'
