@@ -6,18 +6,18 @@ import:
   from: '@cdek-it/angular-ui-kit'
 figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '882:5234'
+  nodeId: '16194:4260'
   componentKey: '91c53c61603fc1a9169bb4bf411cf1af75d9bd20'
   name: '<Menubar>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-06-23'
 ---
 
 ## Overview
 
 `ExtraMenubar` — горизонтальная навигационная панель верхнего уровня с поддержкой вложенных выпадающих подменю. Разделы задаются декларативной моделью `model`, каждый пункт — это переход или действие (`label`, `icon`, `command`, `url`), вложенность задаётся через `items[].items`. Оборачивает PrimeNG `p-menubar`.
 
-Компонент соответствует Figma-компоненту `<Menubar>` (nodeId `882:5234`) из библиотеки UI Kit (DS) v2.0. В отличие от `MegaMenu` (многоколоночные панели подменю) и `Menu` (вертикальный popup действий), menubar предназначен для глобальной навигации по разделам в шапке приложения.
+Компонент соответствует Figma-компоненту `<Menubar>` (nodeId `16194:4260`) из библиотеки UI Kit (DS) v2.0. В отличие от `MegaMenu` (многоколоночные панели подменю) и `Menu` (вертикальный popup действий), menubar предназначен для глобальной навигации по разделам в шапке приложения.
 
 ## Props mapping
 
@@ -29,7 +29,7 @@ updated: '2026-06-22'
 
 ### Horizontal (горизонтальная навигация)
 
-Figma: `<Menubar>`, orientation=horizontal — nodeId `882:5232`
+Figma: `<Menubar>`, orientation=horizontal — nodeId `16194:4261`
 
 ```html
 <extra-menubar [model]="items"></extra-menubar>
