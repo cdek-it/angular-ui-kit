@@ -8,7 +8,7 @@ figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
   nodeId: '536:340'
   componentKey: '421d78d98d9918b17c1cad294fbedd0ea9747720'
-  name: '<Sidebar>'
+  name: '<Drawer>'
 status: stable
 updated: '2026-06-22'
 ---
@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraDrawerComponent` — панель, выезжающая от края экрана (слева, справа, сверху или снизу) поверх основного контента. Используется для подзадач с сохранением контекста страницы: создание и редактирование через форму, просмотр деталей рядом со списком, фильтры и дополнительные параметры. Оборачивает PrimeNG `p-drawer` и расширяет его поддержкой структурных директив для кастомного заголовка и футера, а также типизированным свойством `size`.
 
-Компонент соответствует Figma-компоненту `<Sidebar>` (nodeId `536:340`, библиотека «UI Kit (DS) v2.0»). По умолчанию drawer модальный (со scrim). В отличие от `ExtraDialogComponent` (центральное модальное окно, прерывающее workflow), drawer крепится к краю экрана и сохраняет рабочий контекст.
+Компонент соответствует Figma-компоненту `<Drawer>` (nodeId `536:340`, библиотека «UI Kit (DS) v2.0»). По умолчанию drawer модальный (со scrim). В отличие от `ExtraDialogComponent` (центральное модальное окно, прерывающее workflow), drawer крепится к краю экрана и сохраняет рабочий контекст.
 
 ## Props mapping
 
@@ -40,7 +40,7 @@ updated: '2026-06-22'
 
 ### Right (по умолчанию — выезд справа)
 
-Figma: `<Sidebar>`, modal=true, position=right — nodeId `538:343`
+Figma: `<Drawer>`, modal=true, position=right — nodeId `538:343`
 
 ```html
 <extra-drawer
@@ -60,7 +60,7 @@ isOpen = false;
 
 ### Left (выезд слева)
 
-Figma: `<Sidebar>`, modal=true, position=left — nodeId `536:339`
+Figma: `<Drawer>`, modal=true, position=left — nodeId `536:339`
 
 ```html
 <extra-drawer
@@ -74,7 +74,7 @@ Figma: `<Sidebar>`, modal=true, position=left — nodeId `536:339`
 
 ### Top (выезд сверху)
 
-Figma: `<Sidebar>`, modal=true, position=top — nodeId `538:404`
+Figma: `<Drawer>`, modal=true, position=top — nodeId `538:404`
 
 ```html
 <extra-drawer
@@ -88,7 +88,7 @@ Figma: `<Sidebar>`, modal=true, position=top — nodeId `538:404`
 
 ### Bottom (выезд снизу)
 
-Figma: `<Sidebar>`, modal=true, position=bottom — nodeId `538:495`
+Figma: `<Drawer>`, modal=true, position=bottom — nodeId `538:495`
 
 ```html
 <extra-drawer
@@ -102,7 +102,7 @@ Figma: `<Sidebar>`, modal=true, position=bottom — nodeId `538:495`
 
 ### Немодальный (non-modal)
 
-Figma: `<Sidebar>`, modal=false, position=right — nodeId `538:356`
+Figma: `<Drawer>`, modal=false, position=right — nodeId `538:356`
 
 Панель не блокирует фон и не показывает затемнение. Пользователь может взаимодействовать с остальным контентом страницы.
 
@@ -118,7 +118,7 @@ Figma: `<Sidebar>`, modal=false, position=right — nodeId `538:356`
 
 ### С кастомным заголовком и футером
 
-Figma: `<Sidebar>`, modal=true, show-header=true, show-footer=true
+Figma: `<Drawer>`, modal=true, show-header=true, show-footer=true
 
 ```html
 <extra-drawer [(visible)]="isOpen">
