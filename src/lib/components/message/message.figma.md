@@ -6,18 +6,18 @@ import:
   from: '@cdek-it/angular-ui-kit'
 figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '560:490'
-  componentKey: 'f7e3a50f6293d15d502b50c6e5ef453f5b18c863'
+  nodeId: '15963:3163'
+  componentKey: '04f90e69c40005a0433f7c7d3e3840c011e27b9b'
   name: '<Message>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-06-23'
 ---
 
 ## Overview
 
 `ExtraMessage` — компонент инлайн-сообщения со статусом (иконка + заголовок + подробный текст), встроенного в поток страницы: рядом с полем формы, у секции или как агрегированный фидбэк по валидации. Оборачивает PrimeNG `p-message` и подбирает иконку автоматически по `severity`.
 
-Компонент соответствует Figma-компоненту `<Message>` (nodeId `560:490`). В коде реализован инлайн-вариант (Figma `toast=false`); всплывающий toast (Figma `toast=true`) живёт в отдельном компоненте и здесь не покрывается.
+Компонент соответствует Figma-компоненту `<Message>` (nodeId `15963:3163`). Это инлайн-компонент: всплывающий toast вынесен в отдельный Figma-компонент `<Toast>` и здесь не покрывается.
 
 ## Props mapping
 
@@ -32,13 +32,13 @@ updated: '2026-06-22'
 
 Событие закрытия доступно через `@Output() onClose: EventEmitter<Event>`.
 
-Figma-свойство `toast` (всплывающее уведомление) в этом компоненте всегда соответствует инлайн-режиму и в коде не задаётся.
+Всплывающее уведомление (toast) вынесено в отдельный Figma-компонент `<Toast>` и в этом контракте не задаётся.
 
 ## Variants
 
 ### Info (информационное)
 
-Figma: `severity=info`, toast=false
+Figma: `severity=info`
 
 ```html
 <extra-message severity="info" summary="Информация" detail="Дополнительный текст"></extra-message>
@@ -46,7 +46,7 @@ Figma: `severity=info`, toast=false
 
 ### Success (успех)
 
-Figma: `severity=success`, toast=false
+Figma: `severity=success`
 
 ```html
 <extra-message severity="success" summary="Готово" detail="Операция выполнена"></extra-message>
@@ -54,7 +54,7 @@ Figma: `severity=success`, toast=false
 
 ### Warn (предупреждение)
 
-Figma: `severity=warning`, toast=false
+Figma: `severity=warning`
 
 ```html
 <extra-message severity="warn" summary="Внимание" detail="Проверьте данные"></extra-message>
@@ -62,7 +62,7 @@ Figma: `severity=warning`, toast=false
 
 ### Error / danger (ошибка)
 
-Figma: `severity=danger`, toast=false
+Figma: `severity=danger`
 
 ```html
 <extra-message severity="error" summary="Ошибка" detail="Не удалось сохранить"></extra-message>
@@ -115,7 +115,7 @@ Figma: `timer=true`
 - Полагайтесь на автоподбор иконки по `severity`; переопределяйте `icon` только при необходимости — используйте справочник [icons.md](../../figma-code-connect/icons.md)
 
 **Don't:**
-- Не используйте инлайн-Message как всплывающий toast — для системных самозакрывающихся уведомлений предназначен отдельный компонент (Figma `toast=true`)
+- Не используйте инлайн-Message как всплывающий toast — для системных самозакрывающихся уведомлений предназначен отдельный компонент (Figma `<Toast>`)
 - Не инлайньте CSS-классы иконок вручную в обход справочника [icons.md](../../figma-code-connect/icons.md)
 - Не задавайте `[life]` для постоянного статуса секции — автозакрытие уместно только для временных подтверждений
 - Не дублируйте текст ошибки в `summary` и `detail` — заголовок краткий, подробности в `detail`

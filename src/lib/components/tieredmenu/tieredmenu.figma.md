@@ -6,8 +6,8 @@ import:
   from: '@cdek-it/angular-ui-kit'
 figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '882:5971'
-  componentKey: 'dac71db22d352cd3fee3f5715363d3ee4a13a9bc'
+  nodeId: '18204:57983'
+  componentKey: 'edd218458f3543fe03731107b9cebf1a8810aa17'
   name: '<TieredMenu>'
 status: stable
 updated: '2026-06-22'
@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraTieredMenu` — вертикальное иерархическое меню с каскадными подменю, которые раскрываются вложенными оверлеями при наведении или фокусе на родительском пункте. Оборачивает PrimeNG `p-tieredmenu` и принимает дерево пунктов через единственную модель `model`.
 
-Компонент соответствует Figma-компоненту `<TieredMenu>` (nodeId `882:5971`) из библиотеки UI Kit (DS) v2.0. В отличие от `Menu` (плоский список без каскадов), `Menubar` (горизонтальная строка) и `PanelMenu` (аккордеон с раскрытием на месте), `ExtraTieredMenu` показывает вложенные подменю всплывающими панелями. Структура пунктов (`label`, `icon`, вложенность через `items[].items`) задаётся данными, а не Figma-свойствами компонента.
+Компонент соответствует Figma-компоненту `<TieredMenu>` (nodeId `18204:57983`) из библиотеки UI Kit (DS) v2.0. В отличие от `Menu` (плоский список без каскадов), `Menubar` (горизонтальная строка) и `PanelMenu` (аккордеон с раскрытием на месте), `ExtraTieredMenu` показывает вложенные подменю всплывающими панелями. Структура пунктов (`label`, `icon`, вложенность через `items[].items`) задаётся данными, а не Figma-свойствами компонента.
 
 ## Props mapping
 
@@ -44,7 +44,7 @@ updated: '2026-06-22'
 
 ### Базовое меню с вложенными подменю
 
-Figma: `<TieredMenu>`, nodeId `882:5971`
+Figma: `<TieredMenu>`, nodeId `18204:57983`
 
 ```html
 <extra-tieredmenu [model]="items"></extra-tieredmenu>

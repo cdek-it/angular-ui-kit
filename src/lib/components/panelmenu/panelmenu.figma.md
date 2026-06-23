@@ -6,18 +6,18 @@ import:
   from: '@cdek-it/angular-ui-kit'
 figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '884:7089'
+  nodeId: '16194:4753'
   componentKey: 'e1101a767cb5ae9a77bb06c11ea258da1b91a503'
   name: '<PanelMenu>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-06-23'
 ---
 
 ## Overview
 
 `ExtraPanelMenu` — вертикальное аккордеон-меню с вложенными разделами для боковой навигации. Пункты верхнего уровня отображаются как панели с chevron, раскрываются по клику и показывают вложенные пункты (рекурсивно). Оборачивает PrimeNG `p-panelmenu`.
 
-Компонент соответствует Figma-компоненту `<PanelMenu>` (nodeId `884:7089`) из библиотеки UI Kit (DS) v2.0. Структура меню задаётся декларативно через модель пунктов, а не через слоты. В отличие от `Accordion` (раскрытие произвольного контента) и `Menubar` (горизонтальная навигация), `ExtraPanelMenu` предназначен для вертикальной иерархической навигации с раскрываемыми разделами.
+Компонент соответствует Figma-компоненту `<PanelMenu>` (nodeId `16194:4753`) из библиотеки UI Kit (DS) v2.0. Структура меню задаётся декларативно через модель пунктов, а не через слоты. В отличие от `Accordion` (раскрытие произвольного контента) и `Menubar` (горизонтальная навигация), `ExtraPanelMenu` предназначен для вертикальной иерархической навигации с раскрываемыми разделами.
 
 ## Props mapping
 
@@ -33,7 +33,7 @@ updated: '2026-06-22'
 
 ### Single-open (одиночное раскрытие)
 
-Figma: `<PanelMenu>`, режим single-open — nodeId `884:7089`
+Figma: `<PanelMenu>`, режим single-open — nodeId `16194:4753`
 
 ```html
 <extra-panelmenu [model]="items"></extra-panelmenu>
@@ -41,7 +41,7 @@ Figma: `<PanelMenu>`, режим single-open — nodeId `884:7089`
 
 ### Multiple-open (множественное раскрытие)
 
-Figma: `<PanelMenu>`, режим multiple-open — nodeId `884:7089`
+Figma: `<PanelMenu>`, режим multiple-open — nodeId `16194:4753`
 
 ```html
 <extra-panelmenu [model]="items" [multiple]="true"></extra-panelmenu>
