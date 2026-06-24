@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, inject, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, inject, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FileUpload } from 'primeng/fileupload';
 import { ProgressBar } from 'primeng/progressbar';
@@ -118,6 +118,7 @@ import { ExtraButtonComponent } from '../button/button.component';
       </ng-template>
     </p-fileupload>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent implements ControlValueAccessor {
   private el = inject(ElementRef);
@@ -248,7 +249,7 @@ export class FileUploadComponent implements ControlValueAccessor {
 
     this.onChange(this.selectedFiles);
     this.onTouched();
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
     this.onSelectEvent.emit(event);
   }
 
@@ -262,7 +263,7 @@ export class FileUploadComponent implements ControlValueAccessor {
       this.uploadSuccess = true;
       this.isUploading = false;
       this.onChange([]);
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     }, 1500);
     this.onUpload.emit(event);
   }
@@ -276,7 +277,7 @@ export class FileUploadComponent implements ControlValueAccessor {
       this.isUploading = false;
     }
     this.onChange(this.selectedFiles);
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   onClearUpload(): void {
@@ -288,6 +289,6 @@ export class FileUploadComponent implements ControlValueAccessor {
     this.uploadSuccess = false;
     this.isUploading = false;
     this.onChange([]);
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 }
