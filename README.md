@@ -70,6 +70,48 @@ import { ExtraButtonComponent, ExtraTagComponent } from '@cdek-it/angular-ui-kit
 export class AppExample {}
 ```
 
+## Tailwind: цвета и тема из кита
+
+Кит публикует готовую Tailwind-тему, **сгенерированную из своих дизайн-токенов** (`tokens.json` —
+тот же источник, что и тема PrimeNG). Это значит: обновили палитру в ките → consumer'у достаточно
+bump'нуть версию, чтобы получить новые цвета, согласованные с компонентами `extra-*`.
+
+Генерация: `npm run generate:tailwind` (входит в `build:lib`). Артефакты: `tailwind/theme.css`
+(Tailwind v4 CSS-first `@theme`) и `tailwind/preset.cjs` (JS-пресет).
+
+### Подключение (новый, простой способ)
+
+**Tailwind v4 (CSS-first)** — одна строка в `styles.scss`:
+
+```scss
+@use "tailwindcss";
+@use "@cdek-it/angular-ui-kit/tailwind";
+```
+
+После этого доступны утилиты, согласованные с китом: `bg-primary`, `text-danger`, `bg-surface-ground`,
+`border-surface-border`, `text-text-muted`, `font-heading`, `rounded-200` и т.д. Semantic-цвета
+(`primary`, `surface-ground`, `text` и др.) ссылаются на runtime-переменные PrimeNG (`--p-*`) и
+**трекают `provideExtraThemes()`**; оттенки палитры — статический слепок (их runtime-имена
+нестандартны, поэтому зафиксированы в ките).
+
+**Tailwind v4 (`@config`) / v3 (JS-пресет)** — `tailwind.config.js`:
+
+```js
+const uiKit = require('@cdek-it/angular-ui-kit/tailwind/preset');
+module.exports = {
+  presets: [uiKit],
+  content: ['./index.html', './src/**/*.{html,ts}'],
+};
+```
+
+### Прежний способ
+
+Можно не использовать пресет кита и задавать палитру самостоятельно в `tailwind.config.js` /
+`styles.scss` (например, мостом legacy-переменных → `--p-*`). Кит ничего не навязывает —
+публикация темы **аддитивна**.
+
+---
+
 ## Используемые технологии и связанные зависимости
 
 ---
