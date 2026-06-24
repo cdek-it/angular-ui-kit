@@ -1,10 +1,19 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, inject, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FileUpload } from 'primeng/fileupload';
+import {
+  FileUpload,
+  FileSelectEvent,
+  FileRemoveEvent,
+  FileUploadErrorEvent,
+  FileUploadHandlerEvent,
+} from 'primeng/fileupload';
 import { ProgressBar } from 'primeng/progressbar';
 import { Message } from 'primeng/message';
 import { PrimeTemplate } from 'primeng/api';
 import { ExtraButtonComponent } from '../button/button.component';
+
+// PrimeNG добавляет objectURL для превью в рантайме, но не типизирует его
+type PreviewFile = File & { objectURL?: string };
 
 @Component({
   selector: 'fileupload',
@@ -142,14 +151,14 @@ export class FileUploadComponent implements ControlValueAccessor {
   @Input() invalidFileLimitMessageSummary = 'Превышен лимит файлов';
   @Input() invalidFileLimitMessageDetail = 'Максимум: {0}';
 
-  @Output() onSelectEvent = new EventEmitter<any>();
-  @Output() onRemoveEvent = new EventEmitter<any>();
+  @Output() onSelectEvent = new EventEmitter<FileSelectEvent>();
+  @Output() onRemoveEvent = new EventEmitter<FileRemoveEvent>();
   @Output() onClearEvent = new EventEmitter<void>();
-  @Output() onError = new EventEmitter<any>();
-  @Output() onUpload = new EventEmitter<any>();
+  @Output() onError = new EventEmitter<FileUploadErrorEvent>();
+  @Output() onUpload = new EventEmitter<FileUploadHandlerEvent>();
 
-  selectedFiles: any[] = [];
-  uploadedFiles: any[] = [];
+  selectedFiles: PreviewFile[] = [];
+  uploadedFiles: PreviewFile[] = [];
   totalSize = 0;
   totalSizePercent = 0;
   uploadSuccess = false;
@@ -232,7 +241,7 @@ export class FileUploadComponent implements ControlValueAccessor {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(3)) + ' ' + sizes[i];
   }
 
-  onSelectedFiles(event: any): void {
+  onSelectedFiles(event: FileSelectEvent): void {
     this.selectedFiles = [...(this.fuRef?.files || [])];
     this.totalSize = this.selectedFiles.reduce((acc, f) => acc + f.size, 0);
     this.uploadSuccess = false;
@@ -253,7 +262,7 @@ export class FileUploadComponent implements ControlValueAccessor {
     this.onSelectEvent.emit(event);
   }
 
-  onUploader(event: any): void {
+  onUploader(event: FileUploadHandlerEvent): void {
     setTimeout(() => {
       this.clearCbRef?.();
       this.selectedFiles = [];
