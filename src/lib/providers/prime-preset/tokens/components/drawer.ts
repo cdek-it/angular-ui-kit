@@ -8,7 +8,7 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* Нижняя граница и внутренние отступы заголовка */
 .p-drawer.p-component .p-drawer-header {
   border-bottom: 1px solid ${dt('drawer.extend.extHeader.borderColor')};
-  padding: ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.100')} ${dt('overlay.modal.padding.300')};
+  padding: ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.dimension_space_400')} ${dt('drawer.extend.overlay_modal_padding_300')};
 }
 
 /* Типографика */
@@ -24,11 +24,11 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* Внутренние отступы контента и футера */
 .p-drawer.p-component .p-drawer-content {
-  padding: ${dt('overlay.modal.padding.300')};
+  padding: ${dt('drawer.extend.overlay_modal_padding_300')};
 }
 
 .p-drawer.p-component .p-drawer-footer {
-  padding: 0 ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')} ${dt('overlay.modal.padding.300')};
+  padding: 0 ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.overlay_modal_padding_300')};
 }
 
 /* Боковые drawer (слева/справа) - базовые размеры и отступы от краев экрана */

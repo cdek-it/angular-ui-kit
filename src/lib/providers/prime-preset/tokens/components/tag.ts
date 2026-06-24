@@ -1,6 +1,6 @@
 export const tagCss = ({ dt }: { dt: (token: string) => string }): string => `
   .p-tag {
-    font-family: ${dt('fonts.fontFamily.base')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    font-family: ${dt('tag.extend.fonts_fontFamily_base')};
+    line-height: ${dt('tag.extend.fonts_lineHeight_250')};
   }
 `;
