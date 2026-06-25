@@ -2,39 +2,46 @@
  * СГЕНЕРИРОВАНО. Не править руками — источник: src/lib/providers/prime-preset/tokens/tokens.json.
  * Регенерация: `npm run generate:tailwind`.
  *
- * Tailwind v4 CSS-first тема кита @cdek-it/angular-ui-kit.
+ * Tailwind v4 CSS-first тема кита @cdek-it/angular-ui-kit. Единая точка истины — tokens.json
+ * (тот же источник, что и пресет PrimeNG provideExtraThemes()).
+ *
  * Подключение в проекте:
  *   @use "tailwindcss";
  *   @use "@cdek-it/angular-ui-kit/tailwind";
  *
- * Semantic-токены ссылаются на runtime-переменные PrimeNG (--p-*) — цвет трекает
- * provideExtraThemes(). Primitive-оттенки — статический слепок палитры кита
- * (их runtime-имена --p-* нестандартны, поэтому заморожены здесь).
+ * ВСЕ значения — статические литералы, разрешённые из tokens.json (semantic-токены из
+ * semantic.colorScheme.light.*, оттенки палитры — из colors.solid/alpha). Ссылок на runtime
+ * переменные PrimeNG (--p-*) НЕТ: тема кита одна (darkModeSelector: false), поэтому tokens
+ * совпадают с рантаймом, и статика = рантайм. Поменяли токен → пересобрали кит → у consumer'а
+ * обновилось (через bump версии).
+ *
+ * Покрытие: colors, fonts (--font-*), font-weight, font-size (--text-*), line-height (--leading-*),
+ * radius (--radius-*), shadow (--shadow-*), easing (--ease-*), spacing (--spacing).
  */
 
 @theme {
-  /* semantic — линк на runtime тему кита (--p-*) + hex-fallback */
-  --color-primary: var(--p-primary-color, #44e858);
-  --color-on-primary: var(--p-primary-contrast-color, #ffffff);
-  --color-primary-hover: var(--p-primary-hover-color, #1dc831);
-  --color-primary-active: var(--p-primary-active-color, #168322);
-  --color-surface-ground: var(--p-content-background, #ffffff);
-  --color-surface-section: var(--p-content-hover-background, #f0f0f1);
-  --color-surface-card: var(--p-content-background, #ffffff);
-  --color-surface-overlay: var(--p-overlay-background, #ffffff);
-  --color-surface-border: var(--p-content-border-color, #e2e2e4);
-  --color-surface-hover: var(--p-content-hover-background, #f0f0f1);
-  --color-text: var(--p-text-color, #2b2e33);
-  --color-text-muted: var(--p-text-muted-color, #85888e);
-  --color-text-secondary: var(--p-text-secondary-color, #6d7076);
-  --color-text-disabled: var(--p-text-disabled-color, #cecfd2);
-  --color-form-border: var(--p-form-field-border-color, #cecfd2);
-  --color-form-bg: var(--p-form-field-background, #ffffff);
-  --color-danger: var(--p-text-danger-color, #db3424);
-  --color-success: var(--p-text-success-color, #168322);
-  --color-warning: var(--p-text-warning-color, #dc9710);
-  --color-info: var(--p-text-info-color, #1e76cd);
-  --color-help: var(--p-text-help-color, #9333ea);
+  /* semantic — литералы из tokens.json (тема кита одна → tokens = рантайм) */
+  --color-foreground: #2b2e33;
+  --color-secondary: #6d7076;
+  --color-muted: #85888e;
+  --color-disabled: #cecfd2;
+  --color-primary: #44e858;
+  --color-on-primary: #ffffff;
+  --color-primary-hover: #1dc831;
+  --color-primary-active: #168322;
+  --color-surface-ground: #ffffff;
+  --color-surface-section: #f0f0f1;
+  --color-surface-card: #ffffff;
+  --color-surface-overlay: #ffffff;
+  --color-surface-border: #e2e2e4;
+  --color-surface-hover: #f0f0f1;
+  --color-form-border: #cecfd2;
+  --color-form-bg: #ffffff;
+  --color-danger: #db3424;
+  --color-success: #168322;
+  --color-warning: #dc9710;
+  --color-info: #1e76cd;
+  --color-help: #9333ea;
 
   /* primary — фирменный цвет кита (= green-палитра), оттенки */
   --color-primary-50: #fafffb;

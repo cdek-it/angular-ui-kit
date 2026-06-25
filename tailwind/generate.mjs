@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const TOKENS_PATH = resolve(ROOT, 'src/lib/providers/prime-preset/tokens/tokens.json');
-const OUT_DIR = resolve(ROOT, 'src/tailwind');
+const OUT_DIR = resolve(ROOT, 'tailwind');
 
 const tokens = JSON.parse(readFileSync(TOKENS_PATH, 'utf8'));
 const primitive = tokens.primitive;
@@ -107,32 +107,54 @@ function resolveInline(value) {
   });
 }
 
-// ── semantic → линк на runtime --p-* + hex-fallback из tokens.json ──────────
-// Имена --p-* — стандартные PrimeNG styled-mode (semantic.* => --p-*, camelCase → kebab).
-const SEMANTIC_LINKS = [
-  // [tailwind var, runtime --p-* name, fallback hex/value]
-  ['--color-primary', 'var(--p-primary-color)', solidHex('green', '500')],
-  ['--color-on-primary', 'var(--p-primary-contrast-color)', ALPHA.white[1000]],
-  ['--color-primary-hover', 'var(--p-primary-hover-color)', solidHex('green', '600')],
-  ['--color-primary-active', 'var(--p-primary-active-color)', solidHex('green', '700')],
-  ['--color-surface-ground', 'var(--p-content-background)', ALPHA.white[1000]],
-  ['--color-surface-section', 'var(--p-content-hover-background)', solidHex('zinc', '100')],
-  ['--color-surface-card', 'var(--p-content-background)', ALPHA.white[1000]],
-  ['--color-surface-overlay', 'var(--p-overlay-background)', ALPHA.white[1000]],
-  ['--color-surface-border', 'var(--p-content-border-color)', solidHex('zinc', '200')],
-  ['--color-surface-hover', 'var(--p-content-hover-background)', solidHex('zinc', '100')],
-  ['--color-text', 'var(--p-text-color)', solidHex('zinc', '900')],
-  ['--color-text-muted', 'var(--p-text-muted-color)', solidHex('zinc', '500')],
-  ['--color-text-secondary', 'var(--p-text-secondary-color)', solidHex('zinc', '600')],
-  ['--color-text-disabled', 'var(--p-text-disabled-color)', solidHex('zinc', '300')],
-  ['--color-form-border', 'var(--p-form-field-border-color)', solidHex('zinc', '300')],
-  ['--color-form-bg', 'var(--p-form-field-background)', ALPHA.white[1000]],
-  ['--color-danger', 'var(--p-text-danger-color)', solidHex('red', '600')],
-  ['--color-success', 'var(--p-text-success-color)', solidHex('green', '700')],
-  ['--color-warning', 'var(--p-text-warning-color)', solidHex('yellow', '600')],
-  ['--color-info', 'var(--p-text-info-color)', solidHex('blue', '600')],
-  ['--color-help', 'var(--p-text-help-color)', solidHex('purple', '600')]
+// ── semantic → литералы из tokens.json (статика) ────────────────────────────
+// Тема кита одна (darkModeSelector: false), пресет = definePreset(Aura, tokens), поэтому
+// значения semantic-токенов в tokens.json и есть финальные цвета. Резолвим их в литералы,
+// без линков на runtime --p-* (их имена у кастомного пресета нестандартны) и без fallback'ов.
+// Нейминг чистый: foreground/secondary/muted/disabled (утилиты text-foreground, text-secondary…).
+const SEMANTIC_TOKENS = [
+  // [tailwind var, путь в semantic.colorScheme.light.*]
+  ['--color-foreground', 'text.color'],
+  ['--color-secondary', 'text.secondaryColor'],
+  ['--color-muted', 'text.mutedColor'],
+  ['--color-disabled', 'text.disabledColor'],
+  ['--color-primary', 'primary.color'],
+  ['--color-on-primary', 'primary.contrastColor'],
+  ['--color-primary-hover', 'primary.hoverColor'],
+  ['--color-primary-active', 'primary.activeColor'],
+  ['--color-surface-ground', 'content.background'],
+  ['--color-surface-section', 'content.hoverBackground'],
+  ['--color-surface-card', 'content.background'],
+  ['--color-surface-overlay', 'overlay.select.background'],
+  ['--color-surface-border', 'content.borderColor'],
+  ['--color-surface-hover', 'content.hoverBackground'],
+  ['--color-form-border', 'form.borderColor'],
+  ['--color-form-bg', 'form.background'],
+  ['--color-danger', 'text.dangerColor'],
+  ['--color-success', 'text.successColor'],
+  ['--color-warning', 'text.warningColor'],
+  ['--color-info', 'text.infoColor'],
+  ['--color-help', 'text.helpColor']
 ];
+
+/** Разрешить semantic-токен по пути (text.color, primary.color, content.background…). */
+function semanticValue(path) {
+  return resolveToken(`{${path}}`);
+}
+
+/**
+ * Гард: значение должно разрешиться в конкретную величину. Иначе генератор падает с понятной
+ * ошибкой вместо того, чтобы молча написать `--x: undefined;` в тему.
+ */
+function assertResolved(twVar, value, path) {
+  if (value === undefined || value === null || value === '' || `${value}`.includes('{')) {
+    throw new Error(
+      `[generate-tailwind] токен не разрешён: ${twVar} ← semantic.${path} (получено "${value}"). ` +
+        `Проверьте путь в tokens.json (semantic.colorScheme.light.*).`
+    );
+  }
+  return value;
+}
 
 // ── service colors: семантика кита → какой solid-цвет несёт полный рейнж ─────
 const SERVICE_TO_SOLID = {
@@ -160,14 +182,21 @@ const HEADER = `/**
  * СГЕНЕРИРОВАНО. Не править руками — источник: src/lib/providers/prime-preset/tokens/tokens.json.
  * Регенерация: \`npm run generate:tailwind\`.
  *
- * Tailwind v4 CSS-first тема кита @cdek-it/angular-ui-kit.
+ * Tailwind v4 CSS-first тема кита @cdek-it/angular-ui-kit. Единая точка истины — tokens.json
+ * (тот же источник, что и пресет PrimeNG provideExtraThemes()).
+ *
  * Подключение в проекте:
  *   @use "tailwindcss";
  *   @use "@cdek-it/angular-ui-kit/tailwind";
  *
- * Semantic-токены ссылаются на runtime-переменные PrimeNG (--p-*) — цвет трекает
- * provideExtraThemes(). Primitive-оттенки — статический слепок палитры кита
- * (их runtime-имена --p-* нестандартны, поэтому заморожены здесь).
+ * ВСЕ значения — статические литералы, разрешённые из tokens.json (semantic-токены из
+ * semantic.colorScheme.light.*, оттенки палитры — из colors.solid/alpha). Ссылок на runtime
+ * переменные PrimeNG (--p-*) НЕТ: тема кита одна (darkModeSelector: false), поэтому tokens
+ * совпадают с рантаймом, и статика = рантайм. Поменяли токен → пересобрали кит → у consumer'а
+ * обновилось (через bump версии).
+ *
+ * Покрытие: colors, fonts (--font-*), font-weight, font-size (--text-*), line-height (--leading-*),
+ * radius (--radius-*), shadow (--shadow-*), easing (--ease-*), spacing (--spacing).
  */
 `;
 
@@ -176,10 +205,10 @@ function buildThemeCss() {
   const lines = [];
   lines.push('@theme {');
 
-  // semantic links
-  lines.push('  /* semantic — линк на runtime тему кита (--p-*) + hex-fallback */');
-  for (const [twVar, runtime, fallback] of SEMANTIC_LINKS) {
-    lines.push(`  ${twVar}: ${runtime.replace(')', `, ${fallback})`)};`);
+  // semantic — литералы из tokens.json (статика, через гард)
+  lines.push('  /* semantic — литералы из tokens.json (тема кита одна → tokens = рантайм) */');
+  for (const [twVar, path] of SEMANTIC_TOKENS) {
+    lines.push(`  ${twVar}: ${assertResolved(twVar, semanticValue(path), path)};`);
   }
 
   // primary = green-палитра (primary кита это green.500). DEFAULT уже задан в semantic-блоке выше.
@@ -256,13 +285,14 @@ function buildThemeCss() {
   // spacing — единственная ручка v4; из неё выводятся p/m/w/h/gap/inset/space/translate.
   lines.push('');
   lines.push('  /* spacing: множитель для p/m/w/h/gap/inset/… (v4: calc(var(--spacing)*N)) */');
-  lines.push(`  --spacing: ${SPACING_STEP};`);
+  lines.push(`  --spacing: ${assertResolved('--spacing', SPACING_STEP, "spacing['1x']")};`);
 
-  // shadows (со ссылками на alpha-цвета раскрываем инлайн)
+  // shadows (со ссылками на alpha-цвета раскрываем инлайн; гард ловит неразрешённые ref)
   lines.push('');
   lines.push('  /* shadows (box-shadow, {colors.alpha.*} раскрыты) */');
   for (const [k, v] of Object.entries(SHADOWS)) {
-    lines.push(`  --shadow-${k}: ${resolveInline(v)};`);
+    const resolved = resolveInline(v);
+    lines.push(`  --shadow-${k}: ${assertResolved(`--shadow-${k}`, resolved, `shadows.${k}`)};`);
   }
 
   // easing
@@ -285,4 +315,4 @@ mkdirSync(OUT_DIR, { recursive: true });
 const themeCss = `${HEADER}\n${buildThemeCss()}\n`;
 writeFileSync(resolve(OUT_DIR, 'theme.css'), themeCss);
 
-console.log('✓ Generated src/tailwind/theme.css');
+console.log('✓ Generated tailwind/theme.css');

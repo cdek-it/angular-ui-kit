@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
-const SRC = resolve(ROOT, 'src/tailwind');
+const SRC = resolve(ROOT, 'tailwind');
 const DIST = resolve(ROOT, 'dist');
 const DIST_TW = resolve(DIST, 'tailwind');
 const DIST_PKG = resolve(DIST, 'package.json');
