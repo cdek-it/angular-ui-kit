@@ -10,7 +10,7 @@ const template = `
     <extra-popover #popover appendTo="self">
       <div class="flex flex-col gap-2">
         <span class="font-semibold">Заголовок</span>
-        <p class="text-sm text-color-secondary">Дополнительное описание или любой произвольный контент внутри popover.</p>
+        <p class="text-sm text-secondary">Дополнительное описание или любой произвольный контент внутри popover.</p>
       </div>
     </extra-popover>
   </div>
@@ -52,7 +52,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     <extra-popover #popover appendTo="self">
       <div class="flex flex-col gap-2">
         <span class="font-semibold">Заголовок</span>
-        <p class="text-sm text-color-secondary">Дополнительное описание или любой произвольный контент внутри popover.</p>
+        <p class="text-sm text-secondary">Дополнительное описание или любой произвольный контент внутри popover.</p>
       </div>
     </extra-popover>
   \`,
