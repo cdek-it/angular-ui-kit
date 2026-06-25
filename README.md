@@ -70,45 +70,60 @@ import { ExtraButtonComponent, ExtraTagComponent } from '@cdek-it/angular-ui-kit
 export class AppExample {}
 ```
 
-## Tailwind: цвета и тема из кита
+## Tailwind v4: вся дизайн-система из кита
 
-Кит публикует готовую Tailwind-тему, **сгенерированную из своих дизайн-токенов** (`tokens.json` —
-тот же источник, что и тема PrimeNG). Это значит: обновили палитру в ките → consumer'у достаточно
-bump'нуть версию, чтобы получить новые цвета, согласованные с компонентами `extra-*`.
+Кит публикует готовую **Tailwind v4 CSS-first тему** (`@theme`), **полностью сгенерированную из
+своих дизайн-токенов** (`tokens.json` — тот же источник, что и тема PrimeNG). Это единая точка
+истины: поменяли токен в ките → consumer'у достаточно bump'нуть версию, чтобы получить обновление,
+согласованное с компонентами `extra-*`. Никаких JS-пресетов/`@config`/v3 — только v4 CSS-first.
 
-Генерация: `npm run generate:tailwind` (входит в `build:lib`). Артефакты: `tailwind/theme.css`
-(Tailwind v4 CSS-first `@theme`) и `tailwind/preset.cjs` (JS-пресет).
+Генерация: `npm run generate:tailwind` (входит в `build:lib`). Артефакт: `tailwind/theme.css`.
 
-### Подключение (новый, простой способ)
+### Подключение (одна строка)
 
-**Tailwind v4 (CSS-first)** — одна строка в `styles.scss`:
+В `styles.scss` проекта:
 
 ```scss
 @use "tailwindcss";
 @use "@cdek-it/angular-ui-kit/tailwind";
 ```
 
-После этого доступны утилиты, согласованные с китом: `bg-primary`, `text-danger`, `bg-surface-ground`,
-`border-surface-border`, `text-text-muted`, `font-heading`, `rounded-200` и т.д. Semantic-цвета
-(`primary`, `surface-ground`, `text` и др.) ссылаются на runtime-переменные PrimeNG (`--p-*`) и
-**трекают `provideExtraThemes()`**; оттенки палитры — статический слепок (их runtime-имена
+### Что отдаёт кит (утилиты из токенов)
+
+| Namespace | Токены | Утилиты |
+|---|---|---|
+| colors | палитра + semantic | `bg-primary`, `text-danger`, `bg-surface-ground`, `border-surface-border`, `text-zinc-500`, … |
+| fonts | `fontFamily` | `font-heading` (TT Fellows), `font-base` (PT Sans) |
+| font-weight | `fontWeight` | `font-regular/medium/demibold/bold` |
+| text (font-size) | `fontSize` | `text-100…text-1000` |
+| leading (line-height) | `lineHeight` | `leading-100…leading-1000`, `leading-auto` |
+| radius | `borderRadius` | `rounded-100…rounded-500`, `rounded-none`, `rounded-max` |
+| shadow | `shadows` | `shadow-100…shadow-500`, `shadow-none` |
+| ease | `transition.easing` | `ease-in/out/inOut` (плюс дефолтный `ease-linear`) |
+| spacing | `spacing["1x"]` | одна ручка `--spacing` (множитель); из неё v4 выводит `p/m/w/h/gap/inset/space/translate` |
+
+Semantic-цвета (`primary`, `surface-ground`, `text`, …) ссылаются на runtime-переменные PrimeNG
+(`--p-*`) и **трекают `provideExtraThemes()`**; оттенки палитры — статический слепок (их runtime-имена
 нестандартны, поэтому зафиксированы в ките).
 
-**Tailwind v4 (`@config`) / v3 (JS-пресет)** — `tailwind.config.js`:
+> Не вошли в `@theme` (нет v4-namespace): `sizing`, `borderWidth` (только `--default-border-width`),
+> `opacity`, `transition.duration`. Для них — дефолты v4 или произвольные значения
+> (`border-[3px]`, `w-[15rem]`, `opacity-[.25]`).
 
-```js
-const uiKit = require('@cdek-it/angular-ui-kit/tailwind/preset');
-module.exports = {
-  presets: [uiKit],
-  content: ['./index.html', './src/**/*.{html,ts}'],
-};
+### Кастомизация (без болей) — локальный `@theme` поверх
+
+```scss
+@use "tailwindcss";
+@use "@cdek-it/angular-ui-kit/tailwind";
+
+@theme {
+  --color-primary: #ff0000;   /* перебить */
+  --color-brand: #123456;     /* добавить */
+  --breakpoint-xs: 480px;     /* расширить */
+}
 ```
-
-### Прежний способ
-
-Можно не использовать пресет кита и задавать палитру самостоятельно в `tailwind.config.js` /
-`styles.scss` (например, мостом legacy-переменных → `--p-*`). Кит ничего не навязывает —
-публикация темы **аддитивна**.
+v4 мержит `@theme`-блоки (last-wins) — конфликта нет, кит править не нужно. Разделение: кит владеет
+дизайн-токенами, проект — build-конфигом (`content`-сканирование в v4 автоматическое, плагины через `@plugin`).
 
 ---
 

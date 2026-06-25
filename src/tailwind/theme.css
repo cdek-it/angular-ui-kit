@@ -389,6 +389,42 @@
   /* fonts (шрифтовые файлы китом не публикуются — без них fallback) */
   --font-heading: 'TT Fellows', sans-serif;
   --font-base: 'PT Sans', sans-serif;
+  /* font-weight (utilities: font-regular/medium/demibold/bold) */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-demibold: 600;
+  --font-weight-bold: 700;
+
+  /* font-size (--text-*), line-height (--leading-*) из типошкалы кита */
+  --text-100: 0.75rem;
+  --text-200: 0.875rem;
+  --text-300: 1rem;
+  --text-400: 1.125rem;
+  --text-500: 1.25rem;
+  --text-600: 1.5rem;
+  --text-650: 1.875rem;
+  --text-700: 2.25rem;
+  --text-750: 3rem;
+  --text-800: 3.75rem;
+  --text-900: 4.5rem;
+  --text-1000: 6rem;
+  --leading-100: 0.7857rem;
+  --leading-150: 0.8571rem;
+  --leading-200: 0.9286rem;
+  --leading-250: 1rem;
+  --leading-300: 1.0714rem;
+  --leading-350: 1.1429rem;
+  --leading-400: 1.2857rem;
+  --leading-450: 1.4286rem;
+  --leading-500: 1.5rem;
+  --leading-550: 1.5714rem;
+  --leading-600: 1.7143rem;
+  --leading-700: 1.8571rem;
+  --leading-800: 2.2857rem;
+  --leading-850: 2.3571rem;
+  --leading-900: 2.7857rem;
+  --leading-1000: 3.3571rem;
+  --leading-auto: auto;
 
   /* border-radius */
   --radius-100: 0.25rem;
@@ -398,4 +434,21 @@
   --radius-500: 1.5rem;
   --radius-none: 0rem;
   --radius-max: 71.3571rem;
+
+  /* spacing: множитель для p/m/w/h/gap/inset/… (v4: calc(var(--spacing)*N)) */
+  --spacing: 0.25rem;
+
+  /* shadows (box-shadow, {colors.alpha.*} раскрыты) */
+  --shadow-100: 0 0 0.1rem rgba(0, 0, 0, 0.2000);
+  --shadow-200: 0 0 0.25rem rgba(0, 0, 0, 0.2000);
+  --shadow-300: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.2000);
+  --shadow-400: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2000);
+  --shadow-500: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2000);
+  --shadow-none: none;
+
+  /* transition easing (--ease-*) */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.55, 0.06, 0.7, 0.2);
+  --ease-out: cubic-bezier(0.2, 0.6, 0.4, 1);
+  --ease-inOut: cubic-bezier(0.65, 0.05, 0.35, 1);
 }

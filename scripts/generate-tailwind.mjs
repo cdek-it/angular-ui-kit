@@ -1,12 +1,17 @@
 /**
- * Генератор Tailwind-артефактов из дизайн-токенов кита.
+ * Генератор Tailwind-темы кита (v4 CSS-first, @theme) из дизайн-токенов.
  *
  * Источник правды: src/lib/providers/prime-preset/tokens/tokens.json (тот же, что кормит
- * provideExtraThemes() / пресет Aura). На выходе:
- *   - src/tailwind/theme.css  — Tailwind v4 CSS-first (@theme)
- *   - src/tailwind/preset.cjs — JS-пресет (v4-@config / v3)
+ * provideExtraThemes() / пресет Aura). На выходе — src/tailwind/theme.css (@theme).
+ * Чистый v4: никакого JS-пресета/@config/v3.
  *
- * Запуск: `npm run generate:tailwind`. Включён в `build:lib`. НЕ правьте сгенерированные файлы руками.
+ * Запуск: `npm run generate:tailwind`. Включён в `build:lib`. НЕ правьте сгенерированный файл руками.
+ *
+ * Что маппится в v4-namespace'ы (@theme → утилиты): colors (--color-*), fonts (--font-*),
+ * font-weight (--font-weight-*), font-size (--text-*), line-height (--leading-*),
+ * border-radius (--radius-*), shadow (--shadow-*), transition-easing (--ease-*).
+ * НЕ маппится (нет v4-namespace, либо одиночный множитель): spacing (= v4 --spacing, 0.25rem),
+ * sizing, border-width (только --default-border-width), opacity, transition-duration.
  *
  * Почему primitive-палитра идёт статическим hex-слепком: у кита она вложена в `colors.solid.*`
  * (поверх Aura), поэтому runtime-имена `--p-*` у оттенков нестандартные/непредсказуемые. Только кит
@@ -90,6 +95,18 @@ function solidHex(color, shade) {
   return SOLID[color]?.[shade];
 }
 
+/**
+ * Разрешить все "{ref}" внутри строки (инлайн, напр. shadow "0 0 0.1rem {colors.alpha.black.200}").
+ * Целостный "{...}" значения тоже раскрывает. Нераспознанные ref оставляет как есть.
+ */
+function resolveInline(value) {
+  if (typeof value !== 'string') return value;
+  return value.replace(/\{([^}]+)\}/g, (_m, path) => {
+    const resolved = resolveToken(`{${path}}`);
+    return resolved === `{${path}}` ? `{${path}}` : String(resolved);
+  });
+}
+
 // ── semantic → линк на runtime --p-* + hex-fallback из tokens.json ──────────
 // Имена --p-* — стандартные PrimeNG styled-mode (semantic.* => --p-*, camelCase → kebab).
 const SEMANTIC_LINKS = [
@@ -126,10 +143,18 @@ const SERVICE_TO_SOLID = {
   help: 'purple'
 };
 
-// ── fonts / radius ──────────────────────────────────────────────────────────
+// ── fonts / type / radius / shadow / easing / spacing ───────────────────────
 const FONT_HEADING = primitive.fonts.fontFamily.heading; // 'TT Fellows'
 const FONT_BASE = primitive.fonts.fontFamily.base; // 'PT Sans'
+const FONT_WEIGHT = primitive.fonts.fontWeight; // {regular,medium,demibold,bold}
+const FONT_SIZE = primitive.fonts.fontSize; // {100..1000}
+const LINE_HEIGHT = primitive.fonts.lineHeight; // {100..1000, auto}
 const RADIUS = primitive.borderRadius; // {100,200,...,none,max}
+const SHADOWS = primitive.shadows; // {100..500, none} (со ссылками на alpha-цвета)
+const EASING = primitive.transition.easing; // {linear, in, out, inOut}
+// spacing: v4 отдаёт под spacing ОДНУ ручку --spacing (множитель). Базовый шаг кита —
+// primitive.spacing["1x"] (= 0.25rem); вся шкала (p/m/w/h/gap/inset/...) выводится v4 как calc(var(--spacing)*N).
+const SPACING_STEP = primitive.spacing['1x'];
 
 const HEADER = `/**
  * СГЕНЕРИРОВАНО. Не править руками — источник: src/lib/providers/prime-preset/tokens/tokens.json.
@@ -206,12 +231,45 @@ function buildThemeCss() {
   lines.push('  /* fonts (шрифтовые файлы китом не публикуются — без них fallback) */');
   lines.push(`  --font-heading: '${FONT_HEADING}', sans-serif;`);
   lines.push(`  --font-base: '${FONT_BASE}', sans-serif;`);
+  lines.push('  /* font-weight (utilities: font-regular/medium/demibold/bold) */');
+  for (const [k, v] of Object.entries(FONT_WEIGHT)) {
+    lines.push(`  --font-weight-${k}: ${v};`);
+  }
+
+  // type scale: font-size (--text-*) + line-height (--leading-*)
+  lines.push('');
+  lines.push('  /* font-size (--text-*), line-height (--leading-*) из типошкалы кита */');
+  for (const [k, v] of Object.entries(FONT_SIZE)) {
+    lines.push(`  --text-${k}: ${v};`);
+  }
+  for (const [k, v] of Object.entries(LINE_HEIGHT)) {
+    lines.push(`  --leading-${k}: ${v};`);
+  }
 
   // radius
   lines.push('');
   lines.push('  /* border-radius */');
   for (const [k, v] of Object.entries(RADIUS)) {
     lines.push(`  --radius-${k}: ${v};`);
+  }
+
+  // spacing — единственная ручка v4; из неё выводятся p/m/w/h/gap/inset/space/translate.
+  lines.push('');
+  lines.push('  /* spacing: множитель для p/m/w/h/gap/inset/… (v4: calc(var(--spacing)*N)) */');
+  lines.push(`  --spacing: ${SPACING_STEP};`);
+
+  // shadows (со ссылками на alpha-цвета раскрываем инлайн)
+  lines.push('');
+  lines.push('  /* shadows (box-shadow, {colors.alpha.*} раскрыты) */');
+  for (const [k, v] of Object.entries(SHADOWS)) {
+    lines.push(`  --shadow-${k}: ${resolveInline(v)};`);
+  }
+
+  // easing
+  lines.push('');
+  lines.push('  /* transition easing (--ease-*) */');
+  for (const [k, v] of Object.entries(EASING)) {
+    lines.push(`  --ease-${k}: ${v};`);
   }
 
   lines.push('}');
@@ -222,95 +280,9 @@ function shadesOf(color) {
   return Object.keys(SOLID[color] || {});
 }
 
-// ── preset.cjs (JS, v4-@config / v3) ────────────────────────────────────────
-function buildPresetCjs() {
-  // Строим colors-объект для theme.extend.colors
-  const colors = {};
-
-  // semantic DEFAULTs
-  const semanticDefaults = {
-    primary: `var(--p-primary-color, ${solidHex('green', '500')})`,
-    'on-primary': `var(--p-primary-contrast-color, ${ALPHA.white[1000]})`,
-    'surface-ground': `var(--p-content-background, ${ALPHA.white[1000]})`,
-    'surface-section': `var(--p-content-hover-background, ${solidHex('zinc', '100')})`,
-    'surface-card': `var(--p-content-background, ${ALPHA.white[1000]})`,
-    'surface-overlay': `var(--p-overlay-background, ${ALPHA.white[1000]})`,
-    'surface-border': `var(--p-content-border-color, ${solidHex('zinc', '200')})`,
-    'surface-hover': `var(--p-content-hover-background, ${solidHex('zinc', '100')})`,
-    color: `var(--p-text-color, ${solidHex('zinc', '900')})`,
-    'color-muted': `var(--p-text-muted-color, ${solidHex('zinc', '500')})`,
-    'color-secondary': `var(--p-text-secondary-color, ${solidHex('zinc', '600')})`,
-    danger: `var(--p-text-danger-color, ${solidHex('red', '600')})`,
-    success: `var(--p-text-success-color, ${solidHex('green', '700')})`,
-    warning: `var(--p-text-warning-color, ${solidHex('yellow', '600')})`,
-    info: `var(--p-text-info-color, ${solidHex('blue', '600')})`,
-    help: `var(--p-text-help-color, ${solidHex('purple', '600')})`
-  };
-  Object.assign(colors, semanticDefaults);
-
-  // primary ramp
-  colors.primary = { DEFAULT: semanticDefaults.primary };
-  for (const shade of shadesOf('green')) colors.primary[shade] = solidHex('green', shade);
-
-  // service ramps
-  for (const [name, solid] of Object.entries(SERVICE_TO_SOLID)) {
-    colors[name] = {};
-    for (const shade of shadesOf(solid)) colors[name][shade] = solidHex(solid, shade);
-  }
-
-  // surface ramp
-  colors.surface = { DEFAULT: semanticDefaults['surface-ground'] };
-  colors.surface[0] = ALPHA.white[1000];
-  for (const shade of shadesOf('zinc')) colors.surface[shade] = solidHex('zinc', shade);
-
-  // full solid palette
-  for (const color of SOLID_ORDER) {
-    if (!SOLID[color]) continue;
-    colors[color] = {};
-    for (const shade of shadesOf(color)) colors[color][shade] = solidHex(color, shade);
-  }
-
-  // white/black
-  colors.white = { DEFAULT: ALPHA.white[1000] };
-  for (const shade of Object.keys(ALPHA.white)) if (shade !== '1000') colors.white[shade] = ALPHA.white[shade];
-  colors.black = { DEFAULT: ALPHA.black[1000] };
-  for (const shade of Object.keys(ALPHA.black)) if (shade !== '1000') colors.black[shade] = ALPHA.black[shade];
-
-  const fontFamily = {
-    heading: [`'${FONT_HEADING}'`, 'sans-serif'],
-    base: [`'${FONT_BASE}'`, 'sans-serif']
-  };
-  const borderRadius = {};
-  for (const [k, v] of Object.entries(RADIUS)) borderRadius[k === 'none' ? 'none' : k] = v;
-
-  const preset = {
-    theme: { extend: { colors, fontFamily, borderRadius } }
-  };
-
-  return `/**
- * СГЕНЕРИРОВАНО. Не править руками — источник: src/lib/providers/prime-preset/tokens/tokens.json.
- * Регенерация: \`npm run generate:tailwind\`.
- *
- * JS-пресет Tailwind для @cdek-it/angular-ui-kit (v4-@config / v3).
- * Подключение в tailwind.config.js:
- *   const uiKit = require('@cdek-it/angular-ui-kit/tailwind/preset');
- *   module.exports = { presets: [uiKit], content: [...] };
- *
- * Для v4 CSS-first предпочтительнее theme.css (@use "@cdek-it/angular-ui-kit/tailwind").
- */
-module.exports = ${JSON.stringify(preset, null, 2)};
-`;
-}
-
 // ── write ───────────────────────────────────────────────────────────────────
 mkdirSync(OUT_DIR, { recursive: true });
 const themeCss = `${HEADER}\n${buildThemeCss()}\n`;
-const presetCjs = buildPresetCjs();
 writeFileSync(resolve(OUT_DIR, 'theme.css'), themeCss);
-writeFileSync(resolve(OUT_DIR, 'preset.cjs'), presetCjs);
-writeFileSync(
-  resolve(OUT_DIR, 'preset.d.ts'),
-  `import type { Config } from 'tailwindcss';\ndeclare const preset: Pick<Config, 'theme'>;\nexport default preset;\n`
-);
 
-console.log('✓ Generated src/tailwind/theme.css, preset.cjs, preset.d.ts');
+console.log('✓ Generated src/tailwind/theme.css');

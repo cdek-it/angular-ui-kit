@@ -26,28 +26,22 @@ if (!existsSync(DIST_PKG)) {
   process.exit(1);
 }
 
-// 1) Копируем артефакты
+// 1) Копируем артефакт (чистый v4 — только theme.css)
 mkdirSync(DIST_TW, { recursive: true });
-for (const f of ['theme.css', 'preset.cjs', 'preset.d.ts']) {
-  const from = resolve(SRC, f);
-  if (!existsSync(from)) {
-    console.error(`✗ ${from} не найден — выполните \`npm run generate:tailwind\` сначала.`);
-    process.exit(1);
-  }
-  copyFileSync(from, resolve(DIST_TW, f));
+const from = resolve(SRC, 'theme.css');
+if (!existsSync(from)) {
+  console.error(`✗ ${from} не найден — выполните \`npm run generate:tailwind\` сначала.`);
+  process.exit(1);
 }
+copyFileSync(from, resolve(DIST_TW, 'theme.css'));
 
-// 2) Патчим dist/package.json: добавляем exports для tailwind subpath'ов
+// 2) Патчим dist/package.json: exports для tailwind subpath'ов (v4 CSS-first only)
 const pkg = JSON.parse(readFileSync(DIST_PKG, 'utf8'));
 pkg.exports = pkg.exports || {};
 
 const cssEntry = { default: './tailwind/theme.css' };
 pkg.exports['./tailwind'] = cssEntry;
 pkg.exports['./tailwind/theme.css'] = cssEntry;
-pkg.exports['./tailwind/preset'] = {
-  types: './tailwind/preset.d.ts',
-  default: './tailwind/preset.cjs'
-};
 
 // CSS не должен вырезаться tree-shaking'ом при JS-импорте (для тех, кто импортит css через bundler).
 // Sass @use инлайнит CSS на этапе сборки — для основного сценария это не обязательно, но безопасно.
@@ -59,4 +53,4 @@ if (pkg.sideEffects === undefined || pkg.sideEffects === false) {
 
 writeFileSync(DIST_PKG, JSON.stringify(pkg, null, 2) + '\n');
 
-console.log('✓ dist/tailwind/{theme.css,preset.cjs,preset.d.ts} + exports patched');
+console.log('✓ dist/tailwind/theme.css + exports patched');
