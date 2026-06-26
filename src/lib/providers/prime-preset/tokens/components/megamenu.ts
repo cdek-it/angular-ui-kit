@@ -7,8 +7,8 @@ export const megamenuCss = ({ dt }: { dt: (token: string) => string }): string =
 
 /* ─── Типографика пунктов меню ─── */
 .p-megamenu-item-label {
-  font-size: ${dt('fonts.fontSize.300')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
+  font-size: ${dt('megamenu.extend.fonts_fontSize_300')};
+  font-weight: ${dt('megamenu.extend.fonts_fontWeight_regular')};
 }
 
 /* ─── Caption (описание) для кастомных пунктов ─── */
@@ -19,7 +19,7 @@ export const megamenuCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .p-megamenu .megamenu-item-caption {
-  font-size: ${dt('fonts.fontSize.200')};
+  font-size: ${dt('megamenu.extend.fonts_fontSize_200')};
   color: ${dt('megamenu.extend.extItem.caption.color')};
 }
 

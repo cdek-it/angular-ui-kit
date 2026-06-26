@@ -5,7 +5,7 @@ export const progressspinnerCss = ({ dt }: { dt: (token: string) => string }): s
 
 /* multicolor false */
 .p-progressspinner.p-progressspinner-monochrome .p-progressspinner-circle {
-    stroke: ${dt('primary.color')};
+    stroke: ${dt('progressspinner.extend.primary_color')};
     animation: p-progressspinner-dash 1.5s ease-in-out infinite;
 }
 
@@ -15,8 +15,8 @@ export const progressspinnerCss = ({ dt }: { dt: (token: string) => string }): s
   height: ${dt('progressspinner.extend.small')};
 }
 
-.p-progressspinner.p-progressspinner-medium,
-.p-progressspinner.p-progressspinner-medium .p-progressspinner-circle {
+.p-progressspinner.p-progressspinner-base,
+.p-progressspinner.p-progressspinner-base .p-progressspinner-circle {
   width: ${dt('progressspinner.extend.medium')};
   height: ${dt('progressspinner.extend.medium')};
 }

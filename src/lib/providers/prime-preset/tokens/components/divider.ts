@@ -15,9 +15,9 @@ export const dividerCss = ({ dt }: { dt: (token: string) => string }): string =>
     display: flex;
     align-items: center;
     gap: var(--p-divider-extend-content-gap);
-    font-family: ${dt('fonts.fontFamily.heading')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.demibold')};
+    font-family: ${dt('divider.extend.fonts_fontFamily_heading')};
+    font-size: ${dt('divider.extend.fonts_fontSize_200')};
+    font-weight: ${dt('divider.extend.fonts_fontWeight_demibold')};
   }
 
   .p-divider-content .ti {

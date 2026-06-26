@@ -14,7 +14,7 @@ const template = `
   template
 })
 export class ProgressSpinnerMonochromeComponent {
-  @Input() size: any = 'medium';
+  @Input() size: any = 'base';
   @Input() multicolor = false;
 }
 
@@ -24,7 +24,7 @@ export const Monochrome: StoryObj = {
     template: `<progressspinner-monochrome [size]="size" [multicolor]="multicolor"></progressspinner-monochrome>`
   }),
   args: {
-    size: 'medium',
+    size: 'base',
     multicolor: false
   },
   parameters: {

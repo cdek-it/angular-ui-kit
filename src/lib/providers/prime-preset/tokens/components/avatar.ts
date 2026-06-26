@@ -2,10 +2,10 @@ export const avatarCss = ({ dt }: { dt: (token: string) => string }): string => 
   :root {
     --p-avatar-extend-border-color:         ${dt('avatar.extend.borderColor')};
     --p-avatar-extend-circle-border-radius: ${dt('avatar.extend.circle.borderRadius')};
-    --p-avatar-group-border-color:          ${dt('content.background')};
-    --p-avatar-group-offset:                calc(-1 * ${dt('media.padding.300')});
-    --p-avatar-lg-group-offset:             calc(-1 * ${dt('media.padding.300')});
-    --p-avatar-xl-group-offset:             calc(-1 * ${dt('media.padding.600')});
+    --p-avatar-group-border-color:          ${dt('avatar.extend.content_background')};
+    --p-avatar-group-offset:                calc(-1 * ${dt('avatar.extend.media_padding_300')});
+    --p-avatar-lg-group-offset:             calc(-1 * ${dt('avatar.extend.media_padding_300')});
+    --p-avatar-xl-group-offset:             calc(-1 * ${dt('avatar.extend.media_padding_600')});
   }
 
   /* ─── Группировка: отступы для кастомных классов хост-элемента <avatar> ─── */

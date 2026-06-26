@@ -22,7 +22,7 @@ const template = `
       <div class="text-sm">Cell 2</div>
     </div>
   </extra-message>
-  <extra-message severity="warn" summary="Message" detail="caption" [closable]="true">
+  <extra-message severity="warning" summary="Message" detail="caption" [closable]="true">
     <div class="mt-4">
       <div class="text-sm">CONTENT</div>
     </div>
@@ -31,7 +31,7 @@ const template = `
       <div class="text-sm">Cell 2</div>
     </div>
   </extra-message>
-  <extra-message severity="error" summary="Message" detail="caption" [closable]="true">
+  <extra-message severity="danger" summary="Message" detail="caption" [closable]="true">
     <div class="mt-4">
       <div class="text-sm">CONTENT</div>
     </div>

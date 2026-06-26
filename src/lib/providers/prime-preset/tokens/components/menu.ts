@@ -4,10 +4,10 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
   }
 
   .p-menu .p-menu-item-content .p-menu-item-link .p-menu-item-label {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.400')};
+    font-family: ${dt('menu.extend.fonts_fontFamily_base')};
+    font-size: ${dt('menu.extend.fonts_fontSize_300')};
+    font-weight: ${dt('menu.extend.fonts_fontWeight_regular')};
+    line-height: ${dt('menu.extend.fonts_lineHeight_400')};
   }
 
   .p-menu .p-menu-item-content .menu-item-label {
@@ -17,9 +17,9 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
   }
 
   .p-menu .p-menu-item-content .menu-item-caption {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
+    font-family: ${dt('menu.extend.fonts_fontFamily_base')};
+    font-size: ${dt('menu.extend.fonts_fontSize_200')};
+    font-weight: ${dt('menu.extend.fonts_fontWeight_regular')};
     color: ${dt('menu.colorScheme.light.extend.extItem.caption.color')};
   }
 
@@ -60,8 +60,8 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   .p-menu .p-menu-submenu-label {
     text-transform: uppercase;
-    font-size: ${dt('fonts.fontSize.200')};
-    font-family: ${dt('fonts.fontFamily.heading')};
-    line-height: ${dt('fonts.lineHeight.400')};
+    font-size: ${dt('menu.extend.fonts_fontSize_200')};
+    font-family: ${dt('menu.extend.fonts_fontFamily_heading')};
+    line-height: ${dt('menu.extend.fonts_lineHeight_400')};
   }
 `;

@@ -24,14 +24,14 @@ export const toastCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* Заголовок toast */
   .p-toast-summary {
-    font-family: ${dt('fonts.fontFamily.base')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    font-family: ${dt('toast.extend.fonts_fontFamily_base')};
+    line-height: ${dt('toast.extend.fonts_lineHeight_250')};
   }
 
   /* Детальное описание toast */
   .p-toast-message .p-toast-detail {
-    font-family: ${dt('fonts.fontFamily.base')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    font-family: ${dt('toast.extend.fonts_fontFamily_base')};
+    line-height: ${dt('toast.extend.fonts_lineHeight_250')};
   }
 
   /* Кнопка закрытия toast-сообщения */

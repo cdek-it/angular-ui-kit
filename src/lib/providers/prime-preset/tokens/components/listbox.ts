@@ -33,8 +33,8 @@ export const listboxCss = ({ dt }: { dt: (token: string) => string }): string =>
   /* ─── Подпись элемента списка ─── */
   .p-listbox-option-caption {
     color: var(--p-listbox-extend-ext-option-caption-color);
-    font-size: ${dt('fonts.fontSize.200')};
-    font-family: ${dt('fonts.fontFamily.heading')};
+    font-size: ${dt('listbox.extend.fonts_fontSize_200')};
+    font-family: ${dt('listbox.extend.fonts_fontFamily_heading')};
   }
 
   /* ─── Галочка выбора ─── */

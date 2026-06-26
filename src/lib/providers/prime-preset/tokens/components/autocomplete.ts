@@ -8,14 +8,14 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   .p-autocomplete:has(input:disabled) .p-autocomplete-input,
   .p-autocomplete:has(input:disabled) .p-autocomplete-input-multiple,
   .p-autocomplete:has(input:disabled) .p-autocomplete-dropdown {
-    border-color: ${dt('form.borderColor')};
+    border-color: ${dt('autocomplete.extend.form_borderColor')};
   }
 
   /* ─── Инпут и границы ─── */
   .p-autocomplete .p-autocomplete-input {
     width: 100%;
     padding: ${dt('autocomplete.root.paddingY')} ${dt('autocomplete.root.paddingX')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('autocomplete.extend.fonts_lineHeight_250')};
   }
 
   /* Монолитный вид: убираем стыкующиеся границы инпута и dropdown-кнопки.
@@ -34,12 +34,12 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   .p-autocomplete.p-component:not(:has(input:disabled)):hover .p-inputtext.p-autocomplete-input,
   .p-autocomplete.p-component:not(:has(input:disabled)):hover .p-autocomplete-dropdown,
   .p-autocomplete.p-component:not(:has(input:disabled)):has(.p-autocomplete-input:hover) .p-autocomplete-dropdown {
-    border-color: ${dt('form.hoverBorderSecondaryColor')};
+    border-color: ${dt('autocomplete.extend.form_hoverBorderSecondaryColor')};
   }
 
   /* ─── States: Focus ─── */
   .p-autocomplete:has(.p-autocomplete-input:focus) .p-autocomplete-dropdown {
-    border-color: ${dt('form.focusBorderSecondaryColor')};
+    border-color: ${dt('autocomplete.extend.form_focusBorderSecondaryColor')};
   }
 
   /* ─── Иконки ─── */
@@ -49,12 +49,12 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete.p-component:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
-    inset-inline-end: ${dt('form.width.300')};
+    inset-inline-end: ${dt('autocomplete.extend.form_width_300')};
   }
 
   /* ─── Multiple: чипсы ─── */
   .p-autocomplete .p-autocomplete-input-multiple {
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('autocomplete.extend.fonts_lineHeight_250')};
     padding: ${dt('autocomplete.root.paddingY')} ${dt('autocomplete.root.paddingX')};
   }
 
@@ -138,8 +138,8 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete.p-component .p-inputtext-xlg .p-autocomplete-chip {
-    padding-top: ${dt('spacing.2x')};
-    padding-bottom: ${dt('spacing.2x')};
-    font-size: ${dt('fonts.fontSize.300')};
+    padding-top: ${dt('autocomplete.extend.dimension_space_200')};
+    padding-bottom: ${dt('autocomplete.extend.dimension_space_200')};
+    font-size: ${dt('autocomplete.extend.fonts_fontSize_300')};
   }
 `;
