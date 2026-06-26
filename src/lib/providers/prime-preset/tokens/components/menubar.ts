@@ -5,13 +5,13 @@ export const menubarCss = ({ dt }: { dt: (token: string) => string }): string =>
   }
 
   .p-menubar-item-label {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
+    font-family: ${dt('menubar.extend.fonts_fontFamily_base')};
+    font-size: ${dt('menubar.extend.fonts_fontSize_300')};
+    font-weight: ${dt('menubar.extend.fonts_fontWeight_regular')};
   }
 
   .p-menubar-item-caption {
-    font-size: ${dt('fonts.fontSize.200')};
+    font-size: ${dt('menubar.extend.fonts_fontSize_200')};
     color: ${dt('menubar.extend.extItem.caption.color')};
   }
 
@@ -22,7 +22,7 @@ export const menubarCss = ({ dt }: { dt: (token: string) => string }): string =>
   }
 
   .p-menubar .menubar-item-caption {
-    font-size: ${dt('fonts.fontSize.200')};
+    font-size: ${dt('menubar.extend.fonts_fontSize_200')};
     color: ${dt('menubar.extend.extItem.caption.color')};
   }
 

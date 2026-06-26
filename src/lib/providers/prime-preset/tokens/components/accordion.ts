@@ -5,8 +5,8 @@
 export const accordionCss = ({ dt }: { dt: (token: string) => string }): string => `
   /* ─── Шрифт заголовка ─── */
   .p-accordionheader {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
+    font-family: ${dt('accordion.extend.fonts_fontFamily_base')};
+    font-size: ${dt('accordion.extend.fonts_fontSize_300')};
   }
 
   /* ─── Размер иконки toggle ─── */
