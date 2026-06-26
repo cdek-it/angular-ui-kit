@@ -21,7 +21,7 @@
 
 @theme {
   /* semantic — литералы из tokens.json (тема кита одна → tokens = рантайм) */
-  --color-foreground: #2b2e33;
+  --color-foreground: #56595f;
   --color-secondary: #6d7076;
   --color-muted: #85888e;
   --color-disabled: #cecfd2;
@@ -38,7 +38,7 @@
   --color-form-border: #cecfd2;
   --color-form-bg: #ffffff;
   --color-danger: #db3424;
-  --color-success: #168322;
+  --color-success: #1dc831;
   --color-warning: #dc9710;
   --color-info: #1e76cd;
   --color-help: #9333ea;
@@ -372,7 +372,12 @@
   --color-rose-950: #4c0519;
 
   /* alpha white/black (colors.alpha.*) */
+  --color-white-10: rgba(255, 255, 255, 0.0100);
+  --color-white-40: rgba(255, 255, 255, 0.0400);
+  --color-white-50: rgba(255, 255, 255, 0.0500);
+  --color-white-60: rgba(255, 255, 255, 0.0600);
   --color-white-100: rgba(255, 255, 255, 0.1000);
+  --color-white-160: rgba(255, 255, 255, 0.1600);
   --color-white-200: rgba(255, 255, 255, 0.2000);
   --color-white-300: rgba(255, 255, 255, 0.3000);
   --color-white-400: rgba(255, 255, 255, 0.4000);
@@ -380,6 +385,7 @@
   --color-white-600: rgba(255, 255, 255, 0.6000);
   --color-white-700: rgba(255, 255, 255, 0.7000);
   --color-white-800: rgba(255, 255, 255, 0.8000);
+  --color-white-870: rgba(255, 255, 255, 0.8700);
   --color-white-900: rgba(255, 255, 255, 0.9000);
   --color-white-DEFAULT: #ffffff;
   --color-black-100: rgba(0, 0, 0, 0.1000);
