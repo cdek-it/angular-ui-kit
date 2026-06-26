@@ -4,11 +4,13 @@ import { Sizes, ProgressSpinnerSizesComponent } from './examples/progressspinner
 import { Monochrome, ProgressSpinnerMonochromeComponent } from './examples/progressspinner-monochrome.component';
 
 const meta: Meta<ExtraProgressSpinnerComponent> = {
-  title: 'Prime/Misc/ProgressSpinner',
+  title: 'Components/Misc/ProgressSpinner',
   component: ExtraProgressSpinnerComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({ imports: [ExtraProgressSpinnerComponent, ProgressSpinnerSizesComponent, ProgressSpinnerMonochromeComponent] })
+    moduleMetadata({
+      imports: [ExtraProgressSpinnerComponent, ProgressSpinnerSizesComponent, ProgressSpinnerMonochromeComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -17,10 +19,10 @@ const meta: Meta<ExtraProgressSpinnerComponent> = {
 
 \`\`\`typescript
 import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-progressspinner' },
+    designTokens: { prefix: '--p-progressspinner' }
   },
   argTypes: {
     size: {
@@ -30,8 +32,8 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'base' },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     multicolor: {
       control: 'boolean',
@@ -39,14 +41,14 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     strokeWidth: {
-      table: { disable: true },
+      table: { disable: true }
     },
     fill: {
-      table: { disable: true },
+      table: { disable: true }
     },
     animationDuration: {
       control: 'text',
@@ -54,20 +56,20 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '2s' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     ariaLabel: {
-      table: { disable: true },
-    },
+      table: { disable: true }
+    }
   },
   args: {
     size: 'base',
     multicolor: true,
     strokeWidth: '2',
     fill: 'none',
-    animationDuration: '2s',
-  },
+    animationDuration: '2s'
+  }
 };
 
 export default meta;
