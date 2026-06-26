@@ -30,7 +30,7 @@ export const Sizes: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Все доступные размеры аватара: normal, large, xlarge.'
+        story: 'Все доступные размеры аватара: base, large, xlarge.'
       },
       source: {
         language: 'ts',

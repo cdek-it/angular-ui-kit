@@ -5,7 +5,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
 
 export type ExtraConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
-export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warn' | 'help' | 'danger' | 'default';
+export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warning' | 'help' | 'danger' | 'default';
 
 @Directive({ selector: '[extraConfirmDialogHeader]', standalone: true })
 export class ExtraConfirmDialogHeaderDirective {}
@@ -84,7 +84,7 @@ export class ExtraConfirmDialogComponent {
     const severityMap: Record<ExtraConfirmDialogSeverity, string> = {
       success: 'p-confirm-dialog-accept',
       info: 'p-confirm-dialog-info',
-      warn: 'p-confirm-dialog-warn',
+      warning: 'p-confirm-dialog-warn',
       help: 'p-confirm-dialog-help',
       danger: 'p-confirm-dialog-error',
       default: ''
