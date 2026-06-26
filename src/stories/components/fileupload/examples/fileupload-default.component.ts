@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { FileUploadComponent } from '../../../../lib/components/fileupload/fileupload.component';
+import { ExtraFileUploadComponent } from '../../../../lib/components/fileupload/fileupload.component';
 
 @Component({
   selector: 'app-fileupload-default',
   standalone: true,
-  imports: [FileUploadComponent],
+  imports: [ExtraFileUploadComponent],
   template: `
-    <fileupload
+    <extra-fileupload
       [multiple]="multiple"
       [accept]="accept"
       [maxFileSize]="maxFileSize"
       [disabled]="disabled"
-    ></fileupload>
+    ></extra-fileupload>
   `,
 })
 export class FileUploadDefaultComponent {

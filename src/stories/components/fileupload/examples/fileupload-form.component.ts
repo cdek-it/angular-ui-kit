@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { FileUploadComponent } from '../../../../lib/components/fileupload/fileupload.component';
+import { ExtraFileUploadComponent } from '../../../../lib/components/fileupload/fileupload.component';
 
 @Component({
   selector: 'app-fileupload-form',
   standalone: true,
-  imports: [FileUploadComponent, ReactiveFormsModule],
+  imports: [ExtraFileUploadComponent, ReactiveFormsModule],
   template: `
     <form>
-      <fileupload [formControl]="control"></fileupload>
+      <extra-fileupload [formControl]="control"></extra-fileupload>
       @if (control.invalid && control.touched) {
         <p style="color: var(--p-red-500); margin-top: 0.5rem;">Необходимо выбрать хотя бы один файл</p>
       }

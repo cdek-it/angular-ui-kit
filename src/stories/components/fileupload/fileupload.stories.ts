@@ -1,12 +1,12 @@
 import { Meta, StoryObj, applicationConfig, moduleMetadata } from '@storybook/angular';
 import { provideHttpClient } from '@angular/common/http';
-import { FileUploadComponent } from '../../../lib/components/fileupload/fileupload.component';
+import { ExtraFileUploadComponent } from '../../../lib/components/fileupload/fileupload.component';
 import { FileUploadDefaultComponent } from './examples/fileupload-default.component';
 import { FileUploadFormComponent } from './examples/fileupload-form.component';
 
-const meta: Meta<FileUploadComponent> = {
+const meta: Meta<ExtraFileUploadComponent> = {
   title: 'Components/Form/FileUpload',
-  component: FileUploadComponent,
+  component: ExtraFileUploadComponent,
   tags: ['autodocs'],
   decorators: [
     applicationConfig({ providers: [provideHttpClient()] }),
@@ -20,7 +20,7 @@ const meta: Meta<FileUploadComponent> = {
         component: `Компонент загрузки файлов с поддержкой drag-and-drop, прогресс-бара и предпросмотра файлов.
 
 \`\`\`typescript
-import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -81,7 +81,7 @@ import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
 };
 
 export default meta;
-type Story = StoryObj<FileUploadComponent>;
+type Story = StoryObj<ExtraFileUploadComponent>;
 
 export const WithForm: Story = {
   name: 'Reactive Form',
@@ -98,12 +98,12 @@ export const WithForm: Story = {
         code: `
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [FileUploadComponent, ReactiveFormsModule],
-  template: \`<fileupload [formControl]="control"></fileupload>\`,
+  imports: [ExtraFileUploadComponent, ReactiveFormsModule],
+  template: \`<extra-fileupload [formControl]="control"></extra-fileupload>\`,
 })
 export class ExampleComponent {
   control = new FormControl<File[]>([], { validators: [Validators.required] });
@@ -147,18 +147,18 @@ export const Default: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { FileUploadComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [FileUploadComponent],
+  imports: [ExtraFileUploadComponent],
   template: \`
-    <fileupload
+    <extra-fileupload
       [multiple]="true"
       accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       [maxFileSize]="1000000"
-    ></fileupload>
+    ></extra-fileupload>
   \`,
 })
 export class ExampleComponent {}

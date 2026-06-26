@@ -10,17 +10,17 @@ import {
 import { ProgressBar } from 'primeng/progressbar';
 import { Message } from 'primeng/message';
 import { PrimeTemplate } from 'primeng/api';
-import { ExtraButtonComponent } from '../button/button.component';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
 
 // PrimeNG добавляет objectURL для превью в рантайме, но не типизирует его
 type PreviewFile = File & { objectURL?: string };
 
 @Component({
-  selector: 'fileupload',
+  selector: 'extra-fileupload',
   standalone: true,
   imports: [FileUpload, ProgressBar, Message, PrimeTemplate, ExtraButtonComponent],
   host: { style: 'display: contents' },
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FileUploadComponent), multi: true }],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraFileUploadComponent), multi: true }],
   template: `
     <p-fileupload
       #fuRef
@@ -129,7 +129,7 @@ type PreviewFile = File & { objectURL?: string };
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FileUploadComponent implements ControlValueAccessor {
+export class ExtraFileUploadComponent implements ControlValueAccessor {
   private el = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
   @ViewChild('fuRef') fuRef!: FileUpload;
