@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// Tailwind v4 CSS-first. Демо/бин кита «ест свой корм»: тема (цвета/типографика/radius/тени/easing)
+// берётся из собственного сгенерированного @theme — того же, что кит публикует consumer'ам.
+@use 'tailwindcss';
+// Демо кита «ест свой корм» — подключает собственную сгенерированную тему напрямую из tailwind/theme.css.
+@use '../tailwind/theme.css';
 
 @import '@tabler/icons-webfont/dist/tabler-icons.min.css';
 
