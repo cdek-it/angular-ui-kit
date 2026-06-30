@@ -35,6 +35,6 @@ export const RU_TRANSLATION: Partial<Translation> = {
     unselectAll: 'Снять всё',
     trueLabel: 'Да',
     falseLabel: 'Нет',
-    nullLabel: 'Не выбрано',
-  },
+    nullLabel: 'Не выбрано'
+  }
 };

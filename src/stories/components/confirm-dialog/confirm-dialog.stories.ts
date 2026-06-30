@@ -63,12 +63,12 @@ import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, provideExtraCon
     },
     severity: {
       control: 'select',
-      options: ['default', 'success', 'info', 'warn', 'help', 'danger'],
+      options: ['default', 'success', 'info', 'warning', 'help', 'danger'],
       description: 'Цветовая схема иконки в заголовке',
       table: {
         category: 'Props',
         defaultValue: { summary: 'default' },
-        type: { summary: "'default' | 'success' | 'info' | 'warn' | 'help' | 'danger'" }
+        type: { summary: "'default' | 'success' | 'info' | 'warning' | 'help' | 'danger'" }
       }
     }
   }

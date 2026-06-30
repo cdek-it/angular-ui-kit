@@ -54,12 +54,12 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
     },
     size: {
       control: 'select',
-      options: ['normal', 'large', 'xlarge'],
+      options: ['base', 'large', 'xlarge'],
       description: 'Размер аватара',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'normal' },
-        type: { summary: "'normal' | 'large' | 'xlarge'" }
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'large' | 'xlarge'" }
       }
     },
     shape: {
@@ -98,7 +98,7 @@ export const Default: Story = {
     if (args.label) parts.push(`label="${args.label}"`);
     if (args.icon) parts.push(`icon="${args.icon}"`);
     if (args.image) parts.push(`image="${args.image}"`);
-    if (args.size && args.size !== 'normal') parts.push(`size="${args.size}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.shape && args.shape !== 'square') parts.push(`shape="${args.shape}"`);
 
     const template = parts.length
@@ -109,7 +109,7 @@ export const Default: Story = {
   },
   args: {
     label: 'A',
-    size: 'normal',
+    size: 'base',
     shape: 'square'
   },
   parameters: {
@@ -125,7 +125,7 @@ export const Default: Story = {
 
 export const Label: Story = {
   render: (args) => ({ props: args, template: commonTemplate }),
-  args: { label: 'A', size: 'normal', shape: 'square' },
+  args: { label: 'A', size: 'base', shape: 'square' },
   parameters: {
     docs: {
       description: { story: 'Аватар с текстовой меткой.' },
@@ -140,7 +140,7 @@ export const Label: Story = {
 
 export const Icon: Story = {
   render: (args) => ({ props: args, template: commonTemplate }),
-  args: { icon: 'ti ti-user', size: 'normal', shape: 'square' },
+  args: { icon: 'ti ti-user', size: 'base', shape: 'square' },
   parameters: {
     docs: {
       description: { story: 'Аватар с иконкой.' },
@@ -155,7 +155,7 @@ export const Icon: Story = {
 
 export const Image: Story = {
   render: (args) => ({ props: args, template: commonTemplate }),
-  args: { image: '/assets/images/avatar/avatar.png', size: 'normal', shape: 'square' },
+  args: { image: '/assets/images/avatar/avatar.png', size: 'base', shape: 'square' },
   parameters: {
     docs: {
       description: {
@@ -175,7 +175,7 @@ export const Sizes: Story = {
   args: { label: 'L', size: 'large', shape: 'square' },
   parameters: {
     docs: {
-      description: { story: 'Размер аватара. Доступны: normal, large, xlarge.' },
+      description: { story: 'Размер аватара. Доступны: base, large, xlarge.' },
       source: {
         code: `<extra-avatar label="L" size="large"></extra-avatar>`
       }
@@ -187,7 +187,7 @@ export const Sizes: Story = {
 
 export const Shapes: Story = {
   render: (args) => ({ props: args, template: commonTemplate }),
-  args: { label: 'C', size: 'normal', shape: 'circle' },
+  args: { label: 'C', size: 'base', shape: 'circle' },
   parameters: {
     docs: {
       description: { story: 'Форма аватара. circle — круглый, square — квадратный (по умолчанию).' },

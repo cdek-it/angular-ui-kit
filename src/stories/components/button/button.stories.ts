@@ -70,12 +70,12 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outlined', 'text', 'link'],
+      options: ['primary', 'secondary', 'tertiary', 'text', 'link'],
       description: 'Вариант отображения кнопки',
       table: {
         category: 'Props',
         defaultValue: { summary: 'primary' },
-        type: { summary: "'primary' | 'secondary' | 'outlined' | 'text' | 'link'" }
+        type: { summary: "'primary' | 'secondary' | 'tertiary' | 'text' | 'link'" }
       }
     },
     size: {
@@ -97,7 +97,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' }
       }
     },
-    iconPos: {
+    iconPosition: {
       control: 'select',
       options: [null, 'prefix', 'postfix'],
       description: 'Позиция иконки относительно текста',
@@ -244,7 +244,7 @@ const commonTemplate = `
   [severity]="severity"
   [size]="size"
   [rounded]="rounded"
-  [iconPos]="iconPos"
+  [iconPosition]="iconPosition"
   [iconOnly]="iconOnly"
   [icon]="icon"
   [disabled]="disabled"
@@ -275,7 +275,7 @@ export const Default: Story = {
     if (args.variant != null) parts.push(`variant="${args.variant}"`);
     if (args.size != null) parts.push(`size="${args.size}"`);
     if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
-    if (args.iconPos != null) parts.push(`iconPos="${args.iconPos}"`);
+    if (args.iconPosition != null) parts.push(`iconPosition="${args.iconPosition}"`);
     if (args.rounded) parts.push(`[rounded]="true"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.loading) parts.push(`[loading]="true"`);

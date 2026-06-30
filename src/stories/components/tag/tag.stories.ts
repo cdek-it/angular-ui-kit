@@ -35,12 +35,12 @@ const meta: Meta<TagArgs> = {
     },
     severity: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'info', 'warn', 'danger'],
+      options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger'],
       description: 'Вариант цветового оформления',
       table: {
         category: 'Props',
         defaultValue: { summary: "'primary'" },
-        type: { summary: "'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger'" }
+        type: { summary: "'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger'" }
       }
     },
     rounded: {

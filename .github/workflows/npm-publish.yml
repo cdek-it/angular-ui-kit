@@ -26,13 +26,11 @@ jobs:
         with:
           version: ${{github.ref_name}}
       - name: Sync src/lib/package.json version with root package.json
+        # Only sync the file in the working tree — the build/publish read it from here.
+        # Do NOT commit/push back: `main` is a protected branch and rejects direct pushes
+        # (GH013: Changes must be made through a pull request).
         run: |
           node -e "const fs=require('fs'); const path='src/lib/package.json'; const root=JSON.parse(fs.readFileSync('package.json')); const lib=JSON.parse(fs.readFileSync(path)); if(lib.version!==root.version){ lib.version=root.version; fs.writeFileSync(path, JSON.stringify(lib,null,2)+'\n'); }"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/lib/package.json
-          # commit only if there are staged changes
-          git diff --cached --quiet || (git commit -m "chore(release): sync src/lib package version to ${{github.ref_name}}" && git push origin HEAD:refs/heads/${{ github.event.release.target_commitish }})
       - run: npm run build:lib
       - name: Prepare dist/package.json
         run: |

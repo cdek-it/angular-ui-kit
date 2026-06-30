@@ -4,11 +4,13 @@ import { Sizes, ProgressSpinnerSizesComponent } from './examples/progressspinner
 import { Monochrome, ProgressSpinnerMonochromeComponent } from './examples/progressspinner-monochrome.component';
 
 const meta: Meta<ExtraProgressSpinnerComponent> = {
-  title: 'Prime/Misc/ProgressSpinner',
+  title: 'Components/Misc/ProgressSpinner',
   component: ExtraProgressSpinnerComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({ imports: [ExtraProgressSpinnerComponent, ProgressSpinnerSizesComponent, ProgressSpinnerMonochromeComponent] })
+    moduleMetadata({
+      imports: [ExtraProgressSpinnerComponent, ProgressSpinnerSizesComponent, ProgressSpinnerMonochromeComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -17,21 +19,21 @@ const meta: Meta<ExtraProgressSpinnerComponent> = {
 
 \`\`\`typescript
 import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-progressspinner' },
+    designTokens: { prefix: '--p-progressspinner' }
   },
   argTypes: {
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large', 'xlarge'],
+      options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер спиннера (задает вычисленные CSS-классы).',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'medium' },
-        type: { summary: "'small' | 'medium' | 'large' | 'xlarge'" },
-      },
+        defaultValue: { summary: 'base' },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     multicolor: {
       control: 'boolean',
@@ -39,14 +41,14 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     strokeWidth: {
-      table: { disable: true },
+      table: { disable: true }
     },
     fill: {
-      table: { disable: true },
+      table: { disable: true }
     },
     animationDuration: {
       control: 'text',
@@ -54,20 +56,20 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: '2s' },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     ariaLabel: {
-      table: { disable: true },
-    },
+      table: { disable: true }
+    }
   },
   args: {
-    size: 'medium',
+    size: 'base',
     multicolor: true,
     strokeWidth: '2',
     fill: 'none',
-    animationDuration: '2s',
-  },
+    animationDuration: '2s'
+  }
 };
 
 export default meta;
@@ -79,7 +81,7 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.size && args.size !== 'medium') parts.push(`size="${args.size}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (!args.multicolor) parts.push(`[multicolor]="false"`);
     if (args.strokeWidth && args.strokeWidth !== '2') parts.push(`strokeWidth="${args.strokeWidth}"`);
     if (args.fill && args.fill !== 'none') parts.push(`fill="${args.fill}"`);
