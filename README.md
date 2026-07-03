@@ -14,7 +14,7 @@ npm install @cdek-it/angular-ui-kit
 2. Подключите провайдеры в ваш angular-проект. Важно: для корректной работы стилей необходимо использовать `provideExtraThemes()` в списке провайдеров, например:
 
 ```ts
-import { provideExtraThemes } from '@cdek-it/angular-ui-kit';
+import { provideExtraThemes } from '@cdek-it/angular-ui-kit/providers';
 import { provideBrowserGlobalErrorListeners } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -48,7 +48,8 @@ export const appConfig: ApplicationConfig = {
 ```ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExtraButtonComponent, ExtraTagComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit/components/tag';
 
 @Component({
   selector: 'app-example',
@@ -133,7 +134,7 @@ v4 мержит `@theme`-блоки (last-wins) — конфликта нет, �
 *<span style="color: gray; font-size: 10px;">используйте в своём проекте</span>*
 - Angular 20
 - PrimeNG 20
-- tailwindcss 3
+- tailwindcss 4
 - @tabler/icons-webfont 3
 - Node 20
 - ESlint
@@ -147,9 +148,13 @@ v4 мержит `@theme`-блоки (last-wins) — конфликта нет, �
 ## Структура проекта
 
 - `src/app` - базовое angular-приложение. Может использоваться как плейграунд для разработки и отладки.
-- `src/stories` - набор story с компонентами для storybook.
-- `src/prime-preset` - пресет темы и токены (используется библиотекой для совместимости с PrimeNG).
-- `src/lib` - исходники компонентов и сервисов библиотеки (компоненты, сервисы, модули и публичный API).
+- `src/stories` - story с компонентами для Storybook.
+- `src/lib` - исходники библиотеки:
+  - `src/lib/components` - компоненты и директивы `extra-*`. Каждый компонент — отдельная entry-точка пакета: `@cdek-it/angular-ui-kit/components/<name>`.
+  - `src/lib/providers` - провайдеры (`provideExtraThemes`) и пресет темы PrimeNG с дизайн-токенами (`src/lib/providers/prime-preset`).
+  - `src/lib/shared` - общий код библиотеки.
+- `tailwind/` - генератор Tailwind v4-темы из дизайн-токенов (`generate.mjs`), артефакт — `tailwind/theme.css`.
+- `.storybook/` - конфигурация Storybook.
 
 ## Запуск storybook
 
@@ -171,6 +176,6 @@ npm run storybook
 
 1. В директории `src/stories/components` создайте папку с вашим компонентом.
 2. Реализуйте story со всеми показанными в figma состояниями компонента. Для референса можно использовать `button`.
-3. Убедитесь, что все состояния компонента выглядят верно. Если нет - смотрите раздел "[Правила доработки компонентов](#Правила доработки компонентов)" ниже.
+3. Убедитесь, что все состояния компонента выглядят верно и соответствуют конвенциям кита (референс — стори `button`).
 4. Создать pull request в `main`, прикрепить его в задачу. Задачу отдать на ревью разработчикам и дизайнерам.
    В случае замечаний ориентируемся на пункт `3` выше.

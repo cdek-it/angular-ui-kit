@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Начало работы" />
+
+# Подключение `@cdek-it/angular-ui-kit`
+
+Краткое руководство: как добавить библиотеку компонентов в свой Angular-проект.
+
+## 1. Установите пакет
+
+```shell
+npm install @cdek-it/angular-ui-kit
+```
+
+**Требования:** Angular 20, Node 20.
+
+## 2. Подключите тему
+
+Для корректных стилей и работы компонентов вызовите `provideExtraThemes()` в провайдерах приложения — он подключает тему и дизайн-токены библиотеки:
+
+```ts
+// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideExtraThemes } from '@cdek-it/angular-ui-kit/providers';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideAnimationsAsync(), // нужны анимациям оверлеев (dialog, toast и т.п.)
+    provideExtraThemes()      // тема и дизайн-токены библиотеки
+  ]
+};
+```
+
+> Важно: на данный момент компоненты библиотеки работают только с Zone.js. В стандартном Angular-приложении он подключён по умолчанию.
+
+## 3. Импортируйте компонент
+
+Все компоненты — standalone и публикуются отдельными entry-точками вида
+`@cdek-it/angular-ui-kit/components/<name>`. Подключите нужный компонент в `imports`
+своего standalone-компонента и используйте его селектор в шаблоне:
+
+```ts
+import { Component } from '@angular/core';
+import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
+
+@Component({
+  selector: 'app-demo',
+  imports: [ExtraButtonComponent],
+  template: `<extra-button label="Нажми меня"></extra-button>`
+})
+export class DemoComponent {}
+```
+
+Список компонентов и их API — в разделе **Components** слева.
+
+## 4. Tailwind v4 (опционально)
+
+Кит отдаёт готовую Tailwind v4 тему (`@theme`), сгенерированную из тех же дизайн-токенов.
+Чтобы получить утилиты кита (цвета, типографику, radius, тени, spacing), добавьте в `styles.scss`:
+
+```scss
+@use "tailwindcss";
+@use "@cdek-it/angular-ui-kit/tailwind";
+```
+
+## 5. Иконки (опционально)
+
+Компоненты используют [Tabler Icons](https://tabler.io/icons). Чтобы работали классы `ti ti-*`,
+установите пакет и подключите шрифт:
+
+```shell
+npm install @tabler/icons-webfont
+```
+
+```scss
+@import '@tabler/icons-webfont/dist/tabler-icons.min.css';
+```

@@ -59,6 +59,11 @@ const preview: Preview = {
   ],
   parameters: {
     backgrounds: { disable: true },
+    options: {
+      storySort: {
+        order: ['Начало работы', 'Components', '*']
+      }
+    },
     docs: {
       globals: { theme: 'light' },
     },
