@@ -2,9 +2,11 @@ import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTooltipDirective as TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
 import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
 
-const meta: Meta<TooltipDirective & { label?: string; isFocused?: boolean }> = {
+type TooltipArgs = TooltipDirective & { label?: string; isFocused?: boolean };
+
+const meta: Meta<TooltipArgs> = {
   title: 'Components/Form/Tooltip',
-  // @ts-ignore
+  // @ts-ignore — component ожидает компонент, а тут атрибутная директива
   component: TooltipDirective,
   tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [TooltipDirective, ButtonComponent] })],
@@ -82,7 +84,7 @@ import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-k
 };
 
 export default meta;
-type Story = StoryObj<TooltipDirective & { label?: string; isFocused?: boolean }>;
+type Story = StoryObj<TooltipArgs>;
 
 const commonTemplate = `
 <extra-button
@@ -128,17 +130,36 @@ export const Default: Story = {
 // ── Вариации ─────────────────────────────────────────────────────────────────
 
 export const Positions: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    tooltip: 'Подсказка сверху',
-    position: 'top',
-    label: 'Сверху'
-  },
+  render: () => ({
+    template: `
+<div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; padding:96px; box-sizing:border-box;">
+  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+    <extra-button extra-tooltip="Подсказка сверху" position="top" label="Top"></extra-button>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+    <extra-button extra-tooltip="Подсказка справа" position="right" label="Right"></extra-button>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+    <extra-button extra-tooltip="Подсказка снизу" position="bottom" label="Bottom"></extra-button>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+    <extra-button extra-tooltip="Подсказка слева" position="left" label="Left"></extra-button>
+  </div>
+</div>
+`
+  }),
   parameters: {
     docs: {
-      description: { story: 'Различные варианты позиционирования (измените через Controls).' },
+      description: {
+        story:
+          'Подсказка позиционируется относительно хост-элемента (top/right/bottom/left). ' +
+          'Если в выбранной позиции не хватает места, PrimeNG автоматически переключается на ближайшую подходящую.'
+      },
       source: {
-        code: `<extra-button extra-tooltip="Подсказка сверху" position="top" label="Сверху"></extra-button>`
+        code: `<extra-button extra-tooltip="Подсказка сверху" position="top" label="Top"></extra-button>
+<extra-button extra-tooltip="Подсказка справа" position="right" label="Right"></extra-button>
+<extra-button extra-tooltip="Подсказка снизу" position="bottom" label="Bottom"></extra-button>
+<extra-button extra-tooltip="Подсказка слева" position="left" label="Left"></extra-button>`
       }
     }
   }
