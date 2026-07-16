@@ -12,9 +12,9 @@ export const tabsCss = ({ dt }: { dt: (token: string) => string }): string => `
   display: flex;
   align-items: center;
   gap: ${dt('tabs.tab.gap')};
-  font-family: ${dt('fonts.fontFamily.heading')};
-  font-size: ${dt('fonts.fontSize.300')};
-  font-weight: ${dt('fonts.fontWeight.demibold')};
+  font-family: ${dt('tabs.extend.fonts_fontFamily_heading')};
+  font-size: ${dt('tabs.extend.fonts_fontSize_300')};
+  font-weight: ${dt('tabs.extend.fonts_fontWeight_demibold')};
 }
 
 /* Стили для tablist с правильной границей */

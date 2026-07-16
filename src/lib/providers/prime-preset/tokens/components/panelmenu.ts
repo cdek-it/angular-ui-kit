@@ -9,7 +9,7 @@ export const panelmenuCss = ({ dt }: { dt: (token: string) => string }): string 
 
   .p-panelmenu-header-content,
   .p-panelmenu-item-content {
-    font-size: ${dt('fonts.fontSize.300')};
+    font-size: ${dt('panelmenu.extend.fonts_fontSize_300')};
   }
 
   .p-panelmenu-submenu-icon {
@@ -61,8 +61,8 @@ export const panelmenuCss = ({ dt }: { dt: (token: string) => string }): string 
   }
 
   .p-panelmenu .panelmenu-item-caption {
-    font-size: ${dt('fonts.fontSize.200')};
-    line-height: ${dt('fonts.lineHeight.450')};
+    font-size: ${dt('panelmenu.extend.fonts_fontSize_200')};
+    line-height: ${dt('panelmenu.extend.fonts_lineHeight_450')};
     color: ${dt('panelmenu.extend.extItem.caption.color')};
   }
 `;

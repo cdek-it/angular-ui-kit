@@ -19,7 +19,7 @@ export const cardCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* ─── Overlay variant ─── */
   .p-card.p-component.shadow-md {
-    box-shadow: ${dt('overlay.popover.shadow')};
+    box-shadow: ${dt('card.extend.overlay_popover_shadow')};
   }
 
   /* ─── Caption (Title & Subtitle wrapper) ─── */
@@ -31,8 +31,8 @@ export const cardCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* ─── Subtitle typography ─── */
   .p-card-subtitle {
-    font-family: ${dt('fonts.fontFamily.heading')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
+    font-family: ${dt('card.extend.fonts_fontFamily_heading')};
+    font-size: ${dt('card.extend.fonts_fontSize_200')};
+    font-weight: ${dt('card.extend.fonts_fontWeight_regular')};
   }
 `;

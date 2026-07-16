@@ -2,9 +2,9 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* ─── Типографика ─── */
 .p-togglebutton.p-component {
-  font-family: ${dt('fonts.fontFamily.heading')};
-  font-weight: ${dt('fonts.fontWeight.demibold')};
-  line-height: ${dt('fonts.lineHeight.500')};
+  font-family: ${dt('togglebutton.extend.fonts_fontFamily_heading')};
+  font-weight: ${dt('togglebutton.extend.fonts_fontWeight_demibold')};
+  line-height: ${dt('togglebutton.extend.fonts_lineHeight_500')};
 }
 
 /* ─── Hover unchecked ─── */
@@ -21,10 +21,10 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* ─── Small ─── */
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm {
-  line-height: ${dt('fonts.lineHeight.300')};
+  line-height: ${dt('togglebutton.extend.fonts_lineHeight_300')};
 }
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm .p-togglebutton-label {
-  line-height: ${dt('fonts.lineHeight.250')};
+  line-height: ${dt('togglebutton.extend.fonts_lineHeight_250')};
 }
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm .p-togglebutton-icon {
   font-size: ${dt('togglebutton.extend.iconSize.sm')};
@@ -37,7 +37,7 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* ─── Large ─── */
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-lg {
-  line-height: ${dt('fonts.lineHeight.550')};
+  line-height: ${dt('togglebutton.extend.fonts_lineHeight_550')};
   gap: ${dt('togglebutton.root.gap')};
 }
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-lg .p-togglebutton-content {
@@ -50,8 +50,8 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 /* ─── Extra Large ─── */
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-xlarge {
   padding: ${dt('togglebutton.extend.extXlg.padding')};
-  font-size: ${dt('fonts.fontSize.500')};
-  line-height: ${dt('fonts.lineHeight.550')};
+  font-size: ${dt('togglebutton.extend.fonts_fontSize_500')};
+  line-height: ${dt('togglebutton.extend.fonts_lineHeight_550')};
   display: inline-flex;
   align-items: center;
   justify-content: center;

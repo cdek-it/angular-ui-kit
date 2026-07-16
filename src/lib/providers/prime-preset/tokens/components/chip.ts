@@ -17,10 +17,10 @@ export const chipCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* ─── Типографика лейбла ─── */
   .p-chip-label {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.400')};
+    font-family: ${dt('chip.extend.fonts_fontFamily_base')};
+    font-size: ${dt('chip.extend.fonts_fontSize_300')};
+    font-weight: ${dt('chip.extend.fonts_fontWeight_regular')};
+    line-height: ${dt('chip.extend.fonts_lineHeight_400')};
   }
 
   /* ─── Сброс уменьшенного padding PrimeNG при наличии кнопки удаления ─── */
@@ -30,12 +30,12 @@ export const chipCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* ─── Focus ring иконки удаления ─── */
   .p-chip-remove-icon:focus-visible {
-    outline: ${dt('chip.removeIcon.focusRing.width')} solid ${dt('focusRing.extend.success')};
+    outline: ${dt('chip.removeIcon.focusRing.width')} solid ${dt('chip.extend.focusRing_success')};
   }
 
   /* ─── Disabled состояние ─── */
   .p-chip.p-disabled {
-    opacity: ${dt('opacity.500')};
+    opacity: ${dt('chip.extend.opacity_500')};
     pointer-events: none;
   }
 

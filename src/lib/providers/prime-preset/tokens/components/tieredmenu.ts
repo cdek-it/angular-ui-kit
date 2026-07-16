@@ -4,7 +4,7 @@ export const tieredmenuCss = ({ dt }: { dt: (token: string) => string }): string
   }
 
   .p-tieredmenu-item-content {
-    font-size: ${dt('fonts.fontSize.300')};
+    font-size: ${dt('tieredmenu.extend.fonts_fontSize_300')};
   }
 
   .p-tieredmenu-submenu-icon {
@@ -46,7 +46,7 @@ export const tieredmenuCss = ({ dt }: { dt: (token: string) => string }): string
   }
 
   .p-tieredmenu .p-tieredmenu-item-caption-text {
-    font-size: ${dt('fonts.fontSize.200')};
+    font-size: ${dt('tieredmenu.extend.fonts_fontSize_200')};
     color: ${dt('tieredmenu.extend.extItem.caption.color')};
   }
 `;

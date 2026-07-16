@@ -2,10 +2,10 @@ export const timelineCss = ({ dt }: { dt: (token: string) => string }): string =
 
 /* ─── Типографика ─── */
 .p-timeline {
-  font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
-  line-height: ${dt('fonts.lineHeight.500')};
-  color: ${dt('text.color')};
+  font-family: ${dt('timeline.extend.fonts_fontFamily_base')};
+  font-size: ${dt('timeline.extend.fonts_fontSize_300')};
+  line-height: ${dt('timeline.extend.fonts_lineHeight_500')};
+  color: ${dt('timeline.extend.text_color')};
 }
 
 /* ─── Маркер ─── */

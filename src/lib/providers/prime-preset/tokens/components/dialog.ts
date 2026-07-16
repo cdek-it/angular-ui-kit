@@ -1,20 +1,20 @@
 export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => `
   .p-dialog .p-dialog-title {
-    font-family: ${dt('fonts.fontFamily.heading')};
+    font-family: ${dt('dialog.extend.fonts_fontFamily_heading')};
     font-size: ${dt('dialog.title.fontSize')};
     font-weight: ${dt('dialog.title.fontWeight')};
-    line-height: ${dt('fonts.lineHeight.550')};
+    line-height: ${dt('dialog.extend.fonts_lineHeight_550')};
   }
 
   .p-dialog .p-dialog-content {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.500')};
+    font-family: ${dt('dialog.extend.fonts_fontFamily_base')};
+    font-size: ${dt('dialog.extend.fonts_fontSize_300')};
+    font-weight: ${dt('dialog.extend.fonts_fontWeight_regular')};
+    line-height: ${dt('dialog.extend.fonts_lineHeight_500')};
   }
 
   .p-dialog .p-dialog-header {
-    border-bottom: ${dt('borderWidth.100')} solid ${dt('dialog.root.borderColor')};
+    border-bottom: ${dt('dialog.extend.dimension_borderWidth_100')} solid ${dt('dialog.root.borderColor')};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,18 +36,18 @@ export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-dialog {
-    width: ${dt('overlay.width')};
+    width: ${dt('dialog.extend.dimension_overlayWidth_base')};
   }
 
   .p-dialog.p-component.p-dialog-sm {
-    width: ${dt('sizing.80x')};
+    width: ${dt('dialog.extend.dimension_overlayWidth_sm')};
   }
 
   .p-dialog.p-component.p-dialog-lg {
-    width: ${dt('sizing.120x')};
+    width: ${dt('dialog.extend.dimension_overlayWidth_lg')};
   }
 
   .p-dialog.p-component.p-dialog-xlg {
-    width: ${dt('sizing.128x')};
+    width: ${dt('dialog.extend.dimension_overlayWidth_xlg')};
   }
 `;

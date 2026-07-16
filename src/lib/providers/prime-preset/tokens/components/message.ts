@@ -24,18 +24,18 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
 
   /* Заголовок message */
   .p-message-summary {
-    font-family: ${dt('fonts.fontFamily.base')};
+    font-family: ${dt('message.extend.fonts_fontFamily_base')};
     font-weight: ${dt('message.text.fontWeight')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('message.extend.fonts_lineHeight_250')};
     font-size: ${dt('message.text.fontSize')};
   }
 
   /* Детальное описание message */
   .p-message .p-message-detail {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.200')};
-    line-height: ${dt('fonts.lineHeight.250')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
+    font-family: ${dt('message.extend.fonts_fontFamily_base')};
+    font-size: ${dt('message.extend.fonts_fontSize_200')};
+    line-height: ${dt('message.extend.fonts_lineHeight_250')};
+    font-weight: ${dt('message.extend.fonts_fontWeight_regular')};
   }
 
   /* Кнопка закрытия message */

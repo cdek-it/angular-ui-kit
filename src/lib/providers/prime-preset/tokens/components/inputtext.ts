@@ -2,16 +2,16 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Базовые стили ─── */
 .p-inputtext {
-  line-height: ${dt('fonts.lineHeight.250')};
-  font-family: ${dt('fonts.fontFamily.base')};
+  line-height: ${dt('inputtext.extend.fonts_lineHeight_250')};
+  font-family: ${dt('inputtext.extend.fonts_fontFamily_base')};
 }
 
 .p-inputtext::placeholder {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('inputtext.extend.fonts_fontFamily_base')};
 }
 
 .p-floatlabel:has(.p-inputtext) label {
-  font-family: ${dt('fonts.fontFamily.base')};
+  font-family: ${dt('inputtext.extend.fonts_fontFamily_base')};
 }
 
 /* ─── Disabled ─── */
@@ -34,7 +34,7 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 /* ─── Invalid + Focus ─── */
 .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('focusRing.extend.invalid')};
+  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.extend.focusRing_invalid')};
 }
 
 /* ─── Extra Large ─── */

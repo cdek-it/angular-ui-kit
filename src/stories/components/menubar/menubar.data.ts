@@ -1,4 +1,4 @@
-import { ExtraMenuItem } from '@cdek-it/angular-ui-kit/shared';
+import { ExtraMenuItem } from '../../../lib/shared/public_api';
 
 export const basicItems: ExtraMenuItem[] = [
   {
