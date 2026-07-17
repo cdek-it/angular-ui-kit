@@ -1,4 +1,4 @@
-import { ExtraMenuItem } from '../../../lib/shared/public_api';
+import { ExtraMenuItem } from '../../../lib/shared';
 
 export const basicItems: ExtraMenuItem[] = [
   {

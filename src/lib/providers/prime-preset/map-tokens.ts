@@ -52,7 +52,6 @@ import { toggleswitchCss } from './tokens/components/toggleswitch';
 import { autocompleteCss } from './tokens/components/autocomplete';
 import { popoverCss } from './tokens/components/popover';
 import { selectbuttonCss } from './tokens/components/selectbutton';
-import { fileuploadCss } from './tokens/components/fileupload';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
@@ -249,10 +248,6 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     selectbutton: {
       ...(tokens.components.selectbutton as unknown as ComponentsDesignTokens['selectbutton']),
       css: selectbuttonCss
-    },
-    fileupload: {
-      ...(tokens.components.fileupload as unknown as ComponentsDesignTokens['fileupload']),
-      css: fileuploadCss
     }
   } as ComponentsDesignTokens
 };

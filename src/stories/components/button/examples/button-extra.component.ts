@@ -12,7 +12,7 @@ export const Extra: StoryObj = {
   [severity]="severity"
   [size]="size"
   [rounded]="rounded"
-  [iconPosition]="iconPosition"
+  [iconPos]="iconPos"
   [iconOnly]="iconOnly"
   [icon]="icon"
   [disabled]="disabled"
@@ -38,7 +38,7 @@ export const Extra: StoryObj = {
     label: { control: 'text' },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'text', 'link']
+      options: ['primary', 'secondary', 'outlined', 'text', 'link']
     },
     severity: {
       control: 'select',
@@ -49,7 +49,7 @@ export const Extra: StoryObj = {
       options: ['small', 'base', 'large', 'xlarge']
     },
     rounded: { control: 'boolean' },
-    iconPosition: {
+    iconPos: {
       control: 'select',
       options: [null, 'prefix', 'postfix']
     },

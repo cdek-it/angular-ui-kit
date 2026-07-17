@@ -59,5 +59,3 @@ src/assets/components/themes
 .playwright-mcp/*
 
 .claude/*
-.qwen
-.worktrees/

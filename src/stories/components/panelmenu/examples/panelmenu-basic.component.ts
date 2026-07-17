@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraMenuItem } from '../../../../lib/shared/public_api';
+import { ExtraMenuItem } from '../../../../lib/shared';
 import { ExtraPanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
 
 const template = `

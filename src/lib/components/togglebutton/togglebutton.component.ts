@@ -3,17 +3,17 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
 
-export type ExtraToggleButtonSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ToggleButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
-  selector: 'extra-toggle-button',
+  selector: 'toggle-button',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToggleButton, NgClass, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ExtraToggleButtonComponent),
+      useExisting: forwardRef(() => ToggleButtonComponent),
       multi: true,
     },
   ],
@@ -39,7 +39,7 @@ export type ExtraToggleButtonSize = 'small' | 'base' | 'large' | 'xlarge';
     ></p-togglebutton>
   `,
 })
-export class ExtraToggleButtonComponent implements ControlValueAccessor {
+export class ToggleButtonComponent implements ControlValueAccessor {
   constructor(private cdr: ChangeDetectorRef) {}
 
   @Input() onLabel = 'Вкл';
@@ -47,7 +47,7 @@ export class ExtraToggleButtonComponent implements ControlValueAccessor {
   @Input() onIcon: string | undefined = undefined;
   @Input() offIcon: string | undefined = undefined;
   @Input() iconPos: 'left' | 'right' = 'left';
-  @Input() size: ExtraToggleButtonSize = 'base';
+  @Input() size: ToggleButtonSize = 'base';
   @Input() disabled = false;
   @Input() iconOnly = false;
   @Input() allowEmpty: boolean | undefined = undefined;

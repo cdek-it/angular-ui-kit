@@ -1,16 +1,16 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
-import { ExtraToggleButtonComponent } from '../../../lib/components/togglebutton/togglebutton.component';
+import { ToggleButtonComponent } from '../../../lib/components/togglebutton/togglebutton.component';
 
-type ToggleButtonArgs = ExtraToggleButtonComponent;
+type ToggleButtonArgs = ToggleButtonComponent;
 
 const meta: Meta<ToggleButtonArgs> = {
   title: 'Components/Form/ToggleButton',
-  component: ExtraToggleButtonComponent,
+  component: ToggleButtonComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
+      imports: [ToggleButtonComponent, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -155,7 +155,7 @@ function buildTemplate(args: any): string {
   if (args.fluid) parts.push(`[fluid]="true"`);
   parts.push(`[formControl]="control"`);
 
-  return `<extra-toggle-button\n  ${parts.join('\n  ')}\n></extra-toggle-button>`;
+  return `<toggle-button\n  ${parts.join('\n  ')}\n></toggle-button>`;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -228,7 +228,7 @@ export const IconOnly: Story = {
 export const Disabled: Story = {
   render: () => ({
     props: { control: new FormControl({ value: false, disabled: true }) },
-    template: `<extra-toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></extra-toggle-button>`,
+    template: `<toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></toggle-button>`,
   }),
   parameters: {
     controls: { disable: true },

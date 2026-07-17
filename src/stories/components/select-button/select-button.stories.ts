@@ -45,12 +45,12 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angu
     },
     size: {
       control: 'radio',
-      options: ['base', 'small', 'large', 'xlarge'],
+      options: ['base', 'small', 'large', 'xLarge'],
       description: 'Размер компонента',
       table: {
         category: 'Props',
         defaultValue: { summary: 'base' },
-        type: { summary: "'base' | 'small' | 'large' | 'xlarge'" },
+        type: { summary: "'base' | 'small' | 'large' | 'xLarge'" },
       },
     },
     multiple: {

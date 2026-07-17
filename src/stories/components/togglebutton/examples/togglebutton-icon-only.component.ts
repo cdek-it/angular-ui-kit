@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ExtraToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
+import { ToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<extra-toggle-button
+<toggle-button
   onIcon="ti ti-star-filled"
   offIcon="ti ti-star"
   [iconOnly]="true"
   [formControl]="control"
-></extra-toggle-button>
+></toggle-button>
 `;
 const styles = '';
 
 @Component({
   selector: 'app-togglebutton-icon-only',
   standalone: true,
-  imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template,
   styles,
 })
@@ -38,20 +38,20 @@ export const IconOnly: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ToggleButtonComponent } from '@cdek-it/angular-ui-kit';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-togglebutton-icon-only',
   standalone: true,
-  imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
+  imports: [ToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <extra-toggle-button
+    <toggle-button
       onIcon="ti ti-star-filled"
       offIcon="ti ti-star"
       [iconOnly]="true"
       [formControl]="control"
-    ></extra-toggle-button>
+    ></toggle-button>
   \`,
 })
 export class ToggleButtonIconOnlyComponent {
