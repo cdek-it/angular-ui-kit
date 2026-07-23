@@ -16,7 +16,7 @@
 | `filter-placeholder` | текст подсказки в фильтре                                               | `string`                                                       |
 | `options`            | список элементов или список групп с элементами                          | `ExtraMultiselectGroup[] \| ExtraMultiselectOption[] \| any[]` |
 | `optionLabel`        | наименование поля, содержащего отображаемое значение                    | `string`                                                       |
-| `note`               | текст пояснения под полем                                               | `string`                                                       |
+| `caption`            | текст пояснения под полем                                               | `string`                                                       |
 | `info`               | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                                                       |
 | `size`               | размер поля                                                             | `sm \| base \| lg \| xlg`                                      |
 
