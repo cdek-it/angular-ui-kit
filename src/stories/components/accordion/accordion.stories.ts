@@ -105,6 +105,44 @@ export const Default: Story = {
     docs: {
       description: {
         story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { ExtraAccordionComponent, ExtraAccordionItem } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-accordion-demo',
+  standalone: true,
+  imports: [ExtraAccordionComponent],
+  template: \`
+    <extra-accordion [items]="items"></extra-accordion>
+  \`,
+})
+export class AccordionDemoComponent {
+  // Структура элемента аккордеона (ExtraAccordionItem)
+  items: ExtraAccordionItem[] = [
+    {
+      value: '0',
+      header: 'Данные отправления',
+      icon: 'ti ti-package',
+      content: 'Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места',
+    },
+    {
+      value: '1',
+      header: 'Маршрут доставки',
+      icon: 'ti ti-map-pin',
+      content: 'Принят в Москве 14 апр 09:15 → Доставлен 15 апр 14:20',
+    },
+    {
+      value: '2',
+      header: 'Стоимость отправления',
+      icon: 'ti ti-receipt',
+      content: 'Итого: 525 ₽ · Оплачено: карта *4321',
+    },
+  ];
+}
+        `
       }
     }
   }

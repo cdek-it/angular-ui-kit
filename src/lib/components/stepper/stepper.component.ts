@@ -45,7 +45,7 @@ export interface ExtraStepperItem {
                   @if (!first) {
                     <extra-button
                       label="Назад"
-                      variant="outlined"
+                      variant="tertiary"
                       (click)="activateCallback(steps[i - 1].value)"
                     ></extra-button>
                   }
@@ -86,7 +86,7 @@ export interface ExtraStepperItem {
                     @if (!first) {
                       <extra-button
                         label="Назад"
-                        variant="outlined"
+                        variant="tertiary"
                         (click)="activateCallback(steps[i - 1].value)"
                       ></extra-button>
                     }

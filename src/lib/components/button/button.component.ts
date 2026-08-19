@@ -1,14 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
 export type ExtraButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'text' | 'link';
-export type ExtraButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
+export type ExtraButtonSeverity = 'base' | 'danger' | 'warning' | 'success' | 'info';
 export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraButtonIconPosition = 'prefix' | 'postfix' | null;
-export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
-type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
-type ExtraButtonSeverityValue = PrimeButtonSeverity;
-type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
+export type ExtraButtonIconPosition = 'left' | 'right';
 
 @Component({
   selector: 'extra-button',
@@ -17,46 +13,36 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
   imports: [Button],
   template: `
     <p-button
-      [label]="iconOnly ? '' : label"
-      [disabled]="disabled"
-      [loading]="loading"
+      [label]="label"
+      [icon]="icon"
+      [iconPos]="iconPosition"
+      [severity]="primeSeverity"
       [size]="primeSize"
-      [styleClass]="size === 'xlarge' ? 'p-button-xlg' : ''"
+      [styleClass]="primeStyleClass"
       [rounded]="rounded"
       [outlined]="variant === 'tertiary'"
-      [text]="variant === 'text' || text"
+      [text]="variant === 'text'"
       [link]="variant === 'link'"
-      [icon]="icon"
-      [iconPos]="primeIconPosition"
-      [severity]="primeSeverity"
-      [badge]="showBadge ? badge || ' ' : undefined"
-      [badgeSeverity]="primeBadgeSeverity"
-      [fluid]="fluid"
-      [ariaLabel]="ariaLabel"
-      [autofocus]="autofocus"
-      [tabindex]="tabindex"
+      [disabled]="disabled"
+      [loading]="loading"
+      (onFocus)="focus.emit($event)"
+      (onBlur)="blur.emit($event)"
     ></p-button>
   `
 })
 export class ExtraButtonComponent {
-  @Input() label = 'Button';
+  @Input() label = '';
+  @Input() icon = '';
+  @Input() iconPosition: ExtraButtonIconPosition = 'left';
   @Input() variant: ExtraButtonVariant = 'primary';
-  @Input() severity: ExtraButtonSeverity = null;
+  @Input() severity: ExtraButtonSeverity = 'base';
   @Input() size: ExtraButtonSize = 'base';
   @Input() rounded = false;
-  @Input() iconPosition: ExtraButtonIconPosition = null;
-  @Input() iconOnly = false;
-  @Input() icon = '';
   @Input() disabled = false;
   @Input() loading = false;
-  @Input() badge = '';
-  @Input() badgeSeverity: ExtraBadgeSeverity = null;
-  @Input() showBadge = false;
-  @Input() fluid = false;
-  @Input() ariaLabel: string | undefined = undefined;
-  @Input() autofocus = false;
-  @Input() tabindex: number | undefined = undefined;
-  @Input() text = false;
+
+  @Output() focus = new EventEmitter<FocusEvent>();
+  @Output() blur = new EventEmitter<FocusEvent>();
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';
@@ -64,18 +50,14 @@ export class ExtraButtonComponent {
     return undefined;
   }
 
-  get primeIconPosition(): 'left' | 'right' {
-    return this.iconPosition === 'postfix' ? 'right' : 'left';
+  get primeStyleClass(): string {
+    return this.size === 'xlarge' ? 'p-button-xlg' : '';
   }
 
-  get primeSeverity(): ExtraButtonSeverityValue | null {
-    if (this.variant === 'secondary') return 'secondary';
-    if (this.severity === 'warning') return 'warn';
-    return this.severity;
-  }
-
-  get primeBadgeSeverity(): ExtraBadgeSeverityValue {
-    if (this.badgeSeverity === 'warning') return 'warn';
-    return this.badgeSeverity;
+  get primeSeverity(): PrimeButtonSeverity {
+    if (this.severity === 'base') {
+      return this.variant === 'secondary' ? 'secondary' : null;
+    }
+    return this.severity === 'warning' ? 'warn' : this.severity;
   }
 }

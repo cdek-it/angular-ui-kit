@@ -1,18 +1,17 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
 import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
-import { ButtonTextComponent, Text } from './examples/button-text.component';
-import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
+import { ButtonVariantsComponent, Variants } from './examples/button-variants.component';
+import { ButtonIconsComponent, Icons } from './examples/button-icons.component';
+import { ButtonStatesComponent, States } from './examples/button-states.component';
 import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
-import { ButtonOutlinedComponent, Outlined } from './examples/button-outlined.component';
-import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
-import { ButtonIconComponent, Icon } from './examples/button-icon.component';
-import { Extra } from './examples/button-extra.component';
-import { ButtonDisabledComponent, Disabled } from './examples/button-disabled.component';
-import { Base, ButtonBaseComponent } from './examples/button-base.component';
-import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
+import { ButtonEventsComponent, Events } from './examples/button-events.component';
 
-type ButtonArgs = ExtraButtonComponent & { onClick?: (event: MouseEvent) => void };
+type ButtonArgs = ExtraButtonComponent & {
+  onClick?: (event: MouseEvent) => void;
+  onFocus?: (event: FocusEvent) => void;
+  onBlur?: (event: FocusEvent) => void;
+};
 
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
@@ -22,50 +21,58 @@ const meta: Meta<ButtonArgs> = {
     moduleMetadata({
       imports: [
         ExtraButtonComponent,
+        ButtonVariantsComponent,
         ButtonSizesComponent,
-        ButtonBadgeComponent,
-        ButtonBaseComponent,
-        ButtonDisabledComponent,
-        ButtonIconComponent,
-        ButtonLoadingComponent,
-        ButtonOutlinedComponent,
+        ButtonIconsComponent,
+        ButtonStatesComponent,
         ButtonRoundedComponent,
-        ButtonSeverityComponent,
-        ButtonSizesComponent,
-        ButtonTextComponent
+        ButtonEventsComponent
       ]
     })
   ],
   parameters: {
     docs: {
       description: {
-        component: `Интерактивный элемент интерфейса. Используется для инициации действий, отправки форм и навигации.
+        component: `Кнопка — интерактивный элемент интерфейса для инициализации действий, отправки форм и навигации.
+
+Реализована по спецификации [button.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/button.md).
 
 \`\`\`typescript
 import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``
+\`\`\`
+
+Помимо перечисленных свойств, на кнопку можно вешать нативные DOM-события (\`click\`, \`focus\`, \`blur\`, \`keydown\` и т.п.) напрямую; \`focus\` и \`blur\` также объявлены как типизированные события компонента.`
       }
     }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
+    // ── Свойства (docs/components-api/button.md) ───────────────
     label: {
       control: 'text',
-      description: 'Текст кнопки',
+      description: 'Текст на кнопке',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'Button' },
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
     },
-    severity: {
-      control: 'select',
-      options: [null, 'success', 'info', 'warning', 'danger'],
-      description: 'Семантический вариант кнопки',
+    icon: {
+      control: 'text',
+      description: 'Класс иконки tabler icon на кнопке',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'success' | 'info' | 'warning' | 'danger' | null" }
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    iconPosition: {
+      control: 'select',
+      options: ['left', 'right'],
+      description: 'Позиция иконки относительно текста',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'left' },
+        type: { summary: "'left' | 'right'" }
       }
     },
     variant: {
@@ -73,9 +80,19 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
       options: ['primary', 'secondary', 'tertiary', 'text', 'link'],
       description: 'Вариант отображения кнопки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'primary' },
         type: { summary: "'primary' | 'secondary' | 'tertiary' | 'text' | 'link'" }
+      }
+    },
+    severity: {
+      control: 'select',
+      options: ['base', 'danger', 'warning', 'success', 'info'],
+      description: 'Семантическое состояние кнопки',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'danger' | 'warning' | 'success' | 'info'" }
       }
     },
     size: {
@@ -83,219 +100,132 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер кнопки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'base' },
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
-      }
-    },
-    icon: {
-      control: 'text',
-      description: 'CSS-класс иконки (например: ti ti-check)',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: '' },
-        type: { summary: 'string' }
-      }
-    },
-    iconPosition: {
-      control: 'select',
-      options: [null, 'prefix', 'postfix'],
-      description: 'Позиция иконки относительно текста',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'prefix' | 'postfix' | null" }
-      }
-    },
-    iconOnly: {
-      control: 'boolean',
-      description: 'Только иконка, без текста',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
       }
     },
     rounded: {
       control: 'boolean',
       description: 'Скруглённая форма кнопки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     disabled: {
       control: 'boolean',
-      description: 'Отключённое состояние',
+      description: 'Отключённое состояние кнопки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     loading: {
       control: 'boolean',
-      description: 'Состояние загрузки с индикатором',
+      description: 'Состояние загрузки: спиннер, кнопка неактивна',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    fluid: {
-      control: 'boolean',
-      description: 'Растягивать ли кнопку на всю ширину контейнера',
+    // ── События ─────────────────────────────────────────────────
+    focus: {
+      control: false,
+      description: 'Кнопка получила фокус',
+      action: 'focus',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
+        category: 'События',
+        type: { summary: 'EventEmitter<FocusEvent>' }
       }
     },
-    ariaLabel: {
-      control: 'text',
-      description: 'Метка для экранных дикторов',
+    blur: {
+      control: false,
+      description: 'Кнопка потеряла фокус',
+      action: 'blur',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' }
+        category: 'События',
+        type: { summary: 'EventEmitter<FocusEvent>' }
       }
     },
-    autofocus: {
-      control: 'boolean',
-      description: 'Автофокус при загрузке',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    tabindex: {
-      control: 'number',
-      description: 'Порядок фокуса',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'number' }
-      }
-    },
-    text: {
-      control: 'boolean',
-      description: 'Текстовый вариант кнопки',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    // ── Badge ────────────────────────────────────────────────
-    badge: {
-      control: 'text',
-      description: 'Значение бейджа',
-      table: {
-        category: 'Badge',
-        defaultValue: { summary: '' },
-        type: { summary: 'string' }
-      }
-    },
-    badgeSeverity: {
-      control: 'select',
-      options: [null, 'success', 'info', 'warning', 'danger', 'secondary', 'contrast'],
-      description: 'Цветовая схема бейджа',
-      table: {
-        category: 'Badge',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null" }
-      }
-    },
-    showBadge: {
-      control: 'boolean',
-      description: 'Показывать ли бейдж',
-      table: {
-        category: 'Badge',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    // ── Events ───────────────────────────────────────────────
     onClick: {
       control: false,
-      description: 'Событие клика по кнопке',
+      description: 'Нативный клик по кнопке',
+      action: 'click',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<MouseEvent>' }
+        category: 'События',
+        type: { summary: 'DOM-событие click (нативное)' }
+      }
+    },
+    onFocus: {
+      control: false,
+      description: 'Нативный фокус (прослушивается напрямую на extra-button)',
+      table: {
+        category: 'События',
+        disable: true
+      }
+    },
+    onBlur: {
+      control: false,
+      description: 'Нативная потеря фокуса (прослушивается напрямую на extra-button)',
+      table: {
+        category: 'События',
+        disable: true
       }
     }
   },
   args: {
-    showBadge: false,
-    badge: '',
-    badgeSeverity: null,
-    fluid: false,
-    autofocus: false,
-    text: false
+    label: 'Button',
+    icon: '',
+    iconPosition: 'left',
+    variant: 'primary',
+    severity: 'base',
+    size: 'base',
+    rounded: false,
+    disabled: false,
+    loading: false
   }
 };
-
-const commonTemplate = `
-<extra-button
-  [label]="label"
-  [variant]="variant"
-  [severity]="severity"
-  [size]="size"
-  [rounded]="rounded"
-  [iconPosition]="iconPosition"
-  [iconOnly]="iconOnly"
-  [icon]="icon"
-  [disabled]="disabled"
-  [loading]="loading"
-  [badge]="badge"
-  [badgeSeverity]="badgeSeverity"
-  [showBadge]="showBadge"
-  [fluid]="fluid"
-  [ariaLabel]="ariaLabel"
-  [autofocus]="autofocus"
-  [tabindex]="tabindex"
-  [text]="text"
-></extra-button>
-`;
 
 export default meta;
 type Story = StoryObj<ButtonArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
+// ── Primary (интерактивная) ──────────────────────────────────────────────────
 
 export const Default: Story = {
-  name: 'Default',
+  name: 'Primary',
   render: (args) => {
     const parts: string[] = [];
 
     if (args.label != null && args.label !== '') parts.push(`label="${args.label}"`);
-    if (args.severity != null) parts.push(`severity="${args.severity}"`);
-    if (args.variant != null) parts.push(`variant="${args.variant}"`);
-    if (args.size != null) parts.push(`size="${args.size}"`);
-    if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
-    if (args.iconPosition != null) parts.push(`iconPosition="${args.iconPosition}"`);
+    if (args.icon != null && args.icon !== '') parts.push(`icon="${args.icon}"`);
+    if (args.iconPosition != null && args.iconPosition !== 'left') parts.push(`iconPosition="${args.iconPosition}"`);
+    if (args.variant != null && args.variant !== 'primary') parts.push(`variant="${args.variant}"`);
+    if (args.severity != null && args.severity !== 'base') parts.push(`severity="${args.severity}"`);
+    if (args.size != null && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.rounded) parts.push(`[rounded]="true"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.loading) parts.push(`[loading]="true"`);
 
     const template = parts.length
-      ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
-      : `<extra-button></extra-button>`;
+      ? `<extra-button\n  ${parts.join('\n  ')}\n  (click)="onClick($event)"\n></extra-button>`
+      : `<extra-button (click)="onClick($event)"></extra-button>`;
 
     return { props: args, template };
-  },
-  args: {
-    label: 'Button'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Интерактивная кнопка со всеми свойствами спецификации (по умолчанию — primary). Используйте Controls для изменения пропсов; click/focus/blur логируются в панель Actions.'
       }
     }
   }
 };
 
-export { Sizes, Text, Severity, Rounded, Outlined, Loading, Icon, Extra, Disabled, Base, Badge };
+// ── Комбинаторные истории ────────────────────────────────────────────────────
+
+export { Variants, Sizes, Icons, States, Rounded, Events };

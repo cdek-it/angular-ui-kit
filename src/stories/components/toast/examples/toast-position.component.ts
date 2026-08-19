@@ -22,7 +22,7 @@ const template = `
   @for (p of positions; track p.key) {
     <extra-button
       [label]="p.label"
-      variant="outlined"
+      variant="tertiary"
       (click)="show(p.key, p.position)"
     ></extra-button>
   }
@@ -88,7 +88,7 @@ const POSITIONS = [
       @for (p of positions; track p.key) {
         <extra-button
           [label]="p.label"
-          variant="outlined"
+          variant="tertiary"
           (click)="show(p.key, p.position)"
         ></extra-button>
       }

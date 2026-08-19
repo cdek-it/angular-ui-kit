@@ -1,24 +1,20 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  ContentChild,
-  Directive,
+  ContentChildren,
   EventEmitter,
   Input,
   Output,
-  TemplateRef
+  QueryList
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { PrimeTemplate } from 'primeng/api';
+import { ExtraDialogTemplateDirective } from './dialog-template.directive';
 
 export type ExtraDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
-
-@Directive({ selector: '[extraDialogHeader]', standalone: true })
-export class ExtraDialogHeaderDirective {}
-
-@Directive({ selector: '[extraDialogFooter]', standalone: true })
-export class ExtraDialogFooterDirective {}
 
 @Component({
   selector: 'extra-dialog',
@@ -31,41 +27,64 @@ export class ExtraDialogFooterDirective {}
       [header]="header"
       [visible]="visible"
       (visibleChange)="visibleChange.emit($event)"
-      [modal]="modal"
+      [modal]="showOverlay"
+      [closable]="showClose"
+      [maximizable]="showMaximize"
+      (onMaximize)="onMaximize.emit()"
+      (onShow)="onShow.emit()"
+      (onHide)="onHide.emit()"
       [dismissableMask]="dismissableMask"
       [closeOnEscape]="closeOnEscape"
-      [showHeader]="showHeader"
       [focusOnShow]="focusOnShow"
       [styleClass]="sizeClass"
       [appendTo]="appendTo"
     >
-      @if (headerTemplate) {
+      @if (headerTpl) {
         <ng-template pTemplate="header">
-          <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+          <ng-container [ngTemplateOutlet]="headerTpl.template"></ng-container>
         </ng-template>
       }
       <ng-content></ng-content>
-      @if (footerTemplate) {
+      @if (footerTpl) {
         <ng-template pTemplate="footer">
-          <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+          <ng-container [ngTemplateOutlet]="footerTpl.template"></ng-container>
         </ng-template>
       }
     </p-dialog>
   `
 })
-export class ExtraDialogComponent {
+export class ExtraDialogComponent implements AfterContentInit {
   @Input() header = '';
   @Input() visible = false;
-  @Input() modal = true;
+  /** Отображать маску (overlay) поверх интерфейса. */
+  @Input() showOverlay = true;
+  /** Кнопка разворота окна на весь экран. */
+  @Input() showMaximize = false;
+  /** Кнопка закрытия окна. */
+  @Input() showClose = true;
   @Input() size: ExtraDialogSize = 'default';
   @Input() dismissableMask = false;
   @Input() closeOnEscape = true;
-  @Input() showHeader = true;
   @Input() focusOnShow = false;
   @Input() appendTo: string = 'body';
-  @ContentChild(ExtraDialogHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
-  @ContentChild(ExtraDialogFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
+
+  @ContentChildren(ExtraDialogTemplateDirective) templates!: QueryList<ExtraDialogTemplateDirective>;
+
+  headerTpl?: ExtraDialogTemplateDirective;
+  footerTpl?: ExtraDialogTemplateDirective;
+
   @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() onShow = new EventEmitter<void>();
+  @Output() onHide = new EventEmitter<void>();
+  @Output() onMaximize = new EventEmitter<void>();
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterContentInit(): void {
+    this.headerTpl = this.templates.find((tpl) => tpl.extraDialogTemplate === 'header');
+    this.footerTpl = this.templates.find((tpl) => tpl.extraDialogTemplate === 'footer');
+    this.cdr.detectChanges();
+  }
 
   get sizeClass(): string {
     if (this.size === 'sm') return 'p-dialog-sm';

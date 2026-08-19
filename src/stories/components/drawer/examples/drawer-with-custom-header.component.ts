@@ -10,7 +10,7 @@ const template = `
   <ng-template extraDrawerHeader>
     <div class="flex items-center justify-between w-full">
       <span class="text-xl font-semibold text-primary">Custom Header</span>
-      <extra-button icon="ti ti-arrow-right" [iconOnly]="true" variant="text" (click)="visible = false"></extra-button>
+      <extra-button icon="ti ti-arrow-right" variant="text" (click)="visible = false"></extra-button>
     </div>
   </ng-template>
 
@@ -54,7 +54,7 @@ import { ExtraDrawerComponent, ExtraDrawerHeaderDirective, ExtraButtonComponent 
       <ng-template extraDrawerHeader>
         <div class="flex items-center justify-between w-full">
           <span class="text-xl font-semibold text-primary">Custom Header</span>
-          <extra-button icon="ti ti-arrow-right" [iconOnly]="true" variant="text" (click)="visible = false"></extra-button>
+          <extra-button icon="ti ti-arrow-right" variant="text" (click)="visible = false"></extra-button>
         </div>
       </ng-template>
 

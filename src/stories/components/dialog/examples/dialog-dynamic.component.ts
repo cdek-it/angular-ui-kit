@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
-import { ExtraDynamicDialogRef, ExtraDialogService } from '../../../../lib/components/dialog/dialog-open.service';
+import { DynamicDialogRef, ExtraDialogService } from '../../../../lib/components/dialog/dialog-open.service';
 
 // ── Содержимое диалога ────────────────────────────────────────────────────────
 
@@ -19,13 +20,14 @@ import { ExtraDynamicDialogRef, ExtraDialogService } from '../../../../lib/compo
   `
 })
 export class DialogDynamicContentComponent {
-  constructor(readonly ref: ExtraDynamicDialogRef) {}
+  // Инжектится именно класс (не type-алиас) — иначе DI не резолвит токен (NG0202)
+  constructor(readonly ref: DynamicDialogRef) {}
 }
 
 // ── Компонент-триггер ─────────────────────────────────────────────────────────
 
-export const template = `
-<div class="bg-surface-ground">
+const template = `
+<div class="bg-surface-ground p-4">
   <extra-button (click)="open()" label="Создать заявку"></extra-button>
 </div>
 `;
@@ -47,3 +49,60 @@ export class DialogDynamicComponent {
     });
   }
 }
+
+export const Dynamic: StoryObj = {
+  render: () => ({
+    template: `<app-dialog-dynamic></app-dialog-dynamic>`
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Программное открытие окна через ExtraDialogService (поверх спецификации): содержимое — любой Angular-компонент, получающий DynamicDialogRef для закрытия.'
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { ExtraButtonComponent, ExtraDialogService, DynamicDialogRef } from '@cdek-it/angular-ui-kit';
+
+// Содержимое диалога
+@Component({
+  selector: 'app-dialog-dynamic-content',
+  standalone: true,
+  imports: [ExtraButtonComponent],
+  template: \`
+    <p>Содержимое окна</p>
+    <div class="flex justify-end gap-2 mt-4">
+      <extra-button variant="text" label="Отмена" (click)="ref.close()"></extra-button>
+      <extra-button label="Подтвердить" (click)="ref.close(true)"></extra-button>
+    </div>
+  \`,
+})
+export class DialogDynamicContentComponent {
+  // Инжектится именно класс (не type-алиас) — иначе DI не резолвит токен (NG0202)
+  constructor(readonly ref: DynamicDialogRef) {}
+}
+
+// Компонент-триггер
+@Component({
+  selector: 'app-dialog-dynamic',
+  standalone: true,
+  imports: [ExtraButtonComponent],
+  template: '<extra-button (click)="open()" label="Создать заявку"></extra-button>',
+})
+export class DialogDynamicComponent {
+  constructor(private readonly dialogService: ExtraDialogService) {}
+
+  open(): void {
+    this.dialogService.open(DialogDynamicContentComponent, {
+      header: 'Подтверждение заявки',
+      modal: true
+    });
+  }
+}
+        `
+      }
+    }
+  }
+};

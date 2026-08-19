@@ -93,7 +93,7 @@ type PreviewFile = File & { objectURL?: string };
                       </span>
                     </div>
                   </div>
-                  <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
+                  <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small"
                     (click)="onRemoveFile(file, removeFileCallback, i)"></extra-button>
                 </div>
               }
@@ -110,7 +110,7 @@ type PreviewFile = File & { objectURL?: string };
                       <span class="fu-file-card__size">Загружено</span>
                     </div>
                   </div>
-                  <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small" [iconOnly]="true"
+                  <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small"
                     (click)="removeUploadedFileCallback(i)"></extra-button>
                 </div>
               }

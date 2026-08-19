@@ -19,51 +19,59 @@ const meta: Meta<TagArgs> = {
     designTokens: { prefix: '--p-tag' },
     docs: {
       description: {
-        component: `Компонент для цветового выделения и классификации элементов интерфейса.`
+        component: `Маркер для элементов интерфейса.
+
+Реализован по спецификации \`docs/components-api/tag.md\`.
+
+\`\`\`typescript
+import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
+\`\`\``
       }
     }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
+    // ── Свойства (docs/components-api/tag.md) ─────────────────
+    severity: {
+      control: 'select',
+      options: ['primary', 'secondary', 'info', 'success', 'warning', 'danger'],
+      description: 'Вариант стиля',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'primary'" },
+        type: { summary: "'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger'" }
+      }
+    },
     value: {
       control: 'text',
       description: 'Текст тега',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
         type: { summary: 'string' }
-      }
-    },
-    severity: {
-      control: 'select',
-      options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger'],
-      description: 'Вариант цветового оформления',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: "'primary'" },
-        type: { summary: "'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger'" }
       }
     },
     rounded: {
       control: 'boolean',
-      description: 'Скруглённый вариант тега',
+      description: 'Полное скругление углов',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     icon: {
       control: 'text',
-      description: 'CSS-класс иконки (например ti ti-check)',
+      description: 'Класс иконки tabler icon',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
     }
   },
   args: {
-    value: 'Tag',
     severity: 'primary',
+    value: 'Tag',
     rounded: false,
     icon: ''
   }
@@ -72,18 +80,10 @@ const meta: Meta<TagArgs> = {
 export default meta;
 type Story = StoryObj<TagArgs>;
 
-const commonTemplate = `
-<extra-tag
-  [value]="value"
-  [severity]="severity"
-  [rounded]="rounded"
-  [icon]="icon"
-></extra-tag>
-`;
+// ── Primary (интерактивная) ──────────────────────────────────────────────────
 
-// ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
-  name: 'Default',
+  name: 'Primary',
   render: (args) => {
     const parts: string[] = [];
     if (args.value) parts.push(`value="${args.value}"`);
@@ -98,10 +98,11 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Интерактивный тег со всеми свойствами спецификации (по умолчанию — primary). Используйте Controls для изменения пропсов.'
       }
     }
   }
 };
 
-export { WithIcon, Rounded, Severity };
+export { Severity, WithIcon, Rounded };
