@@ -3,9 +3,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
-import Preset from '../prime-preset/theme.preset';
-import { RU_TRANSLATION } from '../prime-preset/locale/ru';
 import Preset from '../lib/providers/prime-preset/theme.preset';
+import { RU_TRANSLATION } from '../lib/providers/prime-preset/locale/ru';
 
 export const appConfig: ApplicationConfig = {
   providers: [
