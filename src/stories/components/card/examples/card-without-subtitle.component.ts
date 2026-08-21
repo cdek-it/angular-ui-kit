@@ -14,7 +14,7 @@ const template = `
       <p class="text-sm">Карточка без подзаголовка.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
+      <extra-button label="Действие" size="small" class="w-full"></extra-button>
     </ng-template>
   </extra-card>
 </div>
@@ -55,7 +55,7 @@ import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-ki
         <p class="text-sm">Карточка без подзаголовка.</p>
       </ng-template>
       <ng-template pTemplate="footer">
-        <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
+        <extra-button label="Действие" size="small" class="w-full"></extra-button>
       </ng-template>
     </extra-card>
   \`,

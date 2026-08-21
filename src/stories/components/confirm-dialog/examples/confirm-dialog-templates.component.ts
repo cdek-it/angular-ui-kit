@@ -20,11 +20,9 @@ const template = `
           <span>{{ message.header }}</span>
         </div>
         <extra-button
-          styleClass="p-dialog-close-button"
           variant="text"
           icon="ti ti-x"
           [rounded]="true"
-          [iconOnly]="true"
           (click)="onReject()"
         ></extra-button>
       </div>
@@ -109,7 +107,7 @@ import {
             <i [class]="message.icon"></i>
             <span>{{ message.header }}</span>
           </div>
-          <extra-button variant="text" icon="ti ti-x" [rounded]="true" [iconOnly]="true" (click)="onReject()"></extra-button>
+          <extra-button variant="text" icon="ti ti-x" [rounded]="true" (click)="onReject()"></extra-button>
         </div>
       </ng-template>
 

@@ -9,9 +9,18 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
   /* Контент message с приоритизацией align-items */
   .p-message .p-message-content {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     width: stretch;
     border-radius: ${dt('message.root.borderRadius')};
+  }
+
+  /* Футер message: строка под основным контентом */
+  .p-message .p-message-footer {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    gap: ${dt('message.extend.extText.gap')};
   }
 
   /* Текстовый блок message */

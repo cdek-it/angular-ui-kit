@@ -2,7 +2,7 @@ import { Component, ContentChild, Directive, Input, TemplateRef } from '@angular
 import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { PrimeTemplate } from 'primeng/api';
-import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
+import { ExtraButtonComponent, ExtraButtonSeverity } from '@cdek-it/angular-ui-kit/components/button';
 
 export type ExtraConfirmDialogSize = 'sm' | 'default' | 'lg' | 'xlg';
 export type ExtraConfirmDialogSeverity = 'success' | 'info' | 'warning' | 'help' | 'danger' | 'default';
@@ -34,11 +34,9 @@ export class ExtraConfirmDialogFooterDirective {}
               <span>{{ message.header }}</span>
             </div>
             <extra-button
-              styleClass="p-dialog-close-button"
               variant="text"
               icon="ti ti-x"
               [rounded]="true"
-              [iconOnly]="true"
               (click)="onReject()"
             ></extra-button>
           </div>
@@ -57,7 +55,7 @@ export class ExtraConfirmDialogFooterDirective {}
             <extra-button [label]="message.rejectLabel" variant="text" (click)="onReject()"></extra-button>
             <extra-button
               [label]="message.acceptLabel"
-              [severity]="message.acceptButtonProps?.severity"
+              [severity]="mapSeverity(message.acceptButtonProps?.severity)"
               (click)="onAccept()"
             ></extra-button>
           </div>
@@ -74,6 +72,12 @@ export class ExtraConfirmDialogComponent {
     null;
   @ContentChild(ExtraConfirmDialogFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null =
     null;
+
+  mapSeverity(severity: string | null | undefined): ExtraButtonSeverity {
+    if (severity === 'danger' || severity === 'warn' || severity === 'warning') return severity === 'warn' ? 'warning' : severity;
+    if (severity === 'success' || severity === 'info') return severity;
+    return 'base';
+  }
 
   get computedClass(): string {
     const classes: string[] = [];

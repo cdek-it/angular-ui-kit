@@ -5,7 +5,7 @@ import { ExtraConfirmDialogService } from '../../../../lib/components/confirm-di
 
 interface SeverityItem {
   type: 'success' | 'info' | 'warning' | 'help' | 'danger';
-  buttonSeverity: 'success' | 'info' | 'warning' | 'help' | 'danger';
+  buttonSeverity: 'success' | 'info' | 'warning' | 'base' | 'danger';
   icon: string;
   label: string;
   header: string;
@@ -43,7 +43,7 @@ const SEVERITIES: SeverityItem[] = [
   },
   {
     type: 'help',
-    buttonSeverity: 'help',
+    buttonSeverity: 'base',
     icon: 'ti ti-help-circle',
     label: 'Справка',
     header: 'Справка',
@@ -74,7 +74,7 @@ const template = `
       <extra-button
         [label]="'Показать: ' + severity.label"
         [severity]="severity.buttonSeverity"
-        variant="outlined"
+        variant="tertiary"
         (click)="showConfirm(severity)"
       ></extra-button>
     }
@@ -123,7 +123,7 @@ import { ExtraConfirmDialogComponent, ExtraConfirmDialogService, ExtraButtonComp
 
 interface SeverityItem {
   type: 'success' | 'info' | 'warning' | 'help' | 'danger';
-  buttonSeverity: 'success' | 'info' | 'warning' | 'help' | 'danger';
+  buttonSeverity: 'success' | 'info' | 'warning' | 'base' | 'danger';
   icon: string;
   label: string;
   header: string;
@@ -135,7 +135,7 @@ const SEVERITIES: SeverityItem[] = [
   { type: 'success', buttonSeverity: 'success', icon: 'ti ti-circle-check', label: 'Успех', header: 'Успех', message: 'Операция выполнена успешно.', acceptLabel: 'OK' },
   { type: 'info', buttonSeverity: 'info', icon: 'ti ti-info-circle', label: 'Информация', header: 'Информация', message: 'Это информационное сообщение.', acceptLabel: 'Понятно' },
   { type: 'warning', buttonSeverity: 'warning', icon: 'ti ti-alert-triangle', label: 'Предупреждение', header: 'Предупреждение', message: 'Внимание! Это действие может иметь последствия.', acceptLabel: 'Продолжить' },
-  { type: 'help', buttonSeverity: 'help', icon: 'ti ti-help-circle', label: 'Справка', header: 'Справка', message: 'Нужна помощь с этим действием?', acceptLabel: 'Да' },
+  { type: 'help', buttonSeverity: 'base', icon: 'ti ti-help-circle', label: 'Справка', header: 'Справка', message: 'Нужна помощь с этим действием?', acceptLabel: 'Да' },
   { type: 'danger', buttonSeverity: 'danger', icon: 'ti ti-circle-x', label: 'Удаление', header: 'Подтверждение', message: 'Это действие нельзя отменить. Продолжить?', acceptLabel: 'Удалить' },
 ];
 
@@ -156,7 +156,7 @@ const SEVERITIES: SeverityItem[] = [
         <extra-button
           [label]="'Показать: ' + severity.label"
           [severity]="severity.buttonSeverity"
-          variant="outlined"
+          variant="tertiary"
           (click)="showConfirm(severity)"
         ></extra-button>
       }

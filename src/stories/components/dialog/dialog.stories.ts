@@ -1,92 +1,108 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraDialogComponent } from '../../../lib/components/dialog/dialog.component';
-import { DialogDefaultComponent, template as dialogDefaultTemplate } from './examples/dialog-default.component';
-import { DialogSmallComponent, template as dialogSmallTemplate } from './examples/dialog-small.component';
-import { DialogLargeComponent, template as dialogLargeTemplate } from './examples/dialog-large.component';
-import {
-  DialogExtraLargeComponent,
-  template as dialogExtraLargeTemplate
-} from './examples/dialog-extra-large.component';
-import { DialogNoModalComponent, template as dialogNoModalTemplate } from './examples/dialog-no-modal.component';
-import { DialogNoHeaderComponent, template as dialogNoHeaderTemplate } from './examples/dialog-no-header.component';
-import {
-  DialogCustomHeaderComponent,
-  template as dialogCustomHeaderTemplate
-} from './examples/dialog-custom-header.component';
-import { DialogDynamicComponent } from './examples/dialog-dynamic.component';
+import { DialogBasicComponent, Basic } from './examples/dialog-basic.component';
+import { DialogFeaturesComponent, Features } from './examples/dialog-features.component';
+import { DialogSizesComponent, Sizes } from './examples/dialog-sizes.component';
+import { DialogHeaderComponent, Header } from './examples/dialog-header.component';
+import { DialogSlotsComponent, Slots } from './examples/dialog-slots.component';
+import { DialogDynamicComponent, Dynamic } from './examples/dialog-dynamic.component';
 
 const meta: Meta<ExtraDialogComponent> = {
   title: 'Components/Overlay/Dialog',
   component: ExtraDialogComponent,
   tags: ['autodocs'],
+  decorators: [
+    moduleMetadata({
+      imports: [
+        ExtraDialogComponent,
+        DialogBasicComponent,
+        DialogFeaturesComponent,
+        DialogSizesComponent,
+        DialogHeaderComponent,
+        DialogSlotsComponent,
+        DialogDynamicComponent
+      ]
+    })
+  ],
   parameters: {
+    designTokens: { prefix: '--p-dialog' },
     docs: {
       description: {
-        component: `Dialog (модальное окно) — контейнер, отображающийся поверх основного содержимого страницы.
+        component: `Универсальное окно (модальное или немодальное) для отображения произвольного содержимого.
 
-        Шаблоны (передаются между тегами компонента):
-        - \`extraDialogHeader\` — кастомный заголовок (заменяет строковый \`header\`)
-        - \`extraDialogFooter\` — кастомный футер
+Реализовано по спецификации \`docs/components-api/dialog.md\`.
 
-        \`\`\`typescript
-        import { ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraDialogFooterDirective } from '@cdek-it/angular-ui-kit';
-        \`\`\``
+Слоты: content — основной содержимое (обычная проекция); header и footer — через директиву \`extraDialogTemplate\`.
+
+\`\`\`typescript
+import { ExtraDialogComponent, ExtraDialogTemplateDirective } from '@cdek-it/angular-ui-kit';
+\`\`\``
       }
-    },
-    designTokens: { prefix: '--p-dialog' }
+    }
   },
   argTypes: {
+    // ── Свойства (docs/components-api/dialog.md) ────────────────
+    showOverlay: {
+      control: 'boolean',
+      description: 'Отображать маску (overlay) поверх интерфейса',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' }
+      }
+    },
+    showMaximize: {
+      control: 'boolean',
+      description: 'Кнопка разворота окна на весь экран',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    showClose: {
+      control: 'boolean',
+      description: 'Кнопка закрытия окна',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' }
+      }
+    },
+    // ── Дополнительно (не в спеке) ───────────────────────────────
     header: {
       control: 'text',
-      description: 'Заголовок окна',
+      description: 'Заголовок окна (строкой; для кастома — слот header)',
       table: {
-        category: 'Props',
-        defaultValue: { summary: '' },
+        category: 'Дополнительно',
+        defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg', 'xlg'],
-      description: 'Размер диалога',
+      description: 'Размер окна',
       table: {
-        category: 'Props',
+        category: 'Дополнительно',
         defaultValue: { summary: 'default' },
         type: { summary: "'sm' | 'default' | 'lg' | 'xlg'" }
       }
     },
-    modal: {
-      control: 'boolean',
-      description: 'Должно ли окно быть модальным (блокировать фон)',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
-      }
-    },
     dismissableMask: {
       control: 'boolean',
-      description: 'Закрывать ли окно при клике на маску',
+      description: 'Закрывать окно при клике на маску',
       table: {
-        category: 'Props',
+        category: 'Дополнительно',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     closeOnEscape: {
       control: 'boolean',
-      description: 'Закрывать ли окно по нажатию Escape',
+      description: 'Закрывать окно по Escape',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
-      }
-    },
-    showHeader: {
-      control: 'boolean',
-      description: 'Отображать ли заголовок',
-      table: {
-        category: 'Props',
+        category: 'Дополнительно',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
@@ -95,296 +111,76 @@ const meta: Meta<ExtraDialogComponent> = {
       control: 'boolean',
       description: 'Фокус на первый элемент при открытии',
       table: {
-        category: 'Props',
+        category: 'Дополнительно',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     appendTo: {
       control: 'text',
-      description: 'Элемент, к которому прикрепляется диалог (например body или CSS-селектор)',
+      description: 'Элемент, к которому прикрепляется окно',
       table: {
-        category: 'Props',
+        category: 'Дополнительно',
         defaultValue: { summary: "'body'" },
         type: { summary: 'string' }
       }
     },
+    visible: {
+      control: 'boolean',
+      description: 'Видимость окна',
+      table: {
+        category: 'Дополнительно',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    // ── События ─────────────────────────────────────────────────
+    onShow: {
+      control: false,
+      description: 'Срабатывает при открытии окна',
+      action: 'onShow',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
+      }
+    },
+    onHide: {
+      control: false,
+      description: 'Срабатывает при закрытии окна',
+      action: 'onHide',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
+      }
+    },
+    onMaximize: {
+      control: false,
+      description: 'Срабатывает при развороте/сворачивании окна',
+      action: 'onMaximize',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
+      }
+    },
     visibleChange: {
       control: false,
-      description: 'Изменение видимости диалога',
+      description: 'Изменение видимости (двусторонняя привязка [(visible)])',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<boolean>' }
       }
     }
+  },
+  args: {
+    showOverlay: true,
+    showMaximize: false,
+    showClose: true
   }
 };
 
 export default meta;
 type Story = StoryObj<ExtraDialogComponent>;
 
-// ── Basic ─────────────────────────────────────────────────────────────────────
+// ── Комбинаторные истории ────────────────────────────────────────────────────
 
-export const Basic: Story = {
-  name: 'Basic',
-  decorators: [moduleMetadata({ imports: [DialogDefaultComponent] })],
-  render: () => ({ template: `<app-dialog-basic></app-dialog-basic>` }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Базовый пример диалогового окна с заголовком, контентом и кнопками действий.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-dialog-basic',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
-  template: \`${dialogDefaultTemplate}\`,
-})
-export class DialogBasicComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Small ─────────────────────────────────────────────────────────────────────
-
-export const Small: Story = {
-  name: 'Small',
-  decorators: [moduleMetadata({ imports: [DialogSmallComponent] })],
-  render: () => ({ template: `<app-dialog-small></app-dialog-small>` }),
-  parameters: {
-    docs: {
-      description: { story: 'Уменьшенный размер диалога (SM).' },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-dialog-small',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
-  template: \`${dialogSmallTemplate}\`,
-})
-export class DialogSmallComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Large ─────────────────────────────────────────────────────────────────────
-
-export const Large: Story = {
-  name: 'Large',
-  decorators: [moduleMetadata({ imports: [DialogLargeComponent] })],
-  render: () => ({ template: `<app-dialog-large></app-dialog-large>` }),
-  parameters: {
-    docs: {
-      description: { story: 'Увеличенный размер диалога (LG).' },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-dialog-large',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
-  template: \`${dialogLargeTemplate}\`,
-})
-export class DialogLargeComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Extra Large ───────────────────────────────────────────────────────────────
-
-export const ExtraLarge: Story = {
-  name: 'Extra Large',
-  decorators: [moduleMetadata({ imports: [DialogExtraLargeComponent] })],
-  render: () => ({ template: `<app-dialog-extra-large></app-dialog-extra-large>` }),
-  parameters: {
-    docs: {
-      description: { story: 'Максимальный размер диалога (XLG).' },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-dialog-extra-large',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
-  template: \`${dialogExtraLargeTemplate}\`,
-})
-export class DialogExtraLargeComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── No Modal ──────────────────────────────────────────────────────────────────
-
-export const NoModal: Story = {
-  name: 'No Modal',
-  decorators: [moduleMetadata({ imports: [DialogNoModalComponent] })],
-  render: () => ({ template: `<app-dialog-no-modal></app-dialog-no-modal>` }),
-  parameters: {
-    docs: {
-      description: { story: 'Окно не блокирует фон страницы.' },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-dialog-no-modal',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
-  template: \`${dialogNoModalTemplate}\`,
-})
-export class DialogNoModalComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Show Header ───────────────────────────────────────────────────────────────
-
-export const NoHeader: Story = {
-  name: 'Show Header',
-  decorators: [moduleMetadata({ imports: [DialogNoHeaderComponent] })],
-  render: () => ({ template: `<app-dialog-no-header></app-dialog-no-header>` }),
-  parameters: {
-    docs: {
-      description: { story: 'Заголовок можно скрыть с помощью пропса showHeader: false.' },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-dialog-no-header',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogFooterDirective, ExtraButtonComponent],
-  template: \`${dialogNoHeaderTemplate}\`,
-})
-export class DialogNoHeaderComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Custom Header ─────────────────────────────────────────────────────────────
-
-export const CustomHeader: Story = {
-  name: 'Custom Header',
-  decorators: [moduleMetadata({ imports: [DialogCustomHeaderComponent] })],
-  render: () => ({ template: `<app-dialog-custom-header></app-dialog-custom-header>` }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Кастомный заголовок через директиву `extraDialogHeader`. Шаблон заменяет строковый проп `header`.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-dialog-custom-header',
-  standalone: true,
-  imports: [ExtraDialogComponent, ExtraDialogHeaderDirective, ExtraButtonComponent],
-  template: \`${dialogCustomHeaderTemplate}\`,
-})
-export class DialogCustomHeaderComponent {
-  visible = false;
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Dynamic ───────────────────────────────────────────────────────────────────
-
-export const Dynamic: Story = {
-  name: 'Dynamic',
-  decorators: [moduleMetadata({ imports: [DialogDynamicComponent] })],
-  render: () => ({ template: `<app-dialog-dynamic></app-dialog-dynamic>` }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Программное открытие диалога через `ExtraDialogService`. Содержимое — любой Angular-компонент, получающий `ExtraDynamicDialogRef` для закрытия.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component, Injector } from '@angular/core';
-import { ExtraButtonComponent, ExtraDynamicDialogRef, ExtraDialogService } from '@cdek-it/angular-ui-kit';
-
-// Содержимое диалога
-@Component({
-  selector: 'app-dialog-dynamic-content',
-  standalone: true,
-  imports: [ExtraButtonComponent],
-  template: \`
-    <p>Заявка на доставку груза №CDEK-2025-00478312 готова к оформлению.</p>
-    <div class="flex justify-end gap-2 mt-4">
-      <extra-button variant="text" label="Отмена" (click)="ref.close()"></extra-button>
-      <extra-button label="Подтвердить" (click)="ref.close(true)"></extra-button>
-    </div>
-  \`,
-})
-export class DialogDynamicContentComponent {
-  constructor(readonly ref: ExtraDynamicDialogRef) {}
-}
-
-// Компонент-триггер
-@Component({
-  selector: 'app-dialog-dynamic',
-  standalone: true,
-  imports: [ButtonComponent],
-  template: \`
-    <button (click)="open()" label="Создать заявку"></button>
-  \`,
-})
-export class DialogDynamicComponent {
-  constructor(
-    private readonly dialogService: ExtraDialogService,
-    private readonly injector: Injector,
-  ) {}
-
-  open(): void {
-    this.dialogService.open(DialogDynamicContentComponent, this.injector, {
-      header: 'Подтверждение заявки',
-      modal: true,
-    });
-  }
-}`
-      }
-    }
-  }
-};
+export { Basic, Features, Sizes, Header, Slots, Dynamic };

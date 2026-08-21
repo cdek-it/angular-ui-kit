@@ -39,7 +39,7 @@ const template = `
   @for (s of sizes; track s.key) {
     <extra-button
       [label]="s.label"
-      variant="outlined"
+      variant="tertiary"
       (click)="show(s.cssVar)"
     ></extra-button>
   }
@@ -107,7 +107,7 @@ const SIZES = [
       @for (s of sizes; track s.key) {
         <extra-button
           [label]="s.label"
-          variant="outlined"
+          variant="tertiary"
           (click)="show(s.cssVar)"
         ></extra-button>
       }

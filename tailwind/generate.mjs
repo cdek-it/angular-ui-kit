@@ -78,15 +78,15 @@ function resolveToken(value, scope = tokens) {
     return ALPHA[color]?.[shade];
   }
   const semanticMatch = path.match(
-    /^(text|formField|content|surface|primary|navigation|overlay|highlight|focusRing|mask|list|background|border|icon)\.(.+)$/
+    /^(text|form|content|surface|primary|navigation|overlay|highlight|focusRing|mask|list|background|border|icon)\.(.+)$/
   );
   if (semanticMatch) {
     const obj = walk(semantic[semanticMatch[1]], semanticMatch[2].split('.'));
     return typeof obj === 'string' ? resolveToken(obj) : obj;
   }
-  const sizeMatch = path.match(/^size\.(.+)$/);
-  if (sizeMatch) {
-    return primitive.size[sizeMatch[1]];
+  const scaleMatch = path.match(/^(spacing|sizing)\.(.+)$/);
+  if (scaleMatch) {
+    return primitive[scaleMatch[1]]?.[scaleMatch[2]];
   }
   return value;
 }
@@ -119,9 +119,9 @@ function resolveInline(value) {
 const SEMANTIC_TOKENS = [
   // [tailwind var, путь в semantic.colorScheme.light.*]
   ['--color-foreground', 'text.color'],
-  ['--color-secondary', 'text.subtle'],
-  ['--color-muted', 'text.muted'],
-  ['--color-disabled', 'text.disabled'],
+  ['--color-secondary', 'text.secondaryColor'],
+  ['--color-muted', 'text.mutedColor'],
+  ['--color-disabled', 'text.disabledColor'],
   ['--color-primary', 'primary.color'],
   ['--color-on-primary', 'primary.contrastColor'],
   ['--color-primary-hover', 'primary.hoverColor'],
@@ -132,13 +132,13 @@ const SEMANTIC_TOKENS = [
   ['--color-surface-overlay', 'overlay.select.background'],
   ['--color-surface-border', 'content.borderColor'],
   ['--color-surface-hover', 'content.hoverBackground'],
-  ['--color-form-border', 'formField.borderColor'],
-  ['--color-form-bg', 'formField.background'],
-  ['--color-danger', 'text.danger'],
-  ['--color-success', 'text.success'],
-  ['--color-warning', 'text.warning'],
-  ['--color-info', 'text.info'],
-  ['--color-help', 'text.help']
+  ['--color-form-border', 'form.borderColor'],
+  ['--color-form-bg', 'form.background'],
+  ['--color-danger', 'text.dangerColor'],
+  ['--color-success', 'text.successColor'],
+  ['--color-warning', 'text.warningColor'],
+  ['--color-info', 'text.infoColor'],
+  ['--color-help', 'text.helpColor']
 ];
 
 /** Разрешить semantic-токен по пути (text.color, primary.color, content.background…). */
@@ -171,16 +171,16 @@ const SERVICE_TO_SOLID = {
 
 // ── fonts / type / radius / shadow / easing / spacing ───────────────────────
 const FONT_HEADING = primitive.fonts.fontFamily.heading; // 'TT Fellows'
-const FONT_BASE = primitive.fonts.fontFamily.base; // 'PT Sans'
+const FONT_BASE = primitive.fonts.fontFamily.base; // 'Noto Sans'
 const FONT_WEIGHT = primitive.fonts.fontWeight; // {regular,medium,demibold,bold}
 const FONT_SIZE = primitive.fonts.fontSize; // {100..1000}
 const LINE_HEIGHT = primitive.fonts.lineHeight; // {100..1000, auto}
-const RADIUS = tokens.semantic.dimension.radius; // {100,200,...,none,max}
+const RADIUS = primitive.borderRadius; // {100,200,...,none,max}
 const SHADOWS = primitive.shadows; // {100..500, none} (со ссылками на alpha-цвета)
 const EASING = primitive.transition.easing; // {linear, in, out, inOut}
 // spacing: v4 отдаёт под spacing ОДНУ ручку --spacing (множитель). Базовый шаг кита —
 // primitive.spacing["1x"] (= 0.25rem); вся шкала (p/m/w/h/gap/inset/...) выводится v4 как calc(var(--spacing)*N).
-const SPACING_STEP = primitive.size['1x'];
+const SPACING_STEP = primitive.spacing['1x'];
 
 const HEADER = `/**
  * СГЕНЕРИРОВАНО. Не править руками — источник: src/lib/providers/prime-preset/tokens/tokens.json.

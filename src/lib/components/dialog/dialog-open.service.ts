@@ -7,13 +7,19 @@ export type ExtraDynamicDialogConfig<DataType = any> = Omit<DynamicDialogConfig<
   styleClass?: string;
 };
 
+/**
+ * Реэкспорт класса значением (не type-алиас): Design-тип в конструкторе
+ * контент-компонента должен резолвиться в рантайме для DI, иначе NG0202.
+ */
+export { DynamicDialogRef };
+/** Тип-алиас для подписей; для инжекта использовать сам класс. */
 export type ExtraDynamicDialogRef<T = any> = DynamicDialogRef<T>;
 
 @Injectable({ providedIn: 'root' })
 export class ExtraDialogService {
   constructor(private readonly injector: Injector) {}
 
-  open<T>(componentType: Type<T>, config: ExtraDynamicDialogConfig = {}): ExtraDynamicDialogRef<T> | null {
+  open<T>(componentType: Type<T>, config: ExtraDynamicDialogConfig = {}): DynamicDialogRef<T> | null {
     const { size, styleClass, ...rest } = config;
     const sizeClass = this.toSizeClass(size);
     const mergedStyleClass = [sizeClass, styleClass].filter(Boolean).join(' ');

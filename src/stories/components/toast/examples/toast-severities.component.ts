@@ -33,8 +33,8 @@ const template = `
   @for (s of severities; track s.type) {
     <extra-button
       [label]="'Показать: ' + s.label"
-      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : null"
-      variant="outlined"
+      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : 'base'"
+      variant="tertiary"
       (click)="show(s.type, s.icon)"
     ></extra-button>
   }
@@ -96,8 +96,8 @@ const SEVERITIES = [
       @for (s of severities; track s.type) {
         <extra-button
           [label]="'Показать: ' + s.label"
-          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : null"
-          variant="outlined"
+          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : 'base'"
+          variant="tertiary"
           (click)="show(s.type, s.icon)"
         ></extra-button>
       }

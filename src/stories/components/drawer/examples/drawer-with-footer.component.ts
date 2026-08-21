@@ -11,7 +11,7 @@ const template = `
 
   <ng-template extraDrawerFooter>
     <div class="flex justify-end gap-3">
-      <extra-button label="Cancel" variant="outlined" (click)="visible = false"></extra-button>
+      <extra-button label="Cancel" variant="tertiary" (click)="visible = false"></extra-button>
       <extra-button label="Save" (click)="visible = false"></extra-button>
     </div>
   </ng-template>
@@ -55,7 +55,7 @@ import { ExtraDrawerComponent, ExtraDrawerFooterDirective, ExtraButtonComponent 
 
       <ng-template extraDrawerFooter>
         <div class="flex justify-end gap-3">
-          <extra-button label="Cancel" variant="outlined" (click)="visible = false"></extra-button>
+          <extra-button label="Cancel" variant="tertiary" (click)="visible = false"></extra-button>
           <extra-button label="Save" (click)="visible = false"></extra-button>
         </div>
       </ng-template>

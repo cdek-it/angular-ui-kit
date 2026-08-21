@@ -93,7 +93,7 @@ export const Default: Story = {
       <p class="text-sm">Контент карточки. Гибкая область для любого содержимого.</p>
     </ng-template>
     <ng-template pTemplate="footer">
-      <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
+      <extra-button label="Действие" size="small" class="w-full"></extra-button>
     </ng-template>
   </extra-card>
 </div>`;
@@ -138,7 +138,7 @@ export const Overlay: Story = {
             <p class="text-sm">Карточка без изображения в шапке.</p>
           </ng-template>
           <ng-template pTemplate="footer">
-            <extra-button label="Действие" size="small" [fluid]="true" class="w-full"></extra-button>
+            <extra-button label="Действие" size="small" class="w-full"></extra-button>
           </ng-template>
         </extra-card>
       \`,
@@ -154,7 +154,7 @@ export const Overlay: Story = {
         <p class="text-sm">Карточка без изображения в шапке.</p>
       </ng-template>
       <ng-template pTemplate="footer">
-        <button label="Действие" size="small" [fluid]="true"></button>
+        <button label="Действие" size="small"></button>
       </ng-template>
     </card>
   \`,
@@ -232,7 +232,7 @@ export const WithoutSubtitle: Story = {
                 <p class="text-sm">Карточка без подзаголовка.</p>
               </ng-template>
               <ng-template pTemplate="footer">
-                <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
+                <extra-button label="Действие" size="small"></extra-button>
               </ng-template>
             </extra-card>
           \`,
