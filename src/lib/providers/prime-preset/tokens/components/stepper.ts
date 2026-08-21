@@ -43,8 +43,8 @@ export const stepperCss = ({ dt }: { dt: (token: string) => string }): string =>
 
 /* Step-number с иконкой */
 .p-stepper .p-step-number:has(i) {
-  background: ${transparent};
-  border-color: ${transparent};
+  background: transparent;
+  border-color: transparent;
 }
 
 /* Размер иконок в step-number */
@@ -59,6 +59,6 @@ export const stepperCss = ({ dt }: { dt: (token: string) => string }): string =>
 
 /* Прозрачный фон для панелей */
 .p-stepper .p-steppanel {
-  background: ${transparent};
+  background: transparent;
 }
 `;

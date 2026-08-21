@@ -19,6 +19,6 @@ export const breadcrumbCss = ({ dt }: { dt: (token: string) => string }): string
   }
 
   .p-breadcrumb-item:last-child .p-breadcrumb-item-link:hover {
-    background: ${transparent};
+    background: transparent;
   }
 `;

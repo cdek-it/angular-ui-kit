@@ -206,22 +206,22 @@ export default ({ dt }: { dt: (token: string) => string }) => `
 /* disabled outlined кнопки */
 .p-button.p-button-outlined:is(.p-disabled, :disabled, .p-button-loading) {
     color: ${dt('button.extend.disabledColor')};
-    background: ${transparent};
-    border-color: ${transparent};
+    background: transparent;
+    border-color: transparent;
 }
 
 /* disabled text кнопки */
 .p-button.p-button-text:is(.p-disabled, :disabled, .p-button-loading) {
     color: ${dt('button.extend.disabledColor')};
-    background: ${transparent};
-    border-color: ${transparent};
+    background: transparent;
+    border-color: transparent;
 }
 
 /* disabled link кнопки */
 .p-button.p-button-link:is(.p-disabled, :disabled, .p-button-loading) {
     color: ${dt('button.extend.disabledColor')};
-    background: ${transparent};
-    border-color: ${transparent};
+    background: transparent;
+    border-color: transparent;
 }
 
 /* Отступы для link кнопок */
