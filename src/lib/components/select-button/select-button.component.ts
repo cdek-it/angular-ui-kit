@@ -16,7 +16,7 @@ export interface ExtraSelectButtonChangeEvent {
   originalEvent?: Event;
 }
 
-export type ExtraSelectButtonSize = 'small' | 'base' | 'large' | 'xLarge';
+export type ExtraSelectButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-select-button',
@@ -34,7 +34,8 @@ export type ExtraSelectButtonSize = 'small' | 'base' | 'large' | 'xLarge';
       [multiple]="multiple"
       [allowEmpty]="allowEmpty"
       [disabled]="isDisabled"
-      [ngClass]="sizeClass"
+      [size]="primeSize"
+      [styleClass]="primeStyleClass"
     >
       <ng-template pTemplate="item" let-item>
         @if ($any(item)['icon']) {
@@ -70,14 +71,14 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor {
     return this._disabled;
   }
 
-  get sizeClass(): string {
-    const sizeMap: Record<ExtraSelectButtonSize, string> = {
-      small: 'p-selectbutton-small',
-      base: '',
-      large: 'p-selectbutton-large',
-      xLarge: 'p-selectbutton-xlarge',
-    };
-    return sizeMap[this.size] ?? '';
+  get primeSize(): 'small' | 'large' | undefined {
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large') return 'large';
+    return undefined;
+  }
+
+  get primeStyleClass(): string {
+    return this.size === 'xlarge' ? 'p-selectbutton-xlarge' : '';
   }
 
   writeValue(value: any): void {
