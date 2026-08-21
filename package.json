@@ -23,6 +23,7 @@
     "build:lib": "ng build angular-ui-kit-lib && npm run generate:tailwind && node tailwind/copy-to-dist.mjs",
     "generate:tailwind": "node tailwind/generate.mjs",
     "check:tokens": "node scripts/check-dt-refs.mjs",
+    "check:component": "node scripts/check-component.mjs",
     "security:check": "npm audit --production --audit-level high",
     "copy:dist": "cpx 'src/lib/providers/prime-preset/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/",
     "validate:figma-cc": "node scripts/figma-code-connect/validate.mjs"
