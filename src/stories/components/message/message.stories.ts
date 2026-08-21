@@ -7,7 +7,7 @@ import { MessageWithContentComponent, WithContent } from './examples/message-wit
 type MessageArgs = ExtraMessageComponent;
 
 const meta: Meta<MessageArgs> = {
-  title: 'Components/Feedback/Message',
+  title: 'Components/Messages/Message',
   component: ExtraMessageComponent,
   tags: ['autodocs'],
   decorators: [

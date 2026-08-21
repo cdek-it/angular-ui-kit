@@ -15,7 +15,7 @@ import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
 type ButtonArgs = ExtraButtonComponent & { onClick?: (event: MouseEvent) => void };
 
 const meta: Meta<ButtonArgs> = {
-  title: 'Components/Button',
+  title: 'Components/Button/Button',
   component: ExtraButtonComponent,
   tags: ['autodocs'],
   decorators: [

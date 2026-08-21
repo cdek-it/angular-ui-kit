@@ -8,7 +8,7 @@ import { ToastWidthComponent, Width } from './examples/toast-width.component';
 import { Position, ToastPositionComponent } from './examples/toast-position.component';
 
 const meta: Meta<ExtraToastComponent> = {
-  title: 'Components/Feedback/Toast',
+  title: 'Components/Messages/Toast',
   component: ExtraToastComponent,
   tags: ['autodocs'],
   decorators: [
