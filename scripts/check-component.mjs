@@ -49,10 +49,19 @@ const cssVarName = (path) =>
   '--p-' +
   path
     .split('.')
-    .filter((s) => s !== 'root' && s !== 'extend')
+    .filter((s, i, all) => s !== 'root' && s !== 'extend' && !(s === 'colorScheme') && !(all[i - 1] === 'colorScheme'))
     .join('-')
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
     .toLowerCase();
+
+/**
+ * Тема, в которой живёт токен. Варианты light и dark выпускаются в разные блоки (`:root` и `.dark`)
+ * и потому законно делят одно имя переменной — коллизией это не является.
+ */
+const themeScope = (path) => {
+  const m = path.match(/(?:^|\.)colorScheme\.(\w+)(?:\.|$)/);
+  return m ? m[1] : 'base';
+};
 
 /** Все листовые пути внутри объекта токенов, с префиксом. */
 function leafPaths(node, prefix = []) {
@@ -121,24 +130,31 @@ function checkComponent(name) {
   if (own) {
     const byVar = new Map();
     for (const path of leafPaths(own)) {
-      const varName = cssVarName(`${name.replace(/-/g, '')}.${path}`);
-      if (!byVar.has(varName)) byVar.set(varName, []);
-      byVar.get(varName).push(path);
+      const key = `${themeScope(path)} ${cssVarName(`${name.replace(/-/g, '')}.${path}`)}`;
+      if (!byVar.has(key)) byVar.set(key, []);
+      byVar.get(key).push(path);
     }
-    for (const [varName, paths] of byVar) {
-      if (paths.length > 1) fail('G7 коллизия имён', `${varName} ← ${paths.join(' и ')}`);
+    for (const [key, paths] of byVar) {
+      if (paths.length > 1) fail('G7 коллизия имён', `${key.split(' ')[1]} ← ${paths.join(' и ')}`);
     }
   }
 
   // G8. Собственные токены компонента (те, которых нет у Aura) обязаны использоваться в CSS:
   // PrimeNG про них не знает, поэтому неиспользованный токен = дизайн задал, а мы не применили.
+  //
+  // Сравнение идёт по ИМЕНИ CSS-переменной, а не по пути: Aura держит цвета под
+  // `colorScheme.light.root.background`, наш экспорт — под `root.background`, но переменная
+  // у обоих одна (`--p-togglebutton-background`), и стили Aura её применяют. Сравнение путей
+  // давало на такие токены ложные срабатывания.
   if (own) {
-    const auraPaths = new Set(leafPaths(Aura.components?.[name.replace(/-/g, '')] ?? {}));
-    const used = new Set(refs.map((r) => r.replace(/^[^.]+\./, '')));
+    const component = name.replace(/-/g, '');
+    const auraVars = new Set(leafPaths(Aura.components?.[component] ?? {}).map((p) => cssVarName(`${component}.${p}`)));
+    const usedVars = new Set(refs.map(cssVarName));
     for (const path of leafPaths(own)) {
-      if (path.startsWith('colorScheme.')) continue; // цвета PrimeNG раскладывает сам
-      if (auraPaths.has(path)) continue; // токен знаком PrimeNG — применит без нашего CSS
-      if (!used.has(path)) warn('G8 токен не применён', path);
+      const varName = cssVarName(`${component}.${path}`);
+      if (auraVars.has(varName)) continue; // переменную применяют стили Aura
+      if (usedVars.has(varName)) continue; // применяем сами
+      warn('G8 токен не применён', path);
     }
   }
 
@@ -146,7 +162,11 @@ function checkComponent(name) {
 }
 
 const names = process.argv.slice(2).filter((a) => !a.startsWith('-'));
-const targets = names.length ? names : readdirSync(CSS_DIR).filter((f) => f.endsWith('.ts')).map((f) => basename(f, '.ts'));
+const targets = names.length
+  ? names
+  : readdirSync(CSS_DIR)
+      .filter((f) => f.endsWith('.ts'))
+      .map((f) => basename(f, '.ts'));
 
 let failed = 0;
 for (const name of targets) {
