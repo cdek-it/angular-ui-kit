@@ -6,7 +6,7 @@ const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-3 items-end">
-      <extra-button label="Обычная"></extra-button>
+      <extra-button label="Primary"></extra-button>
       <extra-button label="Disabled" [disabled]="true"></extra-button>
       <extra-button label="Loading" [loading]="true"></extra-button>
       <extra-button label="Loading + иконка" icon="ti ti-send" [loading]="true"></extra-button>
@@ -14,32 +14,19 @@ const template = `
 
     @for (variant of variants; track variant) {
       <div class="flex gap-3 items-end">
-        <extra-button [variant]="variant" label="Обычная"></extra-button>
+        <extra-button [variant]="variant" [label]="capitalize(variant)"></extra-button>
         <extra-button [variant]="variant" label="Disabled" [disabled]="true"></extra-button>
         <extra-button [variant]="variant" label="Loading" [loading]="true"></extra-button>
       </div>
     }
 
-    <div class="flex gap-3 items-end">
-      <extra-button severity="danger" label="Обычная"></extra-button>
-      <extra-button severity="danger" label="Disabled" [disabled]="true"></extra-button>
-      <extra-button severity="danger" label="Loading" [loading]="true"></extra-button>
-    </div>
-    <div class="flex gap-3 items-end">
-      <extra-button severity="warning" label="Обычная"></extra-button>
-      <extra-button severity="warning" label="Disabled" [disabled]="true"></extra-button>
-      <extra-button severity="warning" label="Loading" [loading]="true"></extra-button>
-    </div>
-    <div class="flex gap-3 items-end">
-      <extra-button severity="success" label="Обычная"></extra-button>
-      <extra-button severity="success" label="Disabled" [disabled]="true"></extra-button>
-      <extra-button severity="success" label="Loading" [loading]="true"></extra-button>
-    </div>
-    <div class="flex gap-3 items-end">
-      <extra-button severity="info" label="Обычная"></extra-button>
-      <extra-button severity="info" label="Disabled" [disabled]="true"></extra-button>
-      <extra-button severity="info" label="Loading" [loading]="true"></extra-button>
-    </div>
+    @for (severity of severities; track severity) {
+      <div class="flex gap-3 items-end">
+        <extra-button [severity]="severity" [label]="capitalize(severity)"></extra-button>
+        <extra-button [severity]="severity" label="Disabled" [disabled]="true"></extra-button>
+        <extra-button [severity]="severity" label="Loading" [loading]="true"></extra-button>
+      </div>
+    }
   </div>
 </div>
 `;
@@ -52,7 +39,12 @@ const template = `
   template
 })
 export class ButtonStatesComponent {
-  variants = ['primary', 'secondary', 'tertiary', 'text', 'link'];
+  variants = ['secondary', 'tertiary', 'text', 'link'];
+  severities = ['danger', 'warning', 'success', 'info'];
+
+  capitalize(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
 }
 
 export const States: StoryObj = {
@@ -63,7 +55,7 @@ export const States: StoryObj = {
     docs: {
       description: {
         story:
-          'Состояния disabled и loading: спиннер, кнопка неактивна. Показаны для каждого variant и каждого severity.'
+          'Состояния disabled и loading (спиннер, кнопка неактивна) для каждого variant и каждого severity. Первая кнопка в ряду названа по variant/severity.'
       },
       source: {
         language: 'ts',
@@ -77,24 +69,24 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
   imports: [ExtraButtonComponent],
   template: \`
     <div class="flex gap-3 items-end">
-      <extra-button label="Обычная"></extra-button>
+      <extra-button label="Primary"></extra-button>
       <extra-button label="Disabled" [disabled]="true"></extra-button>
       <extra-button label="Loading" [loading]="true"></extra-button>
       <extra-button label="Loading + иконка" icon="ti ti-send" [loading]="true"></extra-button>
     </div>
 
     <!-- disabled / loading работают во всех variant -->
-    <extra-button variant="secondary" label="Disabled" [disabled]="true"></extra-button>
-    <extra-button variant="tertiary" label="Loading" [loading]="true"></extra-button>
-    <extra-button variant="text" label="Disabled" [disabled]="true"></extra-button>
-    <extra-button variant="link" label="Loading" [loading]="true"></extra-button>
+    <extra-button variant="secondary" label="Secondary" [disabled]="true"></extra-button>
+    <extra-button variant="tertiary" label="Tertiary" [loading]="true"></extra-button>
+    <extra-button variant="text" label="Text" [disabled]="true"></extra-button>
+    <extra-button variant="link" label="Link" [loading]="true"></extra-button>
 
     <!-- disabled / loading работают со всеми severity -->
-    <extra-button severity="danger" label="Disabled" [disabled]="true"></extra-button>
-    <extra-button severity="danger" label="Loading" [loading]="true"></extra-button>
-    <extra-button severity="warning" label="Loading" [loading]="true"></extra-button>
-    <extra-button severity="success" label="Loading" [loading]="true"></extra-button>
-    <extra-button severity="info" label="Loading" [loading]="true"></extra-button>
+    <extra-button severity="danger" label="Danger" [disabled]="true"></extra-button>
+    <extra-button severity="danger" label="Danger" [loading]="true"></extra-button>
+    <extra-button severity="warning" label="Warning" [loading]="true"></extra-button>
+    <extra-button severity="success" label="Success" [loading]="true"></extra-button>
+    <extra-button severity="info" label="Info" [loading]="true"></extra-button>
   \`,
 })
 export class ButtonStatesComponent {}

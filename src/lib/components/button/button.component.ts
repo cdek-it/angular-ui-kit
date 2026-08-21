@@ -20,7 +20,6 @@ export type ExtraButtonIconPosition = 'left' | 'right';
       [size]="primeSize"
       [styleClass]="primeStyleClass"
       [rounded]="rounded"
-      [outlined]="variant === 'tertiary'"
       [text]="variant === 'text'"
       [link]="variant === 'link'"
       [disabled]="disabled"
@@ -56,7 +55,9 @@ export class ExtraButtonComponent {
 
   get primeSeverity(): PrimeButtonSeverity {
     if (this.severity === 'base') {
-      return this.variant === 'secondary' ? 'secondary' : null;
+      if (this.variant === 'secondary') return 'secondary';
+      if (this.variant === 'tertiary') return 'contrast';
+      return null;
     }
     return this.severity === 'warning' ? 'warn' : this.severity;
   }

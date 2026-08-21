@@ -5,14 +5,18 @@ import { ExtraButtonComponent } from '../../../../lib/components/button/button.c
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex flex-col gap-4">
-    @for (severity of severities; track severity) {
-      <div class="flex gap-3 items-end">
-        <extra-button [severity]="severity" [rounded]="true" label="Primary"></extra-button>
-        <extra-button [severity]="severity" [rounded]="true" variant="secondary" label="Secondary"></extra-button>
-        <extra-button [severity]="severity" [rounded]="true" variant="tertiary" label="Tertiary"></extra-button>
-        <extra-button [severity]="severity" [rounded]="true" icon="ti ti-check"></extra-button>
-      </div>
-    }
+    <div class="flex gap-3 items-end">
+      <extra-button [rounded]="true" label="Primary"></extra-button>
+      <extra-button [rounded]="true" variant="secondary" label="Secondary"></extra-button>
+      <extra-button [rounded]="true" variant="tertiary" label="Tertiary"></extra-button>
+      <extra-button [rounded]="true" icon="ti ti-check"></extra-button>
+    </div>
+    <div class="flex gap-3 items-end">
+      <extra-button severity="danger" [rounded]="true" label="Danger"></extra-button>
+      <extra-button severity="warning" [rounded]="true" label="Warning"></extra-button>
+      <extra-button severity="success" [rounded]="true" label="Success"></extra-button>
+      <extra-button severity="info" [rounded]="true" label="Info"></extra-button>
+    </div>
   </div>
 </div>
 `;
@@ -24,9 +28,7 @@ const template = `
   imports: [ExtraButtonComponent],
   template
 })
-export class ButtonRoundedComponent {
-  severities = ['base', 'danger', 'warning', 'success', 'info'];
-}
+export class ButtonRoundedComponent {}
 
 export const Rounded: StoryObj = {
   render: () => ({
@@ -35,7 +37,8 @@ export const Rounded: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Скруглённая форма (rounded) во всех severity и вариантах, включая иконочные кнопки.'
+        story:
+          'Скруглённая форма (rounded): варианты отображения при severity="base", семантические состояния (severity) и иконочные кнопки. Пересечения severity с вариантами не показываются — severity, кроме "base", перекрывает их.'
       },
       source: {
         language: 'ts',
@@ -48,19 +51,20 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ExtraButtonComponent],
   template: \`
-    <div class="flex gap-3 items-end">
-      <extra-button [rounded]="true" label="Primary"></extra-button>
-      <extra-button [rounded]="true" variant="secondary" label="Secondary"></extra-button>
-      <extra-button [rounded]="true" variant="tertiary" label="Tertiary"></extra-button>
-      <extra-button [rounded]="true" icon="ti ti-check"></extra-button>
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-3 items-end">
+        <extra-button [rounded]="true" label="Primary"></extra-button>
+        <extra-button [rounded]="true" variant="secondary" label="Secondary"></extra-button>
+        <extra-button [rounded]="true" variant="tertiary" label="Tertiary"></extra-button>
+        <extra-button [rounded]="true" icon="ti ti-check"></extra-button>
+      </div>
+      <div class="flex gap-3 items-end">
+        <extra-button severity="danger" [rounded]="true" label="Danger"></extra-button>
+        <extra-button severity="warning" [rounded]="true" label="Warning"></extra-button>
+        <extra-button severity="success" [rounded]="true" label="Success"></extra-button>
+        <extra-button severity="info" [rounded]="true" label="Info"></extra-button>
+      </div>
     </div>
-    <div class="flex gap-3 items-end">
-      <extra-button severity="danger" [rounded]="true" label="Danger"></extra-button>
-      <extra-button severity="danger" [rounded]="true" variant="secondary" label="Danger / Secondary"></extra-button>
-      <extra-button severity="danger" [rounded]="true" variant="tertiary" label="Danger / Tertiary"></extra-button>
-      <extra-button severity="danger" [rounded]="true" icon="ti ti-trash"></extra-button>
-    </div>
-    <!-- аналогично для severity="warning" | "success" | "info" -->
   \`,
 })
 export class ButtonRoundedComponent {}
