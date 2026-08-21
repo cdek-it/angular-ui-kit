@@ -1,3 +1,10 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-selectbutton.
+ * Подключается в map-tokens.ts: `import { selectbuttonCss } from './tokens/components/selectbutton'`
+ *
+ * Высоты и hover-рамка берутся из токенов togglebutton: selectbutton — контейнер кнопок-переключателей,
+ * и их размерная лестница задаётся дизайном именно там.
+ */
 export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): string => `
 .p-selectbutton.p-component {
   background: ${dt('selectbutton.colorScheme.light.extend.background')};
@@ -11,7 +18,7 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   font-family: ${dt('fonts.fontFamily.heading')};
   font-weight: ${dt('fonts.fontWeight.demibold')};
   line-height: ${dt('fonts.lineHeight.500')};
-  height: ${dt('dimension.size.1100')};
+  height: ${dt('togglebutton.extend.iconOnlyWidth')};
   border-radius: ${dt('selectbutton.extend.ext.borderRadius')};
 }
 
@@ -36,7 +43,7 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 /* Size: small */
 .p-selectbutton.p-selectbutton-small.p-component .p-togglebutton.p-component {
   line-height: ${dt('fonts.lineHeight.300')};
-  height: ${dt('dimension.space.800')};
+  height: ${dt('togglebutton.extend.extSm.iconOnlyWidth')};
 }
 
 .p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-label,
@@ -58,7 +65,7 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 /* Size: large */
 .p-selectbutton.p-selectbutton-large.p-component .p-togglebutton.p-component {
   line-height: ${dt('fonts.lineHeight.550')};
-  height: ${dt('dimension.size.750')};
+  height: ${dt('togglebutton.extend.extLg.iconOnlyWidth')};
 }
 
 .p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-label,
@@ -75,7 +82,7 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton.p-component {
   font-size: ${dt('fonts.fontSize.600')};
   line-height: ${dt('fonts.lineHeight.550')};
-  height: ${dt('dimension.size.800')};
+  height: ${dt('togglebutton.extend.extXlg.iconOnlyWidth')};
 }
 
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-label,
