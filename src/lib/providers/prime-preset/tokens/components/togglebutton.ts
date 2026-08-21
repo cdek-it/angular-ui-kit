@@ -1,3 +1,11 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-togglebutton.
+ * Подключается в map-tokens.ts: `import { togglebuttonCss } from './tokens/components/togglebutton'`
+ *
+ * Высота у всех размеров задаётся явно из размерной лестницы дизайна
+ * (`extend.*.iconOnlyWidth` = 32/40/56/64px). Без этого высота текстовой кнопки выводилась
+ * из паддинга и расходилась с icon-only на 2–6px, а внутри select-button — ещё и с группой.
+ */
 export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* ─── Типографика ─── */
@@ -5,6 +13,20 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   font-family: ${dt('fonts.fontFamily.heading')};
   font-weight: ${dt('fonts.fontWeight.demibold')};
   line-height: ${dt('fonts.lineHeight.500')};
+}
+
+/* ─── Высота по размерам: одна лестница для текстовых и icon-only ─── */
+.p-togglebutton.p-component {
+  height: ${dt('togglebutton.extend.iconOnlyWidth')};
+}
+.p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm {
+  height: ${dt('togglebutton.extend.extSm.iconOnlyWidth')};
+}
+.p-togglebutton.p-togglebutton.p-component.p-togglebutton-lg {
+  height: ${dt('togglebutton.extend.extLg.iconOnlyWidth')};
+}
+.p-togglebutton.p-togglebutton.p-component.p-togglebutton-xlarge {
+  height: ${dt('togglebutton.extend.extXlg.iconOnlyWidth')};
 }
 
 /* ─── Hover unchecked ─── */
