@@ -1,3 +1,7 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-message.
+ * Подключается в map-tokens.ts: `import { messageCss } from './tokens/components/message'`
+ */
 export const messageCss = ({ dt }: { dt: (token: string) => string }): string => `
   /* Основной контейнер message */
   .p-message {
@@ -155,5 +159,19 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
 
   .p-message-error .p-message-accent-line {
     background: ${dt('message.extend.extError.color')};
+  }
+
+  /* Цвет подписи по типам: дизайн задаёт его отдельно от цвета акцента */
+  .p-message-info .p-message-detail {
+    color: ${dt('message.extend.extInfo.caption.color')};
+  }
+  .p-message-success .p-message-detail {
+    color: ${dt('message.extend.extSuccess.caption.color')};
+  }
+  .p-message-warn .p-message-detail {
+    color: ${dt('message.extend.extWarn.caption.color')};
+  }
+  .p-message-error .p-message-detail {
+    color: ${dt('message.extend.extError.caption.color')};
   }
 `;
