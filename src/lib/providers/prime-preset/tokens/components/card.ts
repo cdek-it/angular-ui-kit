@@ -1,35 +1,31 @@
 /**
  * Кастомная CSS-стилизация для компонента p-card.
- * Публикует extend-токены как CSS-переменные и применяет глобальные стили.
  * Подключается в map-tokens.ts: `import { cardCss } from './tokens/components/card'`
+ *
+ * Все значения берутся через dt() — PrimeUIX сам выпускает CSS-переменную для каждого токена
+ * пресета, поэтому объявлять их повторно в :root не нужно.
  */
 export const cardCss = ({ dt }: { dt: (token: string) => string }): string => `
-  /* ─── Card extend: публикуем кастомные переменные в :root ─── */
-  :root {
-    --p-card-extend-border-color: ${dt('card.extend.borderColor')};
-    --p-card-extend-border-width: ${dt('card.extend.borderWidth')};
-  }
-
-  /* ─── Card base styles ─── */
+  /* ─── Рамка и базовое состояние ─── */
   .p-card.p-component {
-    border: var(--p-card-extend-border-width) solid var(--p-card-extend-border-color);
+    border: ${dt('card.extend.borderWidth')} solid ${dt('card.extend.borderColor')};
     overflow: hidden;
-    box-shadow: none;
+    box-shadow: ${dt('card.root.shadow')};
   }
 
-  /* ─── Overlay variant ─── */
+  /* ─── Overlay: тень задаётся токеном карточки, а не общей шкалой ─── */
   .p-card.p-component.shadow-md {
-    box-shadow: ${dt('effects.elevation.400')};
+    box-shadow: ${dt('card.overlay.shadow')};
   }
 
-  /* ─── Caption (Title & Subtitle wrapper) ─── */
+  /* ─── Caption: обёртка заголовка и подзаголовка ─── */
   .p-card-caption {
     display: flex;
     flex-direction: column;
     gap: ${dt('card.caption.gap')};
   }
 
-  /* ─── Subtitle typography ─── */
+  /* ─── Типографика подзаголовка ─── */
   .p-card-subtitle {
     font-family: ${dt('fonts.fontFamily.heading')};
     font-size: ${dt('fonts.fontSize.200')};
