@@ -3,12 +3,12 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   .p-select.p-component {
     width: 100%;
     border-width: ${dt('select.extend.borderWidth')};
-    line-height: ${dt('select.extend.fonts_lineHeight_250')};
+    line-height: ${dt('fonts.lineHeight.250')};
   }
 
   .p-select.p-component .p-select-label,
   .p-select-option {
-    font-family: ${dt('select.extend.fonts_fontFamily_base')};
+    font-family: ${dt('fonts.fontFamily.base')};
   }
 
   /* ─── Focus ─── */
@@ -19,7 +19,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   /* ─── Invalid + Focus ─── */
   .p-select.p-component.p-invalid.p-focus {
     border-color: ${dt('select.root.invalidBorderColor')};
-    box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('select.extend.focusRing_invalid')};
+    box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
   }
 
   /* ─── Readonly ─── */
@@ -44,20 +44,20 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
 
   /* ─── FloatLabel ─── */
   .p-floatlabel:has(.p-select.p-component) label {
-    font-family: ${dt('select.extend.fonts_fontFamily_base')};
-    font-weight: ${dt('select.extend.floatlabel_root_fontWeight')};
-    line-height: ${dt('select.extend.fonts_lineHeight_250')};
-    color: ${dt('select.extend.floatlabel_root_color')};
+    font-family: ${dt('fonts.fontFamily.base')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
+    line-height: ${dt('fonts.lineHeight.250')};
+    color: ${dt('color.bg.neutral.medium.strong')};
   }
 
   .p-floatlabel:has(.p-select.p-component) .p-floatlabel-active label {
-    font-weight: ${dt('select.extend.floatlabel_root_active_fontWeight')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
   }
 
   .p-floatlabel-in .p-select.p-component .p-select-label {
-    font-family: ${dt('select.extend.fonts_fontFamily_base')};
-    padding-block-start: ${dt('select.extend.floatlabel_in_input_paddingTop')};
-    padding-block-end: ${dt('select.extend.floatlabel_in_input_paddingBottom')};
+    font-family: ${dt('fonts.fontFamily.base')};
+    padding-block-start: ${dt('dimension.space.700')};
+    padding-block-end: ${dt('dimension.space.300')};
   }
 
   /* ─── Checkmark: выбранный элемент ─── */

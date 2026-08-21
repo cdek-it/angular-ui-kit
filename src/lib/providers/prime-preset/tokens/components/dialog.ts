@@ -1,20 +1,20 @@
 export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => `
   .p-dialog .p-dialog-title {
-    font-family: ${dt('dialog.extend.fonts_fontFamily_heading')};
+    font-family: ${dt('fonts.fontFamily.heading')};
     font-size: ${dt('dialog.title.fontSize')};
     font-weight: ${dt('dialog.title.fontWeight')};
-    line-height: ${dt('dialog.extend.fonts_lineHeight_550')};
+    line-height: ${dt('fonts.lineHeight.550')};
   }
 
   .p-dialog .p-dialog-content {
-    font-family: ${dt('dialog.extend.fonts_fontFamily_base')};
-    font-size: ${dt('dialog.extend.fonts_fontSize_300')};
-    font-weight: ${dt('dialog.extend.fonts_fontWeight_regular')};
-    line-height: ${dt('dialog.extend.fonts_lineHeight_500')};
+    font-family: ${dt('fonts.fontFamily.base')};
+    font-size: ${dt('fonts.fontSize.300')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
+    line-height: ${dt('fonts.lineHeight.500')};
   }
 
   .p-dialog .p-dialog-header {
-    border-bottom: ${dt('dialog.extend.dimension_borderWidth_100')} solid ${dt('dialog.root.borderColor')};
+    border-bottom: ${dt('dimension.borderWidth.100')} solid ${dt('dialog.root.borderColor')};
     display: flex;
     align-items: center;
     justify-content: space-between;

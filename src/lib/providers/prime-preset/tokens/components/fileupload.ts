@@ -3,7 +3,7 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
 .p-fileupload {
   display: flex;
   flex-direction: column;
-  gap: ${dt('form.gap.200')};
+  gap: ${dt('dimension.space.200')};
   border: unset;
 }
 
@@ -26,7 +26,7 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 .fu-dropzone {
-  border: ${dt('form.borderWidth')} dashed ${dt('fileupload.extend.extContent.highlightBorderDefault')};
+  border: ${dt('dimension.borderWidth.100')} dashed ${dt('fileupload.extend.extContent.highlightBorderDefault')};
   border-radius: ${dt('fileupload.extend.extDragNdrop.borderRadius')};
   padding: ${dt('fileupload.extend.extDragNdrop.padding')};
   background: ${dt('fileupload.extend.extDragNdrop.background')};
@@ -48,7 +48,7 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
 
 .fu-dropzone__icon {
   font-size: ${dt('fileupload.extend.extDragNdrop.iconSize')};
-  color: ${dt('content.color')};
+  color: ${dt('color.fg.default')};
 }
 
 .fu-dropzone__info {
@@ -63,19 +63,19 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
   font-size: ${dt('fonts.fontSize.300')};
   font-weight: ${dt('fonts.fontWeight.bold')};
   line-height: ${dt('fonts.lineHeight.500')};
-  color: ${dt('content.color')};
+  color: ${dt('color.fg.default')};
   align-self: center;
 }
 
 .fu-dropzone__caption {
   display: flex;
   align-items: center;
-  gap: ${dt('form.gap.100')};
+  gap: ${dt('dimension.space.100')};
   font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
   line-height: ${dt('fonts.lineHeight.250')};
-  color: ${dt('text.mutedColor')};
+  color: ${dt('color.fg.muted')};
   align-self: center;
 }
 
@@ -103,26 +103,26 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
   align-items: center;
   justify-content: space-between;
   padding: ${dt('fileupload.file.padding')};
-  border: ${dt('form.borderWidth')} solid ${dt('fileupload.file.borderColor')};
+  border: ${dt('dimension.borderWidth.100')} solid ${dt('fileupload.file.borderColor')};
   border-radius: ${dt('fileupload.extend.extDragNdrop.borderRadius')};
   gap: ${dt('fileupload.file.gap')};
   transition: border-color ${dt('fileupload.root.transitionDuration')};
 }
 
 .fu-file-card--uploaded {
-  opacity: ${dt('opacity.500')};
-  background: ${dt('surface.50')};
+  opacity: ${dt('effects.opacity.50')};
+  background: ${dt('colors.solid.zinc.50')};
 }
 
 .fu-file-card__wrap {
   display: flex;
   align-items: center;
-  gap: ${dt('form.gap.300')};
+  gap: ${dt('dimension.space.300')};
 }
 
 .fu-file-card__icon {
   font-size: ${dt('fileupload.extend.extFile.iconSize')};
-  color: ${dt('content.color')};
+  color: ${dt('color.fg.default')};
   flex-shrink: 0;
 }
 
@@ -142,16 +142,16 @@ export const fileuploadCss = ({ dt }: { dt: (token: string) => string }): string
 
 .fu-file-card__name {
   font-size: ${dt('fonts.fontSize.300')};
-  color: ${dt('content.color')};
+  color: ${dt('color.fg.default')};
   line-height: ${dt('fonts.lineHeight.400')};
 }
 
 .fu-file-card__size {
   display: flex;
   align-items: center;
-  gap: ${dt('form.gap.100')};
+  gap: ${dt('dimension.space.100')};
   font-size: ${dt('fonts.fontSize.200')};
-  color: ${dt('text.mutedColor')};
+  color: ${dt('color.fg.muted')};
 }
 
 .fu-file-card__size .ti {

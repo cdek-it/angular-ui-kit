@@ -5,7 +5,7 @@ export const progressspinnerCss = ({ dt }: { dt: (token: string) => string }): s
 
 /* multicolor false */
 .p-progressspinner.p-progressspinner-monochrome .p-progressspinner-circle {
-    stroke: ${dt('progressspinner.extend.primary_color')};
+    stroke: ${dt('color.bg.brand.strong.default')};
     animation: p-progressspinner-dash 1.5s ease-in-out infinite;
 }
 

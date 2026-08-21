@@ -2,16 +2,16 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Базовые стили ─── */
 .p-inputtext {
-  line-height: ${dt('inputtext.extend.fonts_lineHeight_250')};
-  font-family: ${dt('inputtext.extend.fonts_fontFamily_base')};
+  line-height: ${dt('fonts.lineHeight.250')};
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 .p-inputtext::placeholder {
-  font-family: ${dt('inputtext.extend.fonts_fontFamily_base')};
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 .p-floatlabel:has(.p-inputtext) label {
-  font-family: ${dt('inputtext.extend.fonts_fontFamily_base')};
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 /* ─── Disabled ─── */
@@ -28,13 +28,13 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Focus ─── */
 .p-inputtext:enabled:focus {
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
 }
 
 /* ─── Invalid + Focus ─── */
 .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.extend.focusRing_invalid')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
 }
 
 /* ─── Extra Large ─── */

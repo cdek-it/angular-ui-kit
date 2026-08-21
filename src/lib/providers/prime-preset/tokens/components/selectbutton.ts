@@ -3,21 +3,21 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   background: ${dt('selectbutton.colorScheme.light.extend.background')};
   padding: ${dt('selectbutton.extend.paddingY')} ${dt('selectbutton.extend.paddingX')};
   gap: ${dt('selectbutton.extend.gap')};
-  font-family: ${dt('selectbutton.extend.fonts_fontFamily_heading')};
-  font-weight: ${dt('selectbutton.extend.fonts_fontWeight_demibold')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-weight: ${dt('fonts.fontWeight.demibold')};
 }
 
 .p-selectbutton.p-component .p-togglebutton.p-component {
-  font-family: ${dt('selectbutton.extend.fonts_fontFamily_heading')};
-  font-weight: ${dt('selectbutton.extend.fonts_fontWeight_demibold')};
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_500')};
-  height: ${dt('selectbutton.extend.controls_iconOnly_700')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-weight: ${dt('fonts.fontWeight.demibold')};
+  line-height: ${dt('fonts.lineHeight.500')};
+  height: ${dt('dimension.size.1100')};
   border-radius: ${dt('selectbutton.extend.ext.borderRadius')};
 }
 
 .p-selectbutton.p-component .p-togglebutton .p-togglebutton-label,
 .p-selectbutton.p-component .p-togglebutton .p-togglebutton-content > span {
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_400')};
+  line-height: ${dt('fonts.lineHeight.400')};
 }
 
 .p-selectbutton.p-component .p-togglebutton.p-togglebutton-checked.p-component,
@@ -35,13 +35,13 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* Size: small */
 .p-selectbutton.p-selectbutton-small.p-component .p-togglebutton.p-component {
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_300')};
-  height: ${dt('selectbutton.extend.controls_iconOnly_600')};
+  line-height: ${dt('fonts.lineHeight.300')};
+  height: ${dt('dimension.space.800')};
 }
 
 .p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-label,
 .p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-content > span {
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_250')};
+  line-height: ${dt('fonts.lineHeight.250')};
 }
 
 .p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-icon,
@@ -57,13 +57,13 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* Size: large */
 .p-selectbutton.p-selectbutton-large.p-component .p-togglebutton.p-component {
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_550')};
-  height: ${dt('selectbutton.extend.controls_iconOnly_850')};
+  line-height: ${dt('fonts.lineHeight.550')};
+  height: ${dt('dimension.size.750')};
 }
 
 .p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-label,
 .p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-content > span {
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_550')};
+  line-height: ${dt('fonts.lineHeight.550')};
 }
 
 .p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-icon,
@@ -73,14 +73,14 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* Size: xlarge */
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton.p-component {
-  font-size: ${dt('selectbutton.extend.fonts_fontSize_600')};
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_550')};
-  height: ${dt('selectbutton.extend.controls_iconOnly_900')};
+  font-size: ${dt('fonts.fontSize.600')};
+  line-height: ${dt('fonts.lineHeight.550')};
+  height: ${dt('dimension.size.800')};
 }
 
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-label,
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-content > span {
-  line-height: ${dt('selectbutton.extend.fonts_lineHeight_700')};
+  line-height: ${dt('fonts.lineHeight.700')};
 }
 
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton .p-togglebutton-icon,

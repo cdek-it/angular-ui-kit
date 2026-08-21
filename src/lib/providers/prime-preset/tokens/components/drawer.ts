@@ -8,7 +8,7 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* Нижняя граница и внутренние отступы заголовка */
 .p-drawer.p-component .p-drawer-header {
   border-bottom: 1px solid ${dt('drawer.extend.extHeader.borderColor')};
-  padding: ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.dimension_space_400')} ${dt('drawer.extend.overlay_modal_padding_300')};
+  padding: ${dt('dimension.space.600')} ${dt('dimension.space.600')} ${dt('dimension.space.400')} ${dt('dimension.space.600')};
 }
 
 /* Типографика */
@@ -24,19 +24,19 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* Внутренние отступы контента и футера */
 .p-drawer.p-component .p-drawer-content {
-  padding: ${dt('drawer.extend.overlay_modal_padding_300')};
+  padding: ${dt('dimension.space.600')};
 }
 
 .p-drawer.p-component .p-drawer-footer {
-  padding: 0 ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.overlay_modal_padding_300')} ${dt('drawer.extend.overlay_modal_padding_300')};
+  padding: 0 ${dt('dimension.space.600')} ${dt('dimension.space.600')} ${dt('dimension.space.600')};
 }
 
 /* Боковые drawer (слева/справа) - базовые размеры и отступы от краев экрана */
 .p-drawer.p-component.p-drawer-left,
 .p-drawer.p-component.p-drawer-right {
-  margin: ${dt('drawer.extend.padding')};
+  margin: ${dt('dimension.space.200')};
   width: ${dt('drawer.root.width')};
-  height: calc(100% - ${dt('drawer.extend.padding')} * 2);
+  height: calc(100% - ${dt('dimension.space.200')} * 2);
 }
 
 .p-drawer.p-component.p-drawer-left.p-drawer-sm,
@@ -57,8 +57,8 @@ const drawerCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* Горизонтальные drawer (сверху/снизу) - базовые размеры и отступы от краев экрана */
 .p-drawer.p-component.p-drawer-top,
 .p-drawer.p-component.p-drawer-bottom {
-  margin: ${dt('drawer.extend.padding')};
-  width: calc(100% - ${dt('drawer.extend.padding')} * 2);
+  margin: ${dt('dimension.space.200')};
+  width: calc(100% - ${dt('dimension.space.200')} * 2);
 }
 
 /* Полноэкранный режим — drawer на весь экран, без отступов и без учёта размера */

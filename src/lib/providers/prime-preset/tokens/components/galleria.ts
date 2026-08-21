@@ -2,7 +2,7 @@ export const galleriaCss = ({ dt }: { dt: (token: string) => string }): string =
   /* ─── Подпись к изображению ─── */
   .p-galleria .p-galleria-caption {
     background: ${dt('galleria.caption.background')};
-    padding: ${dt('galleria.extend.dimension_space_200')};
+    padding: ${dt('dimension.space.200')};
   }
 
   /* ─── Кнопки навигации в полноэкранном режиме ─── */
