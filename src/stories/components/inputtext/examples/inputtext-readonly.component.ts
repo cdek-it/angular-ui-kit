@@ -40,12 +40,12 @@ export const Readonly: StoryObj = {
         language: 'ts',
         code: `
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   standalone: true,
-  imports: [InputTextComponent, ReactiveFormsModule],
-  template: \`<input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></input-text>\`,
+  imports: [ExtraInputTextComponent, ReactiveFormsModule],
+  template: \`<extra-input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-input-text>\`,
 })
 export class ReadonlyExample {
   control = new FormControl('');
