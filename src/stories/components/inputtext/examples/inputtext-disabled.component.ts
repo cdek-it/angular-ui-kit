@@ -7,7 +7,7 @@ export const Disabled: StoryObj = {
   render: (args) => {
     const control = new FormControl({ value: '', disabled: true });
     return {
-      props: { ...args, control },
+      props: { ...args, control, disabled: true },
       template: `<extra-input-text [formControl]="control" placeholder="Введите текст..."></extra-input-text>`
     };
   },

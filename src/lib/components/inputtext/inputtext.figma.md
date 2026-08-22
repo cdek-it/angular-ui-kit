@@ -28,7 +28,7 @@ updated: '2026-06-22'
 | `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
 | `showClear` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
 | `fluid` | `boolean` | `false` | Растягивает поле на всю ширину контейнера |
-| `disabled` | `boolean` | `false` | Отключённое состояние — управляется через `FormControl.disable()` или `ControlValueAccessor.setDisabledState`; соответствует Figma-состоянию `state=disabled` |
+| `disabled` | `boolean` | `false` | Отключённое состояние — задаётся входом `[disabled]` либо через `FormControl.disable()` / `setDisabledState`; соответствует Figma-состоянию `state=disabled` |
 | `(onClear)` | `EventEmitter<void>` | — | Событие при нажатии на иконку очистки (только при `showClear=true`) |
 | `[(ngModel)]` / `[formControl]` | `string` | `''` | Значение поля через ControlValueAccessor — соответствует Figma-свойству `text-input` |
 
@@ -139,5 +139,5 @@ Figma: `<InputText>`, state=readonly — nodeId `14978:17413`
 
 **Don't:**
 - Не подменяйте `value` через прямой DOM (`document.querySelector('input').value = ...`) — теряется `dirty`-state и Angular-реактивность.
-- Не задавайте `[disabled]="true"` как Input-атрибут напрямую — компонент не объявляет `@Input() disabled`; передавайте через `FormControl` или `ControlValueAccessor`.
+- Не смешивайте `[disabled]` и `FormControl.disable()` на одном поле — держите состояние в одном источнике: у реактивной формы это `FormControl`, вход `[disabled]` предназначен для полей без формы.
 - Не используйте поле без `[(ngModel)]` / `[formControl]` — без привязки значение не синхронизируется с моделью.

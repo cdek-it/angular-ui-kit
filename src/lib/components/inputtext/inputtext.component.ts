@@ -1,5 +1,6 @@
 import {
   booleanAttribute,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
@@ -74,6 +75,7 @@ export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 })
 export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
@@ -84,9 +86,8 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   @Input() size: ExtraInputTextSize = 'base';
   @Input() readonly = false;
   @Input({ transform: booleanAttribute }) showClear = false;
+  @Input({ transform: booleanAttribute }) disabled = false;
   @Input() fluid = false;
-
-  disabled = false;
 
   get invalid(): boolean {
     return this._ngControl?.invalid ?? false;
@@ -136,5 +137,6 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this._cdr.markForCheck();
   }
 }
