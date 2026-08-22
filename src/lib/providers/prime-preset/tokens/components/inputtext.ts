@@ -1,9 +1,17 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-inputtext.
+ * Подключается в map-tokens.ts: `import { inputtextCss } from './tokens/components/inputtext'`
+ *
+ * Размеры и цвета приходят токенами пресета (inputtext.root.*), размер xlg и толщина рамки —
+ * здесь: у Aura нет ни того, ни другого (рамка зашита сырым 1px).
+ */
 export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* ─── Базовые стили ─── */
 .p-inputtext {
   line-height: ${dt('fonts.lineHeight.250')};
   font-family: ${dt('fonts.fontFamily.base')};
+  border-width: ${dt('inputtext.extend.borderWidth')};
 }
 
 .p-inputtext::placeholder {
