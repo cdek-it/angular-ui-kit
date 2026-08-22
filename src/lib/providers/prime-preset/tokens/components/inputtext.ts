@@ -45,6 +45,44 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
 }
 
+/* ─── Высота по размерам ───
+   Токена высоты поля в экспорте нет, а <input> в браузере не может быть ниже метрик шрифта:
+   без явной высоты она диктуется глифами (21.5px вместо line-height 16px) и уезжает
+   в дробные пиксели. Собираем высоту из тех же токенов, что задаёт дизайн. */
+.p-inputtext {
+  height: calc(
+    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.root.paddingY')} + 2 *
+      ${dt('inputtext.extend.borderWidth')}
+  );
+}
+
+.p-inputtext.p-inputtext-sm {
+  height: calc(
+    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.root.sm.paddingY')} + 2 *
+      ${dt('inputtext.extend.borderWidth')}
+  );
+}
+
+.p-inputtext.p-inputtext-lg {
+  height: calc(
+    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.root.lg.paddingY')} + 2 *
+      ${dt('inputtext.extend.borderWidth')}
+  );
+}
+
+.p-inputtext.p-inputtext-xlg {
+  height: calc(
+    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.extend.extXlg.paddingY')} + 2 *
+      ${dt('inputtext.extend.borderWidth')}
+  );
+}
+
+/* Внутри float-label вертикальные паддинги задаёт сам плавающий лейбл (24/8),
+   поэтому высоту там считать по базовым паддингам нельзя — оставляем содержимому */
+.p-floatlabel .p-inputtext {
+  height: auto;
+}
+
 /* ─── Extra Large ─── */
 .p-inputtext.p-inputtext-xlg {
   font-size: ${dt('inputtext.extend.extXlg.fontSize')};
