@@ -21,7 +21,7 @@ const styles = '';
           [invalid]="invalid"
         ></extra-checkbox>
       }
-      <div class="flex flex-col gap-[3.5px]">
+      <div class="flex flex-col gap-1">
         <label [for]="inputId" [class]="labelClass">{{ label }}</label>
         @if (caption) {
           <span [class]="captionClass">{{ caption }}</span>
@@ -125,7 +125,7 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
       @if (labelPosition === 'left') {
         <extra-checkbox [formControl]="formControl" [inputId]="inputId" [binary]="true" [invalid]="invalid"></extra-checkbox>
       }
-      <div class="flex flex-col gap-[3.5px]">
+      <div class="flex flex-col gap-1">
         <label [for]="inputId" [class]="labelClass">{{ label }}</label>
         @if (caption) {
           <span [class]="captionClass">{{ caption }}</span>

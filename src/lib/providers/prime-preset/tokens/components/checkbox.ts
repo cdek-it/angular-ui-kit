@@ -1,3 +1,11 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-checkbox.
+ * Подключается в map-tokens.ts: `import { checkboxCss } from './tokens/components/checkbox'`
+ *
+ * Размеры бокса и цвета приходят токенами пресета (checkbox.root.*): их применяет сам PrimeNG.
+ * Здесь — типографика подписей, толщина рамки, indeterminate и кольцо фокуса: ни того, ни другого
+ * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px).
+ */
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* ─── Label типографика ─── */
 .checkbox-label {
@@ -7,7 +15,7 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.300')};
   font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: normal;
+  line-height: ${dt('fonts.lineHeight.300')};
   cursor: pointer;
 }
 
@@ -25,7 +33,7 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   font-family: ${dt('fonts.fontFamily.heading')};
   font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: normal;
+  line-height: ${dt('fonts.lineHeight.250')};
 }
 
 .checkbox-caption--hover {
@@ -47,9 +55,14 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   border-color: ${dt('checkbox.root.checkedBorderColor')};
 }
 
-/* Состояние indeterminate - цвет иконки как у checked */
+/* ─── Цвет иконки на залитом боксе ───
+   checkbox.icon.checkedColor ссылается на color.fg.on.fill.default, а эта ветка не
+   инвертируется: и в light, и в dark она #ffffff. Фон бокса при этом инвертируется
+   (color.bg.neutral.strong.default: тёмный в light, светлый в dark), поэтому в тёмной теме
+   белая галочка пропадала на светлом фоне. Берём инверсный алиас — он меняется вместе с фоном. */
+.p-checkbox-checked .p-checkbox-icon,
 .p-checkbox-indeterminate .p-checkbox-icon {
-  color: ${dt('checkbox.icon.checkedColor')};
+  color: ${dt('color.fg.inverse.default')};
 }
 
 /* Состояние hover для indeterminate */
@@ -62,13 +75,13 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 .p-checkbox:not(.p-disabled):not(.p-checkbox-checked):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box,
 .p-checkbox-checked:not(.p-disabled):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box,
 .p-checkbox-indeterminate:not(.p-disabled):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box {
-  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.focusRing')} ${dt('color.border.focus')};
+  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.width')} ${dt('color.border.focus')};
 }
 
 /* Focus ring с красным цветом для состояний с ошибкой */
 .p-checkbox.p-invalid .p-checkbox-box,
 .p-checkbox-checked.p-invalid .p-checkbox-box,
 .p-checkbox-indeterminate.p-invalid .p-checkbox-box {
-  box-shadow: 0 0 0 ${dt('dimension.space.100')} ${dt('color.bg.status.danger.weak.active')};
+  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
 }
 `;
