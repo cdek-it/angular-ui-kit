@@ -66,7 +66,6 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
     text-transform: uppercase;
     font-family: ${dt('fonts.fontFamily.heading')};
     font-size: ${dt('fonts.fontSize.100')};
-    font-weight: ${dt('fonts.fontWeight.bold')};
     line-height: ${dt('fonts.lineHeight.none')};
   }
 `;

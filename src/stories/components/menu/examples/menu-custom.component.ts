@@ -6,7 +6,7 @@ import {
 } from '../../../../lib/components/menu/menu.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <extra-menu [model]="items">
     <ng-template extraMenuItem let-item>
       <a
@@ -20,7 +20,7 @@ const template = `
         @if (item.icon) {
           <span
             [class]="item.icon"
-            class="text-xl w-6 h-6 flex items-center justify-center rounded-full bg-primary text-white shrink-0"
+            class="text-xl w-6 h-6 flex items-center justify-center shrink-0"
           ></span>
         }
         <div class="flex flex-col min-w-0">

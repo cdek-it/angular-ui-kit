@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ExtraMenuComponent, ExtraMenuModel } from '../../../../lib/components/menu/menu.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <extra-menu [model]="items"></extra-menu>
 </div>
 `;
