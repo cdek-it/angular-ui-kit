@@ -4,7 +4,7 @@ import { OverlayBadge } from 'primeng/overlaybadge';
 import { ExtraAvatarComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <div class="flex items-center gap-4">
     <p-overlay-badge value="8" severity="success">
       <extra-avatar image="assets/images/avatar/amyelsner.png" size="xlarge" shape="circle"></extra-avatar>
