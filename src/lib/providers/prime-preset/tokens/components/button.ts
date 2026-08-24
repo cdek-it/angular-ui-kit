@@ -1,40 +1,20 @@
 /**
  * Кастомная CSS-стилизация для компонента p-button.
- * Публикует extend-токены как CSS-переменные и применяет глобальные стили.
- * Подключается в components.ts: `import { buttonCss } from './components/button'`
+ * Подключается в map-tokens.ts: `import { buttonCss } from './tokens/components/button'`
+ *
+ * Все значения берутся через dt() — PrimeUIX сам выпускает CSS-переменную для каждого токена
+ * пресета, поэтому объявлять их повторно в :root не нужно.
  */
 export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => `
-  /* ─── Button extend: публикуем кастомные переменные в :root ─── */
-  :root {
-    --p-button-extend-disabled-background:           ${dt('button.extend.disabledBackground')};
-    --p-button-extend-disabled-color:                ${dt('button.extend.disabledColor')};
-    --p-button-extend-border-width:                  ${dt('button.extend.borderWidth')};
-    --p-button-extend-icon-size-sm:                  ${dt('button.extend.iconSize.sm')};
-    --p-button-extend-icon-size-md:                  ${dt('button.extend.iconSize.md')};
-    --p-button-extend-icon-size-lg:                  ${dt('button.extend.iconSize.lg')};
-    --p-button-extend-ext-link-padding-x:            ${dt('button.extend.extLink.paddingX')};
-    --p-button-extend-ext-link-padding-y:            ${dt('button.extend.extLink.paddingY')};
-    --p-button-extend-ext-link-color-hover:          ${dt('button.extend.extLink.colorHover')};
-    --p-button-extend-ext-link-sm-icon-only-width:   ${dt('button.extend.extLink.sm.iconOnlyWidth')};
-    --p-button-extend-ext-link-base-icon-only-width: ${dt('button.extend.extLink.base.iconOnlyWidth')};
-    --p-button-extend-ext-link-lg-icon-only-width:   ${dt('button.extend.extLink.lg.iconOnlyWidth')};
-    --p-button-extend-ext-link-xlg-icon-only-width:  ${dt('button.extend.extLink.xlg.iconOnlyWidth')};
-    --p-button-extend-ext-sm-border-radius:          ${dt('button.extend.extSm.borderRadius')};
-    --p-button-extend-ext-sm-gap:                    ${dt('button.extend.extSm.gap')};
-    --p-button-extend-ext-lg-border-radius:          ${dt('button.extend.extLg.borderRadius')};
-    --p-button-extend-ext-lg-gap:                    ${dt('button.extend.extLg.gap')};
-    --p-button-extend-ext-lg-height:                 ${dt('button.extend.extLg.height')};
-    --p-button-extend-ext-xlg-border-radius:         ${dt('button.extend.extXlg.borderRadius')};
-    --p-button-extend-ext-xlg-gap:                   ${dt('button.extend.extXlg.gap')};
-    --p-button-extend-ext-xlg-icon-only-width:       ${dt('button.extend.extXlg.iconOnlyWidth')};
-    --p-button-extend-ext-xlg-padding-x:             ${dt('button.extend.extXlg.paddingX')};
-    --p-button-extend-ext-xlg-padding-y:             ${dt('button.extend.extXlg.paddingY')};
-    --p-button-extend-ext-xlg-height:                ${dt('button.extend.extXlg.height')};
-  }
-
   /* ─── Шрифт для текста кнопки ─── */
   .p-button.p-component .p-button-label {
-    font-family: var(--p-fonts-font-family-heading, 'TT Fellows', sans-serif);
+    font-family: ${dt('fonts.fontFamily.heading')}, sans-serif;
+    font-weight: ${dt('button.root.label.fontWeight')};
+  }
+
+  /* ─── Рамка ─── */
+  .p-button {
+    border-width: ${dt('button.extend.borderWidth')};
   }
 
   /* ─── Button badge ─── */
@@ -54,55 +34,57 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
 
   /* ─── Размеры иконок ─── */
   .p-button .p-button-icon {
-    font-size: var(--p-button-extend-icon-size-md);
+    font-size: ${dt('button.extend.iconSize.md')};
   }
   .p-button.p-button-sm .p-button-icon {
-    font-size: var(--p-button-extend-icon-size-sm);
+    font-size: ${dt('button.extend.iconSize.sm')};
   }
   .p-button.p-button-lg .p-button-icon {
-    font-size: var(--p-button-extend-icon-size-lg);
+    font-size: ${dt('button.extend.iconSize.lg')};
   }
   .p-button-xlg.p-button .p-button-icon,
   .p-button-link.p-button-xlg .p-button-icon {
-    font-size: var(--p-button-extend-icon-size-lg);
+    font-size: ${dt('button.extend.iconSize.lg')};
   }
 
   /* ─── Disabled / loading ─── */
   .p-button:is(.p-disabled, :disabled, .p-button-loading) {
     mix-blend-mode: inherit;
-    opacity: var(--p-opacity-1000);
-    color: var(--p-button-extend-disabled-color);
-    background: var(--p-button-extend-disabled-background);
-    border-color: var(--p-button-extend-disabled-background);
+    opacity: ${dt('effects.opacity.100')};
+    color: ${dt('button.extend.disabledColor')};
+    background: ${dt('button.extend.disabledBackground')};
+    border-color: ${dt('button.extend.disabledBackground')};
   }
   .p-button.p-button-outlined:is(.p-disabled, :disabled, .p-button-loading) {
-    color: var(--p-button-extend-disabled-color);
+    color: ${dt('button.extend.disabledColor')};
     background: transparent;
     border-color: transparent;
   }
   .p-button.p-button-text:is(.p-disabled, :disabled, .p-button-loading) {
-    color: var(--p-button-extend-disabled-color);
+    color: ${dt('button.extend.disabledColor')};
     background: transparent;
     border-color: transparent;
   }
   .p-button.p-button-link:is(.p-disabled, :disabled, .p-button-loading) {
-    color: var(--p-button-extend-disabled-color);
+    color: ${dt('button.extend.disabledColor')};
     background: transparent;
     border-color: transparent;
   }
 
   /* ─── Link кнопки ─── */
   .p-button-link.p-button:is(.p-button, .p-button-xlg) {
-    padding: var(--p-button-extend-ext-link-padding-y) var(--p-button-extend-ext-link-padding-x);
+    padding: ${dt('button.extend.extLink.paddingY')} ${dt('button.extend.extLink.paddingX')};
   }
   .p-button-link.p-button {
     width: min-content;
+    height: auto;
+    background: ${dt('button.extend.extLink.background')};
   }
   .p-button-link.p-button.p-button-xlg {
-    font-size: var(--p-fonts-font-size-600);
+    font-size: ${dt('fonts.fontSize.600')};
   }
   .p-button.p-button-link:not(:disabled):hover {
-    color: var(--p-button-extend-ext-link-color-hover);
+    color: ${dt('button.extend.extLink.colorHover')};
   }
   .p-button.p-button-link:not(:disabled):hover .p-button-label {
     text-decoration: none;
@@ -110,213 +92,119 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
 
   /* ─── Icon-only link кнопки ─── */
   .p-button-link.p-button-icon-only {
-    width: var(--p-button-extend-ext-link-base-icon-only-width);
-    height: var(--p-button-extend-ext-link-base-icon-only-width);
+    width: ${dt('button.extend.extLink.base.iconOnlyWidth')};
+    height: ${dt('button.extend.extLink.base.iconOnlyWidth')};
   }
   .p-button-link.p-button-icon-only.p-button-sm {
-    width: var(--p-button-extend-ext-link-sm-icon-only-width);
-    height: var(--p-button-extend-ext-link-sm-icon-only-width);
+    width: ${dt('button.extend.extLink.sm.iconOnlyWidth')};
+    height: ${dt('button.extend.extLink.sm.iconOnlyWidth')};
   }
   .p-button-link.p-button-icon-only.p-button-lg {
-    width: var(--p-button-extend-ext-link-lg-icon-only-width);
-    height: var(--p-button-extend-ext-link-lg-icon-only-width);
+    width: ${dt('button.extend.extLink.lg.iconOnlyWidth')};
+    height: ${dt('button.extend.extLink.lg.iconOnlyWidth')};
+  }
+  .p-button-link.p-button-icon-only.p-button-xlg {
+    width: ${dt('button.extend.extLink.xlg.iconOnlyWidth')};
+    height: ${dt('button.extend.extLink.xlg.iconOnlyWidth')};
   }
 
   /* ─── Line-height ─── */
   .p-button-sm {
-    line-height: var(--p-fonts-line-height-250);
+    line-height: ${dt('fonts.lineHeight.250')};
   }
   .p-button:is(.p-button-lg, .p-button-xlg) {
-    line-height: var(--p-fonts-line-height-550);
+    line-height: ${dt('fonts.lineHeight.550')};
   }
 
-  /* ─── Border-radius для lg / xlg ─── */
+  /* ─── Border-radius / gap для sm / lg / xlg ─── */
+  .p-button.p-button-sm:not(.p-button-rounded) {
+    border-radius: ${dt('button.extend.extSm.borderRadius')};
+  }
+  .p-button.p-button-sm {
+    gap: ${dt('button.extend.extSm.gap')};
+  }
   .p-button:is(.p-button-lg, .p-button-xlg):not(.p-button-rounded) {
-    border-radius: var(--p-button-extend-ext-lg-border-radius);
+    border-radius: ${dt('button.extend.extLg.borderRadius')};
+  }
+  .p-button.p-button-lg {
+    gap: ${dt('button.extend.extLg.gap')};
+  }
+  .p-button.p-button-xlg {
+    gap: ${dt('button.extend.extXlg.gap')};
   }
   .p-button-xlg.p-button:not(.p-button-rounded) {
-    border-radius: var(--p-button-extend-ext-xlg-border-radius);
+    border-radius: ${dt('button.extend.extXlg.borderRadius')};
+  }
+
+  /* ─── Высота по размерам (base/sm задаются токенами дизайна) ─── */
+  .p-button:not(.p-button-link) {
+    height: ${dt('button.root.height')};
+  }
+  .p-button.p-button-sm:not(.p-button-link) {
+    height: ${dt('button.extend.extSm.height')};
   }
 
   /* ─── Padding / font-size / height для lg ─── */
   .p-button-lg.p-button:not(.p-button-icon-only):not(.p-button-link) {
-    padding: var(--p-button-lg-padding-y) var(--p-button-lg-padding-x);
-    font-size: var(--p-button-lg-font-size);
-    height: var(--p-controls-icon-only-850);
+    padding: ${dt('button.root.lg.paddingY')} ${dt('button.root.lg.paddingX')};
+    font-size: ${dt('button.root.lg.fontSize')};
+    height: ${dt('button.extend.extLg.height')};
   }
 
   /* ─── Padding / font-size / height для xlg ─── */
   .p-button-xlg.p-button:not(.p-button-icon-only):not(.p-button-link) {
-    padding: var(--p-button-extend-ext-xlg-padding-y) var(--p-button-extend-ext-xlg-padding-x);
-    font-size: var(--p-fonts-font-size-500);
-    height: var(--p-controls-icon-only-900);
+    padding: ${dt('button.extend.extXlg.paddingY')} ${dt('button.extend.extXlg.paddingX')};
+    font-size: ${dt('fonts.fontSize.500')};
+    height: ${dt('button.extend.extXlg.height')};
   }
 
   /* ─── Icon-only размеры ─── */
   .p-button-icon-only {
-    width: var(--p-button-icon-only-width);
-    height: var(--p-button-icon-only-width);
+    width: ${dt('button.root.iconOnlyWidth')};
+    height: ${dt('button.root.iconOnlyWidth')};
   }
   .p-button-sm.p-button-icon-only {
-    width: var(--p-button-sm-icon-only-width);
-    height: var(--p-button-sm-icon-only-width);
+    width: ${dt('button.root.sm.iconOnlyWidth')};
+    height: ${dt('button.root.sm.iconOnlyWidth')};
   }
   .p-button-lg.p-button-icon-only {
-    width: var(--p-button-lg-icon-only-width);
-    height: var(--p-button-lg-icon-only-width);
+    width: ${dt('button.root.lg.iconOnlyWidth')};
+    height: ${dt('button.root.lg.iconOnlyWidth')};
   }
   .p-button-xlg.p-button-icon-only {
-    width: var(--p-button-extend-ext-xlg-icon-only-width);
-    height: var(--p-button-extend-ext-xlg-icon-only-width);
+    width: ${dt('button.extend.extXlg.iconOnlyWidth')};
+    height: ${dt('button.extend.extXlg.iconOnlyWidth')};
   }
-`;
-export default ({ dt }: { dt: (token: string) => string }) => `
-/* Шрифт для текста кнопки */
-.p-button.p-component .p-button-label {
-  font-family: ${dt('fonts.fontFamily.heading')};
-}
 
-/* Размеры иконок для разных размеров кнопок */
-.p-button .p-button-icon {
-  font-size: ${dt('button.extend.iconSize.md')};
-}
-
-.p-button.p-button-sm .p-button-icon {
-  font-size: ${dt('button.extend.iconSize.sm')};
-}
-
-.p-button.p-button-lg .p-button-icon {
-  font-size: ${dt('button.extend.iconSize.lg')};
-}
-
-:is(.p-button-xlg.p-button, .p-button-xlg .p-button) .p-button-icon,
-.p-button-link.p-button-xlg .p-button-icon {
-  font-size: ${dt('button.extend.iconSize.lg')};
-}
-
-/* Стили для disabled и loading кнопок */
-.p-button:is(.p-disabled, :disabled, .p-button-loading) {
-    mix-blend-mode: inherit;
-    opacity: ${dt('effects.opacity.100')};
-    color: ${dt('button.extend.disabledColor')};
-    background: ${dt('button.extend.disabledBackground')};
-    border-color: ${dt('button.extend.disabledBackground')};
-}
-
-/* disabled outlined кнопки */
-.p-button.p-button-outlined:is(.p-disabled, :disabled, .p-button-loading) {
-    color: ${dt('button.extend.disabledColor')};
-    background: transparent;
-    border-color: transparent;
-}
-
-/* disabled text кнопки */
-.p-button.p-button-text:is(.p-disabled, :disabled, .p-button-loading) {
-    color: ${dt('button.extend.disabledColor')};
-    background: transparent;
-    border-color: transparent;
-}
-
-/* disabled link кнопки */
-.p-button.p-button-link:is(.p-disabled, :disabled, .p-button-loading) {
-    color: ${dt('button.extend.disabledColor')};
-    background: transparent;
-    border-color: transparent;
-}
-
-/* Отступы для link кнопок */
-.p-button-link.p-button:is(.p-button) {
-  padding: ${dt('button.extend.extLink.paddingY')} ${dt('button.extend.extLink.paddingX')};
-}
-
-:is(.p-button-xlg.p-button, .p-button-xlg .p-button).p-button-link {
-  padding: ${dt('button.extend.extLink.paddingY')} ${dt('button.extend.extLink.paddingX')};
-}
-
-.p-button-link.p-button {
-  width: min-content;
-}
-
-/* Размер шрифта для link кнопки xlg */
-:is(.p-button-xlg.p-button, .p-button-xlg .p-button).p-button-link {
-  font-size: ${dt('fonts.fontSize.600')};
-}
-
-/* Стили при наведении на link кнопку */
-.p-button.p-button-link:not(:disabled):hover {
-  color: ${dt('button.extend.extLink.colorHover')};
-}
-
-.p-button.p-button-link:not(:disabled):hover .p-button-label {
-  text-decoration: none;
-}
-
-/* Размеры для icon-only link кнопок */
-.p-button-link.p-button-icon-only {
-  width: ${dt('button.extend.extLink.base.iconOnlyWidth')};
-  height: ${dt('button.extend.extLink.base.iconOnlyWidth')};
-}
-
-.p-button-link.p-button-icon-only.p-button-sm {
-  width: ${dt('button.extend.extLink.sm.iconOnlyWidth')};
-  height: ${dt('button.extend.extLink.sm.iconOnlyWidth')};
-}
-
-.p-button-link.p-button-icon-only.p-button-lg {
-  width: ${dt('button.extend.extLink.lg.iconOnlyWidth')};
-  height: ${dt('button.extend.extLink.lg.iconOnlyWidth')};
-}
-
-/* Высота строки для кнопок */
-.p-button-sm {
-  line-height: ${dt('fonts.lineHeight.250')};
-}
-
-.p-button.p-component:is(.p-button-lg, .p-button-xlg, .p-button-xlg *) {
-  line-height: ${dt('fonts.lineHeight.550')};
-}
-
-/* Скругление углов для кнопок large и xlg (кроме rounded) */
-.p-button.p-component:is(.p-button-lg, .p-button-xlg, .p-button-xlg *):not(.p-button-rounded) {
-  border-radius: ${dt('button.extend.extLg.borderRadius')};
-}
-
-:is(.p-button-xlg.p-button, .p-button-xlg .p-button).p-component:not(.p-button-rounded) {
-  border-radius: ${dt('button.extend.extXlg.borderRadius')};
-}
-
-/* Отступы и размер шрифта для lg кнопки */
-.p-button-lg.p-button:not(.p-button-icon-only):not(.p-button-link) {
-  padding: ${dt('button.root.lg.paddingY')} ${dt('button.root.lg.paddingX')};
-  font-size: ${dt('button.root.lg.fontSize')};
-  height: ${dt('dimension.size.800')};
-}
-
-/* Отступы и размер шрифта для xlg кнопки */
-:is(.p-button-xlg.p-button, .p-button-xlg .p-button).p-component:not(.p-button-icon-only):not(.p-button-link) {
-  padding: ${dt('button.extend.extXlg.paddingY')} ${dt('button.extend.extXlg.paddingX')};
-  font-size: ${dt('fonts.fontSize.500')};
-  height: ${dt('dimension.size.900')};
-}
-
-/* Размеры для icon-only кнопок */
-.p-button-icon-only {
-  width: ${dt('button.root.iconOnlyWidth')};
-  height: ${dt('button.root.iconOnlyWidth')};
-}
-
-.p-button-sm.p-button-icon-only {
-  width: ${dt('button.root.sm.iconOnlyWidth')};
-  height: ${dt('button.root.sm.iconOnlyWidth')};
-}
-
-.p-button-lg.p-button-icon-only {
-  width: ${dt('button.root.lg.iconOnlyWidth')};
-  height: ${dt('button.root.lg.iconOnlyWidth')};
-}
-
-:is(.p-button-xlg.p-button, .p-button-xlg .p-button).p-button-icon-only {
-  width: ${dt('button.extend.extXlg.iconOnlyWidth')};
-  height: ${dt('button.extend.extXlg.iconOnlyWidth')};
-}
+  /* ─── Фон в фокусе для severity (outlined / text) ─── */
+  .p-button.p-button-outlined.p-button-danger:focus-visible {
+    background: ${dt('button.extend.extOutlined.danger.focusBackground')};
+  }
+  .p-button.p-button-outlined.p-button-warn:focus-visible {
+    background: ${dt('button.extend.extOutlined.warn.focusBackground')};
+  }
+  .p-button.p-button-outlined.p-button-info:focus-visible {
+    background: ${dt('button.extend.extOutlined.info.focusBackground')};
+  }
+  .p-button.p-button-outlined.p-button-help:focus-visible {
+    background: ${dt('button.extend.extOutlined.help.focusBackground')};
+  }
+  .p-button.p-button-outlined.p-button-success:focus-visible {
+    background: ${dt('button.extend.extOutlined.success.focusBackground')};
+  }
+  .p-button.p-button-text.p-button-danger:focus-visible {
+    background: ${dt('button.extend.extText.danger.focusBackground')};
+  }
+  .p-button.p-button-text.p-button-warn:focus-visible {
+    background: ${dt('button.extend.extText.warn.focusBackground')};
+  }
+  .p-button.p-button-text.p-button-info:focus-visible {
+    background: ${dt('button.extend.extText.info.focusBackground')};
+  }
+  .p-button.p-button-text.p-button-help:focus-visible {
+    background: ${dt('button.extend.extText.help.focusBackground')};
+  }
+  .p-button.p-button-text.p-button-success:focus-visible {
+    background: ${dt('button.extend.extText.success.focusBackground')};
+  }
 `;
