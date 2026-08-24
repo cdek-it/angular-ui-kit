@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <extra-badge [value]="value" [size]="size"></extra-badge>
 </div>
 `;
