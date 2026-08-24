@@ -77,16 +77,28 @@ function resolveToken(value, scope = tokens) {
     const [color, shade] = alphaMatch[1].split('.');
     return ALPHA[color]?.[shade];
   }
-  const semanticMatch = path.match(
-    /^(text|form|content|surface|primary|navigation|overlay|highlight|focusRing|mask|list|background|border|icon)\.(.+)$/
-  );
-  if (semanticMatch) {
-    const obj = walk(semantic[semanticMatch[1]], semanticMatch[2].split('.'));
+  // {color.fg.default} / {color.bg.brand.strong.hover} → semantic.colorScheme.light.color.*
+  const colorMatch = path.match(/^color\.(.+)$/);
+  if (colorMatch) {
+    const obj = walk(semantic.color, colorMatch[1].split('.'));
     return typeof obj === 'string' ? resolveToken(obj) : obj;
   }
-  const scaleMatch = path.match(/^(spacing|sizing)\.(.+)$/);
-  if (scaleMatch) {
-    return primitive[scaleMatch[1]]?.[scaleMatch[2]];
+  // {sizing.8x} → primitive.sizing.8x
+  const sizingMatch = path.match(/^sizing\.(.+)$/);
+  if (sizingMatch) {
+    return primitive.sizing?.[sizingMatch[1]];
+  }
+  // {fonts.fontSize.300} → primitive.fonts.*
+  const fontsMatch = path.match(/^fonts\.(.+)$/);
+  if (fontsMatch) {
+    const obj = walk(primitive.fonts, fontsMatch[1].split('.'));
+    return typeof obj === 'string' ? resolveToken(obj) : obj;
+  }
+  // {dimension.borderRadius.400} / {effects.transition.duration.200} → semantic.*
+  const semanticMatch = path.match(/^(dimension|effects)\.(.+)$/);
+  if (semanticMatch) {
+    const obj = walk(tokens.semantic[semanticMatch[1]], semanticMatch[2].split('.'));
+    return typeof obj === 'string' ? resolveToken(obj) : obj;
   }
   return value;
 }
@@ -117,33 +129,33 @@ function resolveInline(value) {
 // без линков на runtime --p-* (их имена у кастомного пресета нестандартны) и без fallback'ов.
 // Нейминг чистый: foreground/secondary/muted/disabled (утилиты text-foreground, text-secondary…).
 const SEMANTIC_TOKENS = [
-  // [tailwind var, путь в semantic.colorScheme.light.*]
-  ['--color-foreground', 'text.color'],
-  ['--color-secondary', 'text.secondaryColor'],
-  ['--color-muted', 'text.mutedColor'],
-  ['--color-disabled', 'text.disabledColor'],
-  ['--color-primary', 'primary.color'],
-  ['--color-on-primary', 'primary.contrastColor'],
-  ['--color-primary-hover', 'primary.hoverColor'],
-  ['--color-primary-active', 'primary.activeColor'],
-  ['--color-surface-ground', 'content.background'],
-  ['--color-surface-section', 'content.hoverBackground'],
-  ['--color-surface-card', 'content.background'],
-  ['--color-surface-overlay', 'overlay.select.background'],
-  ['--color-surface-border', 'content.borderColor'],
-  ['--color-surface-hover', 'content.hoverBackground'],
-  ['--color-form-border', 'form.borderColor'],
-  ['--color-form-bg', 'form.background'],
-  ['--color-danger', 'text.dangerColor'],
-  ['--color-success', 'text.successColor'],
-  ['--color-warning', 'text.warningColor'],
-  ['--color-info', 'text.infoColor'],
-  ['--color-help', 'text.helpColor']
+  // [tailwind var, путь в semantic.colorScheme.light.color.*]
+  ['--color-foreground', 'fg.default'],
+  ['--color-secondary', 'fg.subtle'],
+  ['--color-muted', 'fg.muted'],
+  ['--color-disabled', 'fg.muted'],
+  ['--color-primary', 'bg.brand.strong.default'],
+  ['--color-on-primary', 'fg.on.brand.default'],
+  ['--color-primary-hover', 'bg.brand.strong.hover'],
+  ['--color-primary-active', 'bg.brand.strong.active'],
+  ['--color-surface-ground', 'bg.surface.canvas.default'],
+  ['--color-surface-section', 'bg.surface.canvas.hover'],
+  ['--color-surface-card', 'bg.surface.default.default'],
+  ['--color-surface-overlay', 'bg.surface.overlay.default'],
+  ['--color-surface-border', 'border.neutral.default'],
+  ['--color-surface-hover', 'bg.surface.default.hover'],
+  ['--color-form-border', 'border.neutral.strong'],
+  ['--color-form-bg', 'bg.surface.default.default'],
+  ['--color-danger', 'fg.status.danger.default'],
+  ['--color-success', 'fg.status.success.default'],
+  ['--color-warning', 'fg.status.warning.default'],
+  ['--color-info', 'fg.status.info.default'],
+  ['--color-help', 'fg.status.help.default']
 ];
 
 /** Разрешить semantic-токен по пути (text.color, primary.color, content.background…). */
 function semanticValue(path) {
-  return resolveToken(`{${path}}`);
+  return resolveToken(`{color.${path}}`);
 }
 
 /**
@@ -175,12 +187,14 @@ const FONT_BASE = primitive.fonts.fontFamily.base; // 'Noto Sans'
 const FONT_WEIGHT = primitive.fonts.fontWeight; // {regular,medium,demibold,bold}
 const FONT_SIZE = primitive.fonts.fontSize; // {100..1000}
 const LINE_HEIGHT = primitive.fonts.lineHeight; // {100..1000, auto}
-const RADIUS = primitive.borderRadius; // {100,200,...,none,max}
-const SHADOWS = primitive.shadows; // {100..500, none} (со ссылками на alpha-цвета)
-const EASING = primitive.transition.easing; // {linear, in, out, inOut}
+const RADIUS = tokens.semantic.dimension.borderRadius; // {100,...,none,max} → {sizing.*}
+const SHADOWS = tokens.semantic.effects.elevation; // {100..500, none} (+ вложенный status — пропускаем)
+const EASING = tokens.semantic.effects.transition.easing;
+const LETTER_SPACING = primitive.fonts.letterSpacing; // {200..700} → --tracking-*
 // spacing: v4 отдаёт под spacing ОДНУ ручку --spacing (множитель). Базовый шаг кита —
-// primitive.spacing["1x"] (= 0.25rem); вся шкала (p/m/w/h/gap/inset/...) выводится v4 как calc(var(--spacing)*N).
-const SPACING_STEP = primitive.spacing['1x'];
+// primitive.sizing["2x"] (= 0.25rem = 4px при базе 16); вся шкала (p/m/w/h/gap/inset/...)
+// выводится v4 как calc(var(--spacing)*N).
+const SPACING_STEP = primitive.sizing['2x'];
 
 const HEADER = `/**
  * СГЕНЕРИРОВАНО. Не править руками — источник: src/lib/providers/prime-preset/tokens/tokens.json.
@@ -278,6 +292,9 @@ function buildThemeCss() {
   for (const [k, v] of Object.entries(LINE_HEIGHT)) {
     lines.push(`  --leading-${k}: ${v};`);
   }
+  for (const [k, v] of Object.entries(LETTER_SPACING)) {
+    lines.push(`  --tracking-${k}: ${v};`);
+  }
 
   // radius
   lines.push('');
@@ -295,6 +312,7 @@ function buildThemeCss() {
   lines.push('');
   lines.push('  /* shadows (box-shadow, {colors.alpha.*} раскрыты) */');
   for (const [k, v] of Object.entries(SHADOWS)) {
+    if (typeof v !== 'string') continue; // elevation.status — вложенная группа, в @theme не идёт
     const resolved = resolveInline(v);
     lines.push(`  --shadow-${k}: ${assertResolved(`--shadow-${k}`, resolved, `shadows.${k}`)};`);
   }
