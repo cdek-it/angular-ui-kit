@@ -9,7 +9,7 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Базовые стили ─── */
 .p-inputtext {
-  line-height: ${dt('fonts.lineHeight.250')};
+  line-height: ${dt('sizing.8x')};
   font-family: ${dt('fonts.fontFamily.base')};
   border-width: ${dt('inputtext.extend.borderWidth')};
 }
@@ -47,32 +47,33 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Высота по размерам ───
    Токена высоты поля в экспорте нет, а <input> в браузере не может быть ниже метрик шрифта:
-   без явной высоты она диктуется глифами (21.5px вместо line-height 16px) и уезжает
-   в дробные пиксели. Собираем высоту из тех же токенов, что задаёт дизайн. */
+   без явной высоты она диктуется глифами (21.5px вместо размера строки 16px) и уезжает
+   в дробные пиксели. Собираем высоту из тех же токенов, что задаёт дизайн: высота строки
+   берётся размерным примитивом sizing, а не типографским fonts.lineHeight. */
 .p-inputtext {
   height: calc(
-    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.root.paddingY')} + 2 *
+    ${dt('sizing.8x')} + 2 * ${dt('inputtext.root.paddingY')} + 2 *
       ${dt('inputtext.extend.borderWidth')}
   );
 }
 
 .p-inputtext.p-inputtext-sm {
   height: calc(
-    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.root.sm.paddingY')} + 2 *
+    ${dt('sizing.8x')} + 2 * ${dt('inputtext.root.sm.paddingY')} + 2 *
       ${dt('inputtext.extend.borderWidth')}
   );
 }
 
 .p-inputtext.p-inputtext-lg {
   height: calc(
-    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.root.lg.paddingY')} + 2 *
+    ${dt('sizing.8x')} + 2 * ${dt('inputtext.root.lg.paddingY')} + 2 *
       ${dt('inputtext.extend.borderWidth')}
   );
 }
 
 .p-inputtext.p-inputtext-xlg {
   height: calc(
-    ${dt('fonts.lineHeight.250')} + 2 * ${dt('inputtext.extend.extXlg.paddingY')} + 2 *
+    ${dt('sizing.8x')} + 2 * ${dt('inputtext.extend.extXlg.paddingY')} + 2 *
       ${dt('inputtext.extend.borderWidth')}
   );
 }
