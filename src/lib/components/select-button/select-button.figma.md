@@ -27,7 +27,7 @@ updated: '2026-06-22'
 | `optionLabel` | `string` | `'label'` | Имя поля объекта опции, из которого берётся подпись сегмента |
 | `optionValue` | `string` | `'value'` | Имя поля объекта опции, из которого берётся значение модели |
 | `optionDisabled` | `string` | `'disabled'` | Имя поля объекта опции, отключающего отдельный сегмент |
-| `size` | `'small' \| 'base' \| 'large' \| 'xLarge'` | `'base'` | Размер контрола |
+| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер контрола |
 | `multiple` | `boolean` | `false` | Множественный выбор: модель — массив значений вместо одиночного значения |
 | `allowEmpty` | `boolean` | `true` | Разрешает снять выбор (пустое значение) повторным нажатием на активный сегмент |
 | `disabled` | `boolean` | `false` | Отключённое состояние всего контрола — соответствует Figma-свойству `state=disabled`; задаётся через `[disabled]` или `setDisabledState` формы |

@@ -28,7 +28,7 @@ const meta: Meta<SelectButtonArgs> = {
         component: `Группа кнопок-переключателей с поддержкой одиночного и множественного выбора.
 
 \`\`\`typescript
-import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -45,12 +45,12 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angu
     },
     size: {
       control: 'radio',
-      options: ['base', 'small', 'large', 'xlarge'],
+      options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер компонента',
       table: {
         category: 'Props',
         defaultValue: { summary: 'base' },
-        type: { summary: "'base' | 'small' | 'large' | 'xlarge'" },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
     multiple: {
@@ -76,7 +76,7 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angu
       description: 'Массив опций',
       table: {
         category: 'Props',
-        type: { summary: 'ExtraSelectButtonItem[]' },
+        type: { summary: 'ExtraSelectButtonOption[]' },
       },
     },
   },
@@ -105,9 +105,9 @@ export const Default: Story = {
   args: {
     value: '1',
     options: [
-      { label: 'Option 1', value: '1' },
-      { label: 'Option 2', value: '2' },
-      { label: 'Option 3', value: '3' },
+      { name: 'Option 1', code: '1' },
+      { name: 'Option 2', code: '2' },
+      { name: 'Option 3', code: '3' },
     ],
     size: 'base',
     multiple: false,
