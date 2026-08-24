@@ -111,6 +111,7 @@ import { InputTextModule } from 'primeng/inputtext';
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
+    clearEnabled: { table: { disable: true } },
 
     // ── Events ───────────────────────────────────────────────
     onClear: {
@@ -153,9 +154,9 @@ export const Default: Story = {
 
     const control = new FormControl({ value: '', disabled: args['disabled'] as boolean }, validators);
 
-    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+    const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
-    return { props: { ...args, control }, template };
+    return { props: { control }, template };
   },
   parameters: {
     docs: {

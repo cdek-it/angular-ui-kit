@@ -1,5 +1,6 @@
 import {
   booleanAttribute,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
@@ -47,9 +48,9 @@ export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
         />
         <p-inputicon
           class="ti ti-x"
-          tabindex="0"
-          [style.visibility]="modelValue ? 'visible' : 'hidden'"
-          [style.pointerEvents]="modelValue ? 'auto' : 'none'"
+          [attr.tabindex]="clearEnabled ? 0 : -1"
+          [style.visibility]="clearEnabled ? 'visible' : 'hidden'"
+          [style.pointerEvents]="clearEnabled ? 'auto' : 'none'"
           (click)="clearValue()"
           (keydown.enter)="clearValue()"
           (keydown.space)="clearValue()"
@@ -74,6 +75,7 @@ export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 })
 export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
@@ -90,6 +92,10 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
 
   get invalid(): boolean {
     return this._ngControl?.invalid ?? false;
+  }
+
+  get clearEnabled(): boolean {
+    return !!this.modelValue && !this.disabled && !this.readonly;
   }
 
   @Output() onClear = new EventEmitter<void>();
@@ -117,6 +123,8 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   onTouched: () => void = () => {};
 
   clearValue(): void {
+    if (!this.clearEnabled) return;
+
     this.modelValue = '';
     this._onChange('');
     this.onClear.emit();
@@ -136,5 +144,8 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    // FormControl.disable() приходит вне цикла проверки хоста: при OnPush у родителя
+    // без markForCheck поле остаётся активным на экране.
+    this._cdr.markForCheck();
   }
 }

@@ -45,7 +45,7 @@ import { InputTextComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   standalone: true,
   imports: [InputTextComponent, ReactiveFormsModule],
-  template: \`<input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></input-text>\`,
+  template: \`<extra-input-text [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-input-text>\`,
 })
 export class ReadonlyExample {
   control = new FormControl('');

@@ -4,10 +4,10 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 
 export const Invalid: StoryObj = {
   name: 'Invalid',
-  render: (args) => {
+  render: () => {
     const control = new FormControl('', Validators.required);
     return {
-      props: { ...args, control },
+      props: { control },
       template: `<extra-input-text [formControl]="control" placeholder="Обязательное поле"></extra-input-text>`
     };
   },

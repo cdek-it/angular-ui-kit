@@ -4,10 +4,10 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 
 export const Disabled: StoryObj = {
   name: 'Disabled',
-  render: (args) => {
+  render: () => {
     const control = new FormControl({ value: '', disabled: true });
     return {
-      props: { ...args, control },
+      props: { control },
       template: `<extra-input-text [formControl]="control" placeholder="Введите текст..."></extra-input-text>`
     };
   },
