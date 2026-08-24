@@ -153,7 +153,7 @@ export const Default: Story = {
 
     const control = new FormControl({ value: '', disabled: args['disabled'] as boolean }, validators);
 
-    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+    const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
     return { props: { ...args, control }, template };
   },
