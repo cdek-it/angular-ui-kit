@@ -5,9 +5,13 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   .p-menu .p-menu-item-content .p-menu-item-link .p-menu-item-label {
     font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
+    font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.400')};
+    line-height: ${dt('fonts.lineHeight.none')};
+  }
+
+  .p-menu .p-menu-item-content .p-menu-item-icon {
+    font-size: ${dt('menu.extend.iconSize')};
   }
 
   .p-menu .p-menu-item-content .menu-item-label {
@@ -20,7 +24,7 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
     font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.regular')};
-    color: ${dt('color.fg.muted')};
+    color: ${dt('menu.extend.extItem.caption.color')};
   }
 
   .p-menu .p-menu-item:not(.p-disabled) .p-menu-item-content:hover,
@@ -46,7 +50,7 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   .p-menu .p-menu-item.p-menuitem-checked > .p-menu-item-content .p-menu-item-icon,
   .p-menu .p-menu-item.p-focus > .p-menu-item-content .p-menu-item-icon {
-    color: ${dt('color.fg.inverse.default')};
+    color: ${dt('menu.extend.extItem.icon.activeColor')};
   }
 
   .p-menu .p-menu-item.p-menuitem-checked:not(.p-disabled) > .p-menu-item-content:hover {
@@ -60,8 +64,9 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   .p-menu .p-menu-submenu-label {
     text-transform: uppercase;
-    font-size: ${dt('fonts.fontSize.200')};
     font-family: ${dt('fonts.fontFamily.heading')};
-    line-height: ${dt('fonts.lineHeight.400')};
+    font-size: ${dt('fonts.fontSize.100')};
+    font-weight: ${dt('fonts.fontWeight.bold')};
+    line-height: ${dt('fonts.lineHeight.none')};
   }
 `;
