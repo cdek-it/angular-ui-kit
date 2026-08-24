@@ -29,10 +29,15 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   justify-content: space-between;
 }
 
+.p-datepicker-day-selected:not(.p-disabled):hover {
+  background: ${dt('datepicker.extend.extDate.selectedHoverBackground')};
+}
+
 .p-datepicker-title {
   display: flex;
   align-items: center;
   gap: ${dt('datepicker.title.gap')};
+  min-width: ${dt('datepicker.extend.extTitle.width')};
   margin: 0 auto;
 }
 
@@ -50,9 +55,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 .p-datepicker-today.p-datepicker-today > .p-datepicker-day:not(.p-datepicker-day-selected) {
-  border: ${dt('dimension.size.100')} solid ${dt(
-  'datepicker.extend.extToday.borderColor'
-)};
+  border: ${dt('dimension.size.100')} solid ${dt('datepicker.extend.extToday.borderColor')};
 }
 
 .p-datepicker-today.p-datepicker-today:hover > .p-datepicker-day:not(.p-datepicker-day-selected),
@@ -71,21 +74,18 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   margin: ${dt('datepicker.dayView.margin')};
 }
 
-/* ─── Weekday header text ─── */
 .p-datepicker-weekday {
   font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.300')};
   font-weight: ${dt('fonts.fontWeight.demibold')};
 }
 
-/* ─── Day cell text ─── */
 .p-datepicker-day {
   font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.300')};
   font-weight: ${dt('fonts.fontWeight.regular')};
 }
 
-/* ─── Скрываем нативный time picker (заменён кастомным в footer) ─── */
 .p-datepicker-time-picker.p-datepicker-time-picker:not(.p-datepicker-time-picker-custom) {
   display: none;
 }
@@ -112,29 +112,27 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 .p-datepicker-clear-icon {
   display: flex;
   align-items: center;
-  inset-inline-end: var(--p-form-field-padding-x);
+  inset-inline-end: ${dt('inputtext.root.paddingX')};
   color: ${dt('datepicker.inputIcon.color')};
 }
 
 .p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
-  inset-inline-end: calc((var(--p-form-field-padding-x) * 1.5) + var(--p-icon-size));
+  inset-inline-end: calc((${dt('inputtext.root.paddingX')} * 1.5) + ${dt('inputtext.extend.iconSize')});
 }
 
 .p-datepicker:has(.p-inputtext-lg) .p-datepicker-dropdown .p-icon,
 .p-datepicker:has(.p-inputtext-lg) .p-datepicker-input-icon,
 .p-datepicker:has(.p-inputtext-lg) .p-datepicker-clear-icon .ti-x {
-  font-size: var(--p-form-field-lg-font-size);
-  width: var(--p-form-field-lg-font-size);
-  height: var(--p-form-field-lg-font-size);
+  font-size: ${dt('inputtext.root.lg.fontSize')};
+  width: ${dt('inputtext.root.lg.fontSize')};
+  height: ${dt('inputtext.root.lg.fontSize')};
 }
 
-/* ─── Clear icon: скрываем при пустом значении ─── */
 .p-datepicker.p-datepicker:not(.p-inputwrapper-filled) .p-datepicker-clear-icon,
 .p-datepicker.p-datepicker:has(.p-datepicker-input:placeholder-shown) .p-datepicker-clear-icon {
   display: none;
 }
 
-/* ─── Custom time picker (InputNumber без кнопок) ─── */
 .p-datepicker-time-picker-custom.p-datepicker-time-picker-custom {
   display: flex;
   align-items: center;
