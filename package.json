@@ -21,6 +21,7 @@
     "build:check": "npm run format:check && npm run security:check",
     "build:storybook": "ng run angular-ui-kit:build-storybook",
     "build:lib": "ng build angular-ui-kit-lib && npm run generate:tailwind && node tailwind/copy-to-dist.mjs",
+    "pack:local": "npm run build:lib && npm pack ./dist --pack-destination .",
     "generate:tailwind": "node tailwind/generate.mjs",
     "security:check": "npm audit --production --audit-level high",
     "copy:dist": "cpx 'src/lib/providers/prime-preset/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/",

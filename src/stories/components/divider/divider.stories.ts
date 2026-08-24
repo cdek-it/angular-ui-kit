@@ -6,6 +6,7 @@ import {
 } from './examples/divider-with-content.component';
 import { DividerWithIconComponent, WithIcon as WithIconStory } from './examples/divider-with-icon.component';
 import { AlignLeft as AlignLeftStory, DividerAlignLeftComponent } from './examples/divider-align-left.component';
+import { AlignBottom as AlignBottomStory, DividerAlignBottomComponent } from './examples/divider-align-bottom.component';
 
 const meta: Meta<DividerComponent> = {
   title: 'Components/Panel/Divider',
@@ -13,7 +14,13 @@ const meta: Meta<DividerComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [DividerComponent, DividerWithContentComponent, DividerWithIconComponent, DividerAlignLeftComponent]
+      imports: [
+        DividerComponent,
+        DividerWithContentComponent,
+        DividerWithIconComponent,
+        DividerAlignLeftComponent,
+        DividerAlignBottomComponent
+      ]
     })
   ],
   parameters: {
@@ -41,12 +48,12 @@ import { DividerModule } from 'primeng/divider';
     },
     type: {
       control: 'select',
-      options: ['solid', 'dashed', 'dotted'],
+      options: ['solid', 'dash'],
       description: 'Стиль линии разделителя',
       table: {
         category: 'Props',
         defaultValue: { summary: 'solid' },
-        type: { summary: "'solid' | 'dashed' | 'dotted'" }
+        type: { summary: "'solid' | 'dash'" }
       }
     },
     align: {
@@ -138,32 +145,14 @@ export const TypeDashed: Story = {
   render: (args) => ({ props: args, template: commonTemplate }),
   args: {
     layout: 'horizontal',
-    type: 'dashed',
+    type: 'dash',
     align: 'center'
   },
   parameters: {
     docs: {
       description: { story: 'Разделитель с пунктирной линией.' },
       source: {
-        code: `<extra-divider type="dashed"></extra-divider>`
-      }
-    }
-  }
-};
-
-export const TypeDotted: Story = {
-  name: 'Dotted',
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: {
-    layout: 'horizontal',
-    type: 'dotted',
-    align: 'center'
-  },
-  parameters: {
-    docs: {
-      description: { story: 'Разделитель с точечной линией.' },
-      source: {
-        code: `<extra-divider type="dotted"></extra-divider>`
+        code: `<extra-divider type="dash"></extra-divider>`
       }
     }
   }
@@ -172,3 +161,5 @@ export const TypeDotted: Story = {
 // ── Align ─────────────────────────────────────────────────────────────────────
 
 export const AlignLeft: Story = AlignLeftStory;
+
+export const AlignBottom: Story = AlignBottomStory;
