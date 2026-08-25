@@ -3,13 +3,18 @@ export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string =
 .p-inputotp.p-component .p-inputtext {
   border-width: ${dt('inputotp.extend.borderWidth')};
   padding-inline: 0;
-  padding-block: ${dt('inputtext.root.paddingY')};
 }
 
 /* ─── Disabled ─── */
 .p-inputotp.p-component .p-inputtext:disabled {
   background: ${dt('inputtext.root.disabledBackground')};
   color: ${dt('inputtext.root.disabledColor')};
+}
+
+/* ─── Readonly ─── */
+.p-inputotp.p-component .p-inputtext:enabled:read-only {
+  background: ${dt('inputtext.extend.readonlyBackground')};
+  color: ${dt('inputtext.root.color')};
 }
 
 /* ─── Focus ─── */

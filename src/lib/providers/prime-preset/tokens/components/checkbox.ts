@@ -7,23 +7,6 @@
  * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px).
  */
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
-/* ─── Обёртка label / caption (label-position) ─── */
-.extra-checkbox {
-  display: flex;
-  align-items: center;
-  gap: ${dt('checkbox.extend.extGap.row')};
-}
-
-.extra-checkbox--left {
-  flex-direction: row-reverse;
-}
-
-.extra-checkbox-body {
-  display: flex;
-  flex-direction: column;
-  gap: ${dt('checkbox.extend.extGap.caption')};
-}
-
 /* ─── Label типографика ─── */
 .checkbox-label {
   display: flex;
