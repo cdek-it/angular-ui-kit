@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <extra-divider align="left">
     <span>Отправитель</span>
   </extra-divider>
