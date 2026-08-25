@@ -5,7 +5,7 @@ export const stepperCss = ({ dt }: { dt: (token: string) => string }): string =>
   display: flex;
   flex-direction: column;
   gap: ${dt('stepper.extend.extCaption.gap')};
-  line-height: ${dt('stepper.extend.fonts_lineHeight_200')};
+  line-height: ${dt('fonts.lineHeight.250')};
   align-items: flex-start;
   text-align: left;
 }
@@ -14,19 +14,19 @@ export const stepperCss = ({ dt }: { dt: (token: string) => string }): string =>
 .p-stepper .p-step-title .caption-secondary {
   display: flex;
   justify-content: flex-start;
-  font-family: ${dt('stepper.extend.fonts_fontFamily_base')};
-  font-size: ${dt('stepper.extend.fonts_fontSize_200')};
-  font-weight: ${dt('stepper.extend.fonts_fontWeight_regular')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
   line-height: normal;
-  color: ${dt('stepper.extend.text_mutedColor')};
+  color: ${dt('color.fg.muted')};
 }
 
 /* Номер шага */
 .p-stepper .p-step-number {
-  font-family: ${dt('stepper.extend.fonts_fontFamily_base')};
-  font-size: ${dt('stepper.extend.fonts_fontSize_300')};
-  font-weight: ${dt('stepper.extend.fonts_fontWeight_medium')};
-  line-height: ${dt('stepper.extend.fonts_lineHeight_150')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.medium')};
+  line-height: ${dt('fonts.lineHeight.250')};
 }
 
 /* Border для номера шага */
@@ -43,8 +43,8 @@ export const stepperCss = ({ dt }: { dt: (token: string) => string }): string =>
 
 /* Step-number с иконкой */
 .p-stepper .p-step-number:has(i) {
-  background: ${dt('stepper.extend.background_transparent')};
-  border-color: ${dt('stepper.extend.background_transparent')};
+  background: transparent;
+  border-color: transparent;
 }
 
 /* Размер иконок в step-number */
@@ -59,6 +59,6 @@ export const stepperCss = ({ dt }: { dt: (token: string) => string }): string =>
 
 /* Прозрачный фон для панелей */
 .p-stepper .p-steppanel {
-  background: ${dt('stepper.extend.background_transparent')};
+  background: transparent;
 }
 `;

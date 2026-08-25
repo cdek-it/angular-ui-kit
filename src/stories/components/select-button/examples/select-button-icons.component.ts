@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
+import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
@@ -19,10 +19,10 @@ const styles = '';
 })
 export class SelectButtonIconsComponent {
   control = new FormControl('left');
-  options: ExtraSelectButtonItem[] = [
-    { label: 'Left',   value: 'left',   icon: 'ti ti-align-left' },
-    { label: 'Center', value: 'center', icon: 'ti ti-align-center' },
-    { label: 'Right',  value: 'right',  icon: 'ti ti-align-right' },
+  options: ExtraSelectButtonOption[] = [
+    { name: 'Left',   code: 'left',   icon: 'ti ti-align-left' },
+    { name: 'Center', code: 'center', icon: 'ti ti-align-center' },
+    { name: 'Right',  code: 'right',  icon: 'ti ti-align-right' },
   ];
 }
 
@@ -40,7 +40,7 @@ export const WithIcons: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
-import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-icons',
@@ -52,10 +52,10 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angu
 })
 export class SelectButtonIconsComponent {
   control = new FormControl('left');
-  options: ExtraSelectButtonItem[] = [
-    { label: 'Left',   value: 'left',   icon: 'ti ti-align-left' },
-    { label: 'Center', value: 'center', icon: 'ti ti-align-center' },
-    { label: 'Right',  value: 'right',  icon: 'ti ti-align-right' },
+  options: ExtraSelectButtonOption[] = [
+    { name: 'Left',   code: 'left',   icon: 'ti ti-align-left' },
+    { name: 'Center', code: 'center', icon: 'ti ti-align-center' },
+    { name: 'Right',  code: 'right',  icon: 'ti ti-align-right' },
   ];
 }
         `,

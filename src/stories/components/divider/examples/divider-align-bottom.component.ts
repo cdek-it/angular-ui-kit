@@ -2,48 +2,48 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraDividerComponent } from '../../../../lib/components/divider/divider.component';
 
 const template = `
-<div>
-  <extra-divider align="center">
-    <span>Москва → Новосибирск</span>
+<div class="flex h-40">
+  <extra-divider layout="vertical" align="bottom">
+    <span>Отправитель</span>
   </extra-divider>
 </div>
 `;
 const styles = '';
 
 @Component({
-  selector: 'app-divider-with-content',
+  selector: 'app-divider-align-bottom',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraDividerComponent],
   template,
   styles
 })
-export class DividerWithContentComponent {}
+export class DividerAlignBottomComponent {}
 
-export const WithContent = {
+export const AlignBottom = {
   render: () => ({
-    template: `<app-divider-with-content></app-divider-with-content>`
+    template: `<app-divider-align-bottom></app-divider-align-bottom>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Разделитель с текстовым контентом по центру.' },
+      description: { story: 'Контент вертикального разделителя выровнен по нижнему краю.' },
       source: {
         language: 'ts',
         code: `
 import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
-  selector: 'app-divider-with-content',
+  selector: 'app-divider-align-bottom',
   standalone: true,
   imports: [ExtraDividerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <extra-divider align="center">
-      <span>Москва → Новосибирск</span>
+    <extra-divider layout="vertical" align="bottom">
+      <span>Отправитель</span>
     </extra-divider>
   \`,
 })
-export class DividerWithContentComponent {}
+export class DividerAlignBottomComponent {}
         `
       }
     }

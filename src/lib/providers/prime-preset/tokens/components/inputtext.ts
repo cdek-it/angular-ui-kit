@@ -28,13 +28,13 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* ─── Focus ─── */
 .p-inputtext:enabled:focus {
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
 }
 
 /* ─── Invalid + Focus ─── */
 .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.extend.focusRing_invalid')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
 }
 
 /* ─── Extra Large ─── */

@@ -1,15 +1,16 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTooltipDirective as TooltipDirective } from '../../../lib/components/tooltip/tooltip.directive';
 import { ExtraButtonComponent as ButtonComponent } from '../../../lib/components/button/button.component';
+import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
 
-type TooltipArgs = TooltipDirective & { label?: string; isFocused?: boolean };
+type TooltipArgs = TooltipDirective & { label?: string };
 
 const meta: Meta<TooltipArgs> = {
   title: 'Components/Form/Tooltip',
   // @ts-ignore — component ожидает компонент, а тут атрибутная директива
   component: TooltipDirective,
   tags: ['autodocs'],
-  decorators: [moduleMetadata({ imports: [TooltipDirective, ButtonComponent] })],
+  decorators: [moduleMetadata({ imports: [TooltipDirective, ButtonComponent, ExtraInputTextComponent] })],
   parameters: {
     designTokens: { prefix: '--p-tooltip' },
     docs: {
@@ -132,17 +133,17 @@ export const Default: Story = {
 export const Positions: Story = {
   render: () => ({
     template: `
-<div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; padding:96px; box-sizing:border-box;">
-  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+<div class="grid grid-cols-2 gap-4 p-24">
+  <div class="flex items-center justify-center min-h-30">
     <extra-button extra-tooltip="Подсказка сверху" position="top" label="Top"></extra-button>
   </div>
-  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+  <div class="flex items-center justify-center min-h-30">
     <extra-button extra-tooltip="Подсказка справа" position="right" label="Right"></extra-button>
   </div>
-  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+  <div class="flex items-center justify-center min-h-30">
     <extra-button extra-tooltip="Подсказка снизу" position="bottom" label="Bottom"></extra-button>
   </div>
-  <div style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+  <div class="flex items-center justify-center min-h-30">
     <extra-button extra-tooltip="Подсказка слева" position="left" label="Left"></extra-button>
   </div>
 </div>
@@ -187,28 +188,23 @@ export const EventFocus: Story = {
   render: (args) => ({
     props: args,
     template: `
-<input type="text"
-  [extra-tooltip]="tooltip"
-  [event]="event"
-  [placeholder]="label || ''"
-  style="padding: 0.5rem 1rem; border: 1px solid var(--p-surface-300); border-radius: var(--p-border-radius); outline: none; transition: border-color 0.2s; color: var(--p-text-color); background: var(--p-surface-0);"
-  (focus)="isFocused = true"
-  (blur)="isFocused = false"
-  [style.borderColor]="isFocused ? 'var(--p-primary-500)' : 'var(--p-surface-300)'"
-/>
+<span class="inline-block" [extra-tooltip]="tooltip" [event]="event">
+  <extra-input-text [placeholder]="label || ''"></extra-input-text>
+</span>
 `
   }),
   args: {
     tooltip: 'Введите ваше имя',
     event: 'focus',
-    label: 'Кликни для фокуса',
-    isFocused: false
+    label: 'Кликни для фокуса'
   },
   parameters: {
     docs: {
       description: { story: 'Подсказка может реагировать на фокус элемента вместо наведения.' },
       source: {
-        code: `<input type="text" extra-tooltip="Введите ваше имя" event="focus" placeholder="Кликни для фокуса" />`
+        code: `<span extra-tooltip="Введите ваше имя" event="focus">
+  <extra-input-text placeholder="Кликни для фокуса"></extra-input-text>
+</span>`
       }
     }
   }

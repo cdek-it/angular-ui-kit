@@ -1,34 +1,27 @@
-/**
- * Кастомная CSS-стилизация для компонента p-divider.
- * Публикует extend-токены как CSS-переменные и применяет глобальные стили.
- * Подключается в map-tokens.ts: `import { dividerCss } from './components/divider'`
- */
 export const dividerCss = ({ dt }: { dt: (token: string) => string }): string => `
-  /* ─── Divider extend: публикуем кастомные переменные в :root ─── */
-  :root {
-    --p-divider-extend-content-gap:  ${dt('divider.extend.content.gap')};
-    --p-divider-extend-icon-size:    ${dt('divider.extend.iconSize')};
-  }
+.p-divider-content {
+  display: flex;
+  align-items: center;
+  gap: ${dt('divider.extend.content.gap')};
+  background: ${dt('color.bg.surface.default.default')};
+  color: ${dt('color.fg.default')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.demibold')};
+  line-height: ${dt('fonts.lineHeight.350')};
+  letter-spacing: ${dt('fonts.letterSpacing.500')};
+  text-transform: uppercase;
+}
 
-  /* ─── Контент разделителя ─── */
-  .p-divider-content {
-    display: flex;
-    align-items: center;
-    gap: var(--p-divider-extend-content-gap);
-    font-family: ${dt('divider.extend.fonts_fontFamily_heading')};
-    font-size: ${dt('divider.extend.fonts_fontSize_200')};
-    font-weight: ${dt('divider.extend.fonts_fontWeight_demibold')};
-  }
+.p-divider-content .ti {
+  font-size: ${dt('divider.extend.iconSize')};
+}
 
-  .p-divider-content .ti {
-    font-size: var(--p-divider-extend-icon-size);
-  }
+.p-divider.p-divider-vertical.p-divider-top .p-divider-content {
+  align-items: flex-start;
+}
 
-  /* ─── Вертикальное выравнивание ─── */
-  .p-divider.p-divider-vertical.p-divider-top .p-divider-content {
-    align-items: flex-start;
-  }
-  .p-divider.p-divider-vertical.p-divider-bottom .p-divider-content {
-    align-items: flex-end;
-  }
+.p-divider.p-divider-vertical.p-divider-bottom .p-divider-content {
+  align-items: flex-end;
+}
 `;

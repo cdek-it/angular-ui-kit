@@ -14,12 +14,33 @@ export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string =
 
 /* ─── Focus ─── */
 .p-inputotp.p-component .p-inputtext:enabled:focus {
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
 }
 
 /* ─── Invalid + Focus ─── */
 .p-inputotp.p-component .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.root.invalidBorderColor')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
+}
+
+/* ─── Small ─── */
+.p-inputotp.p-component .p-inputtext.p-inputtext-sm {
+  padding-block: ${dt('inputtext.root.sm.paddingY')};
+}
+
+/* ─── Base ─── */
+.p-inputotp.p-component .p-inputtext:not(.p-inputtext-sm):not(.p-inputtext-lg):not(.p-inputtext-xlg) {
+  padding-block: ${dt('inputtext.root.paddingY')};
+}
+
+/* ─── Large ─── */
+.p-inputotp.p-component .p-inputtext.p-inputtext-lg {
+  padding-block: ${dt('inputtext.root.lg.paddingY')};
+}
+
+/* ─── Extra Large ─── */
+.p-inputotp.p-component.p-inputotp-xlg .p-inputtext {
+  font-size: ${dt('inputtext.extend.extXlg.fontSize')};
+  padding-block: ${dt('inputtext.extend.extXlg.paddingY')};
 }
 `;

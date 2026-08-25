@@ -4,7 +4,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraRadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
 
 const template = `
-<div class="bg-surface-ground flex flex-col gap-3">
+<div class="flex flex-col gap-3">
   <div class="flex items-center gap-2">
     <extra-radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></extra-radiobutton>
     <label for="rb1">Опция 1</label>

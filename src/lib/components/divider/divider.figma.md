@@ -24,12 +24,12 @@ updated: '2026-06-22'
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
 | `layout` | `'horizontal' \| 'vertical'` | `'horizontal'` | Ориентация разделителя — соответствует Figma-свойству `layout` |
-| `type` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` | Стиль линии — соответствует Figma-свойству `type` (`solid` / `dash`); значение `dotted` доступно только в коде |
+| `type` | `'solid' \| 'dash'` | `'solid'` | Стиль линии — совпадает с Figma-свойством `type` (`solid` / `dash`) |
 | `align` | `'left' \| 'center' \| 'right' \| 'top' \| 'bottom'` | `'center'` | Выравнивание содержимого внутри разделителя — соответствует Figma-свойству `align` |
 
 Notes:
 - Figma-свойство `layout` совпадает с Angular-инпутом `layout` (`horizontal` / `vertical`).
-- Figma-свойство `type` имеет варианты `solid` / `dash`; в коде `dash` соответствует значению `'dashed'`, а `'dotted'` — расширение PrimeNG без отдельного Figma-варианта.
+- Figma-свойство `type` имеет варианты `solid` / `dash` и напрямую совпадает с Angular-инпутом `type`. Внутри компонента значение `dash` маппится на тип линии PrimeNG `dashed`.
 - Figma-свойство `align` для горизонтального разделителя использует `left` / `center` / `right`, для вертикального — `top` / `center` / `bottom`.
 - Figma-свойства `show-content`, `show-icon` и `change-icon` управляют содержимым внутри линии; в Angular это содержимое задаётся через слот по умолчанию (см. раздел Slots), а иконки берутся из [icons.md](../../figma-code-connect/icons.md).
 
@@ -56,15 +56,7 @@ Figma: `<Divider>`, layout=vertical, type=solid, align=center
 Figma: `<Divider>`, layout=horizontal, type=dash, align=center
 
 ```html
-<extra-divider type="dashed"></extra-divider>
-```
-
-### Dotted (точечная линия)
-
-Расширение PrimeNG без отдельного Figma-варианта.
-
-```html
-<extra-divider type="dotted"></extra-divider>
+<extra-divider type="dash"></extra-divider>
 ```
 
 ### Align left (выравнивание содержимого по левому краю)

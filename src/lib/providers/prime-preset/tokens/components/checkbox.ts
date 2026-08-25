@@ -1,3 +1,11 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-checkbox.
+ * Подключается в map-tokens.ts: `import { checkboxCss } from './tokens/components/checkbox'`
+ *
+ * Размеры бокса и цвета приходят токенами пресета (checkbox.root.*): их применяет сам PrimeNG.
+ * Здесь — типографика подписей, толщина рамки, indeterminate и кольцо фокуса: ни того, ни другого
+ * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px).
+ */
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* ─── Обёртка label / caption (label-position) ─── */
 .extra-checkbox {
@@ -18,34 +26,39 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 
 /* ─── Label типографика ─── */
 .checkbox-label {
-  color: ${dt('checkbox.extend.extLabel.color')};
-  font-family: ${dt('checkbox.extend.extLabel.fontFamily')};
-  font-size: ${dt('checkbox.extend.extLabel.fontSize')};
-  font-weight: ${dt('checkbox.extend.extLabel.fontWeight')};
-  line-height: ${dt('checkbox.extend.extLabel.lineHeight')};
+  display: flex;
+  align-items: center;
+  color: ${dt('color.fg.default')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.300')};
   cursor: pointer;
 }
 
-.checkbox-label:hover {
-  color: ${dt('text.hoverColor')};
+.checkbox-label--hover {
+  color: ${dt('color.fg.brand.default')};
 }
 
-.checkbox-label--disabled,
-.checkbox-label--disabled:hover {
-  color: ${dt('checkbox.extend.extLabel.disabledColor')};
+.checkbox-label--disabled {
+  color: ${dt('color.fg.muted')};
   cursor: default;
 }
 
 .checkbox-caption {
-  color: ${dt('checkbox.extend.extCaption.color')};
-  font-family: ${dt('checkbox.extend.extCaption.fontFamily')};
-  font-size: ${dt('checkbox.extend.extCaption.fontSize')};
-  font-weight: ${dt('checkbox.extend.extCaption.fontWeight')};
-  line-height: ${dt('checkbox.extend.extCaption.lineHeight')};
+  color: ${dt('color.fg.subtle')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.250')};
+}
+
+.checkbox-caption--hover {
+  color: ${dt('color.fg.brand.default')};
 }
 
 .checkbox-caption--disabled {
-  color: ${dt('checkbox.extend.extCaption.disabledColor')};
+  color: ${dt('color.fg.muted')};
 }
 
 /* Переопределение ширины border для checkbox */
@@ -59,9 +72,14 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   border-color: ${dt('checkbox.root.checkedBorderColor')};
 }
 
-/* Состояние indeterminate - цвет иконки как у checked */
+/* ─── Цвет иконки на залитом боксе ───
+   checkbox.icon.checkedColor ссылается на color.fg.on.fill.default, а эта ветка не
+   инвертируется: и в light, и в dark она #ffffff. Фон бокса при этом инвертируется
+   (color.bg.neutral.strong.default: тёмный в light, светлый в dark), поэтому в тёмной теме
+   белая галочка пропадала на светлом фоне. Берём инверсный алиас — он меняется вместе с фоном. */
+.p-checkbox-checked .p-checkbox-icon,
 .p-checkbox-indeterminate .p-checkbox-icon {
-  color: ${dt('checkbox.icon.checkedColor')};
+  color: ${dt('color.fg.inverse.default')};
 }
 
 /* Состояние hover для indeterminate */
@@ -74,13 +92,13 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
 .p-checkbox:not(.p-disabled):not(.p-checkbox-checked):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box,
 .p-checkbox-checked:not(.p-disabled):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box,
 .p-checkbox-indeterminate:not(.p-disabled):not(.p-invalid):has(.p-checkbox-input:focus-visible) .p-checkbox-box {
-  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.focusRing')} ${dt('checkbox.extend.focusRing_success')};
+  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.width')} ${dt('color.border.focus')};
 }
 
 /* Focus ring с красным цветом для состояний с ошибкой */
 .p-checkbox.p-invalid .p-checkbox-box,
 .p-checkbox-checked.p-invalid .p-checkbox-box,
 .p-checkbox-indeterminate.p-invalid .p-checkbox-box {
-  box-shadow: 0 0 0 ${dt('checkbox.extend.focusRing_width')} ${dt('checkbox.extend.focusRing_invalid')};
+  box-shadow: 0 0 0 ${dt('checkbox.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
 }
 `;

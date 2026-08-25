@@ -2,15 +2,15 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 
 /* ─── Базовые стили ─── */
 .p-inputnumber .p-inputnumber-input {
-  font-family: ${dt('inputnumber.extend.fonts_fontFamily_base')};
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 .p-inputnumber .p-inputnumber-input::placeholder {
-  font-family: ${dt('inputnumber.extend.fonts_fontFamily_base')};
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 .p-floatlabel:has(.p-inputnumber) label {
-  font-family: ${dt('inputnumber.extend.fonts_fontFamily_base')};
+  font-family: ${dt('fonts.fontFamily.base')};
 }
 
 /* ─── Кнопки увеличения/уменьшения ─── */
@@ -29,7 +29,7 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 
 /* ─── Focus ─── */
 .p-inputnumber .p-inputnumber-input:enabled:focus {
-  box-shadow: 0 0 0 ${dt('inputtext.focusRing.width')} ${dt('inputtext.focusRing.color')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
 }
 
 /* ─── Invalid + Focus ─── */

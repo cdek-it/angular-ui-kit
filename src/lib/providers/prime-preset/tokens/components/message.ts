@@ -1,3 +1,7 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-message.
+ * Подключается в map-tokens.ts: `import { messageCss } from './tokens/components/message'`
+ */
 export const messageCss = ({ dt }: { dt: (token: string) => string }): string => `
   /* Основной контейнер message */
   .p-message {
@@ -33,18 +37,18 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
 
   /* Заголовок message */
   .p-message-summary {
-    font-family: ${dt('message.extend.fonts_fontFamily_base')};
+    font-family: ${dt('fonts.fontFamily.base')};
     font-weight: ${dt('message.text.fontWeight')};
-    line-height: ${dt('message.extend.fonts_lineHeight_250')};
+    line-height: ${dt('fonts.lineHeight.250')};
     font-size: ${dt('message.text.fontSize')};
   }
 
   /* Детальное описание message */
   .p-message .p-message-detail {
-    font-family: ${dt('message.extend.fonts_fontFamily_base')};
-    font-size: ${dt('message.extend.fonts_fontSize_200')};
-    line-height: ${dt('message.extend.fonts_lineHeight_250')};
-    font-weight: ${dt('message.extend.fonts_fontWeight_regular')};
+    font-family: ${dt('fonts.fontFamily.base')};
+    font-size: ${dt('fonts.fontSize.200')};
+    line-height: ${dt('fonts.lineHeight.250')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
   }
 
   /* Кнопка закрытия message */
@@ -155,5 +159,19 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
 
   .p-message-error .p-message-accent-line {
     background: ${dt('message.extend.extError.color')};
+  }
+
+  /* Цвет подписи по типам: дизайн задаёт его отдельно от цвета акцента */
+  .p-message-info .p-message-detail {
+    color: ${dt('message.extend.extInfo.caption.color')};
+  }
+  .p-message-success .p-message-detail {
+    color: ${dt('message.extend.extSuccess.caption.color')};
+  }
+  .p-message-warn .p-message-detail {
+    color: ${dt('message.extend.extWarn.caption.color')};
+  }
+  .p-message-error .p-message-detail {
+    color: ${dt('message.extend.extError.caption.color')};
   }
 `;

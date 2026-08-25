@@ -1,15 +1,22 @@
 import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButton, SelectButtonChangeEvent } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
 
-export interface ExtraSelectButtonItem {
-  label: string;
-  value: string;
+export interface ExtraSelectButtonOption {
+  name: string;
+  code: string | number;
   icon?: string;
   disabled?: boolean;
 }
+
+export interface ExtraSelectButtonChangeEvent {
+  value: any;
+  originalEvent?: Event;
+}
+
+export type ExtraSelectButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 
 @Component({
   selector: 'extra-select-button',
@@ -20,13 +27,15 @@ export interface ExtraSelectButtonItem {
       [options]="options"
       [ngModel]="value"
       (ngModelChange)="onValueChange($event)"
+      (onChange)="onChangeHandler($event)"
       [optionLabel]="optionLabel"
       [optionValue]="optionValue"
       [optionDisabled]="optionDisabled"
       [multiple]="multiple"
       [allowEmpty]="allowEmpty"
       [disabled]="isDisabled"
-      [ngClass]="sizeClass"
+      [size]="primeSize"
+      [styleClass]="primeStyleClass"
     >
       <ng-template pTemplate="item" let-item>
         @if ($any(item)['icon']) {
@@ -38,21 +47,21 @@ export interface ExtraSelectButtonItem {
   `,
 })
 export class ExtraSelectButtonComponent implements ControlValueAccessor {
-  @Input() options: unknown[] = [];
-  @Input() optionLabel = 'label';
-  @Input() optionValue = 'value';
+  @Input() options: ExtraSelectButtonOption[] | any[] = [];
+  @Input() optionLabel = 'name';
+  @Input() optionValue = 'code';
   @Input() optionDisabled = 'disabled';
-  @Input() size: 'base' | 'small' | 'large' | 'xlarge' = 'base';
+  @Input() size: ExtraSelectButtonSize = 'base';
   @Input() multiple = false;
   @Input() allowEmpty = true;
 
-  @Output() valueChange = new EventEmitter<string | string[]>();
+  @Output() onChange = new EventEmitter<ExtraSelectButtonChangeEvent>();
 
-  value: string | string[] = '';
+  value: any = null;
 
   private _disabled = false;
-  private onChange = (_: string | string[]) => {};
-  private onTouched = () => {};
+  private _onChange = (_: any) => {};
+  private _onTouched = () => {};
 
   constructor(@Optional() @Self() private ngControl: NgControl) {
     if (ngControl) ngControl.valueAccessor = this;
@@ -62,35 +71,39 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor {
     return this._disabled;
   }
 
-  get sizeClass(): string {
-    const sizeMap: Record<string, string> = {
-      small: 'p-selectbutton-small',
-      large: 'p-selectbutton-large',
-      xlarge: 'p-selectbutton-xlarge',
-    };
-    return sizeMap[this.size] ?? '';
+  get primeSize(): 'small' | 'large' | undefined {
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large') return 'large';
+    return undefined;
   }
 
-  writeValue(value: string | string[]): void {
-    this.value = value ?? '';
+  get primeStyleClass(): string {
+    return this.size === 'xlarge' ? 'p-selectbutton-xlarge' : '';
   }
 
-  registerOnChange(fn: (value: string | string[]) => void): void {
-    this.onChange = fn;
+  writeValue(value: any): void {
+    this.value = value ?? null;
+  }
+
+  registerOnChange(fn: (value: any) => void): void {
+    this._onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this._onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;
   }
 
-  onValueChange(newValue: string | string[]): void {
+  onValueChange(newValue: any): void {
     this.value = newValue;
-    this.onChange(newValue);
-    this.onTouched();
-    this.valueChange.emit(newValue);
+    this._onChange(newValue);
+    this._onTouched();
+  }
+
+  onChangeHandler(event: SelectButtonChangeEvent): void {
+    this.onChange.emit({ value: event.value, originalEvent: event.originalEvent });
   }
 }

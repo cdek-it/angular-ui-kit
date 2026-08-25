@@ -6,9 +6,9 @@
 
 | Свойство  | Описание                              | Типизация                  |
 | --------- | ------------------------------------- | -------------------------- |
-| `layout`  | ориентация разделителя                | `horizontal \| vertical`   |
-| `type`    | стиль линии                           | `solid \| dashed`          |
-| `align`   | расположение контента относительно линии | `left \| center \| right` |
+| `layout`  | ориентация разделителя                | `horizontal \| vertical`                   |
+| `type`    | стиль линии                           | `solid \| dash`                            |
+| `align`   | расположение контента относительно линии (`top`/`bottom` — только для `layout="vertical"`) | `left \| center \| right \| top \| bottom` |
 
 # Слоты (content projection)
 

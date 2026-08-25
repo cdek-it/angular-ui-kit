@@ -1,10 +1,32 @@
+/**
+ * Кастомная CSS-стилизация для компонента p-togglebutton.
+ * Подключается в map-tokens.ts: `import { togglebuttonCss } from './tokens/components/togglebutton'`
+ *
+ * Высота у всех размеров задаётся явно из размерной лестницы дизайна
+ * (`extend.*.iconOnlyWidth` = 32/40/56/64px). Без этого высота текстовой кнопки выводилась
+ * из паддинга и расходилась с icon-only на 2–6px, а внутри select-button — ещё и с группой.
+ */
 export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): string => `
 
 /* ─── Типографика ─── */
 .p-togglebutton.p-component {
-  font-family: ${dt('togglebutton.extend.fonts_fontFamily_heading')};
-  font-weight: ${dt('togglebutton.extend.fonts_fontWeight_demibold')};
-  line-height: ${dt('togglebutton.extend.fonts_lineHeight_500')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-weight: ${dt('fonts.fontWeight.demibold')};
+  line-height: ${dt('fonts.lineHeight.500')};
+}
+
+/* ─── Высота по размерам: одна лестница для текстовых и icon-only ─── */
+.p-togglebutton.p-component {
+  height: ${dt('togglebutton.extend.iconOnlyWidth')};
+}
+.p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm {
+  height: ${dt('togglebutton.extend.extSm.iconOnlyWidth')};
+}
+.p-togglebutton.p-togglebutton.p-component.p-togglebutton-lg {
+  height: ${dt('togglebutton.extend.extLg.iconOnlyWidth')};
+}
+.p-togglebutton.p-togglebutton.p-component.p-togglebutton-xlarge {
+  height: ${dt('togglebutton.extend.extXlg.iconOnlyWidth')};
 }
 
 /* ─── Hover unchecked ─── */
@@ -21,10 +43,10 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* ─── Small ─── */
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm {
-  line-height: ${dt('togglebutton.extend.fonts_lineHeight_300')};
+  line-height: ${dt('fonts.lineHeight.300')};
 }
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm .p-togglebutton-label {
-  line-height: ${dt('togglebutton.extend.fonts_lineHeight_250')};
+  line-height: ${dt('fonts.lineHeight.250')};
 }
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-sm .p-togglebutton-icon {
   font-size: ${dt('togglebutton.extend.iconSize.sm')};
@@ -37,7 +59,7 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 
 /* ─── Large ─── */
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-lg {
-  line-height: ${dt('togglebutton.extend.fonts_lineHeight_550')};
+  line-height: ${dt('fonts.lineHeight.550')};
   gap: ${dt('togglebutton.root.gap')};
 }
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-lg .p-togglebutton-content {
@@ -50,8 +72,8 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
 /* ─── Extra Large ─── */
 .p-togglebutton.p-togglebutton.p-component.p-togglebutton-xlarge {
   padding: ${dt('togglebutton.extend.extXlg.padding')};
-  font-size: ${dt('togglebutton.extend.fonts_fontSize_500')};
-  line-height: ${dt('togglebutton.extend.fonts_lineHeight_550')};
+  font-size: ${dt('fonts.fontSize.500')};
+  line-height: ${dt('fonts.lineHeight.550')};
   display: inline-flex;
   align-items: center;
   justify-content: center;

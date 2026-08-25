@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '../../../../lib/components/select-button/select-button.component';
+import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
@@ -19,10 +19,10 @@ const styles = '';
 })
 export class SelectButtonSelectedComponent {
   control = new FormControl('2');
-  options: ExtraSelectButtonItem[] = [
-    { label: 'Option 1', value: '1' },
-    { label: 'Option 2', value: '2' },
-    { label: 'Option 3', value: '3' },
+  options: ExtraSelectButtonOption[] = [
+    { name: 'Option 1', code: '1' },
+    { name: 'Option 2', code: '2' },
+    { name: 'Option 3', code: '3' },
   ];
 }
 
@@ -40,7 +40,7 @@ export const Selected: StoryObj = {
         code: `
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
-import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angular-ui-kit';
+import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-select-button-selected',
@@ -52,10 +52,10 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonItem } from '@cdek-it/angu
 })
 export class SelectButtonSelectedComponent {
   control = new FormControl('2');
-  options: ExtraSelectButtonItem[] = [
-    { label: 'Option 1', value: '1' },
-    { label: 'Option 2', value: '2' },
-    { label: 'Option 3', value: '3' },
+  options: ExtraSelectButtonOption[] = [
+    { name: 'Option 1', code: '1' },
+    { name: 'Option 2', code: '2' },
+    { name: 'Option 3', code: '3' },
   ];
 }
         `,
