@@ -1,39 +1,51 @@
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
-/* ─── Label типографика ─── */
-.checkbox-label {
+/* ─── Обёртка label / caption (label-position) ─── */
+.extra-checkbox {
   display: flex;
   align-items: center;
-  color: ${dt('checkbox.extend.text_color')};
-  font-family: ${dt('checkbox.extend.fonts_fontFamily_base')};
-  font-size: ${dt('checkbox.extend.fonts_fontSize_300')};
-  font-weight: ${dt('checkbox.extend.fonts_fontWeight_regular')};
-  line-height: normal;
+  gap: ${dt('checkbox.extend.extGap.row')};
+}
+
+.extra-checkbox--left {
+  flex-direction: row-reverse;
+}
+
+.extra-checkbox-body {
+  display: flex;
+  flex-direction: column;
+  gap: ${dt('checkbox.extend.extGap.caption')};
+}
+
+/* ─── Label типографика ─── */
+.checkbox-label {
+  color: ${dt('checkbox.extend.extLabel.color')};
+  font-family: ${dt('checkbox.extend.extLabel.fontFamily')};
+  font-size: ${dt('checkbox.extend.extLabel.fontSize')};
+  font-weight: ${dt('checkbox.extend.extLabel.fontWeight')};
+  line-height: ${dt('checkbox.extend.extLabel.lineHeight')};
   cursor: pointer;
 }
 
-.checkbox-label--hover {
-  color: ${dt('checkbox.extend.text_brand')};
+.checkbox-label:hover {
+  color: ${dt('text.hoverColor')};
 }
 
-.checkbox-label--disabled {
-  color: ${dt('checkbox.extend.text_mutedColor')};
+.checkbox-label--disabled,
+.checkbox-label--disabled:hover {
+  color: ${dt('checkbox.extend.extLabel.disabledColor')};
   cursor: default;
 }
 
 .checkbox-caption {
-  color: ${dt('checkbox.extend.text_subtle')};
-  font-family: ${dt('checkbox.extend.fonts_fontFamily_heading')};
-  font-size: ${dt('checkbox.extend.fonts_fontSize_200')};
-  font-weight: ${dt('checkbox.extend.fonts_fontWeight_regular')};
-  line-height: normal;
-}
-
-.checkbox-caption--hover {
-  color: ${dt('checkbox.extend.text_brand')};
+  color: ${dt('checkbox.extend.extCaption.color')};
+  font-family: ${dt('checkbox.extend.extCaption.fontFamily')};
+  font-size: ${dt('checkbox.extend.extCaption.fontSize')};
+  font-weight: ${dt('checkbox.extend.extCaption.fontWeight')};
+  line-height: ${dt('checkbox.extend.extCaption.lineHeight')};
 }
 
 .checkbox-caption--disabled {
-  color: ${dt('checkbox.extend.text_disabled')};
+  color: ${dt('checkbox.extend.extCaption.disabledColor')};
 }
 
 /* Переопределение ширины border для checkbox */

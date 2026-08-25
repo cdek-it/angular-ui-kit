@@ -1,16 +1,33 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
-export type ExtraCheckboxSize = 'small' | 'base' | 'large';
-export type ExtraCheckboxVariant = 'outlined' | 'filled';
-export type ExtraCheckboxChangeEvent = CheckboxChangeEvent;
+export type ExtraCheckboxLabelPosition = 'right' | 'left';
+
+export interface ExtraCheckboxChangeEvent {
+  checked: boolean;
+  originalEvent: Event;
+}
+
+let nextInputId = 0;
 
 @Component({
   selector: 'extra-checkbox',
   standalone: true,
-  imports: [Checkbox, FormsModule],
+  imports: [Checkbox, FormsModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,82 +36,79 @@ export type ExtraCheckboxChangeEvent = CheckboxChangeEvent;
     }
   ],
   template: `
-    <p-checkbox
-      [value]="value"
-      [binary]="binary"
-      [(ngModel)]="modelValue"
-      [disabled]="disabled"
-      [readonly]="readonly"
-      [indeterminate]="indeterminate"
-      [styleClass]="indeterminate ? 'p-checkbox-indeterminate' : ''"
-      [invalid]="invalid"
-      [size]="primeSize"
-      [variant]="primeVariant"
-      [checkboxIcon]="checkboxIcon"
-      [ariaLabel]="ariaLabel"
-      [ariaLabelledBy]="ariaLabelledBy"
-      [tabindex]="tabindex"
-      [inputId]="inputId"
-      [trueValue]="trueValue"
-      [falseValue]="falseValue"
-      [autofocus]="autofocus"
-      (onChange)="onChangeHandler($event)"
-      (onFocus)="onFocus.emit($event)"
-      (onBlur)="onBlur.emit($event)"
-    ></p-checkbox>
+    @if (label || caption) {
+      <div class="extra-checkbox" [class.extra-checkbox--left]="labelPosition === 'left'">
+        <ng-container [ngTemplateOutlet]="fieldTpl" />
+        <div class="extra-checkbox-body">
+          @if (label) {
+            <label class="checkbox-label" [class.checkbox-label--disabled]="disabled" [for]="inputId">{{
+              label
+            }}</label>
+          }
+          @if (caption) {
+            <div class="checkbox-caption" [class.checkbox-caption--disabled]="disabled">{{ caption }}</div>
+          }
+        </div>
+      </div>
+    } @else {
+      <ng-container [ngTemplateOutlet]="fieldTpl" />
+    }
+
+    <ng-template #fieldTpl>
+      <p-checkbox
+        [binary]="true"
+        [(ngModel)]="modelValue"
+        [disabled]="disabled"
+        [indeterminate]="indeterminate"
+        [class.p-checkbox-indeterminate]="indeterminate"
+        [invalid]="invalid"
+        [inputId]="inputId"
+        (onChange)="onChangeHandler($event)"
+      ></p-checkbox>
+    </ng-template>
   `
 })
-export class ExtraCheckboxComponent implements ControlValueAccessor {
-  @Input() value: any = null;
-  @Input() binary = false;
-  @Input() disabled = false;
-  @Input() readonly = false;
+export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit {
+  private readonly _injector = inject(Injector);
+  private _ngControl: NgControl | null = null;
+
+  ngOnInit(): void {
+    this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
+  }
+
+  @Input() label = '';
+  @Input() labelPosition: ExtraCheckboxLabelPosition = 'right';
+  @Input() caption = '';
   @Input() indeterminate = false;
-  @Input() invalid = false;
-  @Input() size: ExtraCheckboxSize = 'base';
-  @Input() variant: ExtraCheckboxVariant = 'outlined';
-  @Input() checkboxIcon: string | undefined = undefined;
-  @Input() ariaLabel: string | undefined = undefined;
-  @Input() ariaLabelledBy: string | undefined = undefined;
-  @Input() tabindex: number | undefined = undefined;
-  @Input() inputId: string | undefined = undefined;
-  @Input() trueValue: any = true;
-  @Input() falseValue: any = false;
-  @Input() autofocus = false;
 
   @Output() onChange = new EventEmitter<ExtraCheckboxChangeEvent>();
-  @Output() onFocus = new EventEmitter<Event>();
-  @Output() onBlur = new EventEmitter<Event>();
 
-  modelValue: any = false;
+  /** Уникальный id поля для связи label ↔ input. */
+  readonly inputId = `extra-checkbox-${nextInputId++}`;
 
-  private _onChange: (value: any) => void = () => {};
+  disabled = false;
+  modelValue = false;
+
+  get invalid(): boolean {
+    return this._ngControl?.invalid ?? false;
+  }
+
+  private _onChange: (value: boolean) => void = () => {};
   private _onTouched: () => void = () => {};
 
-  // Геттеры — маппинг в PrimeNG API
-  get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large') return 'large';
-    return undefined;
-  }
-
-  get primeVariant(): 'filled' | 'outlined' | undefined {
-    if (this.variant === 'filled') return 'filled';
-    return undefined;
-  }
-
-  onChangeHandler(event: ExtraCheckboxChangeEvent): void {
-    this._onChange(event.checked);
+  onChangeHandler(event: CheckboxChangeEvent): void {
+    const checked = !!event.checked;
+    this.modelValue = checked;
+    this._onChange(checked);
     this._onTouched();
-    this.onChange.emit(event);
+    this.onChange.emit({ checked, originalEvent: event.originalEvent as Event });
   }
 
-  // ControlValueAccessor
-  writeValue(value: any): void {
-    this.modelValue = value;
+  writeValue(value: boolean): void {
+    this.modelValue = !!value;
   }
 
-  registerOnChange(fn: (value: any) => void): void {
+  registerOnChange(fn: (value: boolean) => void): void {
     this._onChange = fn;
   }
 

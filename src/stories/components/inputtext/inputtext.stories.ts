@@ -1,15 +1,11 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { ClearButton, InputTextClearComponent } from './examples/inputtext-clear.component';
-import { FloatLabelStory, InputTextFloatLabelComponent } from './examples/inputtext-float-label.component';
-import {
-  FloatLabelInvalid,
-  InputTextFloatLabelInvalidComponent
-} from './examples/inputtext-float-label-invalid.component';
-import { Disabled } from './examples/inputtext-disabled.component';
-import { InputTextReadonlyComponent, Readonly } from './examples/inputtext-readonly.component';
-import { Invalid } from './examples/inputtext-invalid.component';
+import { InputTextClearableComponent, Clearable } from './examples/inputtext-clearable.component';
+import { InputTextLabelsComponent, Labels } from './examples/inputtext-labels.component';
+import { InputTextSizesComponent, Sizes } from './examples/inputtext-sizes.component';
+import { InputTextStatesComponent, States } from './examples/inputtext-states.component';
+import { InputTextTypesComponent, Types } from './examples/inputtext-types.component';
 
 type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean };
 
@@ -22,149 +18,190 @@ const meta: Meta<InputTextArgs> = {
       imports: [
         ExtraInputTextComponent,
         ReactiveFormsModule,
-        InputTextFloatLabelComponent,
-        InputTextFloatLabelInvalidComponent,
-        InputTextReadonlyComponent,
-        InputTextClearComponent
+        InputTextLabelsComponent,
+        InputTextSizesComponent,
+        InputTextClearableComponent,
+        InputTextTypesComponent,
+        InputTextStatesComponent
       ]
     })
   ],
   parameters: {
-    designTokens: { prefix: '--p-inputtext' },
     docs: {
       description: {
         component: `Текстовое поле для ввода данных.
 
+Реализовано по спецификации [inputtext.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/inputtext.md).
+
 \`\`\`typescript
-import { InputTextModule } from 'primeng/inputtext';
-\`\`\``
+import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`
+
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
       }
     }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
+    // ── Свойства (docs/components-api/inputtext.md) ───────────────
     placeholder: {
       control: 'text',
-      description: 'Подсказка при пустом поле',
+      description: 'Текст подсказки внутри поля',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    label: {
+      control: 'text',
+      description: 'Текст названия поля',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    labelPosition: {
+      control: 'select',
+      options: ['default', 'float', 'left'],
+      description: 'Положение лейбла',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'default' },
+        type: { summary: "'default' | 'float' | 'left'" }
+      }
+    },
+    clearable: {
+      control: 'boolean',
+      description: 'Отображение иконки для очистки поля',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    caption: {
+      control: 'text',
+      description: 'Текст пояснения под полем',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    info: {
+      control: 'text',
+      description: 'Текст с доп. информацией (показывается в тултипе иконки ti-info-circle)',
+      table: {
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'],
+      options: ['sm', 'base', 'lg', 'xlg'],
       description: 'Размер поля',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+        type: { summary: "'sm' | 'base' | 'lg' | 'xlg'" }
       }
     },
+    type: {
+      control: 'select',
+      options: ['text', 'password'],
+      description: 'Тип поля input',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'text' },
+        type: { summary: "'text' | 'password'" }
+      }
+    },
+    // ── Состояния (управляются через FormControl) ────────────────
     disabled: {
       control: 'boolean',
-      description: 'Отключает взаимодействие — управляется через FormControl',
+      description: 'Отключённое состояние — управляется через FormControl',
       table: {
-        category: 'Props',
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     invalid: {
       control: 'boolean',
-      description: 'Невалидное состояние — управляется через FormControl',
+      description: 'Невалидное состояние — вычисляется из NgControl (Validators)',
       table: {
-        category: 'Props',
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    readonly: {
-      control: 'boolean',
-      description: 'Только для чтения',
+    // ── События ───────────────────────────────────────────────────
+    onClear: {
+      control: false,
+      description: 'Срабатывает при очистке поля иконкой × (только при clearable)',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    showClear: {
-      control: 'boolean',
-      description: 'Показывает иконку очистки при наличии значения',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    fluid: {
-      control: 'boolean',
-      description: 'Растягивает поле на всю ширину контейнера',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
       }
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
     sizeClass: { table: { disable: true } },
-
-    // ── Events ───────────────────────────────────────────────
-    onClear: {
-      control: false,
-      description: 'Событие очистки поля (при showClear)',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<void>' }
-      }
-    }
+    inputId: { table: { disable: true } }
   },
   args: {
     placeholder: 'Введите текст...',
+    label: '',
+    labelPosition: 'default',
+    clearable: false,
+    caption: '',
+    info: '',
     size: 'base',
+    type: 'text',
     disabled: false,
-    invalid: false,
-    readonly: false,
-    showClear: false,
-    fluid: false
+    invalid: false
   }
 };
 
 export default meta;
 type Story = StoryObj<InputTextArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
+// ── Default (интерактивная) ──────────────────────────────────────────────────
+
 export const Default: Story = {
   name: 'Default',
-  render: (args: Record<string, unknown>) => {
+  render: (args) => {
     const parts: string[] = [];
 
-    if (args['placeholder']) parts.push(`placeholder="${args['placeholder']}"`);
-    if (args['size'] && args['size'] !== 'base') parts.push(`size="${args['size']}"`);
-    if (args['readonly']) parts.push(`[readonly]="true"`);
-    if (args['showClear']) parts.push(`[showClear]="true"`);
-    if (args['fluid']) parts.push(`[fluid]="true"`);
+    if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
+    if (args.label) parts.push(`label="${args.label}"`);
+    if (args.labelPosition && args.labelPosition !== 'default') parts.push(`labelPosition="${args.labelPosition}"`);
+    if (args.clearable) parts.push(`clearable`);
+    if (args.caption) parts.push(`caption="${args.caption}"`);
+    if (args.info) parts.push(`info="${args.info}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+    if (args.type && args.type !== 'text') parts.push(`type="${args.type}"`);
 
-    const validators = [];
-    if (args['invalid']) validators.push(Validators.required);
+    const validators = args.invalid ? [Validators.required] : [];
+    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
-    const control = new FormControl({ value: '', disabled: args['disabled'] as boolean }, validators);
-
-    const template = `<input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></input-text>`;
+    const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
     return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
       }
     }
   }
 };
 
-// ── Re-exports from example components ────────────────────────────────────
-export { ClearButton, FloatLabelStory as FloatLabel, FloatLabelInvalid, Disabled, Readonly, Invalid };
+// ── Комбинаторные истории ────────────────────────────────────────────────────
+
+export { Labels, Sizes, Clearable, Types, States };
