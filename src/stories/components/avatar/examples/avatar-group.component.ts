@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../../lib/components/avatar/avatar.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <extra-avatar-group>
     <extra-avatar image="assets/images/avatar/amyelsner.png" shape="circle"></extra-avatar>
     <extra-avatar image="assets/images/avatar/asiyajavayant.png" shape="circle"></extra-avatar>
