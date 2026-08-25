@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <div class="flex gap-4">
     <extra-skeleton shape="circle" size="4rem"></extra-skeleton>
     <div class="flex flex-col gap-2 flex-1">
