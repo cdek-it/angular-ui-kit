@@ -9,7 +9,7 @@ const template = `
 <div class="bg-surface-ground p-4">
   <extra-input-group>
     <extra-input-group-addon>@</extra-input-group-addon>
-    <extra-input-text placeholder="Username" [(ngModel)]="value" [fluid]="true"></extra-input-text>
+    <extra-input-text placeholder="Username" [(ngModel)]="value"></extra-input-text>
   </extra-input-group>
 </div>
 `;
@@ -47,7 +47,7 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
   template: \`
     <extra-input-group>
       <extra-input-group-addon>@</extra-input-group-addon>
-      <extra-input-text placeholder="Username" [(ngModel)]="value" [fluid]="true"></extra-input-text>
+      <extra-input-text placeholder="Username" [(ngModel)]="value"></extra-input-text>
     </extra-input-group>
   \`,
 })

@@ -4,7 +4,6 @@ import { ExtraInputOtpComponent } from '../../../lib/components/inputotp/inputot
 import { Disabled } from './examples/inputotp-disabled.component';
 import { Invalid } from './examples/inputotp-invalid.component';
 import { Mask } from './examples/inputotp-mask.component';
-import { Readonly } from './examples/inputotp-readonly.component';
 import { IntegerOnly } from './examples/inputotp-integeronly.component';
 
 type InputOtpArgs = ExtraInputOtpComponent;
@@ -24,130 +23,89 @@ const meta: Meta<InputOtpArgs> = {
       description: {
         component: `Компонент для ввода одноразовых паролей (OTP).
 
+Реализовано по спецификации [inputotp.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/inputotp.md).
+
 \`\`\`typescript
 import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``
+\`\`\`
+
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
       }
     }
   },
   argTypes: {
+    // ── Свойства (docs/components-api/inputotp.md) ────────────────
     length: {
       control: 'number',
-      description: 'Количество символов',
+      description: 'Количество полей ввода',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '4' },
         type: { summary: 'number' }
       }
     },
     mask: {
       control: 'boolean',
-      description: 'Маскирует введённые символы',
+      description: 'Скрывать введённое значение (как пароль)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     integerOnly: {
       control: 'boolean',
-      description: 'Разрешает ввод только цифр',
+      description: 'Допускать только цифры',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    size: {
-      control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'] as const,
-      description: 'Размер поля',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
-      }
-    },
-
-    readonly: {
+    // ── Состояния (управляются через FormControl) ─────────────────
+    disabled: {
       control: 'boolean',
-      description: 'Только для чтения',
+      description: 'Отключённое состояние — управляется через FormControl',
       table: {
-        category: 'Props',
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    tabindex: {
-      control: 'number',
-      description: 'Значение атрибута tabindex',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: 'number | null' }
-      }
-    },
-    autofocus: {
+    invalid: {
       control: 'boolean',
-      description: 'Автоматический фокус при загрузке',
+      description: 'Невалидное состояние — вычисляется из NgControl (Validators)',
       table: {
-        category: 'Props',
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-
-    // Hidden props
-    control: { table: { disable: true } },
-    disabled: { table: { disable: true } },
-    invalid: { table: { disable: true } },
-    primeSize: { table: { disable: true } },
-    sizeClass: { table: { disable: true } },
-    writeValue: { table: { disable: true } },
-    registerOnChange: { table: { disable: true } },
-    registerOnTouched: { table: { disable: true } },
-    setDisabledState: { table: { disable: true } },
-
-    // Events
+    // ── События ──────────────────────────────────────────────────
     onChange: {
       control: false,
-      description: 'Событие изменения значения',
+      description: 'Срабатывает при изменении кода',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<InputOtpChangeEvent>' }
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraInputOtpChangeEvent>' }
       }
     },
-    onFocus: {
-      control: false,
-      description: 'Событие фокуса',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    },
-    onBlur: {
-      control: false,
-      description: 'Событие потери фокуса',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    }
+    // Hidden computed props
+    control: { table: { disable: true } }
   },
   args: {
     length: 4,
     mask: false,
     integerOnly: false,
-    readonly: false,
-    autofocus: false,
-    tabindex: null,
-    size: 'base' as const
+    disabled: false,
+    invalid: false
   }
 };
 
 export default meta;
 type Story = StoryObj<InputOtpArgs>;
 
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
@@ -156,23 +114,23 @@ export const Default: Story = {
     if (args.length !== 4) parts.push(`[length]="${args.length}"`);
     if (args.mask) parts.push(`[mask]="true"`);
     if (args.integerOnly) parts.push(`[integerOnly]="true"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.autofocus) parts.push(`[autofocus]="true"`);
-    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
-    parts.push(`[formControl]="control"`);
 
-    const template = `<extra-input-otp\n  ${parts.join('\n  ')}\n></extra-input-otp>`;
+    const validators = args.invalid ? [() => ({ invalid: true })] : [];
+    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
-    return { props: { ...args, control: new FormControl('') }, template };
+    const template = `<extra-input-otp [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-otp>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Интерактивный пример со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
       }
     }
   }
 };
 
-export { Disabled, Readonly, Invalid, Mask, IntegerOnly };
+// ── Комбинаторные истории ──────────────────────────────────────────────────
+export { Disabled, Invalid, Mask, IntegerOnly };
