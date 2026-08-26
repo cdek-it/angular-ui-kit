@@ -61,3 +61,7 @@ src/assets/components/themes
 .claude/*
 .qwen
 .worktrees/
+
+# Пиксельные снимки привязаны к рендеру шрифтов в macOS и в CI не совпадут.
+# Baseline генерируется локально первым прогоном test-runner, в репозиторий не кладётся.
+.storybook/pixel-baselines/
