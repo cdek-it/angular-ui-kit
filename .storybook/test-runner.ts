@@ -1,6 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import type { TestRunnerConfig } from '@storybook/test-runner';
+import { waitForPageReady, type TestRunnerConfig } from '@storybook/test-runner';
 
 /**
  * Снапшоты вычисленных стилей вместо пиксельных скриншотов.
@@ -45,24 +45,12 @@ type StyleSnapshot = Record<string, Record<string, string>>;
  * Веб-шрифты и картинки догружаются после рендера story и сдвигают геометрию: без ожидания
  * baseline ловит промежуточное состояние (`height: 0px` у превью, `40px` вместо `44px` у поля
  * с иконкой) и следующий же прогон падает на ровном месте.
+ *
+ * `waitForPageReady` закрывает загрузку (networkidle + `document.fonts.ready`), два кадра
+ * поверх неё дают браузеру пересчитать раскладку после подмены шрифта.
  */
-const waitForStableLayout = async (): Promise<void> => {
-  await document.fonts.ready;
-
-  await Promise.all(
-    [...document.images]
-      .filter((image) => !image.complete)
-      .map(
-        (image) =>
-          new Promise<void>((resolve) => {
-            image.addEventListener('load', () => resolve(), { once: true });
-            image.addEventListener('error', () => resolve(), { once: true });
-          })
-      )
-  );
-
-  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-};
+const settleLayout = (): Promise<void> =>
+  new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 
 const collectStyles = (properties: string[]): StyleSnapshot => {
   const root = document.querySelector('#storybook-root');
@@ -109,7 +97,8 @@ const diff = (baseline: StyleSnapshot, actual: StyleSnapshot): string[] => {
 
 const config: TestRunnerConfig = {
   async postVisit(page, context) {
-    await page.evaluate(waitForStableLayout);
+    await waitForPageReady(page);
+    await page.evaluate(settleLayout);
     const actual = await page.evaluate(collectStyles, TRACKED_PROPERTIES);
     if (Object.keys(actual).length === 0) return;
 
