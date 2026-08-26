@@ -1,0 +1,50 @@
+{
+  "toast/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "toast/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "toast/root[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "toast/root[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "toast/root[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "toast/root[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

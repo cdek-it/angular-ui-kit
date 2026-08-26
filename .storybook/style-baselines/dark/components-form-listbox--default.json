@@ -1,0 +1,47 @@
+{
+  "listbox/root": {
+    "color": "rgb(240, 240, 241)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "span/hiddenfirstfocusableelement": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "div/listcontainer": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "ul/list": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "li/option": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/option[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/option[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/option[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/option[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/hiddenselectedmessage": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "span/hiddenlastfocusableel": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  }
+}

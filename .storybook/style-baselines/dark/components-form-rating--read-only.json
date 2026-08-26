@@ -1,0 +1,86 @@
+{
+  "rating/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/option": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/hiddenoptioninputcontainer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/hiddenoptioninput": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "svg/onicon": {
+    "color": "rgb(250, 203, 117)",
+    "border-top-color": "rgb(250, 203, 117)"
+  },
+  "div/option[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/hiddenoptioninputcontainer[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/hiddenoptioninput[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "svg/onicon[1]": {
+    "color": "rgb(250, 203, 117)",
+    "border-top-color": "rgb(250, 203, 117)"
+  },
+  "div/option[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/hiddenoptioninputcontainer[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/hiddenoptioninput[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "svg/onicon[2]": {
+    "color": "rgb(250, 203, 117)",
+    "border-top-color": "rgb(250, 203, 117)"
+  },
+  "div/option[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/hiddenoptioninputcontainer[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/hiddenoptioninput[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "svg/onicon[3]": {
+    "color": "rgb(250, 203, 117)",
+    "border-top-color": "rgb(250, 203, 117)"
+  },
+  "div/option[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/hiddenoptioninputcontainer[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/hiddenoptioninput[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "svg/officon": {
+    "color": "rgb(162, 165, 169)",
+    "border-top-color": "rgb(162, 165, 169)"
+  }
+}

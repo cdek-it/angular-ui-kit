@@ -1,0 +1,9 @@
+{
+  "p-message/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "message/root": {
+    "background-color": "rgb(12, 36, 59)"
+  }
+}

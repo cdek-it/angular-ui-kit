@@ -1,0 +1,117 @@
+{
+  "menubar/root": {
+    "height": "42px"
+  },
+  "a/button": {
+    "min-height": "auto"
+  },
+  "svg/buttonicon": {
+    "min-height": "auto"
+  },
+  "ul/rootlist": {
+    "padding-top": "4px",
+    "padding-right": "4px",
+    "padding-bottom": "4px",
+    "padding-left": "4px",
+    "height": "auto",
+    "min-height": "0px",
+    "border-top-left-radius": "14px",
+    "border-top-right-radius": "14px",
+    "border-bottom-right-radius": "14px",
+    "border-bottom-left-radius": "14px",
+    "border-top-width": "1px",
+    "border-right-width": "1px",
+    "border-bottom-width": "1px",
+    "border-left-width": "1px",
+    "background-color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(226, 226, 228)"
+  },
+  "li/item": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "div/itemcontent": {
+    "height": "auto"
+  },
+  "a/itemlink": {
+    "height": "auto"
+  },
+  "span/itemlabel": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "li/item[1]": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "div/itemcontent[1]": {
+    "height": "auto"
+  },
+  "a/itemlink[1]": {
+    "height": "auto"
+  },
+  "span/itemlabel[1]": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "svg/submenuicon": {
+    "min-height": "0px"
+  },
+  "ul/submenu": {
+    "padding-right": "0px",
+    "padding-left": "14px",
+    "border-top-width": "0px",
+    "border-right-width": "0px",
+    "border-bottom-width": "0px",
+    "border-left-width": "0px",
+    "border-top-color": "rgb(43, 46, 51)"
+  },
+  "ul/submenu[1]": {
+    "padding-right": "0px",
+    "padding-left": "14px",
+    "border-top-width": "0px",
+    "border-right-width": "0px",
+    "border-bottom-width": "0px",
+    "border-left-width": "0px",
+    "border-top-color": "rgb(43, 46, 51)"
+  },
+  "li/item[8]": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "div/itemcontent[8]": {
+    "height": "auto"
+  },
+  "a/itemlink[8]": {
+    "height": "auto"
+  },
+  "span/itemicon": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "span/itemlabel[8]": {
+    "height": "auto",
+    "min-height": "0px"
+  },
+  "svg/submenuicon[2]": {
+    "min-height": "0px"
+  },
+  "ul/submenu[2]": {
+    "padding-right": "0px",
+    "padding-left": "14px",
+    "border-top-width": "0px",
+    "border-right-width": "0px",
+    "border-bottom-width": "0px",
+    "border-left-width": "0px",
+    "border-top-color": "rgb(43, 46, 51)"
+  },
+  "ul/submenu[3]": {
+    "padding-right": "0px",
+    "padding-left": "14px",
+    "border-top-width": "0px",
+    "border-right-width": "0px",
+    "border-bottom-width": "0px",
+    "border-left-width": "0px",
+    "border-top-color": "rgb(43, 46, 51)"
+  }
+}

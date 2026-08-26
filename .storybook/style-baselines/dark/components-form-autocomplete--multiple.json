@@ -1,0 +1,23 @@
+{
+  "autocomplete/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "ul/inputmultiple": {
+    "color": "rgb(240, 240, 241)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "li/inputchip": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "input/input": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "p-overlay/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

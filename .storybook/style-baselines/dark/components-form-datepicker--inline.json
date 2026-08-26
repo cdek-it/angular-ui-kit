@@ -1,0 +1,484 @@
+{
+  "datepicker/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/panel": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(64, 67, 72)"
+  },
+  "p-button/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "select/root": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "span/label": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/dropdown": {
+    "color": "rgb(162, 165, 169)",
+    "border-top-color": "rgb(162, 165, 169)"
+  },
+  "svg/dropdownicon": {
+    "color": "rgb(162, 165, 169)",
+    "border-top-color": "rgb(162, 165, 169)"
+  },
+  "p-overlay/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "select/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "span/label[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/dropdown[1]": {
+    "color": "rgb(162, 165, 169)",
+    "border-top-color": "rgb(162, 165, 169)"
+  },
+  "svg/dropdownicon[1]": {
+    "color": "rgb(162, 165, 169)",
+    "border-top-color": "rgb(162, 165, 169)"
+  },
+  "p-overlay/host[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/calendarcontainer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/calendar": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/header": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/title": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/selectmonth": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/selectyear": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "table/table": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "thead/tableheader": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tr/tableheaderrow": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "th/weekdaycell[6]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/weekday[6]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tbody/tablebody": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tr/tablebodyrow": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "td/daycell": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[1]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[2]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[3]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[4]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[5]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[6]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[6]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "tr/tablebodyrow[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[7]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[7]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[8]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[8]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[9]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[9]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[10]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[10]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[11]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[11]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[12]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[12]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[13]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[13]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "tr/tablebodyrow[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[14]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[14]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[15]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[15]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[16]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[16]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[17]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[17]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[18]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[18]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[19]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[19]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[20]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[20]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "tr/tablebodyrow[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[21]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[21]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[22]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[22]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[23]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[23]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[24]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[24]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[25]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[25]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[26]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[26]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[27]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[27]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "tr/tablebodyrow[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[28]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[28]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[29]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[29]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[30]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[30]": {
+    "border-top-color": "rgb(226, 226, 228)"
+  },
+  "td/daycell[31]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[31]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[32]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[32]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[33]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[33]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[34]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[34]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "tr/tablebodyrow[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[35]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[35]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[36]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[36]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[37]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[37]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[38]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[38]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[39]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[39]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[40]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[40]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "td/daycell[41]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/day[41]": {
+    "color": "rgb(255, 255, 255)"
+  }
+}

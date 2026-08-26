@@ -1,0 +1,39 @@
+{
+  "div/tablecontainer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "table/table": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "thead/thead": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tbody/tbody": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tag/root": {
+    "color": "rgb(240, 249, 255)",
+    "background-color": "rgb(24, 83, 141)",
+    "border-top-color": "rgb(240, 249, 255)"
+  },
+  "span/label": {
+    "color": "rgb(240, 249, 255)",
+    "border-top-color": "rgb(240, 249, 255)"
+  },
+  "tag/root[1]": {
+    "color": "rgb(240, 255, 243)",
+    "border-top-color": "rgb(240, 255, 243)"
+  },
+  "span/label[1]": {
+    "color": "rgb(240, 255, 243)",
+    "border-top-color": "rgb(240, 255, 243)"
+  },
+  "span/label[2]": {
+    "color": "rgb(255, 240, 240)",
+    "border-top-color": "rgb(255, 240, 240)"
+  }
+}

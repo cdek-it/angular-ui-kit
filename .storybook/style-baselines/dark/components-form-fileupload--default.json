@@ -1,0 +1,23 @@
+{
+  "p-fileupload/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "fileupload/root": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/input": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/header": {
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(64, 67, 72)"
+  },
+  "div/content": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

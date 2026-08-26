@@ -1,0 +1,120 @@
+{
+  "carousel/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/contentcontainer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/content": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/viewport": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/itemlist": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[6]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/item[7]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "ul/indicatorlist": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/indicator": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/indicatorbutton": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/indicator[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/indicatorbutton[1]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/indicator[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/indicatorbutton[2]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/indicator[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/indicatorbutton[3]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/indicator[4]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/indicatorbutton[4]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "li/indicator[5]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/indicatorbutton[5]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "toggleswitch/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/input": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/slider": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "div/handle": {
+    "background-color": "rgb(86, 89, 95)"
+  }
+}

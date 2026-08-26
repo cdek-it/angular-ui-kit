@@ -1,0 +1,33 @@
+{
+  "selectbutton/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "pctogglebutton/root": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(64, 67, 72)"
+  },
+  "span/content": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "pctogglebutton/root[1]": {
+    "color": "rgb(240, 240, 241)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(43, 46, 51)"
+  },
+  "span/content[1]": {
+    "color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "pctogglebutton/root[2]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(64, 67, 72)"
+  },
+  "span/content[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

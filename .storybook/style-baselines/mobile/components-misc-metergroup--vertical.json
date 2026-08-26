@@ -1,0 +1,23 @@
+{
+  "ol/labellist": {
+    "height": "140px"
+  },
+  "li/label": {
+    "height": "48px"
+  },
+  "span/labeltext": {
+    "height": "48px"
+  },
+  "li/label[1]": {
+    "height": "32px"
+  },
+  "span/labeltext[1]": {
+    "height": "32px"
+  },
+  "li/label[2]": {
+    "height": "32px"
+  },
+  "span/labeltext[2]": {
+    "height": "32px"
+  }
+}

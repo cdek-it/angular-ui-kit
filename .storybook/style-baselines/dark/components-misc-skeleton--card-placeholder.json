@@ -1,0 +1,22 @@
+{
+  "skeleton/root": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "skeleton/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "skeleton/root[2]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "skeleton/root[3]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(86, 89, 95)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

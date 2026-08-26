@@ -1,0 +1,58 @@
+{
+  "checkbox/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/input": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "div/box": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "svg/icon": {
+    "color": "rgb(43, 46, 51)",
+    "border-top-color": "rgb(43, 46, 51)"
+  },
+  "checkbox/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/input[1]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "div/box[1]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(240, 240, 241)"
+  },
+  "svg/icon[1]": {
+    "color": "rgb(43, 46, 51)",
+    "border-top-color": "rgb(43, 46, 51)"
+  },
+  "checkbox/root[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/input[2]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "div/box[2]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "checkbox/root[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "input/input[3]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "div/box[3]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  }
+}

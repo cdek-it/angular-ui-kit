@@ -1,0 +1,11 @@
+{
+  "span/label": {
+    "height": "48px"
+  },
+  "span/label[1]": {
+    "height": "48px"
+  },
+  "span/label[2]": {
+    "height": "48px"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "table/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/mask": {
+    "color": "rgb(228, 228, 231)",
+    "background-color": "rgba(0, 0, 0, 0.6)",
+    "border-top-color": "rgb(228, 228, 231)"
+  },
+  "svg/loadingicon": {
+    "color": "rgb(228, 228, 231)",
+    "border-top-color": "rgb(228, 228, 231)"
+  },
+  "div/tablecontainer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-scroller/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "virtualscroller/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "table/table": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "thead/thead": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tbody/tbody": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tbody/virtualscrollerspacer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

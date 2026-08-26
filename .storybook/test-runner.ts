@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { waitForPageReady, type TestRunnerConfig } from '@storybook/test-runner';
 
@@ -6,14 +6,32 @@ import { waitForPageReady, type TestRunnerConfig } from '@storybook/test-runner'
  * Снапшоты вычисленных стилей вместо пиксельных скриншотов.
  *
  * Слепок снимается с элементов, размеченных PrimeNG (`data-pc-section`), — это стабильная
- * семантическая карта компонента. Дифф читается как «paddingInline: 12px → 10px», не зависит
+ * семантическая карта компонента. Дифф читается как «padding-top: 12px → 10px», не зависит
  * от шрифтов, сглаживания и ОС, поэтому baseline переносится между macOS и CI без docker.
+ *
+ * Каждая story снимается в трёх вариантах: `light` (десктоп, светлая тема), `dark` и `mobile`.
+ * `light` хранится целиком, `dark` и `mobile` — только отличия от него: тёмная тема меняет
+ * цвета, мобильный вьюпорт — единицы свойств, и хранить ради этого три полных копии незачем.
  *
  * Обновить baseline после осознанной правки токенов: UPDATE_STYLE_BASELINES=1 npm run test-storybook
  */
 
+type Page = Parameters<NonNullable<TestRunnerConfig['postVisit']>>[0];
+type StyleSnapshot = Record<string, Record<string, string>>;
+
 const BASELINE_DIR = join(process.cwd(), '.storybook', 'style-baselines');
 const UPDATE = process.env['UPDATE_STYLE_BASELINES'] === '1';
+
+const MOBILE_VIEWPORT = { width: 390, height: 844 };
+
+/**
+ * Story, снимок которых нестабилен по своей природе. Лента миниатюр галереи перерисовывается
+ * вместе с позицией карусели: часть элементов остаётся свёрнутой в нулевую высоту, и какие
+ * именно — от прогона к прогону разное. Снимок адресует повторы по порядку в DOM, поэтому там
+ * он не воспроизводится; геометрию галереи покрывают остальные её stories.
+ */
+const STYLE_SNAPSHOT_SKIP = ['components-media-galleria--thumbnails'];
+const SETTLE_TIMEOUT = 2000;
 
 const TRACKED_PROPERTIES = [
   'padding-top',
@@ -39,18 +57,65 @@ const TRACKED_PROPERTIES = [
   'border-top-color'
 ];
 
-type StyleSnapshot = Record<string, Record<string, string>>;
+/**
+ * Тема переключается классом на `<html>` — так же, как это делает `withThemeByClassName`
+ * в `preview.ts`, и именно этот селектор ждёт PrimeNG (`darkModeSelector: '.dark'`).
+ */
+const VARIANTS: { name: string; apply: (page: Page) => Promise<void>; reset: (page: Page) => Promise<void> }[] = [
+  {
+    name: 'light',
+    apply: async () => undefined,
+    reset: async () => undefined
+  },
+  {
+    name: 'dark',
+    apply: (page) => page.evaluate(() => document.documentElement.classList.add('dark')),
+    reset: (page) => page.evaluate(() => document.documentElement.classList.remove('dark'))
+  },
+  {
+    name: 'mobile',
+    apply: (page) => page.setViewportSize(MOBILE_VIEWPORT),
+    reset: async () => undefined
+  }
+];
 
 /**
- * Веб-шрифты и картинки догружаются после рендера story и сдвигают геометрию: без ожидания
- * baseline ловит промежуточное состояние (`height: 0px` у превью, `40px` вместо `44px` у поля
- * с иконкой) и следующий же прогон падает на ровном месте.
- *
- * `waitForPageReady` закрывает загрузку (networkidle + `document.fonts.ready`), два кадра
- * поверх неё дают браузеру пересчитать раскладку после подмены шрифта.
+ * Ждём, пока раскладка перестанет меняться: `waitForPageReady` закрывает загрузку шрифтов и
+ * сети, но ленивые картинки и анимации раскрытия доезжают позже, и снимок ловит промежуточную
+ * геометрию (`height: 0px` у превью галереи). Сигнатура опрашивается по кадрам, пока не совпадёт
+ * дважды подряд.
  */
-const settleLayout = (): Promise<void> =>
-  new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+const settleLayout = (timeout: number): Promise<void> =>
+  new Promise((resolve) => {
+    const root = document.querySelector('#storybook-root');
+    // Подпись собирается по тем же элементам, что попадут в снимок: у галереи превью лежат
+    // в контейнере фиксированной высоты, поэтому размеры страницы не меняются, пока картинки
+    // догружаются, — общая геометрия страницы такую гонку не ловит.
+    const signature = () =>
+      root
+        ? [
+            document.images.length - [...document.images].filter((image) => image.complete).length,
+            ...[...root.querySelectorAll('[data-pc-section]')].map((element) =>
+              Math.round(element.getBoundingClientRect().height)
+            )
+          ].join(',')
+        : '';
+
+    const deadline = performance.now() + timeout;
+    let previous = signature();
+    let stable = 0;
+
+    const tick = () => {
+      const current = signature();
+      stable = current === previous ? stable + 1 : 0;
+      previous = current;
+
+      if (stable >= 2 || performance.now() > deadline) resolve();
+      else requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  });
 
 const collectStyles = (properties: string[]): StyleSnapshot => {
   const root = document.querySelector('#storybook-root');
@@ -74,44 +139,82 @@ const collectStyles = (properties: string[]): StyleSnapshot => {
   return snapshot;
 };
 
+/** Свойства варианта, которые отличаются от `light`. Элементы с полным совпадением опускаются. */
+const deltaFromBase = (base: StyleSnapshot, variant: StyleSnapshot): StyleSnapshot => {
+  const delta: StyleSnapshot = {};
+
+  for (const [key, properties] of Object.entries(variant)) {
+    const changed = Object.entries(properties).filter(([property, value]) => base[key]?.[property] !== value);
+    if (changed.length > 0) delta[key] = Object.fromEntries(changed);
+  }
+
+  return delta;
+};
+
 const diff = (baseline: StyleSnapshot, actual: StyleSnapshot): string[] => {
   const changes: string[] = [];
 
   for (const key of new Set([...Object.keys(baseline), ...Object.keys(actual)])) {
-    if (!(key in actual)) {
-      changes.push(`${key}: элемент исчез`);
-      continue;
-    }
-    if (!(key in baseline)) {
-      changes.push(`${key}: новый элемент`);
-      continue;
-    }
-    for (const [property, expected] of Object.entries(baseline[key])) {
-      const received = actual[key][property];
-      if (received !== expected) changes.push(`${key} · ${property}: ${expected} → ${received}`);
+    const expectedProperties = baseline[key] ?? {};
+    const receivedProperties = actual[key] ?? {};
+
+    for (const property of new Set([...Object.keys(expectedProperties), ...Object.keys(receivedProperties)])) {
+      const expected = expectedProperties[property] ?? '= light';
+      const received = receivedProperties[property] ?? '= light';
+      if (expected !== received) changes.push(`${key} · ${property}: ${expected} → ${received}`);
     }
   }
 
   return changes;
 };
 
+const compareWithBaseline = (file: string, actual: StyleSnapshot): string[] => {
+  if (UPDATE || !existsSync(file)) {
+    mkdirSync(dirname(file), { recursive: true });
+    writeFileSync(file, `${JSON.stringify(actual, null, 2)}\n`, 'utf8');
+    return [];
+  }
+
+  return diff(JSON.parse(readFileSync(file, 'utf8')) as StyleSnapshot, actual);
+};
+
 const config: TestRunnerConfig = {
   async postVisit(page, context) {
-    await waitForPageReady(page);
-    await page.evaluate(settleLayout);
-    const actual = await page.evaluate(collectStyles, TRACKED_PROPERTIES);
-    if (Object.keys(actual).length === 0) return;
+    if (STYLE_SNAPSHOT_SKIP.includes(context.id)) return;
 
-    const baselineFile = join(BASELINE_DIR, `${context.id}.json`);
+    const desktopViewport = page.viewportSize();
+    const snapshots = new Map<string, StyleSnapshot>();
 
-    if (UPDATE || !existsSync(baselineFile)) {
-      mkdirSync(dirname(baselineFile), { recursive: true });
-      writeFileSync(baselineFile, `${JSON.stringify(actual, null, 2)}\n`, 'utf8');
-      return;
+    for (const variant of VARIANTS) {
+      await variant.apply(page);
+      await waitForPageReady(page);
+      await page.evaluate(settleLayout, SETTLE_TIMEOUT);
+      snapshots.set(variant.name, await page.evaluate(collectStyles, TRACKED_PROPERTIES));
+      await variant.reset(page);
     }
 
-    const baseline = JSON.parse(readFileSync(baselineFile, 'utf8')) as StyleSnapshot;
-    const changes = diff(baseline, actual);
+    if (desktopViewport) await page.setViewportSize(desktopViewport);
+
+    const base = snapshots.get('light') as StyleSnapshot;
+    if (Object.keys(base).length === 0) return;
+
+    const changes: string[] = [];
+
+    for (const [name, snapshot] of snapshots) {
+      const elementsDiffer = name !== 'light' && Object.keys(snapshot).join() !== Object.keys(base).join();
+
+      if (elementsDiffer) {
+        changes.push(`${name}: набор элементов не совпадает с light — вариант меняет разметку, а не только стили`);
+        continue;
+      }
+
+      const payload = name === 'light' ? base : deltaFromBase(base, snapshot);
+      changes.push(
+        ...compareWithBaseline(join(BASELINE_DIR, name, `${context.id}.json`), payload).map(
+          (change) => `[${name}] ${change}`
+        )
+      );
+    }
 
     if (changes.length > 0) {
       throw new Error(

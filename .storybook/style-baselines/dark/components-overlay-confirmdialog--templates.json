@@ -1,0 +1,22 @@
+{
+  "p-button/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/root": {
+    "color": "rgb(240, 249, 255)",
+    "background-color": "rgb(24, 83, 141)"
+  },
+  "span/label": {
+    "color": "rgb(240, 249, 255)",
+    "border-top-color": "rgb(240, 249, 255)"
+  },
+  "p-confirmdialog/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-dialog/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "iconfield/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "inputtext/root": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "inputicon/root": {
+    "color": "rgb(161, 161, 170)",
+    "border-top-color": "rgb(161, 161, 170)"
+  },
+  "iconfield/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "inputtext/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "inputicon/root[1]": {
+    "color": "rgb(161, 161, 170)",
+    "border-top-color": "rgb(161, 161, 170)"
+  }
+}

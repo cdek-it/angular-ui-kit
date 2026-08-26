@@ -1,0 +1,15 @@
+{
+  "p-overlay-badge/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "overlaybadge/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "pcbadge/root": {
+    "color": "rgb(255, 240, 240)",
+    "background-color": "rgb(141, 34, 24)",
+    "border-top-color": "rgb(255, 240, 240)"
+  }
+}

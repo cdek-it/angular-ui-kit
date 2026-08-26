@@ -1,0 +1,38 @@
+{
+  "toast/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "p-button/host[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/root[2]": {
+    "color": "rgb(255, 249, 240)",
+    "background-color": "rgb(157, 109, 14)"
+  },
+  "span/label[2]": {
+    "color": "rgb(255, 249, 240)",
+    "border-top-color": "rgb(255, 249, 240)"
+  },
+  "p-button/host[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "button/root[3]": {
+    "color": "rgb(255, 240, 240)",
+    "background-color": "rgb(141, 34, 24)"
+  },
+  "span/label[3]": {
+    "color": "rgb(255, 240, 240)",
+    "border-top-color": "rgb(255, 240, 240)"
+  }
+}

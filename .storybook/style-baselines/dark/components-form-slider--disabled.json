@@ -1,0 +1,17 @@
+{
+  "slider/root": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(64, 67, 72)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/range": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "span/handle": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(240, 240, 241)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

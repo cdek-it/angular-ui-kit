@@ -1,0 +1,23 @@
+{
+  "table/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/tablecontainer": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "table/table": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "thead/thead": {
+    "color": "rgb(255, 255, 255)",
+    "background-color": "rgb(109, 112, 118)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "tbody/tbody": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  }
+}

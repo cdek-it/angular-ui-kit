@@ -1,0 +1,44 @@
+{
+  "p-message/host": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "message/root": {
+    "background-color": "rgb(12, 36, 59)"
+  },
+  "p-message/host[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "message/root[1]": {
+    "background-color": "rgb(69, 48, 8)"
+  },
+  "buttondirective/root": {
+    "color": "rgb(250, 203, 117)"
+  },
+  "span/icon": {
+    "color": "rgb(250, 203, 117)",
+    "border-top-color": "rgb(250, 203, 117)"
+  },
+  "p-message/host[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "message/root[2]": {
+    "background-color": "rgb(59, 16, 12)"
+  },
+  "p-message/host[3]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "message/root[3]": {
+    "background-color": "rgb(12, 59, 17)"
+  },
+  "buttondirective/root[1]": {
+    "color": "rgb(119, 244, 138)"
+  },
+  "span/icon[1]": {
+    "color": "rgb(119, 244, 138)",
+    "border-top-color": "rgb(119, 244, 138)"
+  }
+}

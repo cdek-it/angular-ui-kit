@@ -1,0 +1,17 @@
+{
+  "table/root": {
+    "height": "549px"
+  },
+  "div/tablecontainer": {
+    "height": "549px"
+  },
+  "table/table": {
+    "height": "549px"
+  },
+  "thead/thead": {
+    "height": "101px"
+  },
+  "tbody/tbody": {
+    "height": "448px"
+  }
+}

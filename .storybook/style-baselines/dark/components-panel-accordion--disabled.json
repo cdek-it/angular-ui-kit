@@ -1,0 +1,60 @@
+{
+  "accordion/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "accordionpanel/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "accordionheader/root": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "svg/toggleicon": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "accordioncontent/root": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/content": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "accordionpanel/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "accordionheader/root[1]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "svg/toggleicon[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "accordioncontent/root[1]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/content[1]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "accordionpanel/root[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(86, 89, 95)"
+  },
+  "accordionheader/root[2]": {
+    "color": "rgb(255, 255, 255)"
+  },
+  "svg/toggleicon[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "accordioncontent/root[2]": {
+    "color": "rgb(255, 255, 255)",
+    "border-top-color": "rgb(255, 255, 255)"
+  },
+  "div/content[2]": {
+    "color": "rgb(255, 255, 255)"
+  }
+}
