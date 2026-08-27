@@ -13,5 +13,6 @@
 | `severity`      | семантическое состояние кнопки                | `base \| danger \| warning \| success \| info`     |
 | `size`          | размер кнопки                                 | `small \| base \| large \| xlarge`                 |
 | `rounded`       | скруглённая форма кнопки                      | `boolean`                                          |
+| `fluid`         | растягивает кнопку на всю ширину контейнера   | `boolean`                                          |
 | `disabled`      | отключённое состояние кнопки                  | `boolean`                                          |
 | `loading`       | состояние загрузки: спиннер, кнопка неактивна | `boolean`                                          |
