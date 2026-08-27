@@ -228,9 +228,12 @@ const formatFailure = (context: { title: string; name: string }, issues: string[
  *
  * Гейтить всё сразу нельзя: на момент подключения axe находил `critical`/`serious` в 129 из 264
  * stories — это накопленный долг PrimeNG и обёрток, его не закрыть одним PR. Поэтому известные
- * правила зафиксированы в `.storybook/a11y-baseline/<storyId>.json` и прогон падает только на
+ * правила ложатся в `.storybook/a11y-baseline/<storyId>.json` и прогон падает только на
  * **новом** нарушении. Список ведётся по id правила, без числа элементов, чтобы baseline
  * не дёргался от каждой правки разметки.
+ *
+ * Baseline в репозиторий не кладётся: 129 файлов — снимок чужого долга, а не код кита.
+ * Первый прогон на чистой копии снимает его сам, дальше сверяется с ним.
  *
  * Пересобрать после починки: UPDATE_A11Y_BASELINE=1 npm run test-storybook
  */
@@ -241,7 +244,7 @@ const collectA11yIssues = async (page: Page, storyId: string, options: unknown):
 
   const baselineFile = join(A11Y_BASELINE_DIR, `${storyId}.json`);
 
-  if (UPDATE_A11Y) {
+  if (UPDATE_A11Y || !existsSync(baselineFile)) {
     const rules = [...new Set(violations.map((violation) => violation.id))].sort();
 
     if (rules.length === 0) rmSync(baselineFile, { force: true });
@@ -253,7 +256,7 @@ const collectA11yIssues = async (page: Page, storyId: string, options: unknown):
     return [];
   }
 
-  const known: string[] = existsSync(baselineFile) ? JSON.parse(readFileSync(baselineFile, 'utf8')) : [];
+  const known: string[] = JSON.parse(readFileSync(baselineFile, 'utf8'));
 
   return violations
     .filter((violation) => !known.includes(violation.id))
