@@ -20,6 +20,7 @@ export type ExtraButtonIconPosition = 'left' | 'right';
       [size]="primeSize"
       [styleClass]="primeStyleClass"
       [rounded]="rounded"
+      [fluid]="fluid"
       [text]="variant === 'text'"
       [link]="variant === 'link'"
       [disabled]="disabled"
@@ -37,6 +38,7 @@ export class ExtraButtonComponent {
   @Input() severity: ExtraButtonSeverity = 'base';
   @Input() size: ExtraButtonSize = 'base';
   @Input() rounded = false;
+  @Input() fluid = false;
   @Input() disabled = false;
   @Input() loading = false;
 

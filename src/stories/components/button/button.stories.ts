@@ -114,6 +114,15 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    fluid: {
+      control: 'boolean',
+      description: 'Растянуть кнопку на всю ширину контейнера',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
     disabled: {
       control: 'boolean',
       description: 'Отключённое состояние кнопки',
@@ -185,6 +194,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     severity: 'base',
     size: 'base',
     rounded: false,
+    fluid: false,
     disabled: false,
     loading: false
   }
@@ -207,6 +217,7 @@ export const Default: Story = {
     if (args.severity != null && args.severity !== 'base') parts.push(`severity="${args.severity}"`);
     if (args.size != null && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.rounded) parts.push(`[rounded]="true"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.loading) parts.push(`[loading]="true"`);
 
