@@ -1,6 +1,8 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { waitForPageReady, type TestRunnerConfig } from '@storybook/test-runner';
+import { getViolations, injectAxe } from 'axe-playwright';
+import { toMatchImageSnapshot } from 'jest-image-snapshot';
+import { getStoryContext, waitForPageReady, type TestRunnerConfig } from '@storybook/test-runner';
 
 /**
  * Снапшоты вычисленных стилей вместо пиксельных скриншотов.
@@ -17,10 +19,20 @@ import { waitForPageReady, type TestRunnerConfig } from '@storybook/test-runner'
  */
 
 type Page = Parameters<NonNullable<TestRunnerConfig['postVisit']>>[0];
+
+/** `expect` приходит из jest-окружения раннера, отдельного импорта у него нет. */
+declare const expect: ((received: unknown) => {
+  toMatchImageSnapshot: (options: Record<string, unknown>) => void;
+}) & { extend: (matchers: Record<string, unknown>) => void };
 type StyleSnapshot = Record<string, Record<string, string>>;
 
 const BASELINE_DIR = join(process.cwd(), '.storybook', 'style-baselines');
 const UPDATE = process.env['UPDATE_STYLE_BASELINES'] === '1';
+
+const PIXEL_BASELINE_DIR = join(process.cwd(), '.storybook', 'pixel-baselines');
+const CLIP_PADDING = 4;
+const A11Y_BASELINE_DIR = join(process.cwd(), '.storybook', 'a11y-baseline');
+const UPDATE_A11Y = process.env['UPDATE_A11Y_BASELINE'] === '1';
 
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
 
@@ -31,7 +43,32 @@ const MOBILE_VIEWPORT = { width: 390, height: 844 };
  * он не воспроизводится; геометрию галереи покрывают остальные её stories.
  */
 const STYLE_SNAPSHOT_SKIP = ['components-media-galleria--thumbnails'];
+
+/**
+ * Компоненты, для которых снимаем ещё и пиксели: тень карточки, пунктир разделителя, форма
+ * аватара, градиент скелетона, иконка внутри бейджа/тега/чипа — вычисленные стили этого
+ * не описывают. Остальным хватает снимка стилей: он дешевле и не привязан к ОС.
+ *
+ * Baseline этих снимков в репозиторий не кладётся: рендер шрифтов в macOS и в образе CI
+ * различается, и общий baseline не совпал бы ни там, ни там. Первый локальный прогон
+ * создаёт снимки сам, дальше сверяется с ними.
+ */
+const PIXEL_SNAPSHOT_TITLES = [
+  'Components/Panel/Card',
+  'Components/Panel/Divider',
+  'Components/Misc/Avatar',
+  'Components/Misc/Skeleton',
+  'Components/Misc/Badge',
+  'Components/Misc/Tag',
+  'Components/Misc/Chip'
+];
 const SETTLE_TIMEOUT = 2000;
+
+/**
+ * Блокируют прогон только нарушения, которые реально мешают пользоваться компонентом.
+ * `moderate` и `minor` axe тоже находит, но там много спорного — их не гейтим.
+ */
+const BLOCKING_A11Y_IMPACTS = ['critical', 'serious'];
 
 const TRACKED_PROPERTIES = [
   'padding-top',
@@ -178,9 +215,140 @@ const compareWithBaseline = (file: string, actual: StyleSnapshot): string[] => {
   return diff(JSON.parse(readFileSync(file, 'utf8')) as StyleSnapshot, actual);
 };
 
+const formatFailure = (context: { title: string; name: string }, issues: string[]): string =>
+  [
+    `Проверки story «${context.title} / ${context.name}» не прошли:`,
+    ...issues.map((issue) => `  ${issue}`),
+    '',
+    'Если расхождение стилей ожидаемое: UPDATE_STYLE_BASELINES=1 npm run test-storybook'
+  ].join('\n');
+
+/**
+ * Нарушения доступности от axe — в том же формате, что и расхождения стилей.
+ *
+ * Гейтить всё сразу нельзя: на момент подключения axe находил `critical`/`serious` в 129 из 264
+ * stories — это накопленный долг PrimeNG и обёрток, его не закрыть одним PR. Поэтому известные
+ * правила ложатся в `.storybook/a11y-baseline/<storyId>.json` и прогон падает только на
+ * **новом** нарушении. Список ведётся по id правила, без числа элементов, чтобы baseline
+ * не дёргался от каждой правки разметки.
+ *
+ * Baseline в репозиторий не кладётся: 129 файлов — снимок чужого долга, а не код кита.
+ * Первый прогон на чистой копии снимает его сам, дальше сверяется с ним.
+ *
+ * Пересобрать после починки: UPDATE_A11Y_BASELINE=1 npm run test-storybook
+ */
+const collectA11yIssues = async (page: Page, storyId: string, options: unknown): Promise<string[]> => {
+  const violations = (await getViolations(page, '#storybook-root', options as never)).filter((violation) =>
+    BLOCKING_A11Y_IMPACTS.includes(violation.impact ?? '')
+  );
+
+  const baselineFile = join(A11Y_BASELINE_DIR, `${storyId}.json`);
+
+  if (UPDATE_A11Y || !existsSync(baselineFile)) {
+    const rules = [...new Set(violations.map((violation) => violation.id))].sort();
+
+    if (rules.length === 0) rmSync(baselineFile, { force: true });
+    else {
+      mkdirSync(A11Y_BASELINE_DIR, { recursive: true });
+      writeFileSync(baselineFile, `${JSON.stringify(rules, null, 2)}\n`, 'utf8');
+    }
+
+    return [];
+  }
+
+  const known: string[] = JSON.parse(readFileSync(baselineFile, 'utf8'));
+
+  return violations
+    .filter((violation) => !known.includes(violation.id))
+    .map(
+      (violation) => `[a11y/${violation.impact}] ${violation.id}: ${violation.help} (${violation.nodes.length} элем.)`
+    );
+};
+
+/**
+ * Пиксельный снимок — только для того, что вычисленные стили не описывают: теней, пунктира,
+ * формы стрелки, градиента скелетона. Список компонентов — в `PIXEL_SNAPSHOT_TITLES`.
+ *
+ * Baseline привязан к ОС и рендеру шрифтов: снятый на macOS не совпадёт с Linux в CI. Гонять
+ * генерацию и сверку нужно в одном окружении — в CI это образ `mcr.microsoft.com/playwright`.
+ */
+const FROZEN_ANIMATIONS = `*, *::before, *::after {
+  animation: none !important;
+  transition: none !important;
+  caret-color: transparent !important;
+}`;
+
+/**
+ * Область снимка считается сама: у горизонтального разделителя `#storybook-root` имеет нулевую
+ * высоту (линию рисует `::before`), и `locator.screenshot()` на таком элементе просто виснет,
+ * ожидая, когда тот станет видимым. Поэтому берём объединение прямоугольников корня и всех его
+ * потомков, расширяем на несколько пикселей и снимаем обычным клипом.
+ */
+const snapshotClip = (padding: number) => {
+  const root = document.querySelector('#storybook-root');
+  if (!root) return null;
+
+  const rects = [root, ...root.querySelectorAll('*')].map((element) => element.getBoundingClientRect());
+  const left = Math.min(...rects.map((rect) => rect.left));
+  const top = Math.min(...rects.map((rect) => rect.top));
+  const right = Math.max(...rects.map((rect) => rect.right));
+  const bottom = Math.max(...rects.map((rect) => rect.bottom));
+
+  return {
+    x: Math.max(0, Math.floor(left) - padding),
+    y: Math.max(0, Math.floor(top) - padding),
+    width: Math.min(window.innerWidth, Math.ceil(right - left) + padding * 2),
+    height: Math.min(window.innerHeight, Math.ceil(bottom - top) + padding * 2)
+  };
+};
+
+/**
+ * `complete` у картинки означает «загружена», но не «раскодирована и отрисована»: снимок аватара
+ * успевал захватить кадр без изображения. `decode()` дожидается готовности к отрисовке.
+ */
+const decodeImages = (): Promise<unknown> =>
+  Promise.all([...document.images].map((image) => image.decode().catch(() => undefined)));
+
+const capturePixelSnapshot = async (page: Page, storyId: string): Promise<string[]> => {
+  await page.addStyleTag({ content: FROZEN_ANIMATIONS });
+  await page.evaluate(decodeImages);
+  await page.evaluate(settleLayout, SETTLE_TIMEOUT);
+
+  const clip = await page.evaluate(snapshotClip, CLIP_PADDING);
+  if (!clip || clip.width < 1 || clip.height < 1) return ['[pixel] нечего снимать: у story нулевая область'];
+
+  expect(await page.screenshot({ clip })).toMatchImageSnapshot({
+    customSnapshotsDir: PIXEL_BASELINE_DIR,
+    customDiffDir: join(PIXEL_BASELINE_DIR, '__diff__'),
+    customSnapshotIdentifier: storyId,
+    failureThreshold: 0.01,
+    failureThresholdType: 'percent'
+  });
+
+  return [];
+};
+
 const config: TestRunnerConfig = {
+  setup() {
+    expect.extend({ toMatchImageSnapshot });
+  },
+
+  async preVisit(page) {
+    await injectAxe(page);
+  },
+
   async postVisit(page, context) {
-    if (STYLE_SNAPSHOT_SKIP.includes(context.id)) return;
+    const { parameters } = await getStoryContext(page, context);
+    const issues: string[] = [];
+
+    if (!parameters['a11y']?.disable) {
+      issues.push(...(await collectA11yIssues(page, context.id, parameters['a11y']?.options)));
+    }
+
+    if (STYLE_SNAPSHOT_SKIP.includes(context.id)) {
+      if (issues.length > 0) throw new Error(formatFailure(context, issues));
+      return;
+    }
 
     const desktopViewport = page.viewportSize();
     const snapshots = new Map<string, StyleSnapshot>();
@@ -216,16 +384,13 @@ const config: TestRunnerConfig = {
       );
     }
 
-    if (changes.length > 0) {
-      throw new Error(
-        [
-          `Стили story «${context.title} / ${context.name}» разошлись с baseline:`,
-          ...changes.map((change) => `  ${change}`),
-          '',
-          'Если изменение ожидаемое: UPDATE_STYLE_BASELINES=1 npm run test-storybook'
-        ].join('\n')
-      );
+    issues.push(...changes);
+
+    if (PIXEL_SNAPSHOT_TITLES.includes(context.title)) {
+      issues.push(...(await capturePixelSnapshot(page, context.id)));
     }
+
+    if (issues.length > 0) throw new Error(formatFailure(context, issues));
   }
 };
 

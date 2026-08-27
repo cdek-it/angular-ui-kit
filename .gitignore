@@ -61,3 +61,11 @@ src/assets/components/themes
 .claude/*
 .qwen
 .worktrees/
+
+# Пиксельные снимки привязаны к рендеру шрифтов в macOS и в CI не совпадут.
+# Baseline генерируется локально первым прогоном test-runner, в репозиторий не кладётся.
+.storybook/pixel-baselines/
+
+# Известные нарушения доступности — накопленный долг PrimeNG и обёрток, а не часть кода.
+# Baseline снимается локально первым прогоном test-runner, в репозиторий не кладётся.
+.storybook/a11y-baseline/
