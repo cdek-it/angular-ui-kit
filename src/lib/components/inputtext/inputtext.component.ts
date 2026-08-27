@@ -15,7 +15,7 @@ import { InputText } from 'primeng/inputtext';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { FloatLabel } from 'primeng/floatlabel';
-import { ExtraTooltipDirective } from '../tooltip/tooltip.directive';
+import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
 export type ExtraInputTextSize = 'sm' | 'base' | 'lg' | 'xlg';
 export type ExtraInputTextLabelPosition = 'default' | 'float' | 'left';
