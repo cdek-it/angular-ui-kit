@@ -176,6 +176,17 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
     height: ${dt('button.extend.extXlg.iconOnlyWidth')};
   }
 
+  /* ─── Icon-only: центрирование иконки для sm / lg / xlg ───
+     PrimeNG-размеры (.p-button-sm / .p-button-lg) возвращают горизонтальный
+     padding, а кастомный gap для sm/lg/xlg перекрывает базовый сброс
+     .p-button-icon-only { padding-inline: 0; gap: 0 }. Из-за этого иконка
+     съезжает влево. Возвращаем сброс с более высокой специфичностью. */
+  .p-button-icon-only:is(.p-button-sm, .p-button-lg, .p-button-xlg) {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    gap: 0;
+  }
+
   /* ─── Фон в фокусе для severity (outlined / text) ─── */
   .p-button.p-button-outlined.p-button-danger:focus-visible {
     background: ${dt('button.extend.extOutlined.danger.focusBackground')};

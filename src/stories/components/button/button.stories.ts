@@ -5,6 +5,7 @@ import { ButtonVariantsComponent, Variants } from './examples/button-variants.co
 import { ButtonIconsComponent, Icons } from './examples/button-icons.component';
 import { ButtonStatesComponent, States } from './examples/button-states.component';
 import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
+import { ButtonFluidComponent, Fluid } from './examples/button-fluid.component';
 import { ButtonEventsComponent, Events } from './examples/button-events.component';
 
 type ButtonArgs = ExtraButtonComponent & {
@@ -26,6 +27,7 @@ const meta: Meta<ButtonArgs> = {
         ButtonIconsComponent,
         ButtonStatesComponent,
         ButtonRoundedComponent,
+        ButtonFluidComponent,
         ButtonEventsComponent
       ]
     })
@@ -114,6 +116,15 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    fluid: {
+      control: 'boolean',
+      description: 'Растягивает кнопку на всю ширину контейнера',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
     disabled: {
       control: 'boolean',
       description: 'Отключённое состояние кнопки',
@@ -185,6 +196,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     severity: 'base',
     size: 'base',
     rounded: false,
+    fluid: false,
     disabled: false,
     loading: false
   }
@@ -207,6 +219,7 @@ export const Default: Story = {
     if (args.severity != null && args.severity !== 'base') parts.push(`severity="${args.severity}"`);
     if (args.size != null && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.rounded) parts.push(`[rounded]="true"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.loading) parts.push(`[loading]="true"`);
 
@@ -228,4 +241,4 @@ export const Default: Story = {
 
 // ── Комбинаторные истории ────────────────────────────────────────────────────
 
-export { Variants, Sizes, Icons, States, Rounded, Events };
+export { Variants, Sizes, Icons, States, Rounded, Fluid, Events };
