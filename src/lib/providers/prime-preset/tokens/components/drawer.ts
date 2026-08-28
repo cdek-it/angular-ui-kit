@@ -29,12 +29,12 @@ export const drawerCss = ({ dt }: { dt: (token: string) => string }): string => 
   padding: 0 ${dt('dimension.space.600')} ${dt('dimension.space.600')} ${dt('dimension.space.600')};
 }
 
-/* Ширина панели: в экспорте у drawer одна ширина, поэтому размеры берём с той же ступени
-   примитивов, что рисует Figma (коллекция sizing, width: 280 / 350 / 420 / 630) */
+/* Ширина панели: base приходит токеном компонента, а для sm/lg/xlg ветки в экспорте нет —
+   значения берём с той же ступени примитивов, что рисует Figma (sizing, width: 280 / 420 / 630) */
 .p-drawer.p-component.p-drawer-left,
 .p-drawer.p-component.p-drawer-right {
   margin: ${dt('drawer.extend.margin')};
-  width: ${dt('sizing.175x')};
+  width: ${dt('drawer.extend.width')};
   height: calc(100% - ${dt('drawer.extend.margin')} * 2);
 }
 
