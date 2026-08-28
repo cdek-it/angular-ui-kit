@@ -30,16 +30,19 @@ export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string =
 
 /* ─── Small ─── */
 .p-inputotp.p-component .p-inputtext.p-inputtext-sm {
+  height: ${dt('inputotp.extend.extSm.height')};
   padding-block: ${dt('inputtext.root.sm.paddingY')};
 }
 
 /* ─── Base ─── */
 .p-inputotp.p-component .p-inputtext:not(.p-inputtext-sm):not(.p-inputtext-lg):not(.p-inputtext-xlg) {
+  height: ${dt('inputotp.extend.height')};
   padding-block: ${dt('inputtext.root.paddingY')};
 }
 
 /* ─── Large ─── */
 .p-inputotp.p-component .p-inputtext.p-inputtext-lg {
+  height: ${dt('inputotp.extend.extLg.height')};
   padding-block: ${dt('inputtext.root.lg.paddingY')};
 }
 

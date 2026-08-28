@@ -62,6 +62,16 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    size: {
+      control: 'select',
+      options: ['sm', 'base', 'lg'],
+      description: 'Размер ячейки',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'base'" },
+        type: { summary: "'sm' | 'base' | 'lg'" }
+      }
+    },
     // ── Состояния (управляются через FormControl) ─────────────────
     disabled: {
       control: 'boolean',
@@ -97,6 +107,7 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
     length: 4,
     mask: false,
     integerOnly: false,
+    size: 'base',
     disabled: false,
     invalid: false
   }
@@ -114,6 +125,7 @@ export const Default: Story = {
     if (args.length !== 4) parts.push(`[length]="${args.length}"`);
     if (args.mask) parts.push(`[mask]="true"`);
     if (args.integerOnly) parts.push(`[integerOnly]="true"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
 
     const validators = args.invalid ? [() => ({ invalid: true })] : [];
     const control = new FormControl({ value: '', disabled: args.disabled }, validators);
