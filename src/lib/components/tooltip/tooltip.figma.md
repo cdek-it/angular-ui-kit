@@ -28,7 +28,7 @@ updated: '2026-06-22'
 | `event` | `'hover' \| 'focus' \| 'both'` | `'hover'` | Событие, по которому показывается подсказка |
 | `showDelay` | `number \| undefined` | `undefined` | Задержка перед появлением, мс |
 | `hideDelay` | `number \| undefined` | `undefined` | Задержка перед скрытием, мс |
-| `disabled` | `boolean` | `false` | Отключает подсказку |
+| `tooltipDisabled` | `boolean` | `false` | Отключает подсказку. Названо не `disabled`, чтобы не конфликтовать с одноимённым свойством хост-компонента (например, `extra-button`) |
 
 ## Variants
 
@@ -84,12 +84,12 @@ Figma: `<Tooltip>` (общий компонент; задержка задаёт
 ></extra-button>
 ```
 
-### Отключённая подсказка (disabled)
+### Отключённая подсказка (tooltipDisabled)
 
 Figma: `<Tooltip>` (общий компонент; отключение задаётся в коде)
 
 ```html
-<span extra-tooltip="Не покажется" [disabled]="true">Текст без подсказки</span>
+<span extra-tooltip="Не покажется" [tooltipDisabled]="true">Текст без подсказки</span>
 ```
 
 ## Slots
