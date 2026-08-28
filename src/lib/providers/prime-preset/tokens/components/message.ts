@@ -3,11 +3,28 @@
  * Подключается в map-tokens.ts: `import { messageCss } from './tokens/components/message'`
  */
 export const messageCss = ({ dt }: { dt: (token: string) => string }): string => `
-  /* Основной контейнер message */
+  /* Основной контейнер message: ширина по размеру (base по умолчанию) */
   .p-message {
-    width: ${dt('message.extend.width')};
+    width: ${dt('message.extend.overlayWidth.base')};
     overflow: hidden;
     position: relative;
+  }
+
+  .p-message.p-message-size-sm {
+    width: ${dt('message.extend.overlayWidth.sm')};
+  }
+
+  .p-message.p-message-size-lg {
+    width: ${dt('message.extend.overlayWidth.lg')};
+  }
+
+  .p-message.p-message-size-xlg {
+    width: ${dt('message.extend.overlayWidth.xlg')};
+  }
+
+  /* fill — сообщение занимает всю ширину контейнера */
+  .p-message.p-message-size-fill {
+    width: 100%;
   }
 
   /* Контент message с приоритизацией align-items */
