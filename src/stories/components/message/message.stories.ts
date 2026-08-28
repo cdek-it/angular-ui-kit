@@ -98,12 +98,12 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
     },
     size: {
       control: 'select',
-      options: ['sm', 'base', 'lg', 'xlg', 'fill'],
+      options: ['small', 'base', 'large', 'xlarge', 'fill'],
       description: 'Ширина сообщения; fill растягивает на всю ширину контейнера',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'sm' | 'base' | 'lg' | 'xlg' | 'fill'" }
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge' | 'fill'" }
       }
     },
     // ── События ─────────────────────────────────────────────────

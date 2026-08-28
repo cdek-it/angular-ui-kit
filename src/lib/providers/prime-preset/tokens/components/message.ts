@@ -10,16 +10,16 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
     position: relative;
   }
 
-  .p-message.p-message-size-sm {
-    width: ${dt('message.extend.overlayWidth.sm')};
+  .p-message.p-message-size-small {
+    width: ${dt('message.extend.overlayWidth.small')};
   }
 
-  .p-message.p-message-size-lg {
-    width: ${dt('message.extend.overlayWidth.lg')};
+  .p-message.p-message-size-large {
+    width: ${dt('message.extend.overlayWidth.large')};
   }
 
-  .p-message.p-message-size-xlg {
-    width: ${dt('message.extend.overlayWidth.xlg')};
+  .p-message.p-message-size-xlarge {
+    width: ${dt('message.extend.overlayWidth.xlarge')};
   }
 
   /* fill — сообщение занимает всю ширину контейнера */

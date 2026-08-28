@@ -20,7 +20,7 @@ import { ExtraMessageTemplateDirective } from './message-template.directive';
 
 export type ExtraMessageSeverity = 'info' | 'success' | 'warning' | 'danger';
 
-export type ExtraMessageSize = 'sm' | 'base' | 'lg' | 'xlg' | 'fill';
+export type ExtraMessageSize = 'small' | 'base' | 'large' | 'xlarge' | 'fill';
 
 type PrimeMessageSeverity = 'success' | 'info' | 'warn' | 'error';
 
@@ -83,7 +83,7 @@ export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
   /** Класс иконки tabler icon; null скрывает иконку; undefined (не задан) — стандартная по severity. */
   @Input() icon: string | null | undefined = undefined;
   @Input() showClose = false;
-  /** Ширина сообщения: sm 272 / base 336 / lg 400 / xlg 630 / fill — на всю ширину контейнера. */
+  /** Ширина сообщения: small 272 / base 336 / large 400 / xlarge 630 / fill — на всю ширину контейнера. */
   @Input() size: ExtraMessageSize = 'base';
 
   @Output() onClose = new EventEmitter<void>();
