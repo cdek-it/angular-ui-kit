@@ -40,41 +40,41 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   border-color: ${dt('togglebutton.extend.hoverBorderColor')};
 }
 
-/* Size: small */
-.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton.p-component {
+/* Size: small — PrimeNG вешает .p-togglebutton-sm на дочерний p-togglebutton */
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-sm.p-component {
   line-height: ${dt('fonts.lineHeight.300')};
   height: ${dt('togglebutton.extend.extSm.iconOnlyWidth')};
 }
 
-.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-label,
-.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-content > span {
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-sm .p-togglebutton-label,
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-sm .p-togglebutton-content > span {
   line-height: ${dt('fonts.lineHeight.250')};
 }
 
-.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-selectbutton-small.p-component .p-togglebutton i {
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-sm .p-togglebutton-icon,
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-sm i {
   font-size: ${dt('selectbutton.extend.iconSize.sm')};
 }
 
-/* Size: base */
-.p-selectbutton.p-component:not(.p-selectbutton-small):not(.p-selectbutton-large):not(.p-selectbutton-xlarge) .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-component:not(.p-selectbutton-small):not(.p-selectbutton-large):not(.p-selectbutton-xlarge) .p-togglebutton i {
+/* Size: base — токен md для togglebutton без класса размера (исключая xlarge-корень) */
+.p-selectbutton.p-component:not(.p-selectbutton-xlarge) .p-togglebutton:not(.p-togglebutton-sm):not(.p-togglebutton-lg) .p-togglebutton-icon,
+.p-selectbutton.p-component:not(.p-selectbutton-xlarge) .p-togglebutton:not(.p-togglebutton-sm):not(.p-togglebutton-lg) i {
   font-size: ${dt('selectbutton.extend.iconSize.md')};
 }
 
-/* Size: large */
-.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton.p-component {
+/* Size: large — PrimeNG вешает .p-togglebutton-lg на дочерний p-togglebutton */
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-lg.p-component {
   line-height: ${dt('fonts.lineHeight.550')};
   height: ${dt('togglebutton.extend.extLg.iconOnlyWidth')};
 }
 
-.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-label,
-.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-content > span {
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-lg .p-togglebutton-label,
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-lg .p-togglebutton-content > span {
   line-height: ${dt('fonts.lineHeight.550')};
 }
 
-.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton .p-togglebutton-icon,
-.p-selectbutton.p-selectbutton-large.p-component .p-togglebutton i {
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-lg .p-togglebutton-icon,
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-lg i {
   font-size: ${dt('selectbutton.extend.iconSize.lg')};
 }
 
