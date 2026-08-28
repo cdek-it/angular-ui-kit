@@ -4,12 +4,10 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <div class="flex flex-col gap-4">
-    @for (size of sizes; track size) {
-      <extra-input-text [formControl]="control" [size]="size" [label]="'Size ' + size" placeholder="Введите текст..."></extra-input-text>
-    }
-  </div>
+<div class="flex flex-col gap-4">
+  @for (size of sizes; track size) {
+    <extra-input-text [formControl]="control" [size]="size" [label]="'Size ' + size" placeholder="Введите текст..."></extra-input-text>
+  }
 </div>
 `;
 
