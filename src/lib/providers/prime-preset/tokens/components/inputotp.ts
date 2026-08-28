@@ -31,6 +31,8 @@ export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string =
 /* ─── Small ─── */
 .p-inputotp.p-component .p-inputtext.p-inputtext-sm {
   height: ${dt('inputotp.extend.extSm.height')};
+  /* радиус inputtext (14px) на ячейке 28px смыкается в круг — для sm свой */
+  border-radius: ${dt('inputotp.extend.extSm.borderRadius')};
   padding-block: ${dt('inputtext.root.sm.paddingY')};
 }
 
