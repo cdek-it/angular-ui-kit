@@ -17,8 +17,8 @@ const template = `
     <ng-template extraDialogTemplate="header">
       <div class="flex items-center gap-2">
         <i class="ti ti-package text-primary text-xl"></i>
-        <span class="font-semibold">Инвойс №CDEK-7842</span>
-        <extra-tag severity="warning" value="ожидает оплаты"></extra-tag>
+        <span class="font-semibold">Инвойс №7842</span>
+        <extra-tag severity="warning" value="ожидает"></extra-tag>
       </div>
     </ng-template>
 
