@@ -14,7 +14,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, Reacti
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 
-export type ExtraInputOtpSize = 'sm' | 'base' | 'lg';
+export type ExtraInputOtpSize = 'small' | 'base' | 'large';
 
 export interface ExtraInputOtpChangeEvent {
   value: string;
@@ -57,16 +57,14 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() length = 4;
   @Input() mask = false;
   @Input() integerOnly = false;
-  /** Размер ячейки: sm 28 / base 40 / lg 48. */
+  /** Размер ячейки: small 28 / base 40 / large 48. */
   @Input() size: ExtraInputOtpSize = 'base';
 
   disabled = false;
 
   /** PrimeNG знает только small/large; base — размер по умолчанию, без класса. */
   get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'sm') return 'small';
-    if (this.size === 'lg') return 'large';
-    return undefined;
+    return this.size === 'base' ? undefined : this.size;
   }
 
   @Output() onChange = new EventEmitter<ExtraInputOtpChangeEvent>();

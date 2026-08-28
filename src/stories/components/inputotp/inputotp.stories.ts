@@ -64,12 +64,12 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
     },
     size: {
       control: 'select',
-      options: ['sm', 'base', 'lg'],
+      options: ['small', 'base', 'large'],
       description: 'Размер ячейки',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'sm' | 'base' | 'lg'" }
+        type: { summary: "'small' | 'base' | 'large'" }
       }
     },
     // ── Состояния (управляются через FormControl) ─────────────────
