@@ -138,7 +138,11 @@ export const Default: Story = {
 
     const template = `<extra-checkbox [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-checkbox>`;
 
-    return { props: { ...args, control }, template };
+    // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
+    // и Storybook на попытке его присвоить роняет ошибку в консоль
+    const { invalid, disabled, ...rest } = args;
+
+    return { props: { ...rest, control }, template };
   },
   parameters: {
     docs: {
