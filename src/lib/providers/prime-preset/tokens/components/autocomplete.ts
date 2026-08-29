@@ -1,4 +1,3 @@
-
 export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): string => `
   /* ─── Base ─── */
   .p-autocomplete {
@@ -45,7 +44,7 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   /* ─── Иконки ─── */
   .p-autocomplete-clear-icon,
   .p-autocomplete-dropdown .p-icon {
-    color: var(--p-form-field-icon-color);
+    color: ${dt('autocomplete.dropdown.color')};
   }
 
   .p-autocomplete.p-component:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
@@ -59,7 +58,7 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete .p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding: calc(${dt('autocomplete.root.paddingY')} - 5px);
+    padding: calc(${dt('autocomplete.root.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
   }
 
   .p-autocomplete .p-autocomplete-input-chip {
@@ -82,6 +81,10 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   .p-autocomplete .p-autocomplete-chip,
   .p-autocomplete-option {
     gap: ${dt('autocomplete.extend.extOption.gap')};
+  }
+
+  .p-autocomplete-option {
+    background: ${dt('autocomplete.extend.option.background')};
   }
 
   .p-autocomplete-option-group {
@@ -107,8 +110,8 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete.p-component .p-inputtext-sm.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding-block: calc(${dt('inputtext.root.sm.paddingY')} - 4.75px);
-    padding-inline: calc(${dt('inputtext.root.sm.paddingY')} - 4.75px);
+    padding-block: calc(${dt('inputtext.root.sm.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
+    padding-inline: calc(${dt('inputtext.root.sm.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
   }
 
   /* lg */
@@ -120,8 +123,8 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete.p-component .p-inputtext-lg.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding-block: calc(${dt('inputtext.root.lg.paddingY')} - 4.75px);
-    padding-inline: calc(${dt('inputtext.root.lg.paddingY')} - 4.75px);
+    padding-block: calc(${dt('inputtext.root.lg.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
+    padding-inline: calc(${dt('inputtext.root.lg.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
   }
 
   /* xlg */
@@ -133,8 +136,8 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete.p-component .p-inputtext-xlg.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {
-    padding-block: calc(${dt('inputtext.extend.extXlg.paddingY')} - 4.75px);
-    padding-inline: calc(${dt('inputtext.extend.extXlg.paddingY')} - 4.75px);
+    padding-block: calc(${dt('inputtext.extend.extXlg.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
+    padding-inline: calc(${dt('inputtext.extend.extXlg.paddingY')} - ${dt('chip.root.paddingY')} - ${dt('chip.extend.borderWidth')});
   }
 
   .p-autocomplete.p-component .p-inputtext-xlg .p-autocomplete-chip {
