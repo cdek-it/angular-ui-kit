@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuModel } from '../../../../lib/components/menu/menu.component';
+import { ExtraMenuComponent, ExtraMenuItem } from '../../../../lib/components/menu/menu.component';
 
 const template = `
 <div class="bg-surface-ground">
-  <extra-menu [model]="items"></extra-menu>
+  <extra-menu [items]="items"></extra-menu>
 </div>
 `;
 
@@ -14,7 +14,7 @@ const template = `
   template
 })
 export class MenuWithIconsComponent {
-  items: ExtraMenuModel[] = [
+  items: ExtraMenuItem[] = [
     { label: 'Создать отправление', icon: 'ti ti-file-plus' },
     { label: 'Открыть список заказов', icon: 'ti ti-folder-open' },
     { label: 'Сохранить черновик', icon: 'ti ti-device-floppy' },
