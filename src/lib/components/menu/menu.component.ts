@@ -144,7 +144,8 @@ export class ExtraMenuComponent implements AfterContentInit, AfterViewInit, OnCh
   @Input() ariaLabel?: string;
 
   @Output() onItemSelect = new EventEmitter<ExtraMenuItemSelectEvent>();
-  @Output() onOpenChange = new EventEmitter<boolean>();
+  @Output() onShow = new EventEmitter<void>();
+  @Output() onHide = new EventEmitter<void>();
 
   @ViewChild('menuRef') private menuRef!: Menu;
 
@@ -213,18 +214,20 @@ export class ExtraMenuComponent implements AfterContentInit, AfterViewInit, OnCh
   }
 
   handleShow(): void {
-    this.emitOpenChange(true);
+    this.syncOpen(true);
+    this.onShow.emit();
   }
 
   handleHide(): void {
-    this.emitOpenChange(false);
+    this.syncOpen(false);
+    this.onHide.emit();
   }
 
-  private emitOpenChange(open: boolean): void {
+  /** Держит [open] в согласии с реальной видимостью после show()/hide() или клика по пункту. */
+  private syncOpen(open: boolean): void {
     if (this.open === open) return;
     this.suppressOpenSync = true;
     this.open = open;
-    this.onOpenChange.emit(open);
     this.suppressOpenSync = false;
   }
 

@@ -27,7 +27,7 @@ updated: '2026-08-31'
 |----------|-----|--------------|---------|
 | `items` | `MenuItem[]` (`MenuAction \| MenuGroup \| MenuSeparator`) | `[]` | Пункты меню |
 | `popup` | `boolean` | `false` | Режим всплывающего меню — соответствует Figma-свойству `popup`. В этом режиме меню скрыто и показывается методом `show()`/`toggle()` |
-| `open` | `boolean` | `false` | Управляемая видимость popup-меню; синхронизируется через `(onOpenChange)` |
+| `open` | `boolean` | `false` | Управляемая видимость popup-меню; синхронизируется через `(onShow)`/`(onHide)` |
 | `appendTo` | `'body' \| 'self' \| ElementLike` | `'body'` | Контейнер рендера overlay |
 | `ariaLabel` | `string` | — | Доступное имя меню |
 

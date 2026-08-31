@@ -80,12 +80,20 @@ import { ExtraMenuComponent, ExtraMenuTemplateDirective } from '@cdek-it/angular
         type: { summary: 'EventEmitter<MenuItemSelectEvent>' }
       }
     },
-    onOpenChange: {
+    onShow: {
       control: false,
-      description: 'Всплывающее меню открылось или закрылось.',
+      description: 'Срабатывает при открытии всплывающего меню.',
       table: {
         category: 'События',
-        type: { summary: 'EventEmitter<boolean>' }
+        type: { summary: 'EventEmitter<void>' }
+      }
+    },
+    onHide: {
+      control: false,
+      description: 'Срабатывает при закрытии всплывающего меню.',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
       }
     }
   }
