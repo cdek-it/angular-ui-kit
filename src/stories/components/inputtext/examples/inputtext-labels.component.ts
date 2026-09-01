@@ -4,30 +4,28 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <div class="flex flex-col gap-6">
-    <extra-input-text
-      [formControl]="control"
-      label="Лейбл сверху"
-      placeholder="Введите текст..."
-      info="Дополнительная информация в тултипе"
-      caption="Пояснение под полем"
-    ></extra-input-text>
-    <extra-input-text
-      [formControl]="control"
-      labelPosition="float"
-      label="Плавающий лейбл"
-      caption="Пояснение под полем"
-    ></extra-input-text>
-    <extra-input-text
-      [formControl]="control"
-      labelPosition="left"
-      label="Лейбл слева"
-      placeholder="Введите текст..."
-      info="Дополнительная информация в тултипе"
-    ></extra-input-text>
-    <extra-input-text [formControl]="control" placeholder="Без label и caption"></extra-input-text>
-  </div>
+<div class="flex flex-col gap-6">
+  <extra-input-text
+    [formControl]="control"
+    label="Лейбл сверху"
+    placeholder="Введите текст..."
+    info="Дополнительная информация в тултипе"
+    caption="Пояснение под полем"
+  ></extra-input-text>
+  <extra-input-text
+    [formControl]="control"
+    labelPosition="float"
+    label="Плавающий лейбл"
+    caption="Пояснение под полем"
+  ></extra-input-text>
+  <extra-input-text
+    [formControl]="control"
+    labelPosition="left"
+    label="Лейбл слева"
+    placeholder="Введите текст..."
+    info="Дополнительная информация в тултипе"
+  ></extra-input-text>
+  <extra-input-text [formControl]="control" placeholder="Без label и caption"></extra-input-text>
 </div>
 `;
 
