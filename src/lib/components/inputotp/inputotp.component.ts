@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   EventEmitter,
@@ -11,16 +12,19 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NgClass } from '@angular/common';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 
-export type ExtraInputOtpSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraInputOtpChangeEvent = InputOtpChangeEvent;
+export interface ExtraInputOtpChangeEvent {
+  value: string;
+  originalEvent: Event;
+}
 
 @Component({
   selector: 'extra-input-otp',
   standalone: true,
-  imports: [InputOtp, ReactiveFormsModule, NgClass],
+  imports: [InputOtp, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -34,16 +38,9 @@ export type ExtraInputOtpChangeEvent = InputOtpChangeEvent;
       [mask]="mask"
       [integerOnly]="integerOnly"
       [disabled]="disabled"
-      [readonly]="readonly"
       [invalid]="invalid"
-      [size]="primeSize"
-      [ngClass]="sizeClass"
-      [tabindex]="tabindex"
-      [autofocus]="autofocus"
       [formControl]="control"
       (onChange)="onChangeHandler($event)"
-      (onFocus)="onFocus.emit($event)"
-      (onBlur)="onBlur.emit($event)"
     ></p-inputotp>
   `
 })
@@ -52,23 +49,17 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
 
-  readonly control = new FormControl<any>(null);
+  readonly control = new FormControl<string | null>(null);
 
   @Input() length = 4;
   @Input() mask = false;
   @Input() integerOnly = false;
-  @Input() readonly = false;
-  @Input() size: ExtraInputOtpSize = 'base';
-  @Input() tabindex: number | null = null;
-  @Input() autofocus = false;
 
   disabled = false;
 
   @Output() onChange = new EventEmitter<ExtraInputOtpChangeEvent>();
-  @Output() onFocus = new EventEmitter<Event>();
-  @Output() onBlur = new EventEmitter<Event>();
 
-  private _onChange: (value: any) => void = () => {};
+  private _onChange: (value: string | null) => void = () => {};
   private _onTouched: () => void = () => {};
 
   ngOnInit(): void {
@@ -84,25 +75,15 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
     return this._ngControl?.invalid ?? false;
   }
 
-  get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large' || this.size === 'xlarge') return 'large';
-    return undefined;
+  onChangeHandler(event: InputOtpChangeEvent): void {
+    this.onChange.emit({ value: event.value, originalEvent: event.originalEvent as Event });
   }
 
-  get sizeClass(): Record<string, boolean> {
-    return { 'p-inputotp-xlg': this.size === 'xlarge' };
-  }
-
-  onChangeHandler(event: ExtraInputOtpChangeEvent): void {
-    this.onChange.emit(event);
-  }
-
-  writeValue(value: any): void {
+  writeValue(value: string | null): void {
     this.control.setValue(value ?? null, { emitEvent: false });
   }
 
-  registerOnChange(fn: (value: any) => void): void {
+  registerOnChange(fn: (value: string | null) => void): void {
     this._onChange = fn;
   }
 

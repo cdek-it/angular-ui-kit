@@ -9,7 +9,7 @@ const template = `
 <div class="bg-surface-ground p-4">
   <extra-input-group>
     <extra-input-group-addon><i class="ti ti-map-pin"></i></extra-input-group-addon>
-    <extra-input-text placeholder="Введите адрес..." [(ngModel)]="value" [fluid]="true"></extra-input-text>
+    <extra-input-text placeholder="Введите адрес..." [(ngModel)]="value"></extra-input-text>
     <extra-input-group-addon><i class="ti ti-search"></i></extra-input-group-addon>
   </extra-input-group>
 </div>
@@ -46,7 +46,7 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
   template: \`
     <extra-input-group>
       <extra-input-group-addon><i class="ti ti-map-pin"></i></extra-input-group-addon>
-      <extra-input-text placeholder="Введите адрес..." [(ngModel)]="value" [fluid]="true"></extra-input-text>
+      <extra-input-text placeholder="Введите адрес..." [(ngModel)]="value"></extra-input-text>
       <extra-input-group-addon><i class="ti ti-search"></i></extra-input-group-addon>
     </extra-input-group>
   \`,

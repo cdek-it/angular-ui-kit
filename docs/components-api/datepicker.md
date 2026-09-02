@@ -28,7 +28,7 @@
 | `onSelect`       | срабатывает при выборе даты в календаре           | `(value: Date) => void`                      |
 | `onClear`        | срабатывает при очистке значения                  | `() => void`                                 |
 | `onShow`         | срабатывает при открытии календаря                | `() => void`                                 |
-| `onClose`        | срабатывает при закрытии календаря                | `() => void`                                 |
+| `onHide`         | срабатывает при закрытии календаря                | `() => void`                                 |
 | `onMonthChange`  | срабатывает при смене месяца                      | `(event: ExtraDatePickerViewChangeEvent) => void` |
 | `onYearChange`   | срабатывает при смене года                        | `(event: ExtraDatePickerViewChangeEvent) => void` |
 | `onTodayClick`   | срабатывает при клике по кнопке «Сегодня»         | `(value: Date) => void`                      |

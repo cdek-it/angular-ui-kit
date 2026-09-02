@@ -8,7 +8,7 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 const template = `
 <div class="bg-surface-ground p-4">
   <extra-input-group>
-    <extra-input-text placeholder="Сумма" [(ngModel)]="value" [fluid]="true"></extra-input-text>
+    <extra-input-text placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
     <extra-input-group-addon>руб.</extra-input-group-addon>
   </extra-input-group>
 </div>
@@ -44,7 +44,7 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextCompo
   imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent, FormsModule],
   template: \`
     <extra-input-group>
-      <extra-input-text placeholder="Сумма" [(ngModel)]="value" [fluid]="true"></extra-input-text>
+      <extra-input-text placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
       <extra-input-group-addon>руб.</extra-input-group-addon>
     </extra-input-group>
   \`,

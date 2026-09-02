@@ -1,14 +1,11 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraCheckboxComponent } from '../../../lib/components/checkbox/checkbox.component';
-import { FormsModule } from '@angular/forms';
-import { CheckboxGroupComponent, Group } from './examples/checkbox-group.component';
+import { CheckboxLabelsComponent, Labels } from './examples/checkbox-labels.component';
+import { CheckboxStatesComponent, States } from './examples/checkbox-states.component';
 import { CheckboxIndeterminateComponent, Indeterminate } from './examples/checkbox-indeterminate.component';
-import { CheckboxDisabledComponent, Disabled } from './examples/checkbox-disabled.component';
-import { CheckboxInvalidComponent, Invalid } from './examples/checkbox-invalid.component';
-import { CheckboxLabelComponent, Label } from './examples/checkbox-label.component';
-import { CheckboxCustomLabelComponent, CustomLabel } from './examples/checkbox-custom-label.component';
 
-type CheckboxArgs = ExtraCheckboxComponent & { label?: string };
+type CheckboxArgs = ExtraCheckboxComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<CheckboxArgs> = {
   title: 'Components/Form/Checkbox',
@@ -18,13 +15,10 @@ const meta: Meta<CheckboxArgs> = {
     moduleMetadata({
       imports: [
         ExtraCheckboxComponent,
-        FormsModule,
-        CheckboxGroupComponent,
-        CheckboxIndeterminateComponent,
-        CheckboxDisabledComponent,
-        CheckboxInvalidComponent,
-        CheckboxLabelComponent,
-        CheckboxCustomLabelComponent
+        ReactiveFormsModule,
+        CheckboxLabelsComponent,
+        CheckboxStatesComponent,
+        CheckboxIndeterminateComponent
       ]
     })
   ],
@@ -32,115 +26,129 @@ const meta: Meta<CheckboxArgs> = {
     designTokens: { prefix: '--p-checkbox' },
     docs: {
       description: {
-        component: `Компонент для выбора одного или нескольких вариантов.`
+        component: `Компонент флажка для выбора одного варианта (да/нет).
+
+Реализовано по спецификации [checkbox.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/checkbox.md).
+
+\`\`\`typescript
+import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`
+
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
       }
     }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
-    binary: { table: { disable: true } },
-    invalid: {
-      control: 'boolean',
-      description: 'Подсвечивает поле как невалидное',
+    // ── Свойства (docs/components-api/checkbox.md) ────────────────
+    label: {
+      control: 'text',
+      description: 'Текст названия поля',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
       }
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает возможность взаимодействия',
+    labelPosition: {
+      control: 'select',
+      options: ['right', 'left'],
+      description: 'Положение лейбла',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
+        category: 'Свойства',
+        defaultValue: { summary: 'right' },
+        type: { summary: "'right' | 'left'" }
+      }
+    },
+    caption: {
+      control: 'text',
+      description: 'Текст пояснения под лейблом',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
       }
     },
     indeterminate: {
       control: 'boolean',
-      description: 'Устанавливает неопределенное состояние',
+      description: 'Возможно ли третье состояние (частично выбрано)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    // Hidden props
-    size: { table: { disable: true } },
-    readonly: { table: { disable: true } },
-    checkboxIcon: { table: { disable: true } },
-    ariaLabel: { table: { disable: true } },
-    ariaLabelledBy: { table: { disable: true } },
-    tabindex: { table: { disable: true } },
-    inputId: { table: { disable: true } },
-    trueValue: { table: { disable: true } },
-    falseValue: { table: { disable: true } },
-    autofocus: { table: { disable: true } },
-    variant: { table: { disable: true } },
-    value: { table: { disable: true } },
-    label: { table: { disable: true } },
-
-    // ── Events ───────────────────────────────────────────────
+    // ── Состояния (управляются через FormControl) ─────────────────
+    disabled: {
+      control: 'boolean',
+      description: 'Отключённое состояние — управляется через FormControl',
+      table: {
+        category: 'Состояния',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    invalid: {
+      control: 'boolean',
+      description: 'Невалидное состояние — вычисляется из NgControl (Validators)',
+      table: {
+        category: 'Состояния',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    // ── События ──────────────────────────────────────────────────
     onChange: {
       control: false,
-      description: 'Событие изменения значения',
+      description: 'Событие изменения состояния',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<CheckboxChangeEvent>' }
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraCheckboxChangeEvent>' }
       }
     },
-    onFocus: {
-      control: false,
-      description: 'Событие фокуса',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    },
-    onBlur: {
-      control: false,
-      description: 'Событие потери фокуса',
-      table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    }
+    // Hidden computed props
+    modelValue: { table: { disable: true } },
+    inputId: { table: { disable: true } }
   },
   args: {
-    binary: true,
+    label: 'Checkbox',
+    labelPosition: 'right',
+    caption: '',
+    indeterminate: false,
     disabled: false,
-    invalid: false,
-    indeterminate: false
+    invalid: false
   }
 };
 
 export default meta;
 type Story = StoryObj<CheckboxArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
     const parts: string[] = [];
-    if (args.binary) parts.push(`[binary]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
+
+    if (args.label) parts.push(`label="${args.label}"`);
+    if (args.labelPosition && args.labelPosition !== 'right') parts.push(`labelPosition="${args.labelPosition}"`);
+    if (args.caption) parts.push(`caption="${args.caption}"`);
     if (args.indeterminate) parts.push(`[indeterminate]="true"`);
-    parts.push(`[(ngModel)]="checked"`);
 
-    const template = `<extra-checkbox\n  ${parts.join('\n  ')}\n></extra-checkbox>`;
+    const validators = args.invalid ? [Validators.requiredTrue] : [];
+    const control = new FormControl({ value: false, disabled: args.disabled }, validators);
 
-    return { props: { ...args, checked: false }, template };
+    const template = `<extra-checkbox [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-checkbox>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Интерактивный чекбокс со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
       }
     }
   }
 };
 
-// ── Re-exports from example components ────────────────────────────────────
-export { Invalid, Disabled, Indeterminate, Group, Label, CustomLabel };
+// ── Комбинаторные истории ──────────────────────────────────────────────────
+export { Labels, States, Indeterminate };
