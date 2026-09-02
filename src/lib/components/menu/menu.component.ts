@@ -107,7 +107,6 @@ function isMenuGroup(item: ExtraMenuItem): item is ExtraMenuGroup {
             class="p-menu-item-link"
             [attr.tabindex]="-1"
             [class.p-disabled]="item.disabled"
-            [class.p-menu-item-selected]="item.selected"
             [attr.href]="item.href || null"
             [attr.target]="item.target || null"
           >
@@ -169,11 +168,10 @@ export class ExtraMenuComponent implements AfterContentInit, AfterViewInit, OnCh
     return this.appendTo instanceof ElementRef ? this.appendTo.nativeElement : this.appendTo;
   }
 
-  get primeItems(): MenuItem[] {
-    return this.items.map((item) => this.toPrimeItem(item));
-  }
+  primeItems: MenuItem[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['items']) this.syncPrimeItems();
     if (changes['open'] && !changes['open'].firstChange && !this.suppressOpenSync) {
       if (this.open) this.show();
       else this.hide();
@@ -223,6 +221,29 @@ export class ExtraMenuComponent implements AfterContentInit, AfterViewInit, OnCh
     this.onHide.emit();
   }
 
+  /**
+   * PrimeNG раздаёт `model` через *ngFor без trackBy: новый объект пункта — это пересоздание
+   * <li>, вместе с которым обрывается CSS-переход. Поэтому массив и его элементы живут между
+   * обновлениями `items`, меняются только их поля.
+   */
+  private syncPrimeItems(): void {
+    this.primeItems = this.mergePrimeItems(
+      this.primeItems,
+      this.items.map((item) => this.toPrimeItem(item))
+    );
+  }
+
+  private mergePrimeItems(current: MenuItem[], next: MenuItem[]): MenuItem[] {
+    if (current.length !== next.length) return next;
+    next.forEach((item, index) => {
+      const target = current[index];
+      const nested = target.items;
+      Object.assign(target, item);
+      if (nested && item.items) target.items = this.mergePrimeItems(nested, item.items);
+    });
+    return current;
+  }
+
   /** Держит [open] в согласии с реальной видимостью после show()/hide() или клика по пункту. */
   private syncOpen(open: boolean): void {
     if (this.open === open) return;
@@ -234,12 +255,22 @@ export class ExtraMenuComponent implements AfterContentInit, AfterViewInit, OnCh
   /** PrimeNG `show()` вычисляет якорь из `event.currentTarget` — нормализуем под это. */
   private toPrimeAnchorEvent(anchor?: ExtraMenuAnchorLike): { currentTarget: HTMLElement } {
     if (!anchor) return { currentTarget: this.elementRef.nativeElement };
-    if (anchor instanceof Event) {
-      return { currentTarget: (anchor.currentTarget as HTMLElement) ?? (anchor.target as HTMLElement) };
-    }
+    if (anchor instanceof Event) return { currentTarget: this.resolveEventAnchor(anchor) };
     if (anchor instanceof ElementRef) return { currentTarget: anchor.nativeElement };
     if (anchor instanceof HTMLElement) return { currentTarget: anchor };
     return { currentTarget: this.createCoordinateAnchor(anchor.x, anchor.y) };
+  }
+
+  /**
+   * Обёртки кита (`<extra-button>`) — инлайновые элементы: их getBoundingClientRect() описывает
+   * строку текста, а не отрисованную кнопку, и меню всплывает поверх триггера. Берём из цепочки
+   * события ближайший интерактивный элемент — он и есть реальный якорь.
+   */
+  private resolveEventAnchor(event: Event): HTMLElement {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    const trigger = (event.target as HTMLElement | null)?.closest<HTMLElement>('button, a, [role="button"]');
+    if (trigger && currentTarget?.contains(trigger)) return trigger;
+    return currentTarget ?? (event.target as HTMLElement) ?? this.elementRef.nativeElement;
   }
 
   /** Координатный якорь: PrimeNG позиционирует меню через getBoundingClientRect() реального элемента. */
@@ -288,6 +319,7 @@ export class ExtraMenuComponent implements AfterContentInit, AfterViewInit, OnCh
       disabled: action.disabled,
       visible: action.visible,
       id: action.id,
+      styleClass: action.selected ? 'p-menuitem-checked' : undefined,
       href: action.href,
       target: action.target,
       url: action.href,

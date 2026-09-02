@@ -163,23 +163,34 @@ export const Basic: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuItem } from '@cdek-it/angular-ui-kit';
+import {
+  ExtraMenuAction,
+  ExtraMenuComponent,
+  ExtraMenuItemSelectEvent,
+  ExtraMenuSeparator,
+} from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-basic',
   standalone: true,
   imports: [ExtraMenuComponent],
   template: \`
-    <extra-menu [items]="items"></extra-menu>
+    <extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
   \`,
 })
 export class MenuBasicComponent {
-  items: ExtraMenuItem[] = [
+  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
     { label: 'Новый заказ' },
     { label: 'Поиск отправления' },
     { separator: true },
     { label: 'Экспорт' },
   ];
+
+  select({ item }: ExtraMenuItemSelectEvent): void {
+    this.items = this.items.map((entry) =>
+      'separator' in entry ? entry : { ...entry, selected: entry === item },
+    );
+  }
 }
         `
       }
@@ -207,11 +218,11 @@ export const WithIcons: Story = {
   standalone: true,
   imports: [ExtraMenuComponent],
   template: \`
-    <extra-menu [items]="items"></extra-menu>
+    <extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
   \`,
 })
 export class MenuWithIconsComponent {
-  items: ExtraMenuItem[] = [
+  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
     { label: 'Создать отправление', icon: 'ti ti-file-plus' },
     { label: 'Открыть список заказов', icon: 'ti ti-folder-open' },
     { label: 'Сохранить черновик', icon: 'ti ti-device-floppy' },
@@ -219,6 +230,12 @@ export class MenuWithIconsComponent {
     { label: 'Распечатать накладную', icon: 'ti ti-printer' },
     { label: 'Экспорт данных', icon: 'ti ti-download' },
   ];
+
+  select({ item }: ExtraMenuItemSelectEvent): void {
+    this.items = this.items.map((entry) =>
+      'separator' in entry ? entry : { ...entry, selected: entry === item },
+    );
+  }
 }
         `
       }
@@ -246,11 +263,11 @@ export const Grouped: Story = {
   standalone: true,
   imports: [ExtraMenuComponent],
   template: \`
-    <extra-menu [items]="items"></extra-menu>
+    <extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
   \`,
 })
 export class MenuGroupedComponent {
-  items: ExtraMenuItem[] = [
+  items: ExtraMenuGroup[] = [
     {
       label: 'Заказы',
       items: [
@@ -268,6 +285,13 @@ export class MenuGroupedComponent {
       ],
     },
   ];
+
+  select({ item }: ExtraMenuItemSelectEvent): void {
+    this.items = this.items.map((group) => ({
+      ...group,
+      items: group.items.map((action) => ({ ...action, selected: action === item })),
+    }));
+  }
 }
         `
       }
@@ -296,7 +320,7 @@ export const Custom: Story = {
   standalone: true,
   imports: [ExtraMenuComponent, ExtraMenuTemplateDirective],
   template: \`
-    <extra-menu [items]="items">
+    <extra-menu [items]="items" (onItemSelect)="select($event)">
       <ng-template extraMenuTemplate="item" let-item>
         <a
           class="p-menu-item-link flex items-center gap-3 px-4 py-2"
@@ -321,7 +345,7 @@ export const Custom: Story = {
   \`,
 })
 export class MenuCustomComponent {
-  items: ExtraMenuItem[] = [
+  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
     {
       label: 'Создать отправление',
       caption: 'Оформление нового заказа',
@@ -345,6 +369,12 @@ export class MenuCustomComponent {
       disabled: true,
     },
   ];
+
+  select({ item }: ExtraMenuItemSelectEvent): void {
+    this.items = this.items.map((entry) =>
+      'separator' in entry ? entry : { ...entry, selected: entry === item },
+    );
+  }
 }
         `
       }
@@ -368,14 +398,20 @@ export const StartEnd: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuItem, ExtraMenuTemplateDirective } from '@cdek-it/angular-ui-kit';
+import {
+  ExtraMenuAction,
+  ExtraMenuComponent,
+  ExtraMenuItemSelectEvent,
+  ExtraMenuSeparator,
+  ExtraMenuTemplateDirective,
+} from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-menu-start-end',
   standalone: true,
   imports: [ExtraMenuComponent, ExtraMenuTemplateDirective],
   template: \`
-    <extra-menu [items]="items">
+    <extra-menu [items]="items" (onItemSelect)="select($event)">
       <ng-template extraMenuTemplate="start">
         <div class="flex items-center gap-3 px-4 py-3 border-b border-surface-200">
           <span class="ti ti-user-circle text-2xl text-surface-500"></span>
@@ -395,12 +431,18 @@ import { ExtraMenuComponent, ExtraMenuItem, ExtraMenuTemplateDirective } from '@
   \`,
 })
 export class MenuStartEndComponent {
-  items: ExtraMenuItem[] = [
+  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
     { label: 'Профиль', icon: 'ti ti-user' },
     { label: 'Уведомления', icon: 'ti ti-bell' },
     { separator: true },
     { label: 'Выйти', icon: 'ti ti-logout' },
   ];
+
+  select({ item }: ExtraMenuItemSelectEvent): void {
+    this.items = this.items.map((entry) =>
+      'separator' in entry ? entry : { ...entry, selected: entry === item },
+    );
+  }
 }
         `
       }

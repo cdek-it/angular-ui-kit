@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { ExtraMenuComponent, ExtraMenuItem } from '../../../../lib/components/menu/menu.component';
+import {
+  ExtraMenuAction,
+  ExtraMenuComponent,
+  ExtraMenuItemSelectEvent,
+  ExtraMenuSeparator
+} from '../../../../lib/components/menu/menu.component';
 
 const template = `
-<div class="bg-surface-ground">
-  <extra-menu [items]="items"></extra-menu>
-</div>
+<extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
 `;
 
 @Component({
@@ -14,10 +17,14 @@ const template = `
   template
 })
 export class MenuBasicComponent {
-  items: ExtraMenuItem[] = [
+  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
     { label: 'Новый заказ' },
     { label: 'Поиск отправления' },
     { separator: true },
     { label: 'Экспорт' }
   ];
+
+  select({ item }: ExtraMenuItemSelectEvent): void {
+    this.items = this.items.map((entry) => ('separator' in entry ? entry : { ...entry, selected: entry === item }));
+  }
 }
