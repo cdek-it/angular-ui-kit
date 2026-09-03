@@ -27,8 +27,11 @@ export class ExtraTooltipDirective implements OnChanges {
   /** Задержка перед скрытием подсказки в миллисекундах. */
   @Input() hideDelay: number | undefined;
 
-  /** Отключает подсказку. */
-  @Input() disabled = false;
+  /**
+   * Отключает подсказку. Названо `tooltipDisabled`, а не `disabled`, чтобы не
+   * конфликтовать с одноимённым свойством хост-компонента (например, `extra-button`).
+   */
+  @Input() tooltipDisabled = false;
 
   ngOnChanges(_changes: SimpleChanges): void {
     // Пробрасываем своё типизированное API в опции PrimeNG Tooltip. PrimeNG
@@ -41,7 +44,7 @@ export class ExtraTooltipDirective implements OnChanges {
       tooltipEvent: this.event,
       showDelay: this.showDelay,
       hideDelay: this.hideDelay,
-      disabled: this.disabled
+      disabled: this.tooltipDisabled
     });
   }
 }

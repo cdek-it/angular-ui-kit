@@ -6,7 +6,7 @@ import { ExtraInputTextComponent } from '../../../lib/components/inputtext/input
 type TooltipArgs = TooltipDirective & { label?: string };
 
 const meta: Meta<TooltipArgs> = {
-  title: 'Components/Form/Tooltip',
+  title: 'Components/Overlay/Tooltip',
   // @ts-ignore — component ожидает компонент, а тут атрибутная директива
   component: TooltipDirective,
   tags: ['autodocs'],
@@ -65,9 +65,9 @@ import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-k
       description: 'Задержка перед скрытием в миллисекундах.',
       table: { category: 'Props', type: { summary: 'number' } }
     },
-    disabled: {
+    tooltipDisabled: {
       control: 'boolean',
-      description: 'Отключает подсказку.',
+      description: 'Отключает подсказку. Названо не `disabled`, чтобы не конфликтовать с одноимённым свойством хост-компонента.',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' },
@@ -80,7 +80,7 @@ import { ExtraTooltipDirective as TooltipDirective } from '@cdek-it/angular-ui-k
     label: 'Наведи на меня',
     position: 'right',
     event: 'hover',
-    disabled: false
+    tooltipDisabled: false
   }
 };
 
@@ -94,7 +94,7 @@ const commonTemplate = `
   [event]="event"
   [showDelay]="showDelay"
   [hideDelay]="hideDelay"
-  [disabled]="disabled"
+  [tooltipDisabled]="tooltipDisabled"
   [label]="label || ''"
 >
 </extra-button>
@@ -111,7 +111,7 @@ export const Default: Story = {
     if (args.event && args.event !== 'hover') parts.push(`event="${args.event}"`);
     if (args.showDelay) parts.push(`[showDelay]="${args.showDelay}"`);
     if (args.hideDelay) parts.push(`[hideDelay]="${args.hideDelay}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
+    if (args.tooltipDisabled) parts.push(`[tooltipDisabled]="true"`);
     if (args.label) parts.push(`label="${args.label}"`);
 
     const template = `
