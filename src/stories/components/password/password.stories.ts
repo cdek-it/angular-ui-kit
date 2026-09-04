@@ -203,7 +203,7 @@ export const Default: Story = {
 
     const template =
       parts.length > 1
-        ? `<password\n  ${parts.join('\n  ')}\n></extra-password>`
+        ? `<extra-password\n  ${parts.join('\n  ')}\n></extra-password>`
         : `<extra-password ${parts.join(' ')}></extra-password>`;
 
     return { props: { ...args, value: null }, template };
