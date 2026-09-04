@@ -3,7 +3,7 @@ import { ExtraMenuComponent, ExtraMenuItem } from '../../../../lib/components/me
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <extra-button label="Действия с заказом" variant="secondary" (click)="toggle($event)"></extra-button>
   <extra-menu #menuRef [items]="items" [popup]="true"></extra-menu>
 </div>
