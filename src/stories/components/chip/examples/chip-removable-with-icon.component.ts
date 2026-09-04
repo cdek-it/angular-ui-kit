@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <extra-chip label="Задержан" icon="ti ti-alert-triangle" [removable]="true"></extra-chip>
 </div>
 `;
