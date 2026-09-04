@@ -4,13 +4,11 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <div class="flex flex-col gap-4">
-    <extra-checkbox [formControl]="control" label="Лейбл справа"></extra-checkbox>
-    <extra-checkbox [formControl]="control" labelPosition="left" label="Лейбл слева"></extra-checkbox>
-    <extra-checkbox [formControl]="control" label="С пояснением" caption="Пояснение под лейблом"></extra-checkbox>
-    <extra-checkbox [formControl]="control"></extra-checkbox>
-  </div>
+<div class="flex flex-col gap-4">
+  <extra-checkbox [formControl]="control" label="Лейбл справа"></extra-checkbox>
+  <extra-checkbox [formControl]="control" labelPosition="left" label="Лейбл слева"></extra-checkbox>
+  <extra-checkbox [formControl]="control" label="С пояснением" caption="Пояснение под лейблом"></extra-checkbox>
+  <extra-checkbox [formControl]="control"></extra-checkbox>
 </div>
 `;
 
