@@ -29,11 +29,28 @@ export const drawerCss = ({ dt }: { dt: (token: string) => string }): string => 
   padding: 0 ${dt('dimension.space.600')} ${dt('dimension.space.600')} ${dt('dimension.space.600')};
 }
 
+/* Ширина панели по размерам: drawer.extend.overlayWidth — ступени семантической шкалы
+   dimension.size (макет просит 280 / 350 / 420 / 630, ближайшие ступени дают 272 / 336 / 400 / 630) */
 .p-drawer.p-component.p-drawer-left,
 .p-drawer.p-component.p-drawer-right {
   margin: ${dt('drawer.extend.margin')};
-  width: ${dt('drawer.extend.width')};
+  width: ${dt('drawer.extend.overlayWidth.base')};
   height: calc(100% - ${dt('drawer.extend.margin')} * 2);
+}
+
+.p-drawer.p-component.p-drawer-left.p-drawer-sm,
+.p-drawer.p-component.p-drawer-right.p-drawer-sm {
+  width: ${dt('drawer.extend.overlayWidth.sm')};
+}
+
+.p-drawer.p-component.p-drawer-left.p-drawer-lg,
+.p-drawer.p-component.p-drawer-right.p-drawer-lg {
+  width: ${dt('drawer.extend.overlayWidth.lg')};
+}
+
+.p-drawer.p-component.p-drawer-left.p-drawer-xlg,
+.p-drawer.p-component.p-drawer-right.p-drawer-xlg {
+  width: ${dt('drawer.extend.overlayWidth.xlg')};
 }
 
 .p-drawer.p-component.p-drawer-top,
