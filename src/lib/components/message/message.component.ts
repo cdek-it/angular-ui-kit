@@ -20,6 +20,8 @@ import { ExtraMessageTemplateDirective } from './message-template.directive';
 
 export type ExtraMessageSeverity = 'info' | 'success' | 'warning' | 'danger';
 
+export type ExtraMessageSize = 'small' | 'base' | 'large' | 'xlarge' | 'fill';
+
 type PrimeMessageSeverity = 'success' | 'info' | 'warn' | 'error';
 
 const SEVERITY_ICONS: Record<ExtraMessageSeverity, string> = {
@@ -38,7 +40,7 @@ const TIMER_LIFE = 3000;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Message, ButtonDirective, SharedModule, NgTemplateOutlet],
   template: `
-    <p-message [severity]="primeSeverity" [closable]="false">
+    <p-message [severity]="primeSeverity" [closable]="false" [styleClass]="sizeClass">
       <ng-template pTemplate="container">
         <div class="p-message-accent-line"></div>
         @if (resolvedIcon) {
@@ -81,6 +83,8 @@ export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
   /** Класс иконки tabler icon; null скрывает иконку; undefined (не задан) — стандартная по severity. */
   @Input() icon: string | null | undefined = undefined;
   @Input() showClose = false;
+  /** Ширина сообщения: small 272 / base 336 / large 400 / xlarge 630 / fill — на всю ширину контейнера. */
+  @Input() size: ExtraMessageSize = 'base';
 
   @Output() onClose = new EventEmitter<void>();
 
@@ -98,6 +102,10 @@ export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
   get resolvedIcon(): string | null {
     if (this.icon === null) return null;
     return this.icon ?? SEVERITY_ICONS[this.severity];
+  }
+
+  get sizeClass(): string {
+    return this.size === 'base' ? '' : `p-message-size-${this.size}`;
   }
 
   get primeSeverity(): PrimeMessageSeverity {
