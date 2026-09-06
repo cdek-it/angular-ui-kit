@@ -26,13 +26,7 @@ updated: '2026-06-22'
 | `length` | `number` | `4` | Количество ячеек кода — соответствует числу элементов `<InputOtp.Item>` в Figma |
 | `mask` | `boolean` | `false` | Маскирование введённых символов (как пароль) |
 | `integerOnly` | `boolean` | `false` | Разрешает вводить только цифры |
-| `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
-| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер ячеек; `large` и `xlarge` маппируются на PrimeNG `pSize="large"` |
-| `tabindex` | `number \| null` | `null` | Порядок перехода по Tab |
-| `autofocus` | `boolean` | `false` | Автофокус первой ячейки при монтировании |
 | `(onChange)` | `EventEmitter<ExtraInputOtpChangeEvent>` | — | Событие изменения значения кода |
-| `(onFocus)` | `EventEmitter<Event>` | — | Событие получения фокуса |
-| `(onBlur)` | `EventEmitter<Event>` | — | Событие потери фокуса |
 | `[(ngModel)]` / `[formControl]` | `string` | `null` | Значение кода через ControlValueAccessor |
 
 > `invalid` — вычисляемое свойство: берётся автоматически из связанного `NgControl` (соответствует Figma-состоянию `state=danger`). Устанавливать вручную нельзя.
@@ -105,19 +99,6 @@ Figma: `<InputOtp>`, state=disabled
 ```ts
 // Управляется через FormControl:
 disabledControl = new FormControl({ value: null, disabled: true });
-```
-
-### Large (большой размер ячеек)
-
-Figma: `<InputOtp>`, size=large, state=default
-
-```html
-<extra-input-otp
-  [length]="6"
-  size="large"
-  [(ngModel)]="code"
-  name="otp"
-></extra-input-otp>
 ```
 
 ### С реактивной формой (formControl + валидация)

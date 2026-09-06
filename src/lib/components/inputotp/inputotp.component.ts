@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
   EventEmitter,
@@ -46,6 +47,7 @@ export interface ExtraInputOtpChangeEvent {
 })
 export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
 
@@ -69,6 +71,12 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
       this._onChange(v);
       this._onTouched();
     });
+
+    /**
+     * invalid — геттер поверх NgControl.invalid; на OnPush не пересчитывается сам по себе,
+     * когда валидность меняется извне (Validators/updateValueAndValidity без локального события).
+     */
+    this._ngControl?.statusChanges?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this._cdr.markForCheck());
   }
 
   get invalid(): boolean {
@@ -81,6 +89,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
 
   writeValue(value: string | null): void {
     this.control.setValue(value ?? null, { emitEvent: false });
+    this._cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: string | null) => void): void {
@@ -94,5 +103,6 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     isDisabled ? this.control.disable({ emitEvent: false }) : this.control.enable({ emitEvent: false });
+    this._cdr.markForCheck();
   }
 }
