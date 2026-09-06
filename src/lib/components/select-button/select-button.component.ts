@@ -16,7 +16,7 @@ export interface ExtraSelectButtonChangeEvent {
   originalEvent?: Event;
 }
 
-export type ExtraSelectButtonSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraSelectButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
 
 @Component({
   selector: 'extra-select-button',
@@ -72,13 +72,13 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor {
   }
 
   get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'small') return 'small';
-    if (this.size === 'large') return 'large';
+    if (this.size === 'sm') return 'small';
+    if (this.size === 'lg') return 'large';
     return undefined;
   }
 
   get primeStyleClass(): string {
-    return this.size === 'xlarge' ? 'p-selectbutton-xlarge' : '';
+    return this.size === 'xlg' ? 'p-selectbutton-xlarge' : '';
   }
 
   writeValue(value: any): void {
