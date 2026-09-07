@@ -46,8 +46,8 @@ export class ToastPositionComponent {
     this.toastService.add({
       key,
       severity: 'info',
-      summary: 'Сообщение',
-      detail: 'Позиция: ' + position,
+      message: 'Сообщение',
+      caption: 'Позиция: ' + position,
       life: 3000,
       icon: 'ti ti-info-circle'
     });
@@ -104,8 +104,8 @@ export class ExampleComponent {
     this.toastService.add({
       key,
       severity: 'info',
-      summary: 'Сообщение',
-      detail: 'Позиция: ' + position,
+      message: 'Сообщение',
+      caption: 'Позиция: ' + position,
       life: 3000,
       icon: 'ti ti-info-circle',
     });
