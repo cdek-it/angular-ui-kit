@@ -1,24 +1,28 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
-import { ExtraRadiobuttonComponent as RadiobuttonComponent } from '../../../lib/components/radiobutton/radiobutton.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ExtraRadiobuttonComponent } from '../../../lib/components/radiobutton/radiobutton.component';
 import { RadiobuttonGroupComponent, Group } from './examples/radiobutton-group.component';
-import { RadiobuttonInvalidComponent, Invalid } from './examples/radiobutton-invalid.component';
 import { RadiobuttonDisabledComponent, Disabled } from './examples/radiobutton-disabled.component';
+import { RadiobuttonInvalidComponent, Invalid } from './examples/radiobutton-invalid.component';
+import { RadiobuttonLabelPositionComponent, LabelPosition } from './examples/radiobutton-labelposition.component';
+import { RadiobuttonCaptionComponent, Caption } from './examples/radiobutton-caption.component';
 
-type RadiobuttonArgs = RadiobuttonComponent;
+type RadiobuttonArgs = ExtraRadiobuttonComponent & { disabled: boolean; invalid: boolean };
 
 const meta: Meta<RadiobuttonArgs> = {
   title: 'Components/Form/RadioButton',
-  component: RadiobuttonComponent,
+  component: ExtraRadiobuttonComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        RadiobuttonComponent,
-        FormsModule,
+        ExtraRadiobuttonComponent,
+        ReactiveFormsModule,
         RadiobuttonGroupComponent,
-        RadiobuttonInvalidComponent,
         RadiobuttonDisabledComponent,
+        RadiobuttonInvalidComponent,
+        RadiobuttonLabelPositionComponent,
+        RadiobuttonCaptionComponent
       ]
     })
   ],
@@ -26,97 +30,141 @@ const meta: Meta<RadiobuttonArgs> = {
     designTokens: { prefix: '--p-radiobutton' },
     docs: {
       description: {
-        component: `Компонент для выбора одного варианта из группы.`,
-      },
-    },
+        component: `Радиокнопка для выбора одного варианта из взаимоисключающей группы.
+
+Реализовано по спецификации [radiobutton.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/radiobutton.md).
+
+\`\`\`typescript
+import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`
+
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Внутри группы радиокнопки объединяются общим \`name\` и одной моделью. Состояния disabled и invalid управляются через FormControl.`
+      }
+    }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
+    // ── Свойства (docs/components-api/radiobutton.md) ──────────────
+    label: {
+      control: 'text',
+      description: 'Текст названия',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    labelPosition: {
+      control: 'select',
+      options: ['right', 'left'],
+      description: 'Положение лейбла',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'right' },
+        type: { summary: "'right' | 'left'" }
+      }
+    },
+    caption: {
+      control: 'text',
+      description: 'Текст пояснения под лейблом',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    // ── Состояния (управляются через FormControl) ───────────────────
     disabled: {
       control: 'boolean',
-      description: 'Отключает возможность взаимодействия',
+      description: 'Отключённое состояние — управляется через FormControl',
       table: {
-        category: 'Props',
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     invalid: {
       control: 'boolean',
-      description: 'Подсвечивает поле как невалидное',
+      description: 'Невалидное состояние — вычисляется из NgControl (Validators)',
       table: {
-        category: 'Props',
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
-    variant: { table: { disable: true } },
-    // Hidden props
-    value: { table: { disable: true } },
-    name: { table: { disable: true } },
-    size: { table: { disable: true } },
-    inputId: { table: { disable: true } },
-    tabindex: { table: { disable: true } },
-    ariaLabel: { table: { disable: true } },
-    ariaLabelledBy: { table: { disable: true } },
-    autofocus: { table: { disable: true } },
-
-    // ── Events ───────────────────────────────────────────────
+    // ── События ──────────────────────────────────────────────────
     onClick: {
       control: false,
-      description: 'Событие выбора радиокнопки',
+      description: 'Срабатывает при выборе опции',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<RadioButtonClickEvent>' },
-      },
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraRadioButtonClickEvent>' }
+      }
     },
     onFocus: {
       control: false,
-      description: 'Событие фокуса',
+      description: 'Срабатывает при получении фокуса',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
+        category: 'События',
+        type: { summary: 'EventEmitter<Event>' }
+      }
     },
     onBlur: {
       control: false,
-      description: 'Событие потери фокуса',
+      description: 'Срабатывает при потере фокуса',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<Event>' },
-      },
+        category: 'События',
+        type: { summary: 'EventEmitter<Event>' }
+      }
     },
+    // Hidden props
+    value: { table: { disable: true } },
+    name: { table: { disable: true } },
+    modelValue: { table: { disable: true } },
+    inputId: { table: { disable: true } }
   },
   args: {
+    label: 'Radio button',
+    labelPosition: 'right',
+    caption: '',
     disabled: false,
-    invalid: false,
-    variant: 'outlined',
-  },
+    invalid: false
+  }
 };
 
 export default meta;
 type Story = StoryObj<RadiobuttonArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
-    const parts: string[] = [`value="option1"`, `name="demo"`, `[(ngModel)]="selected"`];
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
-    if (args.variant && args.variant !== 'outlined') parts.push(`variant="${args.variant}"`);
+    const parts: string[] = [`name="delivery-default"`, `value="option1"`];
 
-    const template = `<extra-radiobutton\n  ${parts.join('\n  ')}\n></extra-radiobutton>`;
-    return { props: { ...args, selected: 'option1' }, template };
+    if (args.label) parts.push(`label="${args.label}"`);
+    if (args.labelPosition && args.labelPosition !== 'right') parts.push(`labelPosition="${args.labelPosition}"`);
+    if (args.caption) parts.push(`caption="${args.caption}"`);
+
+    const validators = args.invalid ? [Validators.required] : [];
+    // Один FormControl на оба пункта — взаимоисключающий выбор, как у настоящей radio-группы.
+    const control = new FormControl({ value: args.invalid ? null : 'pickup', disabled: args.disabled }, validators);
+
+    const template = `
+<div class="flex flex-col gap-3">
+  <extra-radiobutton [formControl]="control" name="delivery-default" value="pickup" label="Самовывоз"></extra-radiobutton>
+  <extra-radiobutton [formControl]="control"\n    ${parts.join('\n    ')}\n  ></extra-radiobutton>
+</div>`;
+
+    return { props: { ...args, control }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story:
+          'Интерактивная радиокнопка со всеми свойствами спецификации, показана в контексте соседних пунктов группы (общий FormControl — выбор взаимоисключающий). Используйте Controls для изменения пропсов среднего пункта; disabled и invalid управляются через FormControl и относятся ко всей группе.'
+      }
+    }
+  }
 };
 
-// ── Re-exports from example components ────────────────────────────────────
-export { Group, Invalid, Disabled };
+// ── Комбинаторные истории ──────────────────────────────────────────────────
+export { Group, Disabled, Invalid, LabelPosition, Caption };
