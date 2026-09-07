@@ -7,6 +7,18 @@
  * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px).
  */
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
+/* ─── Раскладка: бокс и текст в строку, по центру ─── */
+.extra-checkbox {
+  display: flex;
+  align-items: center;
+  gap: ${dt('dimension.space.200')};
+}
+
+.extra-checkbox--left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
 /* ─── Label типографика ─── */
 .checkbox-label {
   display: flex;
@@ -62,6 +74,13 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
    белая галочка пропадала на светлом фоне. Берём инверсный алиас — он меняется вместе с фоном. */
 .p-checkbox-checked .p-checkbox-icon,
 .p-checkbox-indeterminate .p-checkbox-icon {
+  color: ${dt('color.fg.inverse.default')};
+}
+
+/* То же на hover: PrimeNG подставляет icon.checkedHoverColor (color.fg.on.fill.hover),
+   а эта ветка не инвертируется — в тёмной теме белая иконка пропадала на светлом боксе */
+.p-checkbox-checked:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon,
+.p-checkbox-indeterminate:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon {
   color: ${dt('color.fg.inverse.default')};
 }
 
