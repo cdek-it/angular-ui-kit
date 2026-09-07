@@ -57,7 +57,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() length = 4;
   @Input() mask = false;
   @Input() integerOnly = false;
-  /** Размер ячейки: small 28 / base 40 / large 48. */
+  /** Размер ячейки. */
   @Input() size: ExtraInputOtpSize = 'base';
 
   disabled = false;
