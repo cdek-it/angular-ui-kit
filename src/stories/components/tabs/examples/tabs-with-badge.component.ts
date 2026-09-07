@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraTabsComponent, ExtraTabItem } from '../../../../lib/components/tabs/tabs.component';
 
 const template = `
-<div class="bg-surface-ground">
+<div>
   <extra-tabs value="0" [tabs]="tabs"></extra-tabs>
 </div>
 `;
