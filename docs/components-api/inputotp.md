@@ -9,7 +9,7 @@
 | `length`       | количество полей ввода                   | `number`                 |
 | `mask`         | скрывать введённое значение (как пароль) | `boolean`                |
 | `integer-only` | допускать только цифры                   | `boolean`                |
-| `size`         | размер ячейки: 28 / 40 / 48 px           | `small \| base \| large` |
+| `size`         | размер ячейки                            | `small \| base \| large` |
 
 # События
 
