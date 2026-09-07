@@ -63,7 +63,7 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   disabled = false;
 
   /** PrimeNG знает только small/large; base — размер по умолчанию, без класса. */
-  get primeSize(): 'small' | 'large' | undefined {
+  protected get primeSize(): 'small' | 'large' | undefined {
     return this.size === 'base' ? undefined : this.size;
   }
 
