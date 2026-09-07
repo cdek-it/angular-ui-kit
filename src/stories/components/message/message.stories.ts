@@ -96,6 +96,16 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    size: {
+      control: 'select',
+      options: ['small', 'base', 'large', 'xlarge', 'fill'],
+      description: 'Ширина сообщения; fill растягивает на всю ширину контейнера',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'base'" },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge' | 'fill'" }
+      }
+    },
     // ── События ─────────────────────────────────────────────────
     onClose: {
       control: false,
@@ -113,7 +123,8 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
     message: 'Message',
     caption: 'caption',
     icon: undefined,
-    showClose: false
+    showClose: false,
+    size: 'base'
   }
 };
 
@@ -132,6 +143,7 @@ export const Default: Story = {
     if (args.icon) parts.push(`icon="${args.icon}"`);
     if (args.showClose) parts.push(`[showClose]="true"`);
     if (args.timer) parts.push(`[timer]="true"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
 
     const template = parts.length
       ? `<extra-message\n  ${parts.join('\n  ')}\n  (onClose)="onClose()"\n></extra-message>`
