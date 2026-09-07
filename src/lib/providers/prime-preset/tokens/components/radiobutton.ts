@@ -7,6 +7,30 @@
  * значение теряется на коллизии имён (см. комментарии ниже).
  */
 export const radiobuttonCss = ({ dt }: { dt: (token: string) => string }): string => `
+/* ─── Раскладка «индикатор + подпись» ───
+   Обёртка приходила без стилей: <p-radiobutton> и блок подписи — два блочных элемента,
+   подпись вставала под индикатор, а не рядом. Флекс возвращает её в строку. */
+.extra-radiobutton {
+  display: flex;
+  align-items: flex-start;
+  gap: ${dt('dimension.space.200')};
+}
+
+/* Выравнивание по вертикали идёт по ПЕРВОЙ строке подписи, а не по блоку целиком: с caption
+   или с переносом на узком экране блок выше индикатора, и центрирование целиком уводило бы
+   индикатор между строк. Строке задана высота индикатора — их центры совпадают. */
+.radio-label {
+  display: flex;
+  align-items: center;
+  min-height: ${dt('radiobutton.root.height')};
+}
+
+/* label-position=left — меняется только порядок, разметка та же. */
+.extra-radiobutton--left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
 /* Focus ring с зеленым цветом для валидных состояний */
 .p-radiobutton:not(.p-disabled):not(.p-invalid):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box,
 .p-radiobutton-checked:not(.p-disabled):not(.p-invalid):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
