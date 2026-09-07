@@ -34,7 +34,7 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 /* ─── Invalid + Focus ─── */
 .p-inputtext.p-invalid:focus {
   border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
+  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.border.status.danger.focus')};
 }
 
 /* ─── Extra Large ─── */
