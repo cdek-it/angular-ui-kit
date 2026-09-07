@@ -83,7 +83,7 @@ export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
   /** Класс иконки tabler icon; null скрывает иконку; undefined (не задан) — стандартная по severity. */
   @Input() icon: string | null | undefined = undefined;
   @Input() showClose = false;
-  /** Ширина сообщения: small 272 / base 336 / large 400 / xlarge 630 / fill — на всю ширину контейнера. */
+  /** Ширина сообщения; `fill` — на всю ширину контейнера. */
   @Input() size: ExtraMessageSize = 'base';
 
   @Output() onClose = new EventEmitter<void>();

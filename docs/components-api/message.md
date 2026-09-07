@@ -14,7 +14,7 @@
 | `caption`    | пояснение сообщения                                                                           | `string`                                   |
 | `icon`       | класс иконки tabler icon (вместо стандартной для `severity`). значение `null` скрывает иконку | `string \| null`                           |
 | `show-close` | кнопка закрытия                                                                               | `boolean`                                  |
-| `size`       | ширина сообщения: 272 / 336 / 400 / 630 px; `fill` — на всю ширину контейнера                 | `small \| base \| large \| xlarge \| fill` |
+| `size`       | ширина сообщения; `fill` — на всю ширину контейнера                                           | `small \| base \| large \| xlarge \| fill` |
 
 # Слоты (content projection)
 
