@@ -8,7 +8,7 @@
 | --------------- | --------------------------------------------- | -------------------------------------------------- |
 | `label`         | текст на кнопке                               | `string`                                           |
 | `icon`          | класс иконки tabler icon на кнопке            | `string`                                           |
-| `icon-position` | позиция иконки относительно текста            | `left \| right`                                    |
+| `iconPosition`  | позиция иконки относительно текста            | `left \| right`                                    |
 | `variant`       | вариант отображения кнопки                    | `primary \| secondary \| tertiary \| text \| link` |
 | `severity`      | семантическое состояние кнопки                | `base \| danger \| warning \| success \| info`     |
 | `size`          | размер кнопки                                 | `small \| base \| large \| xlarge`                 |

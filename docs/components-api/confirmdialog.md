@@ -8,13 +8,13 @@
 | --------------- | --------------------------------------------------- | -------------------------------------- |
 | `severity`      | стиль окна (иконка и тон заголовка)                 | `danger \| warning \| success \| info \| help` |
 | `header`        | заголовок окна                                      | `string`                               |
-| `show-header`   | отображать верхний колонтитул                       | `boolean`                              |
-| `accept-label`          | текст кнопки подтверждения            | `string`                               |
-| `accept-icon`           | класс иконки tabler icon для подтверждения | `string`                         |
-| `accept-icon-position`  | положение иконки подтверждения        | `left \| right`                        |
-| `reject-label`          | текст кнопки отмены                   | `string`                               |
-| `reject-icon`           | класс иконки tabler icon для отмены   | `string`                               |
-| `reject-icon-position`  | положение иконки отмены               | `left \| right`                        |
+| `showHeader`     | отображать верхний колонтитул                       | `boolean`                              |
+| `acceptLabel`         | текст кнопки подтверждения            | `string`                               |
+| `acceptIcon`          | класс иконки tabler icon для подтверждения | `string`                         |
+| `acceptIconPosition`  | положение иконки подтверждения        | `left \| right`                        |
+| `rejectLabel`         | текст кнопки отмены                   | `string`                               |
+| `rejectIcon`          | класс иконки tabler icon для отмены   | `string`                               |
+| `rejectIconPosition`  | положение иконки отмены               | `left \| right`                        |
 
 # Слоты (content projection)
 
@@ -26,5 +26,5 @@
 
 | Событие   | Описание                         | Типизация  |
 | --------- | -------------------------------- | ---------- |
-| `onShow`  | срабатывает при открытии окна    | `() => void` |
-| `onHide`  | срабатывает при закрытии окна    | `() => void` |
+| `show`  | срабатывает при открытии окна    | `() => void` |
+| `hide`  | срабатывает при закрытии окна    | `() => void` |

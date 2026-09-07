@@ -8,9 +8,9 @@
 | ---------------- | ----------------------------------------------------------------------- | -------------------------- |
 | `placeholder`    | текст подсказки внутри поля                                             | `string`                   |
 | `label`          | текст названия поля                                                     | `string`                   |
-| `label-position` | положение лейбла                                                        | `default \| float \| left` |
+| `labelPosition`  | положение лейбла                                                        | `left \| top \| float`      |
 | `clearable`      | отображение иконки для очистки поля                                     | `boolean`                  |
 | `caption`        | текст пояснения под полем                                               | `string`                   |
 | `info`           | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                   |
-| `size`           | размер поля                                                             | `sm \| base \| lg \| xlg`  |
+| `size`           | размер поля                                                             | `small \| base \| large \| xlarge` |
 | `type`           | тип поля input                                                          | `text \| password`         |

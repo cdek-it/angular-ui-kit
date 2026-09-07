@@ -6,20 +6,20 @@
 | ---------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `placeholder`    | текст подсказки внутри поля                                             | `string`                                                         |
 | `label`          | текст названия поля                                                     | `string`                                                         |
-| `label-position` | положение лейбла                                                        | `default \| float \| left`                                       |
+| `labelPosition`  | положение лейбла                                                        | `left \| top \| float`                                           |
 | `multiple`       | множественный выбор значений (выбранные отображаются в виде chips)      | `boolean`                                                        |
 | `suggestions`    | список предлагаемых вариантов, выводимых в оверлее                      | `ExtraAutoCompleteGroup[] \| ExtraAutoCompleteOption[] \| any[]` |
 | `completeMethod` | функция, загружающая `suggestions` в зависимости от введённого значения | `(event: ExtraAutoCompleteCompleteEvent) => void`                |
 | `optionLabel`    | наименование поля, содержащего отображаемое значение                    | `string`                                                         |
 | `loading`        | отображение индикатора загрузки                                         | `boolean`                                                        |
-| `chip`           | отображать выбранные значения в виде chips                              | `boolean`                                                        |
-| `chip-icon`      | класс иконки tabler icon для элементов при отображении chips            | `string`                                                         |
-| `chip-clearable` | отображение иконки удаления chip                                        | `boolean`                                                        |
-| `show-checkbox`  | отображать чекбокс у option                                             | `boolean`                                                        |
+| `showChips`      | отображать выбранные значения в виде chips                              | `boolean`                                                        |
+| `chipIcon`       | класс иконки tabler icon для элементов при отображении chips            | `string`                                                         |
+| `chipClearable`  | отображение иконки удаления chip                                        | `boolean`                                                        |
+| `showCheckbox`   | отображать чекбокс у option                                             | `boolean`                                                        |
 | `clearable`      | отображение иконки для очистки поля                                     | `boolean`                                                        |
 | `caption`        | текст пояснения под полем                                               | `string`                                                         |
 | `info`           | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                                                         |
-| `size`           | размер поля                                                             | `sm \| base \| lg \| xlg`                                        |
+| `size`           | размер поля                                                             | `small \| base \| large \| xlarge`                               |
 
 Группировка элементов определяется по данным: если в `suggestions` передан `ExtraAutoCompleteGroup`, варианты выводятся сгруппированно.
 
@@ -50,16 +50,16 @@
 
 | Событие           | Описание                                 | Типизация                                             |
 | ----------------- | ---------------------------------------- | ----------------------------------------------------- |
-| `onSelect`        | срабатывает при выборе варианта          | `(event: ExtraAutoCompleteSelectEvent) => void`       |
-| `onUnselect`      | срабатывает при снятии выбора            | `(event: ExtraAutoCompleteSelectEvent) => void`       |
-| `onClear`         | срабатывает при очистке значения         | `() => void`                                          |
-| `onShow`          | срабатывает при открытии оверлея         | `() => void`                                          |
-| `onHide`          | срабатывает при закрытии оверлея         | `() => void`                                          |
-| `onDropdownClick` | срабатывает при клике по кнопке dropdown | `(event: ExtraAutoCompleteDropdownClickEvent) => void` |
+| `select`        | срабатывает при выборе варианта          | `(event: ExtraAutoCompleteSelectEvent) => void`       |
+| `unselect`      | срабатывает при снятии выбора            | `(event: ExtraAutoCompleteSelectEvent) => void`       |
+| `clear`         | срабатывает при очистке значения         | `() => void`                                          |
+| `show`          | срабатывает при открытии оверлея         | `() => void`                                          |
+| `hide`          | срабатывает при закрытии оверлея         | `() => void`                                          |
+| `dropdownClick` | срабатывает при клике по кнопке dropdown | `(event: ExtraAutoCompleteDropdownClickEvent) => void` |
 
 # ExtraAutoCompleteSelectEvent
 
-Событие выбора варианта, передаётся в `onSelect` и `onUnselect`.
+Событие выбора варианта, передаётся в `select` и `unselect`.
 
 | Свойство        | Описание          | Типизация |
 | --------------- | ----------------- | --------- |
@@ -68,7 +68,7 @@
 
 # ExtraAutoCompleteDropdownClickEvent
 
-Событие клика по кнопке dropdown, передаётся в `onDropdownClick`.
+Событие клика по кнопке dropdown, передаётся в `dropdownClick`.
 
 | Свойство        | Описание                           | Типизация |
 | --------------- | ---------------------------------- | --------- |

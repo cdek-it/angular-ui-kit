@@ -6,37 +6,37 @@
 | ---------------- | ----------------------------------------------------------------------- | -------------------------- |
 | `placeholder`    | текст подсказки внутри поля                                             | `string`                   |
 | `label`          | текст названия поля                                                     | `string`                   |
-| `label-position` | положение лейбла                                                        | `default \| float \| left` |
+| `labelPosition`  | положение лейбла                                                        | `left \| top \| float`      |
 | `view`           | режим отображения календаря                                             | `day \| month \| year \| time` |
-| `selection-mode` | режим выбора даты                                                       | `single \| multiple \| range` |
-| `show-time`      | включить выбор времени (значение времени в поле + timepicker в календаре) | `boolean`                  |
+| `selectionMode`  | режим выбора даты                                                       | `single \| multiple \| range` |
+| `showTime`       | включить выбор времени (значение времени в поле + timepicker в календаре) | `boolean`                  |
 | `inline`         | отображать календарь встроенно, без поля ввода                          | `boolean`                  |
-| `show-button-bar`| отображать блок с кнопками (Сегодня / Очистить)                         | `boolean`                  |
+| `showButtonBar`  | отображать блок с кнопками (Сегодня / Очистить)                         | `boolean`                  |
 | `clearable`      | отображение иконки для очистки поля                                     | `boolean`                  |
-| `date-format`    | формат отображения даты                                                 | `string`                   |
-| `min-date`       | минимальная выбираемая дата                                             | `Date`                     |
-| `max-date`       | максимальная выбираемая дата                                            | `Date`                     |
+| `dateFormat`     | формат отображения даты                                                 | `string`                   |
+| `minDate`        | минимальная выбираемая дата                                             | `Date`                     |
+| `maxDate`        | максимальная выбираемая дата                                            | `Date`                     |
 | `caption`        | текст пояснения под полем                                               | `string`                   |
 | `info`           | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                   |
-| `size`           | размер поля                                                             | `sm \| base \| lg \| xlg`  |
+| `size`           | размер поля                                                             | `small \| base \| large \| xlarge` |
 
 # События
 
 | Событие          | Описание                                          | Типизация                                    |
 | ---------------- | ------------------------------------------------- | -------------------------------------------- |
-| `onInput`        | срабатывает при ручном вводе значения в поле      | `(event: Event) => void`                     |
-| `onSelect`       | срабатывает при выборе даты в календаре           | `(value: Date) => void`                      |
-| `onClear`        | срабатывает при очистке значения                  | `() => void`                                 |
-| `onShow`         | срабатывает при открытии календаря                | `() => void`                                 |
-| `onHide`         | срабатывает при закрытии календаря                | `() => void`                                 |
-| `onMonthChange`  | срабатывает при смене месяца                      | `(event: ExtraDatePickerViewChangeEvent) => void` |
-| `onYearChange`   | срабатывает при смене года                        | `(event: ExtraDatePickerViewChangeEvent) => void` |
-| `onTodayClick`   | срабатывает при клике по кнопке «Сегодня»         | `(value: Date) => void`                      |
-| `onClearClick`   | срабатывает при клике по кнопке «Очистить»        | `() => void`                                 |
+| `input`          | срабатывает при ручном вводе значения в поле      | `(event: Event) => void`                     |
+| `select`         | срабатывает при выборе даты в календаре           | `(value: Date) => void`                      |
+| `clear`          | срабатывает при очистке значения                  | `() => void`                                 |
+| `show`           | срабатывает при открытии календаря                | `() => void`                                 |
+| `hide`           | срабатывает при закрытии календаря                | `() => void`                                 |
+| `monthChange`    | срабатывает при смене месяца                      | `(event: ExtraDatePickerViewChangeEvent) => void` |
+| `yearChange`     | срабатывает при смене года                        | `(event: ExtraDatePickerViewChangeEvent) => void` |
+| `todayClick`     | срабатывает при клике по кнопке «Сегодня»         | `(value: Date) => void`                      |
+| `clearClick`     | срабатывает при клике по кнопке «Очистить»        | `() => void`                                 |
 
 # ExtraDatePickerViewChangeEvent
 
-Событие смены месяца/года, передаётся в `onMonthChange` и `onYearChange`.
+Событие смены месяца/года, передаётся в `monthChange` и `yearChange`.
 
 | Свойство | Описание        | Типизация |
 | -------- | --------------- | --------- |

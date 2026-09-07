@@ -5,14 +5,14 @@
 | Свойство         | Описание                    | Типизация          |
 | ---------------- | --------------------------- | ------------------ |
 | `label`          | текст названия              | `string`           |
-| `label-position` | положение лейбла            | `default \| left`  |
+| `labelPosition`  | положение лейбла            | `left \| right`    |
 | `caption`        | текст пояснения под лейблом | `string`           |
 
 # События
 
 | Событие     | Описание                      | Типизация                                          |
 | ----------- | ----------------------------- | -------------------------------------------------- |
-| `onChange`  | срабатывает при переключении  | `(event: ExtraToggleSwitchChangeEvent) => void`    |
+| `change`    | срабатывает при переключении  | `(event: ExtraToggleSwitchChangeEvent) => void`    |
 
 # ExtraToggleSwitchChangeEvent
 
