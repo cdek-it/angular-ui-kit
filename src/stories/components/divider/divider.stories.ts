@@ -6,9 +6,14 @@ import {
 } from './examples/divider-with-content.component';
 import { DividerWithIconComponent, WithIcon as WithIconStory } from './examples/divider-with-icon.component';
 import { AlignLeft as AlignLeftStory, DividerAlignLeftComponent } from './examples/divider-align-left.component';
-import { AlignBottom as AlignBottomStory, DividerAlignBottomComponent } from './examples/divider-align-bottom.component';
+import {
+  AlignBottom as AlignBottomStory,
+  DividerAlignBottomComponent
+} from './examples/divider-align-bottom.component';
 
-const meta: Meta<DividerComponent> = {
+type DividerArgs = DividerComponent & { horizontalAlign: string; verticalAlign: string; content: string };
+
+const meta: Meta<DividerArgs> = {
   title: 'Components/Panel/Divider',
   component: DividerComponent,
   tags: ['autodocs'],
@@ -56,14 +61,37 @@ import { DividerModule } from 'primeng/divider';
         type: { summary: "'solid' | 'dash'" }
       }
     },
-    align: {
+    align: { table: { disable: true } },
+    horizontalAlign: {
+      name: 'align',
       control: 'select',
-      options: ['left', 'center', 'right', 'top', 'bottom'],
+      options: ['left', 'center', 'right'],
       description: 'Выравнивание контента внутри разделителя',
       table: {
         category: 'Props',
         defaultValue: { summary: 'center' },
-        type: { summary: "'left' | 'center' | 'right' | 'top' | 'bottom'" }
+        type: { summary: "'left' | 'center' | 'right'" }
+      },
+      if: { arg: 'layout', eq: 'horizontal' }
+    },
+    verticalAlign: {
+      name: 'align',
+      control: 'select',
+      options: ['top', 'center', 'bottom'],
+      description: 'Выравнивание контента внутри разделителя',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'center' },
+        type: { summary: "'top' | 'center' | 'bottom'" }
+      },
+      if: { arg: 'layout', eq: 'vertical' }
+    },
+    content: {
+      control: 'text',
+      description: 'Контент разделителя (content projection); выравнивать без него нечего',
+      table: {
+        category: 'Слоты',
+        type: { summary: 'ng-content' }
       }
     }
   }
@@ -78,29 +106,38 @@ const commonTemplate = `
 `;
 
 export default meta;
-type Story = StoryObj<DividerComponent>;
+type Story = StoryObj<DividerArgs>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
+    const layout = args.layout ?? 'horizontal';
+    const align = layout === 'vertical' ? (args.verticalAlign ?? 'center') : (args.horizontalAlign ?? 'center');
+
     const parts: string[] = [];
 
-    if (args.layout && args.layout !== 'horizontal') parts.push(`layout="${args.layout}"`);
+    if (layout !== 'horizontal') parts.push(`layout="${layout}"`);
     if (args.type && args.type !== 'solid') parts.push(`type="${args.type}"`);
-    if (args.align && args.align !== 'center') parts.push(`align="${args.align}"`);
+    if (align !== 'center') parts.push(`align="${align}"`);
 
-    const template = parts.length
-      ? `<extra-divider\n  ${parts.join('\n  ')}\n></extra-divider>`
-      : `<extra-divider></extra-divider>`;
+    const attrs = parts.length ? `\n  ${parts.join('\n  ')}\n` : '';
+    const content = args.content ? `\n  <span>${args.content}</span>\n` : '';
+    const divider = `<extra-divider${attrs}>${content}</extra-divider>`;
+
+    /* Вертикальному разделителю нужна высота от родителя: без неё он ровно по контенту,
+       и выравнивать внутри нечего — top, center и bottom дают одно и то же. */
+    const template = layout === 'vertical' ? `<div class="flex h-40">\n  ${divider}\n</div>` : divider;
 
     return { props: args, template };
   },
   args: {
     layout: 'horizontal',
     type: 'solid',
-    align: 'center'
+    horizontalAlign: 'center',
+    verticalAlign: 'center',
+    content: 'Отправитель'
   },
   parameters: {
     docs: {
