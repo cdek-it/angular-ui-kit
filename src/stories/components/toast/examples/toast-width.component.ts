@@ -12,10 +12,7 @@ const SIZES = [
 ] as const;
 
 const template = `
-<extra-toast
-  key="width-preview"
-  [pt]="{ root: { style: { '--p-toast-width': currentWidth } } }"
-></extra-toast>
+<extra-toast key="width-preview" [style.--p-toast-width]="currentWidth"></extra-toast>
 
 <div class="flex flex-col gap-4">
   @for (s of sizes; track s.key) {
@@ -66,8 +63,8 @@ export class ToastWidthComponent {
     this.toastService.add({
       key: 'width-preview',
       severity: 'info',
-      summary: 'Сообщение',
-      detail: 'Ширина: ' + cssVar,
+      message: 'Сообщение',
+      caption: 'Ширина: ' + cssVar,
       life: 3000,
       icon: 'ti ti-info-circle'
     });
@@ -80,7 +77,7 @@ export const Width: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Ширина задаётся через CSS-переменную `--p-toast-width` с помощью пропа `pt`.' },
+      description: { story: 'Ширина задаётся через CSS-переменную `--p-toast-width` прямо на теге `<extra-toast>`.' },
       source: {
         language: 'ts',
         code: `
@@ -98,10 +95,7 @@ const SIZES = [
   standalone: true,
   imports: [ExtraToastComponent, ExtraButtonComponent],
   template: \`
-    <extra-toast
-      key="width-preview"
-      [pt]="{ root: { style: { '--p-toast-width': currentWidth } } }"
-    ></extra-toast>
+    <extra-toast key="width-preview" [style.--p-toast-width]="currentWidth"></extra-toast>
 
     <div class="flex flex-wrap gap-2">
       @for (s of sizes; track s.key) {
@@ -126,8 +120,8 @@ export class ExampleComponent {
     this.toastService.add({
       key: 'width-preview',
       severity: 'info',
-      summary: 'Сообщение',
-      detail: 'Ширина: ' + cssVar,
+      message: 'Сообщение',
+      caption: 'Ширина: ' + cssVar,
       life: 3000,
       icon: 'ti ti-info-circle',
     });

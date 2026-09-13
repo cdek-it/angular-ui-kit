@@ -5,18 +5,18 @@ import { ExtraToastComponent } from '../../../../lib/components/toast/toast.comp
 import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
 const SEVERITIES = [
-  { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
-  { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
-  { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
-  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' }
+  { severity: 'info', primeClass: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
+  { severity: 'success', primeClass: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
+  { severity: 'warning', primeClass: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
+  { severity: 'danger', primeClass: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' }
 ] as const;
 
 const template = `
 <extra-toast key="with-close"></extra-toast>
 
 <div class="flex flex-col gap-4">
-  @for (s of severities; track s.type) {
-    <div [class]="'p-toast-message p-toast-message-' + s.type">
+  @for (s of severities; track s.severity) {
+    <div [class]="'p-toast-message p-toast-message-' + s.primeClass">
       <div class="p-toast-message-content">
         <div class="p-toast-accent-line"></div>
         <i [class]="s.icon + ' p-toast-message-icon'"></i>
@@ -24,10 +24,7 @@ const template = `
           <span class="p-toast-summary">Сообщение</span>
           <div class="p-toast-detail">Подпись</div>
         </div>
-        <button
-          type="button"
-          class="p-button p-component p-button-text p-toast-close-button"
-        >
+        <button type="button" class="p-button p-component p-button-text p-toast-close-button">
           <span class="p-button-icon ti ti-x"></span>
         </button>
       </div>
@@ -36,12 +33,12 @@ const template = `
 </div>
 
 <div class="flex flex-wrap gap-2 mt-6">
-  @for (s of severities; track s.type) {
+  @for (s of severities; track s.severity) {
     <extra-button
       [label]="'Показать: ' + s.label"
-      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : 'base'"
+      [severity]="s.severity === 'danger' || s.severity === 'warning' ? s.severity : 'base'"
       variant="tertiary"
-      (click)="show(s.type, s.icon)"
+      (click)="show(s.severity, s.icon)"
     ></extra-button>
   }
 </div>
@@ -60,15 +57,14 @@ export class ToastWithCloseButtonComponent {
 
   constructor(private readonly toastService: ExtraToastService) {}
 
-  show(severity: string, icon: string): void {
+  show(severity: 'info' | 'success' | 'warning' | 'danger', icon: string): void {
     this.toastService.add({
       key: 'with-close',
-      severity: severity as any,
-      summary: 'Сообщение',
-      detail: 'Подпись',
-      life: 5000,
+      severity,
+      message: 'Сообщение',
+      caption: 'Подпись',
       icon,
-      closable: true
+      showClose: true
     });
   }
 }
@@ -79,18 +75,11 @@ export const WithCloseButton: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Уведомления с кнопкой закрытия (closable: true).' },
+      description: { story: 'Уведомления с кнопкой закрытия (`showClose: true`).' },
       source: {
         language: 'ts',
         code: `
 import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
-
-const SEVERITIES = [
-  { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
-  { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
-  { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
-  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
-] as const;
 
 @Component({
   selector: 'app-example',
@@ -99,32 +88,19 @@ const SEVERITIES = [
   template: \`
     <extra-toast key="with-close"></extra-toast>
 
-    <div class="flex flex-wrap gap-2">
-      @for (s of severities; track s.type) {
-        <extra-button
-          [label]="'Показать: ' + s.label"
-          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : 'base'"
-          variant="tertiary"
-          (click)="show(s.type, s.icon)"
-        ></extra-button>
-      }
-    </div>
+    <extra-button label="Показать" variant="tertiary" (click)="show()"></extra-button>
   \`,
 })
 export class ExampleComponent {
-  readonly severities = SEVERITIES;
-
   constructor(private toastService: ExtraToastService) {}
 
-  show(severity: string, icon: string): void {
+  show(): void {
     this.toastService.add({
       key: 'with-close',
-      severity: severity as any,
-      summary: 'Сообщение',
-      detail: 'Подпись',
-      life: 5000,
-      icon,
-      closable: true,
+      severity: 'info',
+      message: 'Сообщение',
+      caption: 'Подпись',
+      showClose: true,
     });
   }
 }
