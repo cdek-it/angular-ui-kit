@@ -10,32 +10,26 @@ figma:
   componentKey: 'b2f1d57bdcaefad98286b9316272c0b64bb268d8'
   name: '<RadioButton>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-09-04'
 ---
 
 ## Overview
 
-`ExtraRadiobutton` — радиокнопка для выбора ровно одного варианта из взаимоисключающей группы. Внутри группы радиокнопки объединяются общим `name`, выбор одиночный, снять выбор нельзя. Оборачивает PrimeNG `p-radiobutton` и реализует `ControlValueAccessor`, поэтому работает с `[(ngModel)]` и реактивными формами (`formControl` / `formControlName`).
+`ExtraRadiobutton` — радиокнопка для выбора ровно одного варианта из взаимоисключающей группы. Внутри группы радиокнопки объединяются общим `name` и одной моделью, выбор одиночный, снять выбор нельзя. Компонент сам рендерит подпись (`label`) и пояснение (`caption`) рядом с контролом — не требует внешней обёртки `<label>`. Оборачивает PrimeNG `p-radiobutton` и реализует `ControlValueAccessor`, поэтому работает с `[(ngModel)]` и реактивными формами (`formControl` / `formControlName`).
 
-Компонент соответствует Figma-компоненту `<RadioButton>` (nodeId `17:13535`) с VARIANT-свойствами `state` (default, focus, hover, danger, disabled) и `checked` (false, true).
+Компонент соответствует Figma-компоненту `<RadioButton>` (nodeId `17:13535`) с VARIANT-свойствами `state` (default, focus, hover, danger, disabled) и `checked` (false, true). У самого radio-индикатора нет вариантов размера/оформления — `label`/`caption`/`label-position` берутся из композитного шаблона подписи поля.
 
 ## Props mapping
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
+| `label` | `string` | `''` | Текст названия; без `label` и `caption` рендерится голый индикатор без обёртки |
+| `labelPosition` | `'right' \| 'left'` | `'right'` | Положение лейбла относительно индикатора |
+| `caption` | `string` | `''` | Текст пояснения под лейблом |
 | `value` | `any` | `null` | Значение, которое получит модель при выборе этой радиокнопки |
-| `name` | `string \| undefined` | `undefined` | Имя группы; одинаковое значение объединяет радиокнопки во взаимоисключающую группу |
-| `disabled` | `boolean` | `false` | Отключённое состояние — соответствует Figma-свойству `state=disabled` |
-| `invalid` | `boolean` | `false` | Признак невалидности — соответствует Figma-свойству `state=danger` |
-| `variant` | `'outlined' \| 'filled'` | `'outlined'` | Вариант оформления контрола |
-| `size` | `'small' \| 'base' \| 'large'` | `'base'` | Размер радиокнопки |
-| `inputId` | `string \| undefined` | `undefined` | `id` нативного `input`; используется для связи с внешним `<label for="...">` |
-| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
-| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
-| `ariaLabelledBy` | `string \| undefined` | `undefined` | `id` элемента, выступающего меткой для скринридера |
-| `autofocus` | `boolean` | `false` | Автофокус при монтировании компонента |
+| `name` | `string \| undefined` | `undefined` | Имя группы; вне спеки (форм-обвязка). Не влияет на взаимоисключение — оно обеспечивается общим `[formControl]`/`[(ngModel)]` (компонент подписывается на `NgControl.valueChanges`, чтобы синхронизировать соседние радиокнопки при выборе одной). Рекомендуется задавать: одинаковый `name` внутри одной группы — для нативной клавиатурной навигации между `<input type="radio">`, и уникальный между независимыми группами на одной странице — иначе браузер сгруппирует их нативно по `name` в обход Angular |
 
-Состояния `state=focus` и `state=hover` в Figma — интерактивные, отдельных `@Input` не имеют и воспроизводятся браузером автоматически. Состояние `checked` в Figma управляется значением модели через `[(ngModel)]` / `formControl`, а не отдельным `@Input`.
+`disabled` и `invalid` в спеке не описаны (форма/состояния стек-зависимы, см. `common-info.md`) — управляются через Angular-формы: `disabled` — `FormControl.disable()`, `invalid` — вычисляется из `NgControl` (`Validators`), как у `ExtraCheckbox`.
 
 ## Variants
 
@@ -44,35 +38,23 @@ updated: '2026-06-22'
 Figma: `<RadioButton>`, state=default, checked=false — nodeId `17:13535`
 
 ```html
-<extra-radiobutton
-  value="option1"
-  name="delivery"
-  [(ngModel)]="selected"
-></extra-radiobutton>
+<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="control"></extra-radiobutton>
 ```
 
 ### Checked (выбранная)
 
 Figma: `<RadioButton>`, state=default, checked=true
 
-Выбранное состояние задаётся равенством `value` и значения модели (`selected === 'option1'`).
-
-```html
-<extra-radiobutton
-  value="option1"
-  name="delivery"
-  [(ngModel)]="selected"
-></extra-radiobutton>
-```
+Выбранное состояние задаётся равенством `value` и значения модели (`control.value === 'option1'`).
 
 ### Группа вариантов
 
 Figma: `<RadioButton>`, общий `name`, одиночный выбор внутри группы
 
 ```html
-<extra-radiobutton value="pickup" name="delivery" [(ngModel)]="selected"></extra-radiobutton>
-<extra-radiobutton value="courier" name="delivery" [(ngModel)]="selected"></extra-radiobutton>
-<extra-radiobutton value="post" name="delivery" [(ngModel)]="selected"></extra-radiobutton>
+<extra-radiobutton value="pickup" name="delivery" label="Самовывоз" [formControl]="control"></extra-radiobutton>
+<extra-radiobutton value="courier" name="delivery" label="Курьером" [formControl]="control"></extra-radiobutton>
+<extra-radiobutton value="post" name="delivery" label="Почтой" [formControl]="control"></extra-radiobutton>
 ```
 
 ### Disabled (отключённая)
@@ -80,12 +62,11 @@ Figma: `<RadioButton>`, общий `name`, одиночный выбор вну�
 Figma: `<RadioButton>`, state=disabled
 
 ```html
-<extra-radiobutton
-  value="option1"
-  name="delivery"
-  [disabled]="true"
-  [(ngModel)]="selected"
-></extra-radiobutton>
+<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="disabledControl"></extra-radiobutton>
+```
+
+```typescript
+disabledControl = new FormControl({ value: null, disabled: true });
 ```
 
 ### Invalid / Danger (невалидная)
@@ -93,57 +74,49 @@ Figma: `<RadioButton>`, state=disabled
 Figma: `<RadioButton>`, state=danger
 
 ```html
-<extra-radiobutton
-  value="option1"
-  name="delivery"
-  [invalid]="true"
-  [(ngModel)]="selected"
-></extra-radiobutton>
+<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="requiredControl"></extra-radiobutton>
 ```
 
-### Filled (залитый вариант)
+```typescript
+requiredControl = new FormControl(null, Validators.required);
+```
 
-Figma: `<RadioButton>`, variant=filled
+### Caption (пояснение под лейблом)
 
 ```html
 <extra-radiobutton
   value="option1"
   name="delivery"
-  variant="filled"
-  [(ngModel)]="selected"
+  label="Курьером"
+  caption="Доставим за 1-2 дня"
+  [formControl]="control"
 ></extra-radiobutton>
 ```
 
-### Large (крупный размер)
+### Label справа / слева (label-position=right|left)
 
-Figma: `<RadioButton>`, size=large
+`right` — значение по умолчанию, лейбл справа от индикатора; `left` — лейбл слева.
 
 ```html
+<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="control"></extra-radiobutton>
+
 <extra-radiobutton
   value="option1"
   name="delivery"
-  size="large"
-  [(ngModel)]="selected"
+  label="Курьером"
+  labelPosition="left"
+  [formControl]="control"
 ></extra-radiobutton>
-```
-
-### Реактивная форма (formControl)
-
-Figma: `<RadioButton>`, общий `name`, одиночный выбор внутри группы
-
-```html
-<extra-radiobutton value="pickup" name="delivery" [formControl]="deliveryControl"></extra-radiobutton>
-<extra-radiobutton value="courier" name="delivery" [formControl]="deliveryControl"></extra-radiobutton>
 ```
 
 ## Slots
 
-Не используются. Метка к радиокнопке добавляется внешним `<label [attr.for]="inputId">` или композитным шаблоном `Label.Radio`.
+Не используются. `label`/`caption` — обычные `@Input()`, не content projection.
 
 ## Related
 
+- [ExtraCheckbox](../checkbox/checkbox.figma.md) — тот же паттерн label/caption + FormControl, множественный выбор вместо одиночного
 - [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний (danger, disabled)
-- [Иконки](../../figma-code-connect/icons.md) — доступные иконки (`pi pi-*`)
 - [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
 - [ExtraInputText](../inputtext/inputtext.figma.md) — текстовое поле формы
 - [ExtraButton](../button/button.figma.md) — кнопка действия
@@ -151,13 +124,13 @@ Figma: `<RadioButton>`, общий `name`, одиночный выбор вну�
 ## Do / Don't
 
 **Do:**
-- Объединяйте радиокнопки одной группы общим `name` и связывайте с одной моделью через `[(ngModel)]` или `formControl`
+- Объединяйте радиокнопки одной группы общим `name` и связывайте с одной моделью через `[(ngModel)]` или `[formControl]`
 - Используйте радиокнопки, когда нужно выбрать ровно один из взаимоисключающих вариантов
-- Задавайте `inputId` и связывайте с внешней меткой `<label>` для доступности и кликабельности подписи
-- Применяйте `[invalid]="true"` для подсветки ошибки валидации формы
+- Передавайте `label` — радиокнопка без видимой подписи не соответствует спеке
+- Управляйте `disabled`/`invalid` через `FormControl`, а не отдельными `@Input()`
 
 **Don't:**
 - Не используйте радиокнопки для множественного выбора — для этого есть Checkbox
-- Не оставляйте радиокнопку без видимой метки — подпись обязательна
+- Не оставляйте радиокнопку без `label` и `caption` одновременно без причины — подпись обязательна
 - Не пытайтесь снять выбор у радиокнопки повторным кликом: одиночный выбор в группе снять нельзя
-- Не задавайте разный `name` радиокнопкам одной группы — они перестанут быть взаимоисключающими
+- Не переиспользуйте один и тот же `name` для разных независимых групп на одной странице — браузер группирует `<input type="radio">` по `name` нативно, в обход Angular, и это может визуально «переключить» несвязанную группу
