@@ -4,37 +4,45 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraInputNumberComponent } from '../../../../lib/components/inputnumber/inputnumber.component';
 
 const template = `
-<div class="pt-6 w-64">
+<div class="flex flex-col gap-4">
   <extra-input-number
-    [formControl]="control"
-    [floatLabel]="true"
-    label="Количество"
+    [formControl]="filled"
+    [clearable]="true"
+    label="С очисткой"
+    placeholder="0"
+    caption="Иконка × появляется при наличии значения"
+  ></extra-input-number>
+  <extra-input-number
+    [formControl]="empty"
+    [clearable]="true"
+    label="С очисткой (пустое)"
+    placeholder="0"
   ></extra-input-number>
 </div>
 `;
 
 @Component({
-  selector: 'app-inputnumber-float-label',
+  selector: 'app-inputnumber-clearable',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraInputNumberComponent, ReactiveFormsModule],
   template
 })
-export class InputNumberFloatLabelComponent {
-  control = new FormControl<number | null>(null);
+export class InputNumberClearableComponent {
+  filled = new FormControl<number | null>(42);
+  empty = new FormControl<number | null>(null);
 }
 
-export const FloatLabelStory: StoryObj = {
-  name: 'FloatLabel',
+export const Clearable: StoryObj = {
   render: () => ({
-    template: `<app-inputnumber-float-label></app-inputnumber-float-label>`
+    template: `<app-inputnumber-clearable></app-inputnumber-clearable>`
   }),
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
         story:
-          'Плавающая метка внутри поля через `[floatLabel]="true"` — обёртка сама рисует `p-floatlabel` и лейбл, ничего дополнительно оборачивать не нужно. Несовместимо с `showButtons` (кнопки будут скрыты).'
+          'Поле с иконкой очистки (clearable) — соответствует PrimeNG `showClear`. Иконка появляется только при наличии значения.'
       },
       source: {
         language: 'ts',
@@ -44,18 +52,20 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
+  selector: 'app-inputnumber-clearable',
   standalone: true,
   imports: [ExtraInputNumberComponent, ReactiveFormsModule],
   template: \`
     <extra-input-number
       [formControl]="control"
-      [floatLabel]="true"
-      label="Количество"
+      [clearable]="true"
+      label="С очисткой"
+      placeholder="0"
     ></extra-input-number>
   \`,
 })
-export class InputNumberFloatLabelExample {
-  control = new FormControl<number | null>(null);
+export class InputNumberClearableComponent {
+  control = new FormControl<number | null>(42);
 }
         `
       }
