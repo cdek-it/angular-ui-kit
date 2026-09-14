@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   Component,
   ContentChild,
   Directive,
@@ -16,16 +17,33 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from 
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
-import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
+import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
 export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraSelectChangeEvent = SelectChangeEvent;
-export type ExtraSelectFilterEvent = SelectFilterEvent;
+export type ExtraSelectLabelPosition = 'left' | 'top' | 'float';
 
-export interface ExtraAnimationEvent extends NativeAnimationEvent {}
+export interface ExtraSelectOption {
+  name: string;
+  code: string | number;
+}
 
-// export class ExtraAnimationEvent
+export interface ExtraSelectGroup {
+  options: ExtraSelectOption[] | any[];
+  name: string;
+}
+
+export interface ExtraSelectChangeEvent {
+  value: any;
+  originalEvent: Event;
+}
+
+export interface ExtraSelectFilterEvent {
+  filter: string;
+  originalEvent: Event;
+}
+
+let nextInputId = 0;
 
 @Directive({ selector: '[extraSelectOption]', standalone: true })
 export class ExtraSelectOptionDirective {}
@@ -39,7 +57,8 @@ export class ExtraSelectOptionGroupDirective {}
 @Component({
   selector: 'extra-select',
   standalone: true,
-  imports: [Select, NgClass, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel],
+  imports: [Select, NgClass, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel, ExtraTooltipDirective],
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -48,14 +67,42 @@ export class ExtraSelectOptionGroupDirective {}
     }
   ],
   template: `
-    @if (floatLabel) {
-      <p-floatlabel variant="in">
-        <ng-container *ngTemplateOutlet="selectTpl"></ng-container>
-        <label [attr.for]="inputId">{{ label }}</label>
-      </p-floatlabel>
+    @if (label || caption) {
+      <div class="extra-select" [class.extra-select--left]="labelPosition === 'left'">
+        @if (label && labelPosition === 'left') {
+          <ng-container [ngTemplateOutlet]="labelTpl" />
+        }
+        <div class="extra-select-body">
+          @if (label && labelPosition === 'top') {
+            <ng-container [ngTemplateOutlet]="labelTpl" />
+          }
+          @if (labelPosition === 'float') {
+            <p-floatlabel variant="in">
+              <ng-container [ngTemplateOutlet]="selectTpl" />
+              @if (label) {
+                <ng-container [ngTemplateOutlet]="labelTpl" />
+              }
+            </p-floatlabel>
+          } @else {
+            <ng-container [ngTemplateOutlet]="selectTpl" />
+          }
+          @if (caption) {
+            <div class="extra-select-caption">{{ caption }}</div>
+          }
+        </div>
+      </div>
     } @else {
-      <ng-container *ngTemplateOutlet="selectTpl"></ng-container>
+      <ng-container [ngTemplateOutlet]="selectTpl" />
     }
+
+    <ng-template #labelTpl>
+      <label class="extra-select-label" [for]="inputId">
+        {{ label }}
+        @if (info) {
+          <i class="extra-select-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
+        }
+      </label>
+    </ng-template>
 
     <ng-template #selectTpl>
       <p-select
@@ -70,23 +117,23 @@ export class ExtraSelectOptionGroupDirective {}
         [optionGroupChildren]="optionGroupChildren"
         [group]="group"
         [placeholder]="placeholder"
-        [filter]="filter"
-        [showClear]="showClear"
+        [filter]="showFilter"
+        [showClear]="clearable"
         [editable]="editable"
         [readonly]="readonly"
         [loading]="loading"
         [inputId]="inputId"
         [appendTo]="appendTo"
         [size]="primeSize"
-        [checkmark]="checkmark"
+        [checkmark]="showCheckbox"
         [panelStyle]="panelStyle"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
         (onChange)="onSelectChange($event)"
-        (onClear)="onClear.emit($event)"
-        (onFilter)="onFilter.emit($event)"
-        (onShow)="onShow.emit($event)"
-        (onHide)="onHide.emit($event)"
+        (onClear)="onClear.emit()"
+        (onFilter)="onFilterHandler($event)"
+        (onShow)="onShow.emit()"
+        (onHide)="onHide.emit()"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="handleBlur($event)"
       >
@@ -126,7 +173,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
   }
 
-  @Input() options: any[] | null | undefined;
+  @Input() options: ExtraSelectGroup[] | ExtraSelectOption[] | any[] | null | undefined;
   @Input() optionLabel: string | undefined;
   @Input() optionValue: string | undefined;
   @Input() optionDisabled: string | undefined;
@@ -134,17 +181,19 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input() optionGroupChildren = 'items';
   @Input() group = false;
   @Input() placeholder = '';
+  @Input() label = '';
+  @Input() labelPosition: ExtraSelectLabelPosition = 'top';
+  @Input() caption = '';
+  @Input() info = '';
   @Input() size: ExtraSelectSize = 'base';
-  @Input() filter = false;
-  @Input() showClear = false;
+  @Input() showFilter = false;
+  @Input({ transform: booleanAttribute }) clearable = false;
+  @Input() showCheckbox = true;
   @Input() editable = false;
   @Input() readonly = false;
   @Input() loading = false;
-  @Input() inputId: string | undefined;
+  @Input() inputId: string | undefined = `extra-select-${nextInputId++}`;
   @Input() appendTo: any = 'body';
-  @Input() floatLabel = false;
-  @Input() label = '';
-  @Input() checkmark = true;
   @Input() checkmarkIcon = 'ea5e';
   @Input() emptyMessage = 'Нет данных';
   @Input() emptyFilterMessage = 'Результаты не найдены';
@@ -157,10 +206,11 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   modelValue: any = null;
 
-  @Output() onClear = new EventEmitter<Event>();
+  @Output() onChange = new EventEmitter<ExtraSelectChangeEvent>();
+  @Output() onClear = new EventEmitter<void>();
   @Output() onFilter = new EventEmitter<ExtraSelectFilterEvent>();
-  @Output() onShow = new EventEmitter<ExtraAnimationEvent>();
-  @Output() onHide = new EventEmitter<ExtraAnimationEvent>();
+  @Output() onShow = new EventEmitter<void>();
+  @Output() onHide = new EventEmitter<void>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
@@ -170,7 +220,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';
-    if (this.size === 'large') return 'large';
+    if (this.size === 'large' || this.size === 'xlarge') return 'large';
     return undefined;
   }
 
@@ -189,9 +239,14 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   private _onChange: (value: any) => void = () => {};
   private _onTouched: () => void = () => {};
 
-  onSelectChange(event: ExtraSelectChangeEvent): void {
+  onSelectChange(event: SelectChangeEvent): void {
     this.modelValue = event.value;
     this._onChange(event.value);
+    this.onChange.emit({ value: event.value, originalEvent: event.originalEvent as Event });
+  }
+
+  onFilterHandler(event: SelectFilterEvent): void {
+    this.onFilter.emit({ filter: event.filter, originalEvent: event.originalEvent });
   }
 
   handleBlur(event: Event): void {

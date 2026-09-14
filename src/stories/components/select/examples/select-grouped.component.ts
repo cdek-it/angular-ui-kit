@@ -35,7 +35,7 @@ const template = `
   [group]="true"
   placeholder="Выберите город..."
   [size]="size"
-  [showClear]="showClear"
+  [clearable]="clearable"
   [readonly]="readonly"
 >
   <ng-template extraSelectOptionGroup let-group>
@@ -57,7 +57,7 @@ const styles = '';
 })
 export class SelectGroupedComponent {
   @Input() size: ExtraSelectSize = 'base';
-  @Input() showClear = false;
+  @Input() clearable = false;
   @Input() readonly = false;
   control = new FormControl(null);
   options = GROUPED_OPTIONS;
@@ -77,12 +77,12 @@ export const Grouped = {
   render: (args: any) => ({
     props: {
       size: args['size'],
-      showClear: args['showClear'],
+      clearable: args['clearable'],
       readonly: args['readonly'],
       disabled: args['disabled'],
       invalid: args['invalid']
     },
-    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
+    template: `<app-select-grouped [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
   }),
   parameters: {
     docs: {

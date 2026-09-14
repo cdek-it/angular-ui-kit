@@ -16,8 +16,8 @@ const template = `
   [options]="options"
   optionLabel="name"
   placeholder="Выберите город..."
-  [filter]="true"
-  [showClear]="true"
+  [showFilter]="true"
+  [clearable]="true"
   [size]="size"
   [readonly]="readonly"
 ></extra-select>
@@ -72,8 +72,8 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
       [options]="options"
       optionLabel="name"
       placeholder="Выберите город..."
-      [filter]="true"
-      [showClear]="true"
+      [showFilter]="true"
+      [clearable]="true"
     ></extra-select>
   \`,
 })

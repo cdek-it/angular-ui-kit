@@ -19,7 +19,7 @@ const template = `
   optionLabel="name"
   placeholder="Выберите пункт..."
   [size]="size"
-  [showClear]="showClear"
+  [clearable]="clearable"
   [readonly]="readonly"
 >
   <ng-template extraSelectOption let-option>
@@ -44,7 +44,7 @@ const styles = '';
 })
 export class SelectCustomComponent {
   @Input() size: ExtraSelectSize = 'base';
-  @Input() showClear = false;
+  @Input() clearable = false;
   @Input() readonly = false;
   control = new FormControl(null);
   options = OPTIONS;
@@ -64,12 +64,12 @@ export const Custom = {
   render: (args: any) => ({
     props: {
       size: args['size'],
-      showClear: args['showClear'],
+      clearable: args['clearable'],
       readonly: args['readonly'],
       disabled: args['disabled'],
       invalid: args['invalid']
     },
-    template: `<app-select-custom [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`
+    template: `<app-select-custom [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`
   }),
   parameters: {
     docs: {

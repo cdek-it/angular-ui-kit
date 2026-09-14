@@ -10,12 +10,12 @@ figma:
   componentKey: '361-1561'
   name: '<Select>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-09-07'
 ---
 
 ## Overview
 
-`ExtraSelectComponent` — выпадающий список для выбора одного значения из набора опций. Оборачивает PrimeNG `p-select` и расширяет его размерами, фильтрацией, группировкой, режимом плавающей метки и кастомными шаблонами пунктов. Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
+`ExtraSelectComponent` — выпадающий список для выбора одного значения из набора опций (single-select; для множественного выбора с чекбоксами — `ExtraMultiSelect`). Оборачивает PrimeNG `p-select` и расширяет его размерами, фильтрацией, группировкой, лейблом/подписью/подсказкой и кастомными шаблонами пунктов. Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
 Компонент соответствует Figma-компоненту `<Select>` (component set, nodeId `361:1561`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Варианты задаются Figma-свойствами `state` (`default | hover | focus | danger | disabled | readonly`), `has-placeholder` и `has-floatlabel`. Выпадающая панель, пункты и группы вынесены в отдельные Figma-узлы `<Select.Overlay>`, `<Select.Option>` и `<Select.Group>` и в коде описываются через шаблоны-директивы (см. ниже).
 
@@ -23,36 +23,43 @@ updated: '2026-06-22'
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `options` | `any[] \| null \| undefined` | `undefined` | Массив опций для выбора |
+| `placeholder` | `string` | `''` | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
+| `label` | `string` | `''` | Текст названия поля |
+| `labelPosition` | `'left' \| 'top' \| 'float'` | `'top'` | Положение лейбла — `top` над полем, `float` — плавающая метка (`has-floatlabel`), `left` — слева от поля |
+| `options` | `ExtraSelectGroup[] \| ExtraSelectOption[] \| any[] \| null \| undefined` | `undefined` | Список опций для выбора |
 | `optionLabel` | `string \| undefined` | `undefined` | Имя поля опции, отображаемое как подпись |
 | `optionValue` | `string \| undefined` | `undefined` | Имя поля опции, используемое как значение модели |
 | `optionDisabled` | `string \| undefined` | `undefined` | Имя булева поля опции, отключающего её выбор |
-| `optionGroupLabel` | `string \| undefined` | `undefined` | Имя поля заголовка группы (при `group=true`) |
-| `optionGroupChildren` | `string` | `'items'` | Имя поля группы со списком дочерних опций |
-| `group` | `boolean` | `false` | Включает группировку опций |
-| `placeholder` | `string` | `''` | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
-| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер поля; `large` маппируется на PrimeNG `size="large"`, `xlarge` — на CSS-класс `p-select-xlg` |
-| `filter` | `boolean` | `false` | Показывает строку поиска в выпадающем списке |
-| `showClear` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
-| `editable` | `boolean` | `false` | Разрешает ручной ввод значения в поле |
+| `group` | `boolean` | `false` | Включает группировку опций (данные — `ExtraSelectGroup[]`) |
+| `clearable` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
+| `showCheckbox` | `boolean` | `true` | Показывает отметку (галочку) у выбранного пункта в списке |
+| `showFilter` | `boolean` | `false` | Показывает строку поиска в выпадающем списке |
+| `editable` | `boolean` | `false` | Разрешает ручной ввод произвольного значения в поле |
 | `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
 | `loading` | `boolean` | `false` | Состояние загрузки опций — соответствует Figma-свойству `show-loader` |
-| `inputId` | `string \| undefined` | `undefined` | `id` нативного инпута для связи с внешним `<label>` |
-| `appendTo` | `any` | `'body'` | Контейнер для отрисовки выпадающей панели |
-| `floatLabel` | `boolean` | `false` | Режим плавающей метки — соответствует Figma-свойству `has-floatlabel` |
-| `label` | `string` | `''` | Текст плавающей метки (используется при `floatLabel=true`) |
-| `checkmark` | `boolean` | `true` | Показывает галочку у выбранного пункта в списке |
+| `caption` | `string` | `''` | Текст пояснения под полем |
+| `info` | `string` | `''` | Текст доп. информации — показывается в тултипе иконки `ti-info-circle` рядом с лейблом |
+| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер поля; `large` маппируется на PrimeNG `size="large"`, `xlarge` — дополнительно на CSS-класс `p-select-xlg` |
 | `emptyMessage` | `string` | `'Нет данных'` | Сообщение при пустом списке опций |
 | `emptyFilterMessage` | `string` | `'Результаты не найдены'` | Сообщение при отсутствии результатов фильтрации |
-| `(onClear)` | `EventEmitter<Event>` | — | Событие очистки выбранного значения (при `showClear=true`) |
-| `(onFilter)` | `EventEmitter<ExtraSelectFilterEvent>` | — | Событие ввода в строку поиска (при `filter=true`) |
-| `(onShow)` | `EventEmitter<ExtraAnimationEvent>` | — | Событие открытия панели |
-| `(onHide)` | `EventEmitter<ExtraAnimationEvent>` | — | Событие закрытия панели |
+| `inputId` | `string \| undefined` | автогенерируется | `id` нативного инпута для связи с внутренним/внешним `<label>` |
+| `appendTo` | `any` | `'body'` | Контейнер для отрисовки выпадающей панели |
+| `checkmarkIcon` | `string` | `'ea5e'` | Код символа иконки отметки выбранного пункта (используется при `showCheckbox=true`) |
+| `(onFilter)` | `EventEmitter<ExtraSelectFilterEvent>` | — | Событие ввода в строку поиска (при `showFilter=true`) |
 | `(onFocus)` | `EventEmitter<Event>` | — | Событие получения фокуса |
 | `(onBlur)` | `EventEmitter<Event>` | — | Событие потери фокуса |
 | `[(ngModel)]` / `[formControl]` | `any` | `null` | Выбранное значение через ControlValueAccessor |
 
-> `invalid` — вычисляемое свойство: берётся автоматически из связанного `NgControl` (соответствует Figma-состоянию `state=danger`). Устанавливать вручную нельзя.
+Дополнительные свойства — вне спецификации, но полезны для реализации (настройка чтения полей группы под конкретную структуру данных; в спеке `ExtraSelectGroup` эти поля зафиксированы как `name`/`options`):
+
+| Свойство | Тип | По умолчанию | Описание |
+|----------|-----|--------------|---------|
+| `optionGroupLabel` | `string \| undefined` | `undefined` | Имя поля заголовка группы (при `group=true`) |
+| `optionGroupChildren` | `string` | `'items'` | Имя поля группы со списком дочерних опций |
+
+> `invalid` — вычисляемое свойство: берётся автоматически из связанного `NgControl` (соответствует Figma-состоянию `state=danger`), учитывает и `touched`. Устанавливать вручную нельзя.
+>
+> `disabled` — не объявлен как `@Input`; управляется через `FormControl.disable()` или `ControlValueAccessor.setDisabledState`; соответствует Figma-состоянию `state=disabled`.
 
 ## Variants
 
@@ -84,7 +91,7 @@ Figma: `<Select>`, state=default, has-placeholder=false, has-floatlabel=false �
 ></extra-select>
 ```
 
-### С фильтрацией (filter)
+### С фильтрацией (showFilter)
 
 Figma: `<Select.Overlay>` — выпадающая панель со строкой поиска
 
@@ -92,14 +99,14 @@ Figma: `<Select.Overlay>` — выпадающая панель со строк�
 <extra-select
   [options]="cities"
   optionLabel="name"
-  [filter]="true"
+  [showFilter]="true"
   placeholder="Поиск города..."
   [(ngModel)]="selectedCity"
   name="cityFilter"
 ></extra-select>
 ```
 
-### С кнопкой очистки (show-clear)
+### С кнопкой очистки (clearable)
 
 Figma: `<Select>`, show-clear=true
 
@@ -107,7 +114,7 @@ Figma: `<Select>`, show-clear=true
 <extra-select
   [options]="cities"
   optionLabel="name"
-  [showClear]="true"
+  [clearable]="true"
   placeholder="Можно очистить"
   [(ngModel)]="selectedCity"
   name="cityClearable"
@@ -131,7 +138,22 @@ Figma: `<Select.Group>` — заголовок группы в панели
 ></extra-select>
 ```
 
-### С плавающей меткой (has-floatlabel)
+### С лейблом и подписью (label / caption / info)
+
+```html
+<extra-select
+  [options]="cities"
+  optionLabel="name"
+  label="Город"
+  caption="Город доставки"
+  info="Используется для расчёта сроков"
+  placeholder="Выберите..."
+  [(ngModel)]="selectedCity"
+  name="cityLabeled"
+></extra-select>
+```
+
+### С плавающей меткой (label-position=float)
 
 Figma: `<Select>`, state=default, has-placeholder=true, has-floatlabel=true — nodeId `13798:26472`
 
@@ -139,10 +161,24 @@ Figma: `<Select>`, state=default, has-placeholder=true, has-floatlabel=true — 
 <extra-select
   [options]="cities"
   optionLabel="name"
-  [floatLabel]="true"
+  labelPosition="float"
   label="Город"
   [(ngModel)]="selectedCity"
   name="cityFloat"
+></extra-select>
+```
+
+### С лейблом слева (label-position=left)
+
+```html
+<extra-select
+  [options]="cities"
+  optionLabel="name"
+  labelPosition="left"
+  label="Город"
+  placeholder="Выберите..."
+  [(ngModel)]="selectedCity"
+  name="cityLeft"
 ></extra-select>
 ```
 
@@ -238,7 +274,7 @@ import {
 
 ## Related
 
-- [InputText](../inputtext/inputtext.figma.md) — атомарное поле ввода текста
+- [InputText](../inputtext/inputtext.figma.md) — атомарное поле ввода текста, тот же паттерн label/labelPosition/caption/info
 - [Button](../button/button.figma.md) — кнопки действий в формах
 - [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний поля
 - [Иконки](../../figma-code-connect/icons.md) — доступные иконки
@@ -250,7 +286,8 @@ import {
 - Используйте `[(ngModel)]` или `[formControl]` — компонент реализует `ControlValueAccessor` и именно через них передаётся выбранное значение.
 - Управляйте состоянием `disabled` через `FormControl.disable()` / `FormControl.enable()` — это сохраняет dirty/touched-флаги.
 - Задавайте `optionLabel` для отображаемой подписи и `optionValue`, когда в модели нужно хранить примитив, а не весь объект опции.
-- Включайте `[filter]="true"` для длинных списков, чтобы пользователь мог искать опцию по тексту.
+- Включайте `[showFilter]="true"` для длинных списков, чтобы пользователь мог искать опцию по тексту.
+- Используйте `info` для краткой доп. подсказки рядом с лейблом вместо перегрузки `caption`.
 - Для кастомного вида пунктов и выбранного значения используйте директивы `extraSelectOption` / `extraSelectSelectedItem` / `extraSelectOptionGroup`.
 
 **Don't:**
