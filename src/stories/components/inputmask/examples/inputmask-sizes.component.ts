@@ -13,7 +13,7 @@ export const Sizes: Story = {
         [mask]="mask"
         [slotChar]="slotChar"
         [size]="size"
-        [showClear]="showClear"
+        [clearable]="clearable"
         [readonly]="readonly"
         [fluid]="fluid"
 
