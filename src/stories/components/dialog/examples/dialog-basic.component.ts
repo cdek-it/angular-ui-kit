@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
-import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { ExtraDialogComponent, ExtraDialogSize } from '../../../../lib/components/dialog/dialog.component';
 import { ExtraDialogTemplateDirective } from '../../../../lib/components/dialog/dialog-template.directive';
 
 const template = `
@@ -10,6 +10,7 @@ const template = `
 
   <extra-dialog
     header="Подтверждение заявки"
+    [size]="size"
     [visible]="visible"
     (visibleChange)="visible = $event"
     (onShow)="log('onShow')"
@@ -34,6 +35,9 @@ const template = `
   template
 })
 export class DialogBasicComponent {
+  /** Прокидывается из контрола size в панели Controls. */
+  @Input() size: ExtraDialogSize = 'default';
+
   visible = false;
   logEntries = signal<string[]>([]);
 
@@ -43,8 +47,12 @@ export class DialogBasicComponent {
 }
 
 export const Basic: StoryObj = {
-  render: () => ({
-    template: `<app-dialog-basic></app-dialog-basic>`
+  args: {
+    size: 'default'
+  },
+  render: (args) => ({
+    props: args,
+    template: `<app-dialog-basic [size]="size"></app-dialog-basic>`
   }),
   parameters: {
     docs: {
