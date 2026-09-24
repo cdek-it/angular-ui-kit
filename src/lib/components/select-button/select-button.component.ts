@@ -21,6 +21,12 @@ export type ExtraSelectButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
   selector: 'extra-select-button',
   standalone: true,
   imports: [SelectButton, SharedModule, FormsModule],
+  // В обычном режиме хост остаётся inline (группа встаёт в строку рядом с другими элементами).
+  // В режиме fluid делаем его блоком: сам p-selectbutton — inline-flex, и без блочного хоста
+  // его width: 100% считается не от контейнера-родителя.
+  host: {
+    '[style.display]': "fluid ? 'block' : null"
+  },
   template: `
     <!-- Ступень xlg навешивается классом на корень: styleClass в PrimeNG 20 на корне
          p-selectbutton не остаётся, а раздаётся вниз каждому p-togglebutton, и стили
@@ -37,6 +43,7 @@ export type ExtraSelectButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
       [allowEmpty]="allowEmpty"
       [disabled]="isDisabled"
       [size]="primeSize"
+      [fluid]="fluid"
       [class.p-selectbutton-xlarge]="size === 'xlg'"
     >
       <ng-template pTemplate="item" let-item>
@@ -56,6 +63,8 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor {
   @Input() size: ExtraSelectButtonSize = 'base';
   @Input() multiple = false;
   @Input() allowEmpty = true;
+  /** Растягивает группу на всю доступную ширину контейнера, сегменты делят её поровну. */
+  @Input() fluid = false;
 
   @Output() onChange = new EventEmitter<ExtraSelectButtonChangeEvent>();
 

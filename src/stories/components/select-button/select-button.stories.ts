@@ -4,6 +4,7 @@ import { SelectButtonSelectedComponent, Selected as SelectedStory } from './exam
 import { SelectButtonDisabledComponent, Disabled as DisabledStory } from './examples/select-button-disabled.component';
 import { SelectButtonSemiDisabledComponent, SemiDisabled as SemiDisabledStory } from './examples/select-button-semi-disabled.component';
 import { SelectButtonIconsComponent, WithIcons as WithIconsStory } from './examples/select-button-icons.component';
+import { SelectButtonFluidComponent, Fluid as FluidStory } from './examples/select-button-fluid.component';
 
 type SelectButtonArgs = ExtraSelectButtonComponent;
 
@@ -19,6 +20,7 @@ const meta: Meta<SelectButtonArgs> = {
         SelectButtonDisabledComponent,
         SelectButtonSemiDisabledComponent,
         SelectButtonIconsComponent,
+        SelectButtonFluidComponent,
       ],
     }),
   ],
@@ -71,6 +73,15 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '@cdek-it/an
         type: { summary: 'boolean' },
       },
     },
+    fluid: {
+      control: 'boolean',
+      description: 'Растягивает группу на всю ширину контейнера',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
     options: {
       control: 'object',
       description: 'Массив опций',
@@ -97,6 +108,7 @@ export const Default: Story = {
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.multiple)                        parts.push(`[multiple]="true"`);
     if (!args.allowEmpty)                     parts.push(`[allowEmpty]="false"`);
+    if (args.fluid)                           parts.push(`[fluid]="true"`);
 
     const template = `<extra-select-button\n  ${parts.join('\n  ')}\n></extra-select-button>`;
 
@@ -112,6 +124,7 @@ export const Default: Story = {
     size: 'base',
     multiple: false,
     allowEmpty: true,
+    fluid: false,
   },
   parameters: {
     docs: {
@@ -137,3 +150,7 @@ export const SemiDisabled: Story = SemiDisabledStory;
 // ── With Icons ────────────────────────────────────────────────────────────────
 
 export const WithIcons: Story = WithIconsStory;
+
+// ── Fluid ─────────────────────────────────────────────────────────────────────
+
+export const Fluid: Story = FluidStory;
