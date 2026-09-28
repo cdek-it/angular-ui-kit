@@ -7,6 +7,7 @@ import { InputTextSizesComponent, Sizes } from './examples/inputtext-sizes.compo
 import { InputTextStatesComponent, States } from './examples/inputtext-states.component';
 import { InputTextTypesComponent, Types } from './examples/inputtext-types.component';
 import { InputTextFluidComponent, Fluid } from './examples/inputtext-fluid.component';
+import { InputTextReactiveFormsComponent, ReactiveForms } from './examples/inputtext-reactive-forms.component';
 
 type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean };
 
@@ -24,7 +25,8 @@ const meta: Meta<InputTextArgs> = {
         InputTextClearableComponent,
         InputTextTypesComponent,
         InputTextStatesComponent,
-        InputTextFluidComponent
+        InputTextFluidComponent,
+        InputTextReactiveFormsComponent
       ]
     })
   ],
@@ -203,7 +205,11 @@ export const Default: Story = {
 
     const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
-    return { props: { ...args, control }, template };
+    // В props уходит только control: все остальные args уже зашиты в template.
+    // Storybook присваивает «не-@Input» пропсы прямо на инстанс ExtraInputTextComponent
+    // (StorybookWrapperComponent.ngAfterViewInit), а invalid у него — геттер из NgControl,
+    // поэтому ...args ронял стори с TypeError: Cannot set property invalid ... only a getter.
+    return { props: { control }, template };
   },
   parameters: {
     docs: {
@@ -217,4 +223,4 @@ export const Default: Story = {
 
 // ── Комбинаторные истории ────────────────────────────────────────────────────
 
-export { Labels, Sizes, Clearable, Types, States, Fluid };
+export { Labels, Sizes, Clearable, Types, States, Fluid, ReactiveForms };

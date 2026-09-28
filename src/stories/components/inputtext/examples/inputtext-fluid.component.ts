@@ -4,11 +4,13 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
-<div class="flex flex-col gap-4" style="max-width: 320px">
-  <extra-input-text [fluid]="true" [formControl]="control" placeholder="Введите текст..."></extra-input-text>
-  <extra-input-text [fluid]="true" [formControl]="control" size="lg" label="С лейблом" placeholder="Введите текст..."></extra-input-text>
-  <extra-input-text [fluid]="true" [formControl]="control" clearable placeholder="С иконкой очистки"></extra-input-text>
-  <extra-input-text [formControl]="control" placeholder="Без fluid"></extra-input-text>
+<div class="border border-dashed border-surface-200 p-4" style="width: 600px">
+  <extra-input-text
+    [fluid]="true"
+    [formControl]="control"
+    label="Поле на всю ширину контейнера"
+    placeholder="Введите текст..."
+  ></extra-input-text>
 </div>
 `;
 
@@ -32,7 +34,7 @@ export const Fluid: StoryObj = {
     docs: {
       description: {
         story:
-          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя — удобно для форм и мобильных раскладок. Работает и с лейблом, и с иконкой очистки. Последнее поле — без `fluid`, для сравнения. Контейнер в примере ограничен шириной 320px, чтобы эффект был нагляден.'
+          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя вместо собственной ширины по умолчанию. Контейнер в примере — 600px и обведён пунктиром, чтобы было видно, что поле тянется ровно по его границам.'
       },
       source: {
         language: 'ts',
@@ -46,8 +48,14 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ExtraInputTextComponent, ReactiveFormsModule],
   template: \`
-    <div class="flex flex-col gap-4" style="max-width: 320px">
-      <extra-input-text [fluid]="true" [formControl]="control" placeholder="Введите текст..."></extra-input-text>
+    <!-- поле растягивается по ширине этого контейнера -->
+    <div style="width: 600px">
+      <extra-input-text
+        [fluid]="true"
+        [formControl]="control"
+        label="Поле на всю ширину контейнера"
+        placeholder="Введите текст..."
+      ></extra-input-text>
     </div>
   \`,
 })
