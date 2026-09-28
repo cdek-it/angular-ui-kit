@@ -3,7 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraAutoCompleteComponent } from '../../../../lib/components/autocomplete/autocomplete.component';
 
-const CITIES = ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Самара', 'Омск'];
+const CITIES = [
+  'Москва',
+  'Санкт-Петербург',
+  'Новосибирск',
+  'Екатеринбург',
+  'Казань',
+  'Нижний Новгород',
+  'Самара',
+  'Омск'
+];
 
 @Component({
   selector: 'app-autocomplete-dropdown',
@@ -18,16 +27,14 @@ const CITIES = ['Москва', 'Санкт-Петербург', 'Новосиб
       (completeMethod)="search($event)"
       [(ngModel)]="value"
     ></extra-auto-complete>
-  `,
+  `
 })
 export class AutoCompleteDropdownComponent {
   value: string | null = null;
   filtered: string[] = [];
 
   search(event: any): void {
-    this.filtered = CITIES.filter(item =>
-      item.toLowerCase().includes((event.query || '').toLowerCase())
-    );
+    this.filtered = CITIES.filter((item) => item.toLowerCase().includes((event.query || '').toLowerCase()));
   }
 }
 
@@ -42,9 +49,7 @@ export const Dropdown: StoryObj<ExtraAutoCompleteComponent> = {
     parts.push(`(completeMethod)="search($event)"`);
     parts.push(`[(ngModel)]="value"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.disabled)                     parts.push(`[disabled]="true"`);
-    if (args.invalid)                      parts.push(`[invalid]="true"`);
-    if (args.fluid)                        parts.push(`[fluid]="true"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
 
     const template = `<extra-auto-complete\n  ${parts.join('\n  ')}\n></extra-auto-complete>`;
 
@@ -53,19 +58,15 @@ export const Dropdown: StoryObj<ExtraAutoCompleteComponent> = {
       value: null,
       filtered: [] as string[],
       search(this: any, event: any) {
-        this.filtered = CITIES.filter(c =>
-          c.toLowerCase().includes((event.query || '').toLowerCase())
-        );
-      },
+        this.filtered = CITIES.filter((c) => c.toLowerCase().includes((event.query || '').toLowerCase()));
+      }
     };
 
     return { props, template };
   },
   args: {
     size: 'base',
-    disabled: false,
-    invalid: false,
-    fluid: false,
+    fluid: false
   },
   parameters: {
     docs: {
@@ -103,8 +104,8 @@ export class AutoCompleteDropdownComponent {
     );
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

@@ -12,12 +12,13 @@ import { ExtraAutoCompleteComponent } from '../../../../lib/components/autocompl
       <extra-auto-complete
         [suggestions]="filtered"
         [multiple]="true"
+        [showCheckbox]="true"
         placeholder="Добавьте города"
         (completeMethod)="search($event)"
         [(ngModel)]="values"
       ></extra-auto-complete>
     </div>
-  `,
+  `
 })
 export class AutoCompleteMultipleComponent {
   values: string[] = [];
@@ -25,19 +26,20 @@ export class AutoCompleteMultipleComponent {
   filtered: string[] = [];
 
   search(event: any): void {
-    this.filtered = this.items.filter(item =>
-      item.toLowerCase().includes((event.query || '').toLowerCase())
-    );
+    this.filtered = this.items.filter((item) => item.toLowerCase().includes((event.query || '').toLowerCase()));
   }
 }
 
 export const Multiple: StoryObj = {
   render: () => ({
-    template: `<app-autocomplete-multiple></app-autocomplete-multiple>`,
+    template: `<app-autocomplete-multiple></app-autocomplete-multiple>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Множественный выбор с отображением выбранных значений в виде чипсов.' },
+      description: {
+        story:
+          'Множественный выбор с отображением выбранных значений в виде chips и чекбоксом (`showCheckbox`) у каждой опции в списке.'
+      },
       source: {
         language: 'ts',
         code: `
@@ -53,6 +55,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     <extra-auto-complete
       [suggestions]="filtered"
       [multiple]="true"
+      [showCheckbox]="true"
       placeholder="Добавьте города"
       (completeMethod)="search($event)"
       [(ngModel)]="values"
@@ -70,8 +73,8 @@ export class AutoCompleteMultipleComponent {
     );
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
