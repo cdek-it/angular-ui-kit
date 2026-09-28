@@ -6,16 +6,16 @@
 
 | Свойство            | Описание                               | Типизация                 |
 | ------------------- | -------------------------------------- | ------------------------- |
-| `show-nav`          | кнопки навигации (стрелки)             | `boolean`                 |
-| `show-indicators`   | индикаторы-точки (пагинация)           | `boolean`                 |
-| `nav-icon-left`     | класс иконки tabler icon кнопки слева  | `string`                  |
-| `nav-icon-right`    | класс иконки tabler icon кнопки справа | `string`                  |
-| `nav-text-left`     | текст кнопок навигации слева           | `string`                  |
-| `nav-text-right`    | текст кнопок навигации справа          | `string`                  |
-| `nav-variant`       | вариант стиля кнопок навигации         | `string`                  |
-| `nav-size`          | размер кнопок навигации                | `sm \| base \| lg \| xlg` |
-| `nav-rounded`       | скруглённая форма кнопок               | `boolean`                 |
-| `nav-icon-position` | позиция иконки в кнопках               | `left \| right`           |
+| `showNav`          | кнопки навигации (стрелки)             | `boolean`                          |
+| `showIndicators`   | индикаторы-точки (пагинация)           | `boolean`                          |
+| `navIconLeft`      | класс иконки tabler icon кнопки слева  | `string`                           |
+| `navIconRight`     | класс иконки tabler icon кнопки справа | `string`                           |
+| `navTextLeft`      | текст кнопок навигации слева           | `string`                           |
+| `navTextRight`     | текст кнопок навигации справа          | `string`                           |
+| `navVariant`       | вариант стиля кнопок навигации         | `string`                           |
+| `navSize`          | размер кнопок навигации                | `small \| base \| large \| xlarge` |
+| `navRounded`       | скруглённая форма кнопок               | `boolean`                          |
+| `navIconPosition`  | позиция иконки в кнопках               | `left \| right`                    |
 
 # Слоты (content projection)
 
@@ -27,7 +27,7 @@
 
 | Событие        | Описание                       | Типизация                                 |
 | -------------- | ------------------------------ | ----------------------------------------- |
-| `onPageChange` | срабатывает при смене страницы | `(event: ExtraCarouselPageEvent) => void` |
+| `pageChange` | срабатывает при смене страницы | `(event: ExtraCarouselPageEvent) => void` |
 
 # ExtraCarouselPageEvent
 

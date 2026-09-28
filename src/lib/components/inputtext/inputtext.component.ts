@@ -17,7 +17,7 @@ import { InputIcon } from 'primeng/inputicon';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
-export type ExtraInputTextSize = 'sm' | 'base' | 'lg' | 'xlg';
+export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputTextLabelPosition = 'default' | 'float' | 'left';
 export type ExtraInputTextType = 'text' | 'password';
 
@@ -156,13 +156,13 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   private _onChange: (value: string) => void = () => {};
 
   get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'sm') return 'small';
-    if (this.size === 'lg' || this.size === 'xlg') return 'large';
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large' || this.size === 'xlarge') return 'large';
     return undefined;
   }
 
   get sizeClass(): Record<string, boolean> {
-    return { 'p-inputtext-xlg': this.size === 'xlg' };
+    return { 'p-inputtext-xlg': this.size === 'xlarge' };
   }
 
   onInput(event: Event): void {

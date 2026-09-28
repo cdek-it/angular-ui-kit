@@ -19,7 +19,7 @@ const template = `
   template
 })
 export class InputTextSizesComponent {
-  sizes = ['sm', 'base', 'lg', 'xlg'];
+  sizes = ['small', 'base', 'large', 'xlarge'];
   control = new FormControl('');
 }
 
@@ -31,7 +31,7 @@ export const Sizes: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Размеры поля: sm, base, lg, xlg.'
+        story: 'Размеры поля: small, base, large, xlarge.'
       },
       source: {
         language: 'ts',
@@ -44,10 +44,10 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ExtraInputTextComponent],
   template: \`
-    <extra-input-text size="sm" label="Size sm" placeholder="Введите текст..."></extra-input-text>
+    <extra-input-text size="small" label="Size small" placeholder="Введите текст..."></extra-input-text>
     <extra-input-text size="base" label="Size base" placeholder="Введите текст..."></extra-input-text>
-    <extra-input-text size="lg" label="Size lg" placeholder="Введите текст..."></extra-input-text>
-    <extra-input-text size="xlg" label="Size xlg" placeholder="Введите текст..."></extra-input-text>
+    <extra-input-text size="large" label="Size large" placeholder="Введите текст..."></extra-input-text>
+    <extra-input-text size="xlarge" label="Size xlarge" placeholder="Введите текст..."></extra-input-text>
   \`,
 })
 export class InputTextSizesComponent {}
