@@ -2,23 +2,37 @@
 
 # ExtraMultiselect
 
-| Свойство             | Описание                                                                | Типизация                                                      |
-| -------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
-| `placeholder`        | текст подсказки внутри поля                                             | `string`                                                       |
-| `label`              | текст названия поля                                                     | `string`                                                       |
-| `labelPosition`      | положение лейбла                                                        | `left \| top \| float`                                          |
-| `showChips`          | отображать выбранные значения в виде chips                              | `boolean`                                                      |
-| `chipIcon`           | класс иконки tabler icon для элементов при отображении chips            | `string`                                                       |
-| `chipClearable`      | отображение иконки удаления chip                                        | `boolean`                                                      |
-| `clearable`          | отображение иконки для очистки поля                                     | `boolean`                                                      |
-| `showCheckbox`       | отображать чекбокс у option                                             | `boolean`                                                      |
-| `showFilter`         | отображать фильтр в оверлее                                             | `boolean`                                                      |
-| `filterPlaceholder`  | текст подсказки в фильтре                                               | `string`                                                       |
-| `options`            | список элементов или список групп с элементами                          | `ExtraMultiselectGroup[] \| ExtraMultiselectOption[] \| any[]` |
-| `optionLabel`        | наименование поля, содержащего отображаемое значение                    | `string`                                                       |
-| `caption`            | текст пояснения под полем                                               | `string`                                                       |
-| `info`               | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                                                       |
-| `size`               | размер поля                                                             | `small \| base \| large \| xlarge`                              |
+> ✅ **Реализован**: `ExtraMultiSelectComponent` (`@cdek-it/angular-ui-kit`) соответствует спецификации.
+
+| Свойство              | Описание                                                                | Типизация                                                      |
+| --------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `placeholder`         | текст подсказки внутри поля                                             | `string`                                                       |
+| `label`               | текст названия поля                                                     | `string`                                                       |
+| `labelPosition`       | положение лейбла                                                        | `top \| left`                                                  |
+| `floatLabel`          | плавающий лейбл внутри поля                                             | `boolean`                                                      |
+| `showChips`           | отображать выбранные значения в виде chips                              | `boolean`                                                      |
+| `chipIcon`            | класс иконки tabler icon для элементов при отображении chips            | `string`                                                       |
+| `chipClearable`       | отображение иконки удаления chip                                        | `boolean`                                                      |
+| `clearable`           | отображение иконки для очистки поля                                     | `boolean`                                                      |
+| `showCheckbox`        | отображать чекбокс у option                                             | `boolean`                                                      |
+| `showFilter`          | отображать фильтр в оверлее                                             | `boolean`                                                      |
+| `filterPlaceholder`   | текст подсказки в фильтре                                               | `string`                                                       |
+| `options`             | список элементов или список групп с элементами                          | `ExtraMultiselectGroup[] \| ExtraMultiselectOption[] \| any[]` |
+| `optionLabel`         | наименование поля, содержащего отображаемое значение                    | `string`                                                       |
+| `optionValue`         | наименование поля, значение которого используется как значение модели   | `string`                                                       |
+| `optionDisabled`      | наименование булева поля опции, отключающего её выбор                   | `string`                                                       |
+| `optionGroupLabel`    | наименование поля группы, содержащего её название                       | `string`                                                       |
+| `optionGroupChildren` | наименование поля группы со списком дочерних опций                      | `string`                                                       |
+| `group`               | включает группировку опций (данные — `ExtraMultiselectGroup[]`)         | `boolean`                                                      |
+| `caption`             | текст пояснения под полем                                               | `string`                                                       |
+| `info`                | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                                                       |
+| `size`                | размер поля                                                             | `small \| base \| large \| xlarge`                             |
+| `readonly`            | только для чтения                                                       | `boolean`                                                      |
+| `loading`             | состояние загрузки опций                                                | `boolean`                                                      |
+| `fluid`               | растягивает поле на всю ширину контейнера                               | `boolean`                                                      |
+| `appendTo`            | контейнер для отрисовки выпадающей панели                               | `any`                                                          |
+| `emptyMessage`        | сообщение при пустом списке опций                                       | `string`                                                       |
+| `emptyFilterMessage`  | сообщение при отсутствии результатов фильтрации                         | `string`                                                       |
 
 # ExtraMultiselectOption
 
@@ -36,14 +50,16 @@
 
 # События
 
-| Событие    | Описание                              | Типизация                                       |
-| ---------- | ------------------------------------- | ----------------------------------------------- |
-| `change` | срабатывает при изменении выбора      | `(event: ExtraMultiSelectChangeEvent) => void`  |
-| `filter` | срабатывает при фильтрации            | `(event: ExtraMultiSelectFilterEvent) => void`  |
-| `clear`  | срабатывает при очистке всех значений | `() => void`                                    |
-| `show`   | срабатывает при открытии панели       | `() => void`                                    |
-| `hide`   | срабатывает при закрытии панели       | `() => void`                                    |
-| `remove` | срабатывает при удалении значения     | `(event: ExtraMultiSelectRemoveEvent) => void`  |
+| Событие  | Описание                              | Типизация                                      |
+| -------- | ------------------------------------- | ---------------------------------------------- |
+| `change` | срабатывает при изменении выбора      | `(event: ExtraMultiSelectChangeEvent) => void` |
+| `filter` | срабатывает при фильтрации            | `(event: ExtraMultiSelectFilterEvent) => void` |
+| `clear`  | срабатывает при очистке всех значений | `() => void`                                   |
+| `show`   | срабатывает при открытии панели       | `() => void`                                   |
+| `hide`   | срабатывает при закрытии панели       | `() => void`                                   |
+| `remove` | срабатывает при удалении значения     | `(event: ExtraMultiSelectRemoveEvent) => void` |
+| `focus`  | срабатывает при получении фокуса      | `(event: Event) => void`                       |
+| `blur`   | срабатывает при потере фокуса         | `(event: Event) => void`                       |
 
 # ExtraMultiSelectChangeEvent
 
@@ -58,10 +74,10 @@
 
 Событие фильтрации, передаётся в `filter`.
 
-| Свойство        | Описание               | Типизация |
-| --------------- | ---------------------- | --------- |
-| `filter`        | введённый текст фильтра | `string` |
-| `originalEvent` | исходное событие       | `Event`   |
+| Свойство        | Описание                | Типизация |
+| --------------- | ----------------------- | --------- |
+| `filter`        | введённый текст фильтра | `string`  |
+| `originalEvent` | исходное событие        | `Event`   |
 
 # ExtraMultiSelectRemoveEvent
 
