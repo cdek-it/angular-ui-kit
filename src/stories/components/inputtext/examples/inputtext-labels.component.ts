@@ -6,26 +6,26 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 const template = `
 <div class="flex flex-col gap-6">
   <extra-input-text
-    [formControl]="control"
+    [formControl]="topControl"
     label="Лейбл сверху"
     placeholder="Введите текст..."
     info="Дополнительная информация в тултипе"
     caption="Пояснение под полем"
   ></extra-input-text>
   <extra-input-text
-    [formControl]="control"
+    [formControl]="floatControl"
     labelPosition="float"
     label="Плавающий лейбл"
     caption="Пояснение под полем"
   ></extra-input-text>
   <extra-input-text
-    [formControl]="control"
+    [formControl]="leftControl"
     labelPosition="left"
     label="Лейбл слева"
     placeholder="Введите текст..."
     info="Дополнительная информация в тултипе"
   ></extra-input-text>
-  <extra-input-text [formControl]="control" placeholder="Без label и caption"></extra-input-text>
+  <extra-input-text [formControl]="plainControl" placeholder="Без label и caption"></extra-input-text>
 </div>
 `;
 
@@ -37,7 +37,10 @@ const template = `
   template
 })
 export class InputTextLabelsComponent {
-  control = new FormControl('');
+  topControl = new FormControl('');
+  floatControl = new FormControl('');
+  leftControl = new FormControl('');
+  plainControl = new FormControl('');
 }
 
 export const Labels: StoryObj = {
@@ -64,7 +67,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
   imports: [ExtraInputTextComponent, ReactiveFormsModule],
   template: \`
     <extra-input-text
-      [formControl]="control"
+      [formControl]="topControl"
       label="Лейбл сверху"
       placeholder="Введите текст..."
       info="Дополнительная информация в тултипе"
@@ -72,25 +75,29 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     ></extra-input-text>
 
     <extra-input-text
-      [formControl]="control"
+      [formControl]="floatControl"
       labelPosition="float"
       label="Плавающий лейбл"
-      placeholder="Введите текст..."
+      caption="Пояснение под полем"
     ></extra-input-text>
 
     <extra-input-text
-      [formControl]="control"
+      [formControl]="leftControl"
       labelPosition="left"
       label="Лейбл слева"
       placeholder="Введите текст..."
+      info="Дополнительная информация в тултипе"
     ></extra-input-text>
 
     <!-- без label и caption поле не оборачивается -->
-    <extra-input-text [formControl]="control" placeholder="Без label и caption"></extra-input-text>
+    <extra-input-text [formControl]="plainControl" placeholder="Без label и caption"></extra-input-text>
   \`,
 })
 export class InputTextLabelsComponent {
-  control = new FormControl('');
+  topControl = new FormControl('');
+  floatControl = new FormControl('');
+  leftControl = new FormControl('');
+  plainControl = new FormControl('');
 }
         `
       }
