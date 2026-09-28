@@ -1,13 +1,14 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Card } from 'primeng/card';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
+import { ExtraCardTemplateDirective } from './card-template.directive';
 
 @Component({
   selector: 'extra-card',
   host: { style: 'display: block' },
   standalone: true,
-  imports: [Card, SharedModule, NgTemplateOutlet],
+  imports: [Card, PrimeTemplate, NgTemplateOutlet],
   template: `
     <p-card [styleClass]="overlay ? 'shadow-md' : ''">
       @if (headerTpl) {
@@ -27,11 +28,9 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
           </div>
         </ng-template>
       }
-      @if (contentTpl) {
-        <ng-template pTemplate="content">
-          <ng-container [ngTemplateOutlet]="contentTpl.template"></ng-container>
-        </ng-template>
-      }
+      <ng-template pTemplate="content">
+        <ng-content></ng-content>
+      </ng-template>
       @if (footerTpl) {
         <ng-template pTemplate="footer">
           <ng-container [ngTemplateOutlet]="footerTpl.template"></ng-container>
@@ -45,28 +44,16 @@ export class ExtraCardComponent implements AfterContentInit {
   @Input() subtitle = '';
   @Input() overlay = false;
 
-  @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+  @ContentChildren(ExtraCardTemplateDirective) templates!: QueryList<ExtraCardTemplateDirective>;
 
-  headerTpl?: PrimeTemplate;
-  contentTpl?: PrimeTemplate;
-  footerTpl?: PrimeTemplate;
+  headerTpl?: ExtraCardTemplateDirective;
+  footerTpl?: ExtraCardTemplateDirective;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
-    this.templates.forEach((tpl) => {
-      switch (tpl.getType()) {
-        case 'header':
-          this.headerTpl = tpl;
-          break;
-        case 'content':
-          this.contentTpl = tpl;
-          break;
-        case 'footer':
-          this.footerTpl = tpl;
-          break;
-      }
-    });
+    this.headerTpl = this.templates.find((t) => t.extraCardTemplate === 'header');
+    this.footerTpl = this.templates.find((t) => t.extraCardTemplate === 'footer');
     this.cdr.detectChanges();
   }
 }
