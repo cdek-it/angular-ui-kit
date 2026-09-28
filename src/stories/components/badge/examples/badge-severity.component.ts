@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraBadgeSeverity, ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
+import {
+  ExtraBadgeSeverity,
+  ExtraBadgeSize,
+  ExtraBadgeComponent
+} from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="p-4">
-  <extra-badge [value]="value" [severity]="severity" [size]="size"></extra-badge>
+  <extra-badge [value]="value" [dot]="dot" [severity]="severity" [size]="size"></extra-badge>
 </div>
 `;
 
@@ -20,6 +24,7 @@ const styles = '';
 })
 export class BadgeSeverityComponent {
   @Input() value: string | number = '8';
+  @Input() dot = false;
   @Input() severity: ExtraBadgeSeverity = 'success';
   @Input() size: ExtraBadgeSize = 'base';
 }
@@ -27,10 +32,11 @@ export class BadgeSeverityComponent {
 export const Severity: StoryObj = {
   render: (args) => ({
     props: args,
-    template: `<app-badge-severity [value]="value" [severity]="severity" [size]="size"></app-badge-severity>`
+    template: `<app-badge-severity [value]="value" [dot]="dot" [severity]="severity" [size]="size"></app-badge-severity>`
   }),
   args: {
     value: '8',
+    dot: false,
     severity: 'success'
   },
   argTypes: {
@@ -42,6 +48,10 @@ export const Severity: StoryObj = {
     value: {
       control: 'text',
       description: 'Отображаемое значение бейджа'
+    },
+    dot: {
+      control: 'boolean',
+      description: 'Режим точки-индикатора без значения'
     }
   },
   parameters: {
