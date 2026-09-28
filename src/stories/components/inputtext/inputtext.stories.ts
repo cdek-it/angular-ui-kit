@@ -6,6 +6,8 @@ import { InputTextLabelsComponent, Labels } from './examples/inputtext-labels.co
 import { InputTextSizesComponent, Sizes } from './examples/inputtext-sizes.component';
 import { InputTextStatesComponent, States } from './examples/inputtext-states.component';
 import { InputTextTypesComponent, Types } from './examples/inputtext-types.component';
+import { InputTextFluidComponent, Fluid } from './examples/inputtext-fluid.component';
+import { InputTextReactiveFormsComponent, ReactiveForms } from './examples/inputtext-reactive-forms.component';
 
 type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean };
 
@@ -22,7 +24,9 @@ const meta: Meta<InputTextArgs> = {
         InputTextSizesComponent,
         InputTextClearableComponent,
         InputTextTypesComponent,
-        InputTextStatesComponent
+        InputTextStatesComponent,
+        InputTextFluidComponent,
+        InputTextReactiveFormsComponent
       ]
     })
   ],
@@ -108,6 +112,15 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: "'sm' | 'base' | 'lg' | 'xlg'" }
       }
     },
+    fluid: {
+      control: 'boolean',
+      description: 'Растягивает поле на всю ширину контейнера',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
     type: {
       control: 'select',
       options: ['text', 'password'],
@@ -160,6 +173,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     caption: '',
     info: '',
     size: 'base',
+    fluid: false,
     type: 'text',
     disabled: false,
     invalid: false
@@ -183,6 +197,7 @@ export const Default: Story = {
     if (args.caption) parts.push(`caption="${args.caption}"`);
     if (args.info) parts.push(`info="${args.info}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.type && args.type !== 'text') parts.push(`type="${args.type}"`);
 
     const validators = args.invalid ? [Validators.required] : [];
@@ -190,7 +205,11 @@ export const Default: Story = {
 
     const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
-    return { props: { ...args, control }, template };
+    // В props уходит только control: все остальные args уже зашиты в template.
+    // Storybook присваивает «не-@Input» пропсы прямо на инстанс ExtraInputTextComponent
+    // (StorybookWrapperComponent.ngAfterViewInit), а invalid у него — геттер из NgControl,
+    // поэтому ...args ронял стори с TypeError: Cannot set property invalid ... only a getter.
+    return { props: { control }, template };
   },
   parameters: {
     docs: {
@@ -204,4 +223,4 @@ export const Default: Story = {
 
 // ── Комбинаторные истории ────────────────────────────────────────────────────
 
-export { Labels, Sizes, Clearable, Types, States };
+export { Labels, Sizes, Clearable, Types, States, Fluid, ReactiveForms };

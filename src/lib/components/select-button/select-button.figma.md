@@ -30,6 +30,7 @@ updated: '2026-06-22'
 | `size` | `'sm' \| 'base' \| 'lg' \| 'xlg'` | `'base'` | Размер контрола |
 | `multiple` | `boolean` | `false` | Множественный выбор: модель — массив значений вместо одиночного значения |
 | `allowEmpty` | `boolean` | `true` | Разрешает снять выбор (пустое значение) повторным нажатием на активный сегмент |
+| `fluid` | `boolean` | `false` | Растягивает группу на всю доступную ширину контейнера; сегменты делят её поровну |
 | `disabled` | `boolean` | `false` | Отключённое состояние всего контрола — соответствует Figma-свойству `state=disabled`; задаётся через `[disabled]` или `setDisabledState` формы |
 
 Выбранное значение задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. В одиночном режиме модель — `string`, в режиме `multiple` — `string[]`. Изменение значения также доступно через `@Output() valueChange`.
@@ -114,6 +115,18 @@ Figma: `<SelectButton>`, state=default — один сегмент с `disabled:
 ></extra-select-button>
 ```
 
+### Во всю ширину контейнера (fluid)
+
+Figma: `<SelectButton>`, state=default — группа растянута по ширине родителя
+
+```html
+<extra-select-button
+  [options]="viewOptions"
+  [fluid]="true"
+  [(ngModel)]="selectedView"
+></extra-select-button>
+```
+
 ## Slots
 
 Не используются. Содержимое сегментов задаётся через `@Input() options`: подпись берётся из поля `optionLabel`, иконка — из поля `icon` объекта опции.
@@ -135,6 +148,7 @@ Figma: `<SelectButton>`, state=default — один сегмент с `disabled:
 - Для режима «выбор нескольких» задавайте `[multiple]="true"` — модель станет массивом
 - Используйте `[allowEmpty]="false"`, когда хотя бы один сегмент должен оставаться активным
 - Для иконок в сегментах задавайте поле `icon` в объекте опции — классы берите из [icons.md](../../figma-code-connect/icons.md)
+- Используйте `[fluid]="true"` в формах на всю ширину и мобильных макетах
 
 **Don't:**
 - Не используйте для навигации по разделам — для этого предназначен компонент Tabs

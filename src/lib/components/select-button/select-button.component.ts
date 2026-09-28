@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { SelectButton, SelectButtonChangeEvent } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
@@ -21,8 +20,17 @@ export type ExtraSelectButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
 @Component({
   selector: 'extra-select-button',
   standalone: true,
-  imports: [SelectButton, SharedModule, FormsModule, NgClass],
+  imports: [SelectButton, SharedModule, FormsModule],
+  // В обычном режиме хост остаётся inline (группа встаёт в строку рядом с другими элементами).
+  // В режиме fluid делаем его блоком: сам p-selectbutton — inline-flex, и без блочного хоста
+  // его width: 100% считается не от контейнера-родителя.
+  host: {
+    '[style.display]': "fluid ? 'block' : null"
+  },
   template: `
+    <!-- Ступень xlg навешивается классом на корень: styleClass в PrimeNG 20 на корне
+         p-selectbutton не остаётся, а раздаётся вниз каждому p-togglebutton, и стили
+         ступени (.p-selectbutton-xlarge .p-togglebutton) не находят свой корень. -->
     <p-selectbutton
       [options]="options"
       [ngModel]="value"
@@ -35,7 +43,8 @@ export type ExtraSelectButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
       [allowEmpty]="allowEmpty"
       [disabled]="isDisabled"
       [size]="primeSize"
-      [styleClass]="primeStyleClass"
+      [fluid]="fluid"
+      [class.p-selectbutton-xlarge]="size === 'xlg'"
     >
       <ng-template pTemplate="item" let-item>
         @if ($any(item)['icon']) {
@@ -44,7 +53,7 @@ export type ExtraSelectButtonSize = 'sm' | 'base' | 'lg' | 'xlg';
         <span>{{ $any(item)[optionLabel] }}</span>
       </ng-template>
     </p-selectbutton>
-  `,
+  `
 })
 export class ExtraSelectButtonComponent implements ControlValueAccessor {
   @Input() options: ExtraSelectButtonOption[] | any[] = [];
@@ -54,6 +63,8 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor {
   @Input() size: ExtraSelectButtonSize = 'base';
   @Input() multiple = false;
   @Input() allowEmpty = true;
+  /** Растягивает группу на всю доступную ширину контейнера, сегменты делят её поровну. */
+  @Input() fluid = false;
 
   @Output() onChange = new EventEmitter<ExtraSelectButtonChangeEvent>();
 
@@ -75,10 +86,6 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor {
     if (this.size === 'sm') return 'small';
     if (this.size === 'lg') return 'large';
     return undefined;
-  }
-
-  get primeStyleClass(): string {
-    return this.size === 'xlg' ? 'p-selectbutton-xlarge' : '';
   }
 
   writeValue(value: any): void {
