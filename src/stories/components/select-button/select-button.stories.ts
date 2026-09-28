@@ -47,12 +47,12 @@ import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '@cdek-it/an
     },
     size: {
       control: 'radio',
-      options: ['sm', 'base', 'lg', 'xlg'],
+      options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер компонента',
       table: {
         category: 'Props',
         defaultValue: { summary: 'base' },
-        type: { summary: "'sm' | 'base' | 'lg' | 'xlg'" },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
     multiple: {

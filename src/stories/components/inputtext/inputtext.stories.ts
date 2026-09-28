@@ -104,12 +104,12 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     },
     size: {
       control: 'select',
-      options: ['sm', 'base', 'lg', 'xlg'],
+      options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'sm' | 'base' | 'lg' | 'xlg'" }
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
       }
     },
     fluid: {
