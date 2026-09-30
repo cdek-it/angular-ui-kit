@@ -10,14 +10,14 @@ figma:
   componentKey: '30f1444b38ec5c9aa2d2cdff3e7051afb73d2b1b'
   name: '<InputMask>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-09-30'
 ---
 
 ## Overview
 
 `ExtraInputMaskComponent` — поле ввода с фиксированной маской/форматом (телефон, дата, карта, СНИЛС/ИНН, время): подставляет структуру и литералы маски, а через `unmask` может отдавать «сырое» значение без разделителей. Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
-Компонент соответствует Figma-компоненту `<InputMask>` (nodeId `319:1690`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Label, подсказка и сообщение об ошибке навешиваются снаружи — через `<extra-input-group>` или `<extra-form-field>`.
+Компонент соответствует Figma-компоненту `<InputMask>` (nodeId `319:1690`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Label, пояснение под полем и тултип встроены в компонент — `label` / `labelPosition` / `caption` / `info`; обёртка над полем появляется только когда задан `label` или `caption`.
 
 ## Props mapping
 
@@ -27,7 +27,11 @@ updated: '2026-06-22'
 | `slotChar` | `string` | `'_'` | Символ-заполнитель для незаполненных позиций маски |
 | `autoClear` | `boolean` | `true` | Очищать поле при потере фокуса, если значение не соответствует маске целиком |
 | `unmask` | `boolean` | `false` | Отдавать в модель «сырое» значение без литералов маски |
-| `showClear` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
+| `clearable` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
+| `label` | `string` | `''` | Текст названия поля; обёртка с лейблом рендерится только при заданном `label` или `caption` |
+| `labelPosition` | `'default' \| 'float' \| 'left'` | `'default'` | Положение лейбла: сверху, плавающий внутри поля (`p-floatlabel variant="in"`) или слева |
+| `caption` | `string` | `''` | Пояснение под полем |
+| `info` | `string` | `''` | Текст тултипа у иконки `ti-info-circle` рядом с лейблом |
 | `placeholder` | `string` | `''` | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер поля; `large` и `xlarge` маппируются на PrimeNG `pSize="large"` |
 | `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
@@ -36,7 +40,7 @@ updated: '2026-06-22'
 | `keepBuffer` | `boolean` | `false` | Сохранять буфер маски при удалении символов |
 | `autocomplete` | `string` | `''` | Значение нативного атрибута `autocomplete` |
 | `(onComplete)` | `EventEmitter<void>` | — | Событие при полном заполнении маски |
-| `(onClearEvent)` | `EventEmitter<void>` | — | Событие при нажатии на иконку очистки (только при `showClear=true`) |
+| `(onClearEvent)` | `EventEmitter<void>` | — | Событие при нажатии на иконку очистки (только при `clearable`) |
 | `(onFocusEvent)` | `EventEmitter<Event>` | — | Событие фокусировки поля |
 | `(onBlurEvent)` | `EventEmitter<Event>` | — | Событие потери фокуса |
 | `(onInputEvent)` | `EventEmitter<Event>` | — | Событие ввода символа |
@@ -86,7 +90,7 @@ Figma: `<InputMask>`, state=default, has-placeholder=false, has-floatlabel=false
 ></extra-input-mask>
 ```
 
-### С кнопкой очистки (show-clear)
+### С кнопкой очистки (clearable)
 
 Figma: `<InputMask>`, state=default, show-clear=true — nodeId `319:1716`
 
@@ -94,7 +98,7 @@ Figma: `<InputMask>`, state=default, show-clear=true — nodeId `319:1716`
 <extra-input-mask
   mask="9999 9999 9999 9999"
   placeholder="Номер карты"
-  [showClear]="true"
+  clearable
   [(ngModel)]="card"
   name="card"
 ></extra-input-mask>
@@ -162,7 +166,7 @@ phoneControl = new FormControl('', [Validators.required]);
 
 ## Slots
 
-Нет — поле атомарное. Проекция содержимого не поддерживается. Для добавления prefix/suffix-иконок используйте `<extra-input-group>` — см. [inputgroup.figma.md](../inputgroup/inputgroup.figma.md).
+Нет — проекция содержимого не поддерживается. Лейбл, caption и тултип задаются пропами (`label`, `caption`, `info`), prefix/suffix-иконки — через `<extra-input-group>`, см. [inputgroup.figma.md](../inputgroup/inputgroup.figma.md).
 
 ## Related
 
@@ -176,9 +180,9 @@ phoneControl = new FormControl('', [Validators.required]);
 - Используйте `[(ngModel)]` или `[formControl]` — компонент реализует `ControlValueAccessor` и именно через них передаётся значение.
 - Управляйте состоянием `disabled` через `FormControl.disable()` / `FormControl.enable()` — это сохраняет dirty/touched-флаги.
 - Включайте `[unmask]="true"`, когда в модель нужно сохранять значение без литералов маски (например, только цифры телефона).
-- Для сброса поля через иконку × включайте `[showClear]="true"` и подписывайтесь на `(onClearEvent)` при необходимости пост-обработки.
+- Для сброса поля через иконку × включайте `clearable` и подписывайтесь на `(onClearEvent)` при необходимости пост-обработки.
 - Используйте `[fluid]="true"` в формах на всю ширину и мобильных макетах.
-- Оберните поле в `<extra-form-field>` или `<extra-input-group>` для добавления label, подсказки и prefix/suffix.
+- Для лейбла, пояснения и тултипа используйте `label` / `labelPosition` / `caption` / `info` самого компонента; `<extra-input-group>` нужен только для prefix/suffix.
 
 **Don't:**
 - Не используйте маскированное поле для свободного текста без фиксированного формата — для этого есть [InputText](../inputtext/inputtext.figma.md).
