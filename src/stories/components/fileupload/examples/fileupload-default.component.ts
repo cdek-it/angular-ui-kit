@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ExtraFileUploadComponent } from '../../../../lib/components/fileupload/fileupload.component';
+import { ExtraFileUploadComponent, ExtraFileUploadMode } from '../../../../lib/components/fileupload/fileupload.component';
 
 @Component({
   selector: 'app-fileupload-default',
@@ -7,6 +7,8 @@ import { ExtraFileUploadComponent } from '../../../../lib/components/fileupload/
   imports: [ExtraFileUploadComponent],
   template: `
     <extra-fileupload
+      [mode]="mode"
+      [dragAndDrop]="dragAndDrop"
       [multiple]="multiple"
       [accept]="accept"
       [maxFileSize]="maxFileSize"
@@ -15,6 +17,8 @@ import { ExtraFileUploadComponent } from '../../../../lib/components/fileupload/
   `,
 })
 export class FileUploadDefaultComponent {
+  @Input() mode: ExtraFileUploadMode = 'manual';
+  @Input() dragAndDrop = true;
   @Input() multiple = true;
   @Input() accept = 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   @Input() maxFileSize = 1000000;
