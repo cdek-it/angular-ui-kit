@@ -66,12 +66,21 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
     },
     labelPosition: {
       control: 'select',
-      options: ['default', 'float', 'left'],
+      options: ['top', 'left'],
       description: 'Положение лейбла',
       table: {
         category: 'Свойства',
-        defaultValue: { summary: 'default' },
-        type: { summary: "'default' | 'float' | 'left'" }
+        defaultValue: { summary: 'top' },
+        type: { summary: "'top' | 'left'" }
+      }
+    },
+    floatLabel: {
+      control: 'boolean',
+      description: 'Плавающий лейбл внутри поля',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
       }
     },
     mask: {
@@ -217,29 +226,24 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
       description: 'Срабатывает при полном заполнении маски',
       table: { category: 'События', type: { summary: 'EventEmitter<void>' } }
     },
-    onInputEvent: {
+    onInput: {
       control: false,
       description: 'Срабатывает при вводе значения',
       table: { category: 'События', type: { summary: 'EventEmitter<Event>' } }
     },
-    onClearEvent: {
+    onClear: {
       control: false,
       description: 'Срабатывает при очистке поля иконкой × (только при clearable)',
       table: { category: 'События', type: { summary: 'EventEmitter<void>' } }
     },
-    onFocusEvent: {
+    onFocus: {
       control: false,
       description: 'Срабатывает при фокусе',
       table: { category: 'События', type: { summary: 'EventEmitter<Event>' } }
     },
-    onBlurEvent: {
+    onBlur: {
       control: false,
       description: 'Срабатывает при потере фокуса',
-      table: { category: 'События', type: { summary: 'EventEmitter<Event>' } }
-    },
-    onKeydownEvent: {
-      control: false,
-      description: 'Срабатывает при нажатии клавиши',
       table: { category: 'События', type: { summary: 'EventEmitter<Event>' } }
     },
     // Hidden computed props
@@ -248,7 +252,7 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
     fieldClass: { table: { disable: true } },
     fieldPlaceholder: { table: { disable: true } },
     inputId: { table: { disable: true } },
-    onBlur: { table: { disable: true } },
+    handleBlur: { table: { disable: true } },
     writeValue: { table: { disable: true } },
     registerOnChange: { table: { disable: true } },
     registerOnTouched: { table: { disable: true } },
@@ -257,7 +261,8 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
   args: {
     placeholder: '(___) ___-____',
     label: '',
-    labelPosition: 'default',
+    labelPosition: 'top',
+    floatLabel: false,
     mask: '(999) 999-9999',
     slotChar: '_',
     unmask: false,
@@ -287,7 +292,8 @@ export const Default: Story = {
     if (args.slotChar && args.slotChar !== '_') parts.push(`slotChar="${args.slotChar}"`);
     if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     if (args.label) parts.push(`label="${args.label}"`);
-    if (args.labelPosition && args.labelPosition !== 'default') parts.push(`labelPosition="${args.labelPosition}"`);
+    if (args.labelPosition && args.labelPosition !== 'top') parts.push(`labelPosition="${args.labelPosition}"`);
+    if (args.floatLabel) parts.push(`[floatLabel]="true"`);
     if (args.unmask) parts.push(`[unmask]="true"`);
     if (!args.autoClear) parts.push(`[autoClear]="false"`);
     if (args.clearable) parts.push(`clearable`);

@@ -19,7 +19,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
 export type ExtraInputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraInputMaskLabelPosition = 'default' | 'float' | 'left';
+export type ExtraInputMaskLabelPosition = 'top' | 'left';
 
 let nextInputId = 0;
 
@@ -40,15 +40,16 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где поле обязано быть прямым flex-элементом). -->
     @if (label || caption) {
-      <div class="extra-inputmask" [class.extra-inputmask--left]="labelPosition === 'left'">
-        @if (label && labelPosition === 'left') {
+      <!-- floatLabel перекрывает labelPosition: лейбл уезжает внутрь поля, строчной раскладки нет -->
+      <div class="extra-inputmask" [class.extra-inputmask--left]="labelPosition === 'left' && !floatLabel">
+        @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
         <div class="extra-inputmask-body">
-          @if (label && labelPosition === 'default') {
+          @if (label && labelPosition === 'top' && !floatLabel) {
             <ng-container [ngTemplateOutlet]="labelTpl" />
           }
-          @if (labelPosition === 'float') {
+          @if (floatLabel) {
             <p-floatlabel variant="in">
               <ng-container [ngTemplateOutlet]="fieldTpl" />
               @if (label) {
@@ -95,11 +96,10 @@ let nextInputId = 0;
         [autocomplete]="autocomplete"
         [formControl]="control"
         (onComplete)="onComplete.emit($event)"
-        (onFocus)="onFocusEvent.emit($event)"
-        (onBlur)="onBlur($event)"
-        (onInput)="onInputEvent.emit($event)"
-        (onKeydown)="onKeydownEvent.emit($event)"
-        (onClear)="onClearEvent.emit($event)"
+        (onFocus)="onFocus.emit($event)"
+        (onBlur)="handleBlur($event)"
+        (onInput)="onInput.emit($event)"
+        (onClear)="onClear.emit()"
       ></p-inputmask>
     </ng-template>
   `
@@ -122,7 +122,9 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
   @Input({ transform: booleanAttribute }) unmask = false;
   @Input() placeholder = '';
   @Input() label = '';
-  @Input() labelPosition: ExtraInputMaskLabelPosition = 'default';
+  @Input() labelPosition: ExtraInputMaskLabelPosition = 'top';
+  /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
+  @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input() caption = '';
   @Input() info = '';
   @Input() size: ExtraInputMaskSize = 'base';
@@ -134,11 +136,10 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
   @Input() autocomplete = '';
 
   @Output() onComplete = new EventEmitter<void>();
-  @Output() onFocusEvent = new EventEmitter<Event>();
-  @Output() onBlurEvent = new EventEmitter<Event>();
-  @Output() onInputEvent = new EventEmitter<Event>();
-  @Output() onKeydownEvent = new EventEmitter<Event>();
-  @Output() onClearEvent = new EventEmitter<void>();
+  @Output() onFocus = new EventEmitter<Event>();
+  @Output() onBlur = new EventEmitter<Event>();
+  @Output() onInput = new EventEmitter<Event>();
+  @Output() onClear = new EventEmitter<void>();
 
   private _onChange: (value: string | null) => void = () => {};
   private _onTouched: () => void = () => {};
@@ -180,9 +181,9 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
     return this.placeholder || undefined;
   }
 
-  onBlur(event: Event): void {
+  handleBlur(event: Event): void {
     this._onTouched();
-    this.onBlurEvent.emit(event);
+    this.onBlur.emit(event);
   }
 
   writeValue(value: string | null): void {

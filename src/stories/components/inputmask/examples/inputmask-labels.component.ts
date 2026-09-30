@@ -16,7 +16,7 @@ const template = `
   <extra-input-mask
     [formControl]="floatControl"
     mask="99/99/9999"
-    labelPosition="float"
+    [floatLabel]="true"
     label="Плавающий лейбл"
     caption="Пояснение под полем"
   ></extra-input-mask>
@@ -59,7 +59,7 @@ export const Labels: StoryObj = {
     docs: {
       description: {
         story:
-          'Положения лейбла (label-position): default — сверху, float — плавающий внутри поля, left — слева от поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем. С float не задавайте placeholder: лейбл тогда всегда остаётся поднятым.'
+          'Положения лейбла (labelPosition): top — сверху (по умолчанию), left — слева от поля; floatLabel — плавающий лейбл внутри поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем. С floatLabel не задавайте placeholder: лейбл тогда всегда остаётся поднятым.'
       },
       source: {
         language: 'ts',
@@ -82,11 +82,11 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
       caption="Пояснение под полем"
     ></extra-input-mask>
 
-    <!-- float: без placeholder, иначе лейбл всегда поднят -->
+    <!-- floatLabel: без placeholder, иначе лейбл всегда поднят -->
     <extra-input-mask
       [formControl]="floatControl"
       mask="99/99/9999"
-      labelPosition="float"
+      [floatLabel]="true"
       label="Плавающий лейбл"
       caption="Пояснение под полем"
     ></extra-input-mask>

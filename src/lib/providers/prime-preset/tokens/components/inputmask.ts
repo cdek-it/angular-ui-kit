@@ -3,8 +3,8 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 /* ─── Раскладка обёртки с label/caption ───
    Шаблон ExtraInputMaskComponent оборачивает поле в .extra-inputmask только когда задан
    label или caption. Без этих правил div остаётся block-элементом: inline-лейбл при
-   label-position="default" встаёт в одну строку с полем, а при "left" — выдавливается
-   на строку выше (label-position работает ровно наоборот спецификации). */
+   labelPosition="top" встаёт в одну строку с полем, а при "left" — выдавливается
+   на строку выше (labelPosition работает ровно наоборот спецификации). */
 .extra-inputmask {
   display: flex;
   flex-direction: column;
