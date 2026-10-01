@@ -8,7 +8,7 @@ const template = `
 <extra-toast key="slots"></extra-toast>
 
 <ng-template #contentOnly>
-  <div class="mt-2 text-sm">Контент после caption (слот content)</div>
+  <div>Контент после caption (слот content)</div>
 </ng-template>
 
 <ng-template #footerOnly>
@@ -83,7 +83,7 @@ export const Slots: StoryObj = {
     docs: {
       description: {
         story:
-          'Слот `content` — контент после `caption` (например, произвольный текст). Слот `footer` — контент футера (например, кнопки действий). Оба передаются как `TemplateRef` в `ExtraToastService.add()`.'
+          'Слот `content` — контент после `caption` (например, произвольный текст). Слот `footer` — контент футера (например, кнопки действий, прижатые вправо). Оба занимают всю ширину уведомления и передаются как `TemplateRef` в `ExtraToastService.add()`.'
       },
       source: {
         language: 'ts',

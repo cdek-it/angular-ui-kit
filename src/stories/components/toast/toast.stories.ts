@@ -86,9 +86,21 @@ export class AppComponent {
     key: {
       table: { disable: true }
     },
+    appendTo: {
+      control: 'select',
+      options: ['body', 'self'],
+      description:
+        'Куда монтируется контейнер уведомлений. `body` (по умолчанию) — уведомления позиционируются относительно окна браузера; `self` оставляет контейнер на месте в шаблоне (тогда ближайший предок с `transform`/`filter`/`contain` становится точкой отсчёта для `position: fixed`)',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'body' },
+        type: { summary: "'body' | 'self' | HTMLElement | ElementRef<HTMLElement>" }
+      }
+    },
     life: {
       control: 'number',
-      description: 'Время (мс) до автоматического закрытия — общий дефолт контейнера, переопределяется полем `life` сообщения',
+      description:
+        'Время (мс) до автоматического закрытия — общий дефолт контейнера, переопределяется полем `life` сообщения',
       table: {
         category: 'Props',
         defaultValue: { summary: '5000' },
@@ -99,7 +111,8 @@ export class AppComponent {
   args: {
     position: 'top-right',
     key: undefined,
-    life: 5000
+    life: 5000,
+    appendTo: 'body'
   }
 };
 

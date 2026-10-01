@@ -38,6 +38,7 @@ updated: '2026-09-06'
 | `position` | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center' \| 'center'` | `'top-right'` | Позиция группы уведомлений на экране |
 | `key` | `string \| undefined` | `undefined` | Ключ контейнера; показывают только сообщения с тем же `key` (несколько независимых очередей) |
 | `life` | `number` | `5000` | Дефолтное время автозакрытия (мс) для всех сообщений этого контейнера; переопределяется полем `life` конкретного сообщения |
+| `appendTo` | `'body' \| 'self' \| HTMLElement \| ElementRef<HTMLElement>` | `'body'` | Куда монтируется контейнер. По умолчанию переносится в `body`, чтобы уведомления позиционировались относительно окна браузера: любой предок с `transform`/`filter`/`contain` становится content block для `position: fixed` и «запирает» уведомления внутри себя (так происходит, например, в Storybook Docs и в контейнерах с CSS-анимациями). `'self'` оставляет контейнер на месте в шаблоне |
 
 Само сообщение передаётся в `ExtraToastService.add()` объектом `ExtraToastMessage` — это и есть
 публичный API спецификации:
@@ -188,8 +189,8 @@ this.toast.add({ key: 'orders', severity: 'success', message: 'Заказ соз
 
 | Слот | Описание |
 |------|----------|
-| `content` | Контент после `caption`. Передаётся `TemplateRef` в поле `content` объекта `ExtraToastMessage` |
-| `footer` | Контент футера. Передаётся `TemplateRef` в поле `footer` объекта `ExtraToastMessage` |
+| `content` | Контент после `caption` (Figma `<Slot.Body>`). Занимает всю ширину уведомления — под строкой «иконка + заголовок + крестик», а не в колонке текста. Передаётся `TemplateRef` в поле `content` объекта `ExtraToastMessage` |
+| `footer` | Контент футера (Figma `footer` со `<Slot.FirstAction>`/`<Slot.SecondAction>`). Занимает всю ширину, содержимое прижато вправо. Передаётся `TemplateRef` в поле `footer` объекта `ExtraToastMessage` |
 
 ## Related
 
