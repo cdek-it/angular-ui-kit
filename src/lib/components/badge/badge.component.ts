@@ -12,12 +12,17 @@ type PrimeBadgeSize = ReturnType<Badge['size']>;
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Badge],
-  template: ` <p-badge [value]="value" [severity]="primeSeverity" [size]="primeSize"></p-badge> `
+  template: ` <p-badge [value]="badgeValue" [severity]="primeSeverity" [size]="primeSize"></p-badge> `
 })
 export class ExtraBadgeComponent {
   @Input() value: string | number = '';
+  @Input() dot = false;
   @Input() severity: ExtraBadgeSeverity = 'primary';
   @Input() size: ExtraBadgeSize = 'base';
+
+  get badgeValue(): string | number | undefined {
+    return this.dot ? undefined : this.value || undefined;
+  }
 
   get primeSeverity(): PrimeBadgeSeverity {
     if (this.severity === 'primary') return null;

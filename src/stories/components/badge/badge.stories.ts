@@ -40,6 +40,15 @@ import { BadgeModule } from 'primeng/badge';
         type: { summary: 'string | number' }
       }
     },
+    dot: {
+      control: 'boolean',
+      description: 'Режим точки-индикатора без значения; приоритетнее value',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
     severity: {
       control: 'select',
       options: ['primary', 'success', 'info', 'warning', 'danger'],
@@ -63,6 +72,7 @@ import { BadgeModule } from 'primeng/badge';
   },
   args: {
     value: '8',
+    dot: false,
     severity: 'primary',
     size: 'base'
   }
@@ -77,10 +87,11 @@ export const Default: Story = {
   name: 'Default',
   render: (args) => ({
     props: args,
-    template: `<app-badge-severity [value]="value" [severity]="severity" [size]="size"></app-badge-severity>`
+    template: `<app-badge-severity [value]="value" [dot]="dot" [severity]="severity" [size]="size"></app-badge-severity>`
   }),
   args: {
-    value: '8'
+    value: '8',
+    dot: false
   },
   parameters: {
     docs: {

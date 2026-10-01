@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraBadgeSeverity, ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
+import {
+  ExtraBadgeSeverity,
+  ExtraBadgeSize,
+  ExtraBadgeComponent
+} from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="p-4">
-  <extra-badge [severity]="severity" [size]="size"></extra-badge>
+  <extra-badge [dot]="true" [severity]="severity" [size]="size"></extra-badge>
 </div>
 `;
 
@@ -41,7 +45,7 @@ export const Dot: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Без значения — отображается как точка-индикатор.'
+        story: '`[dot]="true"` — точка-индикатор без значения; приоритетнее `value`.'
       },
       source: {
         language: 'ts',
