@@ -5,18 +5,18 @@ import { ExtraToastComponent } from '../../../../lib/components/toast/toast.comp
 import { ExtraToastService } from '../../../../lib/components/toast/toast.service';
 
 const SEVERITIES = [
-  { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
-  { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
-  { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
-  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' }
+  { severity: 'info', primeClass: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
+  { severity: 'success', primeClass: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
+  { severity: 'warning', primeClass: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
+  { severity: 'danger', primeClass: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' }
 ] as const;
 
 const template = `
 <extra-toast key="severities"></extra-toast>
 
 <div class="flex flex-col gap-4">
-  @for (s of severities; track s.type) {
-    <div [class]="'p-toast-message p-toast-message-' + s.type">
+  @for (s of severities; track s.severity) {
+    <div [class]="'p-toast-message p-toast-message-' + s.primeClass">
       <div class="p-toast-message-content">
         <div class="p-toast-accent-line"></div>
         <i [class]="s.icon + ' p-toast-message-icon'"></i>
@@ -30,12 +30,12 @@ const template = `
 </div>
 
 <div class="flex flex-wrap gap-2 mt-6">
-  @for (s of severities; track s.type) {
+  @for (s of severities; track s.severity) {
     <extra-button
       [label]="'Показать: ' + s.label"
-      [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : 'base'"
+      [severity]="s.severity === 'danger' || s.severity === 'warning' ? s.severity : 'base'"
       variant="tertiary"
-      (click)="show(s.type, s.icon)"
+      (click)="show(s.severity, s.icon)"
     ></extra-button>
   }
 </div>
@@ -54,13 +54,12 @@ export class ToastSeveritiesComponent {
 
   constructor(private readonly toastService: ExtraToastService) {}
 
-  show(severity: string, icon: string): void {
+  show(severity: 'info' | 'success' | 'warning' | 'danger', icon: string): void {
     this.toastService.add({
       key: 'severities',
-      severity: severity as any,
-      summary: 'Сообщение',
-      detail: 'Подпись',
-      life: 5000,
+      severity,
+      message: 'Сообщение',
+      caption: 'Подпись',
       icon
     });
   }
@@ -78,12 +77,7 @@ export const Severities: StoryObj = {
         code: `
 import { ExtraButtonComponent, ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 
-const SEVERITIES = [
-  { type: 'info', icon: 'ti ti-info-circle', label: 'Информация' },
-  { type: 'success', icon: 'ti ti-circle-check', label: 'Успех' },
-  { type: 'warn', icon: 'ti ti-alert-triangle', label: 'Предупреждение' },
-  { type: 'error', icon: 'ti ti-alert-circle', label: 'Ошибка' },
-] as const;
+const SEVERITIES = ['info', 'success', 'warning', 'danger'] as const;
 
 @Component({
   selector: 'app-example',
@@ -93,12 +87,11 @@ const SEVERITIES = [
     <extra-toast key="severities"></extra-toast>
 
     <div class="flex flex-wrap gap-2">
-      @for (s of severities; track s.type) {
+      @for (severity of severities; track severity) {
         <extra-button
-          [label]="'Показать: ' + s.label"
-          [severity]="s.type === 'error' ? 'danger' : s.type === 'warn' ? 'warning' : 'base'"
+          [label]="'Показать: ' + severity"
           variant="tertiary"
-          (click)="show(s.type, s.icon)"
+          (click)="show(severity)"
         ></extra-button>
       }
     </div>
@@ -109,14 +102,12 @@ export class ExampleComponent {
 
   constructor(private toastService: ExtraToastService) {}
 
-  show(severity: string, icon: string): void {
+  show(severity: 'info' | 'success' | 'warning' | 'danger'): void {
     this.toastService.add({
       key: 'severities',
-      severity: severity as any,
-      summary: 'Сообщение',
-      detail: 'Подпись',
-      life: 5000,
-      icon,
+      severity,
+      message: 'Сообщение',
+      caption: 'Подпись',
     });
   }
 }
