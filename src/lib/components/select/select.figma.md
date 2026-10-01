@@ -10,7 +10,7 @@ figma:
   componentKey: '361-1561'
   name: '<Select>'
 status: stable
-updated: '2026-09-07'
+updated: '2026-09-30'
 ---
 
 ## Overview
@@ -25,7 +25,8 @@ updated: '2026-09-07'
 |----------|-----|--------------|---------|
 | `placeholder` | `string` | `''` | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
 | `label` | `string` | `''` | Текст названия поля |
-| `labelPosition` | `'left' \| 'top' \| 'float'` | `'top'` | Положение лейбла — `top` над полем, `float` — плавающая метка (`has-floatlabel`), `left` — слева от поля |
+| `labelPosition` | `'top' \| 'left'` | `'top'` | Положение лейбла — `top` над полем, `left` — слева от поля |
+| `floatLabel` | `boolean` | `false` | Плавающая метка внутри поля (Figma-свойство `has-floatlabel`); перекрывает `labelPosition` |
 | `options` | `ExtraSelectGroup[] \| ExtraSelectOption[] \| any[] \| null \| undefined` | `undefined` | Список опций для выбора |
 | `optionLabel` | `string \| undefined` | `undefined` | Имя поля опции, отображаемое как подпись |
 | `optionValue` | `string \| undefined` | `undefined` | Имя поля опции, используемое как значение модели |
@@ -153,7 +154,7 @@ Figma: `<Select.Group>` — заголовок группы в панели
 ></extra-select>
 ```
 
-### С плавающей меткой (label-position=float)
+### С плавающей меткой (floatLabel)
 
 Figma: `<Select>`, state=default, has-placeholder=true, has-floatlabel=true — nodeId `13798:26472`
 
@@ -161,14 +162,14 @@ Figma: `<Select>`, state=default, has-placeholder=true, has-floatlabel=true — 
 <extra-select
   [options]="cities"
   optionLabel="name"
-  labelPosition="float"
+  [floatLabel]="true"
   label="Город"
   [(ngModel)]="selectedCity"
   name="cityFloat"
 ></extra-select>
 ```
 
-### С лейблом слева (label-position=left)
+### С лейблом слева (labelPosition=left)
 
 ```html
 <extra-select

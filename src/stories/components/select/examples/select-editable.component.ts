@@ -9,16 +9,18 @@ const OPTIONS = [
 ];
 
 const template = `
-<extra-select
-  [formControl]="control"
-  [options]="options"
-  optionLabel="name"
-  placeholder="Выберите или введите город..."
-  [editable]="true"
-  [size]="size"
-  [clearable]="clearable"
-  [readonly]="readonly"
-></extra-select>
+<div class="w-80">
+  <extra-select
+    [formControl]="control"
+    [options]="options"
+    optionLabel="name"
+    placeholder="Выберите или введите город..."
+    [editable]="true"
+    [size]="size"
+    [clearable]="clearable"
+    [readonly]="readonly"
+  ></extra-select>
+</div>
 `;
 const styles = '';
 

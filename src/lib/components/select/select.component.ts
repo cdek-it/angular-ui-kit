@@ -12,7 +12,7 @@ import {
   Output,
   TemplateRef
 } from '@angular/core';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -21,7 +21,7 @@ import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select'
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
 export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraSelectLabelPosition = 'left' | 'top' | 'float';
+export type ExtraSelectLabelPosition = 'top' | 'left';
 
 export interface ExtraSelectOption {
   name: string;
@@ -57,7 +57,7 @@ export class ExtraSelectOptionGroupDirective {}
 @Component({
   selector: 'extra-select',
   standalone: true,
-  imports: [Select, NgClass, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel, ExtraTooltipDirective],
+  imports: [Select, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel, ExtraTooltipDirective],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -68,15 +68,16 @@ export class ExtraSelectOptionGroupDirective {}
   ],
   template: `
     @if (label || caption) {
-      <div class="extra-select" [class.extra-select--left]="labelPosition === 'left'">
-        @if (label && labelPosition === 'left') {
+      <!-- floatLabel перекрывает labelPosition: лейбл уезжает внутрь поля, строчной раскладки нет -->
+      <div class="extra-select" [class.extra-select--left]="labelPosition === 'left' && !floatLabel">
+        @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
         <div class="extra-select-body">
-          @if (label && labelPosition === 'top') {
+          @if (label && labelPosition === 'top' && !floatLabel) {
             <ng-container [ngTemplateOutlet]="labelTpl" />
           }
-          @if (labelPosition === 'float') {
+          @if (floatLabel) {
             <p-floatlabel variant="in">
               <ng-container [ngTemplateOutlet]="selectTpl" />
               @if (label) {
@@ -106,7 +107,7 @@ export class ExtraSelectOptionGroupDirective {}
 
     <ng-template #selectTpl>
       <p-select
-        [ngClass]="selectClasses"
+        [styleClass]="selectClass"
         [ngModel]="modelValue"
         [disabled]="disabled"
         [options]="options"
@@ -179,19 +180,22 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input() optionDisabled: string | undefined;
   @Input() optionGroupLabel: string | undefined;
   @Input() optionGroupChildren = 'items';
-  @Input() group = false;
+  @Input({ transform: booleanAttribute }) group = false;
   @Input() placeholder = '';
   @Input() label = '';
   @Input() labelPosition: ExtraSelectLabelPosition = 'top';
+  /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
+  @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input() caption = '';
   @Input() info = '';
   @Input() size: ExtraSelectSize = 'base';
-  @Input() showFilter = false;
+  @Input({ transform: booleanAttribute }) showFilter = false;
+  /** Отображение иконки очистки поля при наличии значения. */
   @Input({ transform: booleanAttribute }) clearable = false;
-  @Input() showCheckbox = true;
-  @Input() editable = false;
-  @Input() readonly = false;
-  @Input() loading = false;
+  @Input({ transform: booleanAttribute }) showCheckbox = true;
+  @Input({ transform: booleanAttribute }) editable = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  @Input({ transform: booleanAttribute }) loading = false;
   @Input() inputId: string | undefined = `extra-select-${nextInputId++}`;
   @Input() appendTo: any = 'body';
   @Input() checkmarkIcon = 'ea5e';
@@ -229,11 +233,19 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
     return { '--p-select-checkmark-content': `"${char}"` };
   }
 
-  get selectClasses(): Record<string, boolean> {
-    return {
-      'p-select-xlg': this.size === 'xlarge',
-      'p-invalid': this.invalid
-    };
+  /**
+   * Классы на сам p-select. `p-select-readonly` навешиваем сами: PrimeNG ставит
+   * атрибут `readonly` только на внутренний input, который существует лишь в
+   * режиме `editable`, — в обычном селекте зацепиться в CSS не за что.
+   */
+  get selectClass(): string {
+    return [
+      this.size === 'xlarge' ? 'p-select-xlg' : '',
+      this.readonly ? 'p-select-readonly' : '',
+      this.invalid ? 'p-invalid' : ''
+    ]
+      .filter(Boolean)
+      .join(' ');
   }
 
   private _onChange: (value: any) => void = () => {};

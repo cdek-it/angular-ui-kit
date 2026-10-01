@@ -1,5 +1,5 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { ExtraSelectComponent } from '../../../lib/components/select/select.component';
 import { Filter as FilterStory, SelectFilterComponent } from './examples/select-filter.component';
 import { Grouped as GroupedStory, SelectGroupedComponent } from './examples/select-grouped.component';
@@ -10,7 +10,11 @@ import {
 } from './examples/select-selected-item.component';
 import { Editable as EditableStory, SelectEditableComponent } from './examples/select-editable.component';
 import { Disabled as DisabledStory } from './examples/select-disabled.component';
-import { LabelPosition as LabelPositionStory, SelectLabelPositionComponent } from './examples/select-label-position.component';
+import { Sizes as SizesStory, SelectSizesComponent } from './examples/select-sizes.component';
+import {
+  LabelPosition as LabelPositionStory,
+  SelectLabelPositionComponent
+} from './examples/select-label-position.component';
 
 const BASIC_OPTIONS = [
   { name: 'Новосибирск', code: 'NSK' },
@@ -20,12 +24,28 @@ const BASIC_OPTIONS = [
   { name: 'Казань', code: 'KZN' }
 ];
 
+/**
+ * Контрол истории живёт между рендерами: Storybook вызывает render() на каждое
+ * изменение args, и пересоздание FormControl сбрасывало бы выбранное значение —
+ * а вместе с ним всё, что видно только у заполненного поля (иконка очистки,
+ * отметка выбранного пункта).
+ */
+const control = new FormControl(null);
+
+/**
+ * `invalid` в сторибуке показывает визуальное состояние, а не результат конкретного
+ * правила: с Validators.required поле становится валидным, как только выбрано
+ * значение, и переключатель переставал что-либо менять.
+ */
+const alwaysInvalid = (): ValidationErrors => ({ invalid: true });
+
 type SelectArgs = Pick<
   ExtraSelectComponent,
   | 'size'
   | 'placeholder'
   | 'label'
   | 'labelPosition'
+  | 'floatLabel'
   | 'caption'
   | 'info'
   | 'clearable'
@@ -55,6 +75,7 @@ const meta: Meta<SelectArgs> = {
         SelectCustomComponent,
         SelectSelectedItemComponent,
         SelectEditableComponent,
+        SelectSizesComponent,
         SelectLabelPositionComponent
       ]
     })
@@ -104,12 +125,21 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
     },
     labelPosition: {
       control: 'select',
-      options: ['top', 'left', 'float'],
+      options: ['top', 'left'],
       description: 'Положение лейбла',
       table: {
         category: 'Свойства',
-        defaultValue: { summary: 'top' },
-        type: { summary: "'left' | 'top' | 'float'" }
+        defaultValue: { summary: "'top'" },
+        type: { summary: "'top' | 'left'" }
+      }
+    },
+    floatLabel: {
+      control: 'boolean',
+      description: 'Плавающий лейбл внутри поля — перекрывает labelPosition',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
       }
     },
     caption: {
@@ -234,6 +264,7 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
     placeholder: 'Выберите город...',
     label: '',
     labelPosition: 'top',
+    floatLabel: false,
     caption: '',
     info: '',
     clearable: true,
@@ -252,38 +283,46 @@ type Story = StoryObj<SelectArgs>;
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const control = new FormControl(
-      { value: null, disabled: !!args['disabled'] },
-      args['invalid'] ? [Validators.required] : []
-    );
-    if (args['invalid']) control.markAsTouched();
+  render: ({ disabled, invalid, ...args }) => {
+    // disabled и invalid — не свойства компонента: первое приходит через
+    // ControlValueAccessor.setDisabledState, второе вычисляется из NgControl.
+    // Поэтому задаём их состоянием самого контрола, а не входами.
+    disabled ? control.disable() : control.enable();
+    control.setValidators(invalid ? [alwaysInvalid] : []);
+    control.updateValueAndValidity();
+    invalid ? control.markAsTouched() : control.markAsUntouched();
 
+    // В props кладём только реальные входы: Storybook присваивает пропсы прямо
+    // на инстанс ExtraSelectComponent, а invalid у него — геттер без сеттера.
     return {
       props: { ...args, control, options: BASIC_OPTIONS },
       template: `
-        <extra-select
-          [formControl]="control"
-          [options]="options"
-          optionLabel="name"
-          [placeholder]="placeholder"
-          [label]="label"
-          [labelPosition]="labelPosition"
-          [caption]="caption"
-          [info]="info"
-          [size]="size"
-          [clearable]="clearable"
-          [showFilter]="showFilter"
-          [readonly]="readonly"
-          [showCheckbox]="showCheckbox"
-        ></extra-select>
+        <div class="w-80">
+          <extra-select
+            [formControl]="control"
+            [options]="options"
+            optionLabel="name"
+            [placeholder]="placeholder"
+            [label]="label"
+            [labelPosition]="labelPosition"
+            [floatLabel]="floatLabel"
+            [caption]="caption"
+            [info]="info"
+            [size]="size"
+            [clearable]="clearable"
+            [showFilter]="showFilter"
+            [readonly]="readonly"
+            [showCheckbox]="showCheckbox"
+          ></extra-select>
+        </div>
       `
     };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов; disabled и invalid — не входы компонента и задаются состоянием FormControl.'
       }
     }
   }
@@ -296,5 +335,6 @@ export const Grouped: Story = GroupedStory;
 export const Custom: Story = CustomStory;
 export const SelectedItem: Story = SelectedItemStory;
 export const Editable: Story = EditableStory;
+export const Sizes: Story = SizesStory;
 export const Disabled: Story = DisabledStory;
 export const LabelPosition: Story = LabelPositionStory;

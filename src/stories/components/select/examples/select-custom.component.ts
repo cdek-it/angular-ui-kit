@@ -13,25 +13,27 @@ const OPTIONS = [
 ];
 
 const template = `
-<extra-select
-  [formControl]="control"
-  [options]="options"
-  optionLabel="name"
-  placeholder="Выберите пункт..."
-  [size]="size"
-  [clearable]="clearable"
-  [readonly]="readonly"
->
-  <ng-template extraSelectOption let-option>
-    <div class="flex items-center gap-2">
-      <span [class]="option.icon"></span>
-      <div>
-        <div>{{ option.name }}</div>
-        <small class="text-surface-400">{{ option.description }}</small>
+<div class="w-80">
+  <extra-select
+    [formControl]="control"
+    [options]="options"
+    optionLabel="name"
+    placeholder="Выберите пункт..."
+    [size]="size"
+    [clearable]="clearable"
+    [readonly]="readonly"
+  >
+    <ng-template extraSelectOption let-option>
+      <div class="flex items-center gap-2">
+        <span [class]="option.icon"></span>
+        <div>
+          <div>{{ option.name }}</div>
+          <small class="text-surface-400">{{ option.description }}</small>
+        </div>
       </div>
-    </div>
-  </ng-template>
-</extra-select>
+    </ng-template>
+  </extra-select>
+</div>
 `;
 const styles = '';
 

@@ -26,25 +26,27 @@ const GROUPED_OPTIONS = [
 ];
 
 const template = `
-<extra-select
-  [formControl]="control"
-  [options]="options"
-  optionLabel="label"
-  optionGroupLabel="label"
-  optionGroupChildren="items"
-  [group]="true"
-  placeholder="Выберите город..."
-  [size]="size"
-  [clearable]="clearable"
-  [readonly]="readonly"
->
-  <ng-template extraSelectOptionGroup let-group>
-    <div class="flex items-center gap-2">
-      <span class="ti ti-flag"></span>
-      <span>{{ group.label }}</span>
-    </div>
-  </ng-template>
-</extra-select>
+<div class="w-80">
+  <extra-select
+    [formControl]="control"
+    [options]="options"
+    optionLabel="label"
+    optionGroupLabel="label"
+    optionGroupChildren="items"
+    [group]="true"
+    placeholder="Выберите город..."
+    [size]="size"
+    [clearable]="clearable"
+    [readonly]="readonly"
+  >
+    <ng-template extraSelectOptionGroup let-group>
+      <div class="flex items-center gap-2">
+        <span class="ti ti-flag"></span>
+        <span>{{ group.label }}</span>
+      </div>
+    </ng-template>
+  </extra-select>
+</div>
 `;
 const styles = '';
 

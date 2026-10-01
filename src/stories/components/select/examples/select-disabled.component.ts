@@ -15,12 +15,14 @@ export const Disabled: StoryObj = {
     return {
       props: { control, options: OPTIONS },
       template: `
-        <extra-select
-          [formControl]="control"
-          [options]="options"
-          optionLabel="name"
-          placeholder="Выберите город..."
-        ></extra-select>
+        <div class="w-80">
+          <extra-select
+            [formControl]="control"
+            [options]="options"
+            optionLabel="name"
+            placeholder="Выберите город..."
+          ></extra-select>
+        </div>
       `
     };
   },

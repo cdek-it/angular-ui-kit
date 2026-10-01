@@ -10,15 +10,15 @@ const OPTIONS = [
 ];
 
 const template = `
-<div class="flex flex-wrap gap-6">
+<div class="flex flex-wrap items-end gap-6">
   <div class="w-64">
     <extra-select [formControl]="control1" [options]="options" optionLabel="name" label="Город" placeholder="Выберите..."></extra-select>
   </div>
-  <div class="w-64 pt-6">
-    <extra-select [formControl]="control2" [options]="options" optionLabel="name" label="Город" labelPosition="float"></extra-select>
+  <div class="w-64">
+    <extra-select [formControl]="control2" [options]="options" optionLabel="name" label="Город" labelPosition="left" placeholder="Выберите..."></extra-select>
   </div>
   <div class="w-64">
-    <extra-select [formControl]="control3" [options]="options" optionLabel="name" label="Город" labelPosition="left" placeholder="Выберите..."></extra-select>
+    <extra-select [formControl]="control3" [options]="options" optionLabel="name" label="Город" [floatLabel]="true"></extra-select>
   </div>
 </div>
 `;
@@ -37,6 +37,7 @@ export class SelectLabelPositionComponent {
 }
 
 export const LabelPosition: StoryObj = {
+  name: 'Label Position',
   render: () => ({
     template: `<app-select-label-position></app-select-label-position>`
   }),
@@ -45,7 +46,7 @@ export const LabelPosition: StoryObj = {
     docs: {
       description: {
         story:
-          'Положения лейбла (`label-position`): `top` (по умолчанию) — над полем, `float` — плавающая метка внутри поля, `left` — слева от поля.'
+          '`labelPosition` — `top` (по умолчанию) над полем или `left` слева от поля. Плавающая метка внутри поля включается отдельным булевым свойством `floatLabel`, которое перекрывает `labelPosition`.'
       },
       source: {
         language: 'ts',
@@ -60,9 +61,9 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
   template: \`
     <extra-select [formControl]="control1" [options]="options" optionLabel="name" label="Город" placeholder="Выберите..."></extra-select>
 
-    <extra-select [formControl]="control2" [options]="options" optionLabel="name" label="Город" labelPosition="float"></extra-select>
+    <extra-select [formControl]="control2" [options]="options" optionLabel="name" label="Город" labelPosition="left" placeholder="Выберите..."></extra-select>
 
-    <extra-select [formControl]="control3" [options]="options" optionLabel="name" label="Город" labelPosition="left" placeholder="Выберите..."></extra-select>
+    <extra-select [formControl]="control3" [options]="options" optionLabel="name" label="Город" [floatLabel]="true"></extra-select>
   \`,
 })
 export class ExampleComponent {
