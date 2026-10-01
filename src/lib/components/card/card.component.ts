@@ -6,26 +6,26 @@ import { ExtraCardTemplateDirective } from './card-template.directive';
 
 @Component({
   selector: 'extra-card',
-  host: { style: 'display: block' },
+  host: {
+    style: 'display: block',
+    // title/subtitle — входы компонента, но как статические атрибуты Angular оставляет их
+    // в DOM: нативный `title` даёт браузерный тултип на всю карточку, `subtitle` — просто
+    // несуществующий атрибут. Снимаем оба с хоста.
+    '[attr.title]': 'null',
+    '[attr.subtitle]': 'null'
+  },
   standalone: true,
   imports: [Card, PrimeTemplate, NgTemplateOutlet],
   template: `
-    <p-card [styleClass]="overlay ? 'shadow-md' : ''">
+    <!--
+      Заголовок и подзаголовок отдаём штатными входами p-card: PrimeNG сам кладёт их
+      в .p-card-title / .p-card-subtitle. Своя разметка в pTemplate="title" попадала
+      внутрь .p-card-title и дублировала этот класс вложенным элементом.
+    -->
+    <p-card [header]="title" [subheader]="subtitle" [styleClass]="overlay ? 'shadow-md' : ''">
       @if (headerTpl) {
         <ng-template pTemplate="header">
           <ng-container [ngTemplateOutlet]="headerTpl.template"></ng-container>
-        </ng-template>
-      }
-      @if (title || subtitle) {
-        <ng-template pTemplate="title">
-          <div class="p-card-caption">
-            @if (title) {
-              <div class="p-card-title m-0" data-pc-section="title">{{ title }}</div>
-            }
-            @if (subtitle) {
-              <div class="p-card-subtitle m-0" data-pc-section="subtitle">{{ subtitle }}</div>
-            }
-          </div>
         </ng-template>
       }
       <ng-template pTemplate="content">

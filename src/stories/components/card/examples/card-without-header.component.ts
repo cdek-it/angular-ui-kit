@@ -9,7 +9,7 @@ const template = `
   <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
     <p class="text-sm">Карточка без изображения в шапке.</p>
     <ng-template extraCardTemplate="footer">
-      <extra-button label="Действие" size="small" class="w-full"></extra-button>
+      <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
     </ng-template>
   </extra-card>
 </div>
@@ -46,7 +46,7 @@ import { ExtraCardComponent, ExtraCardTemplateDirective, ExtraButtonComponent } 
     <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
       <p class="text-sm">Карточка без изображения в шапке.</p>
       <ng-template extraCardTemplate="footer">
-        <extra-button label="Действие" size="small" class="w-full"></extra-button>
+        <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
       </ng-template>
     </extra-card>
   \`,

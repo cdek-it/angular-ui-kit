@@ -100,7 +100,7 @@ export const Default: Story = {
     </ng-template>
     <p class="text-sm">Контент карточки. Гибкая область для любого содержимого.</p>
     <ng-template extraCardTemplate="footer">
-      <extra-button label="Действие" size="small" class="w-full"></extra-button>
+      <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
     </ng-template>
   </extra-card>
 </div>`;
@@ -109,7 +109,8 @@ export const Default: Story = {
   },
   args: {
     title: 'Заголовок',
-    subtitle: 'Подзаголовок'
+    subtitle: 'Подзаголовок',
+    overlay: false
   },
   parameters: {
     docs: {
