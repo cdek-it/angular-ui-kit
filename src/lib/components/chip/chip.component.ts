@@ -12,7 +12,7 @@ import { Chip } from 'primeng/chip';
       [icon]="icon"
       [removable]="removable"
       [disabled]="disabled"
-      (onRemove)="onRemove.emit($event)"
+      (onRemove)="onRemove.emit()"
     ></p-chip>
   `
 })
@@ -21,5 +21,5 @@ export class ExtraChipComponent {
   @Input() icon = '';
   @Input() removable = false;
   @Input() disabled = false;
-  @Output() onRemove = new EventEmitter<MouseEvent>();
+  @Output() onRemove = new EventEmitter<void>();
 }
