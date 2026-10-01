@@ -1,37 +1,36 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Card } from 'primeng/card';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
+import { ExtraCardTemplateDirective } from './card-template.directive';
 
 @Component({
   selector: 'extra-card',
-  host: { style: 'display: block' },
+  host: {
+    style: 'display: block',
+    // title/subtitle — входы компонента, но как статические атрибуты Angular оставляет их
+    // в DOM: нативный `title` даёт браузерный тултип на всю карточку, `subtitle` — просто
+    // несуществующий атрибут. Снимаем оба с хоста.
+    '[attr.title]': 'null',
+    '[attr.subtitle]': 'null'
+  },
   standalone: true,
-  imports: [Card, SharedModule, NgTemplateOutlet],
+  imports: [Card, PrimeTemplate, NgTemplateOutlet],
   template: `
-    <p-card [styleClass]="overlay ? 'shadow-md' : ''">
+    <!--
+      Заголовок и подзаголовок отдаём штатными входами p-card: PrimeNG сам кладёт их
+      в .p-card-title / .p-card-subtitle. Своя разметка в pTemplate="title" попадала
+      внутрь .p-card-title и дублировала этот класс вложенным элементом.
+    -->
+    <p-card [header]="title" [subheader]="subtitle" [styleClass]="overlay ? 'shadow-md' : ''">
       @if (headerTpl) {
         <ng-template pTemplate="header">
           <ng-container [ngTemplateOutlet]="headerTpl.template"></ng-container>
         </ng-template>
       }
-      @if (title || subtitle) {
-        <ng-template pTemplate="title">
-          <div class="p-card-caption">
-            @if (title) {
-              <div class="p-card-title m-0" data-pc-section="title">{{ title }}</div>
-            }
-            @if (subtitle) {
-              <div class="p-card-subtitle m-0" data-pc-section="subtitle">{{ subtitle }}</div>
-            }
-          </div>
-        </ng-template>
-      }
-      @if (contentTpl) {
-        <ng-template pTemplate="content">
-          <ng-container [ngTemplateOutlet]="contentTpl.template"></ng-container>
-        </ng-template>
-      }
+      <ng-template pTemplate="content">
+        <ng-content></ng-content>
+      </ng-template>
       @if (footerTpl) {
         <ng-template pTemplate="footer">
           <ng-container [ngTemplateOutlet]="footerTpl.template"></ng-container>
@@ -45,28 +44,16 @@ export class ExtraCardComponent implements AfterContentInit {
   @Input() subtitle = '';
   @Input() overlay = false;
 
-  @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+  @ContentChildren(ExtraCardTemplateDirective) templates!: QueryList<ExtraCardTemplateDirective>;
 
-  headerTpl?: PrimeTemplate;
-  contentTpl?: PrimeTemplate;
-  footerTpl?: PrimeTemplate;
+  headerTpl?: ExtraCardTemplateDirective;
+  footerTpl?: ExtraCardTemplateDirective;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
-    this.templates.forEach((tpl) => {
-      switch (tpl.getType()) {
-        case 'header':
-          this.headerTpl = tpl;
-          break;
-        case 'content':
-          this.contentTpl = tpl;
-          break;
-        case 'footer':
-          this.footerTpl = tpl;
-          break;
-      }
-    });
+    this.headerTpl = this.templates.find((t) => t.extraCardTemplate === 'header');
+    this.footerTpl = this.templates.find((t) => t.extraCardTemplate === 'footer');
     this.cdr.detectChanges();
   }
 }
