@@ -13,25 +13,27 @@ const OPTIONS = [
 ];
 
 const template = `
-<extra-select
-  [formControl]="control"
-  [options]="options"
-  optionLabel="name"
-  placeholder="Выберите пункт..."
-  [size]="size"
-  [showClear]="showClear"
-  [readonly]="readonly"
->
-  <ng-template extraSelectOption let-option>
-    <div class="flex items-center gap-2">
-      <span [class]="option.icon"></span>
-      <div>
-        <div>{{ option.name }}</div>
-        <small class="text-surface-400">{{ option.description }}</small>
+<div class="w-80">
+  <extra-select
+    [formControl]="control"
+    [options]="options"
+    optionLabel="name"
+    placeholder="Выберите пункт..."
+    [size]="size"
+    [clearable]="clearable"
+    [readonly]="readonly"
+  >
+    <ng-template extraSelectOption let-option>
+      <div class="flex items-center gap-2">
+        <span [class]="option.icon"></span>
+        <div>
+          <div>{{ option.name }}</div>
+          <small class="text-surface-400">{{ option.description }}</small>
+        </div>
       </div>
-    </div>
-  </ng-template>
-</extra-select>
+    </ng-template>
+  </extra-select>
+</div>
 `;
 const styles = '';
 
@@ -44,7 +46,7 @@ const styles = '';
 })
 export class SelectCustomComponent {
   @Input() size: ExtraSelectSize = 'base';
-  @Input() showClear = false;
+  @Input() clearable = false;
   @Input() readonly = false;
   control = new FormControl(null);
   options = OPTIONS;
@@ -64,12 +66,12 @@ export const Custom = {
   render: (args: any) => ({
     props: {
       size: args['size'],
-      showClear: args['showClear'],
+      clearable: args['clearable'],
       readonly: args['readonly'],
       disabled: args['disabled'],
       invalid: args['invalid']
     },
-    template: `<app-select-custom [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`
+    template: `<app-select-custom [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`
   }),
   parameters: {
     docs: {

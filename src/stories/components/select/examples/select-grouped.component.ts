@@ -26,25 +26,27 @@ const GROUPED_OPTIONS = [
 ];
 
 const template = `
-<extra-select
-  [formControl]="control"
-  [options]="options"
-  optionLabel="label"
-  optionGroupLabel="label"
-  optionGroupChildren="items"
-  [group]="true"
-  placeholder="Выберите город..."
-  [size]="size"
-  [showClear]="showClear"
-  [readonly]="readonly"
->
-  <ng-template extraSelectOptionGroup let-group>
-    <div class="flex items-center gap-2">
-      <span class="ti ti-flag"></span>
-      <span>{{ group.label }}</span>
-    </div>
-  </ng-template>
-</extra-select>
+<div class="w-80">
+  <extra-select
+    [formControl]="control"
+    [options]="options"
+    optionLabel="label"
+    optionGroupLabel="label"
+    optionGroupChildren="items"
+    [group]="true"
+    placeholder="Выберите город..."
+    [size]="size"
+    [clearable]="clearable"
+    [readonly]="readonly"
+  >
+    <ng-template extraSelectOptionGroup let-group>
+      <div class="flex items-center gap-2">
+        <span class="ti ti-flag"></span>
+        <span>{{ group.label }}</span>
+      </div>
+    </ng-template>
+  </extra-select>
+</div>
 `;
 const styles = '';
 
@@ -57,7 +59,7 @@ const styles = '';
 })
 export class SelectGroupedComponent {
   @Input() size: ExtraSelectSize = 'base';
-  @Input() showClear = false;
+  @Input() clearable = false;
   @Input() readonly = false;
   control = new FormControl(null);
   options = GROUPED_OPTIONS;
@@ -77,12 +79,12 @@ export const Grouped = {
   render: (args: any) => ({
     props: {
       size: args['size'],
-      showClear: args['showClear'],
+      clearable: args['clearable'],
       readonly: args['readonly'],
       disabled: args['disabled'],
       invalid: args['invalid']
     },
-    template: `<app-select-grouped [size]="size" [showClear]="showClear" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
+    template: `<app-select-grouped [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
   }),
   parameters: {
     docs: {
