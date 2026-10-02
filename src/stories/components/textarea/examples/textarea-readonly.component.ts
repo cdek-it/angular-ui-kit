@@ -6,8 +6,10 @@ export const Readonly: StoryObj = {
   name: 'Readonly',
   render: (args) => {
     const control = new FormControl('Только для чтения — этот текст нельзя изменить.');
+    // invalid — геттер без сеттера, Storybook на попытке присвоить его напрямую роняет ошибку в консоль
+    const { invalid, ...rest } = args as Record<string, unknown>;
     return {
-      props: { ...args, control },
+      props: { ...rest, control },
       template: `<extra-textarea [formControl]="control" [readonly]="true" placeholder="Введите текст..."></extra-textarea>`
     };
   },

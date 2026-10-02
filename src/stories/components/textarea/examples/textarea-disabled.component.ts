@@ -6,8 +6,10 @@ export const Disabled: StoryObj = {
   name: 'Disabled',
   render: (args) => {
     const control = new FormControl({ value: 'Текст в заблокированном поле', disabled: true });
+    // invalid — геттер без сеттера, Storybook на попытке присвоить его напрямую роняет ошибку в консоль
+    const { invalid, ...rest } = args as Record<string, unknown>;
     return {
-      props: { ...args, control },
+      props: { ...rest, control },
       template: `<extra-textarea [formControl]="control" placeholder="Введите текст..."></extra-textarea>`
     };
   },
