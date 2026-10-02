@@ -15,19 +15,23 @@ updated: '2026-06-22'
 
 ## Overview
 
-`ExtraToggleSwitch` — переключатель-свитч (`role=switch`) для мгновенного включения/выключения одной бинарной настройки: эффект применяется сразу, без отдельного сохранения. Оборачивает PrimeNG `p-toggleswitch` и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`.
+`ExtraToggleSwitch` — переключатель-свитч (`role=switch`) для мгновенного включения/выключения одной бинарной настройки: эффект применяется сразу, без отдельного сохранения. Оборачивает PrimeNG `p-toggleswitch`, сам рисует `label`/`caption` рядом с собой (как `ExtraCheckbox`) и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`.
 
 Компонент соответствует Figma-компоненту `<ToggleSwitch>` (nodeId `19:13673`). Figma-свойства `state` и `checked` маппируются на состояние компонента и модель значения (см. раздел Props mapping).
 
 ## Props mapping
 
-У компонента нет собственных `@Input()` для конфигурации внешнего вида: состояние задаётся моделью и формой через `ControlValueAccessor`. Доступны три события вывода (`@Output()`):
-
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `onChange` | `EventEmitter<unknown>` | — | Событие при изменении значения переключателя |
+| `label` | `string` | `''` | Текст названия рядом с переключателем |
+| `labelPosition` | `'right' \| 'left'` | `'right'` | Положение лейбла относительно свитча |
+| `caption` | `string` | `''` | Пояснение под лейблом |
+| `onChange` | `EventEmitter<ExtraToggleSwitchChangeEvent>` | — | Событие при изменении значения переключателя |
 | `onFocus` | `EventEmitter<Event>` | — | Событие при получении фокуса |
 | `onBlur` | `EventEmitter<Event>` | — | Событие при потере фокуса |
+
+Если ни `label`, ни `caption` не заданы — рендерится голый свитч без обёртки (тот же приём, что у
+`ExtraCheckbox`/полей ввода, важно для `p-inputgroup` и плотных layout'ов).
 
 Состояние «включён» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true` / `false` соответствует `checked=true` / `checked=false` в Figma.
 
@@ -51,6 +55,19 @@ Figma: state=default, checked=true
 
 ```html
 <extra-toggleswitch [(ngModel)]="isEnabled"></extra-toggleswitch>
+```
+
+### С лейблом и пояснением
+
+```html
+<extra-toggleswitch
+  [(ngModel)]="isEnabled"
+  label="Тёмная тема"
+  caption="Применяется сразу для всех устройств"
+></extra-toggleswitch>
+
+<!-- лейбл слева от свитча -->
+<extra-toggleswitch [(ngModel)]="isEnabled" label="Тёмная тема" labelPosition="left"></extra-toggleswitch>
 ```
 
 В реактивных формах эквивалентно:
@@ -81,7 +98,59 @@ Figma: state=danger, checked=false
 
 ## Slots
 
-Не используются. Подпись к переключателю размещается рядом во внешнем шаблоне.
+Не используются. `label`/`caption` — не слоты, а обычные `@Input()` (см. Props mapping); компонент
+сам рисует обёртку по тому же принципу, что `ExtraCheckbox`/`ExtraInputText` (см.
+`docs/components-api/common-info.md` и чеклист в корневом `CLAUDE.md`, раздел «Label / caption /
+info»).
+
+⚠️ Для классов `.extra-toggleswitch`/`.toggleswitch-label`/`.toggleswitch-caption` в
+`tokens/components/toggleswitch.ts` пока нет стилей (там только focus-ring для `.p-toggleswitch`) —
+это зона дизайнера, агент её не трогает. Сниппет-заготовка 1:1 с уже рабочим `checkbox.ts`
+(`.extra-checkbox`/`.checkbox-label`/`.checkbox-caption`), для дизайнера:
+
+```ts
+.extra-toggleswitch {
+  display: flex;
+  align-items: center;
+  gap: ${dt('dimension.space.200')};
+}
+
+.extra-toggleswitch--left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.toggleswitch-label {
+  display: flex;
+  align-items: center;
+  color: ${dt('color.fg.default')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.300')};
+  cursor: pointer;
+}
+
+.toggleswitch-label--disabled {
+  color: ${dt('color.fg.muted')};
+  cursor: default;
+}
+
+.toggleswitch-caption {
+  color: ${dt('color.fg.subtle')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.250')};
+}
+
+.toggleswitch-caption--disabled {
+  color: ${dt('color.fg.muted')};
+}
+```
+
+До добавления этого CSS лейбл/caption рендерятся функционально верно, но без типографики токенов
+(голый браузерный шрифт).
 
 ## Related
 
@@ -95,7 +164,7 @@ Figma: state=danger, checked=false
 - Используйте `[(ngModel)]` или `formControl` для управления состоянием вкл/выкл
 - Применяйте свитч для мгновенного эффекта (тёмная тема, уведомления), без отдельной кнопки Save
 - Для отключения и невалидного состояния управляйте состоянием формы (`disabled` / валидаторы `formControl`)
-- Размещайте подпись рядом с переключателем во внешнем шаблоне для доступности
+- Задавайте подпись через `label`/`caption` — так `<label [for]>` связывается с полем автоматически
 
 **Don't:**
 - Не задавайте «включён» через отдельный атрибут — состояние идёт только через модель (`[(ngModel)]` / `formControl`)
