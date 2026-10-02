@@ -4,11 +4,10 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<extra-toggle-button
-  onLabel="Вкл"
-  offLabel="Выкл"
+<extra-togglebutton
+  label="Подписка"
   [formControl]="control"
-></extra-toggle-button>
+></extra-togglebutton>
 `;
 const styles = '';
 
@@ -45,7 +44,7 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
   standalone: true,
   imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <extra-toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></extra-toggle-button>
+    <extra-togglebutton label="Подписка" [formControl]="control"></extra-togglebutton>
   \`,
 })
 export class ToggleButtonDisabledComponent {

@@ -1,8 +1,8 @@
 ---
-component: ToggleButtonComponent
-selector: toggle-button
+component: ExtraToggleButton
+selector: extra-togglebutton
 import:
-  symbol: ToggleButtonComponent
+  symbol: ExtraToggleButtonComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
   fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
@@ -10,12 +10,14 @@ figma:
   componentKey: '19f1388f80113907cee5bc24117e98c7d18eb16c'
   name: '<ToggleButton>'
 status: stable
-updated: '2026-06-23'
+updated: '2026-10-02'
 ---
 
 ## Overview
 
-`ToggleButtonComponent` — кнопка-переключатель с двумя состояниями (нажата / не нажата). Оборачивает PrimeNG `p-togglebutton` и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`. Может менять подпись и иконку для включённого и выключенного состояний.
+`ExtraToggleButton` — кнопка-переключатель с двумя состояниями (нажата / не нажата). Оборачивает PrimeNG `p-togglebutton` и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`.
+
+В отличие от PrimeNG-демо с разными подписями на вкл/выкл, в Figma `label`/`icon` — **один** статический текст и одна иконка на обоих состояниях: меняется только цвет/заливка (`checked=true/false`), а не содержимое. Поэтому внутри компонент пробрасывает один и тот же `label`/`icon` одновременно в `onLabel`/`offLabel` и `onIcon`/`offIcon` PrimeNG — отдельных инпутов на разные подписи в публичном API нет.
 
 Компонент соответствует Figma-компоненту `<ToggleButton>` (nodeId `174:1363`). Figma-свойство `checked` маппируется на модель значения, а `state`, `size`, `icon-position` и `icon-only` — на Angular-инпуты (см. раздел Props mapping). Не путать с `ToggleSwitch` (свитч настройки, `role=switch`) и `SelectButton` (группа выбора одного из набора).
 
@@ -23,13 +25,10 @@ updated: '2026-06-23'
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `onLabel` | `string` | `'Вкл'` | Текст во включённом состоянии — соответствует Figma-свойству `checked=true` |
-| `offLabel` | `string` | `'Выкл'` | Текст в выключенном состоянии — соответствует Figma-свойству `checked=false` |
-| `onIcon` | `string \| undefined` | `undefined` | CSS-класс иконки во включённом состоянии; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `offIcon` | `string \| undefined` | `undefined` | CSS-класс иконки в выключенном состоянии; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `iconPos` | `'left' \| 'right'` | `'left'` | Позиция иконки — соответствует Figma-свойству `icon-position` |
+| `label` | `string` | `''` | Текст кнопки — один и тот же в обоих состояниях (Figma не меняет текст между `checked=true/false`, только заливку) |
+| `icon` | `string` | `''` | CSS-класс иконки (tabler), один и тот же в обоих состояниях; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
+| `iconPosition` | `'left' \| 'right'` | `'left'` | Позиция иконки — соответствует Figma-свойству `icon-position` |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер кнопки — соответствует Figma-свойству `size` |
-| `disabled` | `boolean` | `false` | Отключённое состояние — соответствует Figma-свойству `state=disabled` |
 | `iconOnly` | `boolean` | `false` | Режим «только иконка» без текста — соответствует Figma-свойству `icon-only` |
 | `allowEmpty` | `boolean \| undefined` | `undefined` | Разрешает снимать выбор повторным нажатием |
 | `fluid` | `boolean` | `false` | Растяжение кнопки на всю ширину контейнера |
@@ -39,7 +38,11 @@ updated: '2026-06-23'
 | `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
 | `autofocus` | `boolean \| undefined` | `undefined` | Автофокус при монтировании компонента |
 
-Состояние «нажата» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true` / `false` соответствует `checked=true` / `checked=false` в Figma. Состояния `hover` и `focus` из Figma воспроизводятся браузером при наведении и фокусе и не имеют отдельных инпутов.
+`allowEmpty`/`fluid`/`ariaLabel`/`ariaLabelledBy`/`inputId`/`tabindex`/`autofocus`/`iconOnly` — полезные
+пропы сверх базовой спеки (`docs/components-api/togglebutton.md`), добавлены туда же по итогам
+доработки (см. чеклист в корневом `CLAUDE.md`, п.3).
+
+Состояние «нажата» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true` / `false` соответствует `checked=true` / `checked=false` в Figma. Отключённое состояние (Figma `state=disabled`) задаётся не инпутом, а через форму — `setDisabledState` из `ControlValueAccessor` (как и `invalid`/`disabled` у остальных `extra-*`-полей, см. чеклист, п.5); отдельного `[disabled]` input на компоненте нет. Состояния `hover` и `focus` из Figma воспроизводятся браузером при наведении и фокусе и не имеют отдельных инпутов. Figma не показывает danger/invalid-вариант для этого компонента — `invalid` в спеке/API не заводился.
 
 ## Variants
 
@@ -48,13 +51,13 @@ updated: '2026-06-23'
 Figma: `<ToggleButton>`, state=default, checked=false, icon-only=false
 
 ```html
-<toggle-button onLabel="Вкл" offLabel="Выкл" [(ngModel)]="isOn"></toggle-button>
+<extra-togglebutton label="Подписка" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
 В реактивных формах эквивалентно:
 
 ```html
-<toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></toggle-button>
+<extra-togglebutton label="Подписка" [formControl]="control"></extra-togglebutton>
 ```
 
 ### On (включена)
@@ -62,24 +65,17 @@ Figma: `<ToggleButton>`, state=default, checked=false, icon-only=false
 Figma: `<ToggleButton>`, state=default, checked=true, icon-only=false
 
 ```html
-<toggle-button onLabel="Вкл" offLabel="Выкл" [(ngModel)]="isOn"></toggle-button>
+<extra-togglebutton label="Подписка" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
-### С иконками (onIcon / offIcon)
+### С иконкой
 
 Figma: `<ToggleButton>`, icon-position=left, checked=true/false
 
 Классы иконок — из справочника [icons.md](../../figma-code-connect/icons.md).
 
 ```html
-<toggle-button
-  onLabel="Включено"
-  offLabel="Выключено"
-  onIcon="ti ti-check"
-  offIcon="ti ti-x"
-  iconPos="left"
-  [(ngModel)]="isOn"
-></toggle-button>
+<extra-togglebutton label="Избранное" icon="ti ti-star" iconPosition="left" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
 ### Иконка справа (icon-position=right)
@@ -87,14 +83,7 @@ Figma: `<ToggleButton>`, icon-position=left, checked=true/false
 Figma: `<ToggleButton>`, icon-position=right
 
 ```html
-<toggle-button
-  onLabel="Включено"
-  offLabel="Выключено"
-  onIcon="ti ti-check"
-  offIcon="ti ti-x"
-  iconPos="right"
-  [(ngModel)]="isOn"
-></toggle-button>
+<extra-togglebutton label="Избранное" icon="ti ti-star" iconPosition="right" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
 ### Только иконка (icon-only)
@@ -102,13 +91,7 @@ Figma: `<ToggleButton>`, icon-position=right
 Figma: `<ToggleButton>`, icon-only=true, icon-position=null
 
 ```html
-<toggle-button
-  onIcon="ti ti-star-filled"
-  offIcon="ti ti-star"
-  [iconOnly]="true"
-  ariaLabel="В избранное"
-  [(ngModel)]="isOn"
-></toggle-button>
+<extra-togglebutton icon="ti ti-star" [iconOnly]="true" ariaLabel="В избранное" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
 ### Размер large
@@ -116,27 +99,17 @@ Figma: `<ToggleButton>`, icon-only=true, icon-position=null
 Figma: `<ToggleButton>`, size=large
 
 ```html
-<toggle-button
-  onLabel="Вкл"
-  offLabel="Выкл"
-  size="large"
-  [(ngModel)]="isOn"
-></toggle-button>
+<extra-togglebutton label="Подписка" size="large" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
 ### Disabled (отключена)
 
 Figma: `<ToggleButton>`, state=disabled
 
-Отключённое состояние задаётся через `[disabled]="true"` либо через `FormControl` в состоянии `disabled`.
+Отключённое состояние задаётся через `FormControl` в состоянии `disabled`, не через `@Input`:
 
 ```html
-<toggle-button
-  onLabel="Вкл"
-  offLabel="Выкл"
-  [disabled]="true"
-  [(ngModel)]="isOn"
-></toggle-button>
+<extra-togglebutton label="Подписка" [formControl]="disabledControl"></extra-togglebutton>
 ```
 
 ### Fluid (на всю ширину)
@@ -144,23 +117,18 @@ Figma: `<ToggleButton>`, state=disabled
 Figma: `<ToggleButton>`, size=base
 
 ```html
-<toggle-button
-  onLabel="Вкл"
-  offLabel="Выкл"
-  [fluid]="true"
-  [(ngModel)]="isOn"
-></toggle-button>
+<extra-togglebutton label="Подписка" [fluid]="true" [(ngModel)]="isOn"></extra-togglebutton>
 ```
 
 ## Slots
 
-Не используются. Подписи и иконки задаются через `@Input` `onLabel` / `offLabel` / `onIcon` / `offIcon`.
+Не используются. Подпись и иконка задаются через `@Input` `label` / `icon`.
 
 ## Related
 
 - [ExtraButton](../button/button.figma.md) — кнопка-действие без двух состояний
 - [ExtraCheckbox](../checkbox/checkbox.figma.md) — выбор в форме с похожим маппингом состояния через модель
-- [Иконки](../../figma-code-connect/icons.md) — доступные иконки (`onIcon` / `offIcon`)
+- [Иконки](../../figma-code-connect/icons.md) — доступные иконки (`icon`)
 - [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний
 - [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
 
@@ -169,13 +137,14 @@ Figma: `<ToggleButton>`, size=base
 **Do:**
 - Задавайте состояние через модель (`[(ngModel)]`, `formControl` или `formControlName`) — это Figma-свойство `checked`
 - Для режима `[iconOnly]="true"` всегда задавайте `ariaLabel` для доступности
-- Используйте понятные пары `onLabel` / `offLabel`, отражающие включённое и выключенное состояния
-- Для отключения предпочитайте `FormControl` в состоянии `disabled` либо `[disabled]="true"`
+- Используйте один и тот же `label`, описывающий действие/настройку, а не состояние («Подписка», а не «Вкл»/«Выкл»)
+- Для отключения используйте `FormControl` в состоянии `disabled`
 - Используйте `[fluid]="true"` в мобильных макетах и формах на всю ширину
 
 **Don't:**
 - Не задавайте «нажата» через отдельный атрибут — состояние идёт только через модель
+- Не меняйте текст кнопки в зависимости от состояния (нет отдельных `onLabel`/`offLabel` — это осознанно, см. Overview)
 - Не используйте `ToggleButton` для навигации по разделам — для этого есть `Tabs`
 - Не подменяйте им `ToggleSwitch` (свитч настройки) или `SelectButton` (выбор из набора)
-- Не передавайте `[iconOnly]="true"` без `onIcon` / `offIcon` — кнопка окажется пустой
+- Не передавайте `[iconOnly]="true"` без `icon` — кнопка окажется пустой
 - Не инлайньте CSS-классы иконок вручную — используйте справочник [icons.md](../../figma-code-connect/icons.md)

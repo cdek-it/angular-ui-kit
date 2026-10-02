@@ -4,13 +4,11 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<extra-toggle-button
-  onLabel="Включено"
-  offLabel="Выключено"
-  onIcon="ti ti-check"
-  offIcon="ti ti-x"
+<extra-togglebutton
+  label="Избранное"
+  icon="ti ti-star"
   [formControl]="control"
-></extra-toggle-button>
+></extra-togglebutton>
 `;
 const styles = '';
 
@@ -33,7 +31,7 @@ export const Icons: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Кнопка с иконками через `onIcon`/`offIcon`. Позиция иконки управляется `iconPos`.',
+        story: 'Кнопка с иконкой через `icon` — та же иконка в обоих состояниях. Позиция управляется `iconPosition`.',
       },
       source: {
         language: 'ts',
@@ -47,13 +45,11 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
   standalone: true,
   imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <extra-toggle-button
-      onLabel="Включено"
-      offLabel="Выключено"
-      onIcon="ti ti-check"
-      offIcon="ti ti-x"
+    <extra-togglebutton
+      label="Избранное"
+      icon="ti ti-star"
       [formControl]="control"
-    ></extra-toggle-button>
+    ></extra-togglebutton>
   \`,
 })
 export class ToggleButtonIconsComponent {
