@@ -1,8 +1,11 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ExtraToggleButtonComponent } from '../../../lib/components/togglebutton/togglebutton.component';
+import { ToggleButtonIconsComponent, Icons } from './examples/togglebutton-icons.component';
+import { ToggleButtonIconOnlyComponent, IconOnly } from './examples/togglebutton-icon-only.component';
+import { ToggleButtonDisabledComponent, Disabled } from './examples/togglebutton-disabled.component';
 
-type ToggleButtonArgs = ExtraToggleButtonComponent;
+type ToggleButtonArgs = ExtraToggleButtonComponent & { disabled: boolean };
 
 const meta: Meta<ToggleButtonArgs> = {
   title: 'Components/Form/ToggleButton',
@@ -10,59 +13,51 @@ const meta: Meta<ToggleButtonArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
+      imports: [ExtraToggleButtonComponent, ReactiveFormsModule, ToggleButtonIconsComponent, ToggleButtonIconOnlyComponent, ToggleButtonDisabledComponent],
     }),
   ],
   parameters: {
     designTokens: { prefix: '--p-togglebutton' },
     docs: {
       description: {
-        component: `Кнопка-переключатель для выбора булевого значения. Поддерживает размеры \`small\`, \`base\`, \`large\`, \`xlarge\`, иконки и icon-only вариант.`,
+        component: `Кнопка-переключатель для выбора булевого значения.
+
+Реализовано по спецификации [togglebutton.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/togglebutton.md).
+
+\`\`\`typescript
+import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`
+
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Отключённое состояние управляется через FormControl, не через проп.`,
       },
     },
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
-    onLabel: {
+    // ── Свойства (docs/components-api/togglebutton.md) ─────────────
+    label: {
       control: 'text',
-      description: 'Текст в активном состоянии',
+      description: 'Текст кнопки — один и тот же в обоих состояниях',
       table: {
-        category: 'Props',
-        defaultValue: { summary: "'Вкл'" },
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
         type: { summary: 'string' },
       },
     },
-    offLabel: {
+    icon: {
       control: 'text',
-      description: 'Текст в неактивном состоянии',
+      description: 'CSS-класс иконки (tabler), один и тот же в обоих состояниях',
       table: {
-        category: 'Props',
-        defaultValue: { summary: "'Выкл'" },
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
         type: { summary: 'string' },
       },
     },
-    onIcon: {
-      control: 'text',
-      description: 'CSS-класс иконки в активном состоянии',
-      table: {
-        category: 'Props',
-        type: { summary: 'string' },
-      },
-    },
-    offIcon: {
-      control: 'text',
-      description: 'CSS-класс иконки в неактивном состоянии',
-      table: {
-        category: 'Props',
-        type: { summary: 'string' },
-      },
-    },
-    iconPos: {
+    iconPosition: {
       control: 'select',
       options: ['left', 'right'],
       description: 'Позиция иконки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'left'" },
         type: { summary: "'left' | 'right'" },
       },
@@ -72,25 +67,16 @@ const meta: Meta<ToggleButtonArgs> = {
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер кнопки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'base'" },
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает взаимодействие',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
-    },
     iconOnly: {
       control: 'boolean',
-      description: 'Скрывает label, делает кнопку квадратной',
+      description: 'Режим «только иконка» без текста',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
       },
@@ -99,7 +85,17 @@ const meta: Meta<ToggleButtonArgs> = {
       control: 'boolean',
       description: 'Растягивает кнопку на всю ширину контейнера',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    // ── Состояния (управляются через FormControl) ───────────────────
+    disabled: {
+      control: 'boolean',
+      description: 'Отключённое состояние — управляется через FormControl',
+      table: {
+        category: 'Состояния',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
       },
@@ -115,127 +111,60 @@ const meta: Meta<ToggleButtonArgs> = {
     primeSize: { table: { disable: true } },
     extraClasses: { table: { disable: true } },
 
-    // ── Events ───────────────────────────────────────────────
+    // ── События ──────────────────────────────────────────────────
     onChange: {
       control: false,
       description: 'Событие изменения значения',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<ToggleButtonChangeEvent>' },
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraToggleButtonChangeEvent>' },
       },
     },
   },
   args: {
-    onLabel: 'Вкл',
-    offLabel: 'Выкл',
+    label: 'Подписка',
+    icon: '',
+    iconPosition: 'left',
     size: 'base',
-    disabled: false,
     iconOnly: false,
     fluid: false,
+    disabled: false,
   },
 };
 
 export default meta;
 type Story = StoryObj<ToggleButtonArgs>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function buildTemplate(args: any): string {
-  const parts: string[] = [];
-
-  if (!args.iconOnly) {
-    parts.push(`onLabel="${args.onLabel}"`);
-    parts.push(`offLabel="${args.offLabel}"`);
-  }
-  if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-  if (args.onIcon) parts.push(`onIcon="${args.onIcon}"`);
-  if (args.offIcon) parts.push(`offIcon="${args.offIcon}"`);
-  if (args.iconPos && args.iconPos !== 'left') parts.push(`iconPos="${args.iconPos}"`);
-  if (args.disabled) parts.push(`[disabled]="true"`);
-  if (args.iconOnly) parts.push(`[iconOnly]="true"`);
-  if (args.fluid) parts.push(`[fluid]="true"`);
-  parts.push(`[formControl]="control"`);
-
-  return `<extra-toggle-button\n  ${parts.join('\n  ')}\n></extra-toggle-button>`;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function renderStory(args: any) {
-  return { props: { ...args, control: new FormControl(false) }, template: buildTemplate(args) };
-}
-
-// ── Default ──────────────────────────────────────────────────────────────────
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => renderStory(args),
+  render: (args) => {
+    const parts: string[] = [];
+
+    if (!args.iconOnly && args.label) parts.push(`label="${args.label}"`);
+    if (args.icon) parts.push(`icon="${args.icon}"`);
+    if (args.iconPosition && args.iconPosition !== 'left') parts.push(`iconPosition="${args.iconPosition}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+    if (args.iconOnly) parts.push(`[iconOnly]="true"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
+
+    const control = new FormControl({ value: false, disabled: args.disabled });
+    const template = `<extra-togglebutton [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-togglebutton>`;
+
+    // disabled живёт во FormControl, у компонента нет такого @Input — Storybook ругается в консоль
+    // на попытку присвоить его напрямую
+    const { disabled, ...rest } = args;
+
+    return { props: { ...rest, control }, template };
+  },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
+        story: 'Интерактивная кнопка со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled управляется через FormControl.',
       },
     },
   },
 };
 
-// ── Sizes ────────────────────────────────────────────────────────────────────
-export const Sizes: Story = {
-  render: (args) => renderStory(args),
-  args: { size: 'xlarge' },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Размер компонента задаётся через проп `size`: `small`, `base`, `large`, `xlarge`.',
-      },
-    },
-  },
-};
-
-// ── Icons ────────────────────────────────────────────────────────────────────
-export const Icons: Story = {
-  render: (args) => renderStory(args),
-  args: {
-    onLabel: 'Включено',
-    offLabel: 'Выключено',
-    onIcon: 'ti ti-check',
-    offIcon: 'ti ti-x',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Кнопка с иконками через `onIcon`/`offIcon`. Позиция иконки управляется `iconPos`.',
-      },
-    },
-  },
-};
-
-// ── IconOnly ─────────────────────────────────────────────────────────────────
-export const IconOnly: Story = {
-  render: (args) => renderStory(args),
-  args: {
-    onIcon: 'ti ti-star-filled',
-    offIcon: 'ti ti-star',
-    iconOnly: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Icon-only вариант: квадратная кнопка без текста. Размер регулируется через `size`.',
-      },
-    },
-  },
-};
-
-// ── Disabled ─────────────────────────────────────────────────────────────────
-export const Disabled: Story = {
-  render: () => ({
-    props: { control: new FormControl({ value: false, disabled: true }) },
-    template: `<extra-toggle-button onLabel="Вкл" offLabel="Выкл" [formControl]="control"></extra-toggle-button>`,
-  }),
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        story: 'Отключённое состояние управляется через `FormControl`: `new FormControl({ value: false, disabled: true })` или `control.disable()`.',
-      },
-    },
-  },
-};
+// ── Комбинаторные истории ──────────────────────────────────────────────────
+export { Icons, IconOnly, Disabled };

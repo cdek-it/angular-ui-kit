@@ -4,12 +4,12 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<extra-toggle-button
-  onIcon="ti ti-star-filled"
-  offIcon="ti ti-star"
+<extra-togglebutton
+  icon="ti ti-star"
   [iconOnly]="true"
+  ariaLabel="В избранное"
   [formControl]="control"
-></extra-toggle-button>
+></extra-togglebutton>
 `;
 const styles = '';
 
@@ -32,7 +32,7 @@ export const IconOnly: StoryObj = {
     controls: { disable: true },
     docs: {
       description: {
-        story: 'Icon-only вариант: квадратная кнопка без текста. Размер регулируется через `size`.',
+        story: 'Icon-only вариант: квадратная кнопка без текста. Размер регулируется через `size`, для доступности обязателен `ariaLabel`.',
       },
       source: {
         language: 'ts',
@@ -46,12 +46,12 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
   standalone: true,
   imports: [ExtraToggleButtonComponent, ReactiveFormsModule],
   template: \`
-    <extra-toggle-button
-      onIcon="ti ti-star-filled"
-      offIcon="ti ti-star"
+    <extra-togglebutton
+      icon="ti ti-star"
       [iconOnly]="true"
+      ariaLabel="В избранное"
       [formControl]="control"
-    ></extra-toggle-button>
+    ></extra-togglebutton>
   \`,
 })
 export class ToggleButtonIconOnlyComponent {
