@@ -6,9 +6,11 @@ export const Sizes: StoryObj = {
   name: 'Sizes',
   render: (args) => {
     const control = new FormControl('');
+    // invalid — геттер без сеттера, Storybook на попытке присвоить его напрямую роняет ошибку в консоль
+    const { invalid, ...rest } = args as Record<string, unknown>;
     return {
-      props: { ...args, control },
-      template: `<extra-textarea [formControl]="control" [size]="size" [placeholder]="placeholder" [showClear]="showClear"></extra-textarea>`
+      props: { ...rest, control },
+      template: `<extra-textarea [formControl]="control" [size]="size" [placeholder]="placeholder" [clearable]="clearable"></extra-textarea>`
     };
   },
   args: {
