@@ -4,6 +4,7 @@ import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
 import { ButtonTextComponent, Text } from './examples/button-text.component';
 import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
 import { ButtonSeverityFigmaComponent, SeverityFigma } from './examples/button-severity-figma.component';
+import { ButtonFigmaMappingComponent, FigmaMapping } from './examples/button-figma-mapping.component';
 import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
 import { ButtonOutlinedComponent, Outlined } from './examples/button-outlined.component';
 import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
@@ -33,6 +34,7 @@ const meta: Meta<ButtonArgs> = {
         ButtonRoundedComponent,
         ButtonSeverityComponent,
         ButtonSeverityFigmaComponent,
+        ButtonFigmaMappingComponent,
         ButtonSizesComponent,
         ButtonTextComponent
       ]
@@ -300,4 +302,4 @@ export const Default: Story = {
   }
 };
 
-export { Sizes, Text, Severity, SeverityFigma, Rounded, Outlined, Loading, Icon, Extra, Disabled, Base, Badge };
+export { Sizes, Text, Severity, SeverityFigma, FigmaMapping, Rounded, Outlined, Loading, Icon, Extra, Disabled, Base, Badge };

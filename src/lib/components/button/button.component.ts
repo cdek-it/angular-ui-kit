@@ -23,7 +23,7 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
       [size]="primeSize"
       [styleClass]="size === 'xlarge' ? 'p-button-xlg' : ''"
       [rounded]="rounded"
-      [outlined]="variant === 'tertiary'"
+      [outlined]="variant === 'tertiary' && severity !== null"
       [text]="variant === 'text' || text"
       [link]="variant === 'link'"
       [icon]="icon"
@@ -70,6 +70,7 @@ export class ExtraButtonComponent {
 
   get primeSeverity(): ExtraButtonSeverityValue | null {
     if (this.variant === 'secondary') return 'secondary';
+    if (this.variant === 'tertiary' && this.severity === null) return 'contrast';
     if (this.severity === 'warning') return 'warn';
     return this.severity;
   }
