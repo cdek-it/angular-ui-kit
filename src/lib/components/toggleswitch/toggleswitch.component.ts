@@ -1,57 +1,122 @@
-import { Component, EventEmitter, Optional, Output, Self } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
-import { ToggleSwitch } from 'primeng/toggleswitch';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { ToggleSwitch, ToggleSwitchChangeEvent } from 'primeng/toggleswitch';
+import { Subscription } from 'rxjs';
+
+export type ExtraToggleSwitchLabelPosition = 'right' | 'left';
+
+export interface ExtraToggleSwitchChangeEvent {
+  checked: boolean;
+  originalEvent: Event;
+}
+
+let nextInputId = 0;
 
 @Component({
   selector: 'extra-toggleswitch',
   standalone: true,
-  imports: [ToggleSwitch, FormsModule],
+  imports: [ToggleSwitch, FormsModule, NgTemplateOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { style: 'display: contents' },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraToggleSwitchComponent),
+      multi: true
+    }
+  ],
   template: `
-    <p-toggleswitch
-      [ngModel]="modelValue"
-      (ngModelChange)="handleChange($event)"
-      [invalid]="isInvalid"
-      [disabled]="isDisabled"
-      (onChange)="onChange.emit($event)"
-      (onFocus)="onFocus.emit($event)"
-      (onBlur)="onBlur.emit($event)"
-    ></p-toggleswitch>
+    @if (label || caption) {
+      <div class="extra-toggleswitch" [class.extra-toggleswitch--left]="labelPosition === 'left'">
+        <ng-container [ngTemplateOutlet]="fieldTpl" />
+        <div class="extra-toggleswitch-body">
+          @if (label) {
+            <label class="toggleswitch-label" [class.toggleswitch-label--disabled]="disabled" [for]="inputId">{{
+              label
+            }}</label>
+          }
+          @if (caption) {
+            <div class="toggleswitch-caption" [class.toggleswitch-caption--disabled]="disabled">{{ caption }}</div>
+          }
+        </div>
+      </div>
+    } @else {
+      <ng-container [ngTemplateOutlet]="fieldTpl" />
+    }
+
+    <ng-template #fieldTpl>
+      <p-toggleswitch
+        [(ngModel)]="modelValue"
+        [disabled]="disabled"
+        [invalid]="invalid"
+        [inputId]="inputId"
+        (onChange)="onChangeHandler($event)"
+        (onFocus)="onFocus.emit($event)"
+        (onBlur)="onBlur.emit($event)"
+      ></p-toggleswitch>
+    </ng-template>
   `
 })
-export class ExtraToggleSwitchComponent implements ControlValueAccessor {
-  @Output() onChange = new EventEmitter<unknown>();
+export class ExtraToggleSwitchComponent implements ControlValueAccessor, OnInit, OnDestroy {
+  private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
+  private _ngControl: NgControl | null = null;
+  private _statusSub?: Subscription;
+
+  @Input() label = '';
+  @Input() labelPosition: ExtraToggleSwitchLabelPosition = 'right';
+  @Input() caption = '';
+
+  @Output() onChange = new EventEmitter<ExtraToggleSwitchChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
+  /** Уникальный id поля для связи label ↔ input. */
+  readonly inputId = `extra-toggleswitch-${nextInputId++}`;
+
+  disabled = false;
   modelValue = false;
 
-  private _disabled = false;
+  get invalid(): boolean {
+    return this._ngControl?.invalid ?? false;
+  }
 
   private _onChange: (value: boolean) => void = () => {};
   private _onTouched: () => void = () => {};
 
-  constructor(@Optional() @Self() private ngControl: NgControl) {
-    if (ngControl) {
-      ngControl.valueAccessor = this;
-    }
+  ngOnInit(): void {
+    this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
+    this._statusSub = this._ngControl?.statusChanges?.subscribe(() => this._cdr.markForCheck());
   }
 
-  get isDisabled(): boolean {
-    return this._disabled;
+  ngOnDestroy(): void {
+    this._statusSub?.unsubscribe();
   }
 
-  get isInvalid(): boolean {
-    return !!this.ngControl?.invalid;
-  }
-
-  handleChange(value: boolean): void {
-    this.modelValue = value;
-    this._onChange(value);
+  onChangeHandler(event: ToggleSwitchChangeEvent): void {
+    const checked = !!event.checked;
+    this.modelValue = checked;
+    this._onChange(checked);
     this._onTouched();
+    this.onChange.emit({ checked, originalEvent: event.originalEvent as Event });
   }
 
   writeValue(value: boolean): void {
-    this.modelValue = value ?? false;
+    this.modelValue = !!value;
+    this._cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: boolean) => void): void {
@@ -63,6 +128,7 @@ export class ExtraToggleSwitchComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled;
+    this.disabled = isDisabled;
+    this._cdr.markForCheck();
   }
 }
