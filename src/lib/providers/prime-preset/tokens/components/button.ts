@@ -30,6 +30,14 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
     --p-button-extend-ext-xlg-padding-x:             ${dt('button.extend.extXlg.paddingX')};
     --p-button-extend-ext-xlg-padding-y:             ${dt('button.extend.extXlg.paddingY')};
     --p-button-extend-ext-xlg-height:                ${dt('button.extend.extXlg.height')};
+    --p-button-extend-ext-outlined-danger-focus-background:   ${dt('button.extend.extOutlined.danger.focusBackground')};
+    --p-button-extend-ext-outlined-warn-focus-background:     ${dt('button.extend.extOutlined.warn.focusBackground')};
+    --p-button-extend-ext-outlined-success-focus-background:  ${dt('button.extend.extOutlined.success.focusBackground')};
+    --p-button-extend-ext-outlined-info-focus-background:     ${dt('button.extend.extOutlined.info.focusBackground')};
+    --p-button-extend-ext-text-danger-focus-background:       ${dt('button.extend.extText.danger.focusBackground')};
+    --p-button-extend-ext-text-warn-focus-background:         ${dt('button.extend.extText.warn.focusBackground')};
+    --p-button-extend-ext-text-success-focus-background:      ${dt('button.extend.extText.success.focusBackground')};
+    --p-button-extend-ext-text-info-focus-background:         ${dt('button.extend.extText.info.focusBackground')};
   }
 
   /* ─── Шрифт для текста кнопки ─── */
@@ -77,17 +85,51 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
   .p-button.p-button-outlined:is(.p-disabled, :disabled, .p-button-loading) {
     color: var(--p-button-extend-disabled-color);
-    background: transparent;
-    border-color: transparent;
+    background: var(--p-button-extend-disabled-background);
+    border-color: var(--p-button-extend-disabled-background);
   }
   .p-button.p-button-text:is(.p-disabled, :disabled, .p-button-loading) {
     color: var(--p-button-extend-disabled-color);
-    background: transparent;
-    border-color: transparent;
+    background: var(--p-button-extend-disabled-background);
+    border-color: var(--p-button-extend-disabled-background);
   }
   .p-button.p-button-link:is(.p-disabled, :disabled, .p-button-loading) {
     color: var(--p-button-extend-disabled-color);
     background: transparent;
+    border-color: transparent;
+  }
+
+  /* ─── Focus: прозрачный фон и рамка убрана у outlined/text — виден только focus-ring (Figma) ─── */
+  .p-button-outlined.p-button-danger:focus-visible {
+    background: ${dt('button.extend.extOutlined.danger.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-text.p-button-danger:focus-visible {
+    background: ${dt('button.extend.extText.danger.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-outlined.p-button-warn:focus-visible {
+    background: ${dt('button.extend.extOutlined.warn.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-text.p-button-warn:focus-visible {
+    background: ${dt('button.extend.extText.warn.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-outlined.p-button-success:focus-visible {
+    background: ${dt('button.extend.extOutlined.success.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-text.p-button-success:focus-visible {
+    background: ${dt('button.extend.extText.success.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-outlined.p-button-info:focus-visible {
+    background: ${dt('button.extend.extOutlined.info.focusBackground')};
+    border-color: transparent;
+  }
+  .p-button-text.p-button-info:focus-visible {
+    background: ${dt('button.extend.extText.info.focusBackground')};
     border-color: transparent;
   }
 
