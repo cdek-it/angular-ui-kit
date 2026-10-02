@@ -40,6 +40,7 @@ export interface ExtraInputOtpChangeEvent {
       [length]="length"
       [mask]="mask"
       [integerOnly]="integerOnly"
+      [autofocus]="autofocus"
       [size]="primeSize"
       [disabled]="disabled"
       [invalid]="invalid"
@@ -59,6 +60,8 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() length = 4;
   @Input() mask = false;
   @Input() integerOnly = false;
+  /** Автофокус на первой ячейке при инициализации. */
+  @Input() autofocus = false;
   /** Размер ячейки. */
   @Input() size: ExtraInputOtpSize = 'base';
 
