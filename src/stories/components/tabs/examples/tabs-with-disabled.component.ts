@@ -1,28 +1,21 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraTabsComponent, ExtraTabItem } from '../../../../lib/components/tabs/tabs.component';
-
-const template = `
-<div>
-  <extra-tabs value="0" [tabs]="tabs"></extra-tabs>
-</div>
-`;
-const styles = '';
+import { ExtraTabsComponent } from '../../../../lib/components/tabs/tabs.component';
+import { ExtraTabItemComponent } from '../../../../lib/components/tabs/tab-item.component';
 
 @Component({
   selector: 'app-tabs-with-disabled',
   standalone: true,
-  imports: [ExtraTabsComponent],
-  template,
-  styles
+  imports: [ExtraTabsComponent, ExtraTabItemComponent],
+  template: `
+    <extra-tabs>
+      <extra-tab-item name="Доступно" icon="ti ti-user">Активная вкладка</extra-tab-item>
+      <extra-tab-item name="Тоже доступно" icon="ti ti-settings">Обычная вкладка</extra-tab-item>
+      <extra-tab-item name="Недоступно" icon="ti ti-bell" [disabled]="true">Эта вкладка отключена</extra-tab-item>
+    </extra-tabs>
+  `
 })
-export class TabsWithDisabledComponent {
-  tabs: ExtraTabItem[] = [
-    { value: '0', label: 'Active Tab', icon: 'ti ti-user', content: 'Active Tab Content' },
-    { value: '1', label: 'Default Tab', icon: 'ti ti-settings', content: 'Default Tab Content' },
-    { value: '2', label: 'Disabled Tab', icon: 'ti ti-bell', disabled: true, content: 'Disabled Tab Content' }
-  ];
-}
+export class TabsWithDisabledComponent {}
 
 export const WithDisabled: StoryObj = {
   render: () => ({
@@ -30,27 +23,25 @@ export const WithDisabled: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Табы с заблокированной вкладкой.' },
+      description: { story: 'Вкладки с заблокированной вкладкой — `[disabled]="true"` на `extra-tab-item`.' },
       source: {
         language: 'ts',
         code: `
-import { ExtraTabsComponent, ExtraTabItem } from '@cdek-it/angular-ui-kit';
+import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-tabs-with-disabled',
   standalone: true,
-  imports: [ExtraTabsComponent],
+  imports: [ExtraTabsComponent, ExtraTabItemComponent],
   template: \`
-    <extra-tabs value="0" [tabs]="tabs"></extra-tabs>
+    <extra-tabs>
+      <extra-tab-item name="Доступно">Активная вкладка</extra-tab-item>
+      <extra-tab-item name="Тоже доступно">Обычная вкладка</extra-tab-item>
+      <extra-tab-item name="Недоступно" [disabled]="true">Эта вкладка отключена</extra-tab-item>
+    </extra-tabs>
   \`,
 })
-export class TabsWithDisabledComponent {
-  tabs: ExtraTabItem[] = [
-    { value: '0', label: 'Active Tab', icon: 'ti ti-user', content: 'Active Tab Content' },
-    { value: '1', label: 'Default Tab', icon: 'ti ti-settings', content: 'Default Tab Content' },
-    { value: '2', label: 'Disabled Tab', icon: 'ti ti-bell', disabled: true, content: 'Disabled Tab Content' },
-  ];
-}
+export class TabsWithDisabledComponent {}
         `
       }
     }

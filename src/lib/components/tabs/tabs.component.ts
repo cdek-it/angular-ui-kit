@@ -1,49 +1,73 @@
-import { Component, Input } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  QueryList
+} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
-import { Badge } from 'primeng/badge';
+import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit/components/badge';
+import { ExtraTabItemComponent } from './tab-item.component';
 
-export interface ExtraTabItem {
-  value: string;
-  label: string;
-  icon?: string;
-  disabled?: boolean;
-  badge?: string;
-  badgeSeverity?: 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast';
-  content?: string;
-}
+export type ExtraTabsValueChangeEvent = string | undefined;
 
 @Component({
   selector: 'extra-tabs',
   standalone: true,
-  imports: [Tabs, TabList, Tab, TabPanels, TabPanel, Badge],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Tabs, TabList, Tab, TabPanels, TabPanel, ExtraBadgeComponent, NgTemplateOutlet],
   template: `
-    <p-tabs [value]="value" [scrollable]="scrollable" [lazy]="lazy" (valueChange)="value = $event">
+    <p-tabs [value]="value" [scrollable]="scrollable" [lazy]="lazy" (valueChange)="onValueChange($event)">
       <p-tablist>
-        @for (tab of tabs; track tab.value) {
-          <p-tab [value]="tab.value" [disabled]="tab.disabled || false">
-            @if (tab.icon) {
-              <i class="text-xl" [class]="tab.icon"></i>
+        @for (item of items; track item.name) {
+          <p-tab [value]="item.name" [disabled]="item.disabled">
+            @if (item.icon) {
+              <i class="text-xl" [class]="item.icon"></i>
             }
-            <span>{{ tab.label }}</span>
-            @if (tab.badge) {
-              <p-badge [value]="tab.badge" [severity]="tab.badgeSeverity || 'success'"></p-badge>
+            <span>{{ item.name }}</span>
+            @if (item.badge) {
+              <extra-badge [value]="item.badge" [severity]="item.badgeSeverity"></extra-badge>
             }
           </p-tab>
         }
       </p-tablist>
       <p-tabpanels>
-        @for (tab of tabs; track tab.value) {
-          <p-tabpanel [value]="tab.value">
-            <p class="m-0">{{ tab.content }}</p>
+        @for (item of items; track item.name) {
+          <p-tabpanel [value]="item.name">
+            <ng-container [ngTemplateOutlet]="item.bodyTpl"></ng-container>
           </p-tabpanel>
         }
       </p-tabpanels>
     </p-tabs>
   `
 })
-export class ExtraTabsComponent {
-  @Input() value: string | number | undefined = '0';
-  @Input() tabs: ExtraTabItem[] = [];
+export class ExtraTabsComponent implements AfterContentInit {
+  private readonly _cdr = inject(ChangeDetectorRef);
+
+  @ContentChildren(ExtraTabItemComponent) items!: QueryList<ExtraTabItemComponent>;
+
+  @Input() value: string | undefined;
   @Input() scrollable = false;
   @Input() lazy = false;
+
+  @Output() valueChange = new EventEmitter<ExtraTabsValueChangeEvent>();
+
+  ngAfterContentInit(): void {
+    if (this.value === undefined) {
+      this.value = this.items.first?.name;
+      this._cdr.markForCheck();
+    }
+    this.items.changes.subscribe(() => this._cdr.markForCheck());
+  }
+
+  onValueChange(newValue: string | number | undefined): void {
+    this.value = newValue as string | undefined;
+    this.valueChange.emit(this.value);
+  }
 }
