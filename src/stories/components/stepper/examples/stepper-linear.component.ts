@@ -1,28 +1,30 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraStepperComponent, ExtraStepperItem } from '../../../../lib/components/stepper/stepper.component';
-
-const template = `
-<div class="bg-surface-ground">
-  <extra-stepper [value]="1" [linear]="true" [steps]="steps"></extra-stepper>
-</div>
-`;
-const styles = '';
+import { ExtraStepperComponent } from '../../../../lib/components/stepper/stepper.component';
+import { ExtraStepperItemComponent } from '../../../../lib/components/stepper/stepper-item.component';
+import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 @Component({
   selector: 'app-stepper-linear',
   standalone: true,
-  imports: [ExtraStepperComponent],
-  template,
-  styles
+  imports: [ExtraStepperComponent, ExtraStepperItemComponent, ExtraButtonComponent],
+  template: `
+    <div class="bg-surface-ground">
+      <extra-stepper #stepper="extraStepper" [linear]="true">
+        <extra-stepper-item name="Получатель" caption="данные">
+          <p class="m-0">Шаг 1</p>
+          <extra-button class="mt-4 inline-block" label="Вперёд" variant="secondary" (click)="stepper.next()"></extra-button>
+        </extra-stepper-item>
+        <extra-stepper-item name="Адрес" caption="доставки">
+          <p class="m-0">Шаг 2</p>
+          <extra-button class="mt-4 inline-block" label="Вперёд" variant="secondary" (click)="stepper.next()"></extra-button>
+        </extra-stepper-item>
+        <extra-stepper-item name="Оплата" caption="способ">Шаг 3</extra-stepper-item>
+      </extra-stepper>
+    </div>
+  `
 })
-export class StepperLinearComponent {
-  steps: ExtraStepperItem[] = [
-    { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-    { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' }
-  ];
-}
+export class StepperLinearComponent {}
 
 export const Linear: StoryObj = {
   render: () => ({
@@ -31,27 +33,27 @@ export const Linear: StoryObj = {
   parameters: {
     controls: { disable: true },
     docs: {
-      description: { story: 'Линейный режим — переход к следующему шагу только после завершения текущего.' },
+      description: { story: 'Линейный режим — переход к следующему шагу только после завершения текущего (клик по заголовку будущего шага игнорируется, нужна кнопка «Вперёд»).' },
       source: {
         language: 'ts',
         code: `
-import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
+import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-stepper-linear',
   standalone: true,
-  imports: [ExtraStepperComponent],
+  imports: [ExtraStepperComponent, ExtraStepperItemComponent],
   template: \`
-    <extra-stepper [value]="1" [linear]="true" [steps]="steps"></extra-stepper>
+    <extra-stepper #stepper="extraStepper" [linear]="true">
+      <extra-stepper-item name="Получатель">
+        Шаг 1
+        <extra-button label="Вперёд" (click)="stepper.next()"></extra-button>
+      </extra-stepper-item>
+      <extra-stepper-item name="Адрес">Шаг 2</extra-stepper-item>
+    </extra-stepper>
   \`,
 })
-export class StepperLinearComponent {
-  steps: StepperItem[] = [
-    { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-    { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-    { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' },
-  ];
-}
+export class StepperLinearComponent {}
         `
       }
     }
