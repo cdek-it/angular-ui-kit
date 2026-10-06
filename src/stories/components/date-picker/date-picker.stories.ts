@@ -9,6 +9,7 @@ import { DatePickerInlineComponent } from './examples/date-picker-inline.compone
 import { DatePickerDisabledComponent } from './examples/date-picker-disabled.component';
 import { DatePickerInvalidComponent } from './examples/date-picker-invalid.component';
 import { DatePickerClearIconComponent } from './examples/date-picker-clear-icon.component';
+import { DatePickerLocaleComponent } from './examples/date-picker-locale.component';
 
 type DatePickerArgs = ExtraDatePickerComponent & {
   control: FormControl<Date | Date[] | null>;
@@ -31,6 +32,7 @@ const meta: Meta<DatePickerArgs> = {
         DatePickerDisabledComponent,
         DatePickerInvalidComponent,
         DatePickerClearIconComponent,
+        DatePickerLocaleComponent,
       ],
     }),
   ],
@@ -146,6 +148,24 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Props',
         defaultValue: { summary: 'dd.mm.yy' },
+      },
+    },
+    hourLabel: {
+      control: 'text',
+      description: 'Подпись поля часов в блоке времени',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'Часы' },
+        type: { summary: 'string' },
+      },
+    },
+    minuteLabel: {
+      control: 'text',
+      description: 'Подпись поля минут в блоке времени',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'Минуты' },
+        type: { summary: 'string' },
       },
     },
     onSelect: {
@@ -477,6 +497,53 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
 })
 export class DatePickerClearIconComponent {
   dateControl = new FormControl<Date | null>(null);
+}
+        `,
+      },
+    },
+  },
+};
+
+export const Locale: Story = {
+  render: () => ({
+    template: `<app-date-picker-locale></app-date-picker-locale>`,
+  }),
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'Названия месяцев и дней недели берутся из перевода PrimeNG и обновляются при его смене в рантайме. Подписи блока времени задаются через `hourLabel` и `minuteLabel`.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component, inject } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { PrimeNG } from 'primeng/config';
+import { en } from 'primelocale/js/en.js';
+import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  selector: 'app-date-picker-locale',
+  standalone: true,
+  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
+  template: \\\`
+    <extra-date-picker
+      [formControl]="dateControl"
+      [inline]="true"
+      [showTime]="true"
+      hourLabel="Hours"
+      minuteLabel="Minutes"
+    ></extra-date-picker>
+  \\\`,
+})
+export class DatePickerLocaleComponent {
+  dateControl = new FormControl<Date | null>(null);
+
+  constructor() {
+    inject(PrimeNG).setTranslation(en);
+  }
 }
         `,
       },
