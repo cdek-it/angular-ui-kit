@@ -513,7 +513,7 @@ export const Locale: Story = {
     docs: {
       description: {
         story:
-          'Названия месяцев и дней недели берутся из перевода PrimeNG и обновляются при его смене в рантайме. Подписи блока времени задаются через `hourLabel` и `minuteLabel`.',
+          'Названия месяцев и дней недели, а также подписи кнопок навигации для скринридера берутся из перевода PrimeNG и обновляются при его смене в рантайме. Подписи блока времени задаются через `hourLabel` и `minuteLabel`.',
       },
       source: {
         language: 'ts',
@@ -521,28 +521,71 @@ export const Locale: Story = {
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNG } from 'primeng/config';
-import { en } from 'primelocale/js/en.js';
-import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
+import type { Translation } from 'primeng/api';
+import { ExtraButtonComponent, ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
+import { RU_TRANSLATION } from '@cdek-it/angular-ui-kit/providers';
+
+const EN_TRANSLATION: Partial<Translation> = {
+  today: 'Today',
+  clear: 'Clear',
+  chooseDate: 'Choose Date',
+  prevMonth: 'Previous Month',
+  nextMonth: 'Next Month',
+  firstDayOfWeek: 0,
+  dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+  monthNames: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ],
+  monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+};
 
 @Component({
   selector: 'app-date-picker-locale',
   standalone: true,
-  imports: [ExtraDatePickerComponent, ReactiveFormsModule],
+  imports: [ExtraDatePickerComponent, ExtraButtonComponent, ReactiveFormsModule],
   template: \\\`
-    <extra-date-picker
-      [formControl]="dateControl"
-      [inline]="true"
-      [showTime]="true"
-      hourLabel="Hours"
-      minuteLabel="Minutes"
-    ></extra-date-picker>
+    <div class="flex flex-col items-start gap-4">
+      <div class="flex gap-2">
+        <extra-button label="English" [variant]="lang === 'en' ? 'primary' : 'secondary'" (click)="setLang('en')"></extra-button>
+        <extra-button label="Русский" [variant]="lang === 'ru' ? 'primary' : 'secondary'" (click)="setLang('ru')"></extra-button>
+      </div>
+      <extra-date-picker
+        [formControl]="dateControl"
+        [inline]="true"
+        [showTime]="true"
+        [showButtonBar]="true"
+        [hourLabel]="lang === 'en' ? 'Hours' : 'Часы'"
+        [minuteLabel]="lang === 'en' ? 'Minutes' : 'Минуты'"
+      ></extra-date-picker>
+    </div>
   \\\`,
 })
 export class DatePickerLocaleComponent {
+  private readonly primeng = inject(PrimeNG);
+
   dateControl = new FormControl<Date | null>(null);
+  lang: 'en' | 'ru' = 'en';
 
   constructor() {
-    inject(PrimeNG).setTranslation(en);
+    this.primeng.setTranslation(EN_TRANSLATION);
+  }
+
+  setLang(lang: 'en' | 'ru'): void {
+    this.lang = lang;
+    this.primeng.setTranslation(lang === 'en' ? EN_TRANSLATION : RU_TRANSLATION);
   }
 }
         `,
