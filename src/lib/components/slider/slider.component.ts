@@ -10,12 +10,17 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import type { SliderSlideEndEvent } from 'primeng/slider';
+import type { SliderChangeEvent } from 'primeng/slider';
 import { Slider } from 'primeng/slider';
 import { Subscription } from 'rxjs';
 
 export type ExtraSliderOrientation = 'horizontal' | 'vertical';
-export type ExtraSliderSlideEndEvent = SliderSlideEndEvent;
+
+export interface ExtraSliderChangeEvent {
+  value?: number;
+  values?: number[];
+  originalEvent: Event;
+}
 
 @Component({
   selector: 'extra-slider',
@@ -38,7 +43,13 @@ export type ExtraSliderSlideEndEvent = SliderSlideEndEvent;
       [step]="step"
       [range]="range"
       [orientation]="orientation"
-      (onSlideEnd)="onSlideEnd.emit($event)"
+      [animate]="animate"
+      [ariaLabel]="ariaLabel"
+      [ariaLabelledBy]="ariaLabelledBy"
+      [tabindex]="tabindex"
+      [autofocus]="autofocus"
+      (onChange)="onChangeHandler($event)"
+      (onSlideEnd)="onSlideEndHandler()"
     ></p-slider>
   `
 })
@@ -48,10 +59,15 @@ export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, On
   @Input() step: number | undefined = undefined;
   @Input() range = false;
   @Input() orientation: ExtraSliderOrientation = 'horizontal';
-  @Input() set disabled(value: boolean) {
-    value ? this.control.disable() : this.control.enable();
-  }
-  @Output() onSlideEnd = new EventEmitter<ExtraSliderSlideEndEvent>();
+  /** Анимация прыжка бегунка при клике по шкале. */
+  @Input() animate = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input() tabindex = 0;
+  @Input() autofocus = false;
+
+  @Output() onChange = new EventEmitter<ExtraSliderChangeEvent>();
+  @Output() onSlideEnd = new EventEmitter<void>();
 
   readonly control = new FormControl<number | number[]>(0, { nonNullable: true });
 
@@ -76,6 +92,15 @@ export class ExtraSliderComponent implements ControlValueAccessor, OnChanges, On
 
   ngOnDestroy(): void {
     this._sub.unsubscribe();
+  }
+
+  onChangeHandler(event: SliderChangeEvent): void {
+    this.onChange.emit({ value: event.value, values: event.values, originalEvent: event.event });
+  }
+
+  onSlideEndHandler(): void {
+    this._onTouched();
+    this.onSlideEnd.emit();
   }
 
   writeValue(value: number | number[]): void {

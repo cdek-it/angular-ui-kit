@@ -1,18 +1,22 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { ExtraSliderComponent as SliderComponent } from '../../../lib/components/slider/slider.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ExtraSliderComponent } from '../../../lib/components/slider/slider.component';
 import { Range, SliderRangeComponent } from './examples/slider-range.component';
 import { SliderStepComponent, Step } from './examples/slider-step.component';
 import { SliderVerticalComponent, Vertical } from './examples/slider-vertical.component';
 import { Disabled, SliderDisabledComponent } from './examples/slider-disabled.component';
 
-const meta: Meta<SliderComponent> = {
+type SliderArgs = ExtraSliderComponent & { disabled: boolean };
+
+const meta: Meta<SliderArgs> = {
   title: 'Components/Form/Slider',
-  component: SliderComponent,
+  component: ExtraSliderComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        SliderComponent,
+        ExtraSliderComponent,
+        ReactiveFormsModule,
         SliderRangeComponent,
         SliderStepComponent,
         SliderVerticalComponent,
@@ -25,19 +29,24 @@ const meta: Meta<SliderComponent> = {
       description: {
         component: `Слайдер позволяет выбрать числовое значение или диапазон путём перемещения ползунка.
 
+Реализовано по спецификации [slider.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/slider.md).
+
 \`\`\`typescript
 import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``
+\`\`\`
+
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Отключённое состояние управляется через FormControl.`
       }
     },
     designTokens: { prefix: '--p-slider' }
   },
   argTypes: {
+    // ── Свойства (docs/components-api/slider.md) ─────────────────
     min: {
       control: 'number',
       description: 'Минимальное значение',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '0' },
         type: { summary: 'number' }
       }
@@ -46,7 +55,7 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       control: 'number',
       description: 'Максимальное значение',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '100' },
         type: { summary: 'number' }
       }
@@ -55,7 +64,7 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       control: 'number',
       description: 'Шаг изменения значения',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'number | undefined' }
       }
@@ -64,7 +73,7 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Режим выбора диапазона с двумя ползунками',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
@@ -74,36 +83,69 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
       options: ['horizontal', 'vertical'],
       description: 'Ориентация слайдера',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'horizontal' },
+        category: 'Свойства',
+        defaultValue: { summary: "'horizontal'" },
         type: { summary: "'horizontal' | 'vertical'" }
       }
     },
-    disabled: {
+    animate: {
       control: 'boolean',
-      description: 'Отключает взаимодействие с компонентом',
+      description: 'Анимация прыжка бегунка при клике по шкале',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
+    // ── Состояния (управляются через FormControl) ───────────────────
+    disabled: {
+      control: 'boolean',
+      description: 'Отключённое состояние — управляется через FormControl',
+      table: {
+        category: 'Состояния',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    // Hidden props
+    ariaLabel: { table: { disable: true } },
+    ariaLabelledBy: { table: { disable: true } },
+    tabindex: { table: { disable: true } },
+    autofocus: { table: { disable: true } },
+    control: { table: { disable: true } },
+    // ── События ──────────────────────────────────────────────────
+    onChange: {
+      control: false,
+      description: 'Срабатывает при каждом изменении значения во время перетаскивания',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraSliderChangeEvent>' }
+      }
+    },
     onSlideEnd: {
       control: false,
-      description: 'Событие завершения перетаскивания ползунка',
+      description: 'Срабатывает после завершения перетаскивания ползунка',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<SliderSlideEndEvent>' }
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
       }
     }
+  },
+  args: {
+    min: 0,
+    max: 100,
+    step: undefined,
+    range: false,
+    orientation: 'horizontal',
+    animate: false,
+    disabled: false
   }
 };
 
 export default meta;
-type Story = StoryObj<SliderComponent>;
+type Story = StoryObj<SliderArgs>;
 
-// ── Default ───────────────────────────────────────────────────────────────────
-
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
@@ -114,30 +156,27 @@ export const Default: Story = {
     if (args.step !== undefined) parts.push(`[step]="${args.step}"`);
     if (args.range) parts.push(`[range]="true"`);
     if (args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
+    if (args.animate) parts.push(`[animate]="true"`);
 
-    const template = parts.length
-      ? `<extra-slider\n  ${parts.join('\n  ')}\n></extra-slider>`
-      : `<extra-slider></extra-slider>`;
+    const control = new FormControl<number | number[]>({ value: args.range ? [20, 80] : 50, disabled: args.disabled }, { nonNullable: true });
+    parts.push(`[formControl]="control"`);
 
-    return { props: args, template };
-  },
-  args: {
-    min: 0,
-    max: 100,
-    step: undefined,
-    range: false,
-    orientation: 'horizontal',
-    disabled: false
+    const template = `<extra-slider\n  ${parts.join('\n  ')}\n></extra-slider>`;
+
+    // disabled живёт во FormControl, у компонента нет такого @Input — Storybook ругается в консоль
+    // на попытку присвоить его напрямую
+    const { disabled, ...rest } = args;
+
+    return { props: { ...rest, control }, template };
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story: 'Интерактивный слайдер со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled управляется через FormControl.'
       }
     }
   }
 };
 
-// ── Re-exports from example components ────────────────────────────────────
+// ── Комбинаторные истории ──────────────────────────────────────────────────
 export { Range, Step, Vertical, Disabled };
