@@ -15,7 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatePicker, DatePickerMonthChangeEvent } from 'primeng/datepicker';
 import { InputText } from 'primeng/inputtext';
-import { PrimeTemplate, TranslationKeys } from 'primeng/api';
+import { PrimeTemplate, Translation, TranslationKeys } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
 import { Select } from 'primeng/select';
 import { Button } from 'primeng/button';
@@ -29,6 +29,16 @@ const YEARS = (() => {
   }
   return result;
 })();
+
+let nextInstanceId = 0;
+
+// Mirrors PrimeNG's built-in header (hidden by the kit): the buttons page by year in month view
+// and by decade in year view, and are labelled accordingly
+const NAV_LABEL_KEYS = {
+  date: { prev: 'prevMonth', next: 'nextMonth' },
+  month: { prev: 'prevYear', next: 'nextYear' },
+  year: { prev: 'prevDecade', next: 'nextDecade' }
+} satisfies Record<'date' | 'month' | 'year', Record<'prev' | 'next', keyof Translation>>;
 
 export type ExtraDatePickerSize = 'small' | 'medium' | 'large' | 'xlarge';
 export type ExtraDatePickerSelectionMode = 'single' | 'multiple' | 'range';
@@ -84,7 +94,13 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
     >
       <ng-template pTemplate="header">
         <div class="p-datepicker-header p-datepicker-custom-header">
-          <p-button severity="secondary" [rounded]="true" [text]="true" (onClick)="navPrev($event)">
+          <p-button
+            severity="secondary"
+            [rounded]="true"
+            [text]="true"
+            [ariaLabel]="navAriaLabel('prev')"
+            (onClick)="navPrev($event)"
+          >
             <ng-template pTemplate="icon">
               <i class="ti ti-chevron-left" aria-hidden="true"></i>
             </ng-template>
@@ -109,7 +125,13 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
               class="p-datepicker-year-select"
             ></p-select>
           </div>
-          <p-button severity="secondary" [rounded]="true" [text]="true" (onClick)="navNext($event)">
+          <p-button
+            severity="secondary"
+            [rounded]="true"
+            [text]="true"
+            [ariaLabel]="navAriaLabel('next')"
+            (onClick)="navNext($event)"
+          >
             <ng-template pTemplate="icon">
               <i class="ti ti-chevron-right" aria-hidden="true"></i>
             </ng-template>
@@ -132,8 +154,9 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
         <ng-template pTemplate="footer">
           <div class="p-datepicker-time-picker p-datepicker-time-picker-custom" (keydown)="$event.stopPropagation()">
             <div class="p-datepicker-time-field">
-              <label class="p-datepicker-time-label">{{ hourLabel }}</label>
+              <label class="p-datepicker-time-label" [attr.for]="hourInputId">{{ hourLabel }}</label>
               <input
+                [id]="hourInputId"
                 type="text"
                 inputmode="numeric"
                 maxlength="2"
@@ -149,8 +172,9 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
               <span>:</span>
             </div>
             <div class="p-datepicker-time-field">
-              <label class="p-datepicker-time-label">{{ minuteLabel }}</label>
+              <label class="p-datepicker-time-label" [attr.for]="minuteInputId">{{ minuteLabel }}</label>
               <input
+                [id]="minuteInputId"
                 type="text"
                 inputmode="numeric"
                 maxlength="2"
@@ -183,6 +207,10 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   hourInput = '00';
   minuteInput = '00';
 
+  private readonly instanceId = nextInstanceId++;
+  readonly hourInputId = `extra-date-picker-hour-${this.instanceId}`;
+  readonly minuteInputId = `extra-date-picker-minute-${this.instanceId}`;
+
   modelValue: Date | Date[] | null = null;
   disabled = false;
 
@@ -213,7 +241,8 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   @Output() onClear = new EventEmitter<any>();
 
   constructor() {
-    // Month names come from the PrimeNG translation; rebuild them when it changes at runtime
+    // Month names come from the PrimeNG translation; rebuild them when it changes at runtime.
+    // markForCheck also refreshes the nav button labels, which read the translation in the template
     this.primeng.translationObserver.pipe(takeUntilDestroyed()).subscribe(() => {
       this.months = this.buildMonths();
       this.cdr.markForCheck();
@@ -236,6 +265,11 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   private buildMonths(): { name: string; value: number }[] {
     const names: string[] = this.primeng.getTranslation(TranslationKeys.MONTH_NAMES) ?? [];
     return names.map((name, value) => ({ name, value }));
+  }
+
+  navAriaLabel(direction: 'prev' | 'next'): string {
+    const view = (this.dpRef?.currentView ?? this.view) as keyof typeof NAV_LABEL_KEYS;
+    return this.primeng.getTranslation(NAV_LABEL_KEYS[view][direction]);
   }
 
   syncCurrentDate(): void {

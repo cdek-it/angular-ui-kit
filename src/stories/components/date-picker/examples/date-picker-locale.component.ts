@@ -9,6 +9,9 @@ import { RU_TRANSLATION } from '../../../../lib/providers/prime-preset/locale/ru
 const EN_TRANSLATION: Partial<Translation> = {
   today: 'Today',
   clear: 'Clear',
+  chooseDate: 'Choose Date',
+  prevMonth: 'Previous Month',
+  nextMonth: 'Next Month',
   firstDayOfWeek: 0,
   dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],

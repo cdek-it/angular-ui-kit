@@ -10,7 +10,7 @@ figma:
   componentKey: '186776f4f5b0f28244809844575073296ec8c383'
   name: '<DatePicker>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-10-06'
 ---
 
 ## Overview
@@ -40,6 +40,8 @@ updated: '2026-06-22'
 | `view` | `'date' \| 'month' \| 'year'` | `'date'` | Начальный режим панели: дни, месяцы или годы |
 | `showOtherMonths` | `boolean` | `true` | Показывать даты соседних месяцев в сетке |
 | `selectOtherMonths` | `boolean` | `false` | Разрешить выбор дат соседних месяцев |
+| `hourLabel` | `string` | `'Часы'` | Подпись поля часов в блоке времени (при `showTime=true`) |
+| `minuteLabel` | `string` | `'Минуты'` | Подпись поля минут в блоке времени (при `showTime=true`) |
 | `(onSelect)` | `EventEmitter<Date>` | — | Событие выбора даты в сетке |
 | `(onMonthChange)` | `EventEmitter<any>` | — | Событие смены отображаемого месяца |
 | `(onYearChange)` | `EventEmitter<any>` | — | Событие смены отображаемого года |
