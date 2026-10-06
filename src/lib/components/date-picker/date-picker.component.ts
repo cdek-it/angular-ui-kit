@@ -11,29 +11,16 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatePicker, DatePickerMonthChangeEvent } from 'primeng/datepicker';
 import { InputText } from 'primeng/inputtext';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, TranslationKeys } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { Select } from 'primeng/select';
 import { Button } from 'primeng/button';
 
 export type ExtraDatePickerMonthChangeEvent = DatePickerMonthChangeEvent;
-
-const MONTHS = [
-  { name: 'Январь', value: 0 },
-  { name: 'Февраль', value: 1 },
-  { name: 'Март', value: 2 },
-  { name: 'Апрель', value: 3 },
-  { name: 'Май', value: 4 },
-  { name: 'Июнь', value: 5 },
-  { name: 'Июль', value: 6 },
-  { name: 'Август', value: 7 },
-  { name: 'Сентябрь', value: 8 },
-  { name: 'Октябрь', value: 9 },
-  { name: 'Ноябрь', value: 10 },
-  { name: 'Декабрь', value: 11 },
-];
 
 const YEARS = (() => {
   const result = [];
@@ -145,7 +132,7 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
         <ng-template pTemplate="footer">
           <div class="p-datepicker-time-picker p-datepicker-time-picker-custom" (keydown)="$event.stopPropagation()">
             <div class="p-datepicker-time-field">
-              <label class="p-datepicker-time-label">Часы</label>
+              <label class="p-datepicker-time-label">{{ hourLabel }}</label>
               <input
                 type="text"
                 inputmode="numeric"
@@ -162,7 +149,7 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
               <span>:</span>
             </div>
             <div class="p-datepicker-time-field">
-              <label class="p-datepicker-time-label">Минуты</label>
+              <label class="p-datepicker-time-label">{{ minuteLabel }}</label>
               <input
                 type="text"
                 inputmode="numeric"
@@ -183,10 +170,11 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
 })
 export class ExtraDatePickerComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly primeng = inject(PrimeNG);
 
   @ViewChild('dpRef') dpRef!: DatePicker;
 
-  readonly months = MONTHS;
+  months = this.buildMonths();
   readonly years = YEARS;
 
   dpCurrentMonth = new Date().getMonth();
@@ -216,11 +204,21 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   @Input() view: 'date' | 'month' | 'year' = 'date';
   @Input() showOtherMonths = true;
   @Input() selectOtherMonths = false;
+  @Input() hourLabel = 'Часы';
+  @Input() minuteLabel = 'Минуты';
 
   @Output() onSelect = new EventEmitter<Date>();
   @Output() onMonthChange = new EventEmitter<any>();
   @Output() onYearChange = new EventEmitter<any>();
   @Output() onClear = new EventEmitter<any>();
+
+  constructor() {
+    // Month names come from the PrimeNG translation; rebuild them when it changes at runtime
+    this.primeng.translationObserver.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.months = this.buildMonths();
+      this.cdr.markForCheck();
+    });
+  }
 
   get primeSize(): 'small' | 'large' | undefined {
     if (this.size === 'small') return 'small';
@@ -233,6 +231,11 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
     if (this.inline) {
       this.syncCurrentDate();
     }
+  }
+
+  private buildMonths(): { name: string; value: number }[] {
+    const names: string[] = this.primeng.getTranslation(TranslationKeys.MONTH_NAMES) ?? [];
+    return names.map((name, value) => ({ name, value }));
   }
 
   syncCurrentDate(): void {
