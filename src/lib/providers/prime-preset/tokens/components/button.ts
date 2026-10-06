@@ -133,6 +133,16 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
     border-color: transparent;
   }
 
+  /* ─── Нейтральное кольцо фокуса для text/link без severity ───
+     У text/link без severity-класса нет собственного focusRing, поэтому
+     они наследуют primary (зелёное кольцо). В Figma (Button.Base,
+     variant=text/link) кольцо должно быть нейтральным, как у secondary/
+     tertiary (contrast): zinc.300 1px + black 10% 2px. */
+  .p-button-text:not(.p-button-danger):not(.p-button-warn):not(.p-button-info):not(.p-button-help):not(.p-button-success):focus-visible,
+  .p-button-link:not(.p-button-danger):not(.p-button-warn):not(.p-button-info):not(.p-button-help):not(.p-button-success):focus-visible {
+    box-shadow: 0 0 0 ${dt('button.extend.extFocusRing.width')} ${dt('button.extend.extFocusRing.borderColor')}, 0 0 0 ${dt('button.extend.extFocusRing.ringWidth')} ${dt('button.extend.extFocusRing.neutralColor')};
+  }
+
   /* ─── Link кнопки ─── */
   .p-button-link.p-button:is(.p-button, .p-button-xlg) {
     padding: var(--p-button-extend-ext-link-padding-y) var(--p-button-extend-ext-link-padding-x);
