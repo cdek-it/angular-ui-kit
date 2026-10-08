@@ -5,30 +5,30 @@ import { StoryObj } from '@storybook/angular';
 const template = `
 <div class="bg-surface-ground p-4">
   <div class="flex gap-3">
-    <p-button label="Primary" [rounded]="true" />
+    <p-button label="Submit" icon="ti ti-check" [loading]="true"/>
   </div>
 </div>
 `;
 const styles = '';
 
 @Component({
-  selector: 'app-button-rounded',
+  selector: 'app-button-loading',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   template,
   styles
 })
-export class ButtonRoundedComponent {}
+export class ButtonLoadingComponent {}
 
-export const Rounded: StoryObj = {
+export const Loading: StoryObj = {
   render: () => ({
-    template: `<app-button-rounded></app-button-rounded>`
+    template: `<app-button-loading></app-button-loading>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Скругленная кнопка'
+        story: 'Кнопка в состоянии загрузки'
       },
       source: {
         language: 'ts',
@@ -36,7 +36,7 @@ export const Rounded: StoryObj = {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-button-rounded',
+  selector: 'app-button-loading',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
@@ -45,7 +45,7 @@ import { Component } from '@angular/core';
   template: ${template},
   styles: ${styles}
 })
-export class ButtonRoundedComponent {}
+export class ButtonLoadingComponent {}
         `
       }
     }

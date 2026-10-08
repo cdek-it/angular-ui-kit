@@ -76,7 +76,7 @@ export class ExtraConfirmDialogComponent {
   mapSeverity(severity: string | null | undefined): ExtraButtonSeverity {
     if (severity === 'danger' || severity === 'warn' || severity === 'warning') return severity === 'warn' ? 'warning' : severity;
     if (severity === 'success' || severity === 'info') return severity;
-    return 'base';
+    return null;
   }
 
   get computedClass(): string {

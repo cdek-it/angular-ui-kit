@@ -4,31 +4,29 @@ import { StoryObj } from '@storybook/angular';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <div class="flex gap-3">
-    <p-button label="Primary" [rounded]="true" />
-  </div>
-</div>
-`;
+  <p-button label="Outlined button" [outlined]="true">
+  </p-button>
+</div>`;
 const styles = '';
 
 @Component({
-  selector: 'app-button-rounded',
+  selector: 'app-button-outlined',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   template,
   styles
 })
-export class ButtonRoundedComponent {}
+export class ButtonOutlinedComponent {}
 
-export const Rounded: StoryObj = {
+export const Outlined: StoryObj = {
   render: () => ({
-    template: `<app-button-rounded></app-button-rounded>`
+    template: `<app-button-outlined></app-button-outlined>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Скругленная кнопка'
+        story: 'Outlined кнопка'
       },
       source: {
         language: 'ts',
@@ -36,7 +34,7 @@ export const Rounded: StoryObj = {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-button-rounded',
+  selector: 'app-button-outlined',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
@@ -45,7 +43,7 @@ import { Component } from '@angular/core';
   template: ${template},
   styles: ${styles}
 })
-export class ButtonRoundedComponent {}
+export class ButtonOutlinedComponent {}
         `
       }
     }
