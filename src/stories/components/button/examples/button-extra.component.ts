@@ -29,6 +29,7 @@ export const Extra: StoryObj = {
   }),
   args: {
     label: 'Button',
+    iconPosition: 'left',
     severity: 'base',
     showBadge: false,
     fluid: false,
@@ -52,7 +53,7 @@ export const Extra: StoryObj = {
     rounded: { control: 'boolean' },
     iconPosition: {
       control: 'select',
-      options: [null, 'prefix', 'postfix']
+      options: ['left', 'right']
     },
     iconOnly: { control: 'boolean' },
     icon: { control: 'text' },

@@ -113,12 +113,12 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     },
     iconPosition: {
       control: 'select',
-      options: [null, 'prefix', 'postfix'],
+      options: ['left', 'right'],
       description: 'Позиция иконки относительно текста',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'prefix' | 'postfix' | null" }
+        defaultValue: { summary: 'left' },
+        type: { summary: "'left' | 'right'" }
       }
     },
     iconOnly: {
@@ -260,6 +260,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     }
   },
   args: {
+    iconPosition: 'left',
     severity: 'base',
     showBadge: false,
     badge: '',
@@ -285,7 +286,7 @@ export const Default: Story = {
     if (args.variant != null) parts.push(`variant="${args.variant}"`);
     if (args.size != null) parts.push(`size="${args.size}"`);
     if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
-    if (args.iconPosition != null) parts.push(`iconPosition="${args.iconPosition}"`);
+    if (args.iconPosition != null && args.iconPosition !== 'left') parts.push(`iconPosition="${args.iconPosition}"`);
     if (args.rounded) parts.push(`[rounded]="true"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.loading) parts.push(`[loading]="true"`);

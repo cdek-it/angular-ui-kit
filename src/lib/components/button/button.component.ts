@@ -4,7 +4,7 @@ import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 export type ExtraButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'text' | 'link';
 export type ExtraButtonSeverity = 'base' | 'danger' | 'warning' | 'success' | 'info';
 export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraButtonIconPosition = 'prefix' | 'postfix' | null;
+export type ExtraButtonIconPosition = 'left' | 'right';
 export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 type ExtraButtonSeverityValue = PrimeButtonSeverity;
@@ -27,7 +27,7 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
       [text]="variant === 'text' || text"
       [link]="variant === 'link'"
       [icon]="icon"
-      [iconPos]="primeIconPosition"
+      [iconPos]="iconPosition"
       [severity]="primeSeverity"
       [badge]="showBadge ? badge || ' ' : undefined"
       [badgeSeverity]="primeBadgeSeverity"
@@ -46,7 +46,7 @@ export class ExtraButtonComponent {
   @Input() severity: ExtraButtonSeverity = 'base';
   @Input() size: ExtraButtonSize = 'base';
   @Input() rounded = false;
-  @Input() iconPosition: ExtraButtonIconPosition = null;
+  @Input() iconPosition: ExtraButtonIconPosition = 'left';
   @Input() iconOnly = false;
   @Input() icon = '';
   @Input() disabled = false;
@@ -71,10 +71,6 @@ export class ExtraButtonComponent {
 
   get primeStyleClass(): string {
     return this.size === 'xlarge' ? 'p-button-xlg' : '';
-  }
-
-  get primeIconPosition(): 'left' | 'right' {
-    return this.iconPosition === 'postfix' ? 'right' : 'left';
   }
 
   get primeSeverity(): ExtraButtonSeverityValue | null {

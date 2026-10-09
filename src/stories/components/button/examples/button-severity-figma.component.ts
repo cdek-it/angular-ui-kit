@@ -98,10 +98,10 @@ export class ButtonSeverityFigmaComponent {
   readonly sizes = ['small', 'base', 'large', 'xlarge'] as const;
   readonly roundedVals = [false, true];
   readonly iconConfigs = [
-    { position: null, iconOnly: false, hasIcon: false },
-    { position: 'prefix', iconOnly: false, hasIcon: true },
-    { position: 'postfix', iconOnly: false, hasIcon: true },
-    { position: null, iconOnly: true, hasIcon: true }
+    { position: 'left', iconOnly: false, hasIcon: false },
+    { position: 'left', iconOnly: false, hasIcon: true },
+    { position: 'right', iconOnly: false, hasIcon: true },
+    { position: 'left', iconOnly: true, hasIcon: true }
   ] as const;
 }
 

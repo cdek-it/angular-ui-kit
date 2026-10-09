@@ -28,7 +28,7 @@ updated: '2026-06-22'
 | `severity` | `'base' \| 'danger' \| 'warning' \| 'success' \| 'info'` | `'base'` | Семантический акцент — соответствует Figma-компоненту `<Button.Danger>` и аналогам |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер кнопки — соответствует Figma-свойству `size` |
 | `icon` | `string` | `''` | CSS-класс иконки (например `'pi pi-check'`); доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `iconPos` | `'prefix' \| 'postfix' \| null` | `null` | Позиция иконки — соответствует Figma-свойству `icon-position` |
+| `iconPosition` | `'left' \| 'right'` | `'left'` | Позиция иконки — соответствует Figma-свойству `icon-position` |
 | `iconOnly` | `boolean` | `false` | Режим «только иконка» без текста — соответствует Figma-свойству `icon-only` |
 | `disabled` | `boolean` | `false` | Отключённое состояние — соответствует Figma-состоянию `state=disabled` |
 | `loading` | `boolean` | `false` | Состояние загрузки со спиннером — соответствует Figma-состоянию `state=loading` |
@@ -84,7 +84,7 @@ Figma: `<Button.Base>`, variant=link, size=base, state=default
 <extra-button variant="link" label="Перейти"></extra-button>
 ```
 
-### С иконкой слева (prefix)
+### С иконкой слева (left)
 
 Figma: `<Button.Base>`, icon-position=prefix, icon-only=false
 
@@ -92,7 +92,7 @@ Figma: `<Button.Base>`, icon-position=prefix, icon-only=false
 <extra-button
   label="Добавить"
   icon="pi pi-plus"
-  iconPos="prefix"
+  iconPosition="left"
 ></extra-button>
 ```
 
