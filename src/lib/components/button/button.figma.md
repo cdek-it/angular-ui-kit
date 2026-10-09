@@ -25,7 +25,7 @@ updated: '2026-06-22'
 |----------|-----|--------------|---------|
 | `label` | `string` | `'Button'` | Текст кнопки |
 | `variant` | `'primary' \| 'secondary' \| 'outlined' \| 'text' \| 'link'` | `'primary'` | Вариант отображения — соответствует Figma-свойству `variant` |
-| `severity` | `'success' \| 'warning' \| 'danger' \| 'info' \| null` | `null` | Семантический акцент — соответствует Figma-компоненту `<Button.Danger>` и аналогам |
+| `severity` | `'base' \| 'danger' \| 'warning' \| 'success' \| 'info'` | `'base'` | Семантический акцент — соответствует Figma-компоненту `<Button.Danger>` и аналогам |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер кнопки — соответствует Figma-свойству `size` |
 | `icon` | `string` | `''` | CSS-класс иконки (например `'pi pi-check'`); доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
 | `iconPos` | `'prefix' \| 'postfix' \| null` | `null` | Позиция иконки — соответствует Figma-свойству `icon-position` |

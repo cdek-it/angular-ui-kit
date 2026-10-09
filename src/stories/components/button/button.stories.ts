@@ -260,6 +260,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     }
   },
   args: {
+    severity: 'base',
     showBadge: false,
     badge: '',
     badgeSeverity: null,

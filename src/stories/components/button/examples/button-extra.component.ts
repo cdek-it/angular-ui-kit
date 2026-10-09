@@ -29,6 +29,7 @@ export const Extra: StoryObj = {
   }),
   args: {
     label: 'Button',
+    severity: 'base',
     showBadge: false,
     fluid: false,
     autofocus: false,
@@ -42,7 +43,7 @@ export const Extra: StoryObj = {
     },
     severity: {
       control: 'select',
-      options: [null, 'success', 'warning', 'danger', 'info']
+      options: ['base', 'danger', 'warning', 'success', 'info']
     },
     size: {
       control: 'select',
