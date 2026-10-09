@@ -21,7 +21,7 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
       [disabled]="disabled"
       [loading]="loading"
       [size]="primeSize"
-      [styleClass]="size === 'xlarge' ? 'p-button-xlg' : ''"
+      [styleClass]="primeStyleClass"
       [rounded]="rounded"
       [outlined]="variant === 'tertiary' && severity !== null"
       [text]="variant === 'text' || text"
@@ -67,6 +67,10 @@ export class ExtraButtonComponent {
     if (this.size === 'small') return 'small';
     if (this.size === 'large') return 'large';
     return undefined;
+  }
+
+  get primeStyleClass(): string {
+    return this.size === 'xlarge' ? 'p-button-xlg' : '';
   }
 
   get primeIconPosition(): 'left' | 'right' {
