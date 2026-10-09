@@ -74,12 +74,12 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     },
     severity: {
       control: 'select',
-      options: [null, 'success', 'info', 'warning', 'danger'],
+      options: ['base', 'danger', 'warning', 'success', 'info'],
       description: 'Семантический вариант кнопки',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'null' },
-        type: { summary: "'success' | 'info' | 'warning' | 'danger' | null" }
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'danger' | 'warning' | 'success' | 'info'" }
       }
     },
     variant: {
@@ -280,7 +280,7 @@ export const Default: Story = {
     const parts: string[] = [];
 
     if (args.label != null && args.label !== '') parts.push(`label="${args.label}"`);
-    if (args.severity != null) parts.push(`severity="${args.severity}"`);
+    if (args.severity != null && args.severity !== 'base') parts.push(`severity="${args.severity}"`);
     if (args.variant != null) parts.push(`variant="${args.variant}"`);
     if (args.size != null) parts.push(`size="${args.size}"`);
     if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);

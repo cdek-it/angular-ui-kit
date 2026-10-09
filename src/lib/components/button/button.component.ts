@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
 export type ExtraButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'text' | 'link';
-export type ExtraButtonSeverity = 'success' | 'warning' | 'danger' | 'info' | null;
+export type ExtraButtonSeverity = 'base' | 'danger' | 'warning' | 'success' | 'info';
 export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraButtonIconPosition = 'prefix' | 'postfix' | null;
 export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
@@ -23,7 +23,7 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
       [size]="primeSize"
       [styleClass]="primeStyleClass"
       [rounded]="rounded"
-      [outlined]="variant === 'tertiary' && severity !== null"
+      [outlined]="variant === 'tertiary' && severity !== 'base'"
       [text]="variant === 'text' || text"
       [link]="variant === 'link'"
       [icon]="icon"
@@ -43,7 +43,7 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
 export class ExtraButtonComponent {
   @Input() label = 'Button';
   @Input() variant: ExtraButtonVariant = 'primary';
-  @Input() severity: ExtraButtonSeverity = null;
+  @Input() severity: ExtraButtonSeverity = 'base';
   @Input() size: ExtraButtonSize = 'base';
   @Input() rounded = false;
   @Input() iconPosition: ExtraButtonIconPosition = null;
@@ -79,9 +79,8 @@ export class ExtraButtonComponent {
 
   get primeSeverity(): ExtraButtonSeverityValue | null {
     if (this.variant === 'secondary') return 'secondary';
-    if (this.variant === 'tertiary' && this.severity === null) return 'contrast';
-    if (this.severity === 'warning') return 'warn';
-    return this.severity;
+    if (this.severity === 'base') return this.variant === 'tertiary' ? 'contrast' : null;
+    return this.severity === 'warning' ? 'warn' : this.severity;
   }
 
   get primeBadgeSeverity(): ExtraBadgeSeverityValue {

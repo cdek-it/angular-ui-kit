@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import { ExtraButtonComponent, ExtraButtonSeverity } from '../../../../lib/components/button/button.component';
 
 /**
  * Схема соответствия вариантов кнопок Figma ↔ код (UI Kit (DS) v2.1, node-id=484:6197).
@@ -58,7 +58,7 @@ interface FigmaMappingRow {
   figma: string;
   label: string;
   variant: 'primary' | 'secondary' | 'tertiary' | 'text' | 'link';
-  severity: 'success' | 'warning' | 'danger' | 'info' | null;
+  severity: ExtraButtonSeverity;
   props: string;
   broken?: boolean;
 }
@@ -82,7 +82,7 @@ export class ButtonFigmaMappingComponent {
       figma: 'variant=primary',
       label: 'Primary',
       variant: 'primary',
-      severity: null,
+      severity: 'base',
       props: 'p-button label'
     },
     {
@@ -90,7 +90,7 @@ export class ButtonFigmaMappingComponent {
       figma: 'variant=secondary',
       label: 'Secondary',
       variant: 'secondary',
-      severity: null,
+      severity: 'base',
       props: 'p-button severity="secondary"'
     },
     {
@@ -98,7 +98,7 @@ export class ButtonFigmaMappingComponent {
       figma: 'variant=tertiary (gray)',
       label: 'Tertiary',
       variant: 'tertiary',
-      severity: null,
+      severity: 'base',
       props: 'p-button severity="contrast"'
     },
     {
@@ -106,7 +106,7 @@ export class ButtonFigmaMappingComponent {
       figma: 'variant=text',
       label: 'Text',
       variant: 'text',
-      severity: null,
+      severity: 'base',
       props: 'p-button variant="text"'
     },
     {
@@ -114,7 +114,7 @@ export class ButtonFigmaMappingComponent {
       figma: 'variant=link',
       label: 'Link',
       variant: 'link',
-      severity: null,
+      severity: 'base',
       props: 'p-button link'
     },
     {
