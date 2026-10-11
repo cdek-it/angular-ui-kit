@@ -17,32 +17,39 @@ updated: '2026-06-22'
 
 `ExtraProgressSpinner` — круговой индикатор загрузки неопределённой длительности: вращающаяся дуга сообщает, что процесс идёт, но не показывает процент выполнения. Оборачивает PrimeNG `p-progressSpinner` и добавляет фиксированные размеры и переключение между многоцветным и монохромным режимами.
 
-Компонент соответствует Figma-компоненту `<ProgressSpinner>` (nodeId `1219:3101`). Figma-свойство `size` маппируется на Angular-инпут `size`, а Figma-свойство `fill` (`primary` / `white`) — на режим окраски (`multicolor`). Figma-свойство `keyframes` отражает фазы анимации и не имеет соответствия в коде.
+Компонент соответствует Figma-компоненту `<ProgressSpinner>` (nodeId `1219:3101`, подтверждённые варианты — `size: small | base | large | xlarge`, `fill: primary | white`). Figma-свойство `size` маппируется на одноимённый Angular-инпут, Figma-свойство `fill` — на одноимённый Angular-инпут `fill` (см. раздел Props mapping о коллизии имён с PrimeNG-пропом `fill`). Figma-свойство `keyframes` отражает фазы анимации (1/2/3 кадра shimmer) и не имеет соответствия в коде — анимация вращения реализована CSS-анимацией, не покадрово.
 
 ## Props mapping
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `size` | `'small' \| 'medium' \| 'large' \| 'xlarge'` | `'medium'` | Размер спиннера — соответствует Figma-свойству `size` (`sm` / `md` / `lg` / `xl`) |
-| `multicolor` | `boolean` | `true` | Многоцветная анимация; `false` — монохромный режим. Связано с Figma-свойством `fill` (`primary` / `white`) |
+| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер спиннера — соответствует Figma-свойству `size` |
+| `fill` | `'primary' \| 'white'` | `'primary'` | Цветовая схема — соответствует Figma-свойству `fill`. `primary` — многоцветная анимация (по умолчанию), `white` — монохромный режим для цветной/тёмной подложки |
 | `strokeWidth` | `string` | `'2'` | Толщина линии дуги (передаётся в SVG `stroke-width`) |
-| `fill` | `string` | `'none'` | Цвет заливки внутренней области круга (SVG `fill`) |
+| `circleFill` | `string` | `'none'` | Цвет заливки внутренней области круга (raw PrimeNG `[fill]`, SVG `fill`-атрибут) — не связан с цветовой схемой `fill` выше; назван `circleFill`, чтобы избежать коллизии имён (см. `ExtraTooltipDirective.disabled` → `tooltipDisabled` в корневом `CLAUDE.md` как прецедент) |
 | `animationDuration` | `string` | `'2s'` | Длительность одной итерации анимации вращения |
 | `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
+
+> ⚠️ **Расхождение с Figma в CSS-токенах**: класс `.p-progressspinner-monochrome` (применяется при
+> `fill="white"`) в `tokens/components/progressspinner.ts` красит дугу в `color.bg.brand.strong.default`
+> (брендовый зелёный), а не в белый — хотя по скриншотам Figma `fill=white` даёт буквально белую дугу
+> (предназначена для цветной/тёмной подложки, на белом фоне не видна). На коде это не чинится — файл
+> токенов зона дизайнера (см. «Не трогать» в корневом `CLAUDE.md`), сверить и поправить CSS должен
+> дизайнер.
 
 ## Variants
 
 ### Small (маленький размер)
 
-Figma: `<ProgressSpinner>`, size=sm
+Figma: `<ProgressSpinner>`, size=small
 
 ```html
 <extra-progressspinner size="small"></extra-progressspinner>
 ```
 
-### Medium (средний размер, по умолчанию)
+### Base (базовый размер, по умолчанию)
 
-Figma: `<ProgressSpinner>`, size=md
+Figma: `<ProgressSpinner>`, size=base
 
 ```html
 <extra-progressspinner></extra-progressspinner>
@@ -50,7 +57,7 @@ Figma: `<ProgressSpinner>`, size=md
 
 ### Large (большой размер)
 
-Figma: `<ProgressSpinner>`, size=lg
+Figma: `<ProgressSpinner>`, size=large
 
 ```html
 <extra-progressspinner size="large"></extra-progressspinner>
@@ -58,18 +65,19 @@ Figma: `<ProgressSpinner>`, size=lg
 
 ### XLarge (увеличенный размер)
 
-Figma: `<ProgressSpinner>`, size=xl
+Figma: `<ProgressSpinner>`, size=xlarge
 
 ```html
 <extra-progressspinner size="xlarge"></extra-progressspinner>
 ```
 
-### Monochrome (монохромный режим)
+### White (монохромный режим)
 
-Figma: `<ProgressSpinner>`, fill=white — одноцветная дуга вместо многоцветной анимации
+Figma: `<ProgressSpinner>`, fill=white — одноцветная дуга вместо многоцветной анимации (см.
+предупреждение о расхождении цвета с CSS-токеном выше)
 
 ```html
-<extra-progressspinner [multicolor]="false"></extra-progressspinner>
+<extra-progressspinner fill="white"></extra-progressspinner>
 ```
 
 ## Slots
@@ -86,7 +94,7 @@ Figma: `<ProgressSpinner>`, fill=white — одноцветная дуга вм�
 
 **Do:**
 - Используйте спиннер для действий с неизвестной длительностью (порог ~1–3с) и держите один индикатор на экран
-- Задавайте `[multicolor]="false"` для монохромного режима на цветной подложке (Figma `fill=white`)
+- Задавайте `fill="white"` для монохромного режима на цветной подложке (Figma `fill=white`)
 - Для доступности указывайте `ariaLabel`, описывающий выполняемую операцию
 - Подбирайте `size` под контекст: меньшие значения — внутри кнопок и инпутов
 

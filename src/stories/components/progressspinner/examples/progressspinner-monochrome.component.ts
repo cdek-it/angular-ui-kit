@@ -1,36 +1,40 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraProgressSpinnerComponent } from '../../../../lib/components/progressspinner/progressspinner.component';
+import {
+  ExtraProgressSpinnerComponent,
+  ExtraProgressSpinnerFill,
+  ExtraProgressSpinnerSize
+} from '../../../../lib/components/progressspinner/progressspinner.component';
 
 const template = `
-<extra-progressspinner [size]="size" [multicolor]="multicolor"></extra-progressspinner>
+<extra-progressspinner [size]="size" [fill]="fill"></extra-progressspinner>
 `;
 
 @Component({
-  selector: 'progressspinner-monochrome',
+  selector: 'app-progressspinner-monochrome',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraProgressSpinnerComponent],
   template
 })
 export class ProgressSpinnerMonochromeComponent {
-  @Input() size: any = 'base';
-  @Input() multicolor = false;
+  @Input() size: ExtraProgressSpinnerSize = 'base';
+  @Input() fill: ExtraProgressSpinnerFill = 'white';
 }
 
 export const Monochrome: StoryObj = {
   render: (args) => ({
     props: args,
-    template: `<progressspinner-monochrome [size]="size" [multicolor]="multicolor"></progressspinner-monochrome>`
+    template: `<app-progressspinner-monochrome [size]="size" [fill]="fill"></app-progressspinner-monochrome>`
   }),
   args: {
     size: 'base',
-    multicolor: false
+    fill: 'white'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Одноцветный вариант спиннера (monochrome).'
+        story: 'Одноцветный вариант спиннера (`fill="white"`) — для цветной/тёмной подложки.'
       },
       source: {
         language: 'ts',
@@ -39,11 +43,11 @@ import { Component } from '@angular/core';
 import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
-  selector: 'progressspinner-monochrome',
+  selector: 'app-progressspinner-monochrome',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraProgressSpinnerComponent],
-  template: \`<extra-progressspinner [multicolor]="false"></extra-progressspinner>\`
+  template: \`<extra-progressspinner fill="white"></extra-progressspinner>\`,
 })
 export class ProgressSpinnerMonochromeComponent {}
         `
