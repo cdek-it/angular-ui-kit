@@ -8,7 +8,7 @@ import {
 } from './examples/chip-removable-with-icon.component';
 import { ChipDisabledComponent, Disabled as DisabledStory } from './examples/chip-disabled.component';
 
-type ChipArgs = ChipComponent & { onRemove?: (event: MouseEvent) => void };
+type ChipArgs = ChipComponent & { onRemove?: () => void };
 
 const meta: Meta<ChipArgs> = {
   title: 'Components/Misc/Chip',
@@ -79,7 +79,7 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие удаления чипа',
       table: {
         category: 'Events',
-        type: { summary: 'EventEmitter<MouseEvent>' }
+        type: { summary: 'EventEmitter<void>' }
       }
     }
   }
