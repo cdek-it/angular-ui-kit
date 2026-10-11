@@ -1,17 +1,10 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
 import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
-import { ButtonTextComponent, Text } from './examples/button-text.component';
-import { ButtonSeverityComponent, Severity } from './examples/button-severity.component';
-import { ButtonSeverityFigmaComponent, SeverityFigma } from './examples/button-severity-figma.component';
-import { ButtonFigmaMappingComponent, FigmaMapping } from './examples/button-figma-mapping.component';
+import { ButtonVariantsComponent, Variants } from './examples/button-variants.component';
+import { ButtonIconsComponent, Icons } from './examples/button-icons.component';
+import { ButtonStatesComponent, States } from './examples/button-states.component';
 import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
-import { ButtonOutlinedComponent, Outlined } from './examples/button-outlined.component';
-import { ButtonLoadingComponent, Loading } from './examples/button-loading.component';
-import { ButtonIconComponent, Icon } from './examples/button-icon.component';
-import { Extra } from './examples/button-extra.component';
-import { ButtonDisabledComponent, Disabled } from './examples/button-disabled.component';
-import { Base, ButtonBaseComponent } from './examples/button-base.component';
 import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
 import { ButtonFluidComponent, Fluid } from './examples/button-fluid.component';
 import { ButtonEventsComponent, Events } from './examples/button-events.component';
@@ -23,7 +16,7 @@ type ButtonArgs = ExtraButtonComponent & {
 };
 
 const meta: Meta<ButtonArgs> = {
-  title: 'Components/Button/Button',
+  title: 'Components/Button',
   component: ExtraButtonComponent,
   tags: ['autodocs'],
   decorators: [
@@ -31,18 +24,11 @@ const meta: Meta<ButtonArgs> = {
       imports: [
         ExtraButtonComponent,
         ButtonSizesComponent,
-        ButtonBadgeComponent,
-        ButtonBaseComponent,
-        ButtonDisabledComponent,
-        ButtonIconComponent,
-        ButtonLoadingComponent,
-        ButtonOutlinedComponent,
+        ButtonVariantsComponent,
+        ButtonIconsComponent,
+        ButtonStatesComponent,
         ButtonRoundedComponent,
-        ButtonSeverityComponent,
-        ButtonSeverityFigmaComponent,
-        ButtonFigmaMappingComponent,
-        ButtonSizesComponent,
-        ButtonTextComponent,
+        ButtonBadgeComponent,
         ButtonFluidComponent,
         ButtonEventsComponent
       ]
@@ -68,7 +54,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
       description: 'Текст кнопки',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'Button' },
+        defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
     },
@@ -84,12 +70,12 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'text', 'link'],
+      options: ['primary', 'secondary', 'tertiary', 'outlined', 'text', 'link'],
       description: 'Вариант отображения кнопки',
       table: {
         category: 'Props',
         defaultValue: { summary: 'primary' },
-        type: { summary: "'primary' | 'secondary' | 'tertiary' | 'text' | 'link'" }
+        type: { summary: "'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text' | 'link'" }
       }
     },
     size: {
@@ -193,15 +179,6 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'number' }
       }
     },
-    text: {
-      control: 'boolean',
-      description: 'Текстовый вариант кнопки',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
     // ── Badge ────────────────────────────────────────────────
     badge: {
       control: 'text',
@@ -266,8 +243,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     badge: '',
     badgeSeverity: null,
     fluid: false,
-    autofocus: false,
-    text: false
+    autofocus: false
   }
 };
 
@@ -309,4 +285,4 @@ export const Default: Story = {
   }
 };
 
-export { Sizes, Text, Severity, SeverityFigma, FigmaMapping, Rounded, Outlined, Loading, Icon, Extra, Disabled, Base, Badge, Fluid, Events };
+export { Sizes, Variants, Icons, States, Rounded, Badge, Fluid, Events };

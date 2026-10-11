@@ -8,7 +8,7 @@ const template = `
     <extra-button label="Small" icon="ti ti-check" size="small" />
     <extra-button label="Normal" icon="ti ti-check" />
     <extra-button label="Large" icon="ti ti-check" size="large" />
-    <extra-button label="xLarge" icon="pi pi-check" size="xlarge" />
+    <extra-button label="xLarge" icon="ti ti-check" size="xlarge" />
   </div>
 </div>
 `;

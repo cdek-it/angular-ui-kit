@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Button, ButtonSeverity as PrimeButtonSeverity } from 'primeng/button';
 
-export type ExtraButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'text' | 'link';
+export type ExtraButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'outlined' | 'text' | 'link';
 export type ExtraButtonSeverity = 'base' | 'danger' | 'warning' | 'success' | 'info';
 export type ExtraButtonSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraButtonIconPosition = 'left' | 'right';
-export type ExtraBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
+export type ExtraButtonBadgeSeverity = 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null;
 type PrimeBadgeSeverity = Extract<Button['badgeSeverity'], string | null>;
 type ExtraButtonSeverityValue = PrimeButtonSeverity;
-type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
+type ExtraButtonBadgeSeverityValue = PrimeBadgeSeverity;
 
 @Component({
   selector: 'extra-button',
@@ -23,8 +23,8 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
       [size]="primeSize"
       [styleClass]="primeStyleClass"
       [rounded]="rounded"
-      [outlined]="variant === 'tertiary' && severity !== 'base'"
-      [text]="variant === 'text' || text"
+      [outlined]="variant === 'outlined'"
+      [text]="variant === 'text'"
       [link]="variant === 'link'"
       [icon]="icon"
       [iconPos]="iconPosition"
@@ -41,7 +41,7 @@ type ExtraBadgeSeverityValue = PrimeBadgeSeverity;
   `
 })
 export class ExtraButtonComponent {
-  @Input() label = 'Button';
+  @Input() label = '';
   @Input() variant: ExtraButtonVariant = 'primary';
   @Input() severity: ExtraButtonSeverity = 'base';
   @Input() size: ExtraButtonSize = 'base';
@@ -52,13 +52,12 @@ export class ExtraButtonComponent {
   @Input() disabled = false;
   @Input() loading = false;
   @Input() badge = '';
-  @Input() badgeSeverity: ExtraBadgeSeverity = null;
+  @Input() badgeSeverity: ExtraButtonBadgeSeverity = null;
   @Input() showBadge = false;
   @Input() fluid = false;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() autofocus = false;
   @Input() tabindex: number | undefined = undefined;
-  @Input() text = false;
 
   @Output() focus = new EventEmitter<FocusEvent>();
   @Output() blur = new EventEmitter<FocusEvent>();
@@ -74,12 +73,15 @@ export class ExtraButtonComponent {
   }
 
   get primeSeverity(): ExtraButtonSeverityValue | null {
-    if (this.variant === 'secondary') return 'secondary';
-    if (this.severity === 'base') return this.variant === 'tertiary' ? 'contrast' : null;
+    if (this.severity === 'base') {
+      if (this.variant === 'secondary') return 'secondary';
+      if (this.variant === 'tertiary' || this.variant === 'outlined') return 'contrast';
+      return null;
+    }
     return this.severity === 'warning' ? 'warn' : this.severity;
   }
 
-  get primeBadgeSeverity(): ExtraBadgeSeverityValue {
+  get primeBadgeSeverity(): ExtraButtonBadgeSeverityValue {
     if (this.badgeSeverity === 'warning') return 'warn';
     return this.badgeSeverity;
   }
