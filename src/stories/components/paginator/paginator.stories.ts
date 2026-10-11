@@ -17,7 +17,9 @@ type PaginatorArgs = Pick<
   | 'showFirstLastIcon'
   | 'showPageLinks'
   | 'showCurrentPageReport'
-  | 'showJumpToPageInput'
+  | 'showJumpToPage'
+  | 'jumpToPagePlaceholder'
+  | 'showDropdown'
   | 'alwaysShow'
 >;
 
@@ -47,7 +49,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: { type: 'number', min: 0 },
       description: 'Общее количество записей',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '0' },
         type: { summary: 'number' }
       }
@@ -56,7 +58,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: { type: 'number', min: 1 },
       description: 'Количество строк на странице',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '10' },
         type: { summary: 'number' }
       }
@@ -65,7 +67,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: { type: 'number', min: 1 },
       description: 'Количество отображаемых ссылок на страницы',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '5' },
         type: { summary: 'number' }
       }
@@ -74,7 +76,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Показывать кнопки перехода на первую и последнюю страницу',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
@@ -83,7 +85,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Показывать номера страниц',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
@@ -92,16 +94,34 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Показывать текст с текущей страницей и общим количеством',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    showJumpToPageInput: {
+    showJumpToPage: {
       control: 'boolean',
       description: 'Показывать поле ввода для перехода на конкретную страницу',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    jumpToPagePlaceholder: {
+      control: 'text',
+      description: 'Плейсхолдер поля ввода номера страницы (видим только при showJumpToPage=true)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string' }
+      }
+    },
+    showDropdown: {
+      control: 'boolean',
+      description: 'Показывать селект для перехода на конкретную страницу',
+      table: {
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
@@ -110,7 +130,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Показывать пагинатор даже при единственной странице',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
@@ -123,7 +143,9 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
     showFirstLastIcon: true,
     showPageLinks: true,
     showCurrentPageReport: false,
-    showJumpToPageInput: false,
+    showJumpToPage: true,
+    jumpToPagePlaceholder: 'Страница',
+    showDropdown: false,
     alwaysShow: true
   }
 };
@@ -145,7 +167,9 @@ export const Default: Story = {
         [showFirstLastIcon]="showFirstLastIcon"
         [showPageLinks]="showPageLinks"
         [showCurrentPageReport]="showCurrentPageReport"
-        [showJumpToPageInput]="showJumpToPageInput"
+        [showJumpToPage]="showJumpToPage"
+        [jumpToPagePlaceholder]="jumpToPagePlaceholder"
+        [showDropdown]="showDropdown"
         [alwaysShow]="alwaysShow"
       ></extra-paginator>
     `

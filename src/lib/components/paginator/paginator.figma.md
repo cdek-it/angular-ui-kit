@@ -17,7 +17,7 @@ updated: '2026-06-22'
 
 `ExtraPaginatorComponent` — компонент постраничной навигации по большим спискам и таблицам. Разбивает данные на страницы, отображает кнопки prev/next, номера страниц и, опционально, выбор размера страницы, поле прыжка на страницу и текст с текущей позицией. Оборачивает PrimeNG `p-paginator`.
 
-Компонент соответствует Figma-компоненту `<Paginator>` (component set, nodeId `1284:1732`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Опциональные блоки управляются Figma-свойствами `show-jump` (поле прыжка на страницу), `show-dropdown` (выпадающий выбор размера страницы) и осью `template`.
+Компонент соответствует Figma-компоненту `<Paginator>` (component set, nodeId `1284:1732`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Опциональные блоки управляются Figma-свойствами `show-jump` (поле прыжка на страницу — `<InputNumber>`) и `show-dropdown` (выпадающий список для прыжка на страницу — альтернатива `show-jump`, НЕ связана с выбором размера страницы `rowsPerPageOptions`) и осью `template`.
 
 Компонент событийный: текущая страница не хранится через `ControlValueAccessor`, а сообщается наружу событием `(onPageChange)`. Состояние страницы задаётся входами `first` и `rows`.
 
@@ -32,12 +32,16 @@ updated: '2026-06-22'
 | `currentPageReportTemplate` | `string` | `'{currentPage} из {totalPages}'` | Шаблон текста текущей позиции (плейсхолдеры `{currentPage}`, `{totalPages}` и др.) |
 | `showCurrentPageReport` | `boolean` | `false` | Показывать текст с текущей страницей и общим числом |
 | `showFirstLastIcon` | `boolean` | `true` | Показывать кнопки перехода на первую и последнюю страницу |
-| `showJumpToPageDropdown` | `boolean` | `false` | Показывать выпадающий список для прыжка на страницу |
-| `showJumpToPageInput` | `boolean` | `false` | Показывать поле ввода для прыжка на страницу — соответствует Figma-свойству `show-jump` |
+| `showDropdown` | `boolean` | `false` | Показывать выпадающий список для прыжка на страницу — соответствует Figma-свойству `show-dropdown`. Переименован из PrimeNG-имени `showJumpToPageDropdown` под спеку |
+| `showJumpToPage` | `boolean` | `false` | Показывать поле ввода для прыжка на страницу — соответствует Figma-свойству `show-jump`. Переименован из PrimeNG-имени `showJumpToPageInput` под спеку |
+| `jumpToPagePlaceholder` | `string \| undefined` | `undefined` | Плейсхолдер поля ввода номера страницы (видим только при `showJumpToPage=true`) — пробрасывается через `[pt]="{ pcJumpToPageInput: { pcInputText: { root: { placeholder } } } }"`, т.к. `p-paginator` не прокидывает `placeholder` в компонентный `@Input()` вложенного `p-inputnumber` напрямую |
 | `showPageLinks` | `boolean` | `true` | Показывать номера страниц |
 | `pageLinkSize` | `number` | `5` | Количество одновременно отображаемых ссылок на страницы |
 | `alwaysShow` | `boolean` | `true` | Показывать пагинатор даже при единственной странице |
 | `(onPageChange)` | `EventEmitter<ExtraPaginatorState>` | — | Событие смены страницы; содержит `page`, `first`, `rows`, `pageCount` |
+
+`showJumpToPageReset`/`showDropdownReset`/`dropdownPlaceholder`/`showButtons` из черновика спеки не
+реализованы — см. пояснение в `docs/components-api/paginator.md`.
 
 ## Variants
 
@@ -68,9 +72,10 @@ Figma: `<Paginator>`, template=false
 ></extra-paginator>
 ```
 
-### С выбором размера страницы (show-dropdown)
+### С выбором размера страницы (rowsPerPageOptions)
 
-Figma: `<Paginator>`, show-dropdown=true
+Figma: `<Paginator>` (общий компонент; `rowsPerPageOptions` не связан с Figma-свойством
+`show-dropdown` — то отвечает за переход к странице, см. вариант ниже)
 
 ```html
 <extra-paginator
@@ -89,7 +94,21 @@ Figma: `<Paginator>`, show-jump=true
 <extra-paginator
   [totalRecords]="120"
   [rows]="10"
-  [showJumpToPageInput]="true"
+  [showJumpToPage]="true"
+  jumpToPagePlaceholder="Страница"
+  (onPageChange)="onPageChange($event)"
+></extra-paginator>
+```
+
+### С выпадающим списком для прыжка на страницу (show-dropdown)
+
+Figma: `<Paginator>`, show-dropdown=true — альтернатива полю ввода `show-jump`
+
+```html
+<extra-paginator
+  [totalRecords]="120"
+  [rows]="10"
+  [showDropdown]="true"
   (onPageChange)="onPageChange($event)"
 ></extra-paginator>
 ```
