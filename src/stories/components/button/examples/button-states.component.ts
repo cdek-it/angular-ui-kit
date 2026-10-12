@@ -39,7 +39,7 @@ const template = `
   template
 })
 export class ButtonStatesComponent {
-  variants = ['secondary', 'tertiary', 'outlined', 'text', 'link'];
+  variants = ['secondary', 'tertiary', 'text', 'link'];
   severities = ['danger', 'warning', 'success', 'info'];
 
   capitalize(value: string): string {
@@ -78,7 +78,6 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     <!-- disabled / loading работают во всех variant -->
     <extra-button variant="secondary" label="Secondary" [disabled]="true"></extra-button>
     <extra-button variant="tertiary" label="Tertiary" [loading]="true"></extra-button>
-    <extra-button variant="outlined" label="Outlined" [disabled]="true"></extra-button>
     <extra-button variant="text" label="Text" [disabled]="true"></extra-button>
     <extra-button variant="link" label="Link" [loading]="true"></extra-button>
 

@@ -15,6 +15,7 @@ const template = `
       badge="2"
       badgeSeverity="danger"
       variant="outlined"
+      severity="danger"
     ></extra-button>
   </div>
 </div>
@@ -57,6 +58,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
       badge="2"
       badgeSeverity="danger"
       variant="outlined"
+      severity="danger"
     ></extra-button>
   \`,
 })
