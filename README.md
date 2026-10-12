@@ -32,19 +32,24 @@ export const appConfig: ApplicationConfig = {
 
 ### Локализация
 
-Тексты компонентов PrimeNG (названия месяцев и дней недели в `extra-date-picker`, кнопки «Сегодня» / «Очистить», сообщения пустых списков и т.д.) берутся из перевода PrimeNG. Без настройки перевода они отображаются на английском. Русский словарь входит в пакет:
+Тексты компонентов PrimeNG (названия месяцев и дней недели в `extra-date-picker`, кнопки «Сегодня» / «Очистить», сообщения пустых списков, подписи для скринридера и т.д.) берутся из перевода PrimeNG. `provideExtraThemes()` по умолчанию задаёт русский перевод — словарь `RU_TRANSLATION` входит в пакет и покрывает все ключи PrimeNG.
+
+Свой перевод задаётся штатными средствами PrimeNG — `providePrimeNG({ translation })` или `PrimeNG.setTranslation(...)` в инициализаторе приложения — и перекрывает русский, где бы ни стоял в списке провайдеров, до или после `provideExtraThemes()`:
 
 ```ts
-import { provideExtraThemes, RU_TRANSLATION } from '@cdek-it/angular-ui-kit/providers';
+import { provideExtraThemes } from '@cdek-it/angular-ui-kit/providers';
 import { providePrimeNG } from 'primeng/config';
+import { en } from 'primelocale/js/en.js';
 
 providers: [
   provideExtraThemes(),
-  providePrimeNG({ translation: RU_TRANSLATION }),
+  providePrimeNG({ translation: en }),
 ]
 ```
 
-Сменить язык в рантайме можно через `PrimeNG.setTranslation(...)`, словари других языков есть в пакете `primelocale`.
+Ключи верхнего уровня, которых в переводе приложения нет, остаются русскими. Группа `aria` сливается иначе: PrimeNG заменяет её целиком, поэтому перевод с `aria` должен содержать все её ключи. Сменить язык в рантайме можно через `PrimeNG.setTranslation(...)`, словари других языков есть в пакете `primelocale`.
+
+Подписи «Часы» / «Минуты» в `extra-date-picker` в перевод PrimeNG не входят: для другого языка их задают входы `hourLabel` и `minuteLabel`.
 
 ## Пример использования компонентов
 
