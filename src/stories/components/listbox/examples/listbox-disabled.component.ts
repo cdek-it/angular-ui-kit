@@ -39,7 +39,7 @@ export const Disabled: StoryObj = {
       source: {
         language: 'ts',
         code: `
- import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-listbox-disabled',
