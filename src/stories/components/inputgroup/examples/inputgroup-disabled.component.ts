@@ -8,7 +8,7 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 const template = `
 <div class="bg-surface-ground p-4">
   <extra-input-group>
-    <extra-input-group-addon><i class="ti ti-user"></i></extra-input-group-addon>
+    <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
     <extra-input-text placeholder="Введите данные..." [formControl]="control"></extra-input-text>
   </extra-input-group>
 </div>
@@ -46,7 +46,7 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputText
   imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, ReactiveFormsModule],
   template: \`
     <extra-input-group>
-      <extra-input-group-addon><i class="ti ti-user"></i></extra-input-group-addon>
+      <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
       <extra-input-text placeholder="Введите данные..." [formControl]="control"></extra-input-text>
     </extra-input-group>
   \`,
