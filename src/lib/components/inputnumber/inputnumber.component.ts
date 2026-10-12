@@ -1,22 +1,39 @@
-import { Component, EventEmitter, forwardRef, inject, Injector, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SharedModule } from 'primeng/api';
-import type { InputNumberInputEvent } from 'primeng/types/inputnumber';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
 export type ExtraInputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
 export type ExtraInputNumberLabelPosition = 'top' | 'left';
-export type ExtraInputNumberInputEvent = InputNumberInputEvent;
+export type ExtraInputNumberMode = 'decimal' | 'currency';
+
+export interface ExtraInputNumberInputEvent {
+  value: number | null;
+  formattedValue: string;
+  originalEvent: Event;
+}
 
 let nextInputId = 0;
 
 @Component({
   selector: 'extra-input-number',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputNumber, SharedModule, FormsModule, NgClass, NgTemplateOutlet, FloatLabel, ExtraTooltipDirective],
   host: { style: 'display: contents' },
   providers: [
@@ -137,6 +154,7 @@ let nextInputId = 0;
 })
 export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
   private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
@@ -153,7 +171,7 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
   @Input() size: ExtraInputNumberSize = 'base';
   @Input() showButtons = false;
   @Input() buttonLayout: ExtraInputNumberButtonLayout = 'stacked';
-  @Input() mode = 'decimal';
+  @Input() mode: ExtraInputNumberMode = 'decimal';
   @Input() currency: string | undefined;
   @Input() locale: string | undefined;
   @Input() readonly = false;
@@ -210,6 +228,7 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
 
   writeValue(value: number | null): void {
     this.modelValue = value ?? null;
+    this._cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: number | null) => void): void {
@@ -222,5 +241,6 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this._cdr.markForCheck();
   }
 }
