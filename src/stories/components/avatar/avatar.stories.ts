@@ -188,7 +188,9 @@ export const Image: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Аватар с изображением. shape="square" — без обрезки, shape="circle" — с обрезкой по кругу.'
+        story:
+          'Аватар с изображением. Картинка вставляется как заливка блока и обрезается по его форме: ' +
+          'shape="square" — по скруглённому квадрату, shape="circle" — по кругу.'
       },
       source: {
         code: `<extra-avatar image="/assets/images/avatar/avatar.png"></extra-avatar>`
@@ -245,6 +247,7 @@ export const Group: Story = {
     `
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Группа аватаров с перекрытием.' },
       source: {
@@ -266,6 +269,7 @@ export const LabelWithBadge: Story = {
     template: `<extra-avatar label="U" size="xlarge" badge="4" severity="danger"></extra-avatar>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Аватар с текстовой меткой и бейджем (`badge` + `severity`).' },
       source: {
@@ -283,6 +287,7 @@ export const IconWithBadge: Story = {
     template: `<extra-avatar icon="ti ti-user" size="xlarge" badge="8" severity="success"></extra-avatar>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Аватар с иконкой и бейджем (`badge` + `severity`).' },
       source: {
@@ -300,6 +305,7 @@ export const ImageWithBadge: Story = {
     template: `<extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge" badge="8" severity="success"></extra-avatar>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Аватар с изображением и бейджем (`badge` + `severity`).' },
       source: {

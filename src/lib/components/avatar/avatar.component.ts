@@ -17,7 +17,9 @@ type PrimeOverlayBadgeSeverity = 'secondary' | 'info' | 'success' | 'warn' | 'da
   imports: [Avatar, OverlayBadge, NgTemplateOutlet],
   template: `
     @if (badge) {
-      <p-overlay-badge [value]="badge" [severity]="primeSeverity" [size]="primeSize">
+      <!-- size бейджу не передаём: по макету значок одного размера на всех размерах аватара,
+           а OverlayBadge.size к тому же deprecated и внутрь p-badge не прокидывается. -->
+      <p-overlay-badge [value]="badge" [severity]="primeSeverity">
         <ng-container [ngTemplateOutlet]="avatarTpl" />
       </p-overlay-badge>
     } @else {
