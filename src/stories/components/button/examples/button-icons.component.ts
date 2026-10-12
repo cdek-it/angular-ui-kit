@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-3 items-end">
       <extra-button icon="ti ti-plus" label="Иконка слева"></extra-button>
