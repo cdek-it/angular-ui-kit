@@ -26,6 +26,7 @@ updated: '2026-06-22'
 | `length` | `number` | `4` | Количество ячеек кода — соответствует числу элементов `<InputOtp.Item>` в Figma |
 | `mask` | `boolean` | `false` | Маскирование введённых символов (как пароль) |
 | `integerOnly` | `boolean` | `false` | Разрешает вводить только цифры |
+| `autofocus` | `boolean` | `false` | Автофокус на первой ячейке при инициализации (не имеет отражения в Figma) |
 | `(onChange)` | `EventEmitter<ExtraInputOtpChangeEvent>` | — | Событие изменения значения кода |
 | `[(ngModel)]` / `[formControl]` | `string` | `null` | Значение кода через ControlValueAccessor |
 
@@ -82,6 +83,19 @@ Figma: `<InputOtp>`, mask=true, state=default
   [mask]="true"
   [(ngModel)]="secretPin"
   name="secretPin"
+></extra-input-otp>
+```
+
+### Автофокус (autofocus)
+
+Figma: отражения не имеет — поведенческое свойство.
+
+```html
+<extra-input-otp
+  [length]="6"
+  [autofocus]="true"
+  [(ngModel)]="smsCode"
+  name="smsCode"
 ></extra-input-otp>
 ```
 

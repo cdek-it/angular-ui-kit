@@ -5,6 +5,7 @@ import { Disabled } from './examples/inputotp-disabled.component';
 import { Invalid } from './examples/inputotp-invalid.component';
 import { Mask } from './examples/inputotp-mask.component';
 import { IntegerOnly } from './examples/inputotp-integeronly.component';
+import { Autofocus } from './examples/inputotp-autofocus.component';
 
 type InputOtpArgs = ExtraInputOtpComponent;
 
@@ -62,6 +63,15 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус на первой ячейке при инициализации',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
     size: {
       control: 'select',
       options: ['small', 'base', 'large'],
@@ -107,6 +117,7 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
     length: 4,
     mask: false,
     integerOnly: false,
+    autofocus: false,
     size: 'base',
     disabled: false,
     invalid: false
@@ -125,6 +136,7 @@ export const Default: Story = {
     if (args.length !== 4) parts.push(`[length]="${args.length}"`);
     if (args.mask) parts.push(`[mask]="true"`);
     if (args.integerOnly) parts.push(`[integerOnly]="true"`);
+    if (args.autofocus) parts.push(`[autofocus]="true"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
 
     const validators = args.invalid ? [() => ({ invalid: true })] : [];
@@ -145,4 +157,4 @@ export const Default: Story = {
 };
 
 // ── Комбинаторные истории ──────────────────────────────────────────────────
-export { Disabled, Invalid, Mask, IntegerOnly };
+export { Disabled, Invalid, Mask, IntegerOnly, Autofocus };
