@@ -31,7 +31,7 @@ const meta: Meta<MeterGroupArgs> = {
         component: `Визуализирует несколько числовых значений в виде единой полосы прогресса с подписями.
 
 \`\`\`typescript
-import { ExtraMeterGroupComponent as MeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -44,8 +44,8 @@ import { ExtraMeterGroupComponent as MeterGroupComponent } from '@cdek-it/angula
       control: false,
       description: 'Массив элементов с полями label, color, value и опционально icon',
       table: {
-        category: 'Props',
-        type: { summary: 'MeterItem[]' },
+        category: 'Свойства',
+        type: { summary: 'ExtraMeterItem[]' },
       },
     },
     orientation: {
@@ -53,7 +53,7 @@ import { ExtraMeterGroupComponent as MeterGroupComponent } from '@cdek-it/angula
       options: ['horizontal', 'vertical'],
       description: 'Ориентация полосы',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'horizontal' },
         type: { summary: "'horizontal' | 'vertical'" },
       },
@@ -63,7 +63,7 @@ import { ExtraMeterGroupComponent as MeterGroupComponent } from '@cdek-it/angula
       options: ['start', 'end'],
       description: 'Позиция списка меток относительно полосы',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'end' },
         type: { summary: "'start' | 'end'" },
       },
@@ -73,7 +73,7 @@ import { ExtraMeterGroupComponent as MeterGroupComponent } from '@cdek-it/angula
       options: ['horizontal', 'vertical'],
       description: 'Ориентация списка меток',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'horizontal' },
         type: { summary: "'horizontal' | 'vertical'" },
       },

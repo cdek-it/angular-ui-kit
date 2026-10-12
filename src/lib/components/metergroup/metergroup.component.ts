@@ -1,17 +1,22 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import { MeterGroup, MeterItem } from 'primeng/metergroup';
-import { MultiSelect } from 'primeng/multiselect';
+import { MeterGroup } from 'primeng/metergroup';
 
 export type ExtraMeterGroupOrientation = 'horizontal' | 'vertical';
 export type ExtraMeterGroupLabelPosition = 'start' | 'end';
 export type ExtraMeterGroupLabelOrientation = 'horizontal' | 'vertical';
-export type ExtraMeterItem = MeterItem;
+
+export interface ExtraMeterItem {
+  label?: string;
+  value?: number;
+  color?: string;
+  icon?: string;
+}
 
 @Component({
   selector: 'extra-metergroup',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MeterGroup, MultiSelect],
+  imports: [MeterGroup],
   template: `
     <p-metergroup
       [value]="value"
@@ -19,7 +24,6 @@ export type ExtraMeterItem = MeterItem;
       [labelPosition]="labelPosition"
       [labelOrientation]="labelOrientation"
     ></p-metergroup>
-    <p-multiselect></p-multiselect>
   `
 })
 export class ExtraMeterGroupComponent {
