@@ -23,12 +23,12 @@ updated: '2026-06-22'
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `label` | `string` | `'Button'` | Текст кнопки |
-| `variant` | `'primary' \| 'secondary' \| 'outlined' \| 'text' \| 'link'` | `'primary'` | Вариант отображения — соответствует Figma-свойству `variant` |
-| `severity` | `'success' \| 'warning' \| 'danger' \| 'info' \| null` | `null` | Семантический акцент — соответствует Figma-компоненту `<Button.Danger>` и аналогам |
+| `label` | `string` | `''` | Текст кнопки |
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'outlined' \| 'text' \| 'link'` | `'primary'` | Вариант отображения — `primary`/`secondary`/`tertiary`/`text`/`link` соответствуют Figma-свойству `variant` на `<Button.Base>` (nodeId `160:5223`), `outlined` — Figma-свойству `variant=outlined` на `<Button.Danger>`/`<Button.Warning>`/`<Button.Success>`/`<Button.Info>` (nodeId `162:5457` и аналоги) |
+| `severity` | `'base' \| 'danger' \| 'warning' \| 'success' \| 'info'` | `'base'` | Семантический акцент — соответствует Figma-компоненту `<Button.Danger>` и аналогам |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер кнопки — соответствует Figma-свойству `size` |
 | `icon` | `string` | `''` | CSS-класс иконки (например `'pi pi-check'`); доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `iconPos` | `'prefix' \| 'postfix' \| null` | `null` | Позиция иконки — соответствует Figma-свойству `icon-position` |
+| `iconPosition` | `'left' \| 'right'` | `'left'` | Позиция иконки — соответствует Figma-свойству `icon-position` |
 | `iconOnly` | `boolean` | `false` | Режим «только иконка» без текста — соответствует Figma-свойству `icon-only` |
 | `disabled` | `boolean` | `false` | Отключённое состояние — соответствует Figma-состоянию `state=disabled` |
 | `loading` | `boolean` | `false` | Состояние загрузки со спиннером — соответствует Figma-состоянию `state=loading` |
@@ -37,10 +37,42 @@ updated: '2026-06-22'
 | `showBadge` | `boolean` | `false` | Показывать бейдж поверх кнопки |
 | `badge` | `string` | `''` | Текст бейджа (отображается только при `showBadge=true`) |
 | `badgeSeverity` | `'success' \| 'info' \| 'warning' \| 'danger' \| 'secondary' \| 'contrast' \| null` | `null` | Цветовая схема бейджа; цвета соответствуют токенам [tokens.md](../../figma-code-connect/tokens.md) |
-| `text` | `boolean` | `false` | Текстовый вариант без фона и рамки (алиас для `variant='text'`) |
 | `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
 | `autofocus` | `boolean` | `false` | Автофокус при монтировании компонента |
 | `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
+
+Отдельного `text` нет — текстовый стиль задаётся только через `variant="text"`; дублирующий булев
+проп был в черновике ветки, убран как нарушающий правило «одно имя — один смысл»
+(`docs/naming-rules.md`).
+
+### `tertiary` vs `outlined` — два разных Figma-компонента, два разных кода-значения
+
+В Figma `<Button.Base>` и `<Button.Danger>`/`<Button.Warning>`/`<Button.Success>`/`<Button.Info>` —
+РАЗНЫЕ компонент-сеты с разными наборами значений `variant`: у Base — `primary | secondary |
+tertiary | text | link`, у severity-семейства — `basic | outlined | text` (подтверждено
+скриншотами `<Button.Base>` nodeId `160:5223` и `<Button.Danger>` nodeId `162:5457`). Визуально это
+два разных вида:
+
+- `<Button.Base>` variant=tertiary — сплошная тёмная заливка без рамки (`severity=contrast` у
+  PrimeNG, `outlined=false`).
+- `<Button.Danger>`/аналоги variant=outlined — кнопка с цветной рамкой и прозрачным фоном
+  (`outlined=true`).
+
+Раньше оба вида смешивались в один код-уровневый `variant="tertiary"`, который неявно превращался
+в контурный при `severity !== 'base'`. Это было неочевидно и не давало собрать контурную кнопку
+нейтрального цвета. Теперь `outlined` — самостоятельное значение `variant`
+(`[outlined]="variant === 'outlined'"`, без зависимости от `severity`): `tertiary` всегда даёт
+тёмную заливку, `outlined` всегда даёт рамку, цвет рамки/текста в обоих случаях задаётся отдельно
+через `severity`.
+
+> ⚠️ **`variant="outlined"` + `severity="base"` не имеет референса в Figma и визуально не
+> работает.** В Figma `outlined` существует только у `<Button.Danger>`/`<Button.Warning>`/
+> `<Button.Success>`/`<Button.Info>` — у `<Button.Base>` такого состояния нет. На уровне кода
+> комбинация технически доступна (оба пропа независимы), но при `severity="base"` она маппится на
+> PrimeNG `severity="contrast"`, чей цветовой токен — белый текст, рассчитанный на тёмную заливку
+> (`#2b2e33`); при `outlined=true` заливка снимается, и текст остаётся белым на прозрачном фоне —
+> нечитаемо на светлой странице. Использовать `outlined` только вместе с `severity !== 'base'`
+> (`danger`/`warning`/`success`/`info`).
 
 ## Variants
 
@@ -54,18 +86,29 @@ Figma: `<Button.Base>`, variant=primary, size=base, state=default — nodeId `16
 
 ### Secondary / Base (вторичная кнопка)
 
-Figma: `<Button.Base>`, variant=tertiary (в коде: `variant="secondary"`), size=base, state=default
+Figma: `<Button.Base>`, variant=secondary, size=base, state=default
 
 ```html
 <extra-button variant="secondary" label="Отмена"></extra-button>
 ```
 
-### Outlined / Large (контурная кнопка, большой размер)
+### Tertiary / Large (тёмная заливка, большой размер)
 
-Figma: `<Button.Base>`, variant=outlined, size=large, state=default
+Figma: `<Button.Base>`, variant=tertiary, size=large, state=default — сплошная тёмная заливка,
+не зависит от `severity` (см. раздел «`tertiary` vs `outlined`» выше)
 
 ```html
-<extra-button variant="outlined" size="large" label="Подробнее"></extra-button>
+<extra-button variant="tertiary" size="large" label="Подробнее"></extra-button>
+```
+
+### Outlined (контурная кнопка)
+
+Figma: `<Button.Danger>`/`<Button.Warning>`/`<Button.Success>`/`<Button.Info>`, variant=outlined —
+nodeId `162:5457` и аналоги. Только с `severity` отличной от `base` — см. предупреждение выше.
+
+```html
+<extra-button variant="outlined" severity="danger" label="Удалить"></extra-button>
+<extra-button variant="outlined" severity="success" label="Подтвердить"></extra-button>
 ```
 
 ### Text / Base (текстовая кнопка)
@@ -84,7 +127,7 @@ Figma: `<Button.Base>`, variant=link, size=base, state=default
 <extra-button variant="link" label="Перейти"></extra-button>
 ```
 
-### С иконкой слева (prefix)
+### С иконкой слева (left)
 
 Figma: `<Button.Base>`, icon-position=prefix, icon-only=false
 
@@ -92,7 +135,7 @@ Figma: `<Button.Base>`, icon-position=prefix, icon-only=false
 <extra-button
   label="Добавить"
   icon="pi pi-plus"
-  iconPos="prefix"
+  iconPosition="left"
 ></extra-button>
 ```
 
@@ -164,7 +207,7 @@ Figma: `<Button.Base>`, rounded=true
 ## Do / Don't
 
 **Do:**
-- Используйте `variant="text"` для текстовых кнопок; `[text]="true"` оставлен только как алиас для совместимости с PrimeNG.
+- Используйте `variant="text"` для текстовых кнопок — отдельного булева `text` нет, это единственный способ
 - Используйте `variant="primary"` для единственного главного действия на экране
 - Для деструктивных действий задавайте `severity="danger"` и добавляйте иконку через [icons.md](../../figma-code-connect/icons.md)
 - При кнопке только с иконкой всегда задавайте `ariaLabel` для доступности
