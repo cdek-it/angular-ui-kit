@@ -263,9 +263,17 @@ export const Default: Story = {
     if (args.size != null) parts.push(`size="${args.size}"`);
     if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
     if (args.iconPosition != null && args.iconPosition !== 'left') parts.push(`iconPosition="${args.iconPosition}"`);
+    if (args.iconOnly) parts.push(`[iconOnly]="true"`);
     if (args.rounded) parts.push(`[rounded]="true"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
     if (args.disabled) parts.push(`[disabled]="true"`);
     if (args.loading) parts.push(`[loading]="true"`);
+    if (args.showBadge) parts.push(`[showBadge]="true"`);
+    if (args.badge) parts.push(`badge="${args.badge}"`);
+    if (args.badgeSeverity != null) parts.push(`badgeSeverity="${args.badgeSeverity}"`);
+    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
+    if (args.autofocus) parts.push(`[autofocus]="true"`);
+    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
 
     const template = parts.length
       ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
