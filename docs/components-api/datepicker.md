@@ -19,6 +19,10 @@
 | `caption`        | текст пояснения под полем                                               | `string`                   |
 | `info`           | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                   |
 | `size`           | размер поля                                                             | `small \| base \| large \| xlarge` |
+| `hourLabel`      | подпись поля часов в блоке времени (по умолчанию «Часы»)                | `string`                   |
+| `minuteLabel`    | подпись поля минут в блоке времени (по умолчанию «Минуты»)              | `string`                   |
+
+Названия месяцев и дней недели берутся из перевода PrimeNG (`providePrimeNG({ translation })`, `PrimeNG.setTranslation`).
 
 # События
 

@@ -78,8 +78,11 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   font-size: ${dt('selectbutton.extend.iconSize.lg')};
 }
 
-/* Size: xlarge */
+/* Size: xlarge — PrimeNG не вешает на дочерний p-togglebutton класс размера (у него нет
+   ступени xlg), поэтому паддинги остаются базовыми: задаём их сами, как у отдельного
+   togglebutton в этой же ступени. */
 .p-selectbutton.p-selectbutton-xlarge.p-component .p-togglebutton.p-component {
+  padding: ${dt('togglebutton.extend.extXlg.padding')};
   font-size: ${dt('fonts.fontSize.600')};
   line-height: ${dt('fonts.lineHeight.550')};
   height: ${dt('togglebutton.extend.extXlg.iconOnlyWidth')};

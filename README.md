@@ -30,6 +30,22 @@ export const appConfig: ApplicationConfig = {
 
 `provideExtraThemes()` необходим для правильной интеграции стилей библиотеки в приложение.
 
+### Локализация
+
+Тексты компонентов PrimeNG (названия месяцев и дней недели в `extra-date-picker`, кнопки «Сегодня» / «Очистить», сообщения пустых списков и т.д.) берутся из перевода PrimeNG. Без настройки перевода они отображаются на английском. Русский словарь входит в пакет:
+
+```ts
+import { provideExtraThemes, RU_TRANSLATION } from '@cdek-it/angular-ui-kit/providers';
+import { providePrimeNG } from 'primeng/config';
+
+providers: [
+  provideExtraThemes(),
+  providePrimeNG({ translation: RU_TRANSLATION }),
+]
+```
+
+Сменить язык в рантайме можно через `PrimeNG.setTranslation(...)`, словари других языков есть в пакете `primelocale`.
+
 ## Пример использования компонентов
 
 Ниже простой пример использования входящих в библиотеку компонентов (вариант — `extra-button` и `extra-tag`). Вставьте в шаблон компонента или story:
