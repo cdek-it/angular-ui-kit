@@ -9,7 +9,6 @@ const template = `
       <extra-button label="Primary"></extra-button>
       <extra-button variant="secondary" label="Secondary"></extra-button>
       <extra-button variant="tertiary" label="Tertiary"></extra-button>
-      <extra-button variant="outlined" label="Outlined"></extra-button>
       <extra-button variant="text" label="Text"></extra-button>
       <extra-button variant="link" label="Link"></extra-button>
     </div>
@@ -46,7 +45,7 @@ export const Variants: StoryObj = {
     docs: {
       description: {
         story:
-          'Варианты отображения (variant) при severity="base", семантические состояния (severity) при variant="primary" (сплошная заливка) и variant="outlined" × severity (контурная кнопка с цветной рамкой). "outlined" — самостоятельное значение variant, не зависит от severity: при severity="base" даёт нейтральную контурную кнопку (см. первый ряд), в остальных случаях рамка окрашивается по severity.'
+          'Варианты отображения (variant) при severity="base", семантические состояния (severity) при variant="primary" (сплошная заливка) и variant="outlined" × severity (контурная кнопка с цветной рамкой). "outlined" используется только вместе с severity (danger, warning, success, info): рамка и текст окрашиваются по severity.'
       },
       source: {
         language: 'ts',
@@ -64,7 +63,6 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         <extra-button label="Primary"></extra-button>
         <extra-button variant="secondary" label="Secondary"></extra-button>
         <extra-button variant="tertiary" label="Tertiary"></extra-button>
-        <extra-button variant="outlined" label="Outlined"></extra-button>
         <extra-button variant="text" label="Text"></extra-button>
         <extra-button variant="link" label="Link"></extra-button>
       </div>

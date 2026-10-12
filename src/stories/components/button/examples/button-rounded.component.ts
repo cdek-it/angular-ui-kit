@@ -9,7 +9,6 @@ const template = `
       <extra-button [rounded]="true" label="Primary"></extra-button>
       <extra-button [rounded]="true" variant="secondary" label="Secondary"></extra-button>
       <extra-button [rounded]="true" variant="tertiary" label="Tertiary"></extra-button>
-      <extra-button [rounded]="true" variant="outlined" label="Outlined"></extra-button>
       <extra-button [rounded]="true" icon="ti ti-check"></extra-button>
     </div>
     <div class="flex gap-3 items-end">
@@ -63,7 +62,6 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         <extra-button [rounded]="true" label="Primary"></extra-button>
         <extra-button [rounded]="true" variant="secondary" label="Secondary"></extra-button>
         <extra-button [rounded]="true" variant="tertiary" label="Tertiary"></extra-button>
-        <extra-button [rounded]="true" variant="outlined" label="Outlined"></extra-button>
         <extra-button [rounded]="true" icon="ti ti-check"></extra-button>
       </div>
       <div class="flex gap-3 items-end">
