@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import {
-  ExtraBadgeSeverity,
-  ExtraBadgeSize,
-  ExtraBadgeComponent
-} from '../../../../lib/components/badge/badge.component';
+import { ExtraBadgeSeverity, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="p-4">
-  <extra-badge [value]="value" [dot]="dot" [severity]="severity" [size]="size"></extra-badge>
+  <div class="flex gap-4 items-center">
+    @for (severity of severities; track severity) {
+      <extra-badge [severity]="severity" value="8"></extra-badge>
+    }
+  </div>
 </div>
 `;
 
@@ -23,41 +23,18 @@ const styles = '';
   styles
 })
 export class BadgeSeverityComponent {
-  @Input() value: string | number = '8';
-  @Input() dot = false;
-  @Input() severity: ExtraBadgeSeverity = 'success';
-  @Input() size: ExtraBadgeSize = 'base';
+  severities: ExtraBadgeSeverity[] = ['primary', 'info', 'success', 'warning', 'danger'];
 }
 
 export const Severity: StoryObj = {
-  render: (args) => ({
-    props: args,
-    template: `<app-badge-severity [value]="value" [dot]="dot" [severity]="severity" [size]="size"></app-badge-severity>`
+  render: () => ({
+    template: `<app-badge-severity></app-badge-severity>`
   }),
-  args: {
-    value: '8',
-    dot: false,
-    severity: 'success'
-  },
-  argTypes: {
-    severity: {
-      control: 'select',
-      options: ['primary', 'success', 'info', 'warning', 'danger'],
-      description: 'Цветовая схема бейджа'
-    },
-    value: {
-      control: 'text',
-      description: 'Отображаемое значение бейджа'
-    },
-    dot: {
-      control: 'boolean',
-      description: 'Режим точки-индикатора без значения'
-    }
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Цветовые схемы: primary, success, info, warning, danger.'
+        story: 'Все варианты стиля (severity): primary, info, success, warning, danger.'
       },
       source: {
         language: 'ts',
@@ -69,8 +46,16 @@ import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-badge-severity',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BadgeComponent],
-  template: \`${template}\`
+  imports: [ExtraBadgeComponent],
+  template: \`
+    <div class="flex gap-4 items-center">
+      <extra-badge severity="primary" value="8"></extra-badge>
+      <extra-badge severity="info" value="8"></extra-badge>
+      <extra-badge severity="success" value="8"></extra-badge>
+      <extra-badge severity="warning" value="8"></extra-badge>
+      <extra-badge severity="danger" value="8"></extra-badge>
+    </div>
+  \`
 })
 export class BadgeSeverityComponent {}
         `

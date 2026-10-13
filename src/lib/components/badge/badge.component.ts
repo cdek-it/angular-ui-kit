@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Badge } from 'primeng/badge';
 
-export type ExtraBadgeSeverity = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export type ExtraBadgeSeverity = 'primary' | 'info' | 'success' | 'warning' | 'danger';
 export type ExtraBadgeSize = 'base' | 'large' | 'xlarge';
 
 type PrimeBadgeSeverity = ReturnType<Badge['severity']>;
@@ -15,13 +15,13 @@ type PrimeBadgeSize = ReturnType<Badge['size']>;
   template: ` <p-badge [value]="badgeValue" [severity]="primeSeverity" [size]="primeSize"></p-badge> `
 })
 export class ExtraBadgeComponent {
+  @Input() severity: ExtraBadgeSeverity = 'primary';
   @Input() value: string | number = '';
   @Input() dot = false;
-  @Input() severity: ExtraBadgeSeverity = 'primary';
   @Input() size: ExtraBadgeSize = 'base';
 
   get badgeValue(): string | number | undefined {
-    return this.dot ? undefined : this.value || undefined;
+    return this.dot || this.value === '' ? undefined : this.value;
   }
 
   get primeSeverity(): PrimeBadgeSeverity {
