@@ -6,19 +6,19 @@
 | -------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `placeholder`        | текст подсказки внутри поля                                             | `string`                                                       |
 | `label`              | текст названия поля                                                     | `string`                                                       |
-| `label-position`     | положение лейбла                                                        | `default \| float \| left`                                     |
-| `chip`               | отображать выбранные значения в виде chips                              | `boolean`                                                      |
-| `chip-icon`          | класс иконки tabler icon для элементов при отображении chips            | `string`                                                       |
-| `chip-clearable`     | отображение иконки удаления chip                                        | `boolean`                                                      |
+| `labelPosition`      | положение лейбла                                                        | `left \| top \| float`                                          |
+| `showChips`          | отображать выбранные значения в виде chips                              | `boolean`                                                      |
+| `chipIcon`           | класс иконки tabler icon для элементов при отображении chips            | `string`                                                       |
+| `chipClearable`      | отображение иконки удаления chip                                        | `boolean`                                                      |
 | `clearable`          | отображение иконки для очистки поля                                     | `boolean`                                                      |
-| `show-checkbox`      | отображать чекбокс у option                                             | `boolean`                                                      |
-| `show-filter`        | отображать фильтр в оверлее                                             | `boolean`                                                      |
-| `filter-placeholder` | текст подсказки в фильтре                                               | `string`                                                       |
+| `showCheckbox`       | отображать чекбокс у option                                             | `boolean`                                                      |
+| `showFilter`         | отображать фильтр в оверлее                                             | `boolean`                                                      |
+| `filterPlaceholder`  | текст подсказки в фильтре                                               | `string`                                                       |
 | `options`            | список элементов или список групп с элементами                          | `ExtraMultiselectGroup[] \| ExtraMultiselectOption[] \| any[]` |
 | `optionLabel`        | наименование поля, содержащего отображаемое значение                    | `string`                                                       |
 | `caption`            | текст пояснения под полем                                               | `string`                                                       |
 | `info`               | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                                                       |
-| `size`               | размер поля                                                             | `sm \| base \| lg \| xlg`                                      |
+| `size`               | размер поля                                                             | `small \| base \| large \| xlarge`                              |
 
 # ExtraMultiselectOption
 
@@ -38,16 +38,16 @@
 
 | Событие    | Описание                              | Типизация                                       |
 | ---------- | ------------------------------------- | ----------------------------------------------- |
-| `onChange` | срабатывает при изменении выбора      | `(event: ExtraMultiSelectChangeEvent) => void`  |
-| `onFilter` | срабатывает при фильтрации            | `(event: ExtraMultiSelectFilterEvent) => void`  |
-| `onClear`  | срабатывает при очистке всех значений | `() => void`                                    |
-| `onShow`   | срабатывает при открытии панели       | `() => void`                                    |
-| `onHide`   | срабатывает при закрытии панели       | `() => void`                                    |
-| `onRemove` | срабатывает при удалении значения     | `(event: ExtraMultiSelectRemoveEvent) => void`  |
+| `change` | срабатывает при изменении выбора      | `(event: ExtraMultiSelectChangeEvent) => void`  |
+| `filter` | срабатывает при фильтрации            | `(event: ExtraMultiSelectFilterEvent) => void`  |
+| `clear`  | срабатывает при очистке всех значений | `() => void`                                    |
+| `show`   | срабатывает при открытии панели       | `() => void`                                    |
+| `hide`   | срабатывает при закрытии панели       | `() => void`                                    |
+| `remove` | срабатывает при удалении значения     | `(event: ExtraMultiSelectRemoveEvent) => void`  |
 
 # ExtraMultiSelectChangeEvent
 
-Событие изменения выбора, передаётся в `onChange`.
+Событие изменения выбора, передаётся в `change`.
 
 | Свойство        | Описание           | Типизация |
 | --------------- | ------------------ | --------- |
@@ -56,7 +56,7 @@
 
 # ExtraMultiSelectFilterEvent
 
-Событие фильтрации, передаётся в `onFilter`.
+Событие фильтрации, передаётся в `filter`.
 
 | Свойство        | Описание               | Типизация |
 | --------------- | ---------------------- | --------- |
@@ -65,7 +65,7 @@
 
 # ExtraMultiSelectRemoveEvent
 
-Событие удаления значения, передаётся в `onRemove`.
+Событие удаления значения, передаётся в `remove`.
 
 | Свойство  | Описание                | Типизация |
 | --------- | ----------------------- | --------- |

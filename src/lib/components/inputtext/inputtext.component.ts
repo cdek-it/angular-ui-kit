@@ -17,7 +17,7 @@ import { InputIcon } from 'primeng/inputicon';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
-export type ExtraInputTextSize = 'sm' | 'base' | 'lg' | 'xlg';
+export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputTextLabelPosition = 'default' | 'float' | 'left';
 export type ExtraInputTextType = 'text' | 'password';
 
@@ -83,6 +83,7 @@ let nextInputId = 0;
             [id]="inputId"
             [ngClass]="sizeClass"
             [pSize]="primeSize!"
+            [fluid]="fluid"
             [type]="type"
             [disabled]="disabled"
             [invalid]="invalid"
@@ -107,6 +108,7 @@ let nextInputId = 0;
           [id]="inputId"
           [ngClass]="sizeClass"
           [pSize]="primeSize!"
+          [fluid]="fluid"
           [type]="type"
           [disabled]="disabled"
           [invalid]="invalid"
@@ -134,6 +136,8 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   @Input() caption = '';
   @Input() info = '';
   @Input() size: ExtraInputTextSize = 'base';
+  /** Растягивает поле на всю ширину контейнера. */
+  @Input({ transform: booleanAttribute }) fluid = false;
   @Input() type: ExtraInputTextType = 'text';
 
   /** Уникальный id поля для связи label ↔ input. */
@@ -152,13 +156,13 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit {
   private _onChange: (value: string) => void = () => {};
 
   get primeSize(): 'small' | 'large' | undefined {
-    if (this.size === 'sm') return 'small';
-    if (this.size === 'lg' || this.size === 'xlg') return 'large';
+    if (this.size === 'small') return 'small';
+    if (this.size === 'large' || this.size === 'xlarge') return 'large';
     return undefined;
   }
 
   get sizeClass(): Record<string, boolean> {
-    return { 'p-inputtext-xlg': this.size === 'xlg' };
+    return { 'p-inputtext-xlg': this.size === 'xlarge' };
   }
 
   onInput(event: Event): void {

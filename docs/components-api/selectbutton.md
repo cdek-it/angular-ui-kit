@@ -2,6 +2,8 @@
 
 # ExtraSelectButton
 
+> ✅ **Реализован**: `ExtraSelectButtonComponent` (`@cdek-it/angular-ui-kit`) соответствует спецификации.
+
 Группа кнопок для выбора значения (или нескольких). Не использовать вместо табов — для этого есть отдельный компонент.
 
 | Свойство      | Описание                                             | Типизация                            |
@@ -9,13 +11,14 @@
 | `options`     | список вариантов                                     | `ExtraSelectButtonOption[] \| any[]` |
 | `optionLabel` | наименование поля, содержащего отображаемое значение | `string`                             |
 | `multiple`    | множественный выбор                                  | `boolean`                            |
-| `size`        | размер кнопок                                        | `sm \| base \| lg \| xlg`            |
+| `size`        | размер кнопок                                        | `small \| base \| large \| xlarge`   |
+| `fluid`       | растягивает группу на всю ширину контейнера          | `boolean`                            |
 
 # События
 
 | Событие    | Описание                         | Типизация                                       |
 | ---------- | -------------------------------- | ----------------------------------------------- |
-| `onChange` | срабатывает при изменении выбора | `(event: ExtraSelectButtonChangeEvent) => void` |
+| `change` | срабатывает при изменении выбора | `(event: ExtraSelectButtonChangeEvent) => void` |
 
 # ExtraSelectButtonChangeEvent
 

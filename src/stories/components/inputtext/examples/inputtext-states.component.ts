@@ -4,27 +4,25 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <div class="flex flex-col gap-4">
-    <extra-input-text
-      [formControl]="control"
-      label="Обычная"
-      placeholder="Введите текст..."
-      caption="Пояснение под полем"
-    ></extra-input-text>
-    <extra-input-text
-      [formControl]="disabled"
-      label="Disabled"
-      placeholder="Недоступно"
-      caption="Управляется через FormControl.disable()"
-    ></extra-input-text>
-    <extra-input-text
-      [formControl]="invalid"
-      label="Invalid"
-      placeholder="Обязательное поле"
-      caption="Invalid определяется автоматически из NgControl"
-    ></extra-input-text>
-  </div>
+<div class="flex flex-col gap-4">
+  <extra-input-text
+    [formControl]="control"
+    label="Обычная"
+    placeholder="Введите текст..."
+    caption="Пояснение под полем"
+  ></extra-input-text>
+  <extra-input-text
+    [formControl]="disabled"
+    label="Disabled"
+    placeholder="Недоступно"
+    caption="Управляется через FormControl.disable()"
+  ></extra-input-text>
+  <extra-input-text
+    [formControl]="invalid"
+    label="Invalid"
+    placeholder="Обязательное поле"
+    caption="Invalid определяется автоматически из NgControl"
+  ></extra-input-text>
 </div>
 `;
 

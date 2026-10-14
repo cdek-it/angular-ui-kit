@@ -7,7 +7,7 @@ const template = `
 <div class="min-h-[250px]">
   <div class="relative inline-block">
     <extra-button label="Показать" (click)="popover.toggle($event)"></extra-button>
-    <extra-popover #popover appendTo="self">
+    <extra-popover #popover>
       <div class="flex flex-col gap-2">
         <span class="font-semibold">Заголовок</span>
         <p class="text-sm text-secondary">Дополнительное описание или любой произвольный контент внутри popover.</p>
@@ -49,7 +49,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
   imports: [ExtraPopoverComponent, ExtraButtonComponent],
   template: \`
     <extra-button label="Показать" (click)="popover.toggle($event)"></extra-button>
-    <extra-popover #popover appendTo="self">
+    <extra-popover #popover>
       <div class="flex flex-col gap-2">
         <span class="font-semibold">Заголовок</span>
         <p class="text-sm text-secondary">Дополнительное описание или любой произвольный контент внутри popover.</p>

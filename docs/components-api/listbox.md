@@ -7,18 +7,18 @@
 | `options`           | список элементов или список групп с элементами     | `ExtraListboxGroup[] \| ExtraListboxOption[] \| any[]`         |
 | `optionLabel`       | наименование поля, содержащего отображаемое значение | `string`                                                     |
 | `multiple`          | множественный выбор (элементы с чекбоксами)        | `boolean`                                                      |
-| `show-filter`       | отображать поле поиска элементов                   | `boolean`                                                      |
-| `filter-placeholder`| текст подсказки в поле поиска                      | `string`                                                       |
-| `show-checkbox`     | отображать чекбоксы у элементов и «выбрать всё»    | `boolean`                                                      |
-| `empty-message`     | сообщение при отсутствии элементов                 | `string`                                                       |
+| `showFilter`        | отображать поле поиска элементов                   | `boolean`                                                      |
+| `filterPlaceholder` | текст подсказки в поле поиска                      | `string`                                                       |
+| `showCheckbox`      | отображать чекбоксы у элементов и «выбрать всё»    | `boolean`                                                      |
+| `emptyMessage`      | сообщение при отсутствии элементов                 | `string`                                                       |
 
 # События
 
 | Событие           | Описание                                  | Типизация                                       |
 | ----------------- | ----------------------------------------- | ----------------------------------------------- |
-| `onChange`        | срабатывает при изменении выбора          | `(event: ExtraListboxChangeEvent) => void`      |
-| `onFilter`        | срабатывает при фильтрации                | `(event: ExtraListboxFilterEvent) => void`      |
-| `onSelectAllChange` | срабатывает при переключении «выбрать всё» | `(event: ExtraListboxSelectAllChangeEvent) => void` |
+| `change`        | срабатывает при изменении выбора          | `(event: ExtraListboxChangeEvent) => void`      |
+| `filter`        | срабатывает при фильтрации                | `(event: ExtraListboxFilterEvent) => void`      |
+| `selectAll` | срабатывает при переключении «выбрать всё» | `(event: ExtraListboxSelectAllChangeEvent) => void` |
 
 # ExtraListboxChangeEvent
 

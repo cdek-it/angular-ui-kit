@@ -6,23 +6,23 @@
 
 | Свойство                   | Описание                                            | Типизация  |
 | -------------------------- | --------------------------------------------------- | ---------- |
-| `rows`                     | количество элементов на странице                    | `number`   |
-| `total-records`            | общее количество записей                            | `number`   |
-| `first`                    | индекс первой записи (0-based)                      | `number`   |
-| `rows-per-page-options`    | варианты количества элементов на странице           | `number[]` |
-| `show-jump-to-page`        | поле для перехода к конкретной странице             | `boolean`  |
-| `show-jump-to-page-reset`  | отображать иконку очистки поля выбора страницы      | `boolean`  |
-| `jump-to-page-placeholder` | плэйсхолдер поля выбора страницы                    | `boolean`  |
-| `show-dropdown`            | селект для перехода к конкретной странице           | `boolean`  |
-| `show-dropdown-reset`      | отображать иконку очистки дропдауна выбора страницы | `boolean`  |
-| `dropdown-placeholder`     | плэйсхолдер дропдауна выбора страницы               | `string`   |
-| `show-buttons`             | отображение "стрелок" перевлючения страницы         | `boolean`  |
+| `rows`                    | количество элементов на странице                    | `number`   |
+| `totalRecords`            | общее количество записей                            | `number`   |
+| `first`                   | индекс первой записи (0-based)                      | `number`   |
+| `rowsPerPageOptions`      | варианты количества элементов на странице           | `number[]` |
+| `showJumpToPage`          | поле для перехода к конкретной странице             | `boolean`  |
+| `showJumpToPageReset`     | отображать иконку очистки поля выбора страницы      | `boolean`  |
+| `jumpToPagePlaceholder`   | плэйсхолдер поля выбора страницы                    | `string`   |
+| `showDropdown`            | селект для перехода к конкретной странице           | `boolean`  |
+| `showDropdownReset`       | отображать иконку очистки дропдауна выбора страницы | `boolean`  |
+| `dropdownPlaceholder`     | плэйсхолдер дропдауна выбора страницы               | `string`   |
+| `showButtons`             | отображение "стрелок" перевлючения страницы         | `boolean`  |
 
 # События
 
 | Событие        | Описание                       | Типизация                              |
 | -------------- | ------------------------------ | -------------------------------------- |
-| `onPageChange` | срабатывает при смене страницы | `(event: ExtraPaginatorState) => void` |
+| `pageChange` | срабатывает при смене страницы | `(event: ExtraPaginatorState) => void` |
 
 # ExtraPaginatorState
 
@@ -31,4 +31,4 @@
 | `page`       | текущая страница (0-based) | `number`  |
 | `first`      | индекс первой записи       | `number`  |
 | `rows`       | элементов на странице      | `number`  |
-| `page-count` | всего страниц              | `number`  |
+| `pageCount`  | всего страниц              | `number`  |

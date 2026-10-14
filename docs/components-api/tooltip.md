@@ -11,6 +11,6 @@
 | `extra-tooltip` | текст подсказки (значение директивы) | `string`                         |
 | `position`      | расположение относительно элемента   | `top \| right \| bottom \| left` |
 | `event`         | событие для показа подсказки         | `hover \| focus \| both`         |
-| `show-delay`    | задержка перед показом, мс           | `number`                         |
-| `hide-delay`    | задержка перед скрытием, мс          | `number`                         |
-| `tooltip-disabled` | отключает подсказку                | `boolean`                        |
+| `showDelay`     | задержка перед показом, мс           | `number`                         |
+| `hideDelay`     | задержка перед скрытием, мс          | `number`                         |
+| `tooltipDisabled` | отключает подсказку                | `boolean`                        |

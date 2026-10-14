@@ -4,19 +4,17 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraCheckboxComponent } from '../../../../lib/components/checkbox/checkbox.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <div class="flex flex-col gap-3">
-    <extra-checkbox
-      [formControl]="parentControl"
-      [indeterminate]="isIndeterminate"
-      (onChange)="onParentChange($event.checked)"
-      label="Выбрать всё"
-    ></extra-checkbox>
-    <div class="flex flex-col gap-2 pl-6" [formGroup]="childrenGroup">
-      <extra-checkbox formControlName="pizza" label="Pizza" (onChange)="onChildChange()"></extra-checkbox>
-      <extra-checkbox formControlName="burger" label="Burger" (onChange)="onChildChange()"></extra-checkbox>
-      <extra-checkbox formControlName="sushi" label="Sushi" (onChange)="onChildChange()"></extra-checkbox>
-    </div>
+<div class="flex flex-col gap-3">
+  <extra-checkbox
+    [formControl]="parentControl"
+    [indeterminate]="isIndeterminate"
+    (onChange)="onParentChange($event.checked)"
+    label="Выбрать всё"
+  ></extra-checkbox>
+  <div class="flex flex-col gap-2 pl-6" [formGroup]="childrenGroup">
+    <extra-checkbox formControlName="pizza" label="Pizza" (onChange)="onChildChange()"></extra-checkbox>
+    <extra-checkbox formControlName="burger" label="Burger" (onChange)="onChildChange()"></extra-checkbox>
+    <extra-checkbox formControlName="sushi" label="Sushi" (onChange)="onChildChange()"></extra-checkbox>
   </div>
 </div>
 `;

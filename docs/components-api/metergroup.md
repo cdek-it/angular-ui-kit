@@ -8,8 +8,8 @@
 | ------------------- | ------------------------ | ------------------------ |
 | `value`             | массив измерителей       | `ExtraMeterItem[]`       |
 | `orientation`       | ориентация компонента    | `horizontal \| vertical` |
-| `label-position`    | расположение легенды     | `start \| end`           |
-| `label-orientation` | ориентация легенды       | `horizontal \| vertical` |
+| `labelPosition`     | расположение легенды     | `start \| end`           |
+| `labelOrientation`  | ориентация легенды       | `horizontal \| vertical` |
 
 # ExtraMeterItem
 
