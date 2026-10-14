@@ -14,4 +14,3 @@ import { MessageService } from 'primeng/api';
 export function provideExtraToast(): EnvironmentProviders {
   return makeEnvironmentProviders([MessageService]);
 }
-

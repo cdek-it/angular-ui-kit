@@ -9,9 +9,11 @@ export const toastCss = ({ dt }: { dt: (token: string) => string }): string => `
     position: relative;
   }
 
-  /* border-radius для контента toast-сообщения */
+  /* Контент toast-сообщения: перенос строк нужен слотам content/footer на всю ширину */
   .p-toast .p-toast-message .p-toast-message-content {
     border-radius: ${dt('toast.root.borderRadius')};
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
 
   /* Текстовый блок toast */
@@ -20,6 +22,20 @@ export const toastCss = ({ dt }: { dt: (token: string) => string }): string => `
     display: flex;
     flex-direction: column;
     gap: ${dt('toast.text.gap')};
+  }
+
+  /* Слот content: строка под заголовком, на всю ширину сообщения */
+  .p-toast .p-toast-body {
+    flex-basis: 100%;
+  }
+
+  /* Футер toast: строка под основным контентом, действия прижаты вправо */
+  .p-toast .p-toast-footer {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: ${dt('dimension.space.200')};
   }
 
   /* Заголовок toast */
@@ -36,9 +52,17 @@ export const toastCss = ({ dt }: { dt: (token: string) => string }): string => `
 
   /* Кнопка закрытия toast-сообщения */
   .p-toast-message .p-toast-message-content .p-toast-close-button {
+    width: ${dt('toast.closeButton.width')};
+    height: ${dt('toast.closeButton.height')};
+    border-radius: ${dt('toast.closeButton.borderRadius')};
     margin: 0;
     padding: 0;
     right: 0;
+  }
+
+  /* Иконка в кнопке закрытия toast-сообщения */
+  .p-toast-message .p-toast-message-content .p-toast-close-button .p-button-icon {
+    font-size: ${dt('toast.closeIcon.size')};
   }
 
   /* Общие стили border для кнопки закрытия всех типов toast */
