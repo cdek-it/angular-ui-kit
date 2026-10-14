@@ -54,7 +54,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
       control: 'boolean',
       description: 'Показывать индикатор надёжности пароля',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
@@ -63,7 +63,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
       control: 'boolean',
       description: 'Возможность показать/скрыть пароль',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
@@ -72,7 +72,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
       control: 'text',
       description: 'Текст-подсказка',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'string' }
       }
@@ -82,52 +82,62 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер поля',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'base' },
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
-      }
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает возможность взаимодействия',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    invalid: {
-      control: 'boolean',
-      description: 'Подсвечивает поле как невалидное',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
       }
     },
     fluid: {
       control: 'boolean',
       description: 'Растягивает поле на всю ширину контейнера',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
+    labelPosition: {
+      control: 'select',
+      options: ['top', 'left'],
+      description: 'Положение лейбла относительно поля (игнорируется при floatLabel=true)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'top' },
+        type: { summary: "'top' | 'left'" }
+      }
+    },
     floatLabel: {
       control: 'boolean',
-      description: 'Плавающая метка внутри поля',
+      description: 'Плавающая метка внутри поля (перекрывает labelPosition)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     label: {
       control: 'text',
-      description: 'Текст плавающей метки (используется с floatLabel)',
+      description: 'Текст лейбла поля',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    caption: {
+      control: 'text',
+      description: 'Текст пояснения под полем',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
+    info: {
+      control: 'text',
+      description: 'Текст доп. информации в тултипе иконки ti-info-circle',
+      table: {
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
@@ -138,7 +148,6 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     weakLabel: { table: { disable: true } },
     mediumLabel: { table: { disable: true } },
     strongLabel: { table: { disable: true } },
-    inputId: { table: { disable: true } },
     inputStyleClass: { table: { disable: true } },
     ariaLabel: { table: { disable: true } },
     ariaLabelledBy: { table: { disable: true } },
@@ -146,12 +155,12 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     sizeClass: { table: { disable: true } },
     computedInputStyleClass: { table: { disable: true } },
 
-    // Events
+    // События
     onFocus: {
       control: false,
       description: 'Событие фокуса',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<Event>' }
       }
     },
@@ -159,7 +168,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
       control: false,
       description: 'Событие потери фокуса',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<Event>' }
       }
     }
@@ -169,11 +178,12 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     toggleMask: false,
     placeholder: 'Введите пароль',
     size: 'base',
-    disabled: false,
-    invalid: false,
     fluid: false,
+    labelPosition: 'top',
     floatLabel: false,
-    label: 'Пароль'
+    label: '',
+    caption: '',
+    info: ''
   }
 };
 
@@ -188,15 +198,16 @@ export const Default: Story = {
 
     if (!args.feedback) parts.push(`[feedback]="false"`);
     if (args.toggleMask) parts.push(`[toggleMask]="true"`);
+    if (args.label) parts.push(`label="${args.label}"`);
     if (args.floatLabel) {
       parts.push(`[floatLabel]="true"`);
-      if (args.label) parts.push(`label="${args.label}"`);
     } else {
+      if (args.labelPosition && args.labelPosition !== 'top') parts.push(`labelPosition="${args.labelPosition}"`);
       if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
     }
+    if (args.caption) parts.push(`caption="${args.caption}"`);
+    if (args.info) parts.push(`info="${args.info}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.invalid) parts.push(`[invalid]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
 
     parts.push(`[(ngModel)]="value"`);
