@@ -129,9 +129,11 @@ export const Default: Story = {
     if (args.badge) parts.push(`badge="${args.badge}"`);
     if (args.severity && args.severity !== 'primary') parts.push(`severity="${args.severity}"`);
 
+    // Фолбэк без атрибутов, а не с label="A": иначе очистка контрола label молча
+    // возвращала бы «A», и контрол выглядел бы рабочим, ничего не меняя.
     const template = parts.length
       ? `<extra-avatar\n  ${parts.join('\n  ')}\n></extra-avatar>`
-      : `<extra-avatar label="A"></extra-avatar>`;
+      : `<extra-avatar></extra-avatar>`;
 
     return { props: args, template };
   },
@@ -201,14 +203,26 @@ export const Image: Story = {
 
 // ── Sizes ────────────────────────────────────────────────────────────────────
 
+// Три размера рядом: смысл истории в сравнении, с одним аватаром сравнивать не с чем.
+// items-end — выравнивание по нижней границе, иначе разные размеры «плавают» по центру.
 export const Sizes: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { label: 'L', size: 'large', shape: 'square' },
+  render: () => ({
+    template: `
+      <div class="flex items-end gap-4">
+        <extra-avatar label="M"></extra-avatar>
+        <extra-avatar label="L" size="large"></extra-avatar>
+        <extra-avatar label="XL" size="xlarge"></extra-avatar>
+      </div>
+    `
+  }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Размер аватара. Доступны: base, large, xlarge.' },
+      description: { story: 'Размеры аватара — base (по умолчанию), large и xlarge, показаны рядом для сравнения.' },
       source: {
-        code: `<extra-avatar label="L" size="large"></extra-avatar>`
+        code: `<extra-avatar label="M"></extra-avatar>
+<extra-avatar label="L" size="large"></extra-avatar>
+<extra-avatar label="XL" size="xlarge"></extra-avatar>`
       }
     }
   }
@@ -216,14 +230,23 @@ export const Sizes: Story = {
 
 // ── Shapes ───────────────────────────────────────────────────────────────────
 
+// Обе формы рядом — история про выбор между ними, а не про одну из них.
 export const Shapes: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { label: 'C', size: 'base', shape: 'circle' },
+  render: () => ({
+    template: `
+      <div class="flex items-center gap-4">
+        <extra-avatar label="S"></extra-avatar>
+        <extra-avatar label="C" shape="circle"></extra-avatar>
+      </div>
+    `
+  }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Форма аватара. circle — круглый, square — квадратный (по умолчанию).' },
+      description: { story: 'Формы аватара — square (по умолчанию) и circle, показаны рядом для сравнения.' },
       source: {
-        code: `<extra-avatar label="C" shape="circle"></extra-avatar>`
+        code: `<extra-avatar label="S"></extra-avatar>
+<extra-avatar label="C" shape="circle"></extra-avatar>`
       }
     }
   }
