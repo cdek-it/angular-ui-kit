@@ -22,7 +22,7 @@
 | `hourLabel`      | подпись поля часов в блоке времени (по умолчанию «Часы»)                | `string`                   |
 | `minuteLabel`    | подпись поля минут в блоке времени (по умолчанию «Минуты»)              | `string`                   |
 
-Названия месяцев и дней недели берутся из перевода PrimeNG (`providePrimeNG({ translation })`, `PrimeNG.setTranslation`).
+Названия месяцев и дней недели, а также подписи кнопок навигации для скринридера берутся из перевода PrimeNG (`providePrimeNG({ translation })`, `PrimeNG.setTranslation`); по умолчанию `provideExtraThemes()` задаёт русский.
 
 # События
 

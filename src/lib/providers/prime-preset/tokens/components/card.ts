@@ -18,11 +18,12 @@ export const cardCss = ({ dt }: { dt: (token: string) => string }): string => `
     box-shadow: ${dt('card.overlay.shadow')};
   }
 
-  /* ─── Caption: обёртка заголовка и подзаголовка ─── */
-  .p-card-caption {
-    display: flex;
-    flex-direction: column;
-    gap: ${dt('card.caption.gap')};
+  /* ─── Caption: заголовок и подзаголовок стоят ближе друг к другу, чем остальные блоки ───
+     В Angular-версии p-card нет обёртки .p-card-caption: .p-card-title и .p-card-subtitle —
+     прямые дети .p-card-body с общим gap. Поэтому пару title+subtitle стягиваем до
+     card.caption.gap отрицательным отступом на разницу с card.body.gap. */
+  .p-card-title + .p-card-subtitle {
+    margin-top: calc(${dt('card.caption.gap')} - ${dt('card.body.gap')});
   }
 
   /* ─── Типографика подзаголовка ─── */
