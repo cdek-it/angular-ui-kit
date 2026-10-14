@@ -38,7 +38,9 @@ const meta: Meta<RadiobuttonArgs> = {
 import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
 
-Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Внутри группы радиокнопки объединяются общим \`name\` и одной моделью. Состояния disabled и invalid управляются через FormControl.`
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Внутри группы радиокнопки объединяются общим \`name\` и одной моделью. Состояния disabled и invalid управляются через FormControl.
+
+\`value\` (\`any\`, по умолчанию \`null\`) — значение опции: именно оно попадает в модель при выборе этой радиокнопки, а выбранной она считается, когда значение модели равно её \`value\`. На оформление не влияет, поэтому в Controls не выведено — см. истории Group и Caption.`
       }
     }
   },
@@ -117,6 +119,9 @@ import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     // Hidden props
+    // value — в спеке есть, но визуального эффекта не даёт (это значение для модели, а не
+    // оформление), поэтому в Controls от него был бы мёртвый ряд без виджета. Описан в тексте
+    // компонента выше, демонстрируется историями Group/Caption.
     value: { table: { disable: true } },
     name: { table: { disable: true } },
     modelValue: { table: { disable: true } },
@@ -138,21 +143,19 @@ type Story = StoryObj<RadiobuttonArgs>;
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
-    const parts: string[] = [`name="delivery-default"`, `value="option1"`];
+    const parts: string[] = [`name="delivery-default"`, `value="pickup"`];
 
     if (args.label) parts.push(`label="${args.label}"`);
     if (args.labelPosition && args.labelPosition !== 'right') parts.push(`labelPosition="${args.labelPosition}"`);
     if (args.caption) parts.push(`caption="${args.caption}"`);
 
     const validators = args.invalid ? [Validators.required] : [];
-    // Один FormControl на оба пункта — взаимоисключающий выбор, как у настоящей radio-группы.
-    const control = new FormControl({ value: args.invalid ? null : 'pickup', disabled: args.disabled }, validators);
+    // Пусто на старте: радиокнопку можно выбрать кликом, а с invalid required-ошибка не зависит
+    // от чужого выбора. Соседних пунктов нет намеренно — иначе часть того, что видно в канвасе,
+    // не управлялась бы из Controls; взаимоисключение внутри группы показывает история Group.
+    const control = new FormControl({ value: null, disabled: args.disabled }, validators);
 
-    const template = `
-<div class="flex flex-col gap-3">
-  <extra-radiobutton [formControl]="control" name="delivery-default" value="pickup" label="Самовывоз"></extra-radiobutton>
-  <extra-radiobutton [formControl]="control"\n    ${parts.join('\n    ')}\n  ></extra-radiobutton>
-</div>`;
+    const template = `<extra-radiobutton [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-radiobutton>`;
 
     return { props: { ...args, control }, template };
   },
@@ -160,7 +163,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          'Интерактивная радиокнопка со всеми свойствами спецификации, показана в контексте соседних пунктов группы (общий FormControl — выбор взаимоисключающий). Используйте Controls для изменения пропсов среднего пункта; disabled и invalid управляются через FormControl и относятся ко всей группе.'
+          'Интерактивная радиокнопка со всеми свойствами спецификации — каждый контрол в панели Controls влияет на то, что видно в канвасе. Выбор ставится кликом; `disabled` и `invalid` управляются через FormControl. Взаимоисключающий выбор внутри группы показывает история Group.'
       }
     }
   }

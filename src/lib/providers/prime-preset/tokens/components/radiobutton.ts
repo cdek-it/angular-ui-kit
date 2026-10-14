@@ -16,13 +16,41 @@ export const radiobuttonCss = ({ dt }: { dt: (token: string) => string }): strin
   gap: ${dt('dimension.space.200')};
 }
 
-/* Выравнивание по вертикали идёт по ПЕРВОЙ строке подписи, а не по блоку целиком: с caption
+/* ─── Типографика подписей ───
+   Те же токены, что у ExtraCheckbox (тот же паттерн label/caption, см. radiobutton.figma.md):
+   без них label и caption наследовали дефолт браузера — чёрный ui-sans-serif, и в тёмной теме
+   подпись пропадала на тёмном фоне.
+
+   Выравнивание по вертикали идёт по ПЕРВОЙ строке подписи, а не по блоку целиком: с caption
    или с переносом на узком экране блок выше индикатора, и центрирование целиком уводило бы
    индикатор между строк. Строке задана высота индикатора — их центры совпадают. */
 .radio-label {
   display: flex;
   align-items: center;
   min-height: ${dt('radiobutton.root.height')};
+  color: ${dt('color.fg.default')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.300')};
+  cursor: pointer;
+}
+
+.radio-label--disabled {
+  color: ${dt('color.fg.muted')};
+  cursor: default;
+}
+
+.radio-caption {
+  color: ${dt('color.fg.subtle')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.250')};
+}
+
+.radio-caption--disabled {
+  color: ${dt('color.fg.muted')};
 }
 
 /* label-position=left — меняется только порядок, разметка та же. */
