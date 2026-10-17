@@ -46,14 +46,25 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent } from '@cdek-i
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер группы (влияет на паддинги и шрифты аддонов)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'base'" },
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
+    },
+    addonPosition: {
+      control: 'select',
+      options: ['left', 'right', 'both'],
+      description: 'Расположение аддона(ов) относительно поля (CSS-класс-хук, не переставляет DOM)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'left'" },
+        type: { summary: "'left' | 'right' | 'both'" }
       }
     }
   },
   args: {
-    size: 'base'
+    size: 'base',
+    addonPosition: 'left'
   }
 };
 
@@ -65,6 +76,7 @@ export const Default: Story = {
   render: (args) => {
     const groupParts: string[] = [];
     if (args.size && args.size !== 'base') groupParts.push(`size="${args.size}"`);
+    if (args.addonPosition && args.addonPosition !== 'left') groupParts.push(`addonPosition="${args.addonPosition}"`);
 
     const groupOpen = groupParts.length ? `<extra-input-group ${groupParts.join(' ')}>` : `<extra-input-group>`;
 
@@ -72,7 +84,7 @@ export const Default: Story = {
 
     const template = `
 ${groupOpen}
-  <extra-input-group-addon><i class="ti ti-user"></i></extra-input-group-addon>
+  <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
   <extra-input-text placeholder="Введите данные..."${inputSize} [(ngModel)]="value" [fluid]="true"></extra-input-text>
 </extra-input-group>`;
 

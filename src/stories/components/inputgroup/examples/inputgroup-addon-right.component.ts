@@ -7,9 +7,9 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <extra-input-group>
+  <extra-input-group addonPosition="right">
     <extra-input-text placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
-    <extra-input-group-addon>руб.</extra-input-group-addon>
+    <extra-input-group-addon position="right">руб.</extra-input-group-addon>
   </extra-input-group>
 </div>
 `;
@@ -36,16 +36,16 @@ export const AddonRight: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-inputgroup-addon-right',
   standalone: true,
-  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent, FormsModule],
+  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, FormsModule],
   template: \`
-    <extra-input-group>
+    <extra-input-group addonPosition="right">
       <extra-input-text placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
-      <extra-input-group-addon>руб.</extra-input-group-addon>
+      <extra-input-group-addon position="right">руб.</extra-input-group-addon>
     </extra-input-group>
   \`,
 })
