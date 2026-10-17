@@ -30,31 +30,32 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер спиннера (задает вычисленные CSS-классы).',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'base' },
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
       }
     },
-    multicolor: {
-      control: 'boolean',
-      description: 'Включить многоцветную анимацию.',
+    fill: {
+      control: 'select',
+      options: ['primary', 'white'],
+      description: 'Цветовая схема: primary — многоцветная анимация, white — монохромный режим для цветной/тёмной подложки.',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
+        category: 'Свойства',
+        defaultValue: { summary: 'primary' },
+        type: { summary: "'primary' | 'white'" }
       }
     },
     strokeWidth: {
       table: { disable: true }
     },
-    fill: {
+    circleFill: {
       table: { disable: true }
     },
     animationDuration: {
       control: 'text',
       description: 'Длительность одной итерации анимации вращения.',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '2s' },
         type: { summary: 'string' }
       }
@@ -65,9 +66,9 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
   },
   args: {
     size: 'base',
-    multicolor: true,
+    fill: 'primary',
     strokeWidth: '2',
-    fill: 'none',
+    circleFill: 'none',
     animationDuration: '2s'
   }
 };
@@ -82,9 +83,9 @@ export const Default: Story = {
     const parts: string[] = [];
 
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (!args.multicolor) parts.push(`[multicolor]="false"`);
+    if (args.fill && args.fill !== 'primary') parts.push(`fill="${args.fill}"`);
     if (args.strokeWidth && args.strokeWidth !== '2') parts.push(`strokeWidth="${args.strokeWidth}"`);
-    if (args.fill && args.fill !== 'none') parts.push(`fill="${args.fill}"`);
+    if (args.circleFill && args.circleFill !== 'none') parts.push(`circleFill="${args.circleFill}"`);
     if (args.animationDuration && args.animationDuration !== '2s') parts.push(`animationDuration="${args.animationDuration}"`);
 
     const properties = parts.length > 0 ? ' ' + parts.join('\n  ') : '';
