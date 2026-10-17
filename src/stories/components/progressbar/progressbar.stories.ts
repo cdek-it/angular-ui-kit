@@ -37,7 +37,7 @@ import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
       control: { type: 'number', min: 0, max: 100 },
       description: 'Значение прогресса (0–100)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '0' },
         type: { summary: 'number' },
       },
@@ -47,7 +47,7 @@ import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
       options: ['determinate', 'indeterminate'],
       description: 'Режим отображения',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'determinate' },
         type: { summary: "'determinate' | 'indeterminate'" },
       },
@@ -56,7 +56,7 @@ import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Отображать числовое значение',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' },
       },
@@ -119,6 +119,7 @@ export const Indeterminate: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-progressbar-indeterminate',
@@ -149,6 +150,8 @@ export const NoLabel: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-progressbar-no-label',
