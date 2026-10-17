@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
-import { MeterItem } from 'primeng/metergroup';
+import { ExtraMeterGroupComponent, ExtraMeterItem } from '../../../../lib/components/metergroup/metergroup.component';
 import { defaultValue } from '../metergroup.data';
 
 @Component({
@@ -16,7 +15,7 @@ import { defaultValue } from '../metergroup.data';
   `,
 })
 export class MeterGroupLabelVerticalComponent {
-  value: MeterItem[] = defaultValue;
+  value: ExtraMeterItem[] = defaultValue;
 }
 
 export const LabelVertical: StoryObj = {
@@ -30,7 +29,7 @@ export const LabelVertical: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-metergroup-label-vertical',
@@ -42,7 +41,7 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class MeterGroupLabelVerticalComponent {
-  value: MeterItem[] = [
+  value: ExtraMeterItem[] = [
     { label: 'Space used', color: '#34d399', value: 16 },
     { label: 'Unused', color: '#fbbf24', value: 8 },
     { label: 'System', color: '#60a5fa', value: 24 },

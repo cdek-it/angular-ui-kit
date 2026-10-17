@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
-import { MeterItem } from 'primeng/metergroup';
+import { ExtraMeterGroupComponent, ExtraMeterItem } from '../../../../lib/components/metergroup/metergroup.component';
 import { iconValue } from '../metergroup.data';
 
 @Component({
@@ -16,7 +15,7 @@ import { iconValue } from '../metergroup.data';
   `
 })
 export class MeterGroupIconComponent {
-  value: MeterItem[] = iconValue;
+  value: ExtraMeterItem[] = iconValue;
 }
 
 export const Icon: StoryObj = {
@@ -30,7 +29,7 @@ export const Icon: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-metergroup-icon',
@@ -42,7 +41,7 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
   \`,
 })
 export class MeterGroupIconComponent {
-  value: MeterItem[] = [
+  value: ExtraMeterItem[] = [
     { label: 'Apps', color: '#34d399', value: 16, icon: 'ti ti-apps' },
     { label: 'Messages', color: '#fbbf24', value: 8, icon: 'ti ti-message' },
     { label: 'System', color: '#60a5fa', value: 24, icon: 'ti ti-cpu' },
