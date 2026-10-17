@@ -1,8 +1,8 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Listbox } from 'primeng/listbox';
 import { ExtraListboxComponent } from '../../../lib/components/listbox/listbox.component';
 import { Checkmark, ListboxCheckmarkComponent } from './examples/listbox-checkmark.component';
+import { Checkbox, ListboxCheckboxComponent } from './examples/listbox-checkbox.component';
 import { Filter, ListboxFilterComponent } from './examples/listbox-filter.component';
 import { ListboxMultipleComponent, Multiple } from './examples/listbox-multiple.component';
 import { Grouped, ListboxGroupedComponent } from './examples/listbox-grouped.component';
@@ -20,8 +20,8 @@ const meta: Meta<ListboxArgs> = {
       imports: [
         ExtraListboxComponent,
         ReactiveFormsModule,
-        Listbox,
         ListboxCheckmarkComponent,
+        ListboxCheckboxComponent,
         ListboxFilterComponent,
         ListboxMultipleComponent,
         ListboxGroupedComponent,
@@ -54,7 +54,7 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       control: 'text',
       description: 'Поле объекта для отображения текста элемента',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'label' },
         type: { summary: 'string' }
       }
@@ -63,43 +63,52 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       control: 'text',
       description: 'Поле объекта, используемое как значение',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'string' }
       }
     },
     multiple: {
       control: 'boolean',
-      description: 'Множественный выбор',
+      description: 'Множественный выбор (кратность значения в модели)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    filter: {
+    showFilter: {
       control: 'boolean',
       description: 'Показывать строку фильтрации',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    filterPlaceHolder: {
+    filterPlaceholder: {
       control: 'text',
       description: 'Placeholder строки фильтрации',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'string' }
+      }
+    },
+    showCheckbox: {
+      control: 'boolean',
+      description: 'Чекбоксы у элементов и «выбрать всё» в заголовке',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
       }
     },
     checkmark: {
       control: 'boolean',
       description: 'Показывать галочку у выбранного элемента',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
@@ -108,7 +117,7 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       control: 'boolean',
       description: 'Группировка элементов',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
@@ -117,7 +126,7 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       control: 'text',
       description: 'Высота прокручиваемой области',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '200px' },
         type: { summary: 'string' }
       }
@@ -126,17 +135,33 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       control: 'text',
       description: 'Текст при пустом списке',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'string' }
       }
     },
-    // ── Events ───────────────────────────────────────────────
+    // ── События ───────────────────────────────────────────────
+    onFilter: {
+      control: false,
+      description: 'Событие фильтрации',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraListboxFilterEvent>' }
+      }
+    },
+    onSelectAll: {
+      control: false,
+      description: 'Событие переключения «выбрать всё»',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraListboxSelectAllChangeEvent>' }
+      }
+    },
     onFocus: {
       control: false,
       description: 'Событие фокуса',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<FocusEvent>' }
       }
     },
@@ -144,7 +169,7 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       control: false,
       description: 'Событие потери фокуса',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<FocusEvent>' }
       }
     }
@@ -152,7 +177,8 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
   args: {
     optionLabel: 'label',
     multiple: false,
-    filter: false,
+    showFilter: false,
+    showCheckbox: false,
     checkmark: false,
     group: false,
     scrollHeight: '200px'
@@ -186,8 +212,9 @@ export const Default: Story = {
   [options]="options"
   [optionLabel]="optionLabel"
   [multiple]="multiple"
-  [filter]="filter"
-  [filterPlaceHolder]="filterPlaceHolder"
+  [showFilter]="showFilter"
+  [filterPlaceholder]="filterPlaceholder"
+  [showCheckbox]="showCheckbox"
   [checkmark]="checkmark"
   [scrollHeight]="scrollHeight"
   [emptyMessage]="emptyMessage"
@@ -204,4 +231,4 @@ export const Default: Story = {
 
 // ── Варианты ─────────────────────────────────────────────────────────────────
 
-export { Checkmark, Filter, Multiple, Grouped, Custom, Disabled };
+export { Checkmark, Checkbox, Filter, Multiple, Grouped, Custom, Disabled };

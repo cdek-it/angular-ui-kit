@@ -17,29 +17,38 @@ updated: '2026-06-22'
 
 `ExtraListboxComponent` — всегда видимый список опций для выбора одного или нескольких значений, который не сворачивается за триггером. Оборачивает PrimeNG `p-listbox` и расширяет его множественным выбором с чекбоксами, фильтрацией, группировкой опций и кастомным шаблоном пункта. Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
-Компонент соответствует Figma-компоненту `<Listbox>` (component set, nodeId `349:2649`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Варианты задаются Figma-свойствами `state` (`default | disabled`), `empty`, `overlay`, `header`, а вложенные свойства `show-checkbox`, `show-filter` и `show-close` управляют отображением чекбоксов и строки поиска. Пункты, группы и расширенные шаблоны опций вынесены в отдельные внутренние Figma-узлы (`<Listbox.ItemCheckbox>`, `<Listbox.ItemGroup>`, `<Listbox.ItemTemplate>`, `<Listbox.ItemIcon>`) и в коде описываются через шаблон-директиву (см. Slots).
+Компонент соответствует Figma-компоненту `<Listbox>` (component set, nodeId `349:2649`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Верхнеуровневые варианты задаются Figma-свойствами `state` (`default | disabled`), `empty`, `overlay`, `header`; внутри `header=true` лежат вложенные узлы `<Checkbox>` (чекбокс «выбрать всё»), `<🚧Listbox.Filter>` (строка поиска, помечена 🚧 work-in-progress в самой Figma) и `<Button.Base>` (кнопка закрытия — актуальна только для `overlay=true`, в спеке не описана и не реализуется). Пункты, группы и расширенные шаблоны опций вынесены в отдельные внутренние Figma-узлы (`<Listbox.ItemCheckbox>`, `<Listbox.ItemGroup>`, `<Listbox.ItemTemplate>`, `<Listbox.ItemIcon>`) и в коде описываются через шаблон-директиву (см. Slots).
 
 ## Props mapping
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `options` | `any[]` | `[]` | Массив опций для выбора |
+| `options` | `ExtraListboxGroup[] \| ExtraListboxOption[] \| any[]` | `[]` | Массив опций (или групп опций при `group=true`) для выбора |
 | `optionLabel` | `string` | `'label'` | Имя поля опции, отображаемое как подпись |
 | `optionValue` | `string \| undefined` | `undefined` | Имя поля опции, используемое как значение модели |
-| `multiple` | `boolean` | `false` | Множественный выбор — соответствует Figma-свойству `show-checkbox` |
-| `filter` | `boolean` | `false` | Показывает строку поиска над списком — соответствует Figma-свойству `show-filter` |
-| `filterPlaceHolder` | `string \| undefined` | `undefined` | Подсказка в строке поиска (при `filter=true`) |
-| `checkmark` | `boolean` | `false` | Показывает галочку у выбранного пункта (одиночный выбор) |
+| `multiple` | `boolean` | `false` | Множественный выбор — кратность значения в модели (одно / массив). Визуальные чекбоксы на пунктах сами по себе не включает — за них отвечает `showCheckbox` |
+| `showFilter` | `boolean` | `false` | Показывает строку поиска над списком — соответствует Figma-узлу `<🚧Listbox.Filter>` в `header=true`. Пробрасывается в PrimeNG `[filter]` |
+| `filterPlaceholder` | `string \| undefined` | `undefined` | Подсказка в строке поиска (при `showFilter=true`). Пробрасывается в PrimeNG `[filterPlaceHolder]` (нестандартный camelCase — особенность самого PrimeNG, в публичном API компонента имя приведено к обычному `filterPlaceholder`) |
+| `showCheckbox` | `boolean` | `false` | Чекбоксы у элементов + чекбокс «выбрать всё» в заголовке — соответствует Figma-узлу `<Checkbox>` в `header=true`. Пробрасывается сразу в два PrimeNG-пропа: `[checkbox]` (чекбоксы на пунктах) и `[showToggleAll]` (чекбокс «выбрать всё», имеет смысл только при `multiple=true`) |
+| `checkmark` | `boolean` | `false` | Показывает галочку у выбранного пункта (одиночный выбор) — полезный проп сверх черновика спеки |
 | `group` | `boolean` | `false` | Включает группировку опций по секциям |
 | `optionGroupLabel` | `string \| undefined` | `undefined` | Имя поля заголовка группы (при `group=true`) — соответствует Figma-узлу `<Listbox.ItemGroup>` |
 | `optionGroupChildren` | `string \| undefined` | `undefined` | Имя поля группы со списком дочерних опций |
 | `scrollHeight` | `string` | `'200px'` | Максимальная высота прокручиваемой области списка |
 | `emptyMessage` | `string \| undefined` | `undefined` | Сообщение при пустом списке опций — соответствует Figma-свойству `empty=true` |
+| `(onChange)` | `EventEmitter<ExtraListboxChangeEvent>` | — | Событие изменения выбора |
+| `(onFilter)` | `EventEmitter<ExtraListboxFilterEvent>` | — | Событие фильтрации (при `showFilter=true`) |
+| `(onSelectAll)` | `EventEmitter<ExtraListboxSelectAllChangeEvent>` | — | Событие переключения «выбрать всё» (при `showCheckbox=true` и `multiple=true`) |
 | `(onFocus)` | `EventEmitter<FocusEvent>` | — | Событие получения фокуса |
 | `(onBlur)` | `EventEmitter<FocusEvent>` | — | Событие потери фокуса |
 | `[(ngModel)]` / `[formControl]` | `any` | `null` | Выбранное значение через ControlValueAccessor |
 
 > `disabled` — компонент не объявляет `@Input() disabled`; отключённое состояние (Figma `state=disabled`) задаётся через `ControlValueAccessor` (`FormControl.disable()`).
+
+> ⚠️ Прошлая версия этого документа ошибочно описывала `multiple` как Figma-свойство `show-checkbox`
+> и не упоминала реальный PrimeNG-проп `checkbox` вовсе (в коде был привязан только `checkmark` —
+> визуально другая фича, галочка у одного выбранного пункта). Исправлено по итогам доработки под
+> спеку: `showCheckbox` теперь реализован и пробрасывается в `checkbox` + `showToggleAll`.
 
 ## Variants
 
@@ -56,9 +65,10 @@ Figma: `<Listbox>`, state=default, header=true — nodeId `365:1812`
 ></extra-listbox>
 ```
 
-### Single c optionValue (примитивное значение модели)
+### Single c optionValue и checkmark (примитивное значение модели)
 
-Figma: `<Listbox>`, state=default
+Figma: `<Listbox>`, state=default. `checkmark` — полезный проп сверх черновика спеки (галочка у
+выбранного пункта)
 
 ```html
 <extra-listbox
@@ -71,9 +81,9 @@ Figma: `<Listbox>`, state=default
 ></extra-listbox>
 ```
 
-### Multiple (множественный выбор с чекбоксами)
+### Multiple (множественный выбор)
 
-Figma: `<Listbox>`, state=default, show-checkbox=true — пункты `<Listbox.ItemCheckbox>`
+Figma: `<Listbox>`, state=default — кратность значения в модели, без визуальных чекбоксов
 
 ```html
 <extra-listbox
@@ -85,16 +95,16 @@ Figma: `<Listbox>`, state=default, show-checkbox=true — пункты `<Listbox
 ></extra-listbox>
 ```
 
-### Checkbox + checkmark (галочка выбранного пункта)
+### Checkbox (чекбоксы у элементов и «выбрать всё»)
 
-Figma: `<Listbox>`, state=default, show-checkbox=true
+Figma: `<Listbox>`, state=default, header=true — чекбокс «выбрать всё» в заголовке, пункты `<Listbox.ItemCheckbox>`
 
 ```html
 <extra-listbox
   [options]="cities"
   optionLabel="name"
   [multiple]="true"
-  [checkmark]="true"
+  [showCheckbox]="true"
   [(ngModel)]="selectedCities"
   name="citiesCheck"
 ></extra-listbox>
@@ -102,14 +112,14 @@ Figma: `<Listbox>`, state=default, show-checkbox=true
 
 ### Filter (строка поиска над списком)
 
-Figma: `<Listbox>`, state=default, show-filter=true
+Figma: `<Listbox>`, state=default, header=true — узел `<🚧Listbox.Filter>`
 
 ```html
 <extra-listbox
   [options]="cities"
   optionLabel="name"
-  [filter]="true"
-  filterPlaceHolder="Поиск города..."
+  [showFilter]="true"
+  filterPlaceholder="Поиск города..."
   [(ngModel)]="selectedCity"
   name="cityFilter"
 ></extra-listbox>
