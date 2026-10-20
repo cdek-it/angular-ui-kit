@@ -1,10 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
+import { ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="p-4">
-  <extra-badge [value]="value" [size]="size"></extra-badge>
+  <div class="flex flex-col gap-4">
+    <div class="flex gap-4 items-center">
+      <extra-badge value="8"></extra-badge>
+      <extra-badge value="8" size="large"></extra-badge>
+      <extra-badge value="8" size="xlarge"></extra-badge>
+    </div>
+    <div class="flex gap-4 items-center">
+      <extra-badge value="99+"></extra-badge>
+      <extra-badge value="99+" size="large"></extra-badge>
+      <extra-badge value="99+" size="xlarge"></extra-badge>
+    </div>
+  </div>
 </div>
 `;
 
@@ -18,35 +29,17 @@ const styles = '';
   template,
   styles
 })
-export class BadgeSizesComponent {
-  @Input() value: string | number = '8';
-  @Input() size: ExtraBadgeSize = 'large';
-}
+export class BadgeSizesComponent {}
 
 export const Sizes: StoryObj = {
-  render: (args) => ({
-    props: args,
-    template: `<app-badge-sizes [value]="value" [size]="size"></app-badge-sizes>`
+  render: () => ({
+    template: `<app-badge-sizes></app-badge-sizes>`
   }),
-  args: {
-    value: '8',
-    size: 'large'
-  },
-  argTypes: {
-    size: {
-      control: 'select',
-      options: ['base', 'large', 'xlarge'],
-      description: 'Размер бейджа'
-    },
-    value: {
-      control: 'text',
-      description: 'Отображаемое значение бейджа'
-    }
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Все доступные размеры: base, large, xlarge.'
+        story: 'Все доступные размеры: base, large, xlarge — с одним символом (круг) и с переполнением `99+` (пилюля).'
       },
       source: {
         language: 'ts',
@@ -58,7 +51,7 @@ import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-badge-sizes',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BadgeComponent],
+  imports: [ExtraBadgeComponent],
   template: \`${template}\`
 })
 export class BadgeSizesComponent {}

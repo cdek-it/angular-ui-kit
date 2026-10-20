@@ -7,6 +7,58 @@
  * значение теряется на коллизии имён (см. комментарии ниже).
  */
 export const radiobuttonCss = ({ dt }: { dt: (token: string) => string }): string => `
+/* ─── Раскладка «индикатор + подпись» ───
+   Обёртка приходила без стилей: <p-radiobutton> и блок подписи — два блочных элемента,
+   подпись вставала под индикатор, а не рядом. Флекс возвращает её в строку. */
+.extra-radiobutton {
+  display: flex;
+  align-items: flex-start;
+  gap: ${dt('dimension.space.200')};
+}
+
+/* ─── Типографика подписей ───
+   Те же токены, что у ExtraCheckbox (тот же паттерн label/caption, см. radiobutton.figma.md):
+   без них label и caption наследовали дефолт браузера — чёрный ui-sans-serif, и в тёмной теме
+   подпись пропадала на тёмном фоне.
+
+   Выравнивание по вертикали идёт по ПЕРВОЙ строке подписи, а не по блоку целиком: с caption
+   или с переносом на узком экране блок выше индикатора, и центрирование целиком уводило бы
+   индикатор между строк. Строке задана высота индикатора — их центры совпадают. */
+.radio-label {
+  display: flex;
+  align-items: center;
+  min-height: ${dt('radiobutton.root.height')};
+  color: ${dt('color.fg.default')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.300')};
+  cursor: pointer;
+}
+
+.radio-label--disabled {
+  color: ${dt('color.fg.muted')};
+  cursor: default;
+}
+
+.radio-caption {
+  color: ${dt('color.fg.subtle')};
+  font-family: ${dt('fonts.fontFamily.heading')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.250')};
+}
+
+.radio-caption--disabled {
+  color: ${dt('color.fg.muted')};
+}
+
+/* label-position=left — меняется только порядок, разметка та же. */
+.extra-radiobutton--left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
 /* Focus ring с зеленым цветом для валидных состояний */
 .p-radiobutton:not(.p-disabled):not(.p-invalid):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box,
 .p-radiobutton-checked:not(.p-disabled):not(.p-invalid):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {

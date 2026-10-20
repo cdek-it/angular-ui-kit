@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <div class="flex gap-3 items-end">
     <extra-button
       label="Нативные события"
@@ -34,7 +34,7 @@ const styles = `
   margin-top: 1rem;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background: var(--p-surface-100);
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
   font-size: 0.875rem;
   max-height: 10rem;
   overflow-y: auto;
