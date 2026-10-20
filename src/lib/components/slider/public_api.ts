@@ -1,4 +1,1 @@
 export * from './slider.component';
-
-
-
