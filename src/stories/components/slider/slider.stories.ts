@@ -32,7 +32,7 @@ const meta: Meta<SliderArgs> = {
 Реализовано по спецификации [slider.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/slider.md).
 
 \`\`\`typescript
-import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit/components/slider';
 \`\`\`
 
 Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Отключённое состояние управляется через FormControl.`
@@ -107,8 +107,16 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа — задавайте её всегда, иначе у слайдера нет доступного имени',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string | undefined' }
+      }
+    },
     // Hidden props
-    ariaLabel: { table: { disable: true } },
     ariaLabelledBy: { table: { disable: true } },
     tabindex: { table: { disable: true } },
     autofocus: { table: { disable: true } },
@@ -138,6 +146,7 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
     range: false,
     orientation: 'horizontal',
     animate: false,
+    ariaLabel: 'Громкость',
     disabled: false
   }
 };
@@ -157,8 +166,12 @@ export const Default: Story = {
     if (args.range) parts.push(`[range]="true"`);
     if (args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
     if (args.animate) parts.push(`[animate]="true"`);
+    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
 
-    const control = new FormControl<number | number[]>({ value: args.range ? [20, 80] : 50, disabled: args.disabled }, { nonNullable: true });
+    const control = new FormControl<number | number[]>(
+      { value: args.range ? [20, 80] : 50, disabled: args.disabled },
+      { nonNullable: true }
+    );
     parts.push(`[formControl]="control"`);
 
     const template = `<extra-slider\n  ${parts.join('\n  ')}\n></extra-slider>`;
@@ -172,7 +185,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Интерактивный слайдер со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled управляется через FormControl.'
+        story:
+          'Интерактивный слайдер со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled управляется через FormControl.'
       }
     }
   }

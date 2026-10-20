@@ -5,7 +5,7 @@ import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.c
 
 const template = `
 <div class="bg-surface-ground" style="width: 320px">
-  <extra-slider [formControl]="control"></extra-slider>
+  <extra-slider ariaLabel="Громкость" [formControl]="control"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -31,24 +31,9 @@ export const Disabled: StoryObj = {
     docs: {
       description: { story: 'Слайдер в отключённом состоянии — управляется через FormControl.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-disabled',
-  standalone: true,
-  imports: [ExtraSliderComponent, ReactiveFormsModule],
-  template: \`
-    <extra-slider [formControl]="control"></extra-slider>
-  \`,
-})
-export class SliderDisabledComponent {
-  control = new FormControl<number>({ value: 30, disabled: true }, { nonNullable: true });
-}
-        `
+        language: 'html',
+        code: `<!-- control = new FormControl<number>({ value: 30, disabled: true }, { nonNullable: true }) -->
+<extra-slider ariaLabel="Громкость" [formControl]="control"></extra-slider>`
       }
     }
   }
