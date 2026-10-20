@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { StoryObj } from '@storybook/angular';
 import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
@@ -18,29 +19,19 @@ const styles = '';
 })
 export class ChipDisabledComponent {}
 
-export const Disabled = {
+export const Disabled: StoryObj = {
   render: () => ({
     template: `<app-chip-disabled></app-chip-disabled>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Отключённый чип.' },
+      description: {
+        story: 'Отключённый чип: кнопка удаления не получает фокус и не эмитит `(onRemove)`.'
+      },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-chip-disabled',
-  standalone: true,
-  imports: [ExtraChipComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <extra-chip label="Доставлен" icon="ti ti-check" [removable]="true" [disabled]="true"></extra-chip>
-  \`,
-})
-export class ChipDisabledComponent {}
-        `
+        language: 'html',
+        code: `<extra-chip label="Доставлен" icon="ti ti-check" [removable]="true" [disabled]="true"></extra-chip>`
       }
     }
   }

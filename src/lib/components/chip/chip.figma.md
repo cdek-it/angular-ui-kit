@@ -10,7 +10,7 @@ figma:
   componentKey: 'a340ce844ed6af7b65422b30057e61870247e137'
   name: '<Chip>'
 status: stable
-updated: '2026-09-29'
+updated: '2026-10-20'
 ---
 
 ## Overview
@@ -28,7 +28,9 @@ updated: '2026-09-29'
 | `removable` | `boolean` | `false`      | Показывать кнопку удаления — соответствует Figma-свойству `show-close`                                                                                                                                                 |
 | `disabled`  | `boolean` | `false`      | Отключённое состояние — соответствует Figma-свойству `state=disabled`                                                                                                                                                  |
 
-Событие удаления `(onRemove)` (`EventEmitter<void>`) возникает при клике на кнопку удаления и доступно только при `[removable]="true"`.
+Событие удаления `(onRemove)` (`EventEmitter<void>`) возникает при клике на кнопку удаления и доступно только при `[removable]="true"`. При `[disabled]="true"` событие не эмитится.
+
+Чип не скрывает себя сам: по `(onRemove)` родитель убирает элемент из своей модели. Это позволяет отменить или отложить удаление, а также безопасно переиспользовать инстанс в `@for`.
 
 ## Variants
 
@@ -53,7 +55,9 @@ Figma: `state=default`, `show-icon=true`, `change-icon`
 Figma: `state=default`, `show-close=true`
 
 ```html
-<extra-chip label="Фильтр" [removable]="true" (onRemove)="onRemove()"></extra-chip>
+@for (filter of filters(); track filter) {
+  <extra-chip [label]="filter" [removable]="true" (onRemove)="remove(filter)"></extra-chip>
+}
 ```
 
 ### Removable with icon (иконка + удаление)
@@ -90,7 +94,7 @@ Figma: `state=disabled`
 **Do:**
 
 - Используйте `ExtraChip` для категоризации, фильтрации и удаляемых токенов рядом с полем ввода
-- Для удаляемого чипа задавайте `[removable]="true"` и подписывайтесь на `(onRemove)`
+- Для удаляемого чипа задавайте `[removable]="true"` и подписывайтесь на `(onRemove)` — без обработчика чип останется на месте
 - Задавайте `icon` только из справочника [icons.md](../../figma-code-connect/icons.md)
 
 **Don't:**
@@ -99,3 +103,4 @@ Figma: `state=disabled`
 - Не заменяйте `ExtraChip` статичной меткой — для неинтерактивных меток есть [ExtraTag](../tag/tag.figma.md)
 - Не инлайньте CSS-классы иконок вручную — используйте справочник [icons.md](../../figma-code-connect/icons.md)
 - Не ожидайте событие `(onRemove)` без `[removable]="true"` — кнопка удаления не отображается
+- Не рассчитывайте, что чип исчезнет сам после клика по крестику — удаляйте элемент из модели в обработчике `(onRemove)`

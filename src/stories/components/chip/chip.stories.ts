@@ -1,5 +1,5 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { ExtraChipComponent as ChipComponent } from '../../../lib/components/chip/chip.component';
+import { ExtraChipComponent } from '../../../lib/components/chip/chip.component';
 import { ChipWithIconComponent, WithIcon as WithIconStory } from './examples/chip-with-icon.component';
 import { ChipRemovableComponent, Removable as RemovableStory } from './examples/chip-removable.component';
 import {
@@ -8,16 +8,16 @@ import {
 } from './examples/chip-removable-with-icon.component';
 import { ChipDisabledComponent, Disabled as DisabledStory } from './examples/chip-disabled.component';
 
-type ChipArgs = ChipComponent & { onRemove?: () => void };
+type ChipArgs = ExtraChipComponent & { onRemove?: () => void };
 
 const meta: Meta<ChipArgs> = {
   title: 'Components/Misc/Chip',
-  component: ChipComponent,
+  component: ExtraChipComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
-        ChipComponent,
+        ExtraChipComponent,
         ChipWithIconComponent,
         ChipRemovableComponent,
         ChipRemovableWithIconComponent,
@@ -30,8 +30,10 @@ const meta: Meta<ChipArgs> = {
       description: {
         component: `Чип — небольшой интерактивный элемент с текстом, иконкой и опциональной кнопкой удаления.
 
+Реализован по спецификации \`docs/components-api/chip.md\`.
+
 \`\`\`typescript
-import { ChipComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraChipComponent } from '@cdek-it/angular-ui-kit/components/chip';
 \`\`\``
       }
     },
@@ -76,7 +78,7 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
     },
     onRemove: {
       control: false,
-      description: 'Событие удаления чипа',
+      description: 'Событие удаления чипа; чип не скрывает себя сам — удалением управляет родитель',
       table: {
         category: 'Events',
         type: { summary: 'EventEmitter<void>' }
@@ -84,15 +86,6 @@ import { ChipComponent } from '@cdek-it/angular-ui-kit';
     }
   }
 };
-
-const commonTemplate = `
-<extra-chip
-  [label]="label"
-  [icon]="icon"
-  [removable]="removable"
-  [disabled]="disabled"
-></extra-chip>
-`;
 
 export default meta;
 type Story = StoryObj<ChipArgs>;
@@ -124,7 +117,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов. ' +
+          'При [removable]="true" клик по крестику эмитит (onRemove), но чип остаётся на месте — ' +
+          'удаление выполняет родитель (см. историю Removable).'
       }
     }
   }

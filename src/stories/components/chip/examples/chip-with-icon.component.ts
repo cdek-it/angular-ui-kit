@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { StoryObj } from '@storybook/angular';
 import { ExtraChipComponent } from '../../../../lib/components/chip/chip.component';
 
 const template = `
@@ -18,29 +19,17 @@ const styles = '';
 })
 export class ChipWithIconComponent {}
 
-export const WithIcon = {
+export const WithIcon: StoryObj = {
   render: () => ({
     template: `<app-chip-with-icon></app-chip-with-icon>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Чип с иконкой.' },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraChipComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-chip-with-icon',
-  standalone: true,
-  imports: [ExtraChipComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <extra-chip label="В пути" icon="ti ti-map-pin"></extra-chip>
-  \`,
-})
-export class ChipWithIconComponent {}
-        `
+        language: 'html',
+        code: `<extra-chip label="В пути" icon="ti ti-map-pin"></extra-chip>`
       }
     }
   }
