@@ -4,10 +4,6 @@ import { BadgeSeverityComponent } from './examples/badge-severity.component';
 import { BadgeSizesComponent } from './examples/badge-sizes.component';
 import { BadgeDotComponent } from './examples/badge-dot.component';
 
-export { Severity } from './examples/badge-severity.component';
-export { Sizes } from './examples/badge-sizes.component';
-export { Dot } from './examples/badge-dot.component';
-
 const meta: Meta<ExtraBadgeComponent> = {
   title: 'Components/Misc/Badge',
   component: ExtraBadgeComponent,
@@ -31,23 +27,32 @@ import { BadgeModule } from 'primeng/badge';
   },
   argTypes: {
     // ── Props ────────────────────────────────────────────────
+    severity: {
+      control: 'select',
+      options: ['primary', 'info', 'success', 'warning', 'danger'],
+      description: 'Цветовая схема бейджа',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: "'primary'" },
+        type: { summary: "'primary' | 'info' | 'success' | 'warning' | 'danger'" }
+      }
+    },
     value: {
       control: 'text',
       description: 'Отображаемое значение бейджа',
       table: {
         category: 'Props',
         defaultValue: { summary: "''" },
-        type: { summary: 'string | number' }
+        type: { summary: 'string' }
       }
     },
-    severity: {
-      control: 'select',
-      options: ['primary', 'success', 'info', 'warning', 'danger'],
-      description: 'Цветовая схема бейджа',
+    dot: {
+      control: 'boolean',
+      description: 'Режим точки-индикатора без значения; приоритетнее value',
       table: {
         category: 'Props',
-        defaultValue: { summary: "'primary'" },
-        type: { summary: "'primary' | 'success' | 'info' | 'warning' | 'danger'" }
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
       }
     },
     size: {
@@ -62,8 +67,9 @@ import { BadgeModule } from 'primeng/badge';
     }
   },
   args: {
-    value: '8',
     severity: 'primary',
+    value: '8',
+    dot: false,
     size: 'base'
   }
 };
@@ -75,12 +81,25 @@ type Story = StoryObj<ExtraBadgeComponent>;
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => ({
-    props: args,
-    template: `<app-badge-severity [value]="value" [severity]="severity" [size]="size"></app-badge-severity>`
-  }),
+  render: (args) => {
+    const parts: string[] = [];
+
+    if (args.severity && args.severity !== 'primary') parts.push(`severity="${args.severity}"`);
+    if (args.dot) parts.push(`[dot]="true"`);
+    else if (args.value) parts.push(`value="${args.value}"`);
+    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+
+    const template = parts.length
+      ? `<extra-badge\n  ${parts.join('\n  ')}\n></extra-badge>`
+      : `<extra-badge value="8"></extra-badge>`;
+
+    return { props: args, template };
+  },
   args: {
-    value: '8'
+    severity: 'primary',
+    value: '8',
+    dot: false,
+    size: 'base'
   },
   parameters: {
     docs: {
@@ -90,3 +109,9 @@ export const Default: Story = {
     }
   }
 };
+
+// ── Витрины вариантов ────────────────────────────────────────────────────────
+
+export { Severity } from './examples/badge-severity.component';
+export { Sizes } from './examples/badge-sizes.component';
+export { Dot } from './examples/badge-dot.component';

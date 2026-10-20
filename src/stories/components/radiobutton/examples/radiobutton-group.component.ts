@@ -1,21 +1,17 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraRadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
 
 const template = `
-<div class="flex flex-col gap-3">
-  <div class="flex items-center gap-2">
-    <extra-radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></extra-radiobutton>
-    <label for="rb1">Опция 1</label>
+<div class="bg-surface-ground p-4 flex flex-col gap-6">
+  <div class="flex flex-col gap-3">
+    <extra-radiobutton [formControl]="delivery" name="delivery-group" value="pickup" label="Самовывоз"></extra-radiobutton>
+    <extra-radiobutton [formControl]="delivery" name="delivery-group" value="courier" label="Курьером"></extra-radiobutton>
   </div>
-  <div class="flex items-center gap-2">
-    <extra-radiobutton inputId="rb2" name="group" value="2" [(ngModel)]="selected"></extra-radiobutton>
-    <label for="rb2">Опция 2</label>
-  </div>
-  <div class="flex items-center gap-2">
-    <extra-radiobutton inputId="rb3" name="group" value="3" [(ngModel)]="selected"></extra-radiobutton>
-    <label for="rb3">Опция 3</label>
+  <div class="flex flex-col gap-3">
+    <extra-radiobutton [formControl]="payment" name="payment-group" value="card" label="Картой"></extra-radiobutton>
+    <extra-radiobutton [formControl]="payment" name="payment-group" value="cash" label="Наличными"></extra-radiobutton>
   </div>
 </div>
 `;
@@ -24,45 +20,50 @@ const template = `
   selector: 'app-radiobutton-group',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExtraRadiobuttonComponent, FormsModule],
-  template,
+  imports: [ExtraRadiobuttonComponent, ReactiveFormsModule],
+  template
 })
 export class RadiobuttonGroupComponent {
-  selected = '1';
+  delivery = new FormControl('pickup');
+  payment = new FormControl('card');
 }
 
 export const Group: StoryObj = {
   render: () => ({
-    template: `<app-radiobutton-group></app-radiobutton-group>`,
+    template: `<app-radiobutton-group></app-radiobutton-group>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Группа радиокнопок для выбора одного варианта из нескольких.' },
+      description: {
+        story:
+          'Две независимые группы радиокнопок на одной странице: у каждой группы свой `name` и своя модель (`[formControl]` или `[(ngModel)]`) — выбор в одной группе не влияет на другую.'
+      },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-radiobutton-group',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExtraRadiobuttonComponent, FormsModule],
+  imports: [ExtraRadiobuttonComponent, ReactiveFormsModule],
   template: \`
-    <extra-radiobutton inputId="rb1" name="group" value="1" [(ngModel)]="selected"></extra-radiobutton>
-    <label for="rb1">Опция 1</label>
-    <extra-radiobutton inputId="rb2" name="group" value="2" [(ngModel)]="selected"></extra-radiobutton>
-    <label for="rb2">Опция 2</label>
-    <extra-radiobutton inputId="rb3" name="group" value="3" [(ngModel)]="selected"></extra-radiobutton>
-    <label for="rb3">Опция 3</label>
+    <extra-radiobutton [formControl]="delivery" name="delivery-group" value="pickup" label="Самовывоз"></extra-radiobutton>
+    <extra-radiobutton [formControl]="delivery" name="delivery-group" value="courier" label="Курьером"></extra-radiobutton>
+
+    <extra-radiobutton [formControl]="payment" name="payment-group" value="card" label="Картой"></extra-radiobutton>
+    <extra-radiobutton [formControl]="payment" name="payment-group" value="cash" label="Наличными"></extra-radiobutton>
   \`,
 })
 export class RadiobuttonGroupComponent {
-  selected = '1';
+  delivery = new FormControl('pickup');
+  payment = new FormControl('card');
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

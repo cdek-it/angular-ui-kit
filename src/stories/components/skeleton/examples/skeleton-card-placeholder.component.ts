@@ -37,7 +37,7 @@ export const CardPlaceholder: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSkeletonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-skeleton-card-placeholder',

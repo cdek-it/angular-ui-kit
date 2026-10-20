@@ -26,7 +26,7 @@ const meta: Meta<SkeletonComponent> = {
         component: `Заглушка для контента, пока данные загружаются. Поддерживает прямоугольную и круглую форму, а также волновую анимацию.
 
 \`\`\`typescript
-import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSkeletonComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
     },
@@ -39,7 +39,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       options: ['rectangle', 'circle'],
       description: 'Форма скелетона',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'rectangle' },
         type: { summary: "'rectangle' | 'circle'" }
       }
@@ -49,7 +49,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       options: ['wave', 'none'],
       description: 'Тип анимации',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'wave' },
         type: { summary: "'wave' | 'none'" }
       }
@@ -58,7 +58,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       control: 'text',
       description: 'Ширина элемента',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '100%' },
         type: { summary: 'string' }
       }
@@ -67,7 +67,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       control: 'text',
       description: 'Высота элемента',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '1rem' },
         type: { summary: 'string' }
       }
@@ -76,7 +76,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       control: 'text',
       description: 'Размер элемента (устанавливает ширину и высоту одновременно; используется для circle)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'string' }
       }
@@ -85,7 +85,7 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
       control: 'text',
       description: 'Скругление углов (переопределяет значение темы)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'undefined' },
         type: { summary: 'string' }
       }

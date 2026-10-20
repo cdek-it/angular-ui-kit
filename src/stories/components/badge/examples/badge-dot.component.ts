@@ -1,10 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraBadgeSeverity, ExtraBadgeSize, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
+import { ExtraBadgeSeverity, ExtraBadgeComponent } from '../../../../lib/components/badge/badge.component';
 
 const template = `
 <div class="p-4">
-  <extra-badge [severity]="severity" [size]="size"></extra-badge>
+  <div class="flex flex-col gap-4">
+    <div class="flex gap-4 items-center">
+      @for (severity of severities; track severity) {
+        <extra-badge [dot]="true" [severity]="severity"></extra-badge>
+      }
+    </div>
+    <div class="flex gap-4 items-center">
+      <extra-badge [dot]="true" severity="danger"></extra-badge>
+      <extra-badge [dot]="true" severity="danger" size="large"></extra-badge>
+      <extra-badge [dot]="true" severity="danger" size="xlarge"></extra-badge>
+    </div>
+  </div>
 </div>
 `;
 
@@ -19,29 +30,19 @@ const styles = '';
   styles
 })
 export class BadgeDotComponent {
-  @Input() severity: ExtraBadgeSeverity = 'primary';
-  @Input() size: ExtraBadgeSize = 'base';
+  severities: ExtraBadgeSeverity[] = ['primary', 'info', 'success', 'warning', 'danger'];
 }
 
 export const Dot: StoryObj = {
-  render: (args) => ({
-    props: args,
-    template: `<app-badge-dot [severity]="severity" [size]="size"></app-badge-dot>`
+  render: () => ({
+    template: `<app-badge-dot></app-badge-dot>`
   }),
-  args: {
-    severity: 'primary'
-  },
-  argTypes: {
-    severity: {
-      control: 'select',
-      options: ['primary', 'success', 'info', 'warning', 'danger'],
-      description: 'Цветовая схема бейджа'
-    }
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Без значения — отображается как точка-индикатор.'
+        story:
+          '`[dot]="true"` — точка-индикатор без значения, приоритетнее `value`. Первый ряд — все severity, второй — размеры base, large, xlarge.'
       },
       source: {
         language: 'ts',
@@ -53,8 +54,23 @@ import { ExtraBadgeComponent } from '@cdek-it/angular-ui-kit';
   selector: 'app-badge-dot',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BadgeComponent],
-  template: \`${template}\`
+  imports: [ExtraBadgeComponent],
+  template: \`
+    <div class="flex gap-4 items-center">
+      <extra-badge [dot]="true" severity="primary"></extra-badge>
+      <extra-badge [dot]="true" severity="info"></extra-badge>
+      <extra-badge [dot]="true" severity="success"></extra-badge>
+      <extra-badge [dot]="true" severity="warning"></extra-badge>
+      <extra-badge [dot]="true" severity="danger"></extra-badge>
+    </div>
+
+    <!-- размеры точки -->
+    <div class="flex gap-4 items-center">
+      <extra-badge [dot]="true" severity="danger"></extra-badge>
+      <extra-badge [dot]="true" severity="danger" size="large"></extra-badge>
+      <extra-badge [dot]="true" severity="danger" size="xlarge"></extra-badge>
+    </div>
+  \`
 })
 export class BadgeDotComponent {}
         `
