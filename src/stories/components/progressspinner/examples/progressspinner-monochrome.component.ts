@@ -1,52 +1,38 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraProgressSpinnerComponent } from '../../../../lib/components/progressspinner/progressspinner.component';
 
 const template = `
-<extra-progressspinner [size]="size" [multicolor]="multicolor"></extra-progressspinner>
+<div class="bg-surface-inverse p-6 flex gap-6 items-center" style="background: #2b2e33">
+  <extra-progressspinner fill="white" size="base" ariaLabel="Загрузка"></extra-progressspinner>
+  <extra-progressspinner fill="white" size="large" ariaLabel="Загрузка"></extra-progressspinner>
+</div>
 `;
 
 @Component({
-  selector: 'progressspinner-monochrome',
+  selector: 'app-progressspinner-monochrome',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraProgressSpinnerComponent],
   template
 })
-export class ProgressSpinnerMonochromeComponent {
-  @Input() size: any = 'base';
-  @Input() multicolor = false;
-}
+export class ProgressSpinnerMonochromeComponent {}
 
 export const Monochrome: StoryObj = {
-  render: (args) => ({
-    props: args,
-    template: `<progressspinner-monochrome [size]="size" [multicolor]="multicolor"></progressspinner-monochrome>`
+  render: () => ({
+    template: `<app-progressspinner-monochrome></app-progressspinner-monochrome>`
   }),
-  args: {
-    size: 'base',
-    multicolor: false
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Одноцветный вариант спиннера (monochrome).'
+        story:
+          'Одноцветный вариант (`fill="white"`) — предназначен для цветной/тёмной подложки, поэтому показан на ней. ' +
+          'Цвет дуги сейчас берётся из токена `color.bg.brand.strong.default` (зелёный), а не белый — расхождение с Figma, см. контракт компонента.'
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'progressspinner-monochrome',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExtraProgressSpinnerComponent],
-  template: \`<extra-progressspinner [multicolor]="false"></extra-progressspinner>\`
-})
-export class ProgressSpinnerMonochromeComponent {}
-        `
+        language: 'html',
+        code: `<extra-progressspinner fill="white" ariaLabel="Загрузка"></extra-progressspinner>`
       }
     }
   }

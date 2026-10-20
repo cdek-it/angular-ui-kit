@@ -14,11 +14,8 @@ import { ExtraPasswordComponent } from '../../../../lib/components/password/pass
         [label]="label"
         [toggleMask]="toggleMask"
         [feedback]="feedback"
-        [disabled]="disabled"
-        [invalid]="invalid"
         [fluid]="fluid"
         [placeholder]="placeholder"
-        [inputId]="'fl-password'"
         [(ngModel)]="value"
       ></extra-password>
     </div>
@@ -27,8 +24,6 @@ import { ExtraPasswordComponent } from '../../../../lib/components/password/pass
 export class PasswordFloatLabelComponent {
   @Input() feedback = true;
   @Input() toggleMask = false;
-  @Input() disabled = false;
-  @Input() invalid = false;
   @Input() fluid = false;
   @Input() placeholder: string | undefined = undefined;
   @Input() label = 'Пароль';
@@ -43,8 +38,6 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
     if (!args.feedback)    parts.push(`[feedback]="false"`);
     if (args.toggleMask)   parts.push(`[toggleMask]="true"`);
     if (args.placeholder)  parts.push(`placeholder="${args.placeholder}"`);
-    if (args.disabled)     parts.push(`[disabled]="true"`);
-    if (args.invalid)      parts.push(`[invalid]="true"`);
     if (args.fluid)        parts.push(`[fluid]="true"`);
 
     const attrs = parts.length ? `\n  ${parts.join('\n  ')}` : '';
@@ -58,8 +51,6 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
     feedback: true,
     toggleMask: false,
     placeholder: undefined,
-    disabled: false,
-    invalid: false,
     fluid: false,
     label: 'Пароль',
   },
@@ -71,7 +62,7 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
       },
       source: {
         language: 'html',
-        code: `<extra-password [floatLabel]="true" label="Пароль" inputId="fl-password" [(ngModel)]="value"></extra-password>`,
+        code: `<extra-password [floatLabel]="true" label="Пароль" [(ngModel)]="value"></extra-password>`,
       },
     },
   },

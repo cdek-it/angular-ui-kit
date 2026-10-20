@@ -5,7 +5,13 @@ import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.c
 
 const template = `
 <div class="bg-surface-ground">
-  <extra-slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></extra-slider>
+  <extra-slider
+    [min]="0"
+    [max]="100"
+    [range]="true"
+    ariaLabel="Диапазон цены"
+    [(ngModel)]="value"
+  ></extra-slider>
 </div>
 `;
 const styles = '';
@@ -27,27 +33,12 @@ export const Range: StoryObj = {
     template: `<app-slider-range></app-slider-range>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Выбор диапазона значений с двумя ползунками.' },
+      description: { story: 'Выбор диапазона значений с двумя ползунками. Модель — массив `[from, to]`.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-range',
-  standalone: true,
-  imports: [ExtraSliderComponent, FormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <extra-slider [min]="0" [max]="100" [range]="true" [(ngModel)]="value"></extra-slider>
-  \`,
-})
-export class SliderRangeComponent {
-  value: number[] = [20, 80];
-}
-        `
+        language: 'html',
+        code: `<extra-slider [min]="0" [max]="100" [range]="true" ariaLabel="Диапазон цены" [(ngModel)]="value"></extra-slider>`
       }
     }
   }
