@@ -29,6 +29,12 @@ export const togglebuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   height: ${dt('togglebutton.extend.extXlg.iconOnlyWidth')};
 }
 
+/* ─── Focus ring ─── */
+.p-togglebutton:focus-visible {
+  outline: ${dt('togglebutton.root.focusRing.width')} solid ${dt('color.border.focus')};
+  outline-offset: ${dt('togglebutton.root.focusRing.offset')};
+}
+
 /* ─── Hover unchecked ─── */
 .p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover {
   border-color: ${dt('togglebutton.extend.hoverBorderColor')};

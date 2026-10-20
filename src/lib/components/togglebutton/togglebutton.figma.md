@@ -10,7 +10,7 @@ figma:
   componentKey: '19f1388f80113907cee5bc24117e98c7d18eb16c'
   name: '<ToggleButton>'
 status: stable
-updated: '2026-10-02'
+updated: '2026-10-20'
 ---
 
 ## Overview
@@ -35,14 +35,14 @@ updated: '2026-10-02'
 | `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
 | `ariaLabelledBy` | `string \| undefined` | `undefined` | Идентификатор элемента с меткой для доступности |
 | `inputId` | `string \| undefined` | `undefined` | Идентификатор внутреннего элемента; используется для связки с `<label for>` |
-| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
+| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab; если не задан, кнопка получает `tabindex="0"` и участвует в табуляции |
 | `autofocus` | `boolean \| undefined` | `undefined` | Автофокус при монтировании компонента |
 
 `allowEmpty`/`fluid`/`ariaLabel`/`ariaLabelledBy`/`inputId`/`tabindex`/`autofocus`/`iconOnly` — полезные
 пропы сверх базовой спеки (`docs/components-api/togglebutton.md`), добавлены туда же по итогам
 доработки (см. чеклист в корневом `CLAUDE.md`, п.3).
 
-Состояние «нажата» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true` / `false` соответствует `checked=true` / `checked=false` в Figma. Отключённое состояние (Figma `state=disabled`) задаётся не инпутом, а через форму — `setDisabledState` из `ControlValueAccessor` (как и `invalid`/`disabled` у остальных `extra-*`-полей, см. чеклист, п.5); отдельного `[disabled]` input на компоненте нет. Состояния `hover` и `focus` из Figma воспроизводятся браузером при наведении и фокусе и не имеют отдельных инпутов. Figma не показывает danger/invalid-вариант для этого компонента — `invalid` в спеке/API не заводился.
+Состояние «нажата» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true` / `false` соответствует `checked=true` / `checked=false` в Figma. Отключённое состояние (Figma `state=disabled`) задаётся не инпутом, а через форму — `setDisabledState` из `ControlValueAccessor` (как и `invalid`/`disabled` у остальных `extra-*`-полей, см. чеклист, п.5); отдельного `[disabled]` input на компоненте нет. Состояния `hover` и `focus` из Figma воспроизводятся браузером при наведении и фокусе и не имеют отдельных инпутов. В отключённом состоянии компонент проставляет `aria-disabled`, оставляя кнопку в табуляции (активация с клавиатуры при этом заблокирована) — так скринридер сообщает о недоступности. Figma не показывает danger/invalid-вариант для этого компонента — `invalid` в спеке/API не заводился.
 
 ## Variants
 

@@ -1,7 +1,9 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ExtraToggleButtonComponent } from '../../../lib/components/togglebutton/togglebutton.component';
-import { ToggleButtonIconsComponent, Icons } from './examples/togglebutton-icons.component';
+import { ToggleButtonWithIconComponent, WithIcon } from './examples/togglebutton-with-icon.component';
+import { ToggleButtonSizesComponent, Sizes } from './examples/togglebutton-sizes.component';
+import { ToggleButtonFluidComponent, Fluid } from './examples/togglebutton-fluid.component';
 import { ToggleButtonIconOnlyComponent, IconOnly } from './examples/togglebutton-icon-only.component';
 import { ToggleButtonDisabledComponent, Disabled } from './examples/togglebutton-disabled.component';
 
@@ -13,8 +15,16 @@ const meta: Meta<ToggleButtonArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraToggleButtonComponent, ReactiveFormsModule, ToggleButtonIconsComponent, ToggleButtonIconOnlyComponent, ToggleButtonDisabledComponent],
-    }),
+      imports: [
+        ExtraToggleButtonComponent,
+        ReactiveFormsModule,
+        ToggleButtonWithIconComponent,
+        ToggleButtonSizesComponent,
+        ToggleButtonFluidComponent,
+        ToggleButtonIconOnlyComponent,
+        ToggleButtonDisabledComponent
+      ]
+    })
   ],
   parameters: {
     designTokens: { prefix: '--p-togglebutton' },
@@ -25,12 +35,12 @@ const meta: Meta<ToggleButtonArgs> = {
 Реализовано по спецификации [togglebutton.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/togglebutton.md).
 
 \`\`\`typescript
-import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit/components/togglebutton';
 \`\`\`
 
-Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Отключённое состояние управляется через FormControl, не через проп.`,
-      },
-    },
+Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Отключённое состояние управляется через FormControl, не через проп.`
+      }
+    }
   },
   argTypes: {
     // ── Свойства (docs/components-api/togglebutton.md) ─────────────
@@ -40,8 +50,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     icon: {
       control: 'text',
@@ -49,8 +59,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     iconPosition: {
       control: 'select',
@@ -59,8 +69,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'left'" },
-        type: { summary: "'left' | 'right'" },
-      },
+        type: { summary: "'left' | 'right'" }
+      }
     },
     size: {
       control: 'select',
@@ -69,8 +79,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" },
-      },
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
     },
     iconOnly: {
       control: 'boolean',
@@ -78,8 +88,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     fluid: {
       control: 'boolean',
@@ -87,8 +97,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     // ── Состояния (управляются через FormControl) ───────────────────
     disabled: {
@@ -97,11 +107,19 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Состояния',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
+    },
+    allowEmpty: {
+      control: 'boolean',
+      description: 'Разрешает снимать выбор повторным нажатием',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'boolean | undefined' }
+      }
     },
     // Hidden props
-    allowEmpty: { table: { disable: true } },
     ariaLabel: { table: { disable: true } },
     ariaLabelledBy: { table: { disable: true } },
     inputId: { table: { disable: true } },
@@ -117,9 +135,9 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
       description: 'Событие изменения значения',
       table: {
         category: 'События',
-        type: { summary: 'EventEmitter<ExtraToggleButtonChangeEvent>' },
-      },
-    },
+        type: { summary: 'EventEmitter<ExtraToggleButtonChangeEvent>' }
+      }
+    }
   },
   args: {
     label: 'Подписка',
@@ -128,8 +146,8 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit';
     size: 'base',
     iconOnly: false,
     fluid: false,
-    disabled: false,
-  },
+    disabled: false
+  }
 };
 
 export default meta;
@@ -147,6 +165,7 @@ export const Default: Story = {
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.iconOnly) parts.push(`[iconOnly]="true"`);
     if (args.fluid) parts.push(`[fluid]="true"`);
+    if (args.allowEmpty === false) parts.push(`[allowEmpty]="false"`);
 
     const control = new FormControl({ value: false, disabled: args.disabled });
     const template = `<extra-togglebutton [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-togglebutton>`;
@@ -160,11 +179,12 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Интерактивная кнопка со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled управляется через FormControl.',
-      },
-    },
-  },
+        story:
+          'Интерактивная кнопка со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled управляется через FormControl.'
+      }
+    }
+  }
 };
 
 // ── Комбинаторные истории ──────────────────────────────────────────────────
-export { Icons, IconOnly, Disabled };
+export { WithIcon, Sizes, Fluid, IconOnly, Disabled };

@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Input,
+  Output
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
@@ -13,6 +22,7 @@ export interface ExtraToggleButtonChangeEvent {
 
 @Component({
   selector: 'extra-togglebutton',
+  host: { '(focusout)': 'markTouched()' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToggleButton, NgClass, FormsModule],
@@ -33,12 +43,13 @@ export interface ExtraToggleButtonChangeEvent {
       [iconPos]="iconPosition"
       [size]="primeSize!"
       [disabled]="disabled"
+      [attr.aria-disabled]="disabled ? true : null"
       [allowEmpty]="allowEmpty"
       [fluid]="fluid"
       [ariaLabel]="ariaLabel"
       [ariaLabelledBy]="ariaLabelledBy"
       [inputId]="inputId"
-      [tabindex]="tabindex"
+      [tabindex]="tabindex ?? 0"
       [autofocus]="autofocus"
       [(ngModel)]="modelValue"
       (onChange)="onChangeHandler($event)"
@@ -81,6 +92,11 @@ export class ExtraToggleButtonComponent implements ControlValueAccessor {
       'p-togglebutton-xlarge': this.size === 'xlarge',
       'p-togglebutton-icon-only': this.iconOnly
     };
+  }
+
+  /** Кнопка потеряла фокус — помечаем контрол как touched. */
+  markTouched(): void {
+    this._onTouched();
   }
 
   onChangeHandler(event: ToggleButtonChangeEvent): void {
