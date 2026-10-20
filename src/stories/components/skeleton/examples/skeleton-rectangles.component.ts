@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraSkeletonComponent } from '../../../../lib/components/skeleton/skeleton.component';
 
+// Пунктирная рамка — границы контейнера: без неё верхняя строка выглядит просто длинной
+// полосой, и не видно, что width по умолчанию равен 100% и считается от родителя.
 const template = `
-<div>
+<div class="border border-dashed border-surface-200 p-4" style="width: 600px">
   <div class="flex flex-col gap-3">
     <extra-skeleton height="1rem"></extra-skeleton>
     <extra-skeleton height="1rem" width="75%"></extra-skeleton>
@@ -30,13 +32,14 @@ export const Rectangles: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Прямоугольные строки-заглушки разной ширины — паттерн для списка отправлений или текстового контента.'
+        story:
+          'Прямоугольные строки-заглушки разной ширины — паттерн для списка отправлений или текстового контента. Пунктирная рамка показывает границы контейнера: `width` по умолчанию равен `100%` и считается от родителя, поэтому верхняя строка занимает его целиком, а следующие — 75% и 50% от той же ширины.'
       },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraSkeletonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-skeleton-rectangles',
@@ -44,10 +47,12 @@ import { SkeletonComponent } from '@cdek-it/angular-ui-kit';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraSkeletonComponent],
   template: \`
-    <div class="flex flex-col gap-3">
-      <extra-skeleton height="1rem"></extra-skeleton>
-      <extra-skeleton height="1rem" width="75%"></extra-skeleton>
-      <extra-skeleton height="1rem" width="50%"></extra-skeleton>
+    <div class="border border-dashed border-surface-200 p-4" style="width: 600px">
+      <div class="flex flex-col gap-3">
+        <extra-skeleton height="1rem"></extra-skeleton>
+        <extra-skeleton height="1rem" width="75%"></extra-skeleton>
+        <extra-skeleton height="1rem" width="50%"></extra-skeleton>
+      </div>
     </div>
   \`,
 })

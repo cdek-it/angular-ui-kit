@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { SharedModule } from 'primeng/api';
 import { ExtraCardComponent } from '../../../../lib/components/card/card.component';
+import { ExtraCardTemplateDirective } from '../../../../lib/components/card/card-template.directive';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="bg-surface-ground">
   <extra-card title="Заголовок" style="width: 20rem">
-    <ng-template pTemplate="header">
+    <ng-template extraCardTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
-    <ng-template pTemplate="content">
-      <p class="text-sm">Карточка без подзаголовка.</p>
-    </ng-template>
-    <ng-template pTemplate="footer">
-      <extra-button label="Действие" size="small" class="w-full"></extra-button>
+    <p class="text-sm">Карточка без подзаголовка.</p>
+    <ng-template extraCardTemplate="footer">
+      <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
     </ng-template>
   </extra-card>
 </div>
@@ -24,7 +22,7 @@ const styles = '';
 @Component({
   selector: 'app-card-without-subtitle',
   standalone: true,
-  imports: [ExtraCardComponent, ExtraButtonComponent, SharedModule],
+  imports: [ExtraCardComponent, ExtraCardTemplateDirective, ExtraButtonComponent],
   template,
   styles
 })
@@ -40,22 +38,21 @@ export const WithoutSubtitle: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraCardComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
+import { Component } from '@angular/core';
+import { ExtraCardComponent, ExtraCardTemplateDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-card-without-subtitle',
   standalone: true,
-  imports: [CardComponent, ButtonComponent, SharedModule],
+  imports: [ExtraCardComponent, ExtraCardTemplateDirective, ExtraButtonComponent],
   template: \`
     <extra-card title="Заголовок" style="width: 20rem">
-      <ng-template pTemplate="header">
+      <ng-template extraCardTemplate="header">
         <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
       </ng-template>
-      <ng-template pTemplate="content">
-        <p class="text-sm">Карточка без подзаголовка.</p>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <extra-button label="Действие" size="small" class="w-full"></extra-button>
+      <p class="text-sm">Карточка без подзаголовка.</p>
+      <ng-template extraCardTemplate="footer">
+        <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
       </ng-template>
     </extra-card>
   \`,

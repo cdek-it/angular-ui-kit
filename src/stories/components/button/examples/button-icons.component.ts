@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-3 items-end">
       <extra-button icon="ti ti-plus" label="Иконка слева"></extra-button>
@@ -20,6 +20,7 @@ const template = `
       <extra-button icon="ti ti-check"></extra-button>
       <extra-button icon="ti ti-plus" variant="secondary"></extra-button>
       <extra-button icon="ti ti-x" variant="tertiary"></extra-button>
+      <extra-button icon="ti ti-trash" variant="outlined" severity="danger"></extra-button>
       <extra-button icon="ti ti-x" variant="text"></extra-button>
       <extra-button icon="ti ti-arrow-right" variant="link"></extra-button>
     </div>
@@ -33,6 +34,7 @@ const template = `
       <extra-button icon="ti ti-check" [rounded]="true"></extra-button>
       <extra-button icon="ti ti-plus" [rounded]="true" variant="secondary"></extra-button>
       <extra-button icon="ti ti-x" [rounded]="true" variant="tertiary"></extra-button>
+      <extra-button icon="ti ti-trash" [rounded]="true" variant="outlined" severity="danger"></extra-button>
       <extra-button icon="ti ti-x" [rounded]="true" variant="text"></extra-button>
       <extra-button icon="ti ti-arrow-right" [rounded]="true" variant="link"></extra-button>
     </div>
@@ -83,6 +85,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     <extra-button icon="ti ti-check"></extra-button>
     <extra-button icon="ti ti-plus" variant="secondary"></extra-button>
     <extra-button icon="ti ti-x" variant="tertiary"></extra-button>
+    <extra-button icon="ti ti-trash" variant="outlined" severity="danger"></extra-button>
     <extra-button icon="ti ti-x" variant="text"></extra-button>
     <extra-button icon="ti ti-arrow-right" variant="link"></extra-button>
 
@@ -96,6 +99,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     <extra-button icon="ti ti-check" [rounded]="true"></extra-button>
     <extra-button icon="ti ti-plus" [rounded]="true" variant="secondary"></extra-button>
     <extra-button icon="ti ti-x" [rounded]="true" variant="tertiary"></extra-button>
+    <extra-button icon="ti ti-trash" [rounded]="true" variant="outlined" severity="danger"></extra-button>
     <extra-button icon="ti ti-x" [rounded]="true" variant="text"></extra-button>
     <extra-button icon="ti ti-arrow-right" [rounded]="true" variant="link"></extra-button>
   \`,
