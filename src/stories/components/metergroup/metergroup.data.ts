@@ -3,11 +3,11 @@ import { ExtraMeterItem } from '../../../lib/components/metergroup/metergroup.co
 export const defaultValue: ExtraMeterItem[] = [
   { label: 'Space used', color: '#34d399', value: 16 },
   { label: 'Unused', color: '#fbbf24', value: 8 },
-  { label: 'System', color: '#60a5fa', value: 24 },
+  { label: 'System', color: '#60a5fa', value: 24 }
 ];
 
 export const iconValue: ExtraMeterItem[] = [
   { label: 'Apps', color: '#34d399', value: 16, icon: 'ti ti-apps' },
   { label: 'Messages', color: '#fbbf24', value: 8, icon: 'ti ti-message' },
-  { label: 'System', color: '#60a5fa', value: 24, icon: 'ti ti-cpu' },
+  { label: 'System', color: '#60a5fa', value: 24, icon: 'ti ti-cpu' }
 ];

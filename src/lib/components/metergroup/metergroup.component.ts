@@ -23,6 +23,8 @@ export interface ExtraMeterItem {
       [orientation]="orientation"
       [labelPosition]="labelPosition"
       [labelOrientation]="labelOrientation"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.aria-labelledby]="ariaLabelledBy || null"
     ></p-metergroup>
   `
 })
@@ -31,6 +33,9 @@ export class ExtraMeterGroupComponent {
   @Input() orientation: ExtraMeterGroupOrientation = 'horizontal';
   @Input() labelPosition: ExtraMeterGroupLabelPosition = 'end';
   @Input() labelOrientation: ExtraMeterGroupLabelOrientation = 'horizontal';
+  /** Доступное имя: у корня role="meter", без имени его не прочитает скринридер. */
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
 
   @HostBinding('style.display') get hostDisplay() {
     return this.orientation === 'vertical' ? 'flex' : null;

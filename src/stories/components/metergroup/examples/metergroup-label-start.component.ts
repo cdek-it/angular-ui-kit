@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraMeterGroupComponent, ExtraMeterItem } from '../../../../lib/components/metergroup/metergroup.component';
 import { defaultValue } from '../metergroup.data';
@@ -10,7 +10,7 @@ import { defaultValue } from '../metergroup.data';
   imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <extra-metergroup [value]="value" labelPosition="start"></extra-metergroup>
+      <extra-metergroup ariaLabel="Использование диска" [value]="value" labelPosition="start"></extra-metergroup>
     </div>
   `
 })
@@ -20,7 +20,7 @@ export class MeterGroupLabelStartComponent {
 
 export const LabelStart: StoryObj = {
   render: () => ({
-    template: `<app-metergroup-label-start></app-metergroup-label-start>`,
+    template: `<app-metergroup-label-start></app-metergroup-label-start>`
   }),
   parameters: {
     docs: {
@@ -37,7 +37,7 @@ import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-ki
   imports: [ExtraMeterGroupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <extra-metergroup [value]="value" labelPosition="start"></extra-metergroup>
+    <extra-metergroup ariaLabel="Использование диска" [value]="value" labelPosition="start"></extra-metergroup>
   \`,
 })
 export class MeterGroupLabelStartComponent {
@@ -47,8 +47,8 @@ export class MeterGroupLabelStartComponent {
     { label: 'System', color: '#60a5fa', value: 24 },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

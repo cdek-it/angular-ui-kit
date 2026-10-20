@@ -10,7 +10,7 @@ import { iconValue } from '../metergroup.data';
   imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <extra-metergroup [value]="value"></extra-metergroup>
+      <extra-metergroup ariaLabel="Использование диска" [value]="value"></extra-metergroup>
     </div>
   `
 })
@@ -20,7 +20,7 @@ export class MeterGroupIconComponent {
 
 export const Icon: StoryObj = {
   render: () => ({
-    template: `<app-metergroup-icon></app-metergroup-icon>`,
+    template: `<app-metergroup-icon></app-metergroup-icon>`
   }),
   parameters: {
     docs: {
@@ -37,7 +37,7 @@ import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-ki
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
   template: \`
-    <extra-metergroup [value]="value"></extra-metergroup>
+    <extra-metergroup ariaLabel="Использование диска" [value]="value"></extra-metergroup>
   \`,
 })
 export class MeterGroupIconComponent {
@@ -47,8 +47,8 @@ export class MeterGroupIconComponent {
     { label: 'System', color: '#60a5fa', value: 24, icon: 'ti ti-cpu' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

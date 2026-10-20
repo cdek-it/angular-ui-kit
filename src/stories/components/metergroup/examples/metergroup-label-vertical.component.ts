@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraMeterGroupComponent, ExtraMeterItem } from '../../../../lib/components/metergroup/metergroup.component';
 import { defaultValue } from '../metergroup.data';
@@ -10,9 +10,9 @@ import { defaultValue } from '../metergroup.data';
   imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <extra-metergroup [value]="value" labelOrientation="vertical"></extra-metergroup>
+      <extra-metergroup ariaLabel="Использование диска" [value]="value" labelOrientation="vertical"></extra-metergroup>
     </div>
-  `,
+  `
 })
 export class MeterGroupLabelVerticalComponent {
   value: ExtraMeterItem[] = defaultValue;
@@ -20,7 +20,7 @@ export class MeterGroupLabelVerticalComponent {
 
 export const LabelVertical: StoryObj = {
   render: () => ({
-    template: `<app-metergroup-label-vertical></app-metergroup-label-vertical>`,
+    template: `<app-metergroup-label-vertical></app-metergroup-label-vertical>`
   }),
   parameters: {
     docs: {
@@ -37,7 +37,7 @@ import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-ki
   imports: [ExtraMeterGroupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <extra-metergroup [value]="value" labelOrientation="vertical"></extra-metergroup>
+    <extra-metergroup ariaLabel="Использование диска" [value]="value" labelOrientation="vertical"></extra-metergroup>
   \`,
 })
 export class MeterGroupLabelVerticalComponent {
@@ -47,8 +47,8 @@ export class MeterGroupLabelVerticalComponent {
     { label: 'System', color: '#60a5fa', value: 24 },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

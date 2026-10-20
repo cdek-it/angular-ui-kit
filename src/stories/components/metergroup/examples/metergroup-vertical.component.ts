@@ -11,7 +11,7 @@ import { defaultValue } from '../metergroup.data';
   template: `
     <div class="bg-surface-ground">
       <div style="height: 300px; display: flex">
-        <extra-metergroup [value]="value" orientation="vertical"></extra-metergroup>
+        <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="vertical"></extra-metergroup>
       </div>
     </div>
   `
@@ -22,7 +22,7 @@ export class MeterGroupVerticalComponent {
 
 export const Vertical: StoryObj = {
   render: () => ({
-    template: `<app-metergroup-vertical></app-metergroup-vertical>`,
+    template: `<app-metergroup-vertical></app-metergroup-vertical>`
   }),
   parameters: {
     docs: {
@@ -40,7 +40,7 @@ import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-ki
   imports: [ExtraMeterGroupComponent],
   template: \`
     <div style="height: 300px; display: flex">
-      <extra-metergroup [value]="value" orientation="vertical"></extra-metergroup>
+      <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="vertical"></extra-metergroup>
     </div>
   \`,
 })
@@ -51,8 +51,8 @@ export class MeterGroupVerticalComponent {
     { label: 'System', color: '#60a5fa', value: 24 },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

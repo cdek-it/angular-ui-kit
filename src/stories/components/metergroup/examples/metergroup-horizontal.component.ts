@@ -10,7 +10,7 @@ import { defaultValue } from '../metergroup.data';
   imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <extra-metergroup [value]="value" orientation="horizontal"></extra-metergroup>
+      <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="horizontal"></extra-metergroup>
     </div>
   `
 })
@@ -20,7 +20,7 @@ export class MeterGroupHorizontalComponent {
 
 export const Horizontal: StoryObj = {
   render: () => ({
-    template: `<app-metergroup-horizontal></app-metergroup-horizontal>`,
+    template: `<app-metergroup-horizontal></app-metergroup-horizontal>`
   }),
   parameters: {
     docs: {
@@ -37,7 +37,7 @@ import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-ki
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
   template: \`
-    <extra-metergroup [value]="value" orientation="horizontal"></extra-metergroup>
+    <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="horizontal"></extra-metergroup>
   \`,
 })
 export class MeterGroupHorizontalComponent {
@@ -47,8 +47,8 @@ export class MeterGroupHorizontalComponent {
     { label: 'System', color: '#60a5fa', value: 24 },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

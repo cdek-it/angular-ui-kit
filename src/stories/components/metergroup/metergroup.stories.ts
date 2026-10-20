@@ -21,9 +21,9 @@ const meta: Meta<MeterGroupArgs> = {
         MeterGroupVerticalComponent,
         MeterGroupIconComponent,
         MeterGroupLabelStartComponent,
-        MeterGroupLabelVerticalComponent,
-      ],
-    }),
+        MeterGroupLabelVerticalComponent
+      ]
+    })
   ],
   parameters: {
     docs: {
@@ -31,13 +31,13 @@ const meta: Meta<MeterGroupArgs> = {
         component: `Визуализирует несколько числовых значений в виде единой полосы прогресса с подписями.
 
 \`\`\`typescript
-import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit/components/metergroup';
+\`\`\``
+      }
     },
     designTokens: {
-      prefix: '--p-metergroup',
-    },
+      prefix: '--p-metergroup'
+    }
   },
   argTypes: {
     value: {
@@ -45,8 +45,8 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
       description: 'Массив элементов с полями label, color, value и опционально icon',
       table: {
         category: 'Свойства',
-        type: { summary: 'ExtraMeterItem[]' },
-      },
+        type: { summary: 'ExtraMeterItem[]' }
+      }
     },
     orientation: {
       control: 'select',
@@ -55,8 +55,8 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
     },
     labelPosition: {
       control: 'select',
@@ -65,8 +65,8 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'end' },
-        type: { summary: "'start' | 'end'" },
-      },
+        type: { summary: "'start' | 'end'" }
+      }
     },
     labelOrientation: {
       control: 'select',
@@ -75,10 +75,10 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" },
-      },
-    },
-  },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
+    }
+  }
 };
 
 const commonTemplate = `<extra-metergroup
@@ -86,6 +86,7 @@ const commonTemplate = `<extra-metergroup
   [orientation]="orientation"
   [labelPosition]="labelPosition"
   [labelOrientation]="labelOrientation"
+  [ariaLabel]="ariaLabel"
 ></extra-metergroup>`;
 
 export default meta;
@@ -97,22 +98,24 @@ export const Default: Story = {
   name: 'Default',
   render: (args) => ({
     props: { ...args, value: defaultValue },
-    template: args.orientation === 'vertical'
-      ? `<div style="height: 300px; display: flex">${commonTemplate}</div>`
-      : commonTemplate,
+    template:
+      args.orientation === 'vertical'
+        ? `<div style="height: 300px; display: flex">${commonTemplate}</div>`
+        : commonTemplate
   }),
   args: {
+    ariaLabel: 'Использование диска',
     orientation: 'horizontal',
     labelPosition: 'end',
-    labelOrientation: 'horizontal',
+    labelOrientation: 'horizontal'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Re-exports from example components ────────────────────────────────────
