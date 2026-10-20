@@ -10,7 +10,7 @@ figma:
   componentKey: 'd40b5a42d528dd153d39b16be43311aae73a0e42'
   name: '<ToggleSwitch>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-10-20'
 ---
 
 ## Overview
@@ -26,12 +26,18 @@ updated: '2026-06-22'
 | `label` | `string` | `''` | Текст названия рядом с переключателем |
 | `labelPosition` | `'right' \| 'left'` | `'right'` | Положение лейбла относительно свитча |
 | `caption` | `string` | `''` | Пояснение под лейблом |
+| `ariaLabel` | `string \| undefined` | `undefined` | Доступное имя; обязателен, когда свитч используется без `label` |
+| `ariaLabelledBy` | `string \| undefined` | `undefined` | Идентификатор элемента с меткой для доступности |
 | `onChange` | `EventEmitter<ExtraToggleSwitchChangeEvent>` | — | Событие при изменении значения переключателя |
 | `onFocus` | `EventEmitter<Event>` | — | Событие при получении фокуса |
 | `onBlur` | `EventEmitter<Event>` | — | Событие при потере фокуса |
 
 Если ни `label`, ни `caption` не заданы — рендерится голый свитч без обёртки (тот же приём, что у
-`ExtraCheckbox`/полей ввода, важно для `p-inputgroup` и плотных layout'ов).
+`ExtraCheckbox`/полей ввода, важно для `p-inputgroup` и плотных layout'ов). В этом режиме задавайте
+`ariaLabel` — иначе у свитча нет доступного имени.
+
+`ariaLabel`/`ariaLabelledBy` — полезные пропы сверх базовой спеки (`docs/components-api/toggleswitch.md`),
+добавлены по итогам доработки (см. чеклист в корневом `CLAUDE.md`, п.3).
 
 Состояние «включён» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true` / `false` соответствует `checked=true` / `checked=false` в Figma.
 
@@ -101,56 +107,8 @@ Figma: state=danger, checked=false
 Не используются. `label`/`caption` — не слоты, а обычные `@Input()` (см. Props mapping); компонент
 сам рисует обёртку по тому же принципу, что `ExtraCheckbox`/`ExtraInputText` (см.
 `docs/components-api/common-info.md` и чеклист в корневом `CLAUDE.md`, раздел «Label / caption /
-info»).
-
-⚠️ Для классов `.extra-toggleswitch`/`.toggleswitch-label`/`.toggleswitch-caption` в
-`tokens/components/toggleswitch.ts` пока нет стилей (там только focus-ring для `.p-toggleswitch`) —
-это зона дизайнера, агент её не трогает. Сниппет-заготовка 1:1 с уже рабочим `checkbox.ts`
-(`.extra-checkbox`/`.checkbox-label`/`.checkbox-caption`), для дизайнера:
-
-```ts
-.extra-toggleswitch {
-  display: flex;
-  align-items: center;
-  gap: ${dt('dimension.space.200')};
-}
-
-.extra-toggleswitch--left {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
-.toggleswitch-label {
-  display: flex;
-  align-items: center;
-  color: ${dt('color.fg.default')};
-  font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.300')};
-  cursor: pointer;
-}
-
-.toggleswitch-label--disabled {
-  color: ${dt('color.fg.muted')};
-  cursor: default;
-}
-
-.toggleswitch-caption {
-  color: ${dt('color.fg.subtle')};
-  font-family: ${dt('fonts.fontFamily.heading')};
-  font-size: ${dt('fonts.fontSize.200')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.250')};
-}
-
-.toggleswitch-caption--disabled {
-  color: ${dt('color.fg.muted')};
-}
-```
-
-До добавления этого CSS лейбл/caption рендерятся функционально верно, но без типографики токенов
-(голый браузерный шрифт).
+info»). Раскладка и типографика обёртки живут в `tokens/components/toggleswitch.ts` — там же, где
+focus-ring, и повторяют `checkbox.ts`.
 
 ## Related
 
@@ -165,6 +123,7 @@ info»).
 - Применяйте свитч для мгновенного эффекта (тёмная тема, уведомления), без отдельной кнопки Save
 - Для отключения и невалидного состояния управляйте состоянием формы (`disabled` / валидаторы `formControl`)
 - Задавайте подпись через `label`/`caption` — так `<label [for]>` связывается с полем автоматически
+- Для свитча без подписи задавайте `ariaLabel` — иначе у него нет доступного имени
 
 **Don't:**
 - Не задавайте «включён» через отдельный атрибут — состояние идёт только через модель (`[(ngModel)]` / `formControl`)

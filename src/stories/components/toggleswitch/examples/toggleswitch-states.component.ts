@@ -38,32 +38,13 @@ export const States: StoryObj = {
           'Состояния disabled и invalid управляются через FormControl: disable() / Validators (invalid вычисляется из NgControl автоматически).'
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-toggleswitch-states',
-  standalone: true,
-  imports: [ExtraToggleSwitchComponent, ReactiveFormsModule],
-  template: \`
-    <extra-toggleswitch [formControl]="control" label="Обычный"></extra-toggleswitch>
-
-    <!-- disabled через FormControl -->
-    <extra-toggleswitch [formControl]="disabled" label="Disabled"></extra-toggleswitch>
-
-    <!-- invalid через Validators (красная рамка определяется из NgControl) -->
-    <extra-toggleswitch [formControl]="invalid" label="Invalid"></extra-toggleswitch>
-  \`,
-})
-export class ToggleSwitchStatesComponent {
-  control = new FormControl(false);
-  disabled = new FormControl({ value: false, disabled: true });
-  invalid = new FormControl(false, Validators.requiredTrue);
-}
-        `
+        language: 'html',
+        code: `<!-- control  = new FormControl(false)                              -->
+<!-- disabled = new FormControl({ value: false, disabled: true })    -->
+<!-- invalid  = new FormControl(false, Validators.requiredTrue)      -->
+<extra-toggleswitch [formControl]="control" label="Обычный"></extra-toggleswitch>
+<extra-toggleswitch [formControl]="disabled" label="Disabled"></extra-toggleswitch>
+<extra-toggleswitch [formControl]="invalid" label="Invalid"></extra-toggleswitch>`
       }
     }
   }

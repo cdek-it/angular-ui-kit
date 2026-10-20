@@ -33,11 +33,9 @@ export const Positions: StoryObj = {
         story: 'labelPosition="right" (по умолчанию) и "left" — рядом для наглядного сравнения.'
       },
       source: {
-        language: 'ts',
-        code: `
-<extra-toggleswitch [(ngModel)]="right" label="Лейбл справа" labelPosition="right"></extra-toggleswitch>
-<extra-toggleswitch [(ngModel)]="left" label="Лейбл слева" labelPosition="left"></extra-toggleswitch>
-        `
+        language: 'html',
+        code: `<extra-toggleswitch [(ngModel)]="right" label="Лейбл справа" labelPosition="right"></extra-toggleswitch>
+<extra-toggleswitch [(ngModel)]="left" label="Лейбл слева" labelPosition="left"></extra-toggleswitch>`
       }
     }
   }

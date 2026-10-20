@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraToggleSwitchComponent } from '../../../lib/components/toggleswitch/toggleswitch.component';
 import { ToggleSwitchStatesComponent, States } from './examples/toggleswitch-states.component';
 import { ToggleSwitchPositionsComponent, Positions } from './examples/toggleswitch-positions.component';
+import { ToggleSwitchBareComponent, Bare } from './examples/toggleswitch-bare.component';
 
 type ToggleSwitchArgs = ExtraToggleSwitchComponent & { disabled: boolean; invalid: boolean };
 
@@ -12,7 +13,13 @@ const meta: Meta<ToggleSwitchArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraToggleSwitchComponent, ReactiveFormsModule, ToggleSwitchStatesComponent, ToggleSwitchPositionsComponent]
+      imports: [
+        ExtraToggleSwitchComponent,
+        ReactiveFormsModule,
+        ToggleSwitchStatesComponent,
+        ToggleSwitchPositionsComponent,
+        ToggleSwitchBareComponent
+      ]
     })
   ],
   parameters: {
@@ -24,7 +31,7 @@ const meta: Meta<ToggleSwitchArgs> = {
 Реализовано по спецификации [toggleswitch.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/toggleswitch.md).
 
 \`\`\`typescript
-import { ExtraToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraToggleSwitchComponent } from '@cdek-it/angular-ui-kit/components/toggleswitch';
 \`\`\`
 
 Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
@@ -61,6 +68,16 @@ import { ExtraToggleSwitchComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' }
       }
     },
+    ariaLabel: {
+      control: 'text',
+      description: 'Доступное имя; обязателен, когда свитч используется без label',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string | undefined' }
+      }
+    },
+    ariaLabelledBy: { table: { disable: true } },
     // ── Состояния (управляются через FormControl) ─────────────────
     disabled: {
       control: 'boolean',
@@ -153,4 +170,4 @@ export const Default: Story = {
 };
 
 // ── Комбинаторные истории ──────────────────────────────────────────────────
-export { States, Positions };
+export { States, Positions, Bare };

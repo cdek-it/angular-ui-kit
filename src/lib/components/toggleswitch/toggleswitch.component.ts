@@ -30,7 +30,11 @@ let nextInputId = 0;
   standalone: true,
   imports: [ToggleSwitch, FormsModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: {
+    style: 'display: contents',
+    '(focusin)': 'handleFocus($event)',
+    '(focusout)': 'handleBlur($event)'
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -63,9 +67,9 @@ let nextInputId = 0;
         [disabled]="disabled"
         [invalid]="invalid"
         [inputId]="inputId"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
         (onChange)="onChangeHandler($event)"
-        (onFocus)="onFocus.emit($event)"
-        (onBlur)="onBlur.emit($event)"
       ></p-toggleswitch>
     </ng-template>
   `
@@ -79,6 +83,9 @@ export class ExtraToggleSwitchComponent implements ControlValueAccessor, OnInit,
   @Input() label = '';
   @Input() labelPosition: ExtraToggleSwitchLabelPosition = 'right';
   @Input() caption = '';
+  /** Доступное имя, когда свитч используется без label/caption. */
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
 
   @Output() onChange = new EventEmitter<ExtraToggleSwitchChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();
@@ -104,6 +111,16 @@ export class ExtraToggleSwitchComponent implements ControlValueAccessor, OnInit,
 
   ngOnDestroy(): void {
     this._statusSub?.unsubscribe();
+  }
+
+  /** У p-toggleswitch нет output'ов фокуса — ловим всплывающие focusin/focusout на хосте. */
+  handleFocus(event: FocusEvent): void {
+    this.onFocus.emit(event);
+  }
+
+  handleBlur(event: FocusEvent): void {
+    this._onTouched();
+    this.onBlur.emit(event);
   }
 
   onChangeHandler(event: ToggleSwitchChangeEvent): void {
