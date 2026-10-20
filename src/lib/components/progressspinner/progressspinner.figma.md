@@ -10,7 +10,7 @@ figma:
   componentKey: '1ab76ee6c518796317b9e0f4634217b61bd553c3'
   name: '<ProgressSpinner>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-10-20'
 ---
 
 ## Overview
@@ -25,10 +25,10 @@ updated: '2026-06-22'
 |----------|-----|--------------|---------|
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер спиннера — соответствует Figma-свойству `size` |
 | `fill` | `'primary' \| 'white'` | `'primary'` | Цветовая схема — соответствует Figma-свойству `fill`. `primary` — многоцветная анимация (по умолчанию), `white` — монохромный режим для цветной/тёмной подложки |
-| `strokeWidth` | `string` | `'2'` | Толщина линии дуги (передаётся в SVG `stroke-width`) |
+| `strokeWidth` | `string \| undefined` | `undefined` | Толщина линии дуги; если не задана — берётся из токена `progressspinner.root.borderWidth`. CSS-правило дуги перебивает SVG-атрибут, поэтому значение дополнительно уходит в переменную `--extra-progressspinner-stroke-width` на хосте — без неё инпут не имел бы эффекта |
 | `circleFill` | `string` | `'none'` | Цвет заливки внутренней области круга (raw PrimeNG `[fill]`, SVG `fill`-атрибут) — не связан с цветовой схемой `fill` выше; назван `circleFill`, чтобы избежать коллизии имён (см. `ExtraTooltipDirective.disabled` → `tooltipDisabled` в корневом `CLAUDE.md` как прецедент) |
 | `animationDuration` | `string` | `'2s'` | Длительность одной итерации анимации вращения |
-| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
+| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа; задавайте её всегда — у корня `role="progressbar"`, и без неё индикатор не имеет доступного имени (axe: `aria-progressbar-name`) |
 
 > ⚠️ **Расхождение с Figma в CSS-токенах**: класс `.p-progressspinner-monochrome` (применяется при
 > `fill="white"`) в `tokens/components/progressspinner.ts` красит дугу в `color.bg.brand.strong.default`

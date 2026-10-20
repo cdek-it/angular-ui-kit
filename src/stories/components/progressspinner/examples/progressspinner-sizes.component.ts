@@ -1,13 +1,14 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import {
-  ExtraProgressSpinnerComponent,
-  ExtraProgressSpinnerFill,
-  ExtraProgressSpinnerSize
-} from '../../../../lib/components/progressspinner/progressspinner.component';
+import { ExtraProgressSpinnerComponent } from '../../../../lib/components/progressspinner/progressspinner.component';
 
 const template = `
-<extra-progressspinner [size]="size" [fill]="fill"></extra-progressspinner>
+<div class="flex gap-6 items-center">
+  <extra-progressspinner size="small" ariaLabel="Загрузка"></extra-progressspinner>
+  <extra-progressspinner size="base" ariaLabel="Загрузка"></extra-progressspinner>
+  <extra-progressspinner size="large" ariaLabel="Загрузка"></extra-progressspinner>
+  <extra-progressspinner size="xlarge" ariaLabel="Загрузка"></extra-progressspinner>
+</div>
 `;
 
 @Component({
@@ -17,40 +18,22 @@ const template = `
   imports: [ExtraProgressSpinnerComponent],
   template
 })
-export class ProgressSpinnerSizesComponent {
-  @Input() size: ExtraProgressSpinnerSize = 'xlarge';
-  @Input() fill: ExtraProgressSpinnerFill = 'primary';
-}
+export class ProgressSpinnerSizesComponent {}
 
 export const Sizes: StoryObj = {
-  render: (args) => ({
-    props: args,
-    template: `<app-progressspinner-sizes [size]="size" [fill]="fill"></app-progressspinner-sizes>`
+  render: () => ({
+    template: `<app-progressspinner-sizes></app-progressspinner-sizes>`
   }),
-  args: {
-    size: 'xlarge',
-    fill: 'primary'
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: {
-        story: 'Изменение размера спиннера. Используйте Controls для выбора других вариантов.'
-      },
+      description: { story: 'Размеры спиннера: 16 / 32 / 48 / 56px.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-progressspinner-sizes',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExtraProgressSpinnerComponent],
-  template: \`<extra-progressspinner size="xlarge"></extra-progressspinner>\`,
-})
-export class ProgressSpinnerSizesComponent {}
-        `
+        language: 'html',
+        code: `<extra-progressspinner size="small" ariaLabel="Загрузка"></extra-progressspinner>
+<extra-progressspinner size="base" ariaLabel="Загрузка"></extra-progressspinner>
+<extra-progressspinner size="large" ariaLabel="Загрузка"></extra-progressspinner>
+<extra-progressspinner size="xlarge" ariaLabel="Загрузка"></extra-progressspinner>`
       }
     }
   }

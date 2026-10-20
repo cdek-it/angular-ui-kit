@@ -9,6 +9,9 @@ export type ExtraProgressSpinnerFill = 'primary' | 'white';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProgressSpinner],
+  // CSS-правило дуги перебивает SVG-атрибут stroke-width, поэтому значение
+  // передаём ещё и переменной: без неё инпут не имел бы эффекта
+  host: { '[style.--extra-progressspinner-stroke-width]': 'strokeWidth' },
   template: `
     <p-progressSpinner
       [styleClass]="primeStyleClass"
@@ -22,7 +25,8 @@ export type ExtraProgressSpinnerFill = 'primary' | 'white';
 export class ExtraProgressSpinnerComponent {
   @Input() size: ExtraProgressSpinnerSize = 'base';
   @Input() fill: ExtraProgressSpinnerFill = 'primary';
-  @Input() strokeWidth = '2';
+  /** Толщина дуги; не задан — берётся из токена `progressspinner.root.borderWidth`. */
+  @Input() strokeWidth: string | undefined = undefined;
   @Input() circleFill = 'none';
   @Input() animationDuration = '2s';
   @Input() ariaLabel: string | undefined = undefined;
