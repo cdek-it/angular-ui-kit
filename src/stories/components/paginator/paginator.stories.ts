@@ -38,7 +38,7 @@ const meta: Meta<PaginatorArgs> = {
         component: `Отображает навигацию по страницам для больших наборов данных.
 
 \`\`\`typescript
-import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/paginator';
 \`\`\``
       }
     },

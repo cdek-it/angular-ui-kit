@@ -53,6 +53,16 @@ export const RU_TRANSLATION: Partial<Translation> = {
     unselectAll: 'Снять всё',
     trueLabel: 'Да',
     falseLabel: 'Нет',
-    nullLabel: 'Не выбрано'
+    nullLabel: 'Не выбрано',
+    // Пагинатор: PrimeNG берёт aria-label кнопок отсюда (getAriaLabel).
+    // Без этих ключей кнопки навигации остаются без доступного имени.
+    pageLabel: 'Страница {page}',
+    firstPageLabel: 'Первая страница',
+    prevPageLabel: 'Предыдущая страница',
+    nextPageLabel: 'Следующая страница',
+    lastPageLabel: 'Последняя страница',
+    jumpToPageInputLabel: 'Перейти к странице',
+    jumpToPageDropdownLabel: 'Выбор страницы',
+    rowsPerPageLabel: 'Элементов на странице'
   }
 };

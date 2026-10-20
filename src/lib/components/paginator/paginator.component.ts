@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 import type { PaginatorPassThrough, PaginatorState } from 'primeng/types/paginator';
 
@@ -7,6 +7,7 @@ export type ExtraPaginatorState = PaginatorState;
 @Component({
   selector: 'extra-paginator',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Paginator],
   template: `
     <p-paginator
@@ -47,13 +48,22 @@ export class ExtraPaginatorComponent {
   @Input() alwaysShow = true;
   @Output() onPageChange = new EventEmitter<ExtraPaginatorState>();
 
+  private _ptPlaceholder?: string;
+  private _pt: PaginatorPassThrough = {};
+
+  /** Пересобираем объект только при смене плейсхолдера: новый объект на каждую
+   *  проверку изменений заставлял PrimeNG переприменять pass-through каждый цикл. */
   get pt(): PaginatorPassThrough {
-    return {
-      pcJumpToPageInput: {
-        pcInputText: {
-          root: { placeholder: this.jumpToPagePlaceholder }
+    if (this._ptPlaceholder !== this.jumpToPagePlaceholder) {
+      this._ptPlaceholder = this.jumpToPagePlaceholder;
+      this._pt = {
+        pcJumpToPageInput: {
+          pcInputText: {
+            root: { placeholder: this.jumpToPagePlaceholder }
+          }
         }
-      }
-    };
+      };
+    }
+    return this._pt;
   }
 }
