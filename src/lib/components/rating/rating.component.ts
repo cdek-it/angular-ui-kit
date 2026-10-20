@@ -37,7 +37,7 @@ export interface ExtraRatingRateEvent {
         type="button"
         class="extra-rating-clear ti ti-ban"
         [disabled]="disabled"
-        [attr.aria-label]="'Сбросить оценку'"
+        [attr.aria-label]="clearAriaLabel"
         (click)="handleClear($event)"
       ></button>
     }
@@ -59,10 +59,16 @@ export class ExtraRatingComponent implements ControlValueAccessor {
   @Input() readonly = false;
   @Input() autofocus = false;
   @Input() clearable = false;
+  /** Метка кнопки сброса для скринридера; вынесена в инпут, чтобы строка не была
+   *  зашита в шаблон (у PrimeNG нет aria-ключа под неё). */
+  @Input() clearAriaLabel = 'Сбросить оценку';
 
   disabled = false;
 
   @Output() onRate = new EventEmitter<ExtraRatingRateEvent>();
+  /** Сброс оценки кнопкой: (rate) по спеке несёт выставленное значение, поэтому
+   *  очистка эмитится отдельным событием, иначе о ней нельзя узнать без модели. */
+  @Output() onClear = new EventEmitter<void>();
   @Output() onFocus = new EventEmitter<FocusEvent>();
   @Output() onBlur = new EventEmitter<FocusEvent>();
 
@@ -85,6 +91,7 @@ export class ExtraRatingComponent implements ControlValueAccessor {
     this.modelValue = null;
     this.onChange(null);
     this.onTouched();
+    this.onClear.emit();
   }
 
   writeValue(value: ExtraRatingValue): void {

@@ -53,6 +53,12 @@ export const RU_TRANSLATION: Partial<Translation> = {
     unselectAll: 'Снять всё',
     trueLabel: 'Да',
     falseLabel: 'Нет',
-    nullLabel: 'Не выбрано'
+    nullLabel: 'Не выбрано',
+    // Rating: PrimeNG берёт отсюда aria-label скрытых radio (starAriaLabel).
+    // Без этих ключей звёзды остаются безымянными полями формы.
+    // PrimeNG поддерживает только две формы (1 / много), а русскому нужно три
+    // («2 звезды», «5 звёзд»), поэтому формулировка без склоняемого существительного.
+    star: 'Оценка 1',
+    stars: 'Оценка {star}'
   }
 };

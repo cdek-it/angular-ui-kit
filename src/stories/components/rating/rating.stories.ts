@@ -13,7 +13,13 @@ const meta: Meta<RatingArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraRatingComponent, FormsModule, RatingReadonlyComponent, RatingDisabledComponent, RatingClearableComponent]
+      imports: [
+        ExtraRatingComponent,
+        FormsModule,
+        RatingReadonlyComponent,
+        RatingDisabledComponent,
+        RatingClearableComponent
+      ]
     })
   ],
   parameters: {
@@ -23,7 +29,7 @@ const meta: Meta<RatingArgs> = {
         component: `Компонент для отображения и выбора оценки в виде звёзд.
 
 \`\`\`typescript
-import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit/components/rating';
 \`\`\``
       }
     }
@@ -58,6 +64,7 @@ import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     autofocus: { table: { disable: true } },
+    clearAriaLabel: { table: { disable: true } },
 
     // ── События ───────────────────────────────────────────────
     onRate: {
@@ -66,6 +73,14 @@ import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'События',
         type: { summary: 'EventEmitter<ExtraRatingRateEvent>' }
+      }
+    },
+    onClear: {
+      control: false,
+      description: 'Событие сброса оценки кнопкой (clearable)',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
       }
     },
     onFocus: {
