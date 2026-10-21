@@ -7,10 +7,10 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <extra-input-group>
-    <extra-input-group-addon><i class="ti ti-map-pin"></i></extra-input-group-addon>
+  <extra-input-group addonPosition="both">
+    <extra-input-group-addon position="left" type="icon" icon="ti ti-map-pin"></extra-input-group-addon>
     <extra-input-text placeholder="Введите адрес..." [(ngModel)]="value"></extra-input-text>
-    <extra-input-group-addon><i class="ti ti-search"></i></extra-input-group-addon>
+    <extra-input-group-addon position="right" type="icon" icon="ti ti-search"></extra-input-group-addon>
   </extra-input-group>
 </div>
 `;
@@ -37,17 +37,17 @@ export const AddonBoth: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-inputgroup-addon-both',
   standalone: true,
-  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent, FormsModule],
+  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, FormsModule],
   template: \`
-    <extra-input-group>
-      <extra-input-group-addon><i class="ti ti-map-pin"></i></extra-input-group-addon>
+    <extra-input-group addonPosition="both">
+      <extra-input-group-addon position="left" type="icon" icon="ti ti-map-pin"></extra-input-group-addon>
       <extra-input-text placeholder="Введите адрес..." [(ngModel)]="value"></extra-input-text>
-      <extra-input-group-addon><i class="ti ti-search"></i></extra-input-group-addon>
+      <extra-input-group-addon position="right" type="icon" icon="ti ti-search"></extra-input-group-addon>
     </extra-input-group>
   \`,
 })
