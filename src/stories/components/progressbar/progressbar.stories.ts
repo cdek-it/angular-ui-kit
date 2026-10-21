@@ -90,6 +90,7 @@ export const Default: Story = {
     if (args.value != null && args.value !== 0) parts.push(`[value]="${args.value}"`);
     if (args.mode && args.mode !== 'determinate') parts.push(`mode="${args.mode}"`);
     if (!args.showValue) parts.push(`[showValue]="false"`);
+    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
 
     const template = parts.length
       ? `<extra-progressbar\n  ${parts.join('\n  ')}\n></extra-progressbar>`
