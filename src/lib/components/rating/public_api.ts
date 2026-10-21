@@ -1,4 +1,1 @@
 export * from './rating.component';
-
-
-
