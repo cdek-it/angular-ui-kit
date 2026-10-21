@@ -12,7 +12,7 @@ const options = [
 ];
 
 const template = `
-<extra-listbox [formControl]="ctrl" [options]="options" [filter]="true" filterPlaceHolder="Поиск..."></extra-listbox>
+<extra-listbox [formControl]="ctrl" [options]="options" [showFilter]="true" filterPlaceholder="Поиск..."></extra-listbox>
 `;
 const styles = '';
 
@@ -39,14 +39,14 @@ export const Filter: StoryObj = {
       source: {
         language: 'ts',
         code: `
- import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraListboxComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-listbox-filter',
   standalone: true,
   imports: [ExtraListboxComponent, ReactiveFormsModule],
   template: \`
-    <extra-listbox [formControl]="ctrl" [options]="options" [filter]="true" filterPlaceHolder="Поиск..."></extra-listbox>
+    <extra-listbox [formControl]="ctrl" [options]="options" [showFilter]="true" filterPlaceholder="Поиск..."></extra-listbox>
   \`,
 })
 export class ListboxFilterComponent {
