@@ -1,15 +1,17 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTabsComponent } from '../../../lib/components/tabs/tabs.component';
+import { ExtraTabItemComponent } from '../../../lib/components/tabs/tab-item.component';
+import { TabsDefaultComponent } from './examples/tabs-default.component';
 import { TabsWithBadgeComponent, WithBadge } from './examples/tabs-with-badge.component';
 import { TabsWithDisabledComponent, WithDisabled } from './examples/tabs-with-disabled.component';
 
-const meta: Meta<ExtraTabsComponent> = {
+const meta: Meta<TabsDefaultComponent> = {
   title: 'Components/Menu/Tabs',
-  component: ExtraTabsComponent,
+  component: TabsDefaultComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraTabsComponent, TabsWithBadgeComponent, TabsWithDisabledComponent]
+      imports: [ExtraTabsComponent, ExtraTabItemComponent, TabsDefaultComponent, TabsWithBadgeComponent, TabsWithDisabledComponent]
     })
   ],
   parameters: {
@@ -17,28 +19,23 @@ const meta: Meta<ExtraTabsComponent> = {
       description: {
         component: `Организует контент по вкладкам с возможностью переключения между ними.
 
+Реализовано по спецификации [tabs.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/tabs.md).
+
 \`\`\`typescript
-import { ExtraTabsComponent, ExtraTabItem } from '@cdek-it/angular-ui-kit';
-\`\`\``
+import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`
+
+Вкладки задаются дочерними компонентами \`<extra-tab-item>\`, содержимое панели — через их собственный content projection.`
       }
     },
     designTokens: { prefix: '--p-tabs' }
   },
   argTypes: {
-    value: {
-      control: 'text',
-      description: 'Значение активной вкладки',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: '0' },
-        type: { summary: 'string | number' }
-      }
-    },
     scrollable: {
       control: 'boolean',
       description: 'Включает горизонтальную прокрутку списка вкладок',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
@@ -47,58 +44,56 @@ import { ExtraTabsComponent, ExtraTabItem } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Ленивая инициализация панелей — содержимое рендерится только при первом открытии',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
-    },
-    tabs: {
-      control: 'object',
-      description: 'Массив вкладок',
-      table: {
-        category: 'Props',
-        type: { summary: 'ExtraTabItem[]' }
-      }
     }
+  },
+  args: {
+    scrollable: false,
+    lazy: false
   }
 };
 
 export default meta;
-type Story = StoryObj<ExtraTabsComponent>;
+type Story = StoryObj<TabsDefaultComponent>;
 
-// ── Default ───────────────────────────────────────────────────────────────────
-
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    parts.push(`value="${args.value}"`);
-    parts.push(`[tabs]="tabs"`);
-    if (args.scrollable) parts.push(`[scrollable]="true"`);
-    if (args.lazy) parts.push(`[lazy]="true"`);
-
-    const template = `<extra-tabs\n  ${parts.join('\n  ')}\n></extra-tabs>`;
-
-    return { props: args, template };
-  },
-  args: {
-    value: '0',
-    tabs: [
-      { value: '0', label: 'Tab 1', icon: 'ti ti-user', content: 'Tab 1 Content' },
-      { value: '1', label: 'Tab 2', icon: 'ti ti-settings', content: 'Tab 2 Content' },
-      { value: '2', label: 'Tab 3', icon: 'ti ti-bell', content: 'Tab 3 Content' }
-    ],
-    scrollable: false,
-    lazy: false
-  },
+  render: (args) => ({
+    props: args,
+    template: `<app-tabs-default [scrollable]="scrollable" [lazy]="lazy"></app-tabs-default>`
+  }),
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента с иконками. Используйте Controls для интерактивного изменения пропсов.'
+        story: 'Базовый пример с тремя вкладками и иконками. Используйте Controls для `scrollable`/`lazy`.',
+      },
+      source: {
+        language: 'ts',
+        code: `
+import { Component } from '@angular/core';
+import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
+
+@Component({
+  standalone: true,
+  imports: [ExtraTabsComponent, ExtraTabItemComponent],
+  template: \`
+    <extra-tabs>
+      <extra-tab-item name="Профиль" icon="ti ti-user">Данные профиля</extra-tab-item>
+      <extra-tab-item name="Настройки" icon="ti ti-settings">Параметры аккаунта</extra-tab-item>
+      <extra-tab-item name="Уведомления" icon="ti ti-bell">Настройки уведомлений</extra-tab-item>
+    </extra-tabs>
+  \`,
+})
+export class ExampleComponent {}
+        `
       }
     }
   }
 };
 
+// ── Комбинаторные истории ──────────────────────────────────────────────────
 export { WithBadge, WithDisabled };
