@@ -7,7 +7,7 @@ type Story = StoryObj<ExtraInputNumberComponent>;
 export const Currency: Story = {
   name: 'Currency',
   render: () => {
-    const control = new FormControl<number | null>(null);
+    const control = new FormControl<number | null>(1250);
     return {
       props: { control },
       template: `
