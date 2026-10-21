@@ -104,6 +104,7 @@ export class ExtraListboxComponent implements ControlValueAccessor {
   @Input() emptyMessage: string | undefined = undefined;
   @ContentChild(ExtraListboxItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 
+  @Output() onChange = new EventEmitter<ExtraListboxChangeEvent>();
   @Output() onFilter = new EventEmitter<ExtraListboxFilterEvent>();
   @Output() onSelectAll = new EventEmitter<ExtraListboxSelectAllChangeEvent>();
   @Output() onFocus = new EventEmitter<FocusEvent>();
@@ -122,6 +123,7 @@ export class ExtraListboxComponent implements ControlValueAccessor {
   onChangeHandler(event: ExtraListboxChangeEvent): void {
     this.modelValue = event.value;
     this._onChange(event.value);
+    this.onChange.emit(event);
   }
 
   onBlurHandler(event: FocusEvent): void {

@@ -141,6 +141,14 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
       }
     },
     // ── События ───────────────────────────────────────────────
+    onChange: {
+      control: false,
+      description: 'Событие изменения выбора',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraListboxChangeEvent>' }
+      }
+    },
     onFilter: {
       control: false,
       description: 'Событие фильтрации',
