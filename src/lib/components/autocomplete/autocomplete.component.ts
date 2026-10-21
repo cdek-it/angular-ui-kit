@@ -137,9 +137,13 @@ let nextInputId = 0;
             </div>
           </ng-template>
         }
-        @if (chipIcon) {
-          <ng-template pTemplate="removeicon">
-            <i [class]="chipIcon"></i>
+        <!-- Пустой removeicon прячет крестик и снимает с него обработчик: у p-chip внутри
+             p-autocomplete [removable] захардкожен в true, иначе chipClearable не выключить. -->
+        @if (chipIcon || !chipClearable) {
+          <ng-template pTemplate="removetokenicon">
+            @if (chipClearable) {
+              <i [class]="chipIcon"></i>
+            }
           </ng-template>
         }
       </p-autocomplete>
