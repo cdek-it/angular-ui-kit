@@ -5,7 +5,7 @@ import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.c
 
 const template = `
 <div class="bg-surface-ground">
-  <extra-slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></extra-slider>
+  <extra-slider [min]="0" [max]="100" [step]="10" ariaLabel="Масштаб" [(ngModel)]="value"></extra-slider>
 </div>
 `;
 const styles = '';
@@ -27,27 +27,12 @@ export const Step: StoryObj = {
     template: `<app-slider-step></app-slider-step>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Слайдер с шагом изменения значения.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-step',
-  standalone: true,
-  imports: [ExtraSliderComponent, FormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <extra-slider [min]="0" [max]="100" [step]="10" [(ngModel)]="value"></extra-slider>
-  \`,
-})
-export class SliderStepComponent {
-  value = 50;
-}
-        `
+        language: 'html',
+        code: `<extra-slider [min]="0" [max]="100" [step]="10" ariaLabel="Масштаб" [(ngModel)]="value"></extra-slider>`
       }
     }
   }

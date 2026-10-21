@@ -1,25 +1,31 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import { MeterGroup, MeterItem } from 'primeng/metergroup';
-import { MultiSelect } from 'primeng/multiselect';
+import { MeterGroup } from 'primeng/metergroup';
 
 export type ExtraMeterGroupOrientation = 'horizontal' | 'vertical';
 export type ExtraMeterGroupLabelPosition = 'start' | 'end';
 export type ExtraMeterGroupLabelOrientation = 'horizontal' | 'vertical';
-export type ExtraMeterItem = MeterItem;
+
+export interface ExtraMeterItem {
+  label?: string;
+  value?: number;
+  color?: string;
+  icon?: string;
+}
 
 @Component({
   selector: 'extra-metergroup',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MeterGroup, MultiSelect],
+  imports: [MeterGroup],
   template: `
     <p-metergroup
       [value]="value"
       [orientation]="orientation"
       [labelPosition]="labelPosition"
       [labelOrientation]="labelOrientation"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.aria-labelledby]="ariaLabelledBy || null"
     ></p-metergroup>
-    <p-multiselect></p-multiselect>
   `
 })
 export class ExtraMeterGroupComponent {
@@ -27,6 +33,9 @@ export class ExtraMeterGroupComponent {
   @Input() orientation: ExtraMeterGroupOrientation = 'horizontal';
   @Input() labelPosition: ExtraMeterGroupLabelPosition = 'end';
   @Input() labelOrientation: ExtraMeterGroupLabelOrientation = 'horizontal';
+  /** Доступное имя: у корня role="meter", без имени его не прочитает скринридер. */
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
 
   @HostBinding('style.display') get hostDisplay() {
     return this.orientation === 'vertical' ? 'flex' : null;

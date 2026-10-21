@@ -4,8 +4,13 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
-<div class="bg-surface-ground" style="height: 220px">
-  <extra-slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></extra-slider>
+<div class="bg-surface-ground flex items-center justify-center" style="height: 240px; width: 320px">
+  <extra-slider
+    orientation="vertical"
+    ariaLabel="Яркость"
+    [(ngModel)]="value"
+    style="height: 200px"
+  ></extra-slider>
 </div>
 `;
 const styles = '';
@@ -27,29 +32,14 @@ export const Vertical: StoryObj = {
     template: `<app-slider-vertical></app-slider-vertical>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Слайдер с вертикальной ориентацией.' },
+      description: {
+        story: 'Слайдер с вертикальной ориентацией — высота задаётся на `<extra-slider>`.'
+      },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-slider-vertical',
-  standalone: true,
-  imports: [ExtraSliderComponent, FormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <div style="height: 220px">
-      <extra-slider orientation="vertical" [(ngModel)]="value" style="height: 200px"></extra-slider>
-    </div>
-  \`,
-})
-export class SliderVerticalComponent {
-  value = 50;
-}
-        `
+        language: 'html',
+        code: `<extra-slider orientation="vertical" ariaLabel="Яркость" [(ngModel)]="value" style="height: 200px"></extra-slider>`
       }
     }
   }
