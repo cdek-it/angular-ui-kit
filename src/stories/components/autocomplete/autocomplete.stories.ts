@@ -1,5 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraAutoCompleteComponent } from '../../../lib/components/autocomplete/autocomplete.component';
 import { AutoCompleteDropdownComponent, Dropdown } from './examples/autocomplete-dropdown.component';
 import { AutoCompleteMultipleComponent, Multiple } from './examples/autocomplete-multiple.component';
@@ -31,6 +31,7 @@ const meta: Meta<AutoCompleteArgs> = {
       imports: [
         ExtraAutoCompleteComponent,
         ReactiveFormsModule,
+        FormsModule,
         AutoCompleteDropdownComponent,
         AutoCompleteMultipleComponent,
         AutoCompleteObjectsComponent,
