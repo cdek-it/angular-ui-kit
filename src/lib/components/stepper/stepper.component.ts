@@ -22,18 +22,24 @@ export type ExtraStepperOrientation = 'horizontal' | 'vertical';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'extraStepper',
+  host: { '[class.extra-stepper--no-line]': '!line' },
+  styles: [
+    `
+      /* Соединительную линию рисует сам p-step (горизонталь) или p-stepper-separator (вертикаль). */
+      :host(.extra-stepper--no-line) ::ng-deep .p-stepper-separator {
+        display: none;
+      }
+    `
+  ],
   imports: [Stepper, StepList, Step, StepItem, StepPanels, StepPanel, StepperSeparator, NgClass, NgTemplateOutlet],
   template: `
     <p-stepper [value]="value" [linear]="linear" (valueChange)="onValueChange($event)">
       @if (orientation === 'horizontal') {
         <p-step-list>
-          @for (item of items; track item; let i = $index; let last = $last) {
+          @for (item of items; track item; let i = $index) {
             <p-step [value]="i + 1" [disabled]="item.disabled" [ngClass]="stateClass(item)">
               <ng-template #content let-activateCallback="activateCallback">
                 <ng-container [ngTemplateOutlet]="stepHeaderTpl" [ngTemplateOutletContext]="{ item, index: i, activateCallback }" />
-                @if (!last && line) {
-                  <p-stepper-separator />
-                }
               </ng-template>
             </p-step>
           }
@@ -53,7 +59,7 @@ export type ExtraStepperOrientation = 'horizontal' | 'vertical';
             <p-step [value]="i + 1" [disabled]="item.disabled" [ngClass]="stateClass(item)">
               <ng-template #content let-activateCallback="activateCallback">
                 <ng-container [ngTemplateOutlet]="stepHeaderTpl" [ngTemplateOutletContext]="{ item, index: i, activateCallback }" />
-                @if (!last && line) {
+                @if (!last) {
                   <p-stepper-separator />
                 }
               </ng-template>
