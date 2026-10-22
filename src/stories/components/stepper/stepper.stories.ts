@@ -1,140 +1,100 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraStepperComponent } from '../../../lib/components/stepper/stepper.component';
-import { StepperVerticalComponent, Vertical as VerticalStory } from './examples/stepper-vertical.component';
-import { Linear as LinearStory, StepperLinearComponent } from './examples/stepper-linear.component';
-import { StepperStepsOnlyComponent, StepsOnly as StepsOnlyStory } from './examples/stepper-steps-only.component';
-import { Error as ErrorStory, StepperErrorComponent } from './examples/stepper-error.component';
+import { ExtraStepperItemComponent } from '../../../lib/components/stepper/stepper-item.component';
+import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
+import { StepperDefaultComponent } from './examples/stepper-default.component';
+import { StepperVerticalComponent, Vertical } from './examples/stepper-vertical.component';
+import { StepperLinearComponent, Linear } from './examples/stepper-linear.component';
+import { StepperStatesComponent, States } from './examples/stepper-states.component';
 
-type StepperArgs = ExtraStepperComponent;
-
-const meta: Meta<StepperArgs> = {
+const meta: Meta<StepperDefaultComponent> = {
   title: 'Components/Panel/Stepper',
-  component: ExtraStepperComponent,
+  component: StepperDefaultComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
         ExtraStepperComponent,
+        ExtraStepperItemComponent,
+        ExtraButtonComponent,
+        StepperDefaultComponent,
         StepperVerticalComponent,
         StepperLinearComponent,
-        StepperStepsOnlyComponent,
-        StepperErrorComponent
+        StepperStatesComponent
       ]
     })
   ],
   parameters: {
     docs: {
       description: {
-        component: `Пошаговый навигационный компонент для отображения прогресса через последовательность шагов.
+        component: `Мастер пошаговых действий (wizard): последовательность этапов с индикатором и панелью контента.
+
+Реализовано по спецификации [stepper.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/stepper.md).
 
 \`\`\`typescript
-import { ExtraStepperComponent, StepperItem } from '@cdek-it/angular-ui-kit';
-\`\`\``
+import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angular-ui-kit';
+\`\`\`
+
+Шаги задаются дочерними компонентами \`<extra-stepper-item>\`, содержимое панели — через их собственный content projection. Для навигации используйте \`#stepper="extraStepper"\` и \`stepper.next()\`/\`stepper.prev()\`.`
       }
     },
     designTokens: { prefix: '--p-stepper' }
   },
   argTypes: {
-    value: {
-      control: 'number',
-      description: 'Значение активного шага',
+    orientation: {
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
+      description: 'Ориентация степпера',
       table: {
-        category: 'Props',
-        defaultValue: { summary: '1' },
-        type: { summary: 'number | undefined' }
+        category: 'Свойства',
+        defaultValue: { summary: "'horizontal'" },
+        type: { summary: "'horizontal' | 'vertical'" }
+      }
+    },
+    line: {
+      control: 'boolean',
+      description: 'Соединительная линия между заголовками шагов',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' }
       }
     },
     linear: {
       control: 'boolean',
       description: 'Запрещает переход к следующему шагу без завершения текущего',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
-    },
-    orientation: {
-      control: 'radio',
-      options: ['horizontal', 'vertical'],
-      description: 'Ориентация степпера',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'horizontal' },
-        type: { summary: "'horizontal' | 'vertical'" }
-      }
-    },
-    showPanels: {
-      control: 'boolean',
-      description: 'Показывать панели контента',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
-      }
-    },
-    steps: {
-      control: 'object',
-      description: 'Массив шагов',
-      table: {
-        category: 'Props',
-        type: { summary: 'StepperItem[]' }
-      }
     }
+  },
+  args: {
+    orientation: 'horizontal',
+    line: true,
+    linear: false
   }
 };
 
 export default meta;
-type Story = StoryObj<StepperArgs>;
+type Story = StoryObj<StepperDefaultComponent>;
 
-// ── Default (Horizontal) ─────────────────────────────────────────────────────
-
+// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
-  name: 'Horizontal',
-  render: (args) => {
-    const parts: string[] = [];
-
-    parts.push(`[value]="value"`);
-    parts.push(`[steps]="steps"`);
-    if (args.linear) parts.push(`[linear]="true"`);
-    if (args.orientation === 'vertical') parts.push(`orientation="vertical"`);
-    if (!args.showPanels) parts.push(`[showPanels]="false"`);
-
-    const template = `<extra-stepper\n  ${parts.join('\n  ')}\n></extra-stepper>`;
-
-    return { props: args, template };
-  },
-  args: {
-    value: 1,
-    steps: [
-      { value: 1, label: 'Stepper', caption: 'caption', content: 'Step 1 Content' },
-      { value: 2, label: 'Stepper', caption: 'caption', content: 'Step 2 Content' },
-      { value: 3, label: 'Stepper', caption: 'caption', content: 'Step 3 Content' }
-    ],
-    linear: false,
-    orientation: 'horizontal',
-    showPanels: true
-  },
+  name: 'Default',
+  render: (args) => ({
+    props: args,
+    template: `<app-stepper-default [orientation]="orientation" [line]="line" [linear]="linear"></app-stepper-default>`
+  }),
   parameters: {
     docs: {
       description: {
-        story: 'Горизонтальный степпер. Используйте Controls для интерактивного изменения пропсов.'
+        story: 'Три шага с навигацией «Назад»/«Вперёд» через `#stepper="extraStepper"`. Используйте Controls для `orientation`/`line`/`linear`.'
       }
     }
   }
 };
 
-// ── Vertical ──────────────────────────────────────────────────────────────────
-
-export const Vertical: Story = VerticalStory;
-
-// ── Linear ────────────────────────────────────────────────────────────────────
-
-export const Linear: Story = LinearStory;
-
-// ── StepsOnly ─────────────────────────────────────────────────────────────────
-
-export const StepsOnly: Story = StepsOnlyStory;
-
-// ── Error ─────────────────────────────────────────────────────────────────────
-
-export const Error: Story = ErrorStory;
+// ── Комбинаторные истории ──────────────────────────────────────────────────
+export { Vertical, Linear, States };
