@@ -23,7 +23,7 @@ interface City {
         [(ngModel)]="value"
       ></extra-auto-complete>
     </div>
-  `,
+  `
 })
 export class AutoCompleteObjectsComponent {
   value: City | null = null;
@@ -32,24 +32,24 @@ export class AutoCompleteObjectsComponent {
     { name: 'Санкт-Петербург', code: 'SPB' },
     { name: 'Новосибирск', code: 'NSK' },
     { name: 'Екатеринбург', code: 'EKB' },
-    { name: 'Казань', code: 'KZN' },
+    { name: 'Казань', code: 'KZN' }
   ];
   filtered: City[] = [];
 
   search(event: any): void {
-    this.filtered = this.items.filter(item =>
-      item.name.toLowerCase().includes((event.query || '').toLowerCase())
-    );
+    this.filtered = this.items.filter((item) => item.name.toLowerCase().includes((event.query || '').toLowerCase()));
   }
 }
 
 export const Objects: StoryObj = {
   render: () => ({
-    template: `<app-autocomplete-objects></app-autocomplete-objects>`,
+    template: `<app-autocomplete-objects></app-autocomplete-objects>`
   }),
   parameters: {
     docs: {
-      description: { story: 'Работа с объектами через `optionLabel` и `forceSelection` для строгого выбора из списка.' },
+      description: {
+        story: 'Работа с объектами через `optionLabel` и `forceSelection` для строгого выбора из списка.'
+      },
       source: {
         language: 'ts',
         code: `
@@ -92,8 +92,8 @@ export class AutoCompleteObjectsComponent {
     );
   }
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
