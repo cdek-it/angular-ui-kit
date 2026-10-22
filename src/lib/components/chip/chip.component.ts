@@ -12,7 +12,8 @@ import { Chip } from 'primeng/chip';
       [icon]="icon"
       [removable]="removable"
       [disabled]="disabled"
-      (onRemove)="onRemove.emit($event)"
+      [attr.aria-disabled]="disabled ? true : null"
+      (onRemove)="remove()"
     ></p-chip>
   `
 })
@@ -21,5 +22,12 @@ export class ExtraChipComponent {
   @Input() icon = '';
   @Input() removable = false;
   @Input() disabled = false;
-  @Output() onRemove = new EventEmitter<MouseEvent>();
+
+  @Output() onRemove = new EventEmitter<void>();
+
+  /** Клик по кнопке удаления: эмитит onRemove, рендером чипа управляет родитель. */
+  remove(): void {
+    if (this.disabled) return;
+    this.onRemove.emit();
+  }
 }
