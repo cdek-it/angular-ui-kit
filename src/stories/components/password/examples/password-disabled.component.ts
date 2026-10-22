@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <extra-password [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></extra-password>
+  <extra-password [formControl]="passwordControl" placeholder="Отключено"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-disabled',
   standalone: true,
-  imports: [ExtraPasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, ReactiveFormsModule],
   template
 })
 export class PasswordDisabledComponent {
-  value: string | null = 'secret123';
+  passwordControl = new FormControl({ value: 'secret123', disabled: true });
 }
 
 export const Disabled: StoryObj = {
@@ -25,22 +25,27 @@ export const Disabled: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Поле ввода пароля в отключённом состоянии.' },
+      description: {
+        story:
+          'Поле ввода пароля в отключённом состоянии. `disabled` не публичный `@Input()`, отключается через форму (`disabled: true` в `FormControl`), см. `ControlValueAccessor.setDisabledState`.'
+      },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-disabled',
   standalone: true,
-  imports: [ExtraPasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, ReactiveFormsModule],
   template: \`
-    <extra-password [disabled]="true" [(ngModel)]="value" placeholder="Отключено"></extra-password>
+    <extra-password [formControl]="passwordControl" placeholder="Отключено"></extra-password>
   \`,
 })
 export class PasswordDisabledComponent {
-  value: string | null = 'secret123';
+  passwordControl = new FormControl({ value: 'secret123', disabled: true });
 }
         `
       }

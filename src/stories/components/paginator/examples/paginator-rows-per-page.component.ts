@@ -8,7 +8,7 @@ const template = `
   [rows]="rows"
   [totalRecords]="120"
   [rowsPerPageOptions]="[10, 20, 30]"
-  [showJumpToPageInput]="true"
+  [showJumpToPage]="true"
   (onPageChange)="onPageChange($event)"
 ></extra-paginator>
 `;
@@ -55,7 +55,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       [rows]="rows"
       [totalRecords]="120"
       [rowsPerPageOptions]="[10, 20, 30]"
-      [showJumpToPageInput]="true"
+      [showJumpToPage]="true"
       (onPageChange)="onPageChange($event)"
     ></extra-paginator>
   \`,

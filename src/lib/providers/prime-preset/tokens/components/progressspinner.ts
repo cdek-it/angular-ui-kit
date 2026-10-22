@@ -1,6 +1,6 @@
 export const progressspinnerCss = ({ dt }: { dt: (token: string) => string }): string => `
 .p-progressspinner-circle {
-  stroke-width: ${dt('progressspinner.root.borderWidth')};
+  stroke-width: var(--extra-progressspinner-stroke-width, ${dt('progressspinner.root.borderWidth')});
 }
 
 /* multicolor false */

@@ -28,7 +28,11 @@ updated: '2026-06-22'
 | `labelPosition` | `'start' \| 'end'` | `'end'` | Позиция блока подписей относительно шкалы — соответствует Figma-свойству `label-position` |
 | `labelOrientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка списка подписей — соответствует Figma-свойству `label-orientation` |
 
-Тип `ExtraMeterItem` реэкспортирует PrimeNG `MeterItem`: поле `value` (число) обязательно, поля `label`, `color` и `icon` опциональны. CSS-классы иконок берутся из справочника [icons.md](../../figma-code-connect/icons.md), цвета сегментов — из токенов [tokens.md](../../figma-code-connect/tokens.md).
+Тип `ExtraMeterItem` — собственный интерфейс (поля `label`, `value`, `color`, `icon`, структурно
+совпадает с PrimeNG `MeterItem`, но не реэкспортирует его напрямую — публичное API не должно течь
+из PrimeNG, см. раздел «Общее направление проекта» в корневом `CLAUDE.md`). CSS-классы иконок
+берутся из справочника [icons.md](../../figma-code-connect/icons.md), цвета сегментов — из токенов
+[tokens.md](../../figma-code-connect/tokens.md).
 
 ## Variants
 

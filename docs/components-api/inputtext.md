@@ -13,4 +13,5 @@
 | `caption`        | текст пояснения под полем                                               | `string`                   |
 | `info`           | текст с доп. информацией (показывается в тултипе иконки ti-info-circle) | `string`                   |
 | `size`           | размер поля                                                             | `small \| base \| large \| xlarge` |
+| `fluid`          | растягивает поле на всю ширину контейнера                               | `boolean`                  |
 | `type`           | тип поля input                                                          | `text \| password`         |

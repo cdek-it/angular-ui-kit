@@ -11,12 +11,8 @@ const meta: Meta<ProgressBarArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraProgressBarComponent,
-        ProgressBarIndeterminateComponent,
-        ProgressBarNoLabelComponent,
-      ],
-    }),
+      imports: [ExtraProgressBarComponent, ProgressBarIndeterminateComponent, ProgressBarNoLabelComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -24,50 +20,61 @@ const meta: Meta<ProgressBarArgs> = {
         component: `Информирует пользователя о статусе длительного процесса.
 
 \`\`\`typescript
-import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/progressbar';
+\`\`\``
+      }
     },
     designTokens: {
-      prefix: '--p-progressbar',
-    },
+      prefix: '--p-progressbar'
+    }
   },
   argTypes: {
     value: {
       control: { type: 'number', min: 0, max: 100 },
       description: 'Значение прогресса (0–100)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '0' },
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     mode: {
       control: 'select',
       options: ['determinate', 'indeterminate'],
       description: 'Режим отображения',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'determinate' },
-        type: { summary: "'determinate' | 'indeterminate'" },
-      },
+        type: { summary: "'determinate' | 'indeterminate'" }
+      }
     },
     showValue: {
       control: 'boolean',
       description: 'Отображать числовое значение',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
-  },
+    ariaLabel: {
+      control: 'text',
+      description: 'Доступное имя индикатора — у корня role="progressbar", без имени его не прочитает скринридер',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string | undefined' }
+      }
+    },
+    ariaLabelledBy: { table: { disable: true } }
+  }
 };
 
 const commonTemplate = `<extra-progressbar
   [value]="value"
   [mode]="mode"
   [showValue]="showValue"
+  [ariaLabel]="ariaLabel"
 ></extra-progressbar>`;
 
 export default meta;
@@ -83,6 +90,7 @@ export const Default: Story = {
     if (args.value != null && args.value !== 0) parts.push(`[value]="${args.value}"`);
     if (args.mode && args.mode !== 'determinate') parts.push(`mode="${args.mode}"`);
     if (!args.showValue) parts.push(`[showValue]="false"`);
+    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
 
     const template = parts.length
       ? `<extra-progressbar\n  ${parts.join('\n  ')}\n></extra-progressbar>`
@@ -94,14 +102,15 @@ export const Default: Story = {
     value: 50,
     mode: 'determinate',
     showValue: true,
+    ariaLabel: 'Загрузка данных'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      }
+    }
+  }
 };
 
 // ── Stories ──────────────────────────────────────────────────────────────────
@@ -111,6 +120,7 @@ export const Indeterminate: Story = {
   args: {
     mode: 'indeterminate',
     showValue: true,
+    ariaLabel: 'Загрузка данных'
   },
   parameters: {
     docs: {
@@ -119,6 +129,7 @@ export const Indeterminate: Story = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
+import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/progressbar';
 
 @Component({
   selector: 'app-progressbar-indeterminate',
@@ -130,10 +141,10 @@ import { Component } from '@angular/core';
     </div>
   \`,
 })
-export class ProgressBarIndeterminateComponent {}`,
-      },
-    },
-  },
+export class ProgressBarIndeterminateComponent {}`
+      }
+    }
+  }
 };
 
 export const NoLabel: Story = {
@@ -142,6 +153,7 @@ export const NoLabel: Story = {
     value: 60,
     mode: 'determinate',
     showValue: false,
+    ariaLabel: 'Загрузка данных'
   },
   parameters: {
     docs: {
@@ -149,6 +161,8 @@ export const NoLabel: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/progressbar';
 
 @Component({
   selector: 'app-progressbar-no-label',
@@ -160,8 +174,8 @@ export const NoLabel: Story = {
     </div>
   \`,
 })
-export class ProgressBarNoLabelComponent {}`,
-      },
-    },
-  },
+export class ProgressBarNoLabelComponent {}`
+      }
+    }
+  }
 };

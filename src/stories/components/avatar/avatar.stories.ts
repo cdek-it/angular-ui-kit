@@ -1,5 +1,4 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { OverlayBadge } from 'primeng/overlaybadge';
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '../../../lib/components/avatar/avatar.component';
 
 const meta: Meta<ExtraAvatarComponent> = {
@@ -8,13 +7,15 @@ const meta: Meta<ExtraAvatarComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent, OverlayBadge]
+      imports: [ExtraAvatarComponent, ExtraAvatarGroupComponent]
     })
   ],
   parameters: {
     docs: {
       description: {
-        component: `Аватар представляет пользователя или сущность. Может содержать текст, иконку или изображение. [PrimeNG Avatar](https://primeng.org/avatar).
+        component: `Аватар представляет пользователя или сущность. Может содержать текст, иконку или изображение, а также значок (\`badge\`).
+
+Реализован по спецификации \`docs/components-api/avatar.md\`.
 
 \`\`\`typescript
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angular-ui-kit';
@@ -24,12 +25,12 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
     designTokens: { prefix: '--p-avatar' }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
+    // ── Свойства ─────────────────────────────────────────────
     label: {
       control: 'text',
       description: 'Текст внутри аватара',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
@@ -38,7 +39,7 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       control: 'text',
       description: 'CSS-класс иконки (например: ti ti-user)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
@@ -47,7 +48,7 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       control: 'text',
       description: 'URL изображения',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
@@ -57,7 +58,7 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       options: ['base', 'large', 'xlarge'],
       description: 'Размер аватара',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'base' },
         type: { summary: "'base' | 'large' | 'xlarge'" }
       }
@@ -67,11 +68,34 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       options: ['square', 'circle'],
       description: 'Форма аватара',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'square' },
         type: { summary: "'square' | 'circle'" }
       }
-    }
+    },
+    badge: {
+      control: 'text',
+      description: 'Текст/число значка; при задании аватар оборачивается в p-overlay-badge',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string | undefined' }
+      }
+    },
+    severity: {
+      control: 'select',
+      options: ['primary', 'success', 'info', 'warning', 'danger'],
+      description: 'Цветовая схема значка (при заданном badge)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'primary'" },
+        type: { summary: "'primary' | 'success' | 'info' | 'warning' | 'danger'" }
+      }
+    },
+    // Hidden computed props
+    hostClass: { table: { disable: true } },
+    primeSize: { table: { disable: true } },
+    primeSeverity: { table: { disable: true } }
   }
 };
 
@@ -82,6 +106,8 @@ const commonTemplate = `
   [image]="image"
   [size]="size"
   [shape]="shape"
+  [badge]="badge"
+  [severity]="severity"
 ></extra-avatar>
 `;
 
@@ -100,17 +126,22 @@ export const Default: Story = {
     if (args.image) parts.push(`image="${args.image}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.shape && args.shape !== 'square') parts.push(`shape="${args.shape}"`);
+    if (args.badge) parts.push(`badge="${args.badge}"`);
+    if (args.severity && args.severity !== 'primary') parts.push(`severity="${args.severity}"`);
 
+    // Фолбэк без атрибутов, а не с label="A": иначе очистка контрола label молча
+    // возвращала бы «A», и контрол выглядел бы рабочим, ничего не меняя.
     const template = parts.length
       ? `<extra-avatar\n  ${parts.join('\n  ')}\n></extra-avatar>`
-      : `<extra-avatar label="A"></extra-avatar>`;
+      : `<extra-avatar></extra-avatar>`;
 
     return { props: args, template };
   },
   args: {
     label: 'A',
     size: 'base',
-    shape: 'square'
+    shape: 'square',
+    severity: 'primary'
   },
   parameters: {
     docs: {
@@ -159,7 +190,9 @@ export const Image: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Аватар с изображением. shape="square" — без обрезки, shape="circle" — с обрезкой по кругу.'
+        story:
+          'Аватар с изображением. Картинка вставляется как заливка блока и обрезается по его форме: ' +
+          'shape="square" — по скруглённому квадрату, shape="circle" — по кругу.'
       },
       source: {
         code: `<extra-avatar image="/assets/images/avatar/avatar.png"></extra-avatar>`
@@ -170,14 +203,26 @@ export const Image: Story = {
 
 // ── Sizes ────────────────────────────────────────────────────────────────────
 
+// Три размера рядом: смысл истории в сравнении, с одним аватаром сравнивать не с чем.
+// items-end — выравнивание по нижней границе, иначе разные размеры «плавают» по центру.
 export const Sizes: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { label: 'L', size: 'large', shape: 'square' },
+  render: () => ({
+    template: `
+      <div class="flex items-end gap-4">
+        <extra-avatar label="M"></extra-avatar>
+        <extra-avatar label="L" size="large"></extra-avatar>
+        <extra-avatar label="XL" size="xlarge"></extra-avatar>
+      </div>
+    `
+  }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Размер аватара. Доступны: base, large, xlarge.' },
+      description: { story: 'Размеры аватара — base (по умолчанию), large и xlarge, показаны рядом для сравнения.' },
       source: {
-        code: `<extra-avatar label="L" size="large"></extra-avatar>`
+        code: `<extra-avatar label="M"></extra-avatar>
+<extra-avatar label="L" size="large"></extra-avatar>
+<extra-avatar label="XL" size="xlarge"></extra-avatar>`
       }
     }
   }
@@ -185,14 +230,23 @@ export const Sizes: Story = {
 
 // ── Shapes ───────────────────────────────────────────────────────────────────
 
+// Обе формы рядом — история про выбор между ними, а не про одну из них.
 export const Shapes: Story = {
-  render: (args) => ({ props: args, template: commonTemplate }),
-  args: { label: 'C', size: 'base', shape: 'circle' },
+  render: () => ({
+    template: `
+      <div class="flex items-center gap-4">
+        <extra-avatar label="S"></extra-avatar>
+        <extra-avatar label="C" shape="circle"></extra-avatar>
+      </div>
+    `
+  }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Форма аватара. circle — круглый, square — квадратный (по умолчанию).' },
+      description: { story: 'Формы аватара — square (по умолчанию) и circle, показаны рядом для сравнения.' },
       source: {
-        code: `<extra-avatar label="C" shape="circle"></extra-avatar>`
+        code: `<extra-avatar label="S"></extra-avatar>
+<extra-avatar label="C" shape="circle"></extra-avatar>`
       }
     }
   }
@@ -216,6 +270,7 @@ export const Group: Story = {
     `
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: { story: 'Группа аватаров с перекрытием.' },
       source: {
@@ -234,19 +289,14 @@ export const Group: Story = {
 export const LabelWithBadge: Story = {
   render: (args) => ({
     props: args,
-    template: `
-      <p-overlay-badge value="4" severity="danger">
-        <extra-avatar label="U" size="xlarge"></extra-avatar>
-      </p-overlay-badge>
-    `
+    template: `<extra-avatar label="U" size="xlarge" badge="4" severity="danger"></extra-avatar>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Аватар с текстовой меткой и бейджем через OverlayBadge.' },
+      description: { story: 'Аватар с текстовой меткой и бейджем (`badge` + `severity`).' },
       source: {
-        code: `<p-overlay-badge value="4" severity="danger">
-  <extra-avatar label="U" size="xlarge"></extra-avatar>
-</p-overlay-badge>`
+        code: `<extra-avatar label="U" size="xlarge" badge="4" severity="danger"></extra-avatar>`
       }
     }
   }
@@ -257,19 +307,14 @@ export const LabelWithBadge: Story = {
 export const IconWithBadge: Story = {
   render: (args) => ({
     props: args,
-    template: `
-      <p-overlay-badge value="8" severity="success">
-        <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
-      </p-overlay-badge>
-    `
+    template: `<extra-avatar icon="ti ti-user" size="xlarge" badge="8" severity="success"></extra-avatar>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Аватар с иконкой и бейджем через OverlayBadge.' },
+      description: { story: 'Аватар с иконкой и бейджем (`badge` + `severity`).' },
       source: {
-        code: `<p-overlay-badge value="8" severity="success">
-  <extra-avatar icon="ti ti-user" size="xlarge"></extra-avatar>
-</p-overlay-badge>`
+        code: `<extra-avatar icon="ti ti-user" size="xlarge" badge="8" severity="success"></extra-avatar>`
       }
     }
   }
@@ -280,19 +325,14 @@ export const IconWithBadge: Story = {
 export const ImageWithBadge: Story = {
   render: (args) => ({
     props: args,
-    template: `
-      <p-overlay-badge value="8" severity="success">
-        <extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge"></extra-avatar>
-      </p-overlay-badge>
-    `
+    template: `<extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge" badge="8" severity="success"></extra-avatar>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
-      description: { story: 'Аватар с изображением и бейджем через OverlayBadge.' },
+      description: { story: 'Аватар с изображением и бейджем (`badge` + `severity`).' },
       source: {
-        code: `<p-overlay-badge value="8" severity="success">
-  <extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge"></extra-avatar>
-</p-overlay-badge>`
+        code: `<extra-avatar image="/assets/images/avatar/avatar.png" size="xlarge" badge="8" severity="success"></extra-avatar>`
       }
     }
   }
