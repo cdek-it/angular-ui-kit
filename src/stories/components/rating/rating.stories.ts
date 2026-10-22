@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ExtraRatingComponent } from '../../../lib/components/rating/rating.component';
 import { RatingReadonlyComponent, ReadOnly } from './examples/rating-readonly.component';
 import { Disabled, RatingDisabledComponent } from './examples/rating-disabled.component';
+import { Clearable, RatingClearableComponent } from './examples/rating-clearable.component';
 
 type RatingArgs = ExtraRatingComponent;
 
@@ -12,24 +13,34 @@ const meta: Meta<RatingArgs> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraRatingComponent, FormsModule, RatingReadonlyComponent, RatingDisabledComponent]
+      imports: [
+        ExtraRatingComponent,
+        FormsModule,
+        RatingReadonlyComponent,
+        RatingDisabledComponent,
+        RatingClearableComponent
+      ]
     })
   ],
   parameters: {
     designTokens: { prefix: '--p-rating' },
     docs: {
       description: {
-        component: `Компонент для отображения и выбора оценки в виде звёзд.`
+        component: `Компонент для отображения и выбора оценки в виде звёзд.
+
+\`\`\`typescript
+import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit/components/rating';
+\`\`\``
       }
     }
   },
   argTypes: {
-    // ── Props ────────────────────────────────────────────────
+    // ── Свойства ────────────────────────────────────────────────
     stars: {
       control: 'number',
       description: 'Количество отображаемых звёзд',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '5' },
         type: { summary: 'number' }
       }
@@ -38,36 +49,45 @@ const meta: Meta<RatingArgs> = {
       control: 'boolean',
       description: 'Режим только для чтения — значение нельзя изменить',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
-    disabled: {
+    clearable: {
       control: 'boolean',
-      description: 'Отключает возможность взаимодействия',
+      description: 'Показывать кнопку сброса оценки слева от звёзд',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
       }
     },
     autofocus: { table: { disable: true } },
+    clearAriaLabel: { table: { disable: true } },
 
-    // ── Events ───────────────────────────────────────────────
+    // ── События ───────────────────────────────────────────────
     onRate: {
       control: false,
       description: 'Событие изменения оценки',
       table: {
-        category: 'Events',
-        type: { summary: 'EventEmitter<RatingRateEvent>' }
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraRatingRateEvent>' }
+      }
+    },
+    onClear: {
+      control: false,
+      description: 'Событие сброса оценки кнопкой (clearable)',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' }
       }
     },
     onFocus: {
       control: false,
       description: 'Событие фокуса',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<FocusEvent>' }
       }
     },
@@ -75,7 +95,7 @@ const meta: Meta<RatingArgs> = {
       control: false,
       description: 'Событие потери фокуса',
       table: {
-        category: 'Events',
+        category: 'События',
         type: { summary: 'EventEmitter<FocusEvent>' }
       }
     }
@@ -83,7 +103,7 @@ const meta: Meta<RatingArgs> = {
   args: {
     stars: 5,
     readonly: false,
-    disabled: false
+    clearable: false
   }
 };
 
@@ -97,9 +117,9 @@ export const Default: Story = {
     const parts: string[] = [`[(ngModel)]="value"`];
     if (args.stars !== 5) parts.push(`[stars]="${args.stars}"`);
     if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
+    if (args.clearable) parts.push(`[clearable]="true"`);
 
-    const template = `<rating\n  ${parts.join('\n  ')}\n></rating>`;
+    const template = `<extra-rating\n  ${parts.join('\n  ')}\n></extra-rating>`;
     return { props: { ...args, value: 3 }, template };
   },
   parameters: {
@@ -112,4 +132,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { ReadOnly, Disabled };
+export { ReadOnly, Disabled, Clearable };

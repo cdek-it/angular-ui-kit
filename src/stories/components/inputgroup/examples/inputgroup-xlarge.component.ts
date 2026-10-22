@@ -8,8 +8,8 @@ import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/in
 const template = `
 <div class="bg-surface-ground p-4">
   <extra-input-group size="xlarge">
-    <extra-input-group-addon><i class="ti ti-search"></i></extra-input-group-addon>
-    <extra-input-text placeholder="Поиск отправлений..." size="xlg" [(ngModel)]="value"></extra-input-text>
+    <extra-input-group-addon position="left" type="icon" icon="ti ti-search"></extra-input-group-addon>
+    <extra-input-text placeholder="Поиск отправлений..." size="xlarge" [(ngModel)]="value"></extra-input-text>
   </extra-input-group>
 </div>
 `;
@@ -36,16 +36,16 @@ export const Sizes: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-inputgroup-xlarge',
   standalone: true,
-  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, InputTextComponent, FormsModule],
+  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, FormsModule],
   template: \`
     <extra-input-group size="xlarge">
-      <extra-input-group-addon><i class="ti ti-search"></i></extra-input-group-addon>
-      <extra-input-text placeholder="Поиск отправлений..." size="xlg" [(ngModel)]="value"></extra-input-text>
+      <extra-input-group-addon position="left" type="icon" icon="ti ti-search"></extra-input-group-addon>
+      <extra-input-text placeholder="Поиск отправлений..." size="xlarge" [(ngModel)]="value"></extra-input-text>
     </extra-input-group>
   \`,
 })

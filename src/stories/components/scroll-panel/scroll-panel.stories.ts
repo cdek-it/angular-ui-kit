@@ -55,7 +55,7 @@ const meta: Meta<ExtraScrollPanelComponent> = {
         component: `Кроссбраузерная панель с кастомной полосой прокрутки. Заменяет стандартный скроллбар браузера на стилизованный в соответствии с темой.
 
 \`\`\`typescript
-import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ExtraScrollPanelComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``,
       },
     },
@@ -66,7 +66,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
       control: 'number',
       description: 'Шаг прокрутки при нажатии клавиш со стрелками (в пикселях)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '10' },
         type: { summary: 'number' },
       },
@@ -75,7 +75,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
       control: 'text',
       description: 'Высота области прокрутки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '100px' },
         type: { summary: 'string' },
       },
@@ -84,7 +84,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
       control: 'text',
       description: 'Ширина области прокрутки',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '100%' },
         type: { summary: 'string' },
       },
@@ -173,6 +173,8 @@ export const Both: Story = {
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { ExtraScrollPanelComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-scroll-panel-both',

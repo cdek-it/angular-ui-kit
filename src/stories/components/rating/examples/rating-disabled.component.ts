@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraRatingComponent } from '../../../../lib/components/rating/rating.component';
 
 const template = `
 <div class="bg-surface-ground p-4">
-  <extra-rating [(ngModel)]="value" [disabled]="true"></extra-rating>
+  <extra-rating [formControl]="ratingControl"></extra-rating>
 </div>
 `;
 
@@ -14,10 +14,10 @@ const template = `
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template,
-  imports: [ExtraRatingComponent, FormsModule]
+  imports: [ExtraRatingComponent, ReactiveFormsModule]
 })
 export class RatingDisabledComponent {
-  value = 2;
+  ratingControl = new FormControl({ value: 2, disabled: true });
 }
 
 export const Disabled: StoryObj = {
@@ -26,24 +26,28 @@ export const Disabled: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Заблокированное состояние — компонент недоступен для взаимодействия.' },
+      description: {
+        story:
+          'Заблокированное состояние — компонент недоступен для взаимодействия. `disabled` не публичный `@Input()`, отключается через форму (`disabled: true` в `FormControl`), см. `ControlValueAccessor.setDisabledState`.'
+      },
       source: {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { RatingComponent } from '@cdek-it/angular-ui-kit';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-rating-disabled',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExtraRatingComponent, FormsModule],
+  imports: [ExtraRatingComponent, ReactiveFormsModule],
   template: \`
-    <extra-rating [(ngModel)]="value" [disabled]="true"></extra-rating>
+    <extra-rating [formControl]="ratingControl"></extra-rating>
   \`,
 })
 export class RatingDisabledComponent {
-  value = 2;
+  ratingControl = new FormControl({ value: 2, disabled: true });
 }
         `
       }

@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-3 items-end">
       <extra-button label="Primary"></extra-button>
@@ -17,6 +17,12 @@ const template = `
       <extra-button severity="warning" label="Warning"></extra-button>
       <extra-button severity="success" label="Success"></extra-button>
       <extra-button severity="info" label="Info"></extra-button>
+    </div>
+    <div class="flex gap-3 items-end">
+      <extra-button variant="outlined" severity="danger" label="Danger"></extra-button>
+      <extra-button variant="outlined" severity="warning" label="Warning"></extra-button>
+      <extra-button variant="outlined" severity="success" label="Success"></extra-button>
+      <extra-button variant="outlined" severity="info" label="Info"></extra-button>
     </div>
   </div>
 </div>
@@ -39,7 +45,7 @@ export const Variants: StoryObj = {
     docs: {
       description: {
         story:
-          'Варианты отображения (variant) при severity="base" и семантические состояния (severity). Пересечения не показываются: severity, кроме "base", перекрывает варианты primary/secondary/tertiary, и кнопка выглядит как обычная severity-кнопка.'
+          'Варианты отображения (variant) при severity="base", семантические состояния (severity) при variant="primary" (сплошная заливка) и variant="outlined" × severity (контурная кнопка с цветной рамкой). "outlined" используется только вместе с severity (danger, warning, success, info): рамка и текст окрашиваются по severity.'
       },
       source: {
         language: 'ts',
@@ -65,6 +71,13 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         <extra-button severity="warning" label="Warning"></extra-button>
         <extra-button severity="success" label="Success"></extra-button>
         <extra-button severity="info" label="Info"></extra-button>
+      </div>
+      <!-- variant="outlined" + severity — контурная кнопка, цвет рамки берётся из severity -->
+      <div class="flex gap-3 items-end">
+        <extra-button variant="outlined" severity="danger" label="Danger"></extra-button>
+        <extra-button variant="outlined" severity="warning" label="Warning"></extra-button>
+        <extra-button variant="outlined" severity="success" label="Success"></extra-button>
+        <extra-button variant="outlined" severity="info" label="Info"></extra-button>
       </div>
     </div>
   \`,

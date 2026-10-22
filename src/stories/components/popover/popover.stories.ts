@@ -33,18 +33,61 @@ import { ExtraPopoverComponent } from '@cdek-it/angular-ui-kit';
       control: 'boolean',
       description: 'Закрывает popover при клике вне его области.',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' },
       },
     },
     appendTo: {
       control: 'text',
-      description: 'Элемент, к которому присоединяется popover в DOM.',
+      description: 'Куда в DOM монтируется оверлей — body, self или элемент.',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'body' },
-        type: { summary: 'string' },
+        type: { summary: "HTMLElement | 'body' | 'self' | null" },
+      },
+    },
+    autoZIndex: {
+      control: 'boolean',
+      description: 'Автоматическое управление z-index при открытии.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+      },
+    },
+    baseZIndex: {
+      control: 'number',
+      description: 'Базовое значение z-index.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: '0' },
+        type: { summary: 'number' },
+      },
+    },
+    focusOnShow: {
+      control: 'boolean',
+      description: 'Переводить фокус на панель при открытии.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+      },
+    },
+    onShow: {
+      control: false,
+      description: 'Событие открытия панели.',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' },
+      },
+    },
+    onHide: {
+      control: false,
+      description: 'Событие закрытия панели.',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<void>' },
       },
     },
   },

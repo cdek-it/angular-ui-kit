@@ -18,7 +18,7 @@ const meta: Meta<ExtraProgressSpinnerComponent> = {
         component: `Используется для отображения индикатора процесса/состояния загрузки неопределенного времени.
 
 \`\`\`typescript
-import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit/components/progressspinner';
 \`\`\``
       }
     },
@@ -30,45 +30,67 @@ import { ExtraProgressSpinnerComponent } from '@cdek-it/angular-ui-kit';
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер спиннера (задает вычисленные CSS-классы).',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'base' },
         type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
       }
     },
-    multicolor: {
-      control: 'boolean',
-      description: 'Включить многоцветную анимацию.',
+    fill: {
+      control: 'select',
+      options: ['primary', 'white'],
+      description:
+        'Цветовая схема: primary — многоцветная анимация, white — монохромный режим для цветной/тёмной подложки.',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
+        category: 'Свойства',
+        defaultValue: { summary: 'primary' },
+        type: { summary: "'primary' | 'white'" }
       }
     },
     strokeWidth: {
-      table: { disable: true }
+      control: 'text',
+      description: 'Толщина линии дуги; не задан — берётся из токена оформления.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string | undefined' }
+      }
     },
-    fill: {
-      table: { disable: true }
+    circleFill: {
+      control: 'text',
+      description: 'Цвет заливки внутренней области круга (SVG fill); не связан с цветовой схемой fill.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'none'" },
+        type: { summary: 'string' }
+      }
     },
     animationDuration: {
       control: 'text',
       description: 'Длительность одной итерации анимации вращения.',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: '2s' },
         type: { summary: 'string' }
       }
     },
     ariaLabel: {
-      table: { disable: true }
+      control: 'text',
+      description:
+        'Метка для программ экранного доступа; задавайте её всегда — иначе у индикатора нет доступного имени.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string | undefined' }
+      }
     }
   },
   args: {
     size: 'base',
-    multicolor: true,
-    strokeWidth: '2',
-    fill: 'none',
-    animationDuration: '2s'
+    fill: 'primary',
+    strokeWidth: undefined,
+    circleFill: 'none',
+    animationDuration: '2s',
+    ariaLabel: 'Загрузка'
   }
 };
 
@@ -82,10 +104,12 @@ export const Default: Story = {
     const parts: string[] = [];
 
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (!args.multicolor) parts.push(`[multicolor]="false"`);
-    if (args.strokeWidth && args.strokeWidth !== '2') parts.push(`strokeWidth="${args.strokeWidth}"`);
-    if (args.fill && args.fill !== 'none') parts.push(`fill="${args.fill}"`);
-    if (args.animationDuration && args.animationDuration !== '2s') parts.push(`animationDuration="${args.animationDuration}"`);
+    if (args.fill && args.fill !== 'primary') parts.push(`fill="${args.fill}"`);
+    if (args.strokeWidth) parts.push(`strokeWidth="${args.strokeWidth}"`);
+    if (args.circleFill && args.circleFill !== 'none') parts.push(`circleFill="${args.circleFill}"`);
+    if (args.animationDuration && args.animationDuration !== '2s')
+      parts.push(`animationDuration="${args.animationDuration}"`);
+    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
 
     const properties = parts.length > 0 ? ' ' + parts.join('\n  ') : '';
 
@@ -97,10 +121,10 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для изменения размера, цвета и толщины линии.',
-      },
-    },
-  },
+        story: 'Базовый пример компонента. Используйте Controls для изменения размера, цвета и толщины линии.'
+      }
+    }
+  }
 };
 
 // ── Вариации ─────────────────────────────────────────────────────────────────

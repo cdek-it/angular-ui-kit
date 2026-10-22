@@ -20,7 +20,8 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - name: Update npm
-        run: npm install -g npm@latest
+        # npm >= 11.5.1 нужен для trusted publishing (OIDC); npm@12+ требует Node >= 22
+        run: npm install -g npm@11
       - run: npm ci
       - uses: reedyuk/npm-version@1.1.1
         with:

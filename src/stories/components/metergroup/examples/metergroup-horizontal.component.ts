@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraMeterGroupComponent } from '../../../../lib/components/metergroup/metergroup.component';
-import { MeterItem } from 'primeng/metergroup';
+import { ExtraMeterGroupComponent, ExtraMeterItem } from '../../../../lib/components/metergroup/metergroup.component';
 import { defaultValue } from '../metergroup.data';
 
 @Component({
@@ -11,17 +10,17 @@ import { defaultValue } from '../metergroup.data';
   imports: [ExtraMeterGroupComponent],
   template: `
     <div class="bg-surface-ground">
-      <extra-metergroup [value]="value" orientation="horizontal"></extra-metergroup>
+      <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="horizontal"></extra-metergroup>
     </div>
   `
 })
 export class MeterGroupHorizontalComponent {
-  value: MeterItem[] = defaultValue;
+  value: ExtraMeterItem[] = defaultValue;
 }
 
 export const Horizontal: StoryObj = {
   render: () => ({
-    template: `<app-metergroup-horizontal></app-metergroup-horizontal>`,
+    template: `<app-metergroup-horizontal></app-metergroup-horizontal>`
   }),
   parameters: {
     docs: {
@@ -30,7 +29,7 @@ export const Horizontal: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraMeterGroupComponent, ExtraMeterItem } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-metergroup-horizontal',
@@ -38,18 +37,18 @@ import { ExtraMeterGroupComponent } from '@cdek-it/angular-ui-kit';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
   template: \`
-    <extra-metergroup [value]="value" orientation="horizontal"></extra-metergroup>
+    <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="horizontal"></extra-metergroup>
   \`,
 })
 export class MeterGroupHorizontalComponent {
-  value: MeterItem[] = [
+  value: ExtraMeterItem[] = [
     { label: 'Space used', color: '#34d399', value: 16 },
     { label: 'Unused', color: '#fbbf24', value: 8 },
     { label: 'System', color: '#60a5fa', value: 24 },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

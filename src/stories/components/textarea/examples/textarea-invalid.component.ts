@@ -6,9 +6,11 @@ export const Invalid: StoryObj = {
   name: 'Invalid',
   render: (args) => {
     const control = new FormControl('', Validators.required);
+    // invalid — геттер без сеттера, Storybook на попытке присвоить его напрямую роняет ошибку в консоль
+    const { invalid, ...rest } = args as Record<string, unknown>;
     return {
-      props: { ...args, control },
-      template: `<extra-textarea [formControl]="control" placeholder="Обязательное поле"></extra-textarea>`
+      props: { ...rest, control },
+      template: `<extra-textarea [formControl]="control" label="Описание проблемы"></extra-textarea>`
     };
   },
   decorators: [
@@ -33,7 +35,7 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   standalone: true,
   imports: [ExtraTextareaComponent, ReactiveFormsModule],
-  template: \`<extra-textarea [formControl]="control" placeholder="Обязательное поле"></extra-textarea>\`,
+  template: \`<extra-textarea [formControl]="control" label="Описание проблемы"></extra-textarea>\`,
 })
 export class InvalidExample {
   control = new FormControl('', Validators.required);

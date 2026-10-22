@@ -1,36 +1,43 @@
-import { FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraInputMaskComponent } from '../../../../lib/components/inputmask/inputmask.component';
 
-type Story = StoryObj<ExtraInputMaskComponent>;
+const template = `
+<div class="flex flex-col gap-4">
+  @for (size of sizes; track size) {
+    <extra-input-mask
+      [formControl]="control"
+      [size]="size"
+      [label]="'Size ' + size"
+      mask="(999) 999-9999"
+      placeholder="(___) ___-____"
+    ></extra-input-mask>
+  }
+</div>
+`;
 
-export const Sizes: Story = {
-  name: 'Sizes',
-  render: (args) => ({
-    props: { ...args, control: new FormControl('') },
-    template: `
-      <extra-input-mask
-        [mask]="mask"
-        [slotChar]="slotChar"
-        [size]="size"
-        [showClear]="showClear"
-        [readonly]="readonly"
-        [fluid]="fluid"
+@Component({
+  selector: 'app-inputmask-sizes',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExtraInputMaskComponent, ReactiveFormsModule],
+  template
+})
+export class InputMaskSizesComponent {
+  sizes = ['small', 'base', 'large', 'xlarge'];
+  control = new FormControl('');
+}
 
-        [placeholder]="placeholder"
-        [formControl]="control"
-      ></extra-input-mask>
-    `
+export const Sizes: StoryObj = {
+  render: () => ({
+    template: `<app-inputmask-sizes></app-inputmask-sizes>`
   }),
-  args: {
-    mask: '99-99-99',
-    size: 'small',
-    placeholder: '99-99-99'
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: 'Размеры поля: small, base, large, xlarge. Переключайте через Controls.'
+        story: 'Размеры поля: small, base, large, xlarge.'
       },
       source: {
         language: 'ts',
@@ -39,13 +46,17 @@ import { Component } from '@angular/core';
 import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
+  selector: 'app-inputmask-sizes',
   standalone: true,
-  imports: [ExtraInputMaskComponent, ReactiveFormsModule],
-  template: \`<extra-input-mask mask="99-99-99" size="small" [formControl]="control"></extra-input-mask>\`,
+  imports: [ExtraInputMaskComponent],
+  template: \`
+    <extra-input-mask size="small" label="Size small" mask="(999) 999-9999"></extra-input-mask>
+    <extra-input-mask size="base" label="Size base" mask="(999) 999-9999"></extra-input-mask>
+    <extra-input-mask size="large" label="Size large" mask="(999) 999-9999"></extra-input-mask>
+    <extra-input-mask size="xlarge" label="Size xlarge" mask="(999) 999-9999"></extra-input-mask>
+  \`,
 })
-export class SizesExample {
-  control = new FormControl('');
-}
+export class InputMaskSizesComponent {}
         `
       }
     }

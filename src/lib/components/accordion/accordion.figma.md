@@ -10,56 +10,52 @@ figma:
   componentKey: '6d041d9db66babf7fe442165f3ab97f9bea7710a'
   name: '<Accordion>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-09-28'
 ---
 
 ## Overview
 
-`ExtraAccordionComponent` — компонент аккордеона, который группирует связанный контент в вертикальный набор раскрываемых/сворачиваемых секций. Экономит место при большом объёме информации и поддерживает прогрессивное раскрытие. Оборачивает PrimeNG `p-accordion` с под-элементами `p-accordion-panel`, `p-accordion-header` и `p-accordion-content`.
+`ExtraAccordionComponent` — контейнер из раскрывающихся панелей (`ExtraAccordionPanelComponent`), передаваемых декларативно как дочерние элементы. Экономит место при большом объёме информации и поддерживает прогрессивное раскрытие. Оборачивает PrimeNG `p-accordion` с под-элементами `p-accordion-panel`, `p-accordion-header` и `p-accordion-content`.
 
-Компонент соответствует Figma-компоненту `<Accordion>` (nodeId `1153:3084`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). В отличие от диалога, содержимое задаётся декларативно через массив `items`, а не через слоты проекции контента — каждая секция описывается объектом `ExtraAccordionItem`.
+Компонент соответствует Figma-компоненту `<Accordion>` (nodeId `1153:3084`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.1»). В отличие от предыдущей версии (данные через массив `items`), содержимое каждой панели задаётся через content projection: слот `header` — именованный шаблон, слот `content` — основное содержимое (`<ng-content>`).
 
 ## Props mapping
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `items` | `ExtraAccordionItem[]` | `[]` | Массив секций аккордеона; каждый элемент рендерится как отдельная панель с заголовком и содержимым |
-| `multiple` | `boolean` | `false` | Разрешить одновременное раскрытие нескольких панелей — соответствует Figma-режиму single/multiple |
-| `activeValue` | `string \| null` | `'0'` | Значение (`value`) изначально раскрытой панели; `null` — все панели свёрнуты |
+### ExtraAccordion
 
-> `activeValueChange` — `@Output() EventEmitter<string \| number \| string[] \| number[] \| null \| undefined>`. Используйте синтаксис `[(activeValue)]` для двусторонней привязки активной секции.
+| Свойство    | Тип                  | По умолчанию | Описание                                             |
+| ----------- | -------------------- | ------------ | ---------------------------------------------------- |
+| `multiple`  | `boolean`            | `false`      | Разрешить одновременное раскрытие нескольких панелей |
+| `(onOpen)`  | `EventEmitter<void>` | —            | Срабатывает при раскрытии любой панели               |
+| `(onClose)` | `EventEmitter<void>` | —            | Срабатывает при сворачивании любой панели            |
 
-Структура одного элемента `ExtraAccordionItem`:
+> Активная панель(и) не управляется извне через `[(value)]` — какие панели раскрыты изначально, определяется их собственным `[expanded]="true"`. Контейнер это значение считывает один раз при инициализации (`ngAfterContentInit`) и дальше состоянием раскрытия управляет сам PrimeNG.
 
-| Поле | Тип | Описание |
-|------|-----|---------|
-| `value` | `string` | Уникальный идентификатор панели (ключ раскрытия и `track` в цикле) |
-| `header` | `string` | Текст заголовка панели |
-| `content` | `string` | Текстовое содержимое раскрываемой панели |
-| `icon` | `string` (опц.) | CSS-класс иконки в заголовке; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `disabled` | `boolean` (опц.) | Заблокировать панель — она недоступна для раскрытия |
+### ExtraAccordionPanel
+
+| Свойство   | Тип                   | По умолчанию | Описание                                                                                       |
+| ---------- | --------------------- | ------------ | ---------------------------------------------------------------------------------------------- |
+| `icon`     | `string \| undefined` | `undefined`  | CSS-класс иконки в заголовке; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
+| `expanded` | `boolean`             | `false`      | Раскрыта ли панель изначально (стартовое состояние, не двусторонняя привязка)                  |
+| `disabled` | `boolean`             | `false`      | Заблокировать панель — она недоступна для раскрытия                                            |
 
 ## Variants
 
 ### Одиночное раскрытие (single, по умолчанию)
 
-Figma: `<Accordion>`, режим single — раскрыта ровно одна панель.
+Figma: `<Accordion>`, режим single — раскрыта не более одной панели.
 
 ```html
-<extra-accordion
-  [items]="items"
-  activeValue="0"
-></extra-accordion>
-```
-
-```ts
-import { ExtraAccordionComponent, ExtraAccordionItem } from '@cdek-it/angular-ui-kit';
-
-// В компоненте:
-items: ExtraAccordionItem[] = [
-  { value: '0', header: 'Данные отправления', content: 'Заказ №ЦД-00123456' },
-  { value: '1', header: 'Маршрут доставки', content: 'Москва → Новосибирск' },
-];
+<extra-accordion>
+  <extra-accordion-panel icon="ti ti-package" [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
+    Заказ №ЦД-00123456
+  </extra-accordion-panel>
+  <extra-accordion-panel icon="ti ti-map-pin">
+    <ng-template extraAccordionPanelTemplate="header">Маршрут доставки</ng-template>
+    Москва → Новосибирск
+  </extra-accordion-panel>
+</extra-accordion>
 ```
 
 ### Множественное раскрытие (multiple)
@@ -67,49 +63,37 @@ items: ExtraAccordionItem[] = [
 Figma: `<Accordion>`, режим multiple — одновременно могут быть раскрыты несколько панелей.
 
 ```html
-<extra-accordion
-  [items]="items"
-  [multiple]="true"
-  activeValue="0"
-></extra-accordion>
-```
-
-```ts
-import { ExtraAccordionComponent, ExtraAccordionItem } from '@cdek-it/angular-ui-kit';
+<extra-accordion [multiple]="true">
+  <extra-accordion-panel icon="ti ti-package" [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
+    Заказ №ЦД-00123456
+  </extra-accordion-panel>
+  <extra-accordion-panel icon="ti ti-receipt" [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
+    Итого: 525 ₽
+  </extra-accordion-panel>
+</extra-accordion>
 ```
 
 ### С заблокированной панелью (disabled)
 
-Заблокированная панель задаётся через `disabled: true` в соответствующем `ExtraAccordionItem` и недоступна для раскрытия.
-
 ```html
-<extra-accordion
-  [items]="items"
-  activeValue="0"
-></extra-accordion>
-```
-
-```ts
-import { ExtraAccordionComponent, ExtraAccordionItem } from '@cdek-it/angular-ui-kit';
-
-// В компоненте:
-items: ExtraAccordionItem[] = [
-  { value: '0', header: 'Данные отправления', content: 'Заказ №ЦД-00123456' },
-  { value: '1', header: 'Документы (недоступно)', content: 'Недоступно', disabled: true },
-];
+<extra-accordion>
+  <extra-accordion-panel icon="ti ti-file-description" disabled>
+    <ng-template extraAccordionPanelTemplate="header">Документы (недоступно)</ng-template>
+    Документация временно недоступна.
+  </extra-accordion-panel>
+</extra-accordion>
 ```
 
 ## Slots
 
-Не используются. Аккордеон не применяет проекцию содержимого — структура секций задаётся декларативно через массив `items`.
+Слоты объявлены на `ExtraAccordionPanelComponent` (не на контейнере):
 
-Внутренняя композиция каждой секции (рендерится компонентом автоматически по элементу `ExtraAccordionItem`):
-
-| Часть | PrimeNG-узел | Источник |
-|-------|--------------|----------|
-| Панель | `p-accordion-panel` | один элемент массива `items` (`value`, `disabled`) |
-| Заголовок | `p-accordion-header` | `item.header` + опциональная `item.icon` |
-| Содержимое | `p-accordion-content` | `item.content` |
+| Слот      | Описание                                                                                   |
+| --------- | ------------------------------------------------------------------------------------------ |
+| `header`  | Заголовок панели — именованный шаблон `<ng-template extraAccordionPanelTemplate="header">` |
+| `content` | Содержимое панели (тело) — основное содержимое, голый `<ng-content>`                       |
 
 ## Related
 
@@ -121,12 +105,14 @@ items: ExtraAccordionItem[] = [
 ## Do / Don't
 
 **Do:**
-- Задавайте уникальный `value` для каждого элемента `items` — он используется как ключ раскрытия и `track`.
-- Используйте `[(activeValue)]` для двусторонней синхронизации раскрытой секции с состоянием компонента.
-- Включайте `[multiple]="true"`, когда пользователю полезно сравнивать содержимое нескольких секций одновременно.
-- Помечайте недоступные секции через `disabled: true` в `ExtraAccordionItem`, а не скрывайте их полностью.
+
+- Задавайте `[expanded]="true"` на панелях, которые должны быть раскрыты сразу после инициализации.
+- Используйте именованный шаблон `extraAccordionPanelTemplate="header"` для заголовка — это единственный способ задать заголовок панели.
+- Включайте `[multiple]="true"` на контейнере, когда пользователю полезно сравнивать содержимое нескольких секций одновременно.
+- Помечайте недоступные панели через `disabled` — она остаётся видимой, но не раскрывается.
 
 **Don't:**
+
 - Не используйте аккордеон для критичной информации, которая должна быть всегда видна.
 - Не путайте с Tabs — вкладки показывают параллельные равноправные разделы, а аккордеон раскрывает секции контента.
-- Не задавайте `activeValue`, не существующий среди `value` элементов `items` — ни одна панель не раскроется.
+- Не ждите двусторонней синхронизации `expanded` — это только стартовое состояние, дальше раскрытием управляет сам компонент.

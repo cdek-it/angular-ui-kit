@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-3 items-end">
       <extra-button [rounded]="true" label="Primary"></extra-button>
@@ -16,6 +16,12 @@ const template = `
       <extra-button severity="warning" [rounded]="true" label="Warning"></extra-button>
       <extra-button severity="success" [rounded]="true" label="Success"></extra-button>
       <extra-button severity="info" [rounded]="true" label="Info"></extra-button>
+    </div>
+    <div class="flex gap-3 items-end">
+      <extra-button variant="outlined" severity="danger" [rounded]="true" label="Danger"></extra-button>
+      <extra-button variant="outlined" severity="warning" [rounded]="true" label="Warning"></extra-button>
+      <extra-button variant="outlined" severity="success" [rounded]="true" label="Success"></extra-button>
+      <extra-button variant="outlined" severity="info" [rounded]="true" label="Info"></extra-button>
     </div>
   </div>
 </div>
@@ -38,7 +44,7 @@ export const Rounded: StoryObj = {
     docs: {
       description: {
         story:
-          'Скруглённая форма (rounded): варианты отображения при severity="base", семантические состояния (severity) и иконочные кнопки. Пересечения severity с вариантами не показываются — severity, кроме "base", перекрывает их.'
+          'Скруглённая форма (rounded): варианты отображения при severity="base", семантические состояния (severity, variant="primary") и variant="outlined" × severity (контурная скруглённая кнопка).'
       },
       source: {
         language: 'ts',
@@ -63,6 +69,13 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
         <extra-button severity="warning" [rounded]="true" label="Warning"></extra-button>
         <extra-button severity="success" [rounded]="true" label="Success"></extra-button>
         <extra-button severity="info" [rounded]="true" label="Info"></extra-button>
+      </div>
+      <!-- variant="outlined" + severity — контурная скруглённая кнопка -->
+      <div class="flex gap-3 items-end">
+        <extra-button variant="outlined" severity="danger" [rounded]="true" label="Danger"></extra-button>
+        <extra-button variant="outlined" severity="warning" [rounded]="true" label="Warning"></extra-button>
+        <extra-button variant="outlined" severity="success" [rounded]="true" label="Success"></extra-button>
+        <extra-button variant="outlined" severity="info" [rounded]="true" label="Info"></extra-button>
       </div>
     </div>
   \`,

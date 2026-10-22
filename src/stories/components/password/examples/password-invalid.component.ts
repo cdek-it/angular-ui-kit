@@ -1,22 +1,26 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
 import { ExtraPasswordComponent } from '../../../../lib/components/password/password.component';
 
 const template = `
 <div style="width: 280px">
-  <extra-password [invalid]="true" [(ngModel)]="value" placeholder="Невалидный пароль"></extra-password>
+  <extra-password [formControl]="passwordControl" placeholder="Минимум 8 символов"></extra-password>
 </div>
 `;
 
 @Component({
   selector: 'app-password-invalid',
   standalone: true,
-  imports: [ExtraPasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, ReactiveFormsModule],
   template
 })
 export class PasswordInvalidComponent {
-  value: string | null = null;
+  passwordControl = new FormControl('', { validators: [Validators.required, Validators.minLength(8)] });
+
+  constructor() {
+    this.passwordControl.markAsTouched();
+  }
 }
 
 export const Invalid: StoryObj = {
@@ -25,22 +29,31 @@ export const Invalid: StoryObj = {
   }),
   parameters: {
     docs: {
-      description: { story: 'Поле ввода пароля в состоянии ошибки валидации.' },
+      description: {
+        story:
+          'Поле ввода пароля в состоянии ошибки валидации. `invalid` не публичный `@Input()` — вычисляется автоматически из состояния привязанного `FormControl` (невалидные `Validators` + touched).'
+      },
       source: {
         language: 'ts',
         code: `
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-password-invalid',
   standalone: true,
-  imports: [ExtraPasswordComponent, FormsModule],
+  imports: [ExtraPasswordComponent, ReactiveFormsModule],
   template: \`
-    <extra-password [invalid]="true" [(ngModel)]="value" placeholder="Невалидный пароль"></extra-password>
+    <extra-password [formControl]="passwordControl" placeholder="Минимум 8 символов"></extra-password>
   \`,
 })
 export class PasswordInvalidComponent {
-  value: string | null = null;
+  passwordControl = new FormControl('', { validators: [Validators.required, Validators.minLength(8)] });
+
+  constructor() {
+    this.passwordControl.markAsTouched();
+  }
 }
         `
       }

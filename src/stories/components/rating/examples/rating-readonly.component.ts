@@ -31,7 +31,7 @@ export const ReadOnly: StoryObj = {
         language: 'ts',
         code: `
 import { Component } from '@angular/core';
-import { RatingComponent } from '@cdek-it/angular-ui-kit';
+import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-rating-readonly',

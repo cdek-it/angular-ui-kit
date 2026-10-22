@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -10,18 +11,25 @@ import {
   Output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Textarea } from 'primeng/textarea';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
+import { FloatLabel } from 'primeng/floatlabel';
+import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
 
 export type ExtraTextareaSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraTextareaLabelPosition = 'top' | 'left';
+export type ExtraTextareaResizeEvent = Event | Record<string, unknown>;
+
+let nextInputId = 0;
 
 @Component({
   selector: 'extra-textarea',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Textarea, IconField, InputIcon, NgClass],
+  imports: [Textarea, IconField, InputIcon, FloatLabel, NgClass, NgTemplateOutlet, ExtraTooltipDirective],
+  host: { style: 'display: contents' },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -30,10 +38,82 @@ export type ExtraTextareaSize = 'small' | 'base' | 'large' | 'xlarge';
     }
   ],
   template: `
-    @if (showClear) {
-      <p-iconfield [ngClass]="{ '!w-full': fluid }">
+    <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
+         (важно для p-inputgroup, где textarea обязана быть прямым flex-элементом). -->
+    @if (label || caption) {
+      <div class="extra-textarea" [class.extra-textarea--left]="labelPosition === 'left' && !floatLabel">
+        @if (label && labelPosition === 'left' && !floatLabel) {
+          <ng-container [ngTemplateOutlet]="labelTpl" />
+        }
+        <div class="extra-textarea-body">
+          @if (floatLabel) {
+            <p-floatlabel variant="in">
+              <ng-container [ngTemplateOutlet]="fieldTpl" />
+              @if (label) {
+                <ng-container [ngTemplateOutlet]="labelTpl" />
+              }
+            </p-floatlabel>
+          } @else {
+            @if (label && labelPosition === 'top') {
+              <ng-container [ngTemplateOutlet]="labelTpl" />
+            }
+            <ng-container [ngTemplateOutlet]="fieldTpl" />
+          }
+          @if (caption) {
+            <div class="extra-textarea-caption">{{ caption }}</div>
+          }
+        </div>
+      </div>
+    } @else {
+      <ng-container [ngTemplateOutlet]="fieldTpl" />
+    }
+
+    <ng-template #labelTpl>
+      <label class="extra-textarea-label" [for]="inputId">
+        {{ label }}
+        @if (info) {
+          <i class="extra-textarea-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
+        }
+      </label>
+    </ng-template>
+
+    <ng-template #fieldTpl>
+      @if (clearable) {
+        <p-iconfield [ngClass]="{ '!w-full': fluid }">
+          <textarea
+            pTextarea
+            [id]="inputId"
+            [ngClass]="sizeClass"
+            [pSize]="primeSize"
+            [disabled]="disabled"
+            [readOnly]="readonly"
+            [invalid]="invalid"
+            [fluid]="fluid"
+            [autoResize]="autoResize"
+            [rows]="rows"
+            [cols]="cols"
+            [style.resize]="resizable ? 'vertical' : 'none'"
+            [placeholder]="placeholder"
+            [autofocus]="autofocus"
+            [value]="modelValue"
+            (input)="onInput($event)"
+            (blur)="onTouched()"
+            (onResize)="onResize.emit($event)"
+          ></textarea>
+          <p-inputicon
+            class="ti ti-x"
+            tabindex="0"
+            [style.visibility]="modelValue ? 'visible' : 'hidden'"
+            [style.pointerEvents]="modelValue ? 'auto' : 'none'"
+            (click)="clearValue()"
+            (keydown.enter)="clearValue()"
+            (keydown.space)="clearValue()"
+          ></p-inputicon>
+        </p-iconfield>
+      } @else {
         <textarea
           pTextarea
+          [id]="inputId"
           [ngClass]="sizeClass"
           [pSize]="primeSize"
           [disabled]="disabled"
@@ -43,41 +123,15 @@ export type ExtraTextareaSize = 'small' | 'base' | 'large' | 'xlarge';
           [autoResize]="autoResize"
           [rows]="rows"
           [cols]="cols"
+          [style.resize]="resizable ? 'vertical' : 'none'"
           [placeholder]="placeholder"
           [value]="modelValue"
           (input)="onInput($event)"
           (blur)="onTouched()"
           (onResize)="onResize.emit($event)"
         ></textarea>
-        <p-inputicon
-          class="ti ti-x"
-          tabindex="0"
-          [style.visibility]="modelValue ? 'visible' : 'hidden'"
-          [style.pointerEvents]="modelValue ? 'auto' : 'none'"
-          (click)="clearValue()"
-          (keydown.enter)="clearValue()"
-          (keydown.space)="clearValue()"
-        ></p-inputicon>
-      </p-iconfield>
-    } @else {
-      <textarea
-        pTextarea
-        [ngClass]="sizeClass"
-        [pSize]="primeSize"
-        [disabled]="disabled"
-        [readOnly]="readonly"
-        [invalid]="invalid"
-        [fluid]="fluid"
-        [autoResize]="autoResize"
-        [rows]="rows"
-        [cols]="cols"
-        [placeholder]="placeholder"
-        [value]="modelValue"
-        (input)="onInput($event)"
-        (blur)="onTouched()"
-        (onResize)="onResize.emit($event)"
-      ></textarea>
-    }
+      }
+    </ng-template>
   `
 })
 export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
@@ -89,13 +143,23 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
   }
 
   @Input() placeholder = '';
+  @Input() label = '';
+  @Input() labelPosition: ExtraTextareaLabelPosition = 'top';
+  @Input({ transform: booleanAttribute }) floatLabel = false;
+  @Input() caption = '';
+  @Input() info = '';
+  @Input({ transform: booleanAttribute }) clearable = false;
+  @Input({ transform: booleanAttribute }) resizable = true;
   @Input() size: ExtraTextareaSize = 'base';
-  @Input() readonly = false;
-  @Input() showClear = false;
-  @Input() fluid = false;
-  @Input() autoResize = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  @Input({ transform: booleanAttribute }) fluid = false;
+  @Input({ transform: booleanAttribute }) autoResize = false;
   @Input() rows = 3;
   @Input() cols?: number;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+
+  /** Уникальный id поля для связи label ↔ textarea. */
+  readonly inputId = `extra-textarea-${nextInputId++}`;
 
   disabled = false;
 
@@ -103,7 +167,7 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
     return this._ngControl?.invalid ?? false;
   }
 
-  @Output() onResize = new EventEmitter<{ height: string } | {}>();
+  @Output() onResize = new EventEmitter<ExtraTextareaResizeEvent>();
   @Output() onClear = new EventEmitter<void>();
 
   modelValue = '';
