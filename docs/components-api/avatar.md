@@ -6,15 +6,15 @@
 
 Представление пользователя.
 
-| Свойство   | Описание                            | Типизация                                         |
-| ---------- | ----------------------------------- | ------------------------------------------------- |
-| `size`     | размер аватара                      | `base \| large \| xlarge`                         |
-| `shape`    | форма                               | `square \| circle`                                |
-| `image`    | изображение                         | `string`                                          |
-| `label`    | текст/инициалы                      | `string`                                          |
-| `icon`     | класс иконки tabler icon            | `string`                                          |
-| `badge`    | отображать значок (`Badge`)         | `string`                                          |
-| `severity` | цветовая схема значка (при `badge`) | `primary \| success \| info \| warning \| danger` |
+| Свойство   | Описание                            | Типизация                                         | По умолчанию |
+| ---------- | ----------------------------------- | ------------------------------------------------- | ------------ |
+| `size`     | размер аватара                      | `base \| large \| xlarge`                         | `base`       |
+| `shape`    | форма                               | `square \| circle`                                | `square`     |
+| `image`    | изображение                         | `string`                                          | `''`         |
+| `label`    | текст/инициалы                      | `string`                                          | `''`         |
+| `icon`     | класс иконки tabler icon            | `string`                                          | `''`         |
+| `badge`    | отображать значок (`Badge`)         | `string`                                          | —            |
+| `severity` | цветовая схема значка (при `badge`) | `primary \| success \| info \| warning \| danger` | `primary`    |
 
 # ExtraAvatarGroup
 

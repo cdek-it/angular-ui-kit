@@ -68,11 +68,11 @@ Payload: `Extra<Component><Verb>Event` с полем `originalEvent`.
 
 ## Шкалы значений
 
-| Свойство   | Значения                                                         |
-| ---------- | ---------------------------------------------------------------- |
-| `size`     | `small \| base \| large \| xlarge`                               |
-| `severity` | `danger \| warning \| success \| info`                           |
-| `variant`  | `primary \| secondary \| tertiary`, плюс `text \| link` где есть |
+| Свойство   | Значения                                                                     |
+| ---------- | ---------------------------------------------------------------------------- |
+| `size`     | `small \| base \| large \| xlarge`                                           |
+| `severity` | `danger \| warning \| success \| info`                                       |
+| `variant`  | `primary \| secondary \| tertiary`, плюс `outlined \| text \| link` где есть |
 
 `severity` — смысловой статус, `variant` — уровень акцента. Не смешивать:
 `primary` не бывает severity, `danger` не бывает variant.
@@ -124,9 +124,10 @@ Payload: `Extra<Component><Verb>Event` с полем `originalEvent`.
 
 ## Узаконенные исключения
 
-| Где                     | Что                                         | Почему                                     |
-| ----------------------- | ------------------------------------------- | ------------------------------------------ |
-| `<Badge>`, `<Tag>`      | `severity` включает `primary` и `secondary` | второй оси нет, цвет задаётся одной шкалой |
-| `<MeterGroup>`          | `labelPosition: start \| end`               | оставлено как есть                         |
-| `<Timeline.Item*>`      | `align: opposite \| …`                      | `opposite` — режим чередования, не позиция |
-| `<Button.Danger>` и др. | `severity` выражен подкомпонентами          | решение принято, оставлено как есть        |
+| Где                                   | Что                                                            | Почему                                             |
+| ------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------- |
+| `<Badge>`, `<Tag>`                    | `severity` включает `primary` и `secondary`                    | второй оси нет, цвет задаётся одной шкалой         |
+| `<Avatar>`, `<Tabs.Item>`, `<Button>` | `severity`/`badgeSeverity` вложенного бейджа — шкала `<Badge>` | это цвет того же `<Badge>`, а не статус компонента |
+| `<MeterGroup>`                        | `labelPosition: start \| end`                                  | оставлено как есть                                 |
+| `<Timeline.Item*>`                    | `align: opposite \| …`                                         | `opposite` — режим чередования, не позиция         |
+| `<Button.Danger>` и др.               | `severity` выражен подкомпонентами                             | решение принято, оставлено как есть                |
