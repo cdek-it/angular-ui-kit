@@ -1,15 +1,13 @@
-import { ExtraMenuItem } from '../../../lib/shared/public_api';
+import { ExtraBreadcrumbItem } from '../../../lib/components/breadcrumb/breadcrumb.component';
 
-export const commonHome: ExtraMenuItem = { icon: 'ti ti-home', url: '#' };
-
-export const commonItems: ExtraMenuItem[] = [
-  { label: 'Электроника', icon: 'ti ti-device-laptop', url: '#' },
-  { label: 'Компьютеры', icon: 'ti ti-cpu', url: '#' },
-  { label: 'Ноутбуки' }
+export const commonItems: ExtraBreadcrumbItem[] = [
+  { label: 'Заказы', icon: 'ti ti-package', href: '#' },
+  { label: 'Документы', icon: 'ti ti-file-text', href: '#' },
+  { label: 'Накладная', icon: 'ti ti-file-invoice' }
 ];
 
-export const iconOnlyItems: ExtraMenuItem[] = [
-  { icon: 'ti ti-device-laptop', url: '#' },
-  { icon: 'ti ti-cpu', url: '#' },
-  { icon: 'ti ti-book' }
+export const disabledItems: ExtraBreadcrumbItem[] = [
+  { label: 'Заказы', icon: 'ti ti-package', href: '#' },
+  { label: 'Архив', icon: 'ti ti-archive', disabled: true },
+  { label: 'Накладная', icon: 'ti ti-file-invoice' }
 ];
