@@ -1,6 +1,7 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '../../../lib/components/megamenu/megamenu.component';
-import { MegaMenuTemplateComponent, Template as TemplateStory } from './examples/megamenu-template.component';
+import { ExtraMegaMenuComponent } from '../../../lib/components/megamenu/megamenu.component';
+import { ItemEnd, MegaMenuItemEndComponent } from './examples/megamenu-item-end.component';
+import { captionItems, commonItems } from './megamenu.data';
 
 const meta: Meta<ExtraMegaMenuComponent> = {
   title: 'Components/Menu/MegaMenu',
@@ -8,457 +9,185 @@ const meta: Meta<ExtraMegaMenuComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraMegaMenuComponent, MegaMenuTemplateComponent]
+      imports: [ExtraMegaMenuComponent, MegaMenuItemEndComponent]
     })
   ],
   parameters: {
     docs: {
       description: {
-        component: `Расширенное меню с поддержкой многоколоночных подменю. Поддерживает горизонтальную и вертикальную ориентацию.
+        component: `Многоуровневая навигация: пункты верхнего уровня раскрывают панель с колонками, в колонках — группы пунктов со своими заголовками. Ниже \`breakpoint\` меню сворачивается в мобильную кнопку.
 
-Шаблон (передаётся между тегами компонента):
-- \`extraMegaMenuItem\` — кастомный рендер пункта меню (контекст \`let-item\`, \`let-hasSubmenu="hasSubmenu"\`)
+Слоты (передаются через директиву \`extraMegaMenuTemplate\`):
+- \`itemEnd\` — содержимое в конце пункта панели (контекст \`let-item\`)
 
 \`\`\`typescript
-import { ExtraMegaMenuComponent, ExtraMegaMenuItemDirective } from '@cdek-it/angular-ui-kit';
+import { ExtraMegaMenuComponent, ExtraMegaMenuTemplateDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       },
-      story: {
-        height: '300px'
-      }
+      story: { height: '320px' }
     },
     designTokens: { prefix: '--p-megamenu' }
   },
   argTypes: {
-    model: {
-      control: false,
-      description: 'Массив пунктов меню.',
+    items: {
+      control: 'object',
+      description: 'Пункты верхнего уровня.',
       table: {
-        category: 'Props',
+        category: 'Свойства',
+        defaultValue: { summary: '[]' },
         type: { summary: 'ExtraMegaMenuItem[]' }
       }
     },
     orientation: {
       control: 'select',
       options: ['horizontal', 'vertical'],
-      description: 'Ориентация меню.',
+      description: 'Раскладка пунктов: `horizontal` — строка в шапке, `vertical` — список в боковой панели.',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'horizontal' },
         type: { summary: "'horizontal' | 'vertical'" }
       }
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Отключает взаимодействие с меню.',
+    breakpoint: {
+      control: 'text',
+      description: 'Ширина экрана, ниже которой меню сворачивается в мобильную кнопку.',
       table: {
-        category: 'Props',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
+        category: 'Свойства',
+        defaultValue: { summary: "'960px'" },
+        type: { summary: 'string' }
+      }
+    },
+    scrollHeight: {
+      control: 'text',
+      description: 'Максимальная высота списка пунктов (корневого и списков в панели). Не задано — без ограничения.',
+      table: {
+        category: 'Свойства',
+        type: { summary: 'string' }
+      }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа.',
+      table: {
+        category: 'Свойства',
+        type: { summary: 'string' }
+      }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: '`id` внешнего элемента-метки для доступности.',
+      table: {
+        category: 'Свойства',
+        type: { summary: 'string' }
+      }
+    },
+    tabindex: {
+      control: 'number',
+      description: 'Порядок перехода по Tab.',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: '0' },
+        type: { summary: 'number' }
+      }
+    },
+    onItemSelect: {
+      control: false,
+      description: 'Выбор пункта. Не срабатывает у пункта верхнего уровня, раскрывающего панель.',
+      table: {
+        category: 'События',
+        type: { summary: 'EventEmitter<ExtraMegaMenuItemSelectEvent>' }
       }
     }
   },
   args: {
+    items: commonItems,
     orientation: 'horizontal',
-    disabled: false
+    breakpoint: '960px',
+    tabindex: 0
   }
 };
 
 export default meta;
 type Story = StoryObj<ExtraMegaMenuComponent>;
 
-const baseItems: ExtraMegaMenuItem[] = [
-  {
-    label: 'Products',
-    icon: 'ti ti-box',
-    items: [
-      [
-        {
-          label: 'UI Components',
-          items: [
-            { label: 'Form', icon: 'ti ti-forms' },
-            { label: 'Button', icon: 'ti ti-hand-click' },
-            { label: 'Table', icon: 'ti ti-table' }
-          ]
-        }
-      ],
-      [
-        {
-          label: 'Charts',
-          items: [
-            { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
-            { label: 'Line Chart', icon: 'ti ti-chart-line' }
-          ]
-        }
-      ]
-    ]
-  },
-  {
-    label: 'Solutions',
-    icon: 'ti ti-bulb',
-    items: [
-      [
-        {
-          label: 'Business',
-          items: [
-            { label: 'Analytics', icon: 'ti ti-chart-dots' },
-            { label: 'CRM', icon: 'ti ti-users' }
-          ]
-        }
-      ]
-    ]
-  },
-  {
-    label: 'Contact',
-    icon: 'ti ti-mail',
-    disabled: true
-  }
-];
-
-const commonTemplate = `
-<extra-megamenu
-  [model]="model"
-  [orientation]="orientation"
-  [disabled]="disabled"
-></extra-megamenu>
-`;
-
 // ── Default ──────────────────────────────────────────────────────────────────
+
 export const Default: Story = {
   name: 'Default',
   render: (args) => {
-    const parts: string[] = ['[model]="model"'];
+    const parts = ['[items]="items"'];
+    if (args.orientation && args.orientation !== 'horizontal') parts.push('[orientation]="orientation"');
+    if (args.breakpoint && args.breakpoint !== '960px') parts.push('[breakpoint]="breakpoint"');
+    if (args.scrollHeight) parts.push('[scrollHeight]="scrollHeight"');
+    if (args.ariaLabel) parts.push('[ariaLabel]="ariaLabel"');
+    if (args.ariaLabelledBy) parts.push('[ariaLabelledBy]="ariaLabelledBy"');
+    if (args.tabindex) parts.push('[tabindex]="tabindex"');
 
-    if (args.orientation && args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-
-    const template = `<extra-megamenu\n  ${parts.join('\n  ')}\n></extra-megamenu>`;
-    return { props: { ...args, model: baseItems }, template };
+    return {
+      props: args,
+      template: `<extra-megamenu ${parts.join(' ')}></extra-megamenu>`
+    };
   },
   parameters: {
     docs: {
-      description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
-      }
+      description: { story: 'Интерактивный пример: свойства меняются через Controls.' }
     }
   }
 };
 
-// ── Horizontal ──────────────────────────────────────────────────────────────
-export const Horizontal: Story = {
-  render: (args) => ({
-    props: { ...args, model: baseItems },
-    template: commonTemplate
-  }),
-  args: { orientation: 'horizontal' },
-  parameters: {
-    docs: {
-      description: { story: 'Горизонтальная ориентация (по умолчанию).' },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraMegaMenuComponent, ExtraMegaMenuItem } from '@cdek-it/angular-ui-kit';
+// ── Vertical ─────────────────────────────────────────────────────────────────
 
-@Component({
-  standalone: true,
-  imports: [ExtraMegaMenuComponent],
-  template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
-})
-export class HorizontalExample {
-  items: ExtraMegaMenuItem[] = [
-    {
-      label: 'Products',
-      icon: 'ti ti-box',
-      items: [
-        [
-          {
-            label: 'UI Components',
-            items: [
-              { label: 'Form', icon: 'ti ti-forms' },
-              { label: 'Button', icon: 'ti ti-hand-click' },
-              { label: 'Table', icon: 'ti ti-table' },
-            ],
-          },
-        ],
-        [
-          {
-            label: 'Charts',
-            items: [
-              { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
-              { label: 'Line Chart', icon: 'ti ti-chart-line' },
-            ],
-          },
-        ],
-      ],
-    },
-    {
-      label: 'Solutions',
-      icon: 'ti ti-bulb',
-      items: [
-        [
-          {
-            label: 'Business',
-            items: [
-              { label: 'Analytics', icon: 'ti ti-chart-dots' },
-              { label: 'CRM', icon: 'ti ti-users' },
-            ],
-          },
-        ],
-      ],
-    },
-    {
-      label: 'Contact',
-      icon: 'ti ti-mail',
-      disabled: true,
-    },
-  ];
-}
-        `
-      }
-    }
-  }
-};
-
-// ── Vertical ────────────────────────────────────────────────────────────────
 export const Vertical: Story = {
-  render: (args) => ({
-    props: { ...args, model: baseItems },
-    template: commonTemplate
-  }),
+  name: 'Vertical',
   args: { orientation: 'vertical' },
+  render: (args) => ({
+    props: args,
+    template: `<extra-megamenu [items]="items" [orientation]="orientation"></extra-megamenu>`
+  }),
   parameters: {
     docs: {
-      description: { story: 'Вертикальная ориентация.' },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  standalone: true,
-  imports: [ExtraMegaMenuComponent],
-  template: \`<extra-megamenu [model]="items" orientation="vertical"></extra-megamenu>\`,
-})
-export class VerticalExample {
-  items: ExtraMegaMenuItem[] = [
-    {
-      label: 'Products',
-      icon: 'ti ti-box',
-      items: [
-        [
-          {
-            label: 'UI Components',
-            items: [
-              { label: 'Form', icon: 'ti ti-forms' },
-              { label: 'Button', icon: 'ti ti-hand-click' },
-              { label: 'Table', icon: 'ti ti-table' },
-            ],
-          },
-        ],
-        [
-          {
-            label: 'Charts',
-            items: [
-              { label: 'Bar Chart', icon: 'ti ti-chart-bar' },
-              { label: 'Line Chart', icon: 'ti ti-chart-line' },
-            ],
-          },
-        ],
-      ],
-    },
-    {
-      label: 'Solutions',
-      icon: 'ti ti-bulb',
-      items: [
-        [
-          {
-            label: 'Business',
-            items: [
-              { label: 'Analytics', icon: 'ti ti-chart-dots' },
-              { label: 'CRM', icon: 'ti ti-users' },
-            ],
-          },
-        ],
-      ],
-    },
-    {
-      label: 'Contact',
-      icon: 'ti ti-mail',
-      disabled: true,
-    },
-  ];
-}
-        `
-      }
+      description: { story: 'Вертикальная раскладка для боковой панели: панель выезжает вбок от пункта.' }
     }
   }
 };
 
-// ── Custom ──────────────────────────────────────────────────────────────────
-const customItems: ExtraMegaMenuItem[] = [
-  {
-    label: 'Products',
-    icon: 'ti ti-box',
-    items: [
-      [
-        {
-          label: 'Components',
-          items: [
-            {
-              label: 'Form',
-              description: 'Input, Select, Checkbox',
-              icon: 'ti ti-forms',
-              badge: 'New'
-            },
-            {
-              label: 'Button',
-              description: 'Actions and triggers',
-              icon: 'ti ti-hand-click'
-            }
-          ]
-        }
-      ],
-      [
-        {
-          label: 'Charts',
-          items: [
-            {
-              label: 'Bar Chart',
-              description: 'Categorical comparison',
-              icon: 'ti ti-chart-bar'
-            },
-            {
-              label: 'Line Chart',
-              description: 'Trends over time',
-              icon: 'ti ti-chart-line',
-              badge: 'Beta'
-            }
-          ]
-        }
-      ]
-    ]
-  },
-  {
-    label: 'Solutions',
-    icon: 'ti ti-bulb',
-    items: [
-      [
-        {
-          label: 'Business',
-          items: [
-            {
-              label: 'Analytics',
-              description: 'Reports and dashboards',
-              icon: 'ti ti-chart-dots'
-            },
-            {
-              label: 'CRM',
-              description: 'Customer management',
-              icon: 'ti ti-users',
-              badge: 'Pro'
-            }
-          ]
-        }
-      ]
-    ]
-  }
-];
+// ── Caption, icons and separators ────────────────────────────────────────────
 
-export const Custom: Story = {
+export const CaptionAndIcons: Story = {
+  name: 'Caption and icons',
+  args: { items: captionItems },
   render: (args) => ({
-    props: { ...args, model: customItems },
-    template: commonTemplate
+    props: args,
+    template: `<extra-megamenu [items]="items"></extra-megamenu>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Пункты меню с описанием (description) и бейджами — рендерятся дефолтным шаблоном компонента.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  standalone: true,
-  imports: [ExtraMegaMenuComponent],
-  template: \`<extra-megamenu [model]="items"></extra-megamenu>\`,
-})
-export class CustomExample {
-  items: ExtraMegaMenuItem[] = [
-    {
-      label: 'Products',
-      icon: 'ti ti-box',
-      items: [
-        [
-          {
-            label: 'Components',
-            items: [
-              {
-                label: 'Form',
-                description: 'Input, Select, Checkbox',
-                icon: 'ti ti-forms',
-                badge: 'New',
-              },
-              {
-                label: 'Button',
-                description: 'Actions and triggers',
-                icon: 'ti ti-hand-click',
-              },
-            ],
-          },
-        ],
-        [
-          {
-            label: 'Charts',
-            items: [
-              {
-                label: 'Bar Chart',
-                description: 'Categorical comparison',
-                icon: 'ti ti-chart-bar',
-              },
-              {
-                label: 'Line Chart',
-                description: 'Trends over time',
-                icon: 'ti ti-chart-line',
-                badge: 'Beta',
-              },
-            ],
-          },
-        ],
-      ],
-    },
-    {
-      label: 'Solutions',
-      icon: 'ti ti-bulb',
-      items: [
-        [
-          {
-            label: 'Business',
-            items: [
-              {
-                label: 'Analytics',
-                description: 'Reports and dashboards',
-                icon: 'ti ti-chart-dots',
-              },
-              {
-                label: 'CRM',
-                description: 'Customer management',
-                icon: 'ti ti-users',
-                badge: 'Pro',
-              },
-            ],
-          },
-        ],
-      ],
-    },
-  ];
-}
-        `
+        story:
+          'Пункт панели с подписью `caption`, иконкой `iconEnd` и отметкой `selected`; разделители `{ separator: true }` между пунктами.'
       }
     }
   }
 };
 
-// ── Item Template ─────────────────────────────────────────────────────────────
+// ── Mobile ───────────────────────────────────────────────────────────────────
 
-export const Template: Story = TemplateStory;
+export const Mobile: Story = {
+  name: 'Mobile',
+  args: { breakpoint: '10000px' },
+  render: (args) => ({
+    props: args,
+    template: `<extra-megamenu [items]="items" [breakpoint]="breakpoint"></extra-megamenu>`
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ниже `breakpoint` остаётся только мобильная кнопка, колонки панели складываются в один столбец. Для примера `breakpoint` завышен, чтобы показать мобильный вид на любом экране.'
+      }
+    }
+  }
+};
+
+// ── Re-exports from example components ───────────────────────────────────────
+export { ItemEnd };
