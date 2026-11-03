@@ -3,6 +3,11 @@ import { Timeline } from 'primeng/timeline';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
 
+/** Позиция контента относительно оси; `opposite` — чередование сторон (PrimeNG `alternate`). */
+export type ExtraTimelineAlign = 'left' | 'right' | 'opposite' | 'top' | 'bottom';
+
+export type ExtraTimelineLayout = 'vertical' | 'horizontal';
+
 export type ExtraTimelineLine = 'solid' | 'dashed' | 'dotted' | 'none';
 
 @Directive({ selector: '[extraTimelineContent]', standalone: true })
@@ -19,7 +24,7 @@ export class ExtraTimelineMarkerDirective {}
   standalone: true,
   imports: [Timeline, SharedModule, NgTemplateOutlet],
   template: `
-    <p-timeline [value]="value" [align]="align" [layout]="layout">
+    <p-timeline [value]="value" [align]="primeAlign" [layout]="layout">
       <ng-template pTemplate="content" let-event>
         <ng-container
           *ngTemplateOutlet="contentTemplate || defaultContent; context: { $implicit: event }"
@@ -56,8 +61,8 @@ export class ExtraTimelineMarkerDirective {}
 })
 export class ExtraTimelineComponent {
   @Input() value: any[] = [];
-  @Input() align: 'left' | 'right' | 'alternate' | 'top' | 'bottom' = 'left';
-  @Input() layout: 'vertical' | 'horizontal' = 'vertical';
+  @Input() align: ExtraTimelineAlign = 'left';
+  @Input() layout: ExtraTimelineLayout = 'vertical';
   @Input() showCaption: boolean = true;
   @Input() line: ExtraTimelineLine = 'solid';
   @Input() icon = '';
@@ -68,6 +73,11 @@ export class ExtraTimelineComponent {
   }
   @HostBinding('style.--timeline-marker-color') get markerColorVar() {
     return this.markerColor || null;
+  }
+
+  /** PrimeNG называет режим чередования `alternate`. */
+  get primeAlign(): string {
+    return this.align === 'opposite' ? 'alternate' : this.align;
   }
 
   @ContentChild(ExtraTimelineContentDirective, { read: TemplateRef }) contentTemplate?: TemplateRef<any>;

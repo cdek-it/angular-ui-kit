@@ -15,8 +15,8 @@ import { Divider } from 'primeng/divider';
     <div style="width: 280px">
       <extra-password
         [(ngModel)]="value"
-        [toggleMask]="true"
-        [feedback]="true"
+        [showMaskToggle]="true"
+        [showFeedback]="true"
         promptLabel="Введите пароль"
         weakLabel="Слабый"
         mediumLabel="Средний"
@@ -89,8 +89,8 @@ import { ExtraPasswordComponent, ExtraPasswordFooterDirective } from '@cdek-it/a
   template: \`
     <extra-password
       [(ngModel)]="value"
-      [toggleMask]="true"
-      [feedback]="true"
+      [showMaskToggle]="true"
+      [showFeedback]="true"
       promptLabel="Введите пароль"
       weakLabel="Слабый"
       mediumLabel="Средний"

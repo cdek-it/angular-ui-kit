@@ -9,7 +9,7 @@ import { ExtraButtonComponent } from '../../../../lib/components/button/button.c
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraStepperComponent, ExtraStepperItemComponent, ExtraButtonComponent],
   template: `
-    <extra-stepper #stepper="extraStepper" [orientation]="orientation" [line]="line" [linear]="linear">
+    <extra-stepper #stepper="extraStepper" [orientation]="orientation" [showLine]="showLine" [linear]="linear">
       <extra-stepper-item name="Получатель" caption="данные">
         <p class="m-0">Шаг 1</p>
         <div class="flex pt-4">
@@ -34,6 +34,6 @@ import { ExtraButtonComponent } from '../../../../lib/components/button/button.c
 })
 export class StepperDefaultComponent {
   @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
-  @Input() line = true;
+  @Input() showLine = true;
   @Input() linear = false;
 }

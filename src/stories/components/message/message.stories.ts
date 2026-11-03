@@ -50,7 +50,7 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: "'info' | 'success' | 'warning' | 'danger'" }
       }
     },
-    timer: {
+    showTimer: {
       control: 'boolean',
       description: 'Таймер автоскрытия (3 секунды)',
       table: {
@@ -80,11 +80,11 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
     icon: {
       control: 'text',
       description:
-        'Класс иконки tabler icon (вместо стандартной для severity). null скрывает иконку; не задан — стандартная по severity',
+        'Класс иконки tabler icon (вместо стандартной для severity). Пустая строка скрывает иконку; не задан — стандартная по severity',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'undefined' },
-        type: { summary: 'string | null' }
+        type: { summary: 'string' }
       }
     },
     showClose: {
@@ -98,12 +98,21 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large', 'xlarge', 'fill'],
-      description: 'Ширина сообщения; fill растягивает на всю ширину контейнера',
+      options: ['small', 'base', 'large', 'xlarge'],
+      description: 'Ширина сообщения',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge' | 'fill'" }
+        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
+      }
+    },
+    fluid: {
+      control: 'boolean',
+      description: 'Растягивает сообщение на всю ширину контейнера',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
       }
     },
     // ── События ─────────────────────────────────────────────────
@@ -119,12 +128,13 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
   },
   args: {
     severity: 'info',
-    timer: false,
+    showTimer: false,
     message: 'Message',
     caption: 'caption',
     icon: undefined,
     showClose: false,
-    size: 'base'
+    size: 'base',
+    fluid: false
   }
 };
 
@@ -142,8 +152,9 @@ export const Default: Story = {
     if (args.caption) parts.push(`caption="${args.caption}"`);
     if (args.icon) parts.push(`icon="${args.icon}"`);
     if (args.showClose) parts.push(`[showClose]="true"`);
-    if (args.timer) parts.push(`[timer]="true"`);
+    if (args.showTimer) parts.push(`[showTimer]="true"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+    if (args.fluid) parts.push(`[fluid]="true"`);
 
     const template = parts.length
       ? `<extra-message\n  ${parts.join('\n  ')}\n  (onClose)="onClose()"\n></extra-message>`

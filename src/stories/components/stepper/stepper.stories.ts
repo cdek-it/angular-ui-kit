@@ -51,7 +51,7 @@ import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angul
         type: { summary: "'horizontal' | 'vertical'" }
       }
     },
-    line: {
+    showLine: {
       control: 'boolean',
       description: 'Соединительная линия между заголовками шагов',
       table: {
@@ -72,7 +72,7 @@ import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angul
   },
   args: {
     orientation: 'horizontal',
-    line: true,
+    showLine: true,
     linear: false
   }
 };
@@ -85,12 +85,12 @@ export const Default: Story = {
   name: 'Default',
   render: (args) => ({
     props: args,
-    template: `<app-stepper-default [orientation]="orientation" [line]="line" [linear]="linear"></app-stepper-default>`
+    template: `<app-stepper-default [orientation]="orientation" [showLine]="showLine" [linear]="linear"></app-stepper-default>`
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Три шага с навигацией «Назад»/«Вперёд» через `#stepper="extraStepper"`. Используйте Controls для `orientation`/`line`/`linear`.'
+        story: 'Три шага с навигацией «Назад»/«Вперёд» через `#stepper="extraStepper"`. Используйте Controls для `orientation`/`showLine`/`linear`.'
       }
     }
   }

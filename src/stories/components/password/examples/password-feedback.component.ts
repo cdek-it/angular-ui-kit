@@ -5,7 +5,7 @@ import { ExtraPasswordComponent } from '../../../../lib/components/password/pass
 
 const template = `
 <div style="width: 280px">
-  <extra-password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
+  <extra-password [showFeedback]="true" [showMaskToggle]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
 </div>
 `;
 
@@ -36,7 +36,7 @@ import { ExtraPasswordComponent } from '@cdek-it/angular-ui-kit';
   standalone: true,
   imports: [ExtraPasswordComponent, FormsModule],
   template: \`
-    <extra-password [feedback]="true" [toggleMask]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
+    <extra-password [showFeedback]="true" [showMaskToggle]="true" [(ngModel)]="value" placeholder="Введите пароль"></extra-password>
   \`,
 })
 export class PasswordFeedbackComponent {

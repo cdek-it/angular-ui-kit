@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -20,7 +21,7 @@ import { ExtraMessageTemplateDirective } from './message-template.directive';
 
 export type ExtraMessageSeverity = 'info' | 'success' | 'warning' | 'danger';
 
-export type ExtraMessageSize = 'small' | 'base' | 'large' | 'xlarge' | 'fill';
+export type ExtraMessageSize = 'small' | 'base' | 'large' | 'xlarge';
 
 type PrimeMessageSeverity = 'success' | 'info' | 'warn' | 'error';
 
@@ -31,7 +32,7 @@ const SEVERITY_ICONS: Record<ExtraMessageSeverity, string> = {
   danger: 'ti ti-alert-circle'
 };
 
-/** Длительность таймера автоскрытия при [timer]="true" (мс). */
+/** Длительность таймера автоскрытия при [showTimer]="true" (мс). */
 const TIMER_LIFE = 3000;
 
 @Component({
@@ -40,7 +41,7 @@ const TIMER_LIFE = 3000;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Message, ButtonDirective, SharedModule, NgTemplateOutlet],
   template: `
-    <p-message [severity]="primeSeverity" [closable]="false" [styleClass]="sizeClass">
+    <p-message [severity]="primeSeverity" [closable]="false" [styleClass]="messageStyleClass">
       <ng-template pTemplate="container">
         <div class="p-message-accent-line"></div>
         @if (resolvedIcon) {
@@ -76,15 +77,17 @@ const TIMER_LIFE = 3000;
 })
 export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
   @Input() severity: ExtraMessageSeverity = 'info';
-  /** Таймер автоскрытия (3 с). */
-  @Input() timer = false;
+  /** Показывать таймер автоскрытия (3 с). */
+  @Input() showTimer = false;
   @Input() message = '';
   @Input() caption = '';
-  /** Класс иконки tabler icon; null скрывает иконку; undefined (не задан) — стандартная по severity. */
-  @Input() icon: string | null | undefined = undefined;
+  /** Класс иконки tabler icon; пустая строка скрывает иконку; undefined (не задан) — стандартная по severity. */
+  @Input() icon: string | undefined = undefined;
   @Input() showClose = false;
-  /** Ширина сообщения; `fill` — на всю ширину контейнера. */
+  /** Ширина сообщения. */
   @Input() size: ExtraMessageSize = 'base';
+  /** Растягивает сообщение на всю ширину контейнера. */
+  @Input({ transform: booleanAttribute }) fluid = false;
 
   @Output() onClose = new EventEmitter<void>();
 
@@ -100,12 +103,14 @@ export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
 
   get resolvedIcon(): string | null {
-    if (this.icon === null) return null;
+    if (this.icon === '') return null;
     return this.icon ?? SEVERITY_ICONS[this.severity];
   }
 
-  get sizeClass(): string {
-    return this.size === 'base' ? '' : `p-message-size-${this.size}`;
+  /** `fluid` переиспользует класс полной ширины `p-message-size-fill` из токенов дизайнера. */
+  get messageStyleClass(): string {
+    const sizeClass = this.size === 'base' ? '' : `p-message-size-${this.size}`;
+    return [sizeClass, this.fluid ? 'p-message-size-fill' : ''].filter(Boolean).join(' ');
   }
 
   get primeSeverity(): PrimeMessageSeverity {
@@ -118,7 +123,7 @@ export class ExtraMessageComponent implements AfterContentInit, OnDestroy {
     this.footerTpl = this.templates.find((tpl) => tpl.extraMessageTemplate === 'footer');
     this.cdr.detectChanges();
 
-    if (this.timer) {
+    if (this.showTimer) {
       this.timerId = setTimeout(() => this.close(), TIMER_LIFE);
     }
   }

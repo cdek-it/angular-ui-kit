@@ -10,8 +10,8 @@
 | `label`          | текст названия поля                                                           | `string`                           | `''`         |
 | `labelPosition`  | положение лейбла                                                              | `top \| left`                      | `top`        |
 | `floatLabel`     | плавающий лейбл внутри поля (перекрывает `labelPosition`)                     | `boolean`                          | `false`      |
-| `toggleMask`     | отображать иконку для переключения видимости пароля                           | `boolean`                          | `false`      |
-| `feedback`       | отображать панель с индикатором сложности и подсказками                       | `boolean`                          | `true`       |
+| `showMaskToggle` | отображать иконку для переключения видимости пароля                           | `boolean`                          | `false`      |
+| `showFeedback`   | отображать панель с индикатором сложности и подсказками                       | `boolean`                          | `true`       |
 | `caption`        | текст пояснения под полем                                                     | `string`                           | `''`         |
 | `info`           | текст с доп. информацией (показывается в тултипе иконки ti-info-circle)       | `string`                           | `''`         |
 | `size`           | размер поля                                                                   | `small \| base \| large \| xlarge` | `base`       |

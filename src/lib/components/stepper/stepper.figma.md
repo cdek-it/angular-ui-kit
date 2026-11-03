@@ -57,7 +57,7 @@ PrimeNG (`button` + `.p-step-number` + `.p-step-title`) и добавляющи�
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
 | `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Ориентация степпера |
-| `line` | `boolean` | `true` | Соединительная линия между заголовками шагов (`p-stepper-separator`). Не влияет на внутренний коннектор `p-step-panel` в вертикальном режиме — его рисует сам PrimeNG безусловно, это уже его собственное поведение |
+| `showLine` | `boolean` | `true` | Соединительная линия между заголовками шагов (`p-stepper-separator`). Не влияет на внутренний коннектор `p-step-panel` в вертикальном режиме — его рисует сам PrimeNG безусловно, это уже его собственное поведение |
 | `value` | `number \| undefined` | первый шаг | Значение активного шага — 1-based порядковый номер среди `extra-stepper-item` (не произвольный id, PrimeNG `Step`/`StepPanel` типизируют `value` как `number`) |
 | `linear` | `boolean` | `false` | Запрещает переход к шагу без завершения текущего |
 | `(valueChange)` | `EventEmitter<number \| undefined>` | — | Событие перехода; вместе с `value` поддерживает `[(value)]` |
@@ -128,7 +128,7 @@ Figma: `<Stepper>`, orientation=vertical
 ### Без соединительной линии
 
 ```html
-<extra-stepper [line]="false">
+<extra-stepper [showLine]="false">
   <extra-stepper-item name="Шаг 1">...</extra-stepper-item>
   <extra-stepper-item name="Шаг 2">...</extra-stepper-item>
 </extra-stepper>

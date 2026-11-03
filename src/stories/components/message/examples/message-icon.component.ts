@@ -7,8 +7,8 @@ const template = `
   <extra-message severity="info" message="Стандартная иконка" caption="icon не задан — иконка по severity"></extra-message>
   <extra-message severity="info" message="Своя иконка" caption='icon="ti ti-send"' icon="ti ti-send"></extra-message>
   <extra-message severity="success" message="Своя иконка" caption='icon="ti ti-rocket"' icon="ti ti-rocket"></extra-message>
-  <extra-message severity="warning" message="Без иконки" caption="[icon]=null — иконка скрыта" [icon]="null"></extra-message>
-  <extra-message severity="danger" message="Без иконки" caption="[icon]=null — иконка скрыта" [icon]="null"></extra-message>
+  <extra-message severity="warning" message="Без иконки" caption='icon="" — иконка скрыта' icon=""></extra-message>
+  <extra-message severity="danger" message="Без иконки" caption='icon="" — иконка скрыта' icon=""></extra-message>
 </div>
 `;
 
@@ -29,7 +29,7 @@ export const WithIcon: StoryObj = {
     docs: {
       description: {
         story:
-          'Иконка tabler icon: не задана — стандартная по severity; своя — через icon; значение null скрывает иконку.'
+          'Иконка tabler icon: не задана — стандартная по severity; своя — через icon; пустая строка (icon="") скрывает иконку.'
       },
       source: {
         language: 'ts',
@@ -49,7 +49,7 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
     <extra-message severity="info" message="Message" caption="caption" icon="ti ti-send"></extra-message>
 
     <!-- иконка скрыта -->
-    <extra-message severity="warning" message="Message" caption="caption" [icon]="null"></extra-message>
+    <extra-message severity="warning" message="Message" caption="caption" icon=""></extra-message>
   \`,
 })
 export class MessageIconComponent {}

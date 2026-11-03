@@ -12,8 +12,8 @@ import { ExtraPasswordComponent } from '../../../../lib/components/password/pass
       <extra-password
         [floatLabel]="true"
         [label]="label"
-        [toggleMask]="toggleMask"
-        [feedback]="feedback"
+        [showMaskToggle]="showMaskToggle"
+        [showFeedback]="showFeedback"
         [fluid]="fluid"
         [placeholder]="placeholder"
         [(ngModel)]="value"
@@ -22,8 +22,8 @@ import { ExtraPasswordComponent } from '../../../../lib/components/password/pass
   `
 })
 export class PasswordFloatLabelComponent {
-  @Input() feedback = true;
-  @Input() toggleMask = false;
+  @Input() showFeedback = true;
+  @Input() showMaskToggle = false;
   @Input() fluid = false;
   @Input() placeholder: string | undefined = undefined;
   @Input() label = 'Пароль';
@@ -35,8 +35,8 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (!args.feedback)    parts.push(`[feedback]="false"`);
-    if (args.toggleMask)   parts.push(`[toggleMask]="true"`);
+    if (!args.showFeedback)    parts.push(`[showFeedback]="false"`);
+    if (args.showMaskToggle)   parts.push(`[showMaskToggle]="true"`);
     if (args.placeholder)  parts.push(`placeholder="${args.placeholder}"`);
     if (args.fluid)        parts.push(`[fluid]="true"`);
 
@@ -48,8 +48,8 @@ export const FloatLabel: StoryObj<PasswordFloatLabelComponent> = {
     };
   },
   args: {
-    feedback: true,
-    toggleMask: false,
+    showFeedback: true,
+    showMaskToggle: false,
     placeholder: undefined,
     fluid: false,
     label: 'Пароль',

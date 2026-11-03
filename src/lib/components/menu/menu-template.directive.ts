@@ -1,16 +1,17 @@
 import { Directive, Input, TemplateRef } from '@angular/core';
 
-export type ExtraMenuTemplateName = 'item' | 'submenuHeader' | 'start' | 'end';
+export type ExtraMenuTemplateName = 'itemEnd';
 
 /**
  * Именованный шаблон для слотов ExtraMenuComponent.
  *
+ * Шаблон `itemEnd` добавляет содержимое в конец пункта — после текста и `caption`, перед `iconEnd`
+ * (например хоткей, `Badge`, `Tag`). Пункт целиком остаётся за компонентом: текст, иконки, выбор
+ * и навигация.
+ *
  * ```html
  * <extra-menu [items]="items">
- *   <ng-template extraMenuTemplate="start">…</ng-template>
- *   <ng-template extraMenuTemplate="item" let-item>…</ng-template>
- *   <ng-template extraMenuTemplate="submenuHeader" let-group>…</ng-template>
- *   <ng-template extraMenuTemplate="end">…</ng-template>
+ *   <ng-template extraMenuTemplate="itemEnd" let-item>…</ng-template>
  * </extra-menu>
  * ```
  */
@@ -18,7 +19,7 @@ export type ExtraMenuTemplateName = 'item' | 'submenuHeader' | 'start' | 'end';
   selector: '[extraMenuTemplate]'
 })
 export class ExtraMenuTemplateDirective {
-  /** Имя слота: item | submenuHeader | start | end. */
+  /** Имя слота: itemEnd. */
   @Input({ required: true }) extraMenuTemplate!: ExtraMenuTemplateName;
 
   constructor(public template: TemplateRef<unknown>) {}

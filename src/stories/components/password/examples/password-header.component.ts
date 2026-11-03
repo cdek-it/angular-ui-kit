@@ -13,7 +13,7 @@ import {
   imports: [ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFooterDirective, FormsModule],
   template: `
     <div style="width: 280px">
-      <extra-password [(ngModel)]="value" [toggleMask]="true" [feedback]="true">
+      <extra-password [(ngModel)]="value" [showMaskToggle]="true" [showFeedback]="true">
         <ng-template extraPasswordHeader>
           <div class="font-semibold mb-2">Требования к паролю</div>
         </ng-template>
@@ -57,7 +57,7 @@ import {
     FormsModule,
   ],
   template: \`
-    <extra-password [(ngModel)]="value" [toggleMask]="true" [feedback]="true">
+    <extra-password [(ngModel)]="value" [showMaskToggle]="true" [showFeedback]="true">
       <ng-template extraPasswordHeader>
         <div class="font-semibold mb-2">Требования к паролю</div>
       </ng-template>
