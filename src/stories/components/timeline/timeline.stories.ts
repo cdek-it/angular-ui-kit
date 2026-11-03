@@ -44,7 +44,7 @@ const meta: Meta<TimelineArgs> = {
       control: 'object',
       description: 'Массив событий для отображения',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         type: { summary: '{ value: string, caption?: string }[]' }
       }
     },
@@ -53,7 +53,7 @@ const meta: Meta<TimelineArgs> = {
       options: ['vertical', 'horizontal'],
       description: 'Ориентация таймлайна',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'vertical'" },
         type: { summary: "'vertical' | 'horizontal'" }
       }
@@ -62,24 +62,24 @@ const meta: Meta<TimelineArgs> = {
     verticalAlign: {
       name: 'align',
       control: 'select',
-      options: ['left', 'right', 'alternate'],
+      options: ['left', 'right', 'opposite'],
       description: 'Положение контента относительно маркера',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'left'" },
-        type: { summary: "'left' | 'right' | 'alternate'" }
+        type: { summary: "'left' | 'right' | 'opposite'" }
       },
       if: { arg: 'layout', eq: 'vertical' }
     },
     horizontalAlign: {
       name: 'align',
       control: 'select',
-      options: ['top', 'bottom', 'alternate'],
+      options: ['top', 'bottom', 'opposite'],
       description: 'Положение контента относительно маркера',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'top'" },
-        type: { summary: "'top' | 'bottom' | 'alternate'" }
+        type: { summary: "'top' | 'bottom' | 'opposite'" }
       },
       if: { arg: 'layout', eq: 'horizontal' }
     },
@@ -87,7 +87,7 @@ const meta: Meta<TimelineArgs> = {
       control: 'boolean',
       description: 'Показывать описание (caption) под основным контентом',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
@@ -97,7 +97,7 @@ const meta: Meta<TimelineArgs> = {
       options: ['solid', 'dashed', 'dotted', 'none'],
       description: 'Стиль линии коннектора',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "'solid'" },
         type: { summary: "'solid' | 'dashed' | 'dotted' | 'none'" }
       }
@@ -106,7 +106,7 @@ const meta: Meta<TimelineArgs> = {
       control: 'text',
       description: 'CSS-класс иконки маркера (например `ti ti-check`)',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
@@ -115,7 +115,7 @@ const meta: Meta<TimelineArgs> = {
       control: 'color',
       description: 'Кастомный цвет маркера',
       table: {
-        category: 'Props',
+        category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
@@ -229,13 +229,13 @@ export const Opposite: Story = {
     return { props: { ...args, value: args.value }, template };
   },
   args: {
-    verticalAlign: 'alternate'
+    verticalAlign: 'opposite'
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Контент по другую сторону линии через директиву `extraTimelineOpposite`. Отображается при `align="alternate"`, `"right"`, `"bottom"`.'
+          'Контент по другую сторону линии через директиву `extraTimelineOpposite`. Отображается при `align="opposite"`, `"right"`, `"bottom"`.'
       }
     }
   }

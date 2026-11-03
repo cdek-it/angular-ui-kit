@@ -12,15 +12,15 @@ const template = `
       size="small"
       (click)="showInfo.set(true); showSuccess.set(true)"
     ></extra-button>
-    <span class="text-sm">Сообщения с [timer]="true" скрываются через 3 секунды</span>
+    <span class="text-sm">Сообщения с [showTimer]="true" скрываются через 3 секунды</span>
   </div>
 
   @if (showInfo()) {
     <extra-message
       severity="info"
       message="Автоскрытие через 3 с"
-      caption="[timer]=true"
-      [timer]="true"
+      caption="[showTimer]=true"
+      [showTimer]="true"
       (onClose)="onClose('info'); showInfo.set(false)"
     ></extra-message>
   }
@@ -29,8 +29,8 @@ const template = `
     <extra-message
       severity="success"
       message="Автоскрытие через 3 с"
-      caption="[timer]=true + [showClose]=true"
-      [timer]="true"
+      caption="[showTimer]=true + [showClose]=true"
+      [showTimer]="true"
       [showClose]="true"
       (onClose)="onClose('success'); showSuccess.set(false)"
     ></extra-message>
@@ -65,7 +65,7 @@ export const Timer: StoryObj = {
     docs: {
       description: {
         story:
-          'Таймер автоскрытия ([timer]="true", 3 секунды) — сообщение исчезает само; onClose срабатывает и при автоскрытии, и при закрытии крестиком. Кнопка «Показать снова» возвращает сообщения.'
+          'Таймер автоскрытия ([showTimer]="true", 3 секунды) — сообщение исчезает само; onClose срабатывает и при автоскрытии, и при закрытии крестиком. Кнопка «Показать снова» возвращает сообщения.'
       },
       source: {
         language: 'ts',
@@ -83,7 +83,7 @@ import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
         severity="info"
         message="Автоскрытие через 3 с"
         caption="caption"
-        [timer]="true"
+        [showTimer]="true"
         (onClose)="show.set(false)"
       ></extra-message>
     }

@@ -50,7 +50,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     }
   },
   argTypes: {
-    feedback: {
+    showFeedback: {
       control: 'boolean',
       description: 'Показывать индикатор надёжности пароля',
       table: {
@@ -59,7 +59,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
         type: { summary: 'boolean' }
       }
     },
-    toggleMask: {
+    showMaskToggle: {
       control: 'boolean',
       description: 'Возможность показать/скрыть пароль',
       table: {
@@ -174,8 +174,8 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     }
   },
   args: {
-    feedback: true,
-    toggleMask: false,
+    showFeedback: true,
+    showMaskToggle: false,
     placeholder: 'Введите пароль',
     size: 'base',
     fluid: false,
@@ -196,8 +196,8 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (!args.feedback) parts.push(`[feedback]="false"`);
-    if (args.toggleMask) parts.push(`[toggleMask]="true"`);
+    if (!args.showFeedback) parts.push(`[showFeedback]="false"`);
+    if (args.showMaskToggle) parts.push(`[showMaskToggle]="true"`);
     if (args.label) parts.push(`label="${args.label}"`);
     if (args.floatLabel) {
       parts.push(`[floatLabel]="true"`);

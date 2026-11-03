@@ -6,41 +6,52 @@
 
 ## Свойства
 
-| Свойство       | Описание                                                        | Типизация                          |
-| -------------- | -------------------------------------------------------------- | ---------------------------------- |
-| `name`         | имя поля отправляемой формы                                    | `string`                           |
-| `multiple`     | разрешить выбор нескольких файлов                              | `boolean`                          |
-| `accept`       | допустимые типы файлов (MIME или расширения через запятую)     | `string`                           |
-| `maxFileSize`  | максимальный размер одного файла в байтах                      | `number`                           |
-| `fileLimit`    | максимальное количество файлов                                 | `number \| undefined`              |
-| `dragAndDrop`  | включить область drag-and-drop                                 | `boolean`                          |
-| `mode`         | режим загрузки; кнопка «Отправить» видна только в `manual`     | `'auto' \| 'manual' \| 'basic'`    |
-| `url`          | endpoint загрузки (если компонент сам выполняет запрос)        | `string`                           |
-| `labels`       | статические тексты интерфейса (сгруппированы)                  | `Labels`                           |
-| `messages`     | шаблоны сообщений об ошибках (сгруппированы, заменяют 6 полей) | `Messages`                         |
-| `uploadError`  | текст ошибки реальной отправки; компонент всегда работает в customUpload, поэтому решение "запрос не удался" остаётся за приложением — оно выставляет этот проп после своего HTTP-вызова, а компонент рисует сообщение на штатном месте (сразу после зоны дропа, перед списком файлов, как и сообщение об успехе) | `string \| null` |
+| Свойство         | Описание                                                                                                                                                                                                                                                                                                          | Типизация                       | По умолчанию                                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `name`           | имя поля отправляемой формы                                                                                                                                                                                                                                                                                       | `string`                        | `'files[]'`                                                                                                            |
+| `multiple`       | разрешить выбор нескольких файлов                                                                                                                                                                                                                                                                                 | `boolean`                       | `true`                                                                                                                 |
+| `accept`         | допустимые типы файлов (MIME или расширения через запятую)                                                                                                                                                                                                                                                        | `string`                        | `'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'` |
+| `maxFileSize`    | максимальный размер одного файла в байтах                                                                                                                                                                                                                                                                         | `number`                        | `1000000`                                                                                                              |
+| `fileLimit`      | максимальное количество файлов                                                                                                                                                                                                                                                                                    | `number`                        | —                                                                                                                      |
+| `dragAndDrop`    | включить область drag-and-drop                                                                                                                                                                                                                                                                                    | `boolean`                       | `true`                                                                                                                 |
+| `mode`           | режим загрузки; кнопка «Отправить» видна только в `manual`                                                                                                                                                                                                                                                        | `'auto' \| 'manual' \| 'basic'` | `'manual'`                                                                                                             |
+| `url`            | endpoint загрузки (если компонент сам выполняет запрос)                                                                                                                                                                                                                                                           | `string`                        | `'/api/upload'`                                                                                                        |
+| `labels`         | статические тексты интерфейса (сгруппированы)                                                                                                                                                                                                                                                                     | `Labels`                        | `{}`                                                                                                                   |
+| `messages`       | шаблоны сообщений об ошибках (сгруппированы, заменяют 6 полей)                                                                                                                                                                                                                                                    | `Messages`                      | `{}`                                                                                                                   |
+| `uploadError`    | текст ошибки реальной отправки; компонент всегда работает в customUpload, поэтому решение "запрос не удался" остаётся за приложением — оно выставляет этот проп после своего HTTP-вызова, а компонент рисует сообщение на штатном месте (сразу после зоны дропа, перед списком файлов, как и сообщение об успехе) | `string \| null`                | `null`                                                                                                                 |
+| `required`       | поле обязательно для заполнения                                                                                                                                                                                                                                                                                   | `boolean`                       | `false`                                                                                                                |
+| `ariaLabel`      | метка для программ экранного доступа                                                                                                                                                                                                                                                                              | `string`                        | —                                                                                                                      |
+| `ariaLabelledBy` | `id` внешнего элемента-метки для доступности                                                                                                                                                                                                                                                                      | `string`                        | —                                                                                                                      |
+| `autofocus`      | автофокус при монтировании компонента                                                                                                                                                                                                                                                                             | `boolean`                       | `false`                                                                                                                |
+| `tabindex`       | порядок перехода по Tab                                                                                                                                                                                                                                                                                           | `number`                        | —                                                                                                                      |
+
+## Стекозависимые пропсы
+
+| Описание        | Angular                                         | Vue          | React   | Типизация | По умолчанию |
+| --------------- | ----------------------------------------------- | ------------ | ------- | --------- | ------------ |
+| выбранные файлы | `ngModel` \| `formControl` \| `formControlName` | `modelValue` | `value` | `File[]`  | `[]`         |
 
 ## События
 
-| Событие         | Описание                                             | Типизация                                 |
-| --------------- | ---------------------------------------------------- | ----------------------------------------- |
-| `select`      | срабатывает при выборе файлов                        | `(event: FileSelectEvent) => void`        |
-| `remove`      | срабатывает при удалении файла из списка             | `(event: FileRemoveEvent) => void`        |
-| `clear`       | срабатывает при очистке всего списка                 | `() => void`                              |
-| `upload`      | срабатывает при отправке файлов (кастомная загрузка) | `(event: FileUploadHandlerEvent) => void` |
-| `error`       | срабатывает при ошибке загрузки                      | `(event: FileUploadErrorEvent) => void`   |
+| Событие  | Описание                                             | Типизация                                     |
+| -------- | ---------------------------------------------------- | --------------------------------------------- |
+| `select` | срабатывает при выборе файлов                        | `(event: ExtraFileUploadSelectEvent) => void` |
+| `remove` | срабатывает при удалении файла из списка             | `(event: ExtraFileUploadRemoveEvent) => void` |
+| `clear`  | срабатывает при очистке всего списка                 | `() => void`                                  |
+| `upload` | срабатывает при отправке файлов (кастомная загрузка) | `(event: ExtraFileUploadUploadEvent) => void` |
+| `error`  | срабатывает при ошибке загрузки                      | `(event: ExtraFileUploadErrorEvent) => void`  |
 
 ## Вложенные компоненты (делегирование)
 
 Обёртка композирует существующие DS-компоненты и использует их **родной API** из их
 собственной документации. Пропсы вложенных компонентов на `FileUpload` **не выносятся**.
 
-| Вложенный (Figma)              | DS-компонент       | Документация                      | Кто управляет                                      |
-| ------------------------------ | ------------------ | --------------------------------- | -------------------------------------------------- |
-| `<Badge>` (статус файла)       | `ExtraBadge`       | [badge.md](./badge.md)            | внутренне, `severity`/`value` из статуса файла ⚠️  |
-| `<Message>` (ошибки / успех)   | `ExtraMessage`     | [message.md](./message.md)        | внутренне, текст из `messages`, severity из состояния |
-| `<ProgressBar>` (загрузка)     | `ExtraProgressBar` | [progressbar.md](./progressbar.md)| внутренне, `value` из прогресса, `showValue` off  |
-| `<Button.Base/Danger>`         | `ExtraButton`      | ❗ нет `button.md`                 | внутренне, фикс. конфиг; тексты через `labels`     |
+| Вложенный (Figma)            | DS-компонент       | Документация                       | Кто управляет                                         |
+| ---------------------------- | ------------------ | ---------------------------------- | ----------------------------------------------------- |
+| `<Badge>` (статус файла)     | `ExtraBadge`       | [badge.md](./badge.md)             | внутренне, `severity`/`value` из статуса файла ⚠️     |
+| `<Message>` (ошибки / успех) | `ExtraMessage`     | [message.md](./message.md)         | внутренне, текст из `messages`, severity из состояния |
+| `<ProgressBar>` (загрузка)   | `ExtraProgressBar` | [progressbar.md](./progressbar.md) | внутренне, `value` из прогресса, `showValue` off      |
+| `<Button.Base/Danger>`       | `ExtraButton`      | ❗ нет `button.md`                 | внутренне, фикс. конфиг; тексты через `labels`        |
 
 ## Типы
 
@@ -48,17 +59,17 @@
 // Статические локализуемые строки
 interface Labels {
   dropzoneTitle?: string;
-  dropzoneCaption?: string;   // подпись под заголовком
-  chooseButton?: string;      // текст кнопки выбора
-  uploadButton?: string;      // текст кнопки отправки (mode = 'manual')
-  cancelButton?: string;      // текст кнопки очистки
+  dropzoneCaption?: string; // подпись под заголовком
+  chooseButton?: string; // текст кнопки выбора
+  uploadButton?: string; // текст кнопки отправки (mode = 'manual')
+  cancelButton?: string; // текст кнопки очистки
 }
 
 // Шаблоны ошибок. `{0}` — токен подстановки (имя файла, лимит, …).
 // Наличие записи управляет показом Message
 interface Messages {
-  invalidFileSize?:  { summary: string; detail: string }; // {0}=имя / {0}=макс. размер
-  invalidFileType?:  { summary: string; detail: string }; // {0}=имя / {0}=типы
+  invalidFileSize?: { summary: string; detail: string }; // {0}=имя / {0}=макс. размер
+  invalidFileType?: { summary: string; detail: string }; // {0}=имя / {0}=типы
   invalidFileLimit?: { summary: string; detail: string }; // {0}=макс. количество
 }
 
@@ -66,22 +77,22 @@ interface Messages {
 interface UploadFile {
   file: File;
   status: 'pending' | 'uploading' | 'success' | 'error';
-  progress?: number;      // 0–100 → ExtraProgressBar.value;
-  errorMessage?: string;  // наличие → рендер ExtraMessage;
+  progress?: number; // 0–100 → ExtraProgressBar.value;
+  errorMessage?: string; // наличие → рендер ExtraMessage;
 }
 ```
 
-## FileSelectEvent
+## ExtraFileUploadSelectEvent
 
 Событие выбора файлов, передаётся в `select`.
 
-| Свойство        | Описание                       | Типизация |
-| --------------- | ------------------------------ | --------- |
-| `files`         | выбранные файлы                | `File[]`  |
-| `currentFiles`  | все файлы, готовые к загрузке  | `File[]`  |
-| `originalEvent` | исходное браузерное событие    | `Event`   |
+| Свойство        | Описание                      | Типизация |
+| --------------- | ----------------------------- | --------- |
+| `files`         | выбранные файлы               | `File[]`  |
+| `currentFiles`  | все файлы, готовые к загрузке | `File[]`  |
+| `originalEvent` | исходное браузерное событие   | `Event`   |
 
-## FileRemoveEvent
+## ExtraFileUploadRemoveEvent
 
 Событие удаления файла, передаётся в `remove`.
 
@@ -90,7 +101,7 @@ interface UploadFile {
 | `file`          | удаляемый файл              | `File`    |
 | `originalEvent` | исходное браузерное событие | `Event`   |
 
-## FileUploadHandlerEvent
+## ExtraFileUploadUploadEvent
 
 Событие отправки файлов в режиме кастомной загрузки, передаётся в `upload`.
 
@@ -98,7 +109,7 @@ interface UploadFile {
 | -------- | ----------------------- | --------- |
 | `files`  | список выбранных файлов | `File[]`  |
 
-## FileUploadErrorEvent
+## ExtraFileUploadErrorEvent
 
 Событие ошибки загрузки, передаётся в `error`.
 

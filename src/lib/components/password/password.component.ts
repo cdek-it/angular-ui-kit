@@ -90,8 +90,8 @@ export class ExtraPasswordFooterDirective {}
       <p-password
         [ngModel]="modelValue"
         (ngModelChange)="handleChange($event)"
-        [feedback]="feedback"
-        [toggleMask]="toggleMask"
+        [feedback]="showFeedback"
+        [toggleMask]="showMaskToggle"
         [inputStyleClass]="computedInputStyleClass"
         [disabled]="disabled"
         [placeholder]="placeholder"
@@ -132,8 +132,10 @@ export class ExtraPasswordComponent implements ControlValueAccessor, OnInit {
   @ContentChild(ExtraPasswordHeaderDirective, { read: TemplateRef }) headerTemplate: TemplateRef<any> | null = null;
   @ContentChild(ExtraPasswordFooterDirective, { read: TemplateRef }) footerTemplate: TemplateRef<any> | null = null;
 
-  @Input() feedback = true;
-  @Input() toggleMask = false;
+  /** Показывать панель с индикатором сложности и подсказками. */
+  @Input() showFeedback = true;
+  /** Показывать иконку-переключатель видимости пароля. */
+  @Input() showMaskToggle = false;
   @Input() placeholder: string | undefined = undefined;
   @Input() size: ExtraPasswordSize = 'base';
   @Input() variant: 'filled' | 'outlined' = 'outlined';

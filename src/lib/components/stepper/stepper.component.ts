@@ -22,7 +22,7 @@ export type ExtraStepperOrientation = 'horizontal' | 'vertical';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'extraStepper',
-  host: { '[class.extra-stepper--no-line]': '!line' },
+  host: { '[class.extra-stepper--no-line]': '!showLine' },
   styles: [
     `
       /* Соединительную линию рисует сам p-step (горизонталь) или p-stepper-separator (вертикаль). */
@@ -100,7 +100,7 @@ export class ExtraStepperComponent implements AfterContentInit {
 
   @Input() orientation: ExtraStepperOrientation = 'horizontal';
   /** Отображение соединительной линии между шагами. */
-  @Input({ transform: booleanAttribute }) line = true;
+  @Input({ transform: booleanAttribute }) showLine = true;
   /** Запрещает переход к следующему шагу без завершения текущего. */
   @Input({ transform: booleanAttribute }) linear = false;
   @Input() value: number | undefined = 1;

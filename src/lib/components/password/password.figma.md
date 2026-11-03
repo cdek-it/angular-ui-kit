@@ -24,8 +24,8 @@ updated: '2026-06-22'
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
 | `[(ngModel)]` / `[formControl]` | `string \| null` | `null` | Значение поля через ControlValueAccessor — соответствует Figma-свойству `text-input` |
-| `feedback` | `boolean` | `true` | Показывать ли overlay-индикатор надёжности пароля |
-| `toggleMask` | `boolean` | `false` | Показывать ли иконку-переключатель видимости (reveal) — соответствует Figma-свойству `show-eye` |
+| `showFeedback` | `boolean` | `true` | Показывать ли overlay-индикатор надёжности пароля |
+| `showMaskToggle` | `boolean` | `false` | Показывать ли иконку-переключатель видимости (reveal) — соответствует Figma-свойству `show-eye` |
 | `placeholder` | `string \| undefined` | `undefined` | Подсказка при пустом поле — соответствует Figma-свойствам `text-placeholder` / `has-placeholder` |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер поля; маппируется на классы PrimeNG `p-inputtext-sm` / `p-inputtext-lg` |
 | `variant` | `'filled' \| 'outlined'` | `'outlined'` | Стиль оформления поля |
@@ -72,28 +72,28 @@ Figma: `<Password>`, state=default, has-placeholder=true, has-floatlabel=false �
 ></extra-password>
 ```
 
-### С переключателем видимости (toggleMask / show-eye)
+### С переключателем видимости (showMaskToggle / show-eye)
 
 Figma: `<Password>`, state=default, show-eye=true — nodeId `375:1743`
 
 ```html
 <extra-password
   placeholder="Введите пароль"
-  [toggleMask]="true"
+  [showMaskToggle]="true"
   [(ngModel)]="password"
   name="password"
 ></extra-password>
 ```
 
-### Без индикатора надёжности (feedback=false)
+### Без индикатора надёжности (showFeedback=false)
 
 Figma: `<Password>`, state=default — nodeId `375:1743`
 
 ```html
 <extra-password
   placeholder="Текущий пароль"
-  [feedback]="false"
-  [toggleMask]="true"
+  [showFeedback]="false"
+  [showMaskToggle]="true"
   [(ngModel)]="password"
   name="currentPassword"
 ></extra-password>
@@ -186,7 +186,7 @@ Figma: `<Password>`, state=default — nodeId `375:1743`
 | Заголовок индикатора | `<ng-template extraPasswordHeader>` | Содержимое над списком требований в overlay надёжности; импортируйте `ExtraPasswordHeaderDirective` из `'@cdek-it/angular-ui-kit'` |
 | Футер индикатора | `<ng-template extraPasswordFooter>` | Содержимое под индикатором надёжности (список правил, ссылки); импортируйте `ExtraPasswordFooterDirective` из `'@cdek-it/angular-ui-kit'` |
 
-Директивы `ExtraPasswordHeaderDirective` и `ExtraPasswordFooterDirective` экспортируются из `@cdek-it/angular-ui-kit` и объявляются как `standalone: true` — добавляйте их в массив `imports` компонента отдельно от `ExtraPasswordComponent`. Слоты проецируются только при `feedback=true`.
+Директивы `ExtraPasswordHeaderDirective` и `ExtraPasswordFooterDirective` экспортируются из `@cdek-it/angular-ui-kit` и объявляются как `standalone: true` — добавляйте их в массив `imports` компонента отдельно от `ExtraPasswordComponent`. Слоты проецируются только при `showFeedback=true`.
 
 ```html
 <extra-password
@@ -240,8 +240,8 @@ import {
 **Do:**
 - Используйте `[(ngModel)]` или `[formControl]` — компонент реализует `ControlValueAccessor` и именно через них передаётся значение.
 - Управляйте состоянием `disabled` через `FormControl.disable()` / `FormControl.enable()` — это сохраняет dirty/touched-флаги.
-- Включайте `[toggleMask]="true"`, чтобы дать пользователю возможность сверить введённый пароль.
-- Включайте `[feedback]="true"` на экранах регистрации и смены пароля; для поля «текущий пароль» при входе ставьте `[feedback]="false"`.
+- Включайте `[showMaskToggle]="true"`, чтобы дать пользователю возможность сверить введённый пароль.
+- Включайте `[showFeedback]="true"` на экранах регистрации и смены пароля; для поля «текущий пароль» при входе ставьте `[showFeedback]="false"`.
 - Локализуйте `promptLabel`, `weakLabel`, `mediumLabel`, `strongLabel` под язык интерфейса.
 
 **Don't:**

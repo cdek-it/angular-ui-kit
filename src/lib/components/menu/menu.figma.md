@@ -5,33 +5,49 @@ import:
   symbol: ExtraMenuComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '16005:21803'
-  componentKey: 'f8ce571000a0f4d615795f6ea2307b3b478964a7'
   name: '<Menu>'
 status: stable
-updated: '2026-08-31'
+updated: '2026-10-30'
 ---
 
 ## Overview
 
-`ExtraMenu` — компонент вертикального меню для навигации и действий. Принимает пункты через `@Input() items` в виде размеченного объединения `MenuAction | MenuGroup | MenuSeparator`; поддерживает разделители, иконки, группировку (`MenuGroup.items`, вложенность на один уровень) и пункты с описанием (`caption`). Оборачивает PrimeNG `p-menu`.
+`ExtraMenu` — панель со списком пунктов: действия или навигация. Используется как самостоятельный элемент или как всплывающее меню у триггера. Пункты передаются через `@Input() items` размеченным объединением `ExtraMenuAction | ExtraMenuGroup | ExtraMenuSeparator`: иконки, подпись `caption`, группы с заголовком (вложенность на один уровень), разделители. Оборачивает PrimeNG `p-menu`; содержимое пункта рисует сам компонент.
 
-Компонент соответствует Figma-компоненту `<Menu>` (nodeId `16005:21803`) из библиотеки UI Kit (DS) v2.0. Figma-свойство `popup` напрямую маппируется в `@Input() popup`. Это не панель-навигация (`Menubar`), не многоуровневое меню (`TieredMenu`) и не широкое раскрывающееся меню (`MegaMenu`).
+Компонент соответствует Figma-компоненту `<Menu>` (nodeId `16005:21803`, библиотека «UI Kit (DS) v2.1») и закрытым подкомпонентам `<🔒Menu.ItemBase>` (пункт), `<🔒Menu.ItemTemplate>` (пункт с подписью и слотом) и `<🔒Menu.Submenu>` (заголовок группы). Для постоянной навигации по разделам используйте `Menubar` или `Tabs`, для единичного действия — `Button`.
 
-**Ограничение PrimeNG:** если в `items` присутствует хотя бы один `MenuGroup`, все объекты верхнего уровня рендерятся как подписи групп — плоские `MenuAction` на верхнем уровне вместе с группами не поддерживаются PrimeNG (см. Do/Don't).
+Спецификация: [menu.md](../../../../docs/components-api/menu.md).
+
+**Ограничение PrimeNG:** если в `items` есть хотя бы один `ExtraMenuGroup`, PrimeNG рендерит все элементы верхнего уровня как заголовки групп (`hasSubMenu()` → `model.some(item => item.items)`) — плоские `ExtraMenuAction` верхнего уровня вместе с группами не поддерживаются.
 
 ## Props mapping
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
-| `items` | `MenuItem[]` (`MenuAction \| MenuGroup \| MenuSeparator`) | `[]` | Пункты меню |
-| `popup` | `boolean` | `false` | Режим всплывающего меню — соответствует Figma-свойству `popup`. В этом режиме меню скрыто и показывается методом `show()`/`toggle()` |
-| `open` | `boolean` | `false` | Управляемая видимость popup-меню; синхронизируется через `(onShow)`/`(onHide)` |
-| `appendTo` | `'body' \| 'self' \| ElementLike` | `'body'` | Контейнер рендера overlay |
-| `ariaLabel` | `string` | — | Доступное имя меню |
+| `items` | `ExtraMenuItem[]` | `[]` | Пункты, группы и разделители. Соответствует Figma-слоту `<Slot>` у `<Menu>` |
+| `popup` | `boolean` | `false` | Режим всплывающего меню — Figma-свойство `popup`. Меню отсутствует в DOM, пока его не открыли `toggle()`/`show()` или через `open` |
+| `open` | `boolean` | `false` | Управляемая видимость всплывающего меню; синхронизируется через `(onShow)`/`(onHide)`. В Figma нет |
+| `appendTo` | `'body' \| 'self' \| ExtraMenuElementLike` | `'body'` | Контейнер рендера всплывающего меню. В Figma нет |
+| `ariaLabel` | `string` | — | Метка для скринридеров |
+| `(onItemSelect)` | `EventEmitter<ExtraMenuItemSelectEvent>` | — | Выбор пункта |
+| `(onShow)` / `(onHide)` | `EventEmitter<void>` | — | Открытие / закрытие всплывающего меню |
 
-Иконки пунктов (`icon`, `iconEnd`) задаются строкой класса tabler icon — см. [icons.md](../../figma-code-connect/icons.md).
+Свойства подкомпонентов в Figma → поля пункта:
+
+| Figma | Поле | Комментарий |
+|-------|------|-------------|
+| `text-menu-item` | `label` | Текст пункта (у `Menu.Submenu` — заголовок группы `ExtraMenuGroup.label`) |
+| `prefix-icon-menu-item` | `icon` | CSS-класс tabler целиком |
+| `ItemTemplate.postfix-icon-menu` | `iconEnd` | CSS-класс tabler целиком |
+| `ItemTemplate.text-caption` | `caption` | Одна строка, без точки в конце |
+| `ItemTemplate.prefix-icon-menu` | — | Декоративная стрелка перед пунктом, в API не выносится |
+| `state=active` | `selected` | «Активный раздел»: на `<li>` вешается класс `p-menuitem-checked` (стили — в пресете) |
+| `state=hover/pressed/focus-visible` | — | Состояния взаимодействия, задаются темой |
+| `separator=true` | `{ separator: true }` | Отдельная запись перед пунктом; допускается и внутри группы |
+
+Отключённого пункта в ките нет («Отключённый пункт — в ките отсутствует»), поэтому `disabled` у пункта не предусмотрен.
 
 ## Variants
 
@@ -39,60 +55,72 @@ updated: '2026-08-31'
 
 Figma: `<Menu>`, popup=false — nodeId `16005:21806`
 
-Меню отображается на месте, в потоке документа.
-
 ```html
 <extra-menu [items]="items"></extra-menu>
 ```
 
+```ts
+items: ExtraMenuItem[] = [
+  { label: 'Кабинет', icon: 'ti ti-user' },
+  { label: 'Скачать реестр', caption: 'Ctrl+E', icon: 'ti ti-download' },
+  { separator: true },
+  { label: 'Выйти', icon: 'ti ti-logout' },
+];
+```
+
 ### Popup (popup=true)
 
-Figma: `<Menu>`, popup=true — nodeId `16005:21804`
-
-Меню скрыто и открывается рядом с триггером по вызову `toggle(event)` через ссылку на компонент.
+Figma: `<Menu>`, popup=true — nodeId `16005:21804`. Не применяйте в мобильном интерфейсе.
 
 ```html
 <extra-button label="Действия" variant="secondary" (click)="menuRef.toggle($event)"></extra-button>
 <extra-menu #menuRef [items]="items" [popup]="true"></extra-menu>
 ```
 
+### Группы
+
+Figma: `<🔒Menu.Submenu>` — nodeId `16005:25381`
+
+```ts
+items: ExtraMenuGroup[] = [
+  { label: 'Заказы', items: [{ label: 'Новый заказ', icon: 'ti ti-plus' }, { separator: true }, { label: 'Архив', icon: 'ti ti-archive' }] },
+];
+```
+
 ## Slots
 
-Именованные слоты передаются директивой `[extraMenuTemplate]` (символ `ExtraMenuTemplateDirective`) со значением `'item' | 'submenuHeader' | 'start' | 'end'`.
-
-| Слот | Описание | Контекст (`let-x`) |
-|------|----------|---------------------|
-| `item` | Кастомный рендер пункта меню; при отсутствии применяется встроенный рендер | `MenuAction` |
-| `submenuHeader` | Кастомный рендер заголовка группы | `MenuGroup` |
-| `start` | Произвольный контент перед списком | — |
-| `end` | Произвольный контент после списка | — |
+| Слот | Директива | Контекст | Описание |
+|------|-----------|----------|----------|
+| `itemEnd` | `extraMenuTemplate="itemEnd"` | `let-item` (`ExtraMenuAction`) | Содержимое в конце пункта — после текста и `caption`, перед `iconEnd`. Аналог Figma-слота `<Slot.Content>` в `<🔒Menu.ItemTemplate>` |
 
 ```html
 <extra-menu [items]="items">
-  <ng-template extraMenuTemplate="item" let-item>
-    <a class="p-menu-item-link" [attr.tabindex]="-1">
-      <span class="p-menu-item-label">{{ item.label }}</span>
-    </a>
+  <ng-template extraMenuTemplate="itemEnd" let-item>
+    @if (item.id === 'create') {
+      <small class="menu-item-caption">Ctrl+N</small>
+    }
   </ng-template>
 </extra-menu>
 ```
 
+Весь пункт — одна ссылка (PrimeNG выбирает пункт с клавиатуры кликом по первой ссылке внутри него), поэтому слот находится внутри ссылки: подходит для хоткея, `Badge`, `Tag`, `Typography.Caption`.
+
 ## Related
 
-- [ExtraButton](../button/button.figma.md) — частый триггер для popup-режима меню
+- [ExtraButton](../button/button.figma.md) — частый триггер для всплывающего меню
+- [MegaMenu](../megamenu/megamenu.figma.md) — многоуровневая навигация с колонками
 - [Иконки](../../figma-code-connect/icons.md) — классы иконок пунктов
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
 
 ## Do / Don't
 
 **Do:**
-- Передавайте пункты через `[items]`, описывая их декларативно в компоненте
-- Для popup-режима задавайте `[popup]="true"` и открывайте меню методом `toggle($event)`/`show($event)` по ссылке на компонент
-- Используйте `{ separator: true }` в `items` для визуального разделения групп действий
-- Для нестандартного отображения пункта используйте `<ng-template extraMenuTemplate="item">` вместо переопределения стилей
+- Называйте пункты коротко: глаголом действия или существительным раздела — «Кабинет», «Скачать реестр», «Выйти»
+- Поясняйте пункт подписью `caption` в одну строку; хоткеи и вспомогательный контент размещайте в слоте `itemEnd`
+- Используйте единую терминологию действий во всём продукте
+- Для всплывающего режима задавайте `[popup]="true"` и открывайте меню методом `toggle($event)`/`show($event)`
 
 **Don't:**
-- Не используйте `ExtraMenu` для горизонтальной навигации — для неё предназначен `Menubar`
-- Не смешивайте плоские `MenuAction` верхнего уровня с `MenuGroup` в одном массиве `items` — PrimeNG рендерит все элементы верхнего уровня как заголовки групп, как только встречает хотя бы одну группу
-- Не инлайньте CSS-классы иконок вручную — используйте справочник [icons.md](../../figma-code-connect/icons.md)
-- Не открывайте popup-меню вручную через DOM — используйте методы `toggle()`/`show()`/`hide()`
+- Не ставьте точку в конце `caption` и не пишите хоткеи в тексте пункта вместо слота
+- Не используйте всплывающий режим в мобильном интерфейсе
+- Не смешивайте плоские `ExtraMenuAction` верхнего уровня с `ExtraMenuGroup` в одном массиве `items` (см. ограничение PrimeNG выше)
+- Не открывайте всплывающее меню вручную через DOM — используйте методы `toggle()`/`show()`/`hide()`
