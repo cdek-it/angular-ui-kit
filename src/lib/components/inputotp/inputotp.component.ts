@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -8,10 +9,23 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputOtp, InputOtpChangeEvent } from 'primeng/inputotp';
 
@@ -33,6 +47,11 @@ export interface ExtraInputOtpChangeEvent {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraInputOtpComponent),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ExtraInputOtpComponent),
+      multi: true
     }
   ],
   template: `
@@ -41,6 +60,9 @@ export interface ExtraInputOtpChangeEvent {
       [mask]="mask"
       [integerOnly]="integerOnly"
       [autofocus]="autofocus"
+      [readonly]="readonly"
+      [tabindex]="tabindex ?? null"
+      [pt]="inputOtpPt"
       [size]="primeSize"
       [disabled]="disabled"
       [invalid]="invalid"
@@ -49,7 +71,7 @@ export interface ExtraInputOtpChangeEvent {
     ></p-inputotp>
   `
 })
-export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private readonly _cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
@@ -64,6 +86,47 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit {
   @Input() autofocus = false;
   /** Размер ячейки. */
   @Input() size: ExtraInputOtpSize = 'base';
+  @Input({ transform: booleanAttribute }) readonly = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() name: string | undefined = undefined;
+  @Input() autocomplete: string | undefined = undefined;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /**
+   * name/autocomplete/aria-* у p-inputotp нет — атрибуты на каждую ячейку-input
+   * через pt-секцию pcInputText.root.
+   */
+  get inputOtpPt() {
+    return {
+      pcInputText: {
+        root: {
+          name: this.name || undefined,
+          // PrimeNG типизирует autocomplete как union AutoFill; наш API принимает произвольную строку.
+          autocomplete: (this.autocomplete || undefined) as never,
+          'aria-label': this.ariaLabel || undefined,
+          'aria-labelledby': this.ariaLabelledBy || undefined
+        }
+      }
+    };
+  }
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока код не введён. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   disabled = false;
 

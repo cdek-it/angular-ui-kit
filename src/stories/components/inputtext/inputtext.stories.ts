@@ -67,12 +67,21 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     },
     labelPosition: {
       control: 'select',
-      options: ['default', 'float', 'left'],
+      options: ['top', 'left'],
       description: 'Положение лейбла',
       table: {
         category: 'Свойства',
-        defaultValue: { summary: 'default' },
-        type: { summary: "'default' | 'float' | 'left'" }
+        defaultValue: { summary: 'top' },
+        type: { summary: "'top' | 'left'" }
+      }
+    },
+    floatLabel: {
+      control: 'boolean',
+      description: 'Плавающий лейбл внутри поля (перекрывает labelPosition)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
       }
     },
     clearable: {
@@ -131,6 +140,51 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: "'text' | 'password'" }
       }
     },
+    readonly: {
+      control: 'boolean',
+      description: 'Только чтение; очистка поля недоступна',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    required: {
+      control: 'boolean',
+      description: 'Пустое поле делает FormControl невалидным',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    name: {
+      control: 'text',
+      description: 'Имя поля для браузерного автозаполнения',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    autocomplete: {
+      control: 'text',
+      description: 'Значение нативного атрибута autocomplete',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    maxLength: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Максимальное количество символов',
+      table: { category: 'Свойства', type: { summary: 'number' } }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'ID внешнего элемента-метки',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус при монтировании поля',
+      table: { category: 'Дополнительно', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    tabindex: {
+      control: { type: 'number', step: 1 },
+      description: 'Порядок перехода по Tab',
+      table: { category: 'Дополнительно', type: { summary: 'number' } }
+    },
     // ── Состояния (управляются через FormControl) ────────────────
     disabled: {
       control: 'boolean',
@@ -168,13 +222,23 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
   args: {
     placeholder: 'Введите текст...',
     label: '',
-    labelPosition: 'default',
+    labelPosition: 'top',
+    floatLabel: false,
     clearable: false,
     caption: '',
     info: '',
     size: 'base',
     fluid: false,
     type: 'text',
+    readonly: false,
+    required: false,
+    name: undefined,
+    autocomplete: undefined,
+    maxLength: undefined,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    autofocus: false,
+    tabindex: undefined,
     disabled: false,
     invalid: false
   }
@@ -190,26 +254,34 @@ export const Default: Story = {
   render: (args) => {
     const parts: string[] = [];
 
-    if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
-    if (args.label) parts.push(`label="${args.label}"`);
-    if (args.labelPosition && args.labelPosition !== 'default') parts.push(`labelPosition="${args.labelPosition}"`);
-    if (args.clearable) parts.push(`clearable`);
-    if (args.caption) parts.push(`caption="${args.caption}"`);
-    if (args.info) parts.push(`info="${args.info}"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.type && args.type !== 'text') parts.push(`type="${args.type}"`);
+    if (args.placeholder) parts.push('[placeholder]="placeholder"');
+    if (args.label) parts.push('[label]="label"');
+    if (args.labelPosition && args.labelPosition !== 'top') parts.push('[labelPosition]="labelPosition"');
+    if (args.floatLabel) parts.push('[floatLabel]="floatLabel"');
+    if (args.clearable) parts.push('[clearable]="clearable"');
+    if (args.caption) parts.push('[caption]="caption"');
+    if (args.info) parts.push('[info]="info"');
+    if (args.size && args.size !== 'base') parts.push('[size]="size"');
+    if (args.fluid) parts.push('[fluid]="fluid"');
+    if (args.type && args.type !== 'text') parts.push('[type]="type"');
+    if (args.readonly) parts.push('[readonly]="readonly"');
+    if (args.required) parts.push('[required]="required"');
+    if (args.name) parts.push('[name]="name"');
+    if (args.autocomplete) parts.push('[autocomplete]="autocomplete"');
+    if (args.maxLength != null) parts.push('[maxLength]="maxLength"');
+    if (args.ariaLabel) parts.push('[ariaLabel]="ariaLabel"');
+    if (args.ariaLabelledBy) parts.push('[ariaLabelledBy]="ariaLabelledBy"');
+    if (args.autofocus) parts.push('[autofocus]="autofocus"');
+    if (args.tabindex != null) parts.push('[tabindex]="tabindex"');
 
     const validators = args.invalid ? [Validators.required] : [];
     const control = new FormControl({ value: '', disabled: args.disabled }, validators);
 
     const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
 
-    // В props уходит только control: все остальные args уже зашиты в template.
-    // Storybook присваивает «не-@Input» пропсы прямо на инстанс ExtraInputTextComponent
-    // (StorybookWrapperComponent.ngAfterViewInit), а invalid у него — геттер из NgControl,
-    // поэтому ...args ронял стори с TypeError: Cannot set property invalid ... only a getter.
-    return { props: { control }, template };
+    // invalid — геттер компонента, disabled меняется через CVA: передаём эти состояния только форме.
+    const { disabled, invalid, ...inputs } = args;
+    return { props: { ...inputs, control }, template };
   },
   parameters: {
     docs: {

@@ -1,11 +1,32 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, inject, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  booleanAttribute,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  inject,
+  forwardRef,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import {
   FileUpload,
   FileSelectEvent,
   FileRemoveEvent,
   FileUploadErrorEvent,
-  FileUploadHandlerEvent,
+  FileUploadHandlerEvent
 } from 'primeng/fileupload';
 import { PrimeTemplate } from 'primeng/api';
 import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit/components/button';
@@ -57,27 +78,27 @@ const DEFAULT_LABELS: Required<ExtraFileUploadLabels> = {
   dropzoneCaption: 'Можно загрузить не более 10 файлов размером 1 MB',
   chooseButton: 'Выбрать файл',
   uploadButton: 'Отправить',
-  cancelButton: 'Очистить',
+  cancelButton: 'Очистить'
 };
 
 const DEFAULT_MESSAGES: Required<ExtraFileUploadMessages> = {
   invalidFileSize: { summary: '{0}: Некорректный размер файла', detail: 'Максимальный размер — {0}' },
   invalidFileType: { summary: '{0}: Некорректный тип файла', detail: 'Допустимые типы: {0}' },
-  invalidFileLimit: { summary: 'Превышен лимит файлов', detail: 'Максимум: {0}' },
+  invalidFileLimit: { summary: 'Превышен лимит файлов', detail: 'Максимум: {0}' }
 };
 
 const STATUS_LABEL: Record<ExtraFileUploadStatus, string> = {
   pending: 'Ожидает',
   uploading: 'Ожидает',
   success: 'Загружено',
-  error: 'Ошибка',
+  error: 'Ошибка'
 };
 
 const STATUS_SEVERITY: Record<ExtraFileUploadStatus, ExtraBadgeSeverity> = {
   pending: 'info',
   uploading: 'info',
   success: 'success',
-  error: 'danger',
+  error: 'danger'
 };
 
 /** Имитация прогресса пачки (демо-режим без реального backend, см. `upload`/customUpload). */
@@ -87,9 +108,19 @@ const UPLOAD_TICK_STEP = 10;
 @Component({
   selector: 'extra-fileupload',
   standalone: true,
-  imports: [FileUpload, PrimeTemplate, ExtraButtonComponent, ExtraBadgeComponent, ExtraMessageComponent, ExtraProgressBarComponent],
+  imports: [
+    FileUpload,
+    PrimeTemplate,
+    ExtraButtonComponent,
+    ExtraBadgeComponent,
+    ExtraMessageComponent,
+    ExtraProgressBarComponent
+  ],
   host: { style: 'display: contents' },
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraFileUploadComponent), multi: true }],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraFileUploadComponent), multi: true },
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => ExtraFileUploadComponent), multi: true }
+  ],
   template: `
     <p-fileupload
       #fuRef
@@ -118,13 +149,29 @@ const UPLOAD_TICK_STEP = 10;
       <ng-template pTemplate="header">
         @if (mode === 'basic') {
           <div class="fu-header">
-            <div class="fu-basic-choose" (dragover)="$event.preventDefault()" (drop)="fuRef.onDrop($event)">
-              <extra-button [label]="resolvedLabels.chooseButton" [disabled]="disabled || !!fuRef.isChooseDisabled()" (click)="fuRef.choose()"></extra-button>
+            <div
+              class="fu-basic-choose"
+              (dragover)="$event.preventDefault()"
+              (drop)="fuRef.onDrop($event)"
+              [attr.aria-label]="ariaLabel || null"
+              [attr.aria-labelledby]="ariaLabelledBy || null"
+              [attr.tabindex]="tabindex ?? null"
+              [attr.autofocus]="autofocus ? '' : null"
+            >
+              <extra-button
+                [label]="resolvedLabels.chooseButton"
+                [disabled]="disabled || !!fuRef.isChooseDisabled()"
+                (click)="fuRef.choose()"
+              ></extra-button>
             </div>
           </div>
         } @else if (!dragAndDrop) {
           <div class="fu-header">
-            <extra-button [label]="resolvedLabels.chooseButton" [disabled]="disabled || !!fuRef.isChooseDisabled()" (click)="fuRef.choose()"></extra-button>
+            <extra-button
+              [label]="resolvedLabels.chooseButton"
+              [disabled]="disabled || !!fuRef.isChooseDisabled()"
+              (click)="fuRef.choose()"
+            ></extra-button>
           </div>
         }
       </ng-template>
@@ -133,7 +180,20 @@ const UPLOAD_TICK_STEP = 10;
         @if (mode !== 'basic') {
           <div class="fu-content">
             @if (dragAndDrop) {
-              <div class="fu-dropzone" [class.fu-dropzone--disabled]="disabled || !!fuRef.isChooseDisabled()" (click)="fuRef.choose()">
+              <div
+                class="fu-dropzone"
+                [class.fu-dropzone--disabled]="disabled || !!fuRef.isChooseDisabled()"
+                (click)="chooseFiles($event)"
+                (keydown.enter)="chooseFiles($event)"
+                (keydown.space)="$event.preventDefault()"
+                (keyup.space)="chooseFiles($event)"
+                role="button"
+                [attr.aria-label]="ariaLabel || null"
+                [attr.aria-labelledby]="ariaLabelledBy || null"
+                [attr.aria-disabled]="disabled || !!fuRef.isChooseDisabled()"
+                [attr.tabindex]="disabled || fuRef.isChooseDisabled() ? -1 : (tabindex ?? 0)"
+                [attr.autofocus]="autofocus ? '' : null"
+              >
                 <i class="ti ti-upload fu-dropzone__icon"></i>
                 <div class="fu-dropzone__info">
                   <span class="fu-dropzone__title">{{ resolvedLabels.dropzoneTitle }}</span>
@@ -154,7 +214,12 @@ const UPLOAD_TICK_STEP = 10;
             }
 
             @if (uploadSuccess) {
-              <extra-message severity="success" message="Файлы успешно загружены" [showClose]="true" (onClose)="uploadSuccess = false"></extra-message>
+              <extra-message
+                severity="success"
+                message="Файлы успешно загружены"
+                [showClose]="true"
+                (onClose)="uploadSuccess = false"
+              ></extra-message>
             }
 
             @if (uploadError) {
@@ -177,12 +242,20 @@ const UPLOAD_TICK_STEP = 10;
                           <i class="ti ti-info-circle"></i>
                           {{ formatSize(entry.file.size) }}
                         </span>
-                        <extra-badge [value]="statusLabel(entry.status)" [severity]="statusSeverity(entry.status)"></extra-badge>
+                        <extra-badge
+                          [value]="statusLabel(entry.status)"
+                          [severity]="statusSeverity(entry.status)"
+                        ></extra-badge>
                       </div>
                     </div>
-                    <extra-button icon="ti ti-trash" variant="text" [rounded]="true" size="small"
+                    <extra-button
+                      icon="ti ti-trash"
+                      variant="text"
+                      [rounded]="true"
+                      size="small"
                       [disabled]="disabled"
-                      (click)="onRemoveFile(entry, $event, removeFileCallback)"></extra-button>
+                      (click)="onRemoveFile(entry, $event, removeFileCallback)"
+                    ></extra-button>
                   </div>
                 }
               </div>
@@ -191,10 +264,19 @@ const UPLOAD_TICK_STEP = 10;
             @if (files.length > 0) {
               <div class="fu-footer">
                 @if (mode === 'manual') {
-                  <extra-button [label]="resolvedLabels.uploadButton" [disabled]="disabled || !hasPending" (click)="fuRef.upload()"></extra-button>
+                  <extra-button
+                    [label]="resolvedLabels.uploadButton"
+                    [disabled]="disabled || !hasPending"
+                    (click)="fuRef.upload()"
+                  ></extra-button>
                 }
-                <extra-button [label]="resolvedLabels.cancelButton" severity="danger" variant="text"
-                  [disabled]="disabled" (click)="onClearAll()"></extra-button>
+                <extra-button
+                  [label]="resolvedLabels.cancelButton"
+                  severity="danger"
+                  variant="text"
+                  [disabled]="disabled"
+                  (click)="onClearAll()"
+                ></extra-button>
               </div>
             }
           </div>
@@ -202,16 +284,17 @@ const UPLOAD_TICK_STEP = 10;
       </ng-template>
     </p-fileupload>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExtraFileUploadComponent implements ControlValueAccessor {
+export class ExtraFileUploadComponent implements ControlValueAccessor, OnChanges, Validator {
   private cdr = inject(ChangeDetectorRef);
   @ViewChild('fuRef') fuRef!: FileUpload;
 
   @Input() name = 'files[]';
   @Input() url = '/api/upload';
   @Input() multiple = true;
-  @Input() accept = 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  @Input() accept =
+    'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   @Input() maxFileSize = 1000000;
   @Input() fileLimit: number | undefined = undefined;
   @Input() dragAndDrop = true;
@@ -227,6 +310,27 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
    * повторной отправкой).
    */
   @Input() uploadError: string | null = null;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока не выбран ни один файл. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   @Output() onSelect = new EventEmitter<ExtraFileUploadSelectEvent>();
   @Output() onRemove = new EventEmitter<ExtraFileUploadRemoveEvent>();
@@ -250,16 +354,16 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
     return {
       invalidFileSize: { ...DEFAULT_MESSAGES.invalidFileSize, ...this.messages.invalidFileSize },
       invalidFileType: { ...DEFAULT_MESSAGES.invalidFileType, ...this.messages.invalidFileType },
-      invalidFileLimit: { ...DEFAULT_MESSAGES.invalidFileLimit, ...this.messages.invalidFileLimit },
+      invalidFileLimit: { ...DEFAULT_MESSAGES.invalidFileLimit, ...this.messages.invalidFileLimit }
     };
   }
 
   get hasPending(): boolean {
-    return this.files.some(f => f.status === 'pending');
+    return this.files.some((f) => f.status === 'pending');
   }
 
   writeValue(files: File[] | null): void {
-    this.files = (files ?? []).map(file => ({ file, status: 'pending' as const }));
+    this.files = (files ?? []).map((file) => ({ file, status: 'pending' as const }));
     this.cdr.markForCheck();
   }
 
@@ -274,6 +378,12 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this.cdr.markForCheck();
+  }
+
+  chooseFiles(event: Event): void {
+    event.preventDefault();
+    if (this.disabled || this.fuRef.isChooseDisabled()) return;
+    this.fuRef.choose();
   }
 
   statusLabel(status: ExtraFileUploadStatus): string {
@@ -302,8 +412,8 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
 
   onSelectedFiles(event: FileSelectEvent): void {
     const current = this.fuRef?.files ?? [];
-    const known = new Set(this.files.map(f => f.file));
-    const added = current.filter(f => !known.has(f)).map(file => ({ file, status: 'pending' as const }));
+    const known = new Set(this.files.map((f) => f.file));
+    const added = current.filter((f) => !known.has(f)).map((file) => ({ file, status: 'pending' as const }));
     this.files = [...this.files, ...added];
     this.uploadSuccess = false;
     this.onChange(this.pendingNativeFiles());
@@ -313,8 +423,8 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
   }
 
   onUploader(event: FileUploadHandlerEvent): void {
-    const pending = this.files.filter(f => f.status === 'pending');
-    pending.forEach(f => (f.status = 'uploading'));
+    const pending = this.files.filter((f) => f.status === 'pending');
+    pending.forEach((f) => (f.status = 'uploading'));
     this.isUploading = true;
     this.totalSizePercent = 0;
     this.cdr.markForCheck();
@@ -325,7 +435,7 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
       this.totalSizePercent = Math.min(progress, 100);
       if (progress >= 100) {
         clearInterval(interval);
-        pending.forEach(f => (f.status = 'success'));
+        pending.forEach((f) => (f.status = 'success'));
         this.isUploading = false;
         this.uploadSuccess = true;
         // Сбрасываем внутреннюю очередь PrimeNG напрямую через сеттер files, а не через
@@ -342,7 +452,7 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
   onRemoveFile(
     entry: ExtraFileUploadFile,
     originalEvent: Event,
-    removeFileCallback: (event: Event, index: number) => void,
+    removeFileCallback: (event: Event, index: number) => void
   ): void {
     if (entry.status === 'pending' || entry.status === 'uploading') {
       const primeIndex = this.fuRef.files.indexOf(entry.file);
@@ -350,7 +460,7 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
     } else {
       this.onRemove.emit({ file: entry.file, originalEvent });
     }
-    this.files = this.files.filter(f => f !== entry);
+    this.files = this.files.filter((f) => f !== entry);
     this.onChange(this.pendingNativeFiles());
     this.cdr.markForCheck();
   }
@@ -366,6 +476,6 @@ export class ExtraFileUploadComponent implements ControlValueAccessor {
   }
 
   private pendingNativeFiles(): File[] {
-    return this.files.filter(f => f.status === 'pending' || f.status === 'uploading').map(f => f.file);
+    return this.files.filter((f) => f.status === 'pending' || f.status === 'uploading').map((f) => f.file);
   }
 }

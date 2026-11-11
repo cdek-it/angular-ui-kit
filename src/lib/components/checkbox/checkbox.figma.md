@@ -27,6 +27,7 @@ updated: '2026-06-22'
 | `binary` | `boolean` | `false` | Бинарный режим: модель — `true`/`false` вместо массива значений |
 | `disabled` | `boolean` | `false` | Отключённое состояние — соответствует Figma-свойству `state=disabled`; передаётся через `[disabled]` |
 | `readonly` | `boolean` | `false` | Режим только для чтения без изменения значения |
+| `required` | `boolean` | `false` | Поле обязательно: контрол невалиден, пока чекбокс не отмечен; работает как NG_VALIDATORS-валидатор |
 | `indeterminate` | `boolean` | `false` | Неопределённое состояние — соответствует Figma-свойству `indeterminate=true` |
 | `invalid` | `boolean` | `false` | Подсветка как невалидного поля — соответствует Figma-свойству `state=danger` |
 | `size` | `'small' \| 'base' \| 'large'` | `'base'` | Размер флажка |

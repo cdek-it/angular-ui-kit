@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -8,10 +9,21 @@ import {
   forwardRef,
   inject,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   TemplateRef
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { Listbox } from 'primeng/listbox';
 import { SharedModule } from 'primeng/api';
 import { NgTemplateOutlet } from '@angular/common';
@@ -49,7 +61,10 @@ export class ExtraListboxItemDirective {}
   standalone: true,
   imports: [Listbox, FormsModule, SharedModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraListboxComponent), multi: true }],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ExtraListboxComponent), multi: true },
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => ExtraListboxComponent), multi: true }
+  ],
   template: `
     <p-listbox
       [options]="options"
@@ -68,6 +83,10 @@ export class ExtraListboxItemDirective {}
       [scrollHeight]="scrollHeight"
       [emptyMessage]="emptyMessage"
       [disabled]="isDisabled"
+      [readonly]="readonly"
+      [ariaLabel]="ariaLabel"
+      [tabindex]="tabindex ?? 0"
+      [pt]="listboxPt"
       (onChange)="onChangeHandler($event)"
       (onFilter)="onFilter.emit($event)"
       (onSelectAllChange)="onSelectAll.emit($event)"
@@ -85,7 +104,7 @@ export class ExtraListboxItemDirective {}
     </p-listbox>
   `
 })
-export class ExtraListboxComponent implements ControlValueAccessor {
+export class ExtraListboxComponent implements ControlValueAccessor, OnChanges, Validator {
   private readonly _cdr = inject(ChangeDetectorRef);
 
   @Input() options: ExtraListboxGroup[] | ExtraListboxOption[] | any[] = [];
@@ -102,6 +121,38 @@ export class ExtraListboxComponent implements ControlValueAccessor {
   @Input() optionGroupChildren: string | undefined = undefined;
   @Input() scrollHeight = '200px';
   @Input() emptyMessage: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока значение не выбрано. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
+
+  /** aria-labelledby и autofocus у p-listbox нет — атрибуты на список (ul) через pt-секцию list. */
+  get listboxPt() {
+    return {
+      list: {
+        'aria-labelledby': this.ariaLabelledBy || undefined,
+        autofocus: this.autofocus || undefined
+      }
+    };
+  }
   @ContentChild(ExtraListboxItemDirective, { read: TemplateRef }) itemTemplate: TemplateRef<any> | null = null;
 
   @Output() onChange = new EventEmitter<ExtraListboxChangeEvent>();

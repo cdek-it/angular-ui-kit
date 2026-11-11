@@ -23,6 +23,7 @@ updated: '2026-06-22'
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
+| `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
 | `[(ngModel)]` / `[formControl]` | `string \| null` | `null` | Значение поля через ControlValueAccessor — соответствует Figma-свойству `text-input` |
 | `showFeedback` | `boolean` | `true` | Показывать ли overlay-индикатор надёжности пароля |
 | `showMaskToggle` | `boolean` | `false` | Показывать ли иконку-переключатель видимости (reveal) — соответствует Figma-свойству `show-eye` |
