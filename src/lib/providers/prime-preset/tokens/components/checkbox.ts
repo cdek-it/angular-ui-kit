@@ -3,8 +3,8 @@
  * Подключается в map-tokens.ts: `import { checkboxCss } from './tokens/components/checkbox'`
  *
  * Размеры бокса и цвета приходят токенами пресета (checkbox.root.*): их применяет сам PrimeNG.
- * Здесь — типографика подписей, толщина рамки, indeterminate и кольцо фокуса: ни того, ни другого
- * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px).
+ * Здесь — типографика подписей, толщина рамки, indeterminate, иконки tabler и кольцо фокуса: этого
+ * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px, иконки — свои svg).
  */
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* ─── Раскладка: бокс и текст в строку, по центру ─── */
@@ -67,21 +67,41 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   border-color: ${dt('checkbox.root.checkedBorderColor')};
 }
 
-/* ─── Цвет иконки на залитом боксе ───
-   checkbox.icon.checkedColor ссылается на color.fg.on.fill.default, а эта ветка не
-   инвертируется: и в light, и в dark она #ffffff. Фон бокса при этом инвертируется
-   (color.bg.neutral.strong.default: тёмный в light, светлый в dark), поэтому в тёмной теме
-   белая галочка пропадала на светлом фоне. Берём инверсный алиас — он меняется вместе с фоном. */
-.p-checkbox-checked .p-checkbox-icon,
-.p-checkbox-indeterminate .p-checkbox-icon {
-  color: ${dt('color.fg.inverse.default')};
+/* ─── Иконка: глифы tabler вместо svg PrimeNG ───
+   По DS в боксе ti-check (checked) и ti-minus (indeterminate), а PrimeNG рисует свои
+   CheckIcon/MinusIcon. Прячем svg и рисуем глиф через ::before бокса — тем же приёмом,
+   что галочка в select. Глиф выбираем по самой svg, а не по классам состояния: так правило
+   работает и для p-checkbox внутри multiselect/listbox, где класса indeterminate нет.
+
+   Цвет — color.fg.inverse.default, а не checkbox.icon.checkedColor: тот ссылается на
+   color.fg.on.fill.default, а эта ветка не инвертируется (#ffffff в обеих темах). Фон бокса
+   при этом инвертируется (color.bg.neutral.strong.default), и в тёмной теме белая иконка
+   пропадала на светлом боксе. Инверсный алиас меняется вместе с фоном, на hover — тоже. */
+.p-checkbox-box > svg.p-checkbox-icon {
+  display: none;
 }
 
-/* То же на hover: PrimeNG подставляет icon.checkedHoverColor (color.fg.on.fill.hover),
-   а эта ветка не инвертируется — в тёмной теме белая иконка пропадала на светлом боксе */
-.p-checkbox-checked:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon,
-.p-checkbox-indeterminate:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon {
+.p-checkbox-box:has(> svg.p-checkbox-icon)::before {
+  font-family: 'tabler-icons';
+  font-style: normal;
+  font-weight: normal;
+  font-size: ${dt('checkbox.icon.size')};
+  line-height: 1;
   color: ${dt('color.fg.inverse.default')};
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.p-checkbox-box:has(> svg[data-p-icon='check'])::before {
+  content: '\\ea5e';
+}
+
+.p-checkbox-box:has(> svg[data-p-icon='minus'])::before {
+  content: '\\eaf2';
+}
+
+.p-checkbox.p-disabled .p-checkbox-box::before {
+  color: ${dt('checkbox.icon.disabledColor')};
 }
 
 /* Состояние hover для indeterminate */
