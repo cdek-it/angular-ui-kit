@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,10 +8,22 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -39,6 +52,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraInputNumberComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraInputNumberComponent),
       multi: true
     }
@@ -97,6 +115,12 @@ let nextInputId = 0;
         [disabled]="disabled"
         [invalid]="invalid"
         [readonly]="readonly"
+        [name]="name ?? ''"
+        [autocomplete]="autocomplete"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="tabindex"
         [fluid]="fluid"
         [min]="min"
         [max]="max"
@@ -152,7 +176,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
@@ -186,6 +210,29 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit {
   @Input() useGrouping = true;
   @Input() incrementButtonIcon: string | undefined;
   @Input() decrementButtonIcon: string | undefined;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() name: string | undefined = undefined;
+  @Input() autocomplete: string | undefined = undefined;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным при пустом значении. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   /** Уникальный id поля для связи label ↔ input. */
   readonly inputId = `extra-input-number-${nextInputId++}`;

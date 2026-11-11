@@ -14,7 +14,7 @@ const template = `
   ></extra-input-text>
   <extra-input-text
     [formControl]="floatControl"
-    labelPosition="float"
+    [floatLabel]="true"
     label="Плавающий лейбл"
     caption="Пояснение под полем"
   ></extra-input-text>
@@ -52,7 +52,7 @@ export const Labels: StoryObj = {
     docs: {
       description: {
         story:
-          'Положения лейбла (label-position): default — сверху, float — плавающий внутри поля, left — слева от поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
+          'Положения лейбла: labelPosition="top" — сверху, floatLabel — плавающий внутри поля, labelPosition="left" — слева от поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
       },
       source: {
         language: 'ts',
@@ -76,7 +76,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
     <extra-input-text
       [formControl]="floatControl"
-      labelPosition="float"
+      [floatLabel]="true"
       label="Плавающий лейбл"
       caption="Пояснение под полем"
     ></extra-input-text>

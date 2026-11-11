@@ -1,4 +1,6 @@
 import {
+  afterNextRender,
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -6,10 +8,23 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges,
+  viewChild
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 
@@ -31,6 +46,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraCheckboxComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraCheckboxComponent),
       multi: true
     }
@@ -59,18 +79,29 @@ let nextInputId = 0;
         [binary]="true"
         [(ngModel)]="modelValue"
         [disabled]="disabled"
+        [readonly]="readonly"
         [indeterminate]="indeterminate"
         [class.p-checkbox-indeterminate]="indeterminate"
         [invalid]="invalid"
         [inputId]="inputId"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [tabindex]="tabindex"
         (onChange)="onChangeHandler($event)"
       ></p-checkbox>
     </ng-template>
   `
 })
-export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit {
+export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
+  private readonly _checkbox = viewChild(Checkbox);
+
+  constructor() {
+    afterNextRender(() => {
+      if (this.autofocus && !this.disabled) this._checkbox()?.focus();
+    });
+  }
 
   ngOnInit(): void {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
@@ -80,6 +111,28 @@ export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit {
   @Input() labelPosition: ExtraCheckboxLabelPosition = 'right';
   @Input() caption = '';
   @Input() indeterminate = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  /** Поле обязательно для заполнения (должно быть отмечено); в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока чекбокс не отмечен. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.requiredTrue(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   @Output() onChange = new EventEmitter<ExtraCheckboxChangeEvent>();
 

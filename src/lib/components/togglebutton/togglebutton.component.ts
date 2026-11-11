@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -6,9 +7,20 @@ import {
   forwardRef,
   inject,
   Input,
-  Output
+  OnChanges,
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primeng/togglebutton';
 
@@ -29,6 +41,11 @@ export interface ExtraToggleButtonChangeEvent {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraToggleButtonComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraToggleButtonComponent),
       multi: true
     }
@@ -56,7 +73,7 @@ export interface ExtraToggleButtonChangeEvent {
     ></p-togglebutton>
   `
 })
-export class ExtraToggleButtonComponent implements ControlValueAccessor {
+export class ExtraToggleButtonComponent implements ControlValueAccessor, OnChanges, Validator {
   private readonly _cdr = inject(ChangeDetectorRef);
 
   @Input() label = '';
@@ -71,6 +88,23 @@ export class ExtraToggleButtonComponent implements ControlValueAccessor {
   @Input() inputId: string | undefined = undefined;
   @Input() tabindex: number | undefined = undefined;
   @Input() autofocus: boolean | undefined = undefined;
+  /** Поле обязательно для заполнения (должно быть включено); в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока кнопка не включена. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.requiredTrue(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   @Output() onChange = new EventEmitter<ExtraToggleButtonChangeEvent>();
 

@@ -31,9 +31,10 @@ updated: '2026-06-22'
 | `multiple` | `boolean` | `false` | Множественный выбор: модель — массив значений вместо одиночного значения |
 | `allowEmpty` | `boolean` | `true` | Разрешает снять выбор (пустое значение) повторным нажатием на активный сегмент |
 | `fluid` | `boolean` | `false` | Растягивает группу на всю доступную ширину контейнера; сегменты делят её поровну |
-| `disabled` | `boolean` | `false` | Отключённое состояние всего контрола — соответствует Figma-свойству `state=disabled`; задаётся через `[disabled]` или `setDisabledState` формы |
+| `disabled` | `boolean` | `false` | Отключённое состояние всего контрола — соответствует Figma-свойству `state=disabled`; управляется через `FormControl.disable()` / `enable()` |
+| `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
 
-Выбранное значение задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. В одиночном режиме модель — `string`, в режиме `multiple` — `string[]`. Изменение значения также доступно через `@Output() valueChange`.
+Выбранное значение задаётся моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. В одиночном режиме модель — `string`, в режиме `multiple` — `string[]`. Событие изменения выбора — `(onChange)`.
 
 ## Variants
 

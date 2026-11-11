@@ -1,6 +1,28 @@
-import { Component, EventEmitter, Input, OnInit, Output, forwardRef, inject, Injector } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  forwardRef,
+  inject,
+  Injector
+} from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
 import { Checkbox } from 'primeng/checkbox';
@@ -41,6 +63,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraAutoCompleteComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraAutoCompleteComponent),
       multi: true
     }
@@ -119,6 +146,9 @@ let nextInputId = 0;
         [ariaLabel]="ariaLabel"
         [ariaLabelledBy]="ariaLabelledBy"
         [autofocus]="autofocus"
+        [name]="name ?? ''"
+        [autocomplete]="autocomplete ?? ''"
+        [tabindex]="tabindex"
         (completeMethod)="completeMethod.emit($event)"
         (onSelect)="onSelect.emit($event)"
         (onUnselect)="onUnselect.emit($event)"
@@ -146,7 +176,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit {
+export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -189,6 +219,26 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit 
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() autofocus = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() name: string | undefined = undefined;
+  @Input() autocomplete: string | undefined = undefined;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока значение не выбрано. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   /** Уникальный id поля для связи label ↔ input. */
   readonly inputId = `extra-auto-complete-${nextInputId++}`;

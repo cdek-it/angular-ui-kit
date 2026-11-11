@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,11 +8,23 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { ToggleSwitch, ToggleSwitchChangeEvent } from 'primeng/toggleswitch';
 import { Subscription } from 'rxjs';
@@ -40,6 +53,11 @@ let nextInputId = 0;
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraToggleSwitchComponent),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ExtraToggleSwitchComponent),
+      multi: true
     }
   ],
   template: `
@@ -65,16 +83,19 @@ let nextInputId = 0;
       <p-toggleswitch
         [(ngModel)]="modelValue"
         [disabled]="disabled"
+        [readonly]="readonly"
         [invalid]="invalid"
         [inputId]="inputId"
         [ariaLabel]="ariaLabel"
         [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="tabindex"
         (onChange)="onChangeHandler($event)"
       ></p-toggleswitch>
     </ng-template>
   `
 })
-export class ExtraToggleSwitchComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class ExtraToggleSwitchComponent implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, Validator {
   private readonly _injector = inject(Injector);
   private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
@@ -86,6 +107,26 @@ export class ExtraToggleSwitchComponent implements ControlValueAccessor, OnInit,
   /** Доступное имя, когда свитч используется без label/caption. */
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  /** Поле обязательно для заполнения (должно быть включено); в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока свитч не включён. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.requiredTrue(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   @Output() onChange = new EventEmitter<ExtraToggleSwitchChangeEvent>();
   @Output() onFocus = new EventEmitter<Event>();

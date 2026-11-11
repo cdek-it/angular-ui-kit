@@ -107,13 +107,34 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
     },
     // Hidden computed props
     modelValue: { table: { disable: true } },
-    inputId: { table: { disable: true } }
+    inputId: { table: { disable: true } },
+    readonly: {
+      control: 'boolean',
+      description: 'Только чтение',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' } }
+    },
+    required: {
+      control: 'boolean',
+      description: 'Обязательно отметить чекбокс',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' } }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус при монтировании',
+      table: { category: 'Дополнительно', defaultValue: { summary: 'false' } }
+    },
+    ariaLabel: { control: 'text', table: { category: 'Дополнительно' } },
+    ariaLabelledBy: { control: 'text', table: { category: 'Дополнительно' } },
+    tabindex: { control: 'number', table: { category: 'Дополнительно' } }
   },
   args: {
     label: 'Checkbox',
     labelPosition: 'right',
     caption: '',
     indeterminate: false,
+    readonly: false,
+    required: false,
+    autofocus: false,
     disabled: false,
     invalid: false
   }
@@ -132,6 +153,12 @@ export const Default: Story = {
     if (args.labelPosition && args.labelPosition !== 'right') parts.push(`labelPosition="${args.labelPosition}"`);
     if (args.caption) parts.push(`caption="${args.caption}"`);
     if (args.indeterminate) parts.push(`[indeterminate]="true"`);
+    if (args.readonly) parts.push('[readonly]="readonly"');
+    if (args.required) parts.push('[required]="required"');
+    if (args.autofocus) parts.push('[autofocus]="autofocus"');
+    if (args.ariaLabel) parts.push('[ariaLabel]="ariaLabel"');
+    if (args.ariaLabelledBy) parts.push('[ariaLabelledBy]="ariaLabelledBy"');
+    if (args.tabindex != null) parts.push('[tabindex]="tabindex"');
 
     const validators = args.invalid ? [Validators.requiredTrue] : [];
     const control = new FormControl({ value: false, disabled: args.disabled }, validators);
