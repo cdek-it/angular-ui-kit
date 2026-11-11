@@ -17,7 +17,7 @@ updated: '2026-11-11'
 
 `ExtraCheckbox` — флажок для одиночного выбора «да/нет». Компонент сам рендерит подпись (`label`) и пояснение (`caption`) рядом с боксом — внешняя обёртка `<label>` не нужна. Оборачивает PrimeNG `p-checkbox` в бинарном режиме и реализует `ControlValueAccessor`, поэтому работает с `[(ngModel)]` и реактивными формами (`formControl` / `formControlName`).
 
-Компонент соответствует Figma-компоненту `<Checkbox>` (nodeId `16:13529`) с VARIANT-свойствами `state` (default, hover, focus, danger, disabled), `checked` и `indeterminate`. Иконки в боксе — tabler `ti-check` (checked) и `ti-minus` (indeterminate), 16px; их рисует тема кита, отдельного инпута для иконки нет.
+Компонент соответствует Figma-компоненту `<Checkbox>` (nodeId `16:13529`) с VARIANT-свойствами `state` (default, hover, focus, danger, disabled), `checked` и `indeterminate`. Иконки галочки и минуса в боксе соответствуют DS и не настраиваются — отдельного инпута для иконки нет.
 
 ## Props mapping
 
@@ -57,7 +57,11 @@ Figma: state=default, checked=false, indeterminate=false
 Figma: state=default, checked=true, indeterminate=false
 
 ```html
-<extra-checkbox label="Согласен с условиями" [formControl]="acceptControl"></extra-checkbox>
+<extra-checkbox label="Согласен с условиями" [(ngModel)]="isChecked"></extra-checkbox>
+```
+
+```ts
+isChecked = true;
 ```
 
 ### Indeterminate (частично выбрано)
@@ -119,5 +123,5 @@ Figma: `<Checkbox>` в шаблоне подписи поля с caption
 
 **Don't:**
 - Не передавайте `binary`, `value`, `size`, `variant`, `checkboxIcon`, `inputId` — у обёртки их нет
-- Не подменяйте иконку стилями приложения — `ti-check`/`ti-minus` рисует тема кита
+- Не подменяйте иконку галочки/минуса стилями приложения — она уже соответствует DS
 - Не оборачивайте компонент во внешний `<label>` — подпись задаётся через `label`

@@ -100,14 +100,6 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   content: '\\eaf2';
 }
 
-.p-checkbox-sm .p-checkbox-box::before {
-  font-size: ${dt('checkbox.icon.sm.size')};
-}
-
-.p-checkbox-lg .p-checkbox-box::before {
-  font-size: ${dt('checkbox.icon.lg.size')};
-}
-
 .p-checkbox.p-disabled .p-checkbox-box::before {
   color: ${dt('checkbox.icon.disabledColor')};
 }
