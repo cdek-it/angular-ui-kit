@@ -1,13 +1,5 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
-import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
-import { ButtonVariantsComponent, Variants } from './examples/button-variants.component';
-import { ButtonIconsComponent, Icons } from './examples/button-icons.component';
-import { ButtonStatesComponent, States } from './examples/button-states.component';
-import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
-import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
-import { ButtonFluidComponent, Fluid } from './examples/button-fluid.component';
-import { ButtonEventsComponent, Events } from './examples/button-events.component';
 
 type ButtonArgs = ExtraButtonComponent & {
   onClick?: (event: MouseEvent) => void;
@@ -19,21 +11,7 @@ const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
   component: ExtraButtonComponent,
   tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraButtonComponent,
-        ButtonSizesComponent,
-        ButtonVariantsComponent,
-        ButtonIconsComponent,
-        ButtonStatesComponent,
-        ButtonRoundedComponent,
-        ButtonBadgeComponent,
-        ButtonFluidComponent,
-        ButtonEventsComponent
-      ]
-    })
-  ],
+  decorators: [moduleMetadata({ imports: [ExtraButtonComponent] })],
   parameters: {
     docs: {
       description: {
@@ -237,12 +215,20 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     }
   },
   args: {
-    iconPosition: 'left',
+    label: 'Button',
+    variant: 'primary',
     severity: 'base',
+    size: 'base',
+    icon: '',
+    iconPosition: 'left',
+    iconOnly: false,
+    rounded: false,
+    disabled: false,
+    loading: false,
+    fluid: false,
     showBadge: false,
     badge: '',
     badgeSeverity: null,
-    fluid: false,
     autofocus: false
   }
 };
@@ -250,47 +236,104 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 export default meta;
 type Story = StoryObj<ButtonArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
+// Шаблон собирается из args; disabled и loading, как и у потребителя, задаются привязкой
+const renderButton = (args: Partial<ButtonArgs> | Record<string, unknown>) => {
+  const a = args as Partial<ButtonArgs>;
+  const parts: string[] = [];
 
-export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
+  if (a.label) parts.push(`label="${a.label}"`);
+  if (a.severity && a.severity !== 'base') parts.push(`severity="${a.severity}"`);
+  if (a.variant && a.variant !== 'primary') parts.push(`variant="${a.variant}"`);
+  if (a.size && a.size !== 'base') parts.push(`size="${a.size}"`);
+  if (a.icon) parts.push(`icon="${a.icon}"`);
+  if (a.iconPosition && a.iconPosition !== 'left') parts.push(`iconPosition="${a.iconPosition}"`);
+  if (a.iconOnly) parts.push(`[iconOnly]="true"`);
+  if (a.rounded) parts.push(`[rounded]="true"`);
+  if (a.fluid) parts.push(`[fluid]="true"`);
+  if (a.disabled) parts.push(`[disabled]="true"`);
+  if (a.loading) parts.push(`[loading]="true"`);
+  if (a.showBadge) parts.push(`[showBadge]="true"`);
+  if (a.badge) parts.push(`badge="${a.badge}"`);
+  if (a.badgeSeverity) parts.push(`badgeSeverity="${a.badgeSeverity}"`);
+  if (a.ariaLabel) parts.push(`ariaLabel="${a.ariaLabel}"`);
+  if (a.autofocus) parts.push(`[autofocus]="true"`);
+  if (a.tabindex != null) parts.push(`[tabindex]="${a.tabindex}"`);
 
-    if (args.label != null && args.label !== '') parts.push(`label="${args.label}"`);
-    if (args.severity != null && args.severity !== 'base') parts.push(`severity="${args.severity}"`);
-    if (args.variant != null) parts.push(`variant="${args.variant}"`);
-    if (args.size != null) parts.push(`size="${args.size}"`);
-    if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
-    if (args.iconPosition != null && args.iconPosition !== 'left') parts.push(`iconPosition="${args.iconPosition}"`);
-    if (args.iconOnly) parts.push(`[iconOnly]="true"`);
-    if (args.rounded) parts.push(`[rounded]="true"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.loading) parts.push(`[loading]="true"`);
-    if (args.showBadge) parts.push(`[showBadge]="true"`);
-    if (args.badge) parts.push(`badge="${args.badge}"`);
-    if (args.badgeSeverity != null) parts.push(`badgeSeverity="${args.badgeSeverity}"`);
-    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
-    if (args.autofocus) parts.push(`[autofocus]="true"`);
-    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
+  const template = parts.length
+    ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
+    : `<extra-button></extra-button>`;
 
-    const template = parts.length
-      ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
-      : `<extra-button></extra-button>`;
-
-    return { props: args, template };
-  },
-  args: {
-    label: 'Button'
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
-      }
-    }
-  }
+  return { props: args, template };
 };
 
-export { Sizes, Variants, Icons, States, Rounded, Badge, Fluid, Events };
+const story = (name: string, description: string, code: string, args: Story['args'] = {}): Story => ({
+  name,
+  args,
+  render: (a) => renderButton(a),
+  parameters: { docs: { description: { story: description }, source: { language: 'html', code } } }
+});
+
+export const Default: Story = story(
+  'Default',
+  'Базовая кнопка. Вариант, severity, размер, иконка и остальные свойства меняются в Controls. Нативные DOM-события (click, keydown и т. п.) вешаются на кнопку напрямую, focus и blur объявлены событиями компонента.',
+  `<extra-button label="Button"></extra-button>
+
+<!-- события -->
+<extra-button label="Button" (click)="onClick($event)" (focus)="onFocus($event)" (blur)="onBlur($event)"></extra-button>`
+);
+
+export const Disabled: Story = story(
+  'Disabled',
+  'Отключённая кнопка: события не приходят, фокус не принимается.',
+  `<extra-button label="Button" [disabled]="true"></extra-button>`,
+  { disabled: true }
+);
+
+export const Loading: Story = story(
+  'Loading',
+  'Состояние загрузки: вместо иконки показывается индикатор, клики блокируются.',
+  `<extra-button label="Button" [loading]="true"></extra-button>`,
+  { loading: true }
+);
+
+export const Rounded: Story = story(
+  'Rounded',
+  'Полностью скруглённая форма.',
+  `<extra-button label="Button" [rounded]="true"></extra-button>`,
+  { rounded: true }
+);
+
+export const Icon: Story = story(
+  'Icon',
+  'Иконка слева от текста (iconPosition="left").',
+  `<extra-button label="Button" icon="ti ti-check"></extra-button>`,
+  { icon: 'ti ti-check' }
+);
+
+export const IconRight: Story = story(
+  'IconRight',
+  'Иконка справа от текста (iconPosition="right").',
+  `<extra-button label="Button" icon="ti ti-check" iconPosition="right"></extra-button>`,
+  { icon: 'ti ti-check', iconPosition: 'right' }
+);
+
+export const IconOnly: Story = story(
+  'IconOnly',
+  'Только иконка. Укажите ariaLabel: текста у кнопки нет.',
+  `<extra-button icon="ti ti-check" [iconOnly]="true" ariaLabel="Button"></extra-button>`,
+  { icon: 'ti ti-check', iconOnly: true, ariaLabel: 'Button' }
+);
+
+export const Badge: Story = story(
+  'Badge',
+  'Бейдж на кнопке. Цвет задаётся badgeSeverity.',
+  `<extra-button label="Button" [showBadge]="true" badge="2"></extra-button>`,
+  { showBadge: true, badge: '2' }
+);
+
+export const Fluid: Story = story(
+  'Fluid',
+  'Кнопка занимает всю ширину контейнера.',
+  `<extra-button label="Button" [fluid]="true"></extra-button>`,
+  { fluid: true }
+);
