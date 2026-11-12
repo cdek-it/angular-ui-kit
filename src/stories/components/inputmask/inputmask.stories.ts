@@ -137,6 +137,16 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' }
       }
     },
+    captionSeverity: {
+      control: 'select',
+      options: ['base', 'success', 'warning', 'danger', 'info'],
+      description: 'Вариант подписи (цвет и иконка)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'success' | 'warning' | 'danger' | 'info'" }
+      }
+    },
     info: {
       control: 'text',
       description: 'Текст с доп. информацией (показывается в тултипе иконки ti-info-circle)',
@@ -200,6 +210,36 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
       }
+    },
+    required: {
+      control: 'boolean',
+      description: 'Пустое поле делает FormControl невалидным',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    name: {
+      control: 'text',
+      description: 'Имя поля для браузерного автозаполнения',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'ID внешнего элемента-метки',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус при монтировании поля',
+      table: { category: 'Дополнительно', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    tabindex: {
+      control: { type: 'number', step: 1 },
+      description: 'Порядок перехода по Tab',
+      table: { category: 'Дополнительно', type: { summary: 'number' } }
     },
     // ── Состояния (управляются через FormControl) ────────────────
     disabled: {
@@ -269,6 +309,13 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
     autoClear: true,
     clearable: false,
     caption: '',
+    captionSeverity: 'base',
+    autofocus: false,
+    tabindex: undefined,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    required: false,
+    name: undefined,
     info: '',
     size: 'base',
     fluid: false,
@@ -298,6 +345,8 @@ export const Default: Story = {
     if (!args.autoClear) parts.push(`[autoClear]="false"`);
     if (args.clearable) parts.push(`clearable`);
     if (args.caption) parts.push(`caption="${args.caption}"`);
+    if (args.captionSeverity && args.captionSeverity !== 'base')
+      parts.push(`captionSeverity="${args.captionSeverity}"`);
     if (args.info) parts.push(`info="${args.info}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.fluid) parts.push(`[fluid]="true"`);

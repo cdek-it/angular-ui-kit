@@ -56,9 +56,6 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
   cursor: help;
 }
 
-/* ─── Caption ─── */
-.extra-inputmask-caption {
-  color: ${dt('color.fg.subtle')};
   font-family: ${dt('fonts.fontFamily.heading')};
   font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
