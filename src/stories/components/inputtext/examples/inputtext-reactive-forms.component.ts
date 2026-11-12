@@ -55,7 +55,7 @@ const styles = `
   margin: 0;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background: var(--p-surface-100);
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.8125rem;
 }
