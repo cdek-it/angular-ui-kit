@@ -29,6 +29,7 @@ import { InputNumber } from 'primeng/inputnumber';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SharedModule } from 'primeng/api';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraInputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
@@ -47,7 +48,16 @@ let nextInputId = 0;
   selector: 'extra-input-number',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputNumber, SharedModule, FormsModule, NgClass, NgTemplateOutlet, FloatLabel, ExtraTooltipDirective],
+  imports: [
+    InputNumber,
+    SharedModule,
+    FormsModule,
+    NgClass,
+    NgTemplateOutlet,
+    FloatLabel,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -84,7 +94,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-inputnumber-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -191,6 +201,7 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   @Input() floatLabel = false;
   @Input() clearable = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraInputNumberSize = 'base';
   @Input() showButtons = false;

@@ -18,6 +18,7 @@
 | `suffix`              | текст после значения внутри поля                                                          | `string`                            | —            |
 | `clearable`           | отображение иконки для очистки поля                                                       | `boolean`                           | `false`      |
 | `caption`             | текст пояснения под полем                                                                 | `string`                            | `''`         |
+| `captionSeverity`     | вариант подписи (цвет и иконка): `base`, `success`, `warning`, `danger`, `info`           | `ExtraCaptionSeverity`              | `base`       |
 | `info`                | текст с доп. информацией (показывается в тултипе иконки ti-info-circle)                   | `string`                            | `''`         |
 | `size`                | размер поля                                                                               | `small \| base \| large \| xlarge`  | `base`       |
 | `readonly`            | только для чтения                                                                         | `boolean`                           | `false`      |

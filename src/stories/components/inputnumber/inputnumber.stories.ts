@@ -96,6 +96,61 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' }
       }
     },
+    captionSeverity: {
+      control: 'select',
+      options: ['base', 'success', 'warning', 'danger', 'info'],
+      description: 'Вариант подписи (цвет и иконка)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'success' | 'warning' | 'danger' | 'info'" }
+      }
+    },
+    required: {
+      control: 'boolean',
+      description: 'Пустое поле делает FormControl невалидным',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    name: {
+      control: 'text',
+      description: 'Имя поля для браузерного автозаполнения',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    autocomplete: {
+      control: 'text',
+      description: 'Значение нативного атрибута autocomplete',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    incrementButtonIcon: {
+      control: 'text',
+      description: 'CSS-класс иконки увеличения (при showButtons)',
+      table: { category: 'Кнопки', type: { summary: 'string' } }
+    },
+    decrementButtonIcon: {
+      control: 'text',
+      description: 'CSS-класс иконки уменьшения (при showButtons)',
+      table: { category: 'Кнопки', type: { summary: 'string' } }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'ID внешнего элемента-метки',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус при монтировании поля',
+      table: { category: 'Дополнительно', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    tabindex: {
+      control: { type: 'number', step: 1 },
+      description: 'Порядок перехода по Tab',
+      table: { category: 'Дополнительно', type: { summary: 'number' } }
+    },
     info: {
       control: 'text',
       description: 'Текст с доп. информацией (показывается в тултипе иконки ti-info-circle)',
@@ -302,6 +357,16 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
     floatLabel: false,
     clearable: false,
     caption: '',
+    captionSeverity: 'base',
+    required: false,
+    name: undefined,
+    autocomplete: undefined,
+    incrementButtonIcon: undefined,
+    decrementButtonIcon: undefined,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    autofocus: false,
+    tabindex: undefined,
     info: '',
     size: 'base',
     showButtons: false,
@@ -331,6 +396,17 @@ export const Default: Story = {
     if (args.floatLabel) parts.push(`[floatLabel]="true"`);
     if (args.clearable) parts.push(`[clearable]="true"`);
     if (args.caption) parts.push(`caption="${args.caption}"`);
+    if (args.captionSeverity && args.captionSeverity !== 'base')
+      parts.push(`captionSeverity="${args.captionSeverity}"`);
+    if (args.required) parts.push('required');
+    if (args.name) parts.push(`name="${args.name}"`);
+    if (args.autocomplete) parts.push(`autocomplete="${args.autocomplete}"`);
+    if (args.incrementButtonIcon) parts.push(`incrementButtonIcon="${args.incrementButtonIcon}"`);
+    if (args.decrementButtonIcon) parts.push(`decrementButtonIcon="${args.decrementButtonIcon}"`);
+    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
+    if (args.ariaLabelledBy) parts.push(`ariaLabelledBy="${args.ariaLabelledBy}"`);
+    if (args.autofocus) parts.push('[autofocus]="true"');
+    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
     if (args.info) parts.push(`info="${args.info}"`);
     if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
     if (args.showButtons) parts.push(`[showButtons]="true"`);
