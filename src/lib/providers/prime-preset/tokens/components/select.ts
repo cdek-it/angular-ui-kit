@@ -52,9 +52,6 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     cursor: help;
   }
 
-  /* ─── Caption ─── */
-  .extra-select-caption {
-    color: ${dt('color.fg.subtle')};
     font-family: ${dt('fonts.fontFamily.heading')};
     font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.regular')};
@@ -162,7 +159,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   .p-select-option:has(.p-select-option-check-icon)::before,
   .p-select-option:has(.p-select-option-blank-icon)::before {
     font-family: 'tabler-icons';
-    content: var(--p-select-checkmark-content, "\\ea5e");
+    content: var(--extra-select-checkmark-content, "\\ea5e");
     font-size: ${dt('select.extend.iconSize')};
     color: ${dt('select.option.selectedColor')};
     flex-shrink: 0;

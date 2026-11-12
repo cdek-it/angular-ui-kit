@@ -47,7 +47,27 @@ type SelectArgs = Pick<
   | 'labelPosition'
   | 'floatLabel'
   | 'caption'
+  | 'captionSeverity'
   | 'info'
+  | 'editable'
+  | 'required'
+  | 'loading'
+  | 'emptyMessage'
+  | 'emptyFilterMessage'
+  | 'appendTo'
+  | 'inputId'
+  | 'checkmarkIcon'
+  | 'group'
+  | 'options'
+  | 'optionLabel'
+  | 'optionValue'
+  | 'optionDisabled'
+  | 'optionGroupLabel'
+  | 'optionGroupChildren'
+  | 'ariaLabel'
+  | 'ariaLabelledBy'
+  | 'autofocus'
+  | 'tabindex'
   | 'clearable'
   | 'showFilter'
   | 'readonly'
@@ -160,6 +180,111 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
         type: { summary: 'string' }
       }
     },
+    captionSeverity: {
+      control: 'select',
+      options: ['base', 'success', 'warning', 'danger', 'info'],
+      description: 'Вариант подписи (цвет и иконка)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'base' },
+        type: { summary: "'base' | 'success' | 'warning' | 'danger' | 'info'" }
+      }
+    },
+    options: {
+      control: 'object',
+      description: 'Список опций (объекты или строки)',
+      table: { category: 'Данные', type: { summary: 'any[]' } }
+    },
+    optionLabel: {
+      control: 'text',
+      description: 'Поле объекта с текстом опции',
+      table: { category: 'Данные', defaultValue: { summary: "'name'" }, type: { summary: 'string' } }
+    },
+    optionValue: {
+      control: 'text',
+      description: 'Поле объекта со значением опции',
+      table: { category: 'Данные', type: { summary: 'string' } }
+    },
+    optionDisabled: {
+      control: 'text',
+      description: 'Поле объекта с признаком недоступности',
+      table: { category: 'Данные', type: { summary: 'string' } }
+    },
+    group: {
+      control: 'boolean',
+      description: 'Группировка опций',
+      table: { category: 'Данные', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    optionGroupLabel: {
+      control: 'text',
+      description: 'Поле с названием группы',
+      table: { category: 'Данные', type: { summary: 'string' } }
+    },
+    optionGroupChildren: {
+      control: 'text',
+      description: 'Поле со списком опций группы',
+      table: { category: 'Данные', defaultValue: { summary: "'items'" }, type: { summary: 'string' } }
+    },
+    editable: {
+      control: 'boolean',
+      description: 'Разрешить ввод произвольного значения',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    required: {
+      control: 'boolean',
+      description: 'Пустое поле делает FormControl невалидным',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Состояние загрузки списка',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    emptyMessage: {
+      control: 'text',
+      description: 'Текст пустого списка',
+      table: { category: 'Свойства', defaultValue: { summary: "'Нет данных'" }, type: { summary: 'string' } }
+    },
+    emptyFilterMessage: {
+      control: 'text',
+      description: 'Текст при пустом результате фильтра',
+      table: { category: 'Свойства', defaultValue: { summary: "'Результаты не найдены'" }, type: { summary: 'string' } }
+    },
+    appendTo: {
+      control: 'text',
+      description: "Куда рендерить панель ('body' или CSS-селектор)",
+      table: { category: 'Дополнительно', defaultValue: { summary: "'body'" }, type: { summary: 'string' } }
+    },
+    inputId: {
+      control: 'text',
+      description: 'ID поля для связки с внешним label',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    checkmarkIcon: {
+      control: 'text',
+      description: 'Код иконки отметки выбранной опции',
+      table: { category: 'Дополнительно', defaultValue: { summary: "'ea5e'" }, type: { summary: 'string' } }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'ID внешнего элемента-метки',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Автофокус при монтировании поля',
+      table: { category: 'Дополнительно', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    tabindex: {
+      control: { type: 'number', step: 1 },
+      description: 'Порядок перехода по Tab',
+      table: { category: 'Дополнительно', type: { summary: 'number' } }
+    },
     size: {
       control: 'select',
       options: ['small', 'base', 'large', 'xlarge'],
@@ -266,7 +391,15 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
     labelPosition: 'top',
     floatLabel: false,
     caption: '',
+    captionSeverity: 'base',
     info: '',
+    editable: false,
+    required: false,
+    loading: false,
+    group: false,
+    optionGroupChildren: 'items',
+    optionLabel: 'name',
+    autofocus: false,
     clearable: true,
     showFilter: false,
     readonly: false,
@@ -301,14 +434,32 @@ export const Default: Story = {
           <extra-select
             [formControl]="control"
             [options]="options"
-            optionLabel="name"
-            [placeholder]="placeholder"
+                        [placeholder]="placeholder"
             [label]="label"
             [labelPosition]="labelPosition"
             [floatLabel]="floatLabel"
             [caption]="caption"
+            [captionSeverity]="captionSeverity"
             [info]="info"
             [size]="size"
+            [editable]="editable"
+            [required]="required"
+            [loading]="loading"
+            [emptyMessage]="emptyMessage"
+            [emptyFilterMessage]="emptyFilterMessage"
+            [appendTo]="appendTo"
+            [inputId]="inputId"
+            [checkmarkIcon]="checkmarkIcon"
+            [group]="group"
+            [optionLabel]="optionLabel"
+            [optionValue]="optionValue"
+            [optionDisabled]="optionDisabled"
+            [optionGroupLabel]="optionGroupLabel"
+            [optionGroupChildren]="optionGroupChildren"
+            [ariaLabel]="ariaLabel"
+            [ariaLabelledBy]="ariaLabelledBy"
+            [autofocus]="autofocus"
+            [tabindex]="tabindex"
             [clearable]="clearable"
             [showFilter]="showFilter"
             [readonly]="readonly"

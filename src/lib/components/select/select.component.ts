@@ -31,6 +31,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraSelectLabelPosition = 'top' | 'left';
@@ -69,7 +70,15 @@ export class ExtraSelectOptionGroupDirective {}
 @Component({
   selector: 'extra-select',
   standalone: true,
-  imports: [Select, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel, ExtraTooltipDirective],
+  imports: [
+    Select,
+    NgTemplateOutlet,
+    PrimeTemplate,
+    FormsModule,
+    FloatLabel,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -105,7 +114,7 @@ export class ExtraSelectOptionGroupDirective {}
             <ng-container [ngTemplateOutlet]="selectTpl" />
           }
           @if (caption) {
-            <div class="extra-select-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -208,6 +217,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
   @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraSelectSize = 'base';
   @Input({ transform: booleanAttribute }) showFilter = false;
@@ -272,7 +282,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
 
   get panelStyle(): Record<string, string> {
     const char = String.fromCodePoint(parseInt(this.checkmarkIcon, 16));
-    return { '--p-select-checkmark-content': `"${char}"` };
+    return { '--extra-select-checkmark-content': `"${char}"` };
   }
 
   /**
