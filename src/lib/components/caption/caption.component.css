@@ -1,0 +1,30 @@
+/* Figma: _<Caption>. Токены берём из глобальных CSS-переменных темы: css компонентов PrimeNG
+   подключается только вместе с их компонентом, а подпись нужна и полям без него. */
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--p-dimension-space-50);
+  color: var(--p-color-fg-muted);
+  font-family: var(--p-fonts-font-family-base);
+  font-size: var(--p-fonts-font-size-200);
+  font-weight: var(--p-fonts-font-weight-regular);
+  line-height: var(--p-fonts-line-height-200);
+  letter-spacing: var(--p-fonts-letter-spacing-200);
+}
+.extra-caption-icon {
+  flex: none;
+  font-size: var(--p-dimension-size-400);
+  line-height: var(--p-dimension-size-400);
+}
+:host([data-severity='info']) {
+  color: var(--p-color-fg-status-info-default);
+}
+:host([data-severity='success']) {
+  color: var(--p-color-fg-status-success-default);
+}
+:host([data-severity='warning']) {
+  color: var(--p-color-fg-status-warning-default);
+}
+:host([data-severity='danger']) {
+  color: var(--p-color-fg-status-danger-default);
+}
