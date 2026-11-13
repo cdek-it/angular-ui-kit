@@ -376,29 +376,14 @@ export const Default: Story = {
       },
       source: {
         language: 'html',
-        code: `<!-- лейбл сверху -->
-<extra-textarea [formControl]="control" label="Лейбл сверху" placeholder="Введите текст..."></extra-textarea>
-
-<!-- лейбл слева -->
-<extra-textarea [formControl]="control" labelPosition="left" label="Лейбл слева"></extra-textarea>
-
-<!-- пояснение под полем и тултип у иконки рядом с лейблом -->
-<extra-textarea [formControl]="control" label="Лейбл" caption="Пояснение под полем" info="Текст тултипа"></extra-textarea>
-
-<!-- без label и caption поле не оборачивается -->
-<extra-textarea [formControl]="control" placeholder="Без лейбла"></extra-textarea>
-
-<!-- размеры -->
-<extra-textarea [formControl]="control" size="small"></extra-textarea>
-<extra-textarea [formControl]="control" size="large"></extra-textarea>
-<extra-textarea [formControl]="control" size="xlarge"></extra-textarea>
-
-<!-- состояния: disabled и invalid через FormControl -->
-control = new FormControl({ value: '', disabled: true });
-control = new FormControl('', Validators.required);
-
-<!-- readonly -->
-<extra-textarea [formControl]="control" [readonly]="true"></extra-textarea>`
+        code: `<extra-textarea
+  [formControl]="control"
+  label="Label"
+  [requiredMark]="true"
+  info="Info"
+  caption="Caption"
+  placeholder="Placeholder"
+></extra-textarea>`
       }
     }
   }
@@ -414,8 +399,7 @@ export const Error: Story = {
       description: { story: 'Figma `state=danger`. Невалидность берётся из NgControl: красная рамка по Validators.' },
       source: {
         language: 'html',
-        code: `<!-- control = new FormControl('', Validators.required) -->
-<extra-textarea [formControl]="control" label="Label" caption="Caption"></extra-textarea>`
+        code: `<extra-textarea [formControl]="control" label="Label" caption="Caption"></extra-textarea>`
       }
     }
   }
@@ -430,8 +414,7 @@ export const Disabled: Story = {
       description: { story: 'Figma `state=disabled`. Отключение через FormControl.' },
       source: {
         language: 'html',
-        code: `<!-- control = new FormControl({ value: '', disabled: true }) -->
-<extra-textarea [formControl]="control" label="Label"></extra-textarea>`
+        code: `<extra-textarea [formControl]="control" label="Label"></extra-textarea>`
       }
     }
   }
@@ -446,7 +429,7 @@ export const Readonly: Story = {
       description: { story: 'Figma `state=readonly`. Значение видно и выделяется, но не редактируется.' },
       source: {
         language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label" [readonly]="true"></extra-textarea>`
+        code: `<extra-textarea [formControl]="control" label="Label" readonly></extra-textarea>`
       }
     }
   }
@@ -463,7 +446,7 @@ export const Clearable: Story = {
       },
       source: {
         language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label" [clearable]="true" (onClear)="onClear()"></extra-textarea>`
+        code: `<extra-textarea [formControl]="control" label="Label" clearable (onClear)="onClear()"></extra-textarea>`
       }
     }
   }
@@ -500,7 +483,7 @@ export const FloatLabel: Story = {
       },
       source: {
         language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Комментарий" [requiredMark]="true" labelPosition="float"></extra-textarea>`
+        code: `<extra-textarea [formControl]="control" label="FloatLabel" labelPosition="float"></extra-textarea>`
       }
     }
   }
