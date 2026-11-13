@@ -25,8 +25,7 @@ updated: '2026-10-03'
 |----------|-----|--------------|---------|
 | `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
 | `label` | `string` | `''` | Текст названия поля |
-| `labelPosition` | `'top' \| 'left'` | `'top'` | Положение лейбла — соответствует Figma, но без устаревшего третьего значения `float` (вынесено в `floatLabel`, см. `docs/naming-rules.md`) |
-| `floatLabel` | `boolean` | `false` | Лейбл-плейсхолдер, всплывающий над полем — отдельный переключатель, а не третье значение `labelPosition`; при `true` значение `labelPosition` для позиционирования лейбла не используется |
+| `labelPosition` | `'default' \| 'float' \| 'left'` | `'default'` | Положение лейбла: сверху, плавающий внутри поля (`float`, Figma `has-float-label=true`) или слева |
 | `caption` | `string` | `''` | Пояснение под полем |
 | `info` | `string` | `''` | Текст тултипа иконки `ti-info-circle` рядом с лейблом |
 | `clearable` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear`; имя приведено к `*able`-конвенции (было `showClear`) |
@@ -152,7 +151,7 @@ Figma: `<Textarea>`, state=default, placeholder=true, has-floatlabel=false — n
 Figma: `<Textarea>`, has-floatlabel=true
 
 ```html
-<extra-textarea label="Комментарий" [floatLabel]="true" [(ngModel)]="comment"></extra-textarea>
+<extra-textarea label="Комментарий" labelPosition="float" [(ngModel)]="comment"></extra-textarea>
 ```
 
 ### С кнопкой очистки (clearable)
@@ -215,7 +214,7 @@ descriptionControl = new FormControl('', [Validators.required, Validators.maxLen
 
 ## Related
 
-- [InputText](../inputtext/inputtext.figma.md) — однострочное поле с тем же паттерном label/caption/info (но пока со старым тройным `labelPosition` — не копировать)
+- [InputText](../inputtext/inputtext.figma.md) — однострочное поле с тем же паттерном label/caption/info
 - [InputGroup](../inputgroup/inputgroup.figma.md) — обёртка с prefix/suffix-слотами
 - [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний поля
 - [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
@@ -233,5 +232,4 @@ descriptionControl = new FormControl('', [Validators.required, Validators.maxLen
 **Don't:**
 - Не подменяйте `value` через прямой DOM — теряется `dirty`-state и Angular-реактивность.
 - Не задавайте `[disabled]="true"` как `@Input` — компонент его не объявляет; передавайте через `FormControl`.
-- Не комбинируйте `labelPosition="left"` с ожиданием, что оно повлияет на `floatLabel=true` — при включённом `floatLabel` лейбл всегда всплывает над полем независимо от `labelPosition`.
 - Не используйте `extra-textarea` для короткого однострочного текста — для него [InputText](../inputtext/inputtext.figma.md).
