@@ -27,6 +27,7 @@ import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import { MultiSelect } from 'primeng/multiselect';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 import type {
   MultiSelectBlurEvent,
   MultiSelectChangeEvent,
@@ -62,7 +63,15 @@ let nextInputId = 0;
 @Component({
   selector: 'extra-multi-select',
   standalone: true,
-  imports: [MultiSelect, NgClass, NgTemplateOutlet, FormsModule, FloatLabel, ExtraTooltipDirective],
+  imports: [
+    MultiSelect,
+    NgClass,
+    NgTemplateOutlet,
+    FormsModule,
+    FloatLabel,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -99,7 +108,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-multiselect-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -128,9 +137,11 @@ let nextInputId = 0;
         [optionGroupLabel]="optionGroupLabel"
         [optionGroupChildren]="optionGroupChildren"
         [group]="group"
-        [placeholder]="placeholder"
+        [placeholder]="floatLabel ? '' : placeholder"
         [filter]="showFilter"
         [filterPlaceHolder]="filterPlaceholder"
+        [showHeader]="showFilter"
+        [showToggleAll]="false"
         [showClear]="clearable"
         [display]="showChips ? 'chip' : 'comma'"
         [chipIcon]="chipIcon"
@@ -185,6 +196,7 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   @Input() optionGroupChildren = 'items';
   @Input() group = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraMultiSelectSize = 'base';
   @Input() readonly = false;
@@ -243,6 +255,7 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   get multiselectClasses(): Record<string, boolean> {
     return {
       'p-multiselect-xlg': this.size === 'xlarge',
+      'p-multiselect-readonly': this.readonly,
       'p-invalid': this.invalid,
       'extra-multiselect-no-checkbox': !this.showCheckbox,
       'extra-multiselect-chips-locked': !this.chipClearable
