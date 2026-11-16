@@ -8,7 +8,7 @@ type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boo
 const meta: Meta<InputTextArgs> = {
   title: 'Components/Form/InputText',
   component: ExtraInputTextComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'inputtext'],
   decorators: [
     moduleMetadata({
       imports: [ExtraInputTextComponent, ReactiveFormsModule, InputTextReactiveFormsComponent]
@@ -16,6 +16,7 @@ const meta: Meta<InputTextArgs> = {
   ],
   parameters: {
     docs: {
+      source: { language: 'html', transform: (_code: string, context: { args: Partial<Omit<InputTextArgs, 'onClear'>> }) => renderInputText(context.args).template },
       description: {
         component: `Текстовое поле для ввода данных.
 
@@ -52,7 +53,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     labelPosition: {
       control: 'select',
       options: ['default', 'float', 'left'],
-      description: 'Положение лейбла: сверху, плавающий внутри поля или слева',
+      description: 'Положение лейбла',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'default' },
@@ -79,7 +80,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     },
     readonly: {
       control: 'boolean',
-      description: 'Режим только для чтения: значение видно и выделяется, но не редактируется',
+      description: 'Только чтение; очистка поля недоступна',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -260,27 +261,28 @@ type Story = StoryObj<InputTextArgs>;
 // Каждая сторис — пресет варианта Figma (comp-json/FORM/InputText/STORIES.md): в args задана
 // только её ось, остальное равно варианту Figma по умолчанию и меняется в Controls.
 const renderInputText = (args: Partial<Omit<InputTextArgs, 'onClear'>>) => {
+  const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
   const parts: string[] = [];
 
-  if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
-  if (args.label) parts.push(`label="${args.label}"`);
-  if (args.labelPosition && args.labelPosition !== 'default') parts.push(`labelPosition="${args.labelPosition}"`);
+  if (args.placeholder) parts.push(`placeholder="${escape(args.placeholder)}"`);
+  if (args.label) parts.push(`label="${escape(args.label)}"`);
+  if (args.labelPosition && args.labelPosition !== 'default') parts.push(`labelPosition="${escape(args.labelPosition)}"`);
   if (args.requiredMark) parts.push(`[requiredMark]="true"`);
-  if (args.clearable) parts.push(`clearable`);
-  if (args.readonly) parts.push(`readonly`);
-  if (args.caption) parts.push(`caption="${args.caption}"`);
-  if (args.captionSeverity && args.captionSeverity !== 'base') parts.push(`captionSeverity="${args.captionSeverity}"`);
-  if (args.info) parts.push(`info="${args.info}"`);
-  if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
+  if (args.clearable) parts.push(`[clearable]="true"`);
+  if (args.readonly) parts.push(`[readonly]="true"`);
+  if (args.caption) parts.push(`caption="${escape(args.caption)}"`);
+  if (args.captionSeverity && args.captionSeverity !== 'base') parts.push(`captionSeverity="${escape(args.captionSeverity)}"`);
+  if (args.info) parts.push(`info="${escape(args.info)}"`);
+  if (args.size && args.size !== 'base') parts.push(`size="${escape(args.size)}"`);
   if (args.fluid) parts.push(`[fluid]="true"`);
-  if (args.type && args.type !== 'text') parts.push(`type="${args.type}"`);
-  if (args.required) parts.push(`required`);
-  if (args.name) parts.push(`name="${args.name}"`);
-  if (args.autocomplete) parts.push(`autocomplete="${args.autocomplete}"`);
+  if (args.type && args.type !== 'text') parts.push(`type="${escape(args.type)}"`);
+  if (args.required) parts.push(`[required]="true"`);
+  if (args.name) parts.push(`name="${escape(args.name)}"`);
+  if (args.autocomplete) parts.push(`autocomplete="${escape(args.autocomplete)}"`);
   if (args.maxLength != null) parts.push(`[maxLength]="${args.maxLength}"`);
-  if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
-  if (args.ariaLabelledBy) parts.push(`ariaLabelledBy="${args.ariaLabelledBy}"`);
-  if (args.autofocus) parts.push(`autofocus`);
+  if (args.ariaLabel) parts.push(`ariaLabel="${escape(args.ariaLabel)}"`);
+  if (args.ariaLabelledBy) parts.push(`ariaLabelledBy="${escape(args.ariaLabelledBy)}"`);
+  if (args.autofocus) parts.push(`[autofocus]="true"`);
   if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
 
   const validators = args.invalid ? [Validators.required] : [];
@@ -299,127 +301,45 @@ const renderInputText = (args: Partial<Omit<InputTextArgs, 'onClear'>>) => {
 export const Default: Story = {
   name: 'Default',
   render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-input-text
-  [formControl]="control"
-  label="Label"
-  [requiredMark]="true"
-  info="Info"
-  caption="Caption"
-  placeholder="Placeholder"
-></extra-input-text>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.' } } }
 };
 
 export const Error: Story = {
   name: 'Error',
   args: { invalid: true },
-  render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Невалидное состояние: invalid вычисляется из NgControl автоматически (Validators), красная рамка появляется без отдельного пропа.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-input-text [formControl]="control" label="Label" caption="Caption"></extra-input-text>`
-      }
-    }
-  }
+  render: (args) => renderInputText(args)
 };
 
 export const Disabled: Story = {
   name: 'Disabled',
   args: { disabled: true },
-  render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: { story: 'Отключённое состояние управляется через FormControl: disable() / enable().' },
-      source: {
-        language: 'html',
-        code: `<extra-input-text [formControl]="control" label="Label"></extra-input-text>`
-      }
-    }
-  }
+  render: (args) => renderInputText(args)
 };
 
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true },
-  render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: { story: 'Режим только для чтения (readonly): значение видно и выделяется, но не редактируется.' },
-      source: {
-        language: 'html',
-        code: `<extra-input-text [formControl]="control" label="Label" readonly></extra-input-text>`
-      }
-    }
-  }
+  render: (args) => renderInputText(args)
 };
 
 export const FloatLabel: Story = {
   name: 'FloatLabel',
   args: { labelPosition: 'float', label: 'FloatLabel' },
-  render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Плавающий лейбл (labelPosition="float"): в покое лежит внутри поля, при фокусе и наличии значения поднимается вверх и уменьшается.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-input-text [formControl]="control" label="FloatLabel" labelPosition="float"></extra-input-text>`
-      }
-    }
-  }
+  render: (args) => renderInputText(args)
 };
 
 export const Clearable: Story = {
   name: 'Clearable',
   args: { clearable: true, value: 'InputText' },
   render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Поле с иконкой очистки (clearable). Иконка × доступна с клавиатуры (Enter / Space) и появляется только при наличии значения; клик очищает поле и вызывает onClear.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-input-text [formControl]="control" label="Label" clearable (onClear)="onClear()"></extra-input-text>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Поле с иконкой очистки (clearable). Иконка × доступна с клавиатуры (Enter / Space) и появляется только при наличии значения.' } } }
 };
 
 export const Fluid: Story = {
   name: 'Fluid',
   args: { fluid: true },
   render: (args) => renderInputText(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя вместо собственной ширины по умолчанию.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-input-text [formControl]="control" label="Label" [fluid]="true"></extra-input-text>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя вместо собственной ширины по умолчанию. Контейнер в примере — 600px и обведён пунктиром, чтобы было видно, что поле тянется ровно по его границам.' } } }
 };
 
 export { ReactiveForms };
