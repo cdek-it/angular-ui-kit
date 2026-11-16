@@ -51,6 +51,11 @@ const meta: Meta<SelectArgs> = {
   parameters: {
     designTokens: { prefix: '--p-select' },
     docs: {
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_source: string, context: { args: RenderArgs }) => selectSource(context.args)
+      },
       description: {
         component: `Single-select — выпадающий список для выбора одного значения из набора опций.
 
@@ -60,12 +65,14 @@ const meta: Meta<SelectArgs> = {
 import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
 
-Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.
-
 Шаблоны (передаются между тегами компонента):
 - \`extraSelectOption\` — пункт списка (контекст \`let-option\`)
 - \`extraSelectSelectedItem\` — выбранное значение в закрытом состоянии (контекст \`let-option\`)
-- \`extraSelectOptionGroup\` — заголовок группы (контекст \`let-group\`)`
+- \`extraSelectOptionGroup\` — заголовок группы (контекст \`let-group\`)
+
+\`\`\`typescript
+import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSelectOptionGroupDirective } from '@cdek-it/angular-ui-kit';
+\`\`\``
       }
     }
   },
@@ -92,7 +99,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     floatLabel: {
       control: 'boolean',
-      description: 'Лейбл-плейсхолдер, всплывающий над полем при фокусе/значении',
+      description: 'Плавающий лейбл внутри поля — перекрывает labelPosition',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -111,7 +118,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     captionSeverity: {
       control: 'select',
       options: ['base', 'success', 'warning', 'danger', 'info'],
-      description: 'Вариант подписи (цвет и иконка), Figma `_<Caption>` variant',
+      description: 'Вариант подписи (цвет и иконка)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'base'" },
@@ -120,7 +127,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     info: {
       control: 'text',
-      description: 'Текст тултипа иконки рядом с лейблом',
+      description: 'Текст с доп. информацией (показывается в тултипе иконки ti-info-circle)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
@@ -129,7 +136,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     placeholder: {
       control: 'text',
-      description: 'Подсказка при пустом поле',
+      description: 'Текст подсказки внутри поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
@@ -157,7 +164,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
-      description: 'Иконка очистки поля при наличии значения',
+      description: 'Отображение иконки для очистки поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -166,7 +173,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     showCheckmark: {
       control: 'boolean',
-      description: 'Галочка у выбранной опции в панели (Figma `_<Select.Option>` checkmark)',
+      description: 'Отображать отметку выбранного option',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
@@ -175,7 +182,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     showFilter: {
       control: 'boolean',
-      description: 'Строка поиска в выпадающей панели',
+      description: 'Включает строку поиска в выпадающем списке',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -184,7 +191,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     readonly: {
       control: 'boolean',
-      description: 'Только для чтения',
+      description: 'Режим только для чтения',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -336,8 +343,8 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     primeSize: { table: { disable: true } },
     selectClass: { table: { disable: true } },
     panelStyle: { table: { disable: true } },
-    invalid: { table: { disable: true } },
-    disabled: { table: { disable: true } },
+    invalid: { control: 'boolean', description: 'Невалидное состояние — вычисляется из NgControl' },
+    disabled: { control: 'boolean', description: 'Отключает взаимодействие — управляется через FormControl' },
     modelValue: { table: { disable: true } },
     // ── События ────────────────────────────────────────────────
     onChange: {
@@ -352,17 +359,17 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     onClear: {
       control: false,
-      description: 'Срабатывает при очистке поля',
+      description: 'Срабатывает при очистке значения',
       table: { category: 'События', type: { summary: 'EventEmitter<void>' } }
     },
     onShow: {
       control: false,
-      description: 'Срабатывает при открытии панели',
+      description: 'Срабатывает при открытии списка',
       table: { category: 'События', type: { summary: 'EventEmitter<void>' } }
     },
     onHide: {
       control: false,
-      description: 'Срабатывает при закрытии панели',
+      description: 'Срабатывает при закрытии списка',
       table: { category: 'События', type: { summary: 'EventEmitter<void>' } }
     },
     onFocus: {
@@ -417,82 +424,73 @@ export default meta;
 type Story = StoryObj<SelectArgs>;
 
 // ── Один рендер компонента: все свойства настраиваются в Controls ────────────
-interface RenderArgs {
-  label?: string;
-  labelPosition?: string;
-  floatLabel?: boolean;
-  caption?: string;
-  captionSeverity?: string;
-  info?: string;
-  placeholder?: string;
-  size?: string;
-  editable?: boolean;
-  clearable?: boolean;
-  showCheckmark?: boolean;
-  showFilter?: boolean;
-  readonly?: boolean;
-  loading?: boolean;
-  fluid?: boolean;
-  required?: boolean;
-  group?: boolean;
-  ariaLabel?: string;
-  ariaLabelledBy?: string;
-  autofocus?: boolean;
-  tabindex?: number;
-  optionLabel?: string;
-  inputId?: string;
-  invalid?: boolean;
-  disabled?: boolean;
-  value?: { name: string; code: string } | null;
-}
+type RenderArgs = Partial<
+  Omit<SelectArgs, 'onChange' | 'onFilter' | 'onClear' | 'onShow' | 'onHide' | 'onFocus' | 'onBlur'>
+>;
 
-const renderSelect = (args: RenderArgs, forced: { floatLabel?: boolean } = {}) => {
-  const a = { ...args, ...forced };
-  const parts: string[] = [];
+const selectInputs = (args: RenderArgs): Record<string, unknown> => {
+  const inputs = Object.fromEntries(
+    Object.entries(args).filter(
+      ([key, value]) =>
+        !['disabled', 'invalid', 'options', 'value'].includes(key) &&
+        !!meta.argTypes?.[key as keyof SelectArgs]?.control &&
+        value !== undefined
+    )
+  );
+  if (args.group) inputs['optionGroupLabel'] = args.optionGroupLabel ?? 'name';
+  return inputs;
+};
 
-  if (a.label) parts.push(`label="${a.label}"`);
-  if (a.labelPosition && a.labelPosition !== 'top') parts.push(`labelPosition="${a.labelPosition}"`);
-  if (a.floatLabel) parts.push(`[floatLabel]="true"`);
-  if (a.caption) parts.push(`caption="${a.caption}"`);
-  if (a.captionSeverity && a.captionSeverity !== 'base') parts.push(`captionSeverity="${a.captionSeverity}"`);
-  if (a.info) parts.push(`info="${a.info}"`);
-  if (a.placeholder) parts.push(`placeholder="${a.placeholder}"`);
-  if (a.size && a.size !== 'base') parts.push(`size="${a.size}"`);
-  if (a.editable) parts.push(`[editable]="true"`);
-  if (a.clearable) parts.push(`[clearable]="true"`);
-  if (!a.showCheckmark) parts.push(`[showCheckmark]="false"`);
-  if (a.showFilter) parts.push(`[showFilter]="true"`);
-  if (a.readonly) parts.push(`[readonly]="true"`);
-  if (a.loading) parts.push(`[loading]="true"`);
-  if (a.fluid) parts.push(`[fluid]="true"`);
-  if (a.required) parts.push(`required`);
-  if (a.group) parts.push(`[group]="true" optionGroupLabel="name"`);
-  if (a.ariaLabel) parts.push(`ariaLabel="${a.ariaLabel}"`);
-  if (a.ariaLabelledBy) parts.push(`ariaLabelledBy="${a.ariaLabelledBy}"`);
-  if (a.autofocus) parts.push(`[autofocus]="true"`);
-  if (a.tabindex != null) parts.push(`[tabindex]="${a.tabindex}"`);
-  if (a.optionLabel) parts.push(`optionLabel="${a.optionLabel}"`);
-  if (a.inputId) parts.push(`inputId="${a.inputId}"`);
+const selectSource = (args: RenderArgs): string => {
+  const defaults: Record<string, unknown> = {
+    ...meta.args,
+    label: '',
+    caption: '',
+    info: '',
+    placeholder: '',
+    optionLabel: undefined,
+    optionGroupLabel: undefined
+  };
+  const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const attributes = Object.entries(selectInputs(args))
+    .filter(([key, value]) => value !== defaults[key])
+    .map(([key, value]) =>
+      typeof value === 'string' ? `${key}="${escape(value)}"` : `[${key}]="${escape(JSON.stringify(value))}"`
+    );
+  return `<extra-select
+  [formControl]="control"
+  [options]="options"
+  ${attributes.join('\n  ')}
+></extra-select>`;
+};
 
-  const validators = a.invalid ? [Validators.required] : [];
-  const control = new FormControl<any>({ value: a.value ?? null, disabled: !!a.disabled }, validators);
-  if (a.invalid) control.markAsTouched();
+const renderSelect = (args: RenderArgs) => {
+  const inputs = selectInputs(args);
+  const bindings = Object.keys(inputs).map((key) => `[${key}]="${key}"`);
+  const validators = args.invalid ? [Validators.required] : [];
+  const control = new FormControl({ value: args.value ?? null, disabled: !!args.disabled }, validators);
+  if (args.invalid) control.markAsTouched();
 
-  const options = a.group
-    ? [
-        { name: 'Группа 1', items: OPTIONS.slice(0, 2) },
-        { name: 'Группа 2', items: OPTIONS.slice(2) }
-      ]
-    : OPTIONS;
+  const source = args.options ?? OPTIONS;
+  const children = args.optionGroupChildren ?? 'items';
+  const groupLabel = args.optionGroupLabel ?? 'name';
+  const options =
+    args.group && source.length > 0 && !source.every((option) => Array.isArray(option?.[children]))
+      ? [
+          { [groupLabel]: 'Группа 1', [children]: source.slice(0, 2) },
+          { [groupLabel]: 'Группа 2', [children]: source.slice(2) }
+        ]
+      : source;
 
-  // Ширина поля в примерах зафиксирована шириной референса Figma (272px): сверки идут 1:1
-  // с макетом, поле не растягивается на всё превью. Fluid-пример — без обёртки:
-  // там поле обязано занять контейнер.
-  const template = `${a.fluid ? '' : '<select-story-host>'}<extra-select [formControl]="control"\n  [options]="options"\n  ${parts.join('\n  ')}\n></extra-select>${a.fluid ? '' : '</select-story-host>'}`;
-
-  // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
-  // и Storybook на попытке его присвоить роняет ошибку в консоль
-  return { props: { control, options }, template };
+  const field = `<extra-select
+  [formControl]="control"
+  [options]="options"
+  ${bindings.join('\n  ')}
+></extra-select>`;
+  return {
+    props: { ...inputs, control, options },
+    template: args.fluid ? field : `<select-story-host>${field}</select-story-host>`
+  };
 };
 
 // ── Default ──────────────────────────────────────────────────────────────────
@@ -503,33 +501,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          'Поле с лейблом сверху (labelPosition="top") или слева (labelPosition="left"). Размер (small, base, large, xlarge), caption, info, фильтр, группировка, editable, clearable, fluid, readonly, disabled и invalid меняются в Controls; disabled и invalid управляются через FormControl.'
-      },
-      source: {
-        language: 'html',
-        code: `<!-- лейбл сверху -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" info="Info" placeholder="Placeholder"></extra-select>
-
-<!-- лейбл слева -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" labelPosition="left" label="Label"></extra-select>
-
-<!-- без label и caption поле не оборачивается -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" placeholder="Без лейбла"></extra-select>
-
-<!-- группировка -->
-<extra-select [formControl]="control" [options]="grouped" optionLabel="name" [group]="true"></extra-select>
-
-<!-- размеры -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" size="small"></extra-select>
-<extra-select [formControl]="control" [options]="options" optionLabel="name" size="large"></extra-select>
-<extra-select [formControl]="control" [options]="options" optionLabel="name" size="xlarge"></extra-select>
-
-<!-- состояния: disabled и invalid через FormControl -->
-control = new FormControl<any>({ value: null, disabled: true });
-control = new FormControl<any>(null, Validators.required);
-
-<!-- readonly -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" [readonly]="true"></extra-select>`
+          'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов; disabled и invalid — не входы компонента и задаются состоянием FormControl.'
       }
     }
   }
@@ -539,17 +511,7 @@ control = new FormControl<any>(null, Validators.required);
 export const Error: Story = {
   name: 'Error',
   args: { invalid: true },
-  render: (args) => renderSelect(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=danger`. Невалидность берётся из NgControl: красная рамка по Validators.' },
-      source: {
-        language: 'html',
-        code: `<!-- control = new FormControl(null, Validators.required) -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption"></extra-select>`
-      }
-    }
-  }
+  render: (args) => renderSelect(args)
 };
 
 export const Disabled: Story = {
@@ -558,12 +520,7 @@ export const Disabled: Story = {
   render: (args) => renderSelect(args),
   parameters: {
     docs: {
-      description: { story: 'Figma `state=disabled`. Отключение через FormControl.' },
-      source: {
-        language: 'html',
-        code: `<!-- control = new FormControl({ value: null, disabled: true }) -->
-<extra-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption"></extra-select>`
-      }
+      description: { story: 'Отключённое состояние — управляется через FormControl.' }
     }
   }
 };
@@ -571,52 +528,18 @@ export const Disabled: Story = {
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true, value: OPTIONS[0] },
-  render: (args) => renderSelect(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=readonly`. Значение видно, но панель не открывается.' },
-      source: {
-        language: 'html',
-        code: `<extra-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" [readonly]="true"></extra-select>`
-      }
-    }
-  }
+  render: (args) => renderSelect(args)
 };
 
 export const Fluid: Story = {
   name: 'Fluid',
   args: { fluid: true },
-  render: (args) => renderSelect(args),
-  parameters: {
-    docs: {
-      description: { story: 'Свойство кода `fluid`: поле растягивается на всю ширину контейнера.' },
-      source: {
-        language: 'html',
-        code: `<extra-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" [fluid]="true"></extra-select>`
-      }
-    }
-  }
+  render: (args) => renderSelect(args)
 };
 
 // ── FloatLabel: плавающий лейбл внутри поля ──────────────────────────────────
 export const FloatLabel: Story = {
   name: 'FloatLabel',
   args: { floatLabel: true, label: 'FloatLabel' },
-  argTypes: {
-    floatLabel: { control: false },
-    labelPosition: { control: false }
-  },
-  render: (args) => renderSelect(args, { floatLabel: true }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Figma `has-float-label=true`. Плавающий лейбл (`[floatLabel]="true"`): в покое стоит в поле, при фокусе и значении поднимается над ним. labelPosition в этом виде не действует.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-select [formControl]="control" [options]="options" optionLabel="name" label="FloatLabel" [floatLabel]="true"></extra-select>`
-      }
-    }
-  }
+  render: (args) => renderSelect(args)
 };

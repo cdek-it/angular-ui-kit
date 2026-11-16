@@ -123,11 +123,15 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   .p-select-option {
     background: ${dt('select.extend.extOption.background')};
     gap: ${dt('select.extend.extOption.gap')};
+    font-size: ${dt('fonts.fontSize.300')};
+    font-weight: ${dt('fonts.fontWeight.regular')};
+    line-height: ${dt('fonts.lineHeight.300')};
   }
 
   /* Figma _<Select.Group>: textCase UPPER; токена регистра в базе PrimeUIX нет,
      зона дизайнера в CSS-слое кита (как у menu/divider). */
   .p-select-option-group {
+    font-size: ${dt('fonts.fontSize.100')};
     gap: ${dt('select.extend.extOptionGroup.gap')};
     text-transform: uppercase;
   }
@@ -179,12 +183,12 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   /* ─── Опции: отметка выбранных ─── */
-  .p-select-option[aria-selected='true'] {
+  .p-select-overlay .p-select-list .p-select-option[aria-selected='true'] {
     background: ${dt('select.option.selectedBackground')};
     color: ${dt('select.option.selectedColor')};
   }
 
-  .p-select-option[aria-selected='true'].p-focus {
+  .p-select-overlay .p-select-list .p-select-option[aria-selected='true'].p-focus {
     background: ${dt('select.option.selectedFocusBackground')};
     color: ${dt('select.option.selectedFocusColor')};
   }
@@ -194,19 +198,22 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     display: none;
   }
 
-  /* Галочка у выбранной опции: выбранность определяется aria-selected (не наличием
-     check-icon — PrimeNG не рендерит его при checkmark=false, и фон выбранной пропадал).
-     Figma _<Select.Option>: ось checkmark убирает только иконку, фон выбранной остаётся;
-     у невыбранных опций зарезервированного места под иконку нет. Иконка 16 — form/iconSize
-     референса поля (у ti-check в Option 18px на высоте опции 42). */
+  .p-select-option:has(.p-select-option-check-icon, .p-select-option-blank-icon) {
+    padding-inline-start: ${dt('select.extend.extOption.checkmarkTextOffset')};
+  }
+
   .p-select-option[aria-selected='true']:has(.p-select-option-check-icon)::before {
+    position: absolute;
+    inset-inline-start: ${dt('select.extend.extOption.checkmarkInset')};
+    top: 50%;
+    transform: translateY(-50%);
     font-family: 'tabler-icons';
     content: var(--extra-select-checkmark-content, "\\ea5e");
-    font-size: ${dt('select.extend.iconSize')};
-    color: ${dt('select.option.selectedColor')};
-    flex-shrink: 0;
-    margin-inline-start: ${dt('select.checkmark.gutterStart')};
-    margin-inline-end: ${dt('select.checkmark.gutterEnd')};
+    font-size: ${dt('select.extend.extOption.checkmarkSize')};
+    line-height: ${dt('select.extend.extOption.checkmarkSize')};
+    width: ${dt('select.extend.extOption.checkmarkSize')};
+    height: ${dt('select.extend.extOption.checkmarkSize')};
+    color: ${dt('select.checkmark.color')};
   }
 
   .p-select-option[aria-selected='true']:has(.p-select-option-check-icon).p-focus::before {
