@@ -64,15 +64,13 @@ const meta: Meta<AutoCompleteArgs> = {
         transform: (_source: string, context: { args: Partial<AutoCompleteArgs> }) => autoCompleteSource(context.args)
       },
       description: {
-        component: `Поле ввода с автодополнением: одиночный и множественный выбор (chips), кнопка выпадающего списка, группировка, фильтрация.
+        component: `Поле ввода с автодополнением, поддерживающее одиночный и множественный выбор, объекты, кнопку выпадающего списка, группировку и фильтрацию. Поддерживает встроенные label/caption/info.
 
-Реализовано по спецификации [autocomplete.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/autocomplete.md).
+Реализован по спецификации \`docs/components-api/autocomplete.md\`.
 
 \`\`\`typescript
 import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
-\`\`\`
-
-Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
+\`\`\``
       }
     }
   },
@@ -99,7 +97,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     floatLabel: {
       control: 'boolean',
-      description: 'Плавающий лейбл внутри поля — перекрывает labelPosition',
+      description: 'Плавающий лейбл внутри поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -117,7 +115,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     showCheckbox: {
       control: 'boolean',
-      description: 'Чекбокс у каждой опции в списке (при multiple)',
+      description: 'Отображать чекбокс у каждой опции в списке',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -126,7 +124,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     chipClearable: {
       control: 'boolean',
-      description: 'Иконка удаления chip (при multiple)',
+      description: 'Отображение иконки удаления chip (при multiple)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
@@ -135,7 +133,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     dropdown: {
       control: 'boolean',
-      description: 'Кнопка выпадающего списка справа от поля',
+      description: 'Показывать кнопку выпадающего списка',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -144,7 +142,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
-      description: 'Иконка очистки поля при наличии значения',
+      description: 'Показывать иконку очистки поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -153,7 +151,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     forceSelection: {
       control: 'boolean',
-      description: 'Сбрасывать текст, не соответствующий опции, при потере фокуса',
+      description: 'Ограничить ввод только значениями из списка',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -181,7 +179,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     info: {
       control: 'text',
-      description: 'Текст тултипа иконки рядом с лейблом',
+      description: 'Текст с доп. информацией (показывается в тултипе иконки ti-info-circle)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
@@ -190,7 +188,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     placeholder: {
       control: 'text',
-      description: 'Подсказка при пустом поле',
+      description: 'Текст-подсказка при пустом поле',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'undefined' },
@@ -218,7 +216,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     fluid: {
       control: 'boolean',
-      description: 'Растягивать поле на всю ширину контейнера',
+      description: 'Растягивает поле на всю ширину контейнера',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -384,8 +382,8 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     // ── Внутренние (не контролируются) ─────────────────────────
     computedInputStyleClass: { table: { disable: true } },
-    invalid: { control: 'boolean', description: 'Невалидность через FormControl' },
-    disabled: { control: 'boolean', description: 'Отключение через FormControl' },
+    invalid: { control: 'boolean', description: 'Невалидное состояние — вычисляется из NgControl (Validators)' },
+    disabled: { control: 'boolean', description: 'Отключает взаимодействие — управляется через FormControl' },
     modelValue: { table: { disable: true } },
     // ── События ────────────────────────────────────────────────
     completeMethod: {
@@ -580,8 +578,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Поле с лейблом сверху (labelPosition="top") или слева (labelPosition="left"). Размер (small, base, large, xlarge), multiple, chips, caption, info, dropdown, clearable, группировка, floatLabel, fluid, readonly, disabled и invalid меняются в Controls; disabled и invalid управляются через FormControl.'
+        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
       }
     }
   }
@@ -595,7 +592,8 @@ export const Error: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Figma `state=danger` не представлен: невалидность из NgControl, красная рамка по Validators.'
+        story:
+          'Невалидное состояние — определяется через валидаторы `FormControl` (нужно, чтобы контрол также был touched).'
       }
     }
   }
@@ -607,7 +605,7 @@ export const Disabled: Story = {
   render: (args) => renderAutoComplete(args),
   parameters: {
     docs: {
-      description: { story: 'Figma `state=disabled`. Отключение через FormControl.' }
+      description: { story: 'Поле автодополнения в отключённом состоянии — управляется через FormControl.' }
     }
   }
 };
@@ -634,14 +632,14 @@ export const Dropdown: Story = {
   },
   parameters: {
     docs: {
-      description: { story: 'Figma `type=dropdown`: кнопка выпадающего списка справа от поля (клик — полный список).' }
+      description: { story: 'Автодополнение с кнопкой выпадающего списка для отображения всех вариантов.' }
     }
   }
 };
 
 export const Multiple: Story = {
   name: 'Multiple',
-  args: { multiple: true },
+  args: { multiple: true, showCheckbox: true },
   render: (args) => renderAutoComplete(args),
   play: async ({ canvasElement, args }) => {
     if (args.disabled || args.readonly || !args.multiple || args.group || args.suggestions?.length) return;
@@ -671,7 +669,7 @@ export const Multiple: Story = {
     docs: {
       description: {
         story:
-          'Figma `type=multi-select`: множественный выбор, значения — chips с иконкой удаления (`chipClearable`, `onUnselect`).'
+          'Множественный выбор с отображением выбранных значений в виде chips и чекбоксом (`showCheckbox`) у каждой опции в списке.'
       }
     }
   }
@@ -680,21 +678,11 @@ export const Multiple: Story = {
 export const Grouped: Story = {
   name: 'Grouped',
   args: { group: true },
-  render: (args) => renderAutoComplete(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `type=group`: подсказки сгруппированы, заголовки групп в верхнем регистре.' }
-    }
-  }
+  render: (args) => renderAutoComplete(args)
 };
 
 export const Fluid: Story = {
   name: 'Fluid',
   args: { fluid: true },
-  render: (args) => renderAutoComplete(args),
-  parameters: {
-    docs: {
-      description: { story: 'Свойство кода `fluid`: поле растягивается на всю ширину контейнера.' }
-    }
-  }
+  render: (args) => renderAutoComplete(args)
 };
