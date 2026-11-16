@@ -7,7 +7,7 @@ type TextareaArgs = ExtraTextareaComponent & { disabled: boolean; invalid: boole
 const meta: Meta<TextareaArgs> = {
   title: 'Components/Form/Textarea',
   component: ExtraTextareaComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'textarea'],
   decorators: [
     moduleMetadata({
       imports: [ExtraTextareaComponent, ReactiveFormsModule]
@@ -16,6 +16,7 @@ const meta: Meta<TextareaArgs> = {
   parameters: {
     designTokens: { prefix: '--p-textarea' },
     docs: {
+      source: { language: 'html', transform: (_code: string, context: { args: RenderArgs }) => renderTextarea(context.args).template },
       description: {
         component: `Многострочное текстовое поле для ввода данных.
 
@@ -52,7 +53,7 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
     labelPosition: {
       control: 'select',
       options: ['default', 'float', 'left'],
-      description: 'Положение лейбла: сверху, плавающий внутри поля или слева',
+      description: 'Положение лейбла',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'default'" },
@@ -326,18 +327,19 @@ interface RenderArgs {
   value?: string;
 }
 
-const renderTextarea = (args: RenderArgs, forced: { labelPosition?: string; autoResize?: boolean } = {}) => {
-  const a = { ...args, ...forced };
+const renderTextarea = (args: RenderArgs) => {
+  const a = args;
+  const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
   const parts: string[] = [];
 
-  if (a.label) parts.push(`label="${a.label}"`);
+  if (a.label) parts.push(`label="${escape(a.label)}"`);
   if (a.requiredMark) parts.push(`[requiredMark]="true"`);
-  if (a.labelPosition && a.labelPosition !== 'default') parts.push(`labelPosition="${a.labelPosition}"`);
-  if (a.caption) parts.push(`caption="${a.caption}"`);
-  if (a.captionSeverity && a.captionSeverity !== 'base') parts.push(`captionSeverity="${a.captionSeverity}"`);
-  if (a.info) parts.push(`info="${a.info}"`);
-  if (a.placeholder) parts.push(`placeholder="${a.placeholder}"`);
-  if (a.size && a.size !== 'base') parts.push(`size="${a.size}"`);
+  if (a.labelPosition && a.labelPosition !== 'default') parts.push(`labelPosition="${escape(a.labelPosition)}"`);
+  if (a.caption) parts.push(`caption="${escape(a.caption)}"`);
+  if (a.captionSeverity && a.captionSeverity !== 'base') parts.push(`captionSeverity="${escape(a.captionSeverity)}"`);
+  if (a.info) parts.push(`info="${escape(a.info)}"`);
+  if (a.placeholder) parts.push(`placeholder="${escape(a.placeholder)}"`);
+  if (a.size && a.size !== 'base') parts.push(`size="${escape(a.size)}"`);
   if (a.clearable) parts.push(`[clearable]="true"`);
   if (!a.resizable) parts.push(`[resizable]="false"`);
   if (a.readonly) parts.push(`[readonly]="true"`);
@@ -346,12 +348,12 @@ const renderTextarea = (args: RenderArgs, forced: { labelPosition?: string; auto
   if (a.rows && a.rows !== 3) parts.push(`[rows]="${a.rows}"`);
   if (a.cols) parts.push(`[cols]="${a.cols}"`);
   if (a.autofocus) parts.push(`[autofocus]="true"`);
-  if (a.required) parts.push(`required`);
-  if (a.name) parts.push(`name="${a.name}"`);
-  if (a.autocomplete) parts.push(`autocomplete="${a.autocomplete}"`);
+  if (a.required) parts.push(`[required]="true"`);
+  if (a.name) parts.push(`name="${escape(a.name)}"`);
+  if (a.autocomplete) parts.push(`autocomplete="${escape(a.autocomplete)}"`);
   if (a.maxLength != null) parts.push(`[maxLength]="${a.maxLength}"`);
-  if (a.ariaLabel) parts.push(`ariaLabel="${a.ariaLabel}"`);
-  if (a.ariaLabelledBy) parts.push(`ariaLabelledBy="${a.ariaLabelledBy}"`);
+  if (a.ariaLabel) parts.push(`ariaLabel="${escape(a.ariaLabel)}"`);
+  if (a.ariaLabelledBy) parts.push(`ariaLabelledBy="${escape(a.ariaLabelledBy)}"`);
   if (a.tabindex != null) parts.push(`[tabindex]="${a.tabindex}"`);
 
   const validators = a.invalid ? [Validators.required] : [];
@@ -364,148 +366,56 @@ const renderTextarea = (args: RenderArgs, forced: { labelPosition?: string; auto
   return { props: { control }, template };
 };
 
-// ── Default: лейбл сверху / слева ────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
   render: (args) => renderTextarea(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Поле с лейблом сверху (labelPosition="top") или слева (labelPosition="left"). Размер (small, base, large, xlarge), caption, info, requiredMark, clearable, fluid, readonly, disabled и invalid меняются в Controls; disabled и invalid управляются через FormControl.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-textarea
-  [formControl]="control"
-  label="Label"
-  [requiredMark]="true"
-  info="Info"
-  caption="Caption"
-  placeholder="Placeholder"
-></extra-textarea>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.' } } }
 };
 
-// ── Error / Disabled / Readonly / Clearable / Fluid: пресеты Figma ───────────
 export const Error: Story = {
   name: 'Error',
   args: { invalid: true },
   render: (args) => renderTextarea(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=danger`. Невалидность берётся из NgControl: красная рамка по Validators.' },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label" caption="Caption"></extra-textarea>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Невалидное состояние — управляется через FormControl + Validators.' } } }
 };
 
 export const Disabled: Story = {
   name: 'Disabled',
   args: { disabled: true },
   render: (args) => renderTextarea(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=disabled`. Отключение через FormControl.' },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label"></extra-textarea>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Отключённое состояние — управляется через FormControl.' } } }
 };
 
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true },
   render: (args) => renderTextarea(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=readonly`. Значение видно и выделяется, но не редактируется.' },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label" readonly></extra-textarea>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется.' } } }
 };
 
 export const Clearable: Story = {
   name: 'Clearable',
   args: { clearable: true, value: 'Textarea' },
-  render: (args) => renderTextarea(args),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Figma `show-clear=true`. Иконка × видна при непустом значении; клик очищает поле и вызывает `onClear`.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label" clearable (onClear)="onClear()"></extra-textarea>`
-      }
-    }
-  }
+  render: (args) => renderTextarea(args)
 };
 
 export const Fluid: Story = {
   name: 'Fluid',
   args: { fluid: true },
-  render: (args) => renderTextarea(args),
-  parameters: {
-    docs: {
-      description: { story: 'Свойство кода `fluid`: поле растягивается на всю ширину контейнера.' },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" label="Label" [fluid]="true"></extra-textarea>`
-      }
-    }
-  }
+  render: (args) => renderTextarea(args)
 };
 
-// ── FloatLabel: плавающий лейбл внутри поля ──────────────────────────────────
 export const FloatLabel: Story = {
   name: 'FloatLabel',
+  argTypes: { clearable: { control: 'boolean', description: 'Показывает иконку очистки поверх float-лейбла' } },
   args: { labelPosition: 'float', label: 'FloatLabel' },
-  argTypes: {
-    labelPosition: { control: false }
-  },
-  render: (args) => renderTextarea(args, { labelPosition: 'float' }),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Плавающий лейбл (labelPosition="float"): в покое 14/20, при фокусе и значении поднимается и становится 12/14.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" label="FloatLabel" labelPosition="float"></extra-textarea>`
-      }
-    }
-  }
+  render: (args) => renderTextarea(args),
+  parameters: { docs: { description: { story: '`[floatLabel]="true"` — лейбл всплывает над полем при фокусе/значении, независимо от `labelPosition`.' } } }
 };
 
-// ── AutoResize: высота растёт по мере ввода ──────────────────────────────────
 export const AutoResize: Story = {
   name: 'AutoResize',
   args: { autoResize: true, rows: 2 },
-  argTypes: {
-    autoResize: { control: false }
-  },
-  render: (args) => renderTextarea(args, { autoResize: true }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Режим авторасширения (`[autoResize]="true"`): поле увеличивается по высоте по мере ввода текста.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-textarea [formControl]="control" [autoResize]="true" [rows]="2" placeholder="Начните вводить текст..."></extra-textarea>`
-      }
-    }
-  }
+  render: (args) => renderTextarea(args),
+  parameters: { docs: { description: { story: 'Режим авторасширения — поле увеличивается по высоте по мере ввода текста.' } } }
 };
