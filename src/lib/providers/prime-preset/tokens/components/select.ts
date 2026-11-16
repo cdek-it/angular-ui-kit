@@ -125,8 +125,11 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     gap: ${dt('select.extend.extOption.gap')};
   }
 
+  /* Figma _<Select.Group>: textCase UPPER; токена регистра в базе PrimeUIX нет,
+     зона дизайнера в CSS-слое кита (как у menu/divider). */
   .p-select-option-group {
     gap: ${dt('select.extend.extOptionGroup.gap')};
+    text-transform: uppercase;
   }
 
   /* ─── Focus ─── */
