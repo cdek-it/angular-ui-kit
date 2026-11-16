@@ -28,6 +28,7 @@ Single-select: выбор одного значения из списка. У о
 | `captionSeverity`    | вариант подписи (цвет и иконка): `base`, `success`, `warning`, `danger`, `info` | `ExtraCaptionSeverity`                               | `base`                                |
 | `info`               | текст с доп. информацией (показывается в тултипе иконки ti-info-circle)         | `string`                                             | `''`                                  |
 | `size`               | размер поля                                                                     | `small \| base \| large \| xlarge`                   | `base`                                |
+| `fluid`              | растягивает поле на всю ширину контейнера                                       | `boolean`                                            | `false`                               |
 | `emptyMessage`       | сообщение при пустом списке опций                                               | `string`                                             | `'Нет данных'`                        |
 | `emptyFilterMessage` | сообщение при отсутствии результатов фильтрации                                 | `string`                                             | `'Результаты не найдены'`             |
 | `inputId`            | `id` нативного инпута — для связи с внешним `<label for="...">`                 | `string`                                             | автогенерируемый (`extra-select-<n>`) |

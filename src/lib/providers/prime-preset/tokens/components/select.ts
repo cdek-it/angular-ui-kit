@@ -24,13 +24,24 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   .extra-select-body {
     display: flex;
     flex-direction: column;
+    /* без flex-start поле растягивается на всю ширину обёртки и игнорирует [fluid]="false" */
+    align-items: flex-start;
     gap: ${dt('dimension.space.100')};
     min-width: 0;
   }
 
-  /* В режиме left body забирает остаток строки — иначе полю некуда растягиваться */
+  /* Поле (или его p-floatlabel-обёртка) не должно вылезать за пределы фиксированного
+     родителя: inline-flex с min-width:auto у flex-ребёнка пускает контент шире контейнера. */
+  .extra-select-body > :is(.p-select, .p-floatlabel) {
+    max-width: 100%;
+  }
+
   .extra-select--left > .extra-select-body {
     flex: 1 1 auto;
+  }
+
+  .extra-select-body > .p-floatlabel:has(.p-select-fluid) {
+    width: 100%;
   }
 
   /* ─── Label ─── */
@@ -52,19 +63,14 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     cursor: help;
   }
 
-    font-family: ${dt('fonts.fontFamily.heading')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
-  }
-
   /* Внутри p-floatlabel лейбл лежит поверх поля — курсор должен быть как у поля */
   .extra-select-body > .p-floatlabel > .extra-select-label {
     cursor: pointer;
   }
 
+  /* ─── Поле ─── */
   .p-select.p-component {
-    width: 100%;
+    min-width: ${dt('select.dropdown.width')};
     border-width: ${dt('select.extend.borderWidth')};
     line-height: ${dt('fonts.lineHeight.250')};
 
@@ -75,13 +81,40 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     --p-select-dropdown-width: calc(${dt('select.root.paddingX')} * 2 + ${dt('select.extend.iconSize')});
   }
 
-  .p-select.p-component.p-select-xlg {
-    --p-select-dropdown-width: calc(${dt('select.extend.extXlg.paddingX')} * 2 + ${dt('select.extend.iconSize')});
-  }
-
   .p-select.p-component .p-select-label,
   .p-select-option {
     font-family: ${dt('fonts.fontFamily.base')};
+  }
+
+  .p-select.p-component.p-select-sm {
+    line-height: ${dt('fonts.lineHeight.200')};
+  }
+
+  .p-select.p-component.p-select-lg {
+    line-height: ${dt('fonts.lineHeight.400')};
+  }
+
+  /* xlarge PrimeNG не знает: обёртка ставит p-select-xlg поверх large.
+     Мода xlarge DS (form/*): font 20, paddingX 12, paddingY 14, lineHeight 26, icon 20. */
+  .p-select.p-component.p-select-xlg {
+    line-height: ${dt('fonts.lineHeight.550')};
+    --p-select-dropdown-width: calc(${dt('select.extend.extXlg.paddingX')} * 2 + ${dt('dimension.size.600')});
+  }
+
+  .p-select.p-component.p-select-xlg .p-select-label {
+    font-size: ${dt('select.extend.extXlg.fontSize')};
+    padding-block: ${dt('select.extend.extXlg.paddingY')};
+    padding-inline: ${dt('select.extend.extXlg.paddingX')};
+  }
+
+  .p-select.p-component.p-select-xlg :is(.p-select-dropdown .p-icon, .p-select-clear-icon, .p-select-loading-icon) {
+    font-size: ${dt('dimension.size.600')};
+    width: ${dt('dimension.size.600')};
+    height: ${dt('dimension.size.600')};
+  }
+
+  .p-select.p-component .p-select-label.p-select-label-empty {
+    padding: 0;
   }
 
   .p-select-option {
@@ -93,15 +126,17 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     gap: ${dt('select.extend.extOptionGroup.gap')};
   }
 
+  /* ─── Focus ─── */
   .p-select.p-component:not(.p-disabled).p-focus {
     box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('select.root.focusRing.color')};
   }
 
   .p-select.p-component.p-invalid.p-focus {
     border-color: ${dt('select.root.invalidBorderColor')};
-    box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
+    box-shadow: 0 0 0 ${dt('select.root.focusRing.width')} ${dt('color.border.status.danger.focus')};
   }
 
+  /* ─── Readonly ─── */
   .p-select.p-component:is([readonly], .p-select-readonly) {
     background: ${dt('select.extend.readonlyBackground')};
     border-color: ${dt('select.root.borderColor')};
@@ -115,32 +150,29 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     color: ${dt('select.root.placeholderColor')};
   }
 
-  /* Размер xlg берём из собственных токенов селекта: переменные --p-inputtext-*
-     эмитятся, только если на странице отрисован компонент семейства InputText,
-     и на экране с одним селектом поле схлопывалось до нулевых паддингов. */
-  .p-select.p-component.p-select-xlg .p-select-label {
-    font-size: ${dt('select.extend.extXlg.fontSize')};
-    padding-block: ${dt('select.extend.extXlg.paddingY')};
-    padding-inline: ${dt('select.extend.extXlg.paddingX')};
-  }
-
-  .p-floatlabel:has(.p-select.p-component) label {
+  /* ─── FloatLabel (variant in) ───
+     Поведение как у InputText: в покое лейбл стоит в центре поля вместо placeholder
+     (placeholder в float-режиме не передаётся), при фокусе и значении уменьшается
+     до 12/14 и поднимается. Геометрия значения по референсу Figma:
+     10px до лейбл-зоны, лейбл 14px, 4px до значения, 14px снизу. */
+  .p-floatlabel-in:has(.p-select.p-component) label {
     font-family: ${dt('fonts.fontFamily.base')};
     font-weight: ${dt('fonts.fontWeight.regular')};
     line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('color.bg.neutral.medium.strong')};
+    color: ${dt('color.fg.muted')};
   }
 
-  .p-floatlabel:has(.p-select.p-component) .p-floatlabel-active label {
-    font-weight: ${dt('fonts.fontWeight.regular')};
+  .p-floatlabel-in:has(.p-select.p-component) label .extra-select-label-icon {
+    display: none;
   }
 
   .p-floatlabel-in .p-select.p-component .p-select-label {
     font-family: ${dt('fonts.fontFamily.base')};
-    padding-block-start: ${dt('dimension.space.700')};
-    padding-block-end: ${dt('dimension.space.300')};
+    padding-block-start: calc(${dt('dimension.space.300')} + ${dt('fonts.lineHeight.200')} + ${dt('dimension.space.100')});
+    padding-block-end: ${dt('dimension.space.400')};
   }
 
+  /* ─── Опции: отметка выбранных ─── */
   .p-select-option:has(.p-select-option-check-icon) {
     background: ${dt('select.option.selectedBackground')};
     color: ${dt('select.option.selectedColor')};
@@ -175,6 +207,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     visibility: hidden;
   }
 
+  /* ─── Иконки поля ─── */
   .p-select.p-component :is(.p-select-dropdown .p-select-dropdown-icon, .p-select-clear-icon, .p-select-loading-icon) {
     font-size: ${dt('select.extend.iconSize')};
     width: ${dt('select.extend.iconSize')};

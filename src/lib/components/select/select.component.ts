@@ -143,7 +143,7 @@ export class ExtraSelectOptionGroupDirective {}
         [optionGroupLabel]="optionGroupLabel"
         [optionGroupChildren]="optionGroupChildren"
         [group]="group"
-        [placeholder]="placeholder"
+        [placeholder]="floatLabel ? '' : placeholder"
         [filter]="showFilter"
         [showClear]="clearable"
         [editable]="editable"
@@ -156,6 +156,7 @@ export class ExtraSelectOptionGroupDirective {}
         [inputId]="inputId"
         [appendTo]="appendTo"
         [size]="primeSize"
+        [fluid]="fluid"
         [checkmark]="showCheckbox"
         [panelStyle]="panelStyle"
         [emptyMessage]="emptyMessage"
@@ -220,6 +221,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraSelectSize = 'base';
+  @Input({ transform: booleanAttribute }) fluid = false;
   @Input({ transform: booleanAttribute }) showFilter = false;
   /** Отображение иконки очистки поля при наличии значения. */
   @Input({ transform: booleanAttribute }) clearable = false;
