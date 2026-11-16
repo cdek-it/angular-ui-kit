@@ -10,10 +10,16 @@ type ButtonArgs = ExtraButtonComponent & {
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
   component: ExtraButtonComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'button'],
   decorators: [moduleMetadata({ imports: [ExtraButtonComponent] })],
+  render: (args) => renderButton(args),
   parameters: {
     docs: {
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_code: string, context: { args: ButtonRenderArgs }) => buttonSource(context.args)
+      },
       description: {
         component: `Интерактивный элемент интерфейса. Используется для инициации действий, отправки форм и навигации.
 
@@ -236,104 +242,111 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 export default meta;
 type Story = StoryObj<ButtonArgs>;
 
-// Шаблон собирается из args; disabled и loading, как и у потребителя, задаются привязкой
-const renderButton = (args: Partial<ButtonArgs> | Record<string, unknown>) => {
-  const a = args as Partial<ButtonArgs>;
-  const parts: string[] = [];
-
-  if (a.label) parts.push(`label="${a.label}"`);
-  if (a.severity && a.severity !== 'base') parts.push(`severity="${a.severity}"`);
-  if (a.variant && a.variant !== 'primary') parts.push(`variant="${a.variant}"`);
-  if (a.size && a.size !== 'base') parts.push(`size="${a.size}"`);
-  if (a.icon) parts.push(`icon="${a.icon}"`);
-  if (a.iconPosition && a.iconPosition !== 'left') parts.push(`iconPosition="${a.iconPosition}"`);
-  if (a.iconOnly) parts.push(`[iconOnly]="true"`);
-  if (a.rounded) parts.push(`[rounded]="true"`);
-  if (a.fluid) parts.push(`[fluid]="true"`);
-  if (a.disabled) parts.push(`[disabled]="true"`);
-  if (a.loading) parts.push(`[loading]="true"`);
-  if (a.showBadge) parts.push(`[showBadge]="true"`);
-  if (a.badge) parts.push(`badge="${a.badge}"`);
-  if (a.badgeSeverity) parts.push(`badgeSeverity="${a.badgeSeverity}"`);
-  if (a.ariaLabel) parts.push(`ariaLabel="${a.ariaLabel}"`);
-  if (a.autofocus) parts.push(`[autofocus]="true"`);
-  if (a.tabindex != null) parts.push(`[tabindex]="${a.tabindex}"`);
-
-  const template = parts.length
-    ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
-    : `<extra-button></extra-button>`;
-
-  return { props: args, template };
+const BUTTON_INPUTS = [
+  'label',
+  'severity',
+  'variant',
+  'size',
+  'icon',
+  'iconPosition',
+  'iconOnly',
+  'rounded',
+  'fluid',
+  'disabled',
+  'loading',
+  'showBadge',
+  'badge',
+  'badgeSeverity',
+  'ariaLabel',
+  'autofocus',
+  'tabindex'
+] as const;
+type ButtonRenderArgs = Partial<Pick<ButtonArgs, (typeof BUTTON_INPUTS)[number]>>;
+const BUTTON_DEFAULTS: ButtonRenderArgs = {
+  label: '',
+  severity: 'base',
+  variant: 'primary',
+  size: 'base',
+  icon: '',
+  iconPosition: 'left',
+  iconOnly: false,
+  rounded: false,
+  fluid: false,
+  disabled: false,
+  loading: false,
+  showBadge: false,
+  badge: '',
+  badgeSeverity: null,
+  autofocus: false
 };
-
-const story = (name: string, description: string, code: string, args: Story['args'] = {}): Story => ({
-  name,
-  args,
-  render: (a) => renderButton(a),
-  parameters: { docs: { description: { story: description }, source: { language: 'html', code } } }
+const buttonSource = (args: ButtonRenderArgs): string => {
+  const parts: string[] = [];
+  for (const key of BUTTON_INPUTS) {
+    const value = args[key] ?? BUTTON_DEFAULTS[key];
+    if (value === undefined || value === BUTTON_DEFAULTS[key]) continue;
+    if (typeof value === 'boolean' || typeof value === 'number') parts.push('[' + key + ']="' + value + '"');
+    else
+      parts.push(
+        key + '="' + String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;') + '"'
+      );
+  }
+  return '<extra-button' + (parts.length ? '\n  ' + parts.join('\n  ') : '') + '\n></extra-button>';
+};
+const renderButton = (args: ButtonRenderArgs) => ({
+  props: { ...args, ...Object.fromEntries(BUTTON_INPUTS.map((key) => [key, args[key] ?? BUTTON_DEFAULTS[key]])) },
+  template: '<extra-button ' + BUTTON_INPUTS.map((key) => '[' + key + ']="' + key + '"').join(' ') + '></extra-button>'
 });
 
-export const Default: Story = story(
-  'Default',
-  'Базовая кнопка. Вариант, severity, размер, иконка и остальные свойства меняются в Controls. Нативные DOM-события (click, keydown и т. п.) вешаются на кнопку напрямую, focus и blur объявлены событиями компонента.',
-  `<extra-button label="Button"></extra-button>
+export const Default: Story = {
+  args: {},
+  parameters: {
+    docs: {
+      description: { story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.' }
+    }
+  }
+};
 
-<!-- события -->
-<extra-button label="Button" (click)="onClick($event)" (focus)="onFocus($event)" (blur)="onBlur($event)"></extra-button>`
-);
+export const Disabled: Story = { args: { disabled: true } };
 
-export const Disabled: Story = story(
-  'Disabled',
-  'Отключённая кнопка: события не приходят, фокус не принимается.',
-  `<extra-button label="Button" [disabled]="true"></extra-button>`,
-  { disabled: true }
-);
+export const Loading: Story = { args: { loading: true } };
 
-export const Loading: Story = story(
-  'Loading',
-  'Состояние загрузки: вместо иконки показывается индикатор, клики блокируются.',
-  `<extra-button label="Button" [loading]="true"></extra-button>`,
-  { loading: true }
-);
+export const Rounded: Story = {
+  args: { rounded: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Скруглённая форма (rounded): варианты отображения при severity="base", семантические состояния (severity, variant="primary") и variant="outlined" × severity (контурная скруглённая кнопка).'
+      }
+    }
+  }
+};
 
-export const Rounded: Story = story(
-  'Rounded',
-  'Полностью скруглённая форма.',
-  `<extra-button label="Button" [rounded]="true"></extra-button>`,
-  { rounded: true }
-);
+export const Icon: Story = { args: { icon: 'ti ti-check' } };
 
-export const Icon: Story = story(
-  'Icon',
-  'Иконка слева от текста (iconPosition="left").',
-  `<extra-button label="Button" icon="ti ti-check"></extra-button>`,
-  { icon: 'ti ti-check' }
-);
+export const IconRight: Story = { args: { icon: 'ti ti-check', iconPosition: 'right' } };
 
-export const IconRight: Story = story(
-  'IconRight',
-  'Иконка справа от текста (iconPosition="right").',
-  `<extra-button label="Button" icon="ti ti-check" iconPosition="right"></extra-button>`,
-  { icon: 'ti ti-check', iconPosition: 'right' }
-);
+export const IconOnly: Story = { args: { icon: 'ti ti-check', iconOnly: true, ariaLabel: 'Button' } };
 
-export const IconOnly: Story = story(
-  'IconOnly',
-  'Только иконка. Укажите ariaLabel: текста у кнопки нет.',
-  `<extra-button icon="ti ti-check" [iconOnly]="true" ariaLabel="Button"></extra-button>`,
-  { icon: 'ti ti-check', iconOnly: true, ariaLabel: 'Button' }
-);
+export const Badge: Story = {
+  args: { showBadge: true, badge: '2' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Бейдж поверх кнопки (`showBadge` + `badge` + `badgeSeverity`) — например, для счётчиков уведомлений.'
+      }
+    }
+  }
+};
 
-export const Badge: Story = story(
-  'Badge',
-  'Бейдж на кнопке. Цвет задаётся badgeSeverity.',
-  `<extra-button label="Button" [showBadge]="true" badge="2"></extra-button>`,
-  { showBadge: true, badge: '2' }
-);
-
-export const Fluid: Story = story(
-  'Fluid',
-  'Кнопка занимает всю ширину контейнера.',
-  `<extra-button label="Button" [fluid]="true"></extra-button>`,
-  { fluid: true }
-);
+export const Fluid: Story = {
+  args: { fluid: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` кнопка занимает 100% ширины родителя — удобно для форм и мобильных раскладок. Контейнер в примере ограничен шириной 320px, чтобы эффект был нагляден.'
+      }
+    }
+  }
+};
