@@ -70,14 +70,17 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
 
   /* ─── Поле ─── */
   .p-select.p-component {
-    min-width: ${dt('select.dropdown.width')};
+    min-width: ${dt('select.extend.width')};
     border-width: ${dt('select.extend.borderWidth')};
     line-height: ${dt('fonts.lineHeight.250')};
 
     /* select.dropdown.width приходит из DS как {dimension.size.1700} = 17rem (272px):
        зона chevron съедает почти всю строку и выдавливает подпись поля в многоточие,
        а .p-select-clear-icon позиционируется от этой же переменной и уезжает к середине.
-       Переопределяем саму переменную — за ней следуют обе точки использования. */
+       Переопределяем саму переменную — за ней следуют обе точки использования.
+       min-width берём из extend.width, а не из dropdown.width: значение токена в CSS
+       разворачивается в переменную --p-select-dropdown-width, и её переопределение
+       (40px) превращало поле в карлик во float-режиме. */
     --p-select-dropdown-width: calc(${dt('select.root.paddingX')} * 2 + ${dt('select.extend.iconSize')});
   }
 
@@ -173,12 +176,12 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   /* ─── Опции: отметка выбранных ─── */
-  .p-select-option:has(.p-select-option-check-icon) {
+  .p-select-option[aria-selected='true'] {
     background: ${dt('select.option.selectedBackground')};
     color: ${dt('select.option.selectedColor')};
   }
 
-  .p-select-option:has(.p-select-option-check-icon).p-focus {
+  .p-select-option[aria-selected='true'].p-focus {
     background: ${dt('select.option.selectedFocusBackground')};
     color: ${dt('select.option.selectedFocusColor')};
   }
@@ -188,8 +191,12 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     display: none;
   }
 
-  .p-select-option:has(.p-select-option-check-icon)::before,
-  .p-select-option:has(.p-select-option-blank-icon)::before {
+  /* Галочка у выбранной опции: выбранность определяется aria-selected (не наличием
+     check-icon — PrimeNG не рендерит его при checkmark=false, и фон выбранной пропадал).
+     Figma _<Select.Option>: ось checkmark убирает только иконку, фон выбранной остаётся;
+     у невыбранных опций зарезервированного места под иконку нет. Иконка 16 — form/iconSize
+     референса поля (у ti-check в Option 18px на высоте опции 42). */
+  .p-select-option[aria-selected='true']:has(.p-select-option-check-icon)::before {
     font-family: 'tabler-icons';
     content: var(--extra-select-checkmark-content, "\\ea5e");
     font-size: ${dt('select.extend.iconSize')};
@@ -199,13 +206,10 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     margin-inline-end: ${dt('select.checkmark.gutterEnd')};
   }
 
-  .p-select-option:has(.p-select-option-check-icon).p-focus::before {
+  .p-select-option[aria-selected='true']:has(.p-select-option-check-icon).p-focus::before {
     color: ${dt('select.option.focusColor')};
   }
 
-  .p-select-option:has(.p-select-option-blank-icon)::before {
-    visibility: hidden;
-  }
 
   /* ─── Иконки поля ─── */
   .p-select.p-component :is(.p-select-dropdown .p-select-dropdown-icon, .p-select-clear-icon, .p-select-loading-icon) {
