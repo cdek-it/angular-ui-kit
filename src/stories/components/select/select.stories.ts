@@ -164,9 +164,9 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
-    showCheckbox: {
+    showCheckmark: {
       control: 'boolean',
-      description: 'Отметка выбранной опции в панели',
+      description: 'Галочка у выбранной опции в панели (Figma `_<Select.Option>` checkmark)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
@@ -386,7 +386,7 @@ import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
     size: 'base',
     editable: false,
     clearable: false,
-    showCheckbox: true,
+    showCheckmark: true,
     showFilter: false,
     readonly: false,
     loading: false,
@@ -428,7 +428,7 @@ interface RenderArgs {
   size?: string;
   editable?: boolean;
   clearable?: boolean;
-  showCheckbox?: boolean;
+  showCheckmark?: boolean;
   showFilter?: boolean;
   readonly?: boolean;
   loading?: boolean;
@@ -460,7 +460,7 @@ const renderSelect = (args: RenderArgs, forced: { floatLabel?: boolean } = {}) =
   if (a.size && a.size !== 'base') parts.push(`size="${a.size}"`);
   if (a.editable) parts.push(`[editable]="true"`);
   if (a.clearable) parts.push(`[clearable]="true"`);
-  if (!a.showCheckbox) parts.push(`[showCheckbox]="false"`);
+  if (!a.showCheckmark) parts.push(`[showCheckmark]="false"`);
   if (a.showFilter) parts.push(`[showFilter]="true"`);
   if (a.readonly) parts.push(`[readonly]="true"`);
   if (a.loading) parts.push(`[loading]="true"`);

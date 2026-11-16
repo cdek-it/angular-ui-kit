@@ -157,7 +157,7 @@ export class ExtraSelectOptionGroupDirective {}
         [appendTo]="appendTo"
         [size]="primeSize"
         [fluid]="fluid"
-        [checkmark]="showCheckbox"
+        [checkmark]="showCheckmark"
         [panelStyle]="panelStyle"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
@@ -225,7 +225,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   @Input({ transform: booleanAttribute }) showFilter = false;
   /** Отображение иконки очистки поля при наличии значения. */
   @Input({ transform: booleanAttribute }) clearable = false;
-  @Input({ transform: booleanAttribute }) showCheckbox = true;
+  @Input({ transform: booleanAttribute }) showCheckmark = true;
   @Input({ transform: booleanAttribute }) editable = false;
   @Input({ transform: booleanAttribute }) readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */

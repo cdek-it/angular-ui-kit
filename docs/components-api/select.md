@@ -18,7 +18,7 @@ Single-select: выбор одного значения из списка. У о
 | `optionDisabled`     | наименование булева поля опции, отключающего её выбор                           | `string`                                             | —                                     |
 | `group`              | включает группировку опций (данные — `ExtraSelectGroup[]`)                      | `boolean`                                            | `false`                               |
 | `clearable`          | отображение иконки для очистки поля                                             | `boolean`                                            | `false`                               |
-| `showCheckbox`       | отображать отметку выбранного option                                            | `boolean`                                            | `true`                                |
+| `showCheckmark`      | галочка у выбранной опции в списке (Figma `_<Select.Option>` checkmark)         | `boolean`                                            | `true`                                |
 | `showFilter`         | показывает строку поиска в выпадающем списке                                    | `boolean`                                            | `false`                               |
 | `editable`           | разрешает ручной ввод произвольного значения в поле                             | `boolean`                                            | `false`                               |
 | `readonly`           | только для чтения                                                               | `boolean`                                            | `false`                               |
@@ -33,7 +33,7 @@ Single-select: выбор одного значения из списка. У о
 | `emptyFilterMessage` | сообщение при отсутствии результатов фильтрации                                 | `string`                                             | `'Результаты не найдены'`             |
 | `inputId`            | `id` нативного инпута — для связи с внешним `<label for="...">`                 | `string`                                             | автогенерируемый (`extra-select-<n>`) |
 | `appendTo`           | контейнер для отрисовки выпадающей панели                                       | `any`                                                | `'body'`                              |
-| `checkmarkIcon`      | класс иконки tabler icon отметки выбранного пункта (при `showCheckbox`)         | `string`                                             | `'ti ti-check'`                       |
+| `checkmarkIcon`      | код иконки tabler icon отметки выбранного пункта (при `showCheckmark`)          | `string`                                             | `'ti ti-check'`                       |
 | `ariaLabel`          | метка для программ экранного доступа                                            | `string`                                             | —                                     |
 | `ariaLabelledBy`     | `id` внешнего элемента-метки для доступности                                    | `string`                                             | —                                     |
 | `autofocus`          | автофокус при монтировании компонента                                           | `boolean`                                            | `false`                               |
