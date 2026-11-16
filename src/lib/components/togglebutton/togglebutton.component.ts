@@ -1,15 +1,19 @@
 import {
+  afterNextRender,
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  ElementRef,
   forwardRef,
   inject,
+  Injector,
   Input,
   OnChanges,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -17,6 +21,7 @@ import {
   FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  NgControl,
   ValidationErrors,
   Validator,
   Validators
@@ -61,12 +66,14 @@ export interface ExtraToggleButtonChangeEvent {
       [size]="primeSize!"
       [disabled]="disabled"
       [attr.aria-disabled]="disabled ? true : null"
+      [attr.aria-invalid]="invalid || null"
+      [attr.id]="inputId"
       [allowEmpty]="allowEmpty"
       [fluid]="fluid"
-      [ariaLabel]="ariaLabel"
+      [ariaLabel]="ariaLabel || (iconOnly ? label : undefined)"
       [ariaLabelledBy]="ariaLabelledBy"
       [inputId]="inputId"
-      [tabindex]="tabindex ?? 0"
+      [tabindex]="disabled ? -1 : (tabindex ?? 0)"
       [autofocus]="autofocus"
       [(ngModel)]="modelValue"
       (onChange)="onChangeHandler($event)"
@@ -75,19 +82,27 @@ export interface ExtraToggleButtonChangeEvent {
 })
 export class ExtraToggleButtonComponent implements ControlValueAccessor, OnChanges, Validator {
   private readonly _cdr = inject(ChangeDetectorRef);
+  private readonly injector = inject(Injector);
+  @ViewChild(ToggleButton, { read: ElementRef }) private button?: ElementRef<HTMLElement>;
+
+  constructor() {
+    afterNextRender(() => {
+      if (this.autofocus && !this.disabled) this.button?.nativeElement.focus();
+    });
+  }
 
   @Input() label = '';
   @Input() icon = '';
   @Input() iconPosition: ExtraToggleButtonIconPosition = 'left';
   @Input() size: ExtraToggleButtonSize = 'base';
-  @Input() iconOnly = false;
-  @Input() allowEmpty: boolean | undefined = undefined;
-  @Input() fluid = false;
+  @Input({ transform: booleanAttribute }) iconOnly = false;
+  @Input({ transform: booleanAttribute }) allowEmpty = true;
+  @Input({ transform: booleanAttribute }) fluid = false;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() inputId: string | undefined = undefined;
   @Input() tabindex: number | undefined = undefined;
-  @Input() autofocus: boolean | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
   /** Поле обязательно для заполнения (должно быть включено); в Angular работает как NG_VALIDATORS-валидатор. */
   @Input({ transform: booleanAttribute }) required = false;
 
@@ -124,8 +139,14 @@ export class ExtraToggleButtonComponent implements ControlValueAccessor, OnChang
   get extraClasses(): Record<string, boolean> {
     return {
       'p-togglebutton-xlarge': this.size === 'xlarge',
-      'p-togglebutton-icon-only': this.iconOnly
+      'p-togglebutton-icon-only': this.iconOnly,
+      'p-invalid': this.invalid
     };
+  }
+
+  get invalid(): boolean {
+    const control = this.injector.get(NgControl, null, { self: true });
+    return !!(control?.invalid && (control.touched || control.dirty));
   }
 
   /** Кнопка потеряла фокус — помечаем контрол как touched. */

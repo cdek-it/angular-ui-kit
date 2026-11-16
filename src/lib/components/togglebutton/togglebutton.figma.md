@@ -5,12 +5,12 @@ import:
   symbol: ExtraToggleButtonComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '174:1363'
   componentKey: '19f1388f80113907cee5bc24117e98c7d18eb16c'
   name: '<ToggleButton>'
 status: stable
-updated: '2026-10-20'
+updated: '2026-11-17'
 ---
 
 ## Overview
@@ -23,21 +23,21 @@ updated: '2026-10-20'
 
 ## Props mapping
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `required` | `boolean` | `false` | Поле обязательно: контрол невалиден, пока кнопка не включена; работает как NG_VALIDATORS-валидатор |
-| `label` | `string` | `''` | Текст кнопки — один и тот же в обоих состояниях (Figma не меняет текст между `checked=true/false`, только заливку) |
-| `icon` | `string` | `''` | CSS-класс иконки (tabler), один и тот же в обоих состояниях; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `iconPosition` | `'left' \| 'right'` | `'left'` | Позиция иконки — соответствует Figma-свойству `icon-position` |
-| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер кнопки — соответствует Figma-свойству `size` |
-| `iconOnly` | `boolean` | `false` | Режим «только иконка» без текста — соответствует Figma-свойству `icon-only` |
-| `allowEmpty` | `boolean \| undefined` | `undefined` | Разрешает снимать выбор повторным нажатием |
-| `fluid` | `boolean` | `false` | Растяжение кнопки на всю ширину контейнера |
-| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
-| `ariaLabelledBy` | `string \| undefined` | `undefined` | Идентификатор элемента с меткой для доступности |
-| `inputId` | `string \| undefined` | `undefined` | Идентификатор внутреннего элемента; используется для связки с `<label for>` |
-| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab; если не задан, кнопка получает `tabindex="0"` и участвует в табуляции |
-| `autofocus` | `boolean \| undefined` | `undefined` | Автофокус при монтировании компонента |
+| Свойство         | Тип                                        | По умолчанию | Описание                                                                                                                      |
+| ---------------- | ------------------------------------------ | ------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `required`       | `boolean`                                  | `false`      | Поле обязательно: контрол невалиден, пока кнопка не включена; работает как NG_VALIDATORS-валидатор                            |
+| `label`          | `string`                                   | `''`         | Текст кнопки — один и тот же в обоих состояниях (Figma не меняет текст между `checked=true/false`, только заливку)            |
+| `icon`           | `string`                                   | `''`         | CSS-класс иконки (tabler), один и тот же в обоих состояниях; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
+| `iconPosition`   | `'left' \| 'right'`                        | `'left'`     | Позиция иконки — соответствует Figma-свойству `icon-position`                                                                 |
+| `size`           | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'`     | Размер кнопки — соответствует Figma-свойству `size`                                                                           |
+| `iconOnly`       | `boolean`                                  | `false`      | Режим «только иконка» без текста — соответствует Figma-свойству `icon-only`                                                   |
+| `allowEmpty`     | `boolean`                                  | `true`       | Разрешает снимать выбор повторным нажатием                                                                                    |
+| `fluid`          | `boolean`                                  | `false`      | Растяжение кнопки на всю ширину контейнера                                                                                    |
+| `ariaLabel`      | `string \| undefined`                      | `undefined`  | Метка для программ экранного доступа                                                                                          |
+| `ariaLabelledBy` | `string \| undefined`                      | `undefined`  | Идентификатор элемента с меткой для доступности                                                                               |
+| `inputId`        | `string \| undefined`                      | `undefined`  | Идентификатор внутреннего элемента; используется для связки с `<label for>`                                                   |
+| `tabindex`       | `number \| undefined`                      | `undefined`  | Порядок перехода по Tab; если не задан, кнопка получает `tabindex="0"` и участвует в табуляции                                |
+| `autofocus`      | `boolean`                                  | `false`      | Автофокус при монтировании компонента                                                                                         |
 
 `allowEmpty`/`fluid`/`ariaLabel`/`ariaLabelledBy`/`inputId`/`tabindex`/`autofocus`/`iconOnly` — полезные
 пропы сверх базовой спеки (`docs/components-api/togglebutton.md`), добавлены туда же по итогам
@@ -136,6 +136,7 @@ Figma: `<ToggleButton>`, size=base
 ## Do / Don't
 
 **Do:**
+
 - Задавайте состояние через модель (`[(ngModel)]`, `formControl` или `formControlName`) — это Figma-свойство `checked`
 - Для режима `[iconOnly]="true"` всегда задавайте `ariaLabel` для доступности
 - Используйте один и тот же `label`, описывающий действие/настройку, а не состояние («Подписка», а не «Вкл»/«Выкл»)
@@ -143,9 +144,18 @@ Figma: `<ToggleButton>`, size=base
 - Используйте `[fluid]="true"` в мобильных макетах и формах на всю ширину
 
 **Don't:**
+
 - Не задавайте «нажата» через отдельный атрибут — состояние идёт только через модель
 - Не меняйте текст кнопки в зависимости от состояния (нет отдельных `onLabel`/`offLabel` — это осознанно, см. Overview)
 - Не используйте `ToggleButton` для навигации по разделам — для этого есть `Tabs`
 - Не подменяйте им `ToggleSwitch` (свитч настройки) или `SelectButton` (выбор из набора)
 - Не передавайте `[iconOnly]="true"` без `icon` — кнопка окажется пустой
 - Не инлайньте CSS-классы иконок вручную — используйте справочник [icons.md](../../figma-code-connect/icons.md)
+
+## Синхронизация с DS v3.0 (2026-11-17)
+
+Live component set `174:1363`: 128 вариантов, light `26170:66348`, dark `26170:66349`. Высоты small/base/large/xlarge — 36/42/50/56 px; icon-only использует ту же лестницу. Текст TT Fellows DemiBold 600: 14/16/18/18 px, line-height 18/24/24/26 px; иконки 16/20/24/24 px.
+
+В focus-макетах текстовая кнопка лишается внутренней границы, её frame становится на 2 px меньше по обеим осям; две внешние тени восстанавливают обводку и кольцо. Icon-only имеет фиксированный размер. Это отличие макета от остальных состояний сохранено в `:focus-visible`.
+
+`allowEmpty` теперь явно равен `true`, `autofocus` — `false`; boolean inputs поддерживают booleanAttribute. `inputId` и автофокус применяются к интерактивному хосту PrimeNG, не к несуществующему внутреннему input. Icon-only использует `label` как запасное доступное имя.

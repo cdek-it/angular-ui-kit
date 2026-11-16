@@ -4,7 +4,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraToggleButtonComponent } from '../../../../lib/components/togglebutton/togglebutton.component';
 
 const template = `
-<div class="bg-surface-ground p-4" style="width: 320px">
+<div class="p-4" style="width: 320px">
   <extra-togglebutton label="Подписка" [fluid]="true" [formControl]="control"></extra-togglebutton>
 </div>
 `;
