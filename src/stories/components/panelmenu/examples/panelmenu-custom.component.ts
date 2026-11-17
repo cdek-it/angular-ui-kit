@@ -5,21 +5,19 @@ import { PanelMenu } from 'primeng/panelmenu';
 import { Badge } from 'primeng/badge';
 
 const template = `
-<div class="bg-surface-ground" style="width: 300px">
-  <p-panelmenu [model]="items" [multiple]="true">
-    <ng-template #item let-item let-props="props" let-hasSubmenu="hasSubmenu">
-      <a [attr.href]="item.url" [attr.target]="item.target" v-bind="props?.action" class="p-panelmenu-item-link flex items-center gap-2 w-full">
-        @if (item.icon) {<span [class]="'p-panelmenu-item-icon ' + item.icon"></span>}
-        <div class="panelmenu-item-label flex-1">
-          <span class="p-panelmenu-item-label">{{ item.label }}</span>
-          @if (item['description']) {<small class="panelmenu-item-caption">{{ item['description'] }}</small>}
-        </div>
-        @if (item['badge']) {<p-badge [value]="item['badge']"></p-badge>}
-        @if (hasSubmenu) {<span class="p-panelmenu-submenu-icon ti ti-chevron-right"></span>}
-      </a>
-    </ng-template>
-  </p-panelmenu>
-</div>
+<p-panelmenu [model]="items" [multiple]="true">
+  <ng-template #item let-item let-props="props" let-hasSubmenu="hasSubmenu">
+    <a [attr.href]="item.url" [attr.target]="item.target" v-bind="props?.action" class="p-panelmenu-item-link flex items-center gap-2 w-full">
+      @if (item.icon) {<span [class]="'p-panelmenu-item-icon ' + item.icon"></span>}
+      <div class="panelmenu-item-label flex-1">
+        <span class="p-panelmenu-item-label">{{ item.label }}</span>
+        @if (item['description']) {<small class="panelmenu-item-caption">{{ item['description'] }}</small>}
+      </div>
+      @if (item['badge']) {<p-badge [value]="item['badge']"></p-badge>}
+      @if (hasSubmenu) {<span class="p-panelmenu-submenu-icon ti ti-chevron-right"></span>}
+    </a>
+  </ng-template>
+</p-panelmenu>
 `;
 const styles = '';
 

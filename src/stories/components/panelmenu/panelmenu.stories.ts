@@ -2,7 +2,6 @@ import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraPanelMenuComponent } from '../../../lib/components/panelmenu/panelmenu.component';
 import { Basic, PanelMenuBasicComponent } from './examples/panelmenu-basic.component';
 import { Multiple, PanelMenuMultipleComponent } from './examples/panelmenu-multiple.component';
-import { Custom, PanelMenuCustomComponent } from './examples/panelmenu-custom.component';
 
 const meta: Meta<ExtraPanelMenuComponent> = {
   title: 'Components/Menu/PanelMenu',
@@ -10,7 +9,7 @@ const meta: Meta<ExtraPanelMenuComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraPanelMenuComponent, PanelMenuBasicComponent, PanelMenuMultipleComponent, PanelMenuCustomComponent]
+      imports: [ExtraPanelMenuComponent, PanelMenuBasicComponent, PanelMenuMultipleComponent]
     })
   ],
   parameters: {
@@ -27,7 +26,9 @@ import { ExtraPanelMenuComponent } from '@cdek-it/angular-ui-kit';
   },
   argTypes: {
     model: {
-      table: { disable: true }
+      control: 'object',
+      description: 'Массив пунктов меню',
+      table: { category: 'Props', type: { summary: 'ExtraMenuItem[]' } }
     },
     multiple: {
       control: 'boolean',
@@ -96,4 +97,4 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { Basic, Multiple, Custom };
+export { Basic, Multiple };

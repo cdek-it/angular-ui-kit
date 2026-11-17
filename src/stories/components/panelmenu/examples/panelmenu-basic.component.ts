@@ -4,9 +4,7 @@ import { ExtraMenuItem } from '../../../../lib/shared/public_api';
 import { ExtraPanelMenuComponent } from '../../../../lib/components/panelmenu/panelmenu.component';
 
 const template = `
-<div class="bg-surface-ground" style="width: 280px">
-  <extra-panelmenu [model]="items"></extra-panelmenu>
-</div>
+<extra-panelmenu [model]="items"></extra-panelmenu>
 `;
 const styles = '';
 
