@@ -32,8 +32,11 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbn
     designTokens: { prefix: '--p-galleria' }
   },
   argTypes: {
+    responsiveOptions: { control: 'object' },
+    containerStyle: { control: 'object' },
+    containerClass: { control: 'text' },
     value: {
-      control: false,
+      control: 'object',
       description: 'Массив изображений для галереи',
       table: {
         category: 'Props',
@@ -137,12 +140,10 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbn
         type: { summary: 'EventEmitter<boolean>' }
       }
     },
-    containerClass: { table: { disable: true } },
-    containerStyle: { table: { disable: true } },
-    responsiveOptions: { table: { disable: true } },
-    showIndicatorsOnItem: { table: { disable: true } },
-    showItemNavigatorsOnHover: { table: { disable: true } },
-    showThumbnailNavigators: { table: { disable: true } }
+    containerClass: { control: 'text' },
+    showIndicatorsOnItem: { control: 'boolean' },
+    showItemNavigatorsOnHover: { control: 'boolean' },
+    showThumbnailNavigators: { control: 'boolean' }
   }
 };
 
