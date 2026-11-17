@@ -27,6 +27,7 @@ const meta: Meta<ChipArgs> = {
   ],
   parameters: {
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-chip label="В пути"></extra-chip>' },
       description: {
         component: `Чип — небольшой интерактивный элемент с текстом, иконкой и опциональной кнопкой удаления.
 
@@ -142,41 +143,46 @@ export const WithIcon: Story = {
 // ── Removable ─────────────────────────────────────────────────────────────────
 
 export const Removable: Story = {
-  ...(RemovableStory as Story),
+  render: () => ({ template: '<extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>' }),
   parameters: {
-    ...(RemovableStory as Story).parameters,
     docs: {
-      ...((RemovableStory as Story).parameters?.['docs'] ?? {}),
       description: {
         story:
           'Чип с кнопкой удаления. Чип не скрывает себя сам — удалением управляет родитель по событию `(onRemove)`.'
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        code: '<extra-chip label="Хрупкий груз" [removable]="true"></extra-chip>'
       }
     }
   }
 };
-
-// ── RemovableWithIcon ─────────────────────────────────────────────────────────
-
 export const RemovableWithIcon: Story = {
-  ...(RemovableWithIconStory as Story),
+  render: () => ({
+    template: '<extra-chip label="Хрупкий груз" icon="ti ti-package" [removable]="true"></extra-chip>'
+  }),
   parameters: {
-    ...(RemovableWithIconStory as Story).parameters,
     docs: {
-      ...((RemovableWithIconStory as Story).parameters?.['docs'] ?? {}),
-      description: { story: 'Чип с иконкой и кнопкой удаления.' }
+      description: { story: 'Чип с иконкой и кнопкой удаления.' },
+      source: {
+        language: 'html',
+        type: 'code',
+        code: '<extra-chip label="Хрупкий груз" icon="ti ti-package" [removable]="true"></extra-chip>'
+      }
     }
   }
 };
-
-// ── Disabled ──────────────────────────────────────────────────────────────────
-
 export const Disabled: Story = {
-  ...(DisabledStory as Story),
+  render: () => ({ template: '<extra-chip label="Хрупкий груз" [disabled]="true"></extra-chip>' }),
   parameters: {
-    ...(DisabledStory as Story).parameters,
     docs: {
-      ...((DisabledStory as Story).parameters?.['docs'] ?? {}),
-      description: { story: 'Отключённый чип: кнопка удаления не получает фокус и не эмитит `(onRemove)`.' }
+      description: { story: 'Отключённый чип: кнопка удаления не получает фокус и не эмитит `(onRemove)`.' },
+      source: {
+        language: 'html',
+        type: 'code',
+        code: '<extra-chip label="Хрупкий груз" [disabled]="true"></extra-chip>'
+      }
     }
   }
 };
