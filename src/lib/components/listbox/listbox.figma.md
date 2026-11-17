@@ -5,19 +5,19 @@ import:
   symbol: ExtraListboxComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '349:2649'
   componentKey: 'c754e38e38d8927dcd62709abaecf328fd59b653'
   name: '<Listbox>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
 ## Overview
 
 `ExtraListboxComponent` — всегда видимый список опций для выбора одного или нескольких значений, который не сворачивается за триггером. Оборачивает PrimeNG `p-listbox` и расширяет его множественным выбором с чекбоксами, фильтрацией, группировкой опций и кастомным шаблоном пункта. Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
-Компонент соответствует Figma-компоненту `<Listbox>` (component set, nodeId `349:2649`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Верхнеуровневые варианты задаются Figma-свойствами `state` (`default | disabled`), `empty`, `overlay`, `header`; внутри `header=true` лежат вложенные узлы `<Checkbox>` (чекбокс «выбрать всё»), `<🚧Listbox.Filter>` (строка поиска, помечена 🚧 work-in-progress в самой Figma) и `<Button.Base>` (кнопка закрытия — актуальна только для `overlay=true`, в спеке не описана и не реализуется). Пункты, группы и расширенные шаблоны опций вынесены в отдельные внутренние Figma-узлы (`<Listbox.ItemCheckbox>`, `<Listbox.ItemGroup>`, `<Listbox.ItemTemplate>`, `<Listbox.ItemIcon>`) и в коде описываются через шаблон-директиву (см. Slots).
+Компонент соответствует Figma-компоненту `<Listbox>` (component set, nodeId `349:2649`, fileKey `Q1BWgZ7zoV5UzlBOnjW0cM`, библиотека «UI Kit (DS) v3.0»). Верхнеуровневые варианты задаются Figma-свойствами `state` (`default | disabled`), `empty`, `overlay`, `header`; внутри `header=true` лежат вложенные узлы `<Checkbox>` (чекбокс «выбрать всё»), `<🚧Listbox.Filter>` (строка поиска, помечена 🚧 work-in-progress в самой Figma) и `<Button.Base>` (кнопка закрытия — включается через `showClose`, сообщает о закрытии через `onClose`). Пункты, группы и расширенные шаблоны опций вынесены в отдельные внутренние Figma-узлы (`<Listbox.ItemCheckbox>`, `<Listbox.ItemGroup>`, `<Listbox.ItemTemplate>`, `<Listbox.Item>`) и в коде описываются через шаблон-директиву (см. Slots).
 
 ## Props mapping
 
@@ -177,7 +177,7 @@ disabledControl = new FormControl({ value: null, disabled: true });
 
 Проекция пользовательского содержимого пункта выполняется через шаблон-директиву `extraListboxItem`, размещаемую внутри тега `<extra-listbox>`. Директива оборачивается в `<ng-template>` и получает текущую опцию через `let-item`:
 
-- **`extraListboxItem`** (`ExtraListboxItemDirective`) — шаблон отдельного пункта списка (контекст `let-item`); соответствует Figma-узлам `<Listbox.ItemTemplate>` и `<Listbox.ItemIcon>`.
+- **`extraListboxItem`** (`ExtraListboxItemDirective`) — шаблон отдельного пункта списка (контекст `let-item`); соответствует Figma-узлам `<Listbox.ItemTemplate>` и `<Listbox.Item>`.
 
 ```html
 <extra-listbox [formControl]="ctrl" [options]="options" optionLabel="name">
@@ -220,3 +220,14 @@ import {
 - Не используйте список без `[(ngModel)]` / `[formControl]` — без привязки выбранное значение не синхронизируется с моделью.
 - Не включайте `[group]="true"` без `optionGroupLabel` и `optionGroupChildren` — группы не отрисуются корректно.
 - Не применяйте Listbox для свёрнутого выбора с триггером — для этого используйте [Select](../select/select.figma.md).
+
+## Синхронизация с актуальным Figma
+
+- `showHeader=true` управляет шапкой целиком, `showClose=false` — кнопкой `ExtraButtonComponent`, `overlay=false` — тенью; `striped=false` включает чередование строк.
+- `readonly`, `required`, `ariaLabel`, `ariaLabelledBy`, `autofocus` и `tabindex` доступны как Inputs. Значение и disabled управляются CVA.
+- Новый `onClose: EventEmitter<Event>`. Выбор всех обновляет модель и вызывает `onSelectAll` один раз с исходным событием.
+- Шрифт пунктов Noto Sans 14/18; обычный пункт 42px, checkmark 32px с иконкой 18px, checkbox 48px, расширенный шаблон 62px с подписью TT Fellows 12/18 и gap 2px.
+- `optionGroup` использует общую норму 12px / padding 4px 10px. Это согласованное правило проекта, переопределяющее старый вариант Figma 14px / 12px 10px.
+- Выбранные строки используют нейтральный серый фон и обычный цвет текста обеих тем; hover выбранной строки — active нейтральный фон.
+- Нативные readonly checkbox внутри role=option скрыты от доступности как декоративные: состояние сообщает сам option. Checkbox выбора всех сохраняет полноценный input с accessible label. Область прокрутки имеет доступ с клавиатуры.
+- В макете один disabled/empty/header=false frame имеет высоту 45px вместо 54px парного варианта; применяется согласованная геометрия 54px. Скругление checkbox в шапке Figma ошибочно равно 0px, сохраняется системный checkbox 8px.

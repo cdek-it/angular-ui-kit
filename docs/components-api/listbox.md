@@ -2,7 +2,7 @@
 
 # ExtraListbox
 
-> ✅ **Реализован**: `ExtraListboxComponent` (`@cdek-it/angular-ui-kit`) соответствует спецификации.
+> `ExtraListboxComponent` (`@cdek-it/angular-ui-kit`) — список выбора с поддержкой ControlValueAccessor.
 
 | Свойство            | Описание                                             | Типизация                                              | По умолчанию |
 | ------------------- | ---------------------------------------------------- | ------------------------------------------------------ | ------------ |
@@ -20,6 +20,27 @@
 | `autofocus`         | автофокус при монтировании компонента                | `boolean`                                              | `false`      |
 | `tabindex`          | порядок перехода по Tab                              | `number`                                               | —            |
 
+## Дополнительные свойства
+
+| Свойство | Назначение | Тип | По умолчанию |
+|---|---|---|---|
+| `optionValue` | Поле объекта, используемое как значение | `string` | — |
+| `checkmark` | Галочка перед выбранным пунктом одиночного выбора | `boolean` | `false` |
+| `group` | Группировка элементов | `boolean` | `false` |
+| `optionGroupLabel` | Поле заголовка группы | `string` | — |
+| `optionGroupChildren` | Поле массива пунктов группы | `string` | — |
+| `scrollHeight` | Максимальная высота прокручиваемой области | `string` | `'200px'` |
+| `showHeader` | Отображать шапку с фильтром, выбором всех и закрытием | `boolean` | `true` |
+| `showClose` | Кнопка закрытия в шапке | `boolean` | `false` |
+| `overlay` | Тень списка в варианте оверлея; позиционирование задаёт контейнер | `boolean` | `false` |
+| `striped` | Чередовать фон строк | `boolean` | `false` |
+
+`showHeader=false` скрывает шапку целиком. `showCheckbox` включает чекбоксы при `multiple=true`; в этом режиме отдельный checkmark не рисуется. Кнопка закрытия использует `ExtraButtonComponent` и сообщает о запросе через `onClose`, видимость списка контролирует потребитель.
+
+Disabled управляется `FormControl.disable()` / `enable()`. `required=true` включает `Validators.required`; invalid отображается после touched/dirty. `autofocus` устанавливает фокус на список после монтирования; отключённый список не фокусируется и получает tabindex=-1.
+
+Пункт с галочкой имеет высоту 32px, обычный — 42px, с чекбоксом — 48px, с подписью — 62px. Заголовки групп используют общий стиль `12px` и `padding: 4px 10px` через токены.
+
 # Стекозависимые пропсы
 
 | Описание                                     | Angular                                         | Vue          | React   | Типизация      | По умолчанию |
@@ -33,6 +54,12 @@
 | `change`    | срабатывает при изменении выбора           | `(event: ExtraListboxChangeEvent) => void`    |
 | `filter`    | срабатывает при фильтрации                 | `(event: ExtraListboxFilterEvent) => void`    |
 | `selectAll` | срабатывает при переключении «выбрать всё» | `(event: ExtraListboxSelectAllEvent) => void` |
+
+## Дополнительные события Angular
+
+- `onFocus: EventEmitter<FocusEvent>` — фокус на списке.
+- `onBlur: EventEmitter<FocusEvent>` — потеря фокуса, FormControl становится touched.
+- `onClose: EventEmitter<Event>` — запрос закрытия. `onChange`, `onFilter`, `onSelectAll` сохраняют существующие имена и типы.
 
 # ExtraListboxChangeEvent
 
