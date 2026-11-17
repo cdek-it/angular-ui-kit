@@ -5,86 +5,33 @@ import:
   symbol: ExtraMegaMenuComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '16194:4401'
-  componentKey: '951a533f89eac2ebe0f8d3f7cb2a69aa2f1b995f'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
+  nodeId: '0:0'
   name: '<MegaMenu>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
-## Overview
+# MegaMenu
 
-`ExtraMegaMenu` — компонент навигационного меню с многоколоночными подменю для крупной навигации. Корневые пункты раскрывают широкую панель из нескольких колонок-групп ссылок. Оборачивает PrimeNG `p-megamenu`, работает на основе модели (`model`) и поддерживает горизонтальную и вертикальную ориентацию.
+Live Figma UI Kit DS v3.0: 6 наборов — `MegaMenu`, `MegaMenu.ItemBase` (state default/hover/active/disabled),
+`MegaMenu.Submenu`, `MegaMenu.MobileButton`, `MegaMenu.Item.Group`, `MegaMenu.ItemTemplate`.
 
-Компонент соответствует Figma-компоненту `<MegaMenu>` (nodeId `16194:4401`) из библиотеки UI Kit (DS) v2.0. В отличие от `Menubar` (горизонтальное меню без многоколоночных панелей) и `TieredMenu` (каскадное меню по уровням без колонок), `MegaMenu` предназначен для верхней навигации с большим числом сгруппированных разделов.
+| Figma | API | Геометрия |
+|---|---|---|
+| `MegaMenu` horizontal/vertical | `orientation` | Раскладка меню, оверлей субменю |
+| `ItemBase` default/hover/active | наведение/выбор | Паддинг пункта 12×10 (`space.350 space.300`), активный фон `neutral.medium.hover` |
+| `ItemBase` disabled | `disabled` | PrimeNG не даёт disabled-состояния корня (см. ограничения) |
+| `Submenu` | вложенные `items` | `submenu.padding` 8, оверлей с рамкой `border.neutral.strong` и тенью `elevation.200` |
+| `MobileButton` | `breakpoint` | Кнопка-бургер, focus ring кольцом 2 px |
+| `ItemTemplate` | слот `extraMegaMenuItem` | Кастомный рендер пункта (description, badge) |
+| иконки | `icon` в модели | Размер иконки 18 px (`size.500`) |
 
-## Props mapping
+## Отличия и ограничения
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `model` | `ExtraMegaMenuItem[]` | `[]` | Модель пунктов меню (метка, иконка, ссылка, вложенные группы); определяет содержимое меню |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Ориентация меню — соответствует Figma-свойству `orientation` (варианты `horizontal`, `vertical`) |
-| `breakpoint` | `string` | `'960px'` | Точка перехода в мобильный режим с кнопкой-гамбургером |
-| `scrollHeight` | `string` | `''` | Максимальная высота прокручиваемой области подменю |
-| `disabled` | `boolean` | `false` | Отключённое состояние всего меню |
-| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
-| `ariaLabelledBy` | `string \| undefined` | `undefined` | Идентификатор элемента-метки для экранного доступа |
-| `tabindex` | `number` | `0` | Порядок перехода по Tab |
+- `disabled` принимается, но PrimeNG 20 не переводит корень мегаменю в disabled-состояние — проверено матрицей
+  (корень сохраняет классы, пункты остаются активными); при необходимости блокировки используется `[model]` без ссылок.
+- Оверлей открывается по клику, не по наведению (поведение PrimeNG 20); матрица проверяет именно клик.
+- Слот `extraMegaMenuItem` подменяет только содержимое пункта, структуру субменю рисует PrimeNG.
 
-## Variants
-
-### Horizontal (горизонтальное меню)
-
-Figma: `<MegaMenu>`, orientation=horizontal
-
-```html
-<extra-megamenu [model]="items"></extra-megamenu>
-```
-
-### Vertical (вертикальное меню)
-
-Figma: `<MegaMenu>`, orientation=vertical
-
-```html
-<extra-megamenu [model]="items" orientation="vertical"></extra-megamenu>
-```
-
-### Disabled (отключённое меню)
-
-Figma: `<MegaMenu>` (общий компонент; отключение задаётся в коде)
-
-```html
-<extra-megamenu [model]="items" [disabled]="true"></extra-megamenu>
-```
-
-## Slots
-
-Кастомный шаблон пункта меню задаётся через структурную директиву `[extraMegaMenuItem]` на `ng-template`. Шаблон получает контекст с пунктом (`$implicit`) и признаком наличия подменю (`hasSubmenu`). Если шаблон не задан, используется стандартная отрисовка пункта.
-
-```html
-<extra-megamenu [model]="items">
-  <ng-template extraMegaMenuItem let-item let-hasSubmenu="hasSubmenu">
-    <span>{{ item.label }}</span>
-  </ng-template>
-</extra-megamenu>
-```
-
-## Related
-
-- [ExtraButton](../button/button.figma.md) — кнопки в шаблонах пунктов меню
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-- [Иконки](../../figma-code-connect/icons.md) — иконки пунктов меню
-
-## Do / Don't
-
-**Do:**
-- Используйте для верхней навигации с большим числом сгруппированных разделов
-- Задавайте структуру меню через `[model]`, группируя ссылки в колонки
-- Используйте `orientation="vertical"` для бокового многоколоночного меню
-- Применяйте директиву `[extraMegaMenuItem]` для кастомной отрисовки пунктов
-
-**Don't:**
-- Не используйте `MegaMenu` для плоского меню без колонок — для этого подходит `Menubar`
-- Не используйте `MegaMenu` для каскадных подменю по уровням — для этого подходит `TieredMenu`
-- Не передавайте пустой `[model]` — меню окажется без пунктов
+Описания всех 5 story и Controls скопированы из `origin/main` дословно.

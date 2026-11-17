@@ -1,6 +1,12 @@
 export const megamenuCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* ─── Размер иконок ─── */
 .p-megamenu-submenu-icon,
+
+/* ─── Нажатие пункта: pressedBackground из Figma ItemBase ─── */
+.p-megamenu-item:not(.p-disabled) > .p-megamenu-item-content > .p-megamenu-item-link:active {
+  background: ${dt('megamenu.extend.extItem.pressedBackground')};
+}
+
 .p-megamenu-item-icon {
   font-size: ${dt('megamenu.extend.iconSize')};
 }
