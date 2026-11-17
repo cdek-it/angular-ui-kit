@@ -89,4 +89,9 @@ export const menuCss = ({ dt }: { dt: (token: string) => string }): string => `
     font-size: ${dt('fonts.fontSize.100')};
     line-height: ${dt('fonts.lineHeight.none')};
   }
+
+/* ─── Нажатие пункта: pressedBackground из Figma ItemBase ─── */
+.p-menu-item:not(.p-disabled) > .p-menu-item-content > .p-menu-item-link:active {
+  background: ${dt('menu.extend.extItem.pressedBackground')};
+}
 `;

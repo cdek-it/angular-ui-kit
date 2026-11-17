@@ -54,7 +54,7 @@ import { ExtraMenuComponent, ExtraMenuTemplateDirective } from '@cdek-it/angular
       }
     },
     appendTo: {
-      control: false,
+      control: 'text',
       description: 'Контейнер рендера overlay.',
       table: {
         category: 'Свойства',
@@ -106,32 +106,43 @@ import { ExtraMenuComponent, ExtraMenuTemplateDirective } from '@cdek-it/angular
   }
 };
 
+const basicItems = [
+  { label: 'Новый заказ' },
+  { label: 'Поиск отправления' },
+  { separator: true },
+  { label: 'Экспорт' }
+];
+
+const iconItems = [
+  { label: 'Создать отправление', icon: 'ti ti-file-plus' },
+  { label: 'Открыть список заказов', icon: 'ti ti-folder-open' },
+  { label: 'Сохранить черновик', icon: 'ti ti-device-floppy' }
+];
+
+const groupedItems = [
+  { label: 'Файл', items: [{ label: 'Создать' }, { label: 'Открыть' }] },
+  { label: 'Правка', items: [{ label: 'Копировать' }, { label: 'Вставить' }] }
+];
+
+const itemEndItems = [
+  { label: 'Открыть реестр', caption: 'Ctrl+O' },
+  { label: 'Скачать', caption: 'Ctrl+S' }
+];
+
 export default meta;
 type Story = StoryObj<ExtraMenuComponent>;
 
 // ── Default ───────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts = ['[items]="items"'];
-    if (args.ariaLabel) parts.push('[ariaLabel]="ariaLabel"');
-    return {
-      props: args,
-      template: `<extra-menu ${parts.join(' ')}></extra-menu>`
-    };
-  },
-  argTypes: {
-    popup: { control: false },
-    open: { control: false },
-    appendTo: { control: false }
-  },
+  render: (args) => ({ props: args, template: `<extra-menu [items]="items"></extra-menu>` }),
   parameters: {
     docs: {
       description: {
         story:
           'Интерактивный пример inline-меню: пункты и `ariaLabel` меняются через Controls. Всплывающий режим — в истории Popup: ему нужен триггер.'
-      }
+      },
+      source: { language: 'html', type: 'code', code: '<extra-menu [items]="items"></extra-menu>' }
     }
   }
 };
@@ -185,49 +196,12 @@ export class MenuPopupComponent {
 // ── Basic ─────────────────────────────────────────────────────────────────────
 
 export const Basic: Story = {
-  name: 'Basic',
-  decorators: [moduleMetadata({ imports: [MenuBasicComponent] })],
-  render: () => ({ template: `<app-menu-basic></app-menu-basic>` }),
+  render: (args) => ({ props: { ...args, items: basicItems }, template: `<extra-menu [items]="items"></extra-menu>` }),
+  args: { items: basicItems },
   parameters: {
     docs: {
-      description: {
-        story: 'Базовый вариант inline-меню без иконок.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import {
-  ExtraMenuAction,
-  ExtraMenuComponent,
-  ExtraMenuItemSelectEvent,
-  ExtraMenuSeparator,
-} from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-menu-basic',
-  standalone: true,
-  imports: [ExtraMenuComponent],
-  template: \`
-    <extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
-  \`,
-})
-export class MenuBasicComponent {
-  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
-    { label: 'Новый заказ' },
-    { label: 'Поиск отправления' },
-    { separator: true },
-    { label: 'Экспорт' },
-  ];
-
-  select({ item }: ExtraMenuItemSelectEvent): void {
-    this.items = this.items.map((entry) =>
-      'separator' in entry ? entry : { ...entry, selected: entry === item },
-    );
-  }
-}
-        `
-      }
+      description: { story: 'Базовый вариант inline-меню без иконок.' },
+      source: { language: 'html', type: 'code', code: `<extra-menu [items]="items"></extra-menu>` }
     }
   }
 };
@@ -235,44 +209,12 @@ export class MenuBasicComponent {
 // ── WithIcons ─────────────────────────────────────────────────────────────────
 
 export const WithIcons: Story = {
-  name: 'WithIcons',
-  decorators: [moduleMetadata({ imports: [MenuWithIconsComponent] })],
-  render: () => ({ template: `<app-menu-with-icons></app-menu-with-icons>` }),
+  render: (args) => ({ props: { ...args, items: iconItems }, template: `<extra-menu [items]="items"></extra-menu>` }),
+  args: { items: iconItems },
   parameters: {
     docs: {
-      description: {
-        story: 'Пункты меню с иконками.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-menu-with-icons',
-  standalone: true,
-  imports: [ExtraMenuComponent],
-  template: \`
-    <extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
-  \`,
-})
-export class MenuWithIconsComponent {
-  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
-    { label: 'Создать отправление', icon: 'ti ti-file-plus' },
-    { label: 'Открыть список заказов', icon: 'ti ti-folder-open' },
-    { label: 'Сохранить черновик', icon: 'ti ti-device-floppy' },
-    { separator: true },
-    { label: 'Распечатать накладную', icon: 'ti ti-printer' },
-    { label: 'Экспорт данных', icon: 'ti ti-download' },
-  ];
-
-  select({ item }: ExtraMenuItemSelectEvent): void {
-    this.items = this.items.map((entry) =>
-      'separator' in entry ? entry : { ...entry, selected: entry === item },
-    );
-  }
-}
-        `
-      }
+      description: { story: 'Пункты меню с иконками.' },
+      source: { language: 'html', type: 'code', code: `<extra-menu [items]="items"></extra-menu>` }
     }
   }
 };
@@ -280,55 +222,15 @@ export class MenuWithIconsComponent {
 // ── Grouped ───────────────────────────────────────────────────────────────────
 
 export const Grouped: Story = {
-  name: 'Grouped',
-  decorators: [moduleMetadata({ imports: [MenuGroupedComponent] })],
-  render: () => ({ template: `<app-menu-grouped></app-menu-grouped>` }),
+  render: (args) => ({
+    props: { ...args, items: groupedItems },
+    template: `<extra-menu [items]="items"></extra-menu>`
+  }),
+  args: { items: groupedItems },
   parameters: {
     docs: {
-      description: {
-        story: 'Группировка пунктов меню через label у родительского элемента.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-
-@Component({
-  selector: 'app-menu-grouped',
-  standalone: true,
-  imports: [ExtraMenuComponent],
-  template: \`
-    <extra-menu [items]="items" (onItemSelect)="select($event)"></extra-menu>
-  \`,
-})
-export class MenuGroupedComponent {
-  items: ExtraMenuGroup[] = [
-    {
-      label: 'Заказы',
-      items: [
-        { label: 'Новый заказ', icon: 'ti ti-plus' },
-        { label: 'Список заказов', icon: 'ti ti-list' },
-        { label: 'Архив', icon: 'ti ti-archive' },
-      ],
-    },
-    {
-      label: 'Отправления',
-      items: [
-        { label: 'Создать накладную', icon: 'ti ti-file-invoice' },
-        { label: 'Отследить посылку', icon: 'ti ti-map-pin' },
-        { label: 'Отменить отправление', icon: 'ti ti-ban' },
-      ],
-    },
-  ];
-
-  select({ item }: ExtraMenuItemSelectEvent): void {
-    this.items = this.items.map((group) => ({
-      ...group,
-      items: group.items.map((action) => ({ ...action, selected: action === item })),
-    }));
-  }
-}
-        `
-      }
+      description: { story: 'Группировка пунктов меню через label у родительского элемента.' },
+      source: { language: 'html', type: 'code', code: `<extra-menu [items]="items"></extra-menu>` }
     }
   }
 };
@@ -336,9 +238,13 @@ export class MenuGroupedComponent {
 // ── ItemEnd ───────────────────────────────────────────────────────────────────
 
 export const ItemEnd: Story = {
-  name: 'Item end slot',
-  decorators: [moduleMetadata({ imports: [MenuItemEndComponent] })],
-  render: () => ({ template: `<app-menu-item-end></app-menu-item-end>` }),
+  render: (args) => ({
+    props: { ...args, items: itemEndItems },
+    template: `<extra-menu [items]="items">
+  <ng-template extraMenuTemplate="itemEnd" let-item>{{ item.caption }}</ng-template>
+</extra-menu>`
+  }),
+  args: { items: itemEndItems },
   parameters: {
     docs: {
       description: {
@@ -346,34 +252,11 @@ export const ItemEnd: Story = {
           'Слот `itemEnd` (директива `extraMenuTemplate`) добавляет содержимое в конец пункта — после текста и `caption`, перед `iconEnd`: хоткей, `Badge`, `Tag`. Текст, иконки, выбор и навигацию по-прежнему обеспечивает компонент.'
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import {
-  ExtraBadgeComponent,
-  ExtraMenuAction,
-  ExtraMenuComponent,
-  ExtraMenuSeparator,
-  ExtraMenuTemplateDirective,
-} from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-menu-item-end',
-  standalone: true,
-  imports: [ExtraMenuComponent, ExtraMenuTemplateDirective, ExtraBadgeComponent],
-  template: \`${menuItemEndTemplate}\`,
-})
-export class MenuItemEndComponent {
-  hotkeys: Record<string, string> = { create: 'Ctrl+N', search: 'Ctrl+F' };
-
-  items: (ExtraMenuAction | ExtraMenuSeparator)[] = [
-    { id: 'create', label: 'Создать отправление', icon: 'ti ti-file-plus' },
-    { id: 'search', label: 'Найти по трек-номеру', icon: 'ti ti-search' },
-    { separator: true },
-    { id: 'registry', label: 'Скачать реестр', caption: 'За текущий месяц', icon: 'ti ti-download' },
-  ];
-}
-        `
+        language: 'html',
+        type: 'code',
+        code: `<extra-menu [items]="items">
+  <ng-template extraMenuTemplate="itemEnd" let-item>{{ item.caption }}</ng-template>
+</extra-menu>`
       }
     }
   }
