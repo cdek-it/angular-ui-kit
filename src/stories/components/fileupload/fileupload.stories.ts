@@ -12,8 +12,8 @@ const meta: Meta<ExtraFileUploadComponent> = {
   decorators: [
     applicationConfig({ providers: [provideHttpClient()] }),
     moduleMetadata({
-      imports: [FileUploadDefaultComponent, FileUploadFormComponent, FileUploadUploadErrorComponent],
-    }),
+      imports: [FileUploadDefaultComponent, FileUploadFormComponent, FileUploadUploadErrorComponent]
+    })
   ],
   parameters: {
     docs: {
@@ -22,12 +22,19 @@ const meta: Meta<ExtraFileUploadComponent> = {
 
 \`\`\`typescript
 import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
-\`\`\``,
-      },
+\`\`\``
+      }
     },
-    designTokens: { prefix: '--p-fileupload' },
+    designTokens: { prefix: '--p-fileupload' }
   },
   argTypes: {
+    chooseLabel: { control: 'text' },
+    customUpload: { control: 'boolean' },
+    required: { control: 'boolean' },
+    autofocus: { control: 'boolean' },
+    tabindex: { control: 'number' },
+    ariaLabel: { control: 'text' },
+    ariaLabelledBy: { control: 'text' },
     mode: {
       control: 'select',
       options: ['auto', 'manual', 'basic'],
@@ -35,8 +42,8 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'manual' },
-        type: { summary: "'auto' | 'manual' | 'basic'" },
-      },
+        type: { summary: "'auto' | 'manual' | 'basic'" }
+      }
     },
     dragAndDrop: {
       control: 'boolean',
@@ -44,8 +51,8 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     multiple: {
       control: 'boolean',
@@ -53,24 +60,24 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     accept: {
       control: 'text',
       description: 'Шаблон разрешённых типов файлов',
       table: {
         category: 'Свойства',
-        type: { summary: 'string' },
-      },
+        type: { summary: 'string' }
+      }
     },
     maxFileSize: {
       control: 'number',
       description: 'Максимальный размер одного файла в байтах',
       table: {
         category: 'Свойства',
-        type: { summary: 'number' },
-      },
+        type: { summary: 'number' }
+      }
     },
     disabled: {
       control: 'boolean',
@@ -78,8 +85,8 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Состояния',
         defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' },
-      },
+        type: { summary: 'boolean' }
+      }
     },
     uploadError: {
       control: 'text',
@@ -87,55 +94,24 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
       table: {
         category: 'Состояния',
         defaultValue: { summary: 'null' },
-        type: { summary: 'string | null' },
-      },
+        type: { summary: 'string | null' }
+      }
     },
     name: { table: { disable: true } },
     url: { table: { disable: true } },
     fileLimit: { table: { disable: true } },
     labels: { table: { disable: true } },
-    messages: { table: { disable: true } },
+    messages: { control: 'object' },
     onSelect: { table: { disable: true } },
     onRemove: { table: { disable: true } },
     onClear: { table: { disable: true } },
     onError: { table: { disable: true } },
-    onUpload: { table: { disable: true } },
-  },
+    onUpload: { table: { disable: true } }
+  }
 };
 
 export default meta;
 type Story = StoryObj<ExtraFileUploadComponent>;
-
-export const WithForm: Story = {
-  name: 'Reactive Form',
-  render: () => ({
-    template: `<app-fileupload-form></app-fileupload-form>`,
-  }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Пример использования компонента как formControl в реактивной форме с валидацией required.',
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  standalone: true,
-  imports: [ExtraFileUploadComponent, ReactiveFormsModule],
-  template: \`<extra-fileupload [formControl]="control"></extra-fileupload>\`,
-})
-export class ExampleComponent {
-  control = new FormControl<File[]>([], { validators: [Validators.required] });
-}
-        `,
-      },
-    },
-  },
-};
 
 export const Default: Story = {
   name: 'Default',
@@ -146,7 +122,7 @@ export const Default: Story = {
       multiple: args['multiple'],
       accept: args['accept'],
       maxFileSize: args['maxFileSize'],
-      disabled: args['disabled'],
+      disabled: args['disabled']
     },
     template: `
       <app-fileupload-default
@@ -157,130 +133,90 @@ export const Default: Story = {
         [maxFileSize]="maxFileSize"
         [disabled]="disabled"
       ></app-fileupload-default>
-    `,
+    `
   }),
   args: {
     mode: 'manual',
     dragAndDrop: true,
     multiple: true,
-    accept: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    accept:
+      'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     maxFileSize: 1000000,
-    disabled: false,
+    disabled: false
   },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример загрузчика файлов с drag-and-drop зоной, карточками файлов и кнопками отправки/очистки.',
+        story: 'Базовый пример загрузчика файлов с drag-and-drop зоной, карточками файлов и кнопками отправки/очистки.'
       },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [ExtraFileUploadComponent],
-  template: \`
-    <extra-fileupload
-      mode="manual"
-      [multiple]="true"
-      accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      [maxFileSize]="1000000"
-    ></extra-fileupload>
-  \`,
-})
-export class ExampleComponent {}
-        `,
-      },
-    },
-  },
+      source: { language: 'html', type: 'code', code: '<extra-fileupload></extra-fileupload>' }
+    }
+  }
 };
 
 export const Basic: Story = {
   name: 'Basic',
   render: () => ({
-    template: `<extra-fileupload mode="basic"></extra-fileupload>`,
+    template: `<extra-fileupload mode="basic"></extra-fileupload>`
   }),
   parameters: {
     docs: {
       description: {
         story:
-          'mode="basic": одна кнопка выбора файла, без зоны дропа, списка и прогресса — приложение само рисует превью, статусы и ошибки. Дроп на саму кнопку по-прежнему работает.',
+          'mode="basic": одна кнопка выбора файла, без зоны дропа, списка и прогресса — приложение само рисует превью, статусы и ошибки. Дроп на саму кнопку по-прежнему работает.'
       },
-    },
-  },
+      source: { language: 'html', type: 'code', code: `<extra-fileupload mode="basic"></extra-fileupload>` }
+    }
+  }
 };
 
 export const WithoutDragAndDrop: Story = {
   name: 'Without drag-and-drop',
   render: () => ({
-    template: `<extra-fileupload [dragAndDrop]="false"></extra-fileupload>`,
-  }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'dragAndDrop="false": вместо зоны дропа — только кнопка «Выбрать файл», перетаскивание файлов недоступно.',
-      },
-    },
-  },
-};
-
-export const Auto: Story = {
-  name: 'Auto upload',
-  render: () => ({
-    template: `<extra-fileupload mode="auto"></extra-fileupload>`,
-  }),
-  parameters: {
-    docs: {
-      description: {
-        story: 'mode="auto": отправка начинается сразу после выбора файлов, без кнопки «Отправить».',
-      },
-    },
-  },
-};
-
-export const UploadError: Story = {
-  name: 'Upload error',
-  render: () => ({
-    template: `<app-fileupload-upload-error></app-fileupload-upload-error>`,
+    template: `<extra-fileupload [dragAndDrop]="false"></extra-fileupload>`
   }),
   parameters: {
     docs: {
       description: {
         story:
-          'Ошибка отправки (XHR ≥400 или сеть) — компонент всегда работает в customUpload, реальный запрос и решение об ошибке остаются за приложением. Оно выставляет [uploadError], а компонент рисует сообщение на штатном месте — сразу после зоны дропа, перед списком файлов, как и success-сообщение. Очередь сохраняется, повторный клик по «Отправить» — штатный повтор той же пачки; отдельной кнопки «Повторить» или текста ошибки на уровне строки в ките нет.',
+          'dragAndDrop="false": вместо зоны дропа — только кнопка «Выбрать файл», перетаскивание файлов недоступно.'
+      },
+      source: { language: 'html', type: 'code', code: `<extra-fileupload [dragAndDrop]="false"></extra-fileupload>` }
+    }
+  }
+};
+
+export const Auto: Story = {
+  name: 'Auto upload',
+  render: () => ({
+    template: `<extra-fileupload mode="auto"></extra-fileupload>`
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'mode="auto": отправка начинается сразу после выбора файлов, без кнопки «Отправить».'
+      },
+      source: { language: 'html', type: 'code', code: `<extra-fileupload mode="auto"></extra-fileupload>` }
+    }
+  }
+};
+
+export const UploadError: Story = {
+  name: 'Upload error',
+  render: () => ({
+    template: `<app-fileupload-upload-error></app-fileupload-upload-error>`
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Ошибка отправки (XHR ≥400 или сеть) — компонент всегда работает в customUpload, реальный запрос и решение об ошибке остаются за приложением. Оно выставляет [uploadError], а компонент рисует сообщение на штатном месте — сразу после зоны дропа, перед списком файлов, как и success-сообщение. Очередь сохраняется, повторный клик по «Отправить» — штатный повтор той же пачки; отдельной кнопки «Повторить» или текста ошибки на уровне строки в ките нет.'
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [ExtraFileUploadComponent, ReactiveFormsModule],
-  template: \`
-    <extra-fileupload
-      [formControl]="control"
-      [uploadError]="uploadError"
-    ></extra-fileupload>
-  \`,
-})
-export class ExampleComponent {
-  control = new FormControl<File[]>([/* файлы из формы */]);
-  uploadError: string | null = null;
-
-  onUpload(files: File[]): void {
-    // реальный HTTP-запрос приложения; при провале — просто:
-    // this.uploadError = 'Не удалось отправить файлы. Проверьте соединение и повторите попытку';
+        language: 'html',
+        type: 'code',
+        code: '<extra-fileupload uploadError="Не удалось отправить файлы. Проверьте соединение и повторите попытку"></extra-fileupload>'
+      }
+    }
   }
-}
-        `,
-      },
-    },
-  },
 };
