@@ -97,10 +97,10 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string | null' }
       }
     },
-    name: { table: { disable: true } },
-    url: { table: { disable: true } },
-    fileLimit: { table: { disable: true } },
-    labels: { table: { disable: true } },
+    name: { control: 'text' },
+    url: { control: 'text' },
+    fileLimit: { control: 'number' },
+    labels: { control: 'object' },
     messages: { control: 'object' },
     onSelect: { table: { disable: true } },
     onRemove: { table: { disable: true } },
