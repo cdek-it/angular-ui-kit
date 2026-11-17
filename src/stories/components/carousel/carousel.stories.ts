@@ -57,6 +57,10 @@ import { ExtraCarouselComponent, ExtraCarouselItemDirective, ExtraCarouselHeader
     designTokens: { prefix: '--p-carousel' }
   },
   argTypes: {
+    value: { control: 'object', description: 'Массив слайдов' },
+    page: { control: 'number', description: 'Индекс активной страницы' },
+    responsiveOptions: { control: 'object', description: 'Настройки адаптивных брейкпоинтов' },
+    verticalViewPortHeight: { control: 'text', description: 'Высота вьюпорта в вертикальном режиме' },
     numVisible: {
       control: { type: 'number', min: 1 },
       description: 'Количество видимых слайдов',
@@ -123,6 +127,7 @@ import { ExtraCarouselComponent, ExtraCarouselItemDirective, ExtraCarouselHeader
     }
   },
   args: {
+    value: SLIDES,
     numVisible: 5,
     numScroll: 1,
     circular: false,
@@ -166,6 +171,11 @@ export const Default: Story = {
     docs: {
       description: {
         story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        code: '<extra-carousel [value]="value" [numVisible]="5" [numScroll]="1" [circular]="false" orientation="horizontal" [autoplayInterval]="0" [showIndicators]="true" [showNavigators]="true"></extra-carousel>'
       }
     }
   }
@@ -173,12 +183,6 @@ export const Default: Story = {
 
 // ── Vertical ──────────────────────────────────────────────────────────────────
 
-export const Vertical: Story = VerticalStory;
-
 // ── Autoplay ──────────────────────────────────────────────────────────────────
 
-export const Autoplay: Story = AutoplayStory;
-
 // ── Header & Footer ───────────────────────────────────────────────────────────
-
-export const HeaderAndFooter: Story = HeaderAndFooterStory;
