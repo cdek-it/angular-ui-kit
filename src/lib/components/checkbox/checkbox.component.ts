@@ -2,6 +2,7 @@ import {
   afterNextRender,
   booleanAttribute,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
@@ -27,6 +28,7 @@ import {
 } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
+import { ExtraCaptionComponent } from '../caption/caption.component';
 
 export type ExtraCheckboxLabelPosition = 'right' | 'left';
 
@@ -40,7 +42,7 @@ let nextInputId = 0;
 @Component({
   selector: 'extra-checkbox',
   standalone: true,
-  imports: [Checkbox, FormsModule, NgTemplateOutlet],
+  imports: [Checkbox, FormsModule, NgTemplateOutlet, ExtraCaptionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   providers: [
@@ -66,7 +68,7 @@ let nextInputId = 0;
             }}</label>
           }
           @if (caption) {
-            <div class="checkbox-caption" [class.checkbox-caption--disabled]="disabled">{{ caption }}</div>
+            <extra-caption class="checkbox-caption" [id]="inputId + '-caption'">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -81,19 +83,21 @@ let nextInputId = 0;
         [disabled]="disabled"
         [readonly]="readonly"
         [indeterminate]="indeterminate"
-        [class.p-checkbox-indeterminate]="indeterminate"
         [invalid]="invalid"
         [inputId]="inputId"
-        [ariaLabel]="ariaLabel"
+        [ariaLabel]="ariaLabel || (!label ? 'Выбор' : undefined)"
+        [pt]="{ input: { 'aria-describedby': caption ? inputId + '-caption' : undefined } }"
         [ariaLabelledBy]="ariaLabelledBy"
-        [tabindex]="tabindex"
+        [tabindex]="disabled ? -1 : tabindex"
         (onChange)="onChangeHandler($event)"
+        (onBlur)="markTouched()"
       ></p-checkbox>
     </ng-template>
   `
 })
 export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
+  private readonly cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
   private readonly _checkbox = viewChild(Checkbox);
 
@@ -110,7 +114,7 @@ export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnC
   @Input() label = '';
   @Input() labelPosition: ExtraCheckboxLabelPosition = 'right';
   @Input() caption = '';
-  @Input() indeterminate = false;
+  @Input({ transform: booleanAttribute }) indeterminate = false;
   @Input({ transform: booleanAttribute }) readonly = false;
   /** Поле обязательно для заполнения (должно быть отмечено); в Angular работает как NG_VALIDATORS-валидатор. */
   @Input({ transform: booleanAttribute }) required = false;
@@ -143,7 +147,7 @@ export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnC
   modelValue = false;
 
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !!(this._ngControl?.invalid && (this._ngControl.touched || this._ngControl.dirty));
   }
 
   private _onChange: (value: boolean) => void = () => {};
@@ -157,8 +161,13 @@ export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnC
     this.onChange.emit({ checked, originalEvent: event.originalEvent as Event });
   }
 
+  markTouched(): void {
+    this._onTouched();
+  }
+
   writeValue(value: boolean): void {
     this.modelValue = !!value;
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: boolean) => void): void {
@@ -171,5 +180,6 @@ export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnC
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 }
