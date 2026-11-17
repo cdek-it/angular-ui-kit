@@ -14,6 +14,7 @@ const meta: Meta<ExtraProgressSpinnerComponent> = {
   ],
   parameters: {
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-progressspinner ariaLabel="Загрузка"></extra-progressspinner>' },
       description: {
         component: `Используется для отображения индикатора процесса/состояния загрузки неопределенного времени.
 
@@ -128,5 +129,3 @@ export const Default: Story = {
 };
 
 // ── Вариации ─────────────────────────────────────────────────────────────────
-
-export { Sizes, Monochrome };
