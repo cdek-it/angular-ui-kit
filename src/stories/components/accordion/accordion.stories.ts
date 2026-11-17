@@ -29,6 +29,12 @@ const meta: Meta<AccordionArgs> = {
   parameters: {
     designTokens: { prefix: '--p-accordion' },
     docs: {
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () =>
+          '<extra-accordion><extra-accordion-panel icon="ti ti-package" [expanded]="true"><ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>Заказ №ЦД-00123456</extra-accordion-panel></extra-accordion>'
+      },
       description: {
         component: `Группирует контент в раскрывающиеся панели. Панели передаются декларативно как дочерние \`<extra-accordion-panel>\`, заголовок — через именованный шаблон \`extraAccordionPanelTemplate="header"\`.
 
@@ -107,36 +113,6 @@ export const Default: Story = {
     docs: {
       description: {
         story: 'Базовый пример компонента. Используйте Controls для переключения `multiple`.'
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-accordion-demo',
-  standalone: true,
-  imports: [ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective],
-  template: \`
-    <extra-accordion>
-      <extra-accordion-panel icon="ti ti-package" [expanded]="true">
-        <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
-        Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места
-      </extra-accordion-panel>
-      <extra-accordion-panel icon="ti ti-map-pin">
-        <ng-template extraAccordionPanelTemplate="header">Маршрут доставки</ng-template>
-        Принят в Москве 14 апр 09:15 → Доставлен 15 апр 14:20
-      </extra-accordion-panel>
-      <extra-accordion-panel icon="ti ti-receipt">
-        <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
-        Итого: 525 ₽ · Оплачено: карта *4321
-      </extra-accordion-panel>
-    </extra-accordion>
-  \`,
-})
-export class AccordionDemoComponent {}
-        `
       }
     }
   }

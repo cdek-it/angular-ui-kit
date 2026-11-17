@@ -41,30 +41,9 @@ export const Multiple: StoryObj = {
     docs: {
       description: { story: 'Режим множественного раскрытия — несколько панелей могут быть открыты одновременно.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-accordion-multiple',
-  standalone: true,
-  imports: [ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective],
-  template: \`
-    <extra-accordion [multiple]="true">
-      <extra-accordion-panel icon="ti ti-package" [expanded]="true">
-        <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
-        Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места
-      </extra-accordion-panel>
-      <extra-accordion-panel icon="ti ti-receipt" [expanded]="true">
-        <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
-        Итого: 525 ₽ · Оплачено: карта *4321
-      </extra-accordion-panel>
-    </extra-accordion>
-  \`,
-})
-export class AccordionMultipleComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-accordion [multiple]="true"><extra-accordion-panel icon="ti ti-package" [expanded]="true"><ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>Заказ №ЦД-00123456</extra-accordion-panel></extra-accordion>'
       }
     }
   }
