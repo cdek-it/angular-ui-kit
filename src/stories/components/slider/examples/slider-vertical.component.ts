@@ -4,14 +4,12 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
-<div class="bg-surface-ground flex items-center justify-center" style="height: 240px; width: 320px">
-  <extra-slider
-    orientation="vertical"
-    ariaLabel="Яркость"
-    [(ngModel)]="value"
-    style="height: 200px"
-  ></extra-slider>
-</div>
+<extra-slider
+  orientation="vertical"
+  ariaLabel="Яркость"
+  [(ngModel)]="value"
+  style="height: 200px"
+></extra-slider>
 `;
 const styles = '';
 

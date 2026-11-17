@@ -1,29 +1,38 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ExtraSliderComponent } from '../../../lib/components/slider/slider.component';
-import { Range, SliderRangeComponent } from './examples/slider-range.component';
-import { SliderStepComponent, Step } from './examples/slider-step.component';
-import { SliderVerticalComponent, Vertical } from './examples/slider-vertical.component';
-import { Disabled, SliderDisabledComponent } from './examples/slider-disabled.component';
+import { fn } from 'storybook/test';
+import { ExtraSliderComponent, ExtraSliderChangeEvent } from '../../../lib/components/slider/slider.component';
 
-type SliderArgs = ExtraSliderComponent & { disabled: boolean };
+type SliderArgs = Omit<Partial<ExtraSliderComponent>, 'onChange' | 'onSlideEnd'> & {
+  disabled: boolean;
+  value: number | number[];
+  onChange: (event: ExtraSliderChangeEvent) => void;
+  onSlideEnd: () => void;
+};
+
+const templateFor = (args: SliderArgs): string => {
+  const parts = ['[formControl]="sliderControl"'];
+  if (args.min !== 0) parts.push('[min]="' + args.min + '"');
+  if (args.max !== 100) parts.push('[max]="' + args.max + '"');
+  if (args.step != null) parts.push('[step]="' + args.step + '"');
+  if (args.range) parts.push('[range]="true"');
+  if (args.orientation && args.orientation !== 'horizontal') parts.push('orientation="' + args.orientation + '"');
+  if (args.animate) parts.push('[animate]="true"');
+  if (args.required) parts.push('[required]="true"');
+  if (args.autofocus) parts.push('[autofocus]="true"');
+  if (args.tabindex !== 0) parts.push('[tabindex]="' + args.tabindex + '"');
+  if (args.ariaLabel) parts.push('ariaLabel="' + args.ariaLabel + '"');
+  if (args.ariaLabelledBy) parts.push('ariaLabelledBy="' + args.ariaLabelledBy + '"');
+  parts.push('(onChange)="onChange($event)"', '(onSlideEnd)="onSlideEnd()"');
+  const height = args.orientation === 'vertical' ? ' style="height: 200px"' : '';
+  return '<extra-slider\n  ' + parts.join('\n  ') + '\n' + height + '></extra-slider>';
+};
 
 const meta: Meta<SliderArgs> = {
   title: 'Components/Form/Slider',
   component: ExtraSliderComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraSliderComponent,
-        ReactiveFormsModule,
-        SliderRangeComponent,
-        SliderStepComponent,
-        SliderVerticalComponent,
-        SliderDisabledComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'slider'],
+  decorators: [moduleMetadata({ imports: [ExtraSliderComponent, ReactiveFormsModule] })],
   parameters: {
     docs: {
       description: {
@@ -36,108 +45,52 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit/components/slider'
 \`\`\`
 
 Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Отключённое состояние управляется через FormControl.`
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: (_code: string, context: { args: SliderArgs }) => templateFor(context.args)
       }
     },
     designTokens: { prefix: '--p-slider' }
   },
+  render: (args) => ({
+    props: {
+      ...args,
+      sliderControl: new FormControl<number | number[]>(
+        { value: args.value, disabled: args.disabled },
+        { nonNullable: true }
+      )
+    },
+    template: templateFor(args)
+  }),
   argTypes: {
-    // ── Свойства (docs/components-api/slider.md) ─────────────────
-    min: {
-      control: 'number',
-      description: 'Минимальное значение',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: '0' },
-        type: { summary: 'number' }
-      }
-    },
-    max: {
-      control: 'number',
-      description: 'Максимальное значение',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: '100' },
-        type: { summary: 'number' }
-      }
-    },
+    min: { control: 'number', description: 'Минимальное значение' },
+    max: { control: 'number', description: 'Максимальное значение' },
     step: {
       control: 'number',
       description: 'Шаг изменения значения',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'number | undefined' }
-      }
+      table: { defaultValue: { summary: 'undefined' }, type: { summary: 'number | undefined' } }
     },
-    range: {
-      control: 'boolean',
-      description: 'Режим выбора диапазона с двумя ползунками',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
+    range: { control: 'boolean', description: 'Режим выбора диапазона с двумя ползунками' },
     orientation: {
       control: 'select',
       options: ['horizontal', 'vertical'],
-      description: 'Ориентация слайдера',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "'horizontal'" },
-        type: { summary: "'horizontal' | 'vertical'" }
-      }
+      description: 'Ориентация слайдера'
     },
-    animate: {
-      control: 'boolean',
-      description: 'Анимация прыжка бегунка при клике по шкале',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    // ── Состояния (управляются через FormControl) ───────────────────
-    disabled: {
-      control: 'boolean',
-      description: 'Отключённое состояние — управляется через FormControl',
-      table: {
-        category: 'Состояния',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
+    animate: { control: 'boolean', description: 'Анимация прыжка бегунка при клике по шкале' },
+    disabled: { control: 'boolean', description: 'Отключённое состояние — управляется через FormControl' },
     ariaLabel: {
       control: 'text',
-      description: 'Метка для программ экранного доступа — задавайте её всегда, иначе у слайдера нет доступного имени',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'string | undefined' }
-      }
+      description: 'Метка для программ экранного доступа — задавайте её всегда, иначе у слайдера нет доступного имени'
     },
-    // Hidden props
-    ariaLabelledBy: { table: { disable: true } },
-    tabindex: { table: { disable: true } },
-    autofocus: { table: { disable: true } },
-    control: { table: { disable: true } },
-    // ── События ──────────────────────────────────────────────────
-    onChange: {
-      control: false,
-      description: 'Срабатывает при каждом изменении значения во время перетаскивания',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<ExtraSliderChangeEvent>' }
-      }
-    },
-    onSlideEnd: {
-      control: false,
-      description: 'Срабатывает после завершения перетаскивания ползунка',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<void>' }
-      }
-    }
+    ariaLabelledBy: { control: 'text' },
+    tabindex: { control: 'number' },
+    autofocus: { control: 'boolean' },
+    required: { control: 'boolean' },
+    value: { control: 'object' },
+    onChange: { control: false, description: 'Срабатывает при каждом изменении значения во время перетаскивания' },
+    onSlideEnd: { control: false, description: 'Срабатывает после завершения перетаскивания ползунка' }
   },
   args: {
     min: 0,
@@ -147,41 +100,21 @@ import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit/components/slider'
     orientation: 'horizontal',
     animate: false,
     ariaLabel: 'Громкость',
-    disabled: false
+    ariaLabelledBy: undefined,
+    tabindex: 0,
+    autofocus: false,
+    required: false,
+    disabled: false,
+    value: 50,
+    onChange: fn(),
+    onSlideEnd: fn()
   }
 };
-
 export default meta;
 type Story = StoryObj<SliderArgs>;
 
-// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.min !== 0) parts.push(`[min]="${args.min}"`);
-    if (args.max !== 100) parts.push(`[max]="${args.max}"`);
-    if (args.step !== undefined) parts.push(`[step]="${args.step}"`);
-    if (args.range) parts.push(`[range]="true"`);
-    if (args.orientation !== 'horizontal') parts.push(`orientation="${args.orientation}"`);
-    if (args.animate) parts.push(`[animate]="true"`);
-    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
-
-    const control = new FormControl<number | number[]>(
-      { value: args.range ? [20, 80] : 50, disabled: args.disabled },
-      { nonNullable: true }
-    );
-    parts.push(`[formControl]="control"`);
-
-    const template = `<extra-slider\n  ${parts.join('\n  ')}\n></extra-slider>`;
-
-    // disabled живёт во FormControl, у компонента нет такого @Input — Storybook ругается в консоль
-    // на попытку присвоить его напрямую
-    const { disabled, ...rest } = args;
-
-    return { props: { ...rest, control }, template };
-  },
+  args: {},
   parameters: {
     docs: {
       description: {
@@ -192,5 +125,29 @@ export const Default: Story = {
   }
 };
 
-// ── Комбинаторные истории ──────────────────────────────────────────────────
-export { Range, Step, Vertical, Disabled };
+export const Disabled: Story = {
+  args: { disabled: true, value: 30 },
+  parameters: {
+    docs: { description: { story: 'Слайдер в отключённом состоянии — управляется через FormControl.' } }
+  }
+};
+
+export const Range: Story = {
+  args: { range: true, value: [20, 80], ariaLabel: 'Диапазон цены' },
+  parameters: {
+    docs: {
+      description: { story: 'Выбор диапазона значений с двумя ползунками. Модель — массив `[from, to]`.' }
+    }
+  }
+};
+
+export const Vertical: Story = {
+  args: { orientation: 'vertical', ariaLabel: 'Яркость' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Слайдер с вертикальной ориентацией — высота задаётся на `<extra-slider>`.'
+      }
+    }
+  }
+};

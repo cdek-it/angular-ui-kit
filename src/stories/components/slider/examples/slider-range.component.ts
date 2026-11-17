@@ -4,15 +4,13 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
-<div class="bg-surface-ground">
-  <extra-slider
-    [min]="0"
-    [max]="100"
-    [range]="true"
-    ariaLabel="Диапазон цены"
-    [(ngModel)]="value"
-  ></extra-slider>
-</div>
+<extra-slider
+  [min]="0"
+  [max]="100"
+  [range]="true"
+  ariaLabel="Диапазон цены"
+  [(ngModel)]="value"
+></extra-slider>
 `;
 const styles = '';
 

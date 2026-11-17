@@ -4,9 +4,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraSliderComponent } from '../../../../lib/components/slider/slider.component';
 
 const template = `
-<div class="bg-surface-ground" style="width: 320px">
-  <extra-slider ariaLabel="Громкость" [formControl]="control"></extra-slider>
-</div>
+<extra-slider ariaLabel="Громкость" [formControl]="control"></extra-slider>
 `;
 const styles = '';
 
