@@ -3,11 +3,9 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraMessageComponent } from '../../../../lib/components/message/message.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-4">
-  @for (severity of severities; track severity) {
-    <extra-message [severity]="severity" message="Message" caption="caption" [showClose]="true"></extra-message>
-  }
-</div>
+@for (severity of severities; track severity) {
+  <extra-message [severity]="severity" message="Message" caption="caption" [showClose]="true"></extra-message>
+}
 `;
 
 @Component({
@@ -28,8 +26,7 @@ export const WithClose: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Кнопка закрытия ([show-close]="true") во всех severity. При закрытии срабатывает событие onClose.'
+        story: 'Кнопка закрытия ([show-close]="true") во всех severity. При закрытии срабатывает событие onClose.'
       },
       source: {
         language: 'ts',

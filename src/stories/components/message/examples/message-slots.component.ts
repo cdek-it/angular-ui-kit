@@ -5,38 +5,36 @@ import { ExtraMessageTemplateDirective } from '../../../../lib/components/messag
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-4">
-  <extra-message severity="info" message="Message" caption="caption">
-    <div class="text-sm">Контент после caption (слот content)</div>
-  </extra-message>
+<extra-message severity="info" message="Message" caption="caption">
+  <div class="text-sm">Контент после caption (слот content)</div>
+</extra-message>
 
-  <extra-message severity="warning" message="Message" caption="caption" [showClose]="true">
+<extra-message severity="warning" message="Message" caption="caption" [showClose]="true">
+  <div class="flex gap-2 mt-3">
+    <span class="text-sm">Cell 1</span>
+    <span class="text-sm">Cell 2</span>
+    <span class="text-sm">Cell 3</span>
+  </div>
+</extra-message>
+
+<extra-message severity="danger" message="Message" caption="caption">
+  Контент напрямую, без обёртки
+  <ng-template extraMessageTemplate="footer">
     <div class="flex gap-2 mt-3">
-      <span class="text-sm">Cell 1</span>
-      <span class="text-sm">Cell 2</span>
-      <span class="text-sm">Cell 3</span>
+      <extra-button label="Действие" size="small"></extra-button>
+      <extra-button label="Отмена" variant="tertiary" size="small"></extra-button>
     </div>
-  </extra-message>
+  </ng-template>
+</extra-message>
 
-  <extra-message severity="danger" message="Message" caption="caption">
-    Контент напрямую, без обёртки
-    <ng-template extraMessageTemplate="footer">
-      <div class="flex gap-2 mt-3">
-        <extra-button label="Действие" size="small"></extra-button>
-        <extra-button label="Отмена" variant="tertiary" size="small"></extra-button>
-      </div>
-    </ng-template>
-  </extra-message>
-
-  <extra-message severity="success" message="Message" caption="caption" [showClose]="true">
-    <div class="text-sm">Контент после caption (слот content)</div>
-    <ng-template extraMessageTemplate="footer">
-      <div class="flex gap-2 mt-3">
-        <extra-button label="Принять" size="small"></extra-button>
-      </div>
-    </ng-template>
-  </extra-message>
-</div>
+<extra-message severity="success" message="Message" caption="caption" [showClose]="true">
+  <div class="text-sm">Контент после caption (слот content)</div>
+  <ng-template extraMessageTemplate="footer">
+    <div class="flex gap-2 mt-3">
+      <extra-button label="Принять" size="small"></extra-button>
+    </div>
+  </ng-template>
+</extra-message>
 `;
 
 @Component({

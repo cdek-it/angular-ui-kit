@@ -4,40 +4,38 @@ import { ExtraMessageComponent } from '../../../../lib/components/message/messag
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-4">
-  <div class="flex gap-3 items-center">
-    <extra-button
-      label="Показать снова"
-      icon="ti ti-refresh"
-      size="small"
-      (click)="showInfo.set(true); showSuccess.set(true)"
-    ></extra-button>
-    <span class="text-sm">Сообщения с [showTimer]="true" скрываются через 3 секунды</span>
-  </div>
-
-  @if (showInfo()) {
-    <extra-message
-      severity="info"
-      message="Автоскрытие через 3 с"
-      caption="[showTimer]=true"
-      [showTimer]="true"
-      (onClose)="onClose('info'); showInfo.set(false)"
-    ></extra-message>
-  }
-
-  @if (showSuccess()) {
-    <extra-message
-      severity="success"
-      message="Автоскрытие через 3 с"
-      caption="[showTimer]=true + [showClose]=true"
-      [showTimer]="true"
-      [showClose]="true"
-      (onClose)="onClose('success'); showSuccess.set(false)"
-    ></extra-message>
-  }
-
-  <div class="text-sm">Лог onClose: {{ log().length ? log().join(' → ') : '—' }}</div>
+<div class="flex gap-3 items-center">
+  <extra-button
+    label="Показать снова"
+    icon="ti ti-refresh"
+    size="small"
+    (click)="showInfo.set(true); showSuccess.set(true)"
+  ></extra-button>
+  <span class="text-sm">Сообщения с [showTimer]="true" скрываются через 3 секунды</span>
 </div>
+
+@if (showInfo()) {
+  <extra-message
+    severity="info"
+    message="Автоскрытие через 3 с"
+    caption="[showTimer]=true"
+    [showTimer]="true"
+    (onClose)="onClose('info'); showInfo.set(false)"
+  ></extra-message>
+}
+
+@if (showSuccess()) {
+  <extra-message
+    severity="success"
+    message="Автоскрытие через 3 с"
+    caption="[showTimer]=true + [showClose]=true"
+    [showTimer]="true"
+    [showClose]="true"
+    (onClose)="onClose('success'); showSuccess.set(false)"
+  ></extra-message>
+}
+
+<div class="text-sm">Лог onClose: {{ log().length ? log().join(' → ') : '—' }}</div>
 `;
 
 @Component({

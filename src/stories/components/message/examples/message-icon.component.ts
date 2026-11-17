@@ -3,13 +3,11 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraMessageComponent } from '../../../../lib/components/message/message.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-4">
-  <extra-message severity="info" message="Стандартная иконка" caption="icon не задан — иконка по severity"></extra-message>
-  <extra-message severity="info" message="Своя иконка" caption='icon="ti ti-send"' icon="ti ti-send"></extra-message>
-  <extra-message severity="success" message="Своя иконка" caption='icon="ti ti-rocket"' icon="ti ti-rocket"></extra-message>
-  <extra-message severity="warning" message="Без иконки" caption='icon="" — иконка скрыта' icon=""></extra-message>
-  <extra-message severity="danger" message="Без иконки" caption='icon="" — иконка скрыта' icon=""></extra-message>
-</div>
+<extra-message severity="info" message="Стандартная иконка" caption="icon не задан — иконка по severity"></extra-message>
+<extra-message severity="info" message="Своя иконка" caption='icon="ti ti-send"' icon="ti ti-send"></extra-message>
+<extra-message severity="success" message="Своя иконка" caption='icon="ti ti-rocket"' icon="ti ti-rocket"></extra-message>
+<extra-message severity="warning" message="Без иконки" caption='icon="" — иконка скрыта' icon=""></extra-message>
+<extra-message severity="danger" message="Без иконки" caption='icon="" — иконка скрыта' icon=""></extra-message>
 `;
 
 @Component({

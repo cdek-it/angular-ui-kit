@@ -56,7 +56,7 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
   .p-message-summary {
     font-family: ${dt('fonts.fontFamily.base')};
     font-weight: ${dt('message.text.fontWeight')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.400')};
     font-size: ${dt('message.text.fontSize')};
   }
 
@@ -64,7 +64,7 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
   .p-message .p-message-detail {
     font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.300')};
     font-weight: ${dt('fonts.fontWeight.regular')};
   }
 
@@ -75,6 +75,7 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
     margin: 0;
     padding: 0;
     right: 0;
+    border-radius: ${dt('message.closeButton.borderRadius')};
   }
 
   /* Общие стили border для кнопки закрытия всех типов message */
@@ -96,6 +97,32 @@ export const messageCss = ({ dt }: { dt: (token: string) => string }): string =>
     top: 0;
     bottom: 0;
     border-radius: ${dt('message.root.borderRadius')} 0 0 ${dt('message.root.borderRadius')};
+  }
+
+  /* Рамка и цвет заголовка по типу: Figma задаёт borderWidth 1 и color на severity */
+  .p-message.p-message-info {
+    border: ${dt('message.root.borderWidth')} solid ${dt('message.colorScheme.light.info.borderColor')};
+  }
+  .p-message.p-message-success {
+    border: ${dt('message.root.borderWidth')} solid ${dt('message.colorScheme.light.success.borderColor')};
+  }
+  .p-message.p-message-warn {
+    border: ${dt('message.root.borderWidth')} solid ${dt('message.colorScheme.light.warn.borderColor')};
+  }
+  .p-message.p-message-error {
+    border: ${dt('message.root.borderWidth')} solid ${dt('message.colorScheme.light.error.borderColor')};
+  }
+  .p-message-info .p-message-summary {
+    color: ${dt('message.colorScheme.light.info.color')};
+  }
+  .p-message-success .p-message-summary {
+    color: ${dt('message.colorScheme.light.success.color')};
+  }
+  .p-message-warn .p-message-summary {
+    color: ${dt('message.colorScheme.light.warn.color')};
+  }
+  .p-message-error .p-message-summary {
+    color: ${dt('message.colorScheme.light.error.color')};
   }
 
   /* Стили для message типа Info */

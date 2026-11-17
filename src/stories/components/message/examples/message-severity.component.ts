@@ -3,11 +3,9 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraMessageComponent } from '../../../../lib/components/message/message.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-4">
-  @for (severity of severities; track severity) {
-    <extra-message [severity]="severity" message="Message" caption="caption"></extra-message>
-  }
-</div>
+@for (severity of severities; track severity) {
+  <extra-message [severity]="severity" message="Message" caption="caption"></extra-message>
+}
 `;
 
 @Component({
