@@ -42,7 +42,7 @@ type MultiSelectArgs = ExtraMultiSelectComponent & {
 const meta: Meta<MultiSelectArgs> = {
   title: 'Components/Form/MultiSelect',
   component: ExtraMultiSelectComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'multiselect'],
   decorators: [
     moduleMetadata({
       imports: [ExtraMultiSelectComponent, ReactiveFormsModule, MultiSelectStoryHostComponent]
@@ -51,16 +51,18 @@ const meta: Meta<MultiSelectArgs> = {
   parameters: {
     designTokens: { prefix: '--p-multiselect' },
     docs: {
+      source: {
+        language: 'html',
+        transform: (_code: string, context: { args: RenderArgs }) => multiSelectExample(context.args).template
+      },
       description: {
         component: `Выпадающий список для выбора нескольких значений из набора опций. Поддерживает чекбоксы у опций, отображение выбранных значений как chips, группировку и фильтрацию.
 
-Реализовано по спецификации [multiselect.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/multiselect.md).
+Реализован по спецификации \`docs/components-api/multiselect.md\`.
 
 \`\`\`typescript
 import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
-\`\`\`
-
-Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
+\`\`\``
       }
     }
   },
@@ -87,7 +89,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     floatLabel: {
       control: 'boolean',
-      description: 'Лейбл-плейсхолдер, всплывающий над полем при фокусе/значении',
+      description: 'Плавающий лейбл внутри поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -96,7 +98,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     showChips: {
       control: 'boolean',
-      description: 'Выбранные значения в виде chips вместо строки через запятую',
+      description: 'Отображать выбранные значения в виде chips вместо списка через запятую',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -105,7 +107,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     chipClearable: {
       control: 'boolean',
-      description: 'Иконка удаления у chip (при showChips)',
+      description: 'Отображение иконки удаления chip (при showChips)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
@@ -114,7 +116,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
-      description: 'Иконка очистки всего поля',
+      description: 'Отображение иконки для очистки всего поля',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -123,7 +125,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     showCheckbox: {
       control: 'boolean',
-      description: 'Чекбокс у каждой опции в панели',
+      description: 'Отображать чекбокс у каждой опции в панели',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'true' },
@@ -132,7 +134,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     showFilter: {
       control: 'boolean',
-      description: 'Строка поиска в выпадающей панели',
+      description: 'Отображать строку поиска в выпадающей панели',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -168,7 +170,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     info: {
       control: 'text',
-      description: 'Текст тултипа иконки рядом с лейблом',
+      description: 'Текст с доп. информацией (показывается в тултипе иконки ti-info-circle)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
@@ -177,7 +179,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     placeholder: {
       control: 'text',
-      description: 'Подсказка при пустом поле',
+      description: 'Текст подсказки при пустом поле',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "''" },
@@ -196,7 +198,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     readonly: {
       control: 'boolean',
-      description: 'Только для чтения',
+      description: 'Режим только для чтения',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -205,7 +207,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     loading: {
       control: 'boolean',
-      description: 'Индикатор загрузки вместо chevron',
+      description: 'Состояние загрузки опций',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -214,7 +216,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     fluid: {
       control: 'boolean',
-      description: 'Растягивать поле на всю ширину контейнера',
+      description: 'Растягивает поле на всю ширину контейнера',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -360,24 +362,24 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     primeSize: { table: { disable: true } },
     multiselectClasses: { table: { disable: true } },
     inputId: { table: { disable: true } },
-    invalid: { table: { disable: true } },
-    disabled: { table: { disable: true } },
+    invalid: { control: 'boolean', description: 'Невалидное состояние — вычисляется из NgControl (Validators)' },
+    disabled: { control: 'boolean', description: 'Отключает взаимодействие — управляется через FormControl' },
     modelValue: { table: { disable: true } },
     // ── Состояния (управляются через FormControl) ──────────────────────────
     // ── События ────────────────────────────────────────────────────────────
     onChange: {
       control: false,
-      description: 'Срабатывает при выборе значения',
+      description: 'Срабатывает при изменении выбора',
       table: { category: 'События', type: { summary: 'EventEmitter<ExtraMultiSelectChangeEvent>' } }
     },
     onFilter: {
       control: false,
-      description: 'Срабатывает при вводе в строку поиска',
+      description: 'Срабатывает при вводе в строку фильтра',
       table: { category: 'События', type: { summary: 'EventEmitter<ExtraMultiSelectFilterEvent>' } }
     },
     onClear: {
       control: false,
-      description: 'Срабатывает при очистке поля',
+      description: 'Срабатывает при очистке всех значений',
       table: { category: 'События', type: { summary: 'EventEmitter<void>' } }
     },
     onShow: {
@@ -449,139 +451,105 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
 export default meta;
 type Story = StoryObj<MultiSelectArgs>;
 
-// ── Один рендер компонента: все свойства настраиваются в Controls ────────────
-interface RenderArgs {
-  label?: string;
-  labelPosition?: string;
-  floatLabel?: boolean;
-  showChips?: boolean;
-  chipClearable?: boolean;
-  clearable?: boolean;
-  showCheckbox?: boolean;
-  showFilter?: boolean;
-  filterPlaceholder?: string;
-  caption?: string;
-  captionSeverity?: string;
-  info?: string;
-  placeholder?: string;
-  size?: string;
-  readonly?: boolean;
-  loading?: boolean;
-  fluid?: boolean;
-  required?: boolean;
-  group?: boolean;
-  ariaLabel?: string;
-  ariaLabelledBy?: string;
-  autofocus?: boolean;
-  tabindex?: number;
-  optionLabel?: string;
-  invalid?: boolean;
-  disabled?: boolean;
-  value?: { name: string; code: string }[];
-}
+const MULTISELECT_INPUTS = [
+  'placeholder',
+  'label',
+  'labelPosition',
+  'floatLabel',
+  'showChips',
+  'chipIcon',
+  'chipClearable',
+  'clearable',
+  'showCheckbox',
+  'showFilter',
+  'filterPlaceholder',
+  'options',
+  'optionLabel',
+  'optionValue',
+  'optionDisabled',
+  'optionGroupLabel',
+  'optionGroupChildren',
+  'group',
+  'caption',
+  'captionSeverity',
+  'info',
+  'size',
+  'readonly',
+  'required',
+  'ariaLabel',
+  'ariaLabelledBy',
+  'autofocus',
+  'tabindex',
+  'loading',
+  'fluid',
+  'appendTo',
+  'emptyMessage',
+  'emptyFilterMessage'
+] as const;
+type RenderArgs = Partial<
+  Pick<MultiSelectArgs, (typeof MULTISELECT_INPUTS)[number] | 'disabled' | 'invalid' | 'value'>
+>;
 
-const renderMultiSelect = (args: RenderArgs, forced: { floatLabel?: boolean; showChips?: boolean } = {}) => {
-  const a = { ...args, ...forced };
-  const parts: string[] = [];
-
-  if (a.label) parts.push(`label="${a.label}"`);
-  if (a.labelPosition && a.labelPosition !== 'top') parts.push(`labelPosition="${a.labelPosition}"`);
-  if (a.floatLabel) parts.push(`[floatLabel]="true"`);
-  if (a.showChips) parts.push(`[showChips]="true"`);
-  if (!a.chipClearable) parts.push(`[chipClearable]="false"`);
-  if (a.clearable) parts.push(`[clearable]="true"`);
-  if (!a.showCheckbox) parts.push(`[showCheckbox]="false"`);
-  if (a.showFilter) parts.push(`[showFilter]="true"`);
-  if (a.filterPlaceholder) parts.push(`filterPlaceholder="${a.filterPlaceholder}"`);
-  if (a.caption) parts.push(`caption="${a.caption}"`);
-  if (a.captionSeverity && a.captionSeverity !== 'base') parts.push(`captionSeverity="${a.captionSeverity}"`);
-  if (a.info) parts.push(`info="${a.info}"`);
-  if (a.placeholder) parts.push(`placeholder="${a.placeholder}"`);
-  if (a.size && a.size !== 'base') parts.push(`size="${a.size}"`);
-  if (a.readonly) parts.push(`[readonly]="true"`);
-  if (a.loading) parts.push(`[loading]="true"`);
-  if (a.fluid) parts.push(`[fluid]="true"`);
-  if (a.required) parts.push(`required`);
-  if (a.group) parts.push(`[group]="true" optionGroupLabel="name"`);
-  if (a.ariaLabel) parts.push(`ariaLabel="${a.ariaLabel}"`);
-  if (a.ariaLabelledBy) parts.push(`ariaLabelledBy="${a.ariaLabelledBy}"`);
-  if (a.autofocus) parts.push(`[autofocus]="true"`);
-  if (a.tabindex != null) parts.push(`[tabindex]="${a.tabindex}"`);
-  if (a.optionLabel) parts.push(`optionLabel="${a.optionLabel}"`);
-
-  const validators = a.invalid ? [Validators.required] : [];
-  const control = new FormControl<any[] | null>({ value: a.value ?? null, disabled: !!a.disabled }, validators);
-  if (a.invalid) control.markAsTouched();
-
-  const options = a.group
+const multiSelectExample = (args: RenderArgs) => {
+  const options = args.group
     ? [
-        { name: 'Группа 1', items: OPTIONS.slice(0, 2) },
-        { name: 'Группа 2', items: OPTIONS.slice(2) }
+        { [args.optionGroupLabel ?? 'name']: 'Группа 1', [args.optionGroupChildren ?? 'items']: OPTIONS.slice(0, 2) },
+        { [args.optionGroupLabel ?? 'name']: 'Группа 2', [args.optionGroupChildren ?? 'items']: OPTIONS.slice(2) }
       ]
-    : OPTIONS;
-
-  // Ширина поля в примерах зафиксирована шириной референса Figma (272px): сверки идут 1:1
-  // с макетом, поле не растягивается на всё превью и не раздувается контентом (chips/список
-  // значений уходят в ellipsis). Fluid-пример — без обёртки: там поле обязано занять контейнер.
-  const template = `${a.fluid ? '' : '<multiselect-story-host>'}<extra-multi-select [formControl]="control"\n  [options]="options"\n  ${parts.join('\n  ')}\n></extra-multi-select>${a.fluid ? '' : '</multiselect-story-host>'}`;
-
-  // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
-  // и Storybook на попытке его присвоить роняет ошибку в консоль
-  return { props: { control, options }, template };
+    : args.options;
+  const values = {
+    ...args,
+    options,
+    optionGroupLabel: args.group ? (args.optionGroupLabel ?? 'name') : args.optionGroupLabel
+  };
+  const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const parts = ['[formControl]="control"'];
+  for (const key of MULTISELECT_INPUTS) {
+    const value = values[key];
+    if (value === undefined) continue;
+    if (typeof value === 'string') parts.push(key + '="' + escape(value) + '"');
+    else if (typeof value === 'boolean' || typeof value === 'number' || value === null)
+      parts.push('[' + key + ']="' + value + '"');
+    else parts.push('[' + key + ']="' + key + '"');
+  }
+  return { values, template: '<extra-multi-select\n  ' + parts.join('\n  ') + '\n></extra-multi-select>' };
 };
 
-// ── Default ──────────────────────────────────────────────────────────────────
+const renderMultiSelect = (args: RenderArgs) => {
+  const example = multiSelectExample(args);
+  const control = new FormControl<any[] | null>(
+    { value: args.value ?? null, disabled: !!args.disabled },
+    args.invalid ? [Validators.required] : []
+  );
+  if (args.invalid) control.markAsTouched();
+  const template = args.fluid
+    ? example.template
+    : '<multiselect-story-host>' + example.template + '</multiselect-story-host>';
+  return {
+    props: { ...Object.fromEntries(MULTISELECT_INPUTS.map((key) => [key, example.values[key]])), control },
+    template
+  };
+};
+
 export const Default: Story = {
   name: 'Default',
   render: (args) => renderMultiSelect(args),
   parameters: {
     docs: {
-      description: {
-        story:
-          'Поле с лейблом сверху (labelPosition="top") или слева (labelPosition="left"). Размер (small, base, large, xlarge), chips, caption, info, фильтр, группировка, fluid, readonly, disabled и invalid меняются в Controls; disabled и invalid управляются через FormControl.'
-      },
-      source: {
-        language: 'html',
-        code: `<!-- лейбл сверху -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" info="Info" placeholder="Placeholder"></extra-multi-select>
-
-<!-- лейбл слева -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" labelPosition="left" label="Label"></extra-multi-select>
-
-<!-- без label и caption поле не оборачивается -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" placeholder="Без лейбла"></extra-multi-select>
-
-<!-- группировка -->
-<extra-multi-select [formControl]="control" [options]="grouped" optionLabel="name" [group]="true"></extra-multi-select>
-
-<!-- размеры -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" size="small"></extra-multi-select>
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" size="large"></extra-multi-select>
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" size="xlarge"></extra-multi-select>
-
-<!-- состояния: disabled и invalid через FormControl -->
-control = new FormControl<any[] | null>({ value: null, disabled: true });
-control = new FormControl<any[] | null>(null, Validators.required);
-
-<!-- readonly -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" [readonly]="true"></extra-multi-select>`
-      }
+      description: { story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.' }
     }
   }
 };
 
-// ── Error / Disabled / Readonly / Chips / Fluid: пресеты Figma ───────────────
 export const Error: Story = {
   name: 'Error',
   args: { invalid: true },
   render: (args) => renderMultiSelect(args),
   parameters: {
     docs: {
-      description: { story: 'Figma `state=danger`. Невалидность берётся из NgControl: красная рамка по Validators.' },
-      source: {
-        language: 'html',
-        code: `<!-- control = new FormControl(null, Validators.required) -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption"></extra-multi-select>`
+      description: {
+        story:
+          'Невалидное состояние — определяется через валидаторы `FormControl` (нужно, чтобы контрол также был touched).'
       }
     }
   }
@@ -591,31 +559,13 @@ export const Disabled: Story = {
   name: 'Disabled',
   args: { disabled: true },
   render: (args) => renderMultiSelect(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=disabled`. Отключение через FormControl.' },
-      source: {
-        language: 'html',
-        code: `<!-- control = new FormControl({ value: null, disabled: true }) -->
-<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption"></extra-multi-select>`
-      }
-    }
-  }
+  parameters: { docs: { description: { story: 'Отключённое состояние — управляется через FormControl.' } } }
 };
 
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true, value: [OPTIONS[0], OPTIONS[1]] },
-  render: (args) => renderMultiSelect(args),
-  parameters: {
-    docs: {
-      description: { story: 'Figma `state=readonly`. Значение видно, но панель не открывается.' },
-      source: {
-        language: 'html',
-        code: `<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" [readonly]="true"></extra-multi-select>`
-      }
-    }
-  }
+  render: (args) => renderMultiSelect(args)
 };
 
 export const Chips: Story = {
@@ -626,11 +576,7 @@ export const Chips: Story = {
     docs: {
       description: {
         story:
-          'Figma `chips=true`. Выбранные значения отображаются chips; клик по × на chip удаляет значение и зовёт `onRemove`.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" [showChips]="true"></extra-multi-select>`
+          'Выбранные значения отображаются как chips (`showChips`) вместо списка через запятую. Каждый chip можно удалить по крестику — событие `(onRemove)`.'
       }
     }
   }
@@ -639,36 +585,18 @@ export const Chips: Story = {
 export const Fluid: Story = {
   name: 'Fluid',
   args: { fluid: true },
-  render: (args) => renderMultiSelect(args),
-  parameters: {
-    docs: {
-      description: { story: 'Свойство кода `fluid`: поле растягивается на всю ширину контейнера.' },
-      source: {
-        language: 'html',
-        code: `<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="Label" caption="Caption" [fluid]="true"></extra-multi-select>`
-      }
-    }
-  }
+  render: (args) => renderMultiSelect(args)
 };
 
-// ── FloatLabel: плавающий лейбл внутри поля ──────────────────────────────────
 export const FloatLabel: Story = {
   name: 'FloatLabel',
   args: { floatLabel: true, label: 'FloatLabel' },
-  argTypes: {
-    floatLabel: { control: false },
-    labelPosition: { control: false }
-  },
-  render: (args) => renderMultiSelect(args, { floatLabel: true }),
+  render: (args) => renderMultiSelect(args),
   parameters: {
     docs: {
       description: {
         story:
-          'Figma `has-float-label=true`. Плавающий лейбл (`[floatLabel]="true"`): в покое стоит в поле, при фокусе и значении поднимается над ним. labelPosition в этом виде не действует.'
-      },
-      source: {
-        language: 'html',
-        code: `<extra-multi-select [formControl]="control" [options]="options" optionLabel="name" label="FloatLabel" [floatLabel]="true"></extra-multi-select>`
+          'Положения лейбла (labelPosition): top — сверху (по умолчанию), left — слева от поля; floatLabel — плавающий лейбл внутри поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
       }
     }
   }
