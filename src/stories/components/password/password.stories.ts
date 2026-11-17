@@ -1,35 +1,92 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
-import { ExtraPasswordComponent } from '../../../lib/components/password/password.component';
-import { PasswordToggleComponent, ToggleMask } from './examples/password-toggle.component';
-import { Feedback, PasswordFeedbackComponent } from './examples/password-feedback.component';
-import { Disabled, PasswordDisabledComponent } from './examples/password-disabled.component';
-import { Invalid, PasswordInvalidComponent } from './examples/password-invalid.component';
-import { FloatLabel, PasswordFloatLabelComponent } from './examples/password-float-label.component';
-import { PasswordTemplateComponent, Template } from './examples/password-template.component';
-import { PasswordHeaderComponent, Header } from './examples/password-header.component';
-
-const meta: Meta<ExtraPasswordComponent> = {
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { fn } from 'storybook/test';
+import {
+  ExtraPasswordComponent,
+  ExtraPasswordHeaderDirective,
+  ExtraPasswordFooterDirective
+} from '../../../lib/components/password/password.component';
+const INPUTS = [
+  'showFeedback',
+  'showMaskToggle',
+  'placeholder',
+  'size',
+  'variant',
+  'fluid',
+  'label',
+  'labelPosition',
+  'floatLabel',
+  'caption',
+  'captionSeverity',
+  'requiredMark',
+  'clearable',
+  'info',
+  'promptLabel',
+  'weakLabel',
+  'mediumLabel',
+  'strongLabel',
+  'inputStyleClass',
+  'ariaLabel',
+  'ariaLabelledBy',
+  'appendTo',
+  'autofocus',
+  'required',
+  'name',
+  'autocomplete',
+  'maxLength',
+  'tabindex',
+  'readonly'
+] as const;
+type PasswordArgs = Pick<ExtraPasswordComponent, (typeof INPUTS)[number] | 'onFocus' | 'onBlur' | 'onClear'> & {
+  value: string | null;
+  disabled: boolean;
+  invalid: boolean;
+  templateMode: 'none' | 'rules' | 'header';
+};
+const escape = (s: string) =>
+  s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+type RenderArgs = Pick<PasswordArgs, (typeof INPUTS)[number] | 'templateMode'>;
+function template(args: RenderArgs): string {
+  const attrs = ['[formControl]="fieldControl"'];
+  for (const key of INPUTS) {
+    const v = args[key];
+    if (v === undefined) continue;
+    attrs.push(typeof v === 'string' ? key + '="' + escape(v) + '"' : '[' + key + ']="' + v + '"');
+  }
+  attrs.push('(onFocus)="onFocus($event)"', '(onBlur)="onBlur($event)"', '(onClear)="onClear()"');
+  let content = '';
+  if (args.templateMode === 'header')
+    content =
+      '\n  <ng-template extraPasswordHeader><div class="font-semibold mb-2">Требования к паролю</div></ng-template>\n  <ng-template extraPasswordFooter><small>Не используйте пароль от других сервисов.</small></ng-template>\n';
+  if (args.templateMode === 'rules')
+    content =
+      '\n  <ng-template extraPasswordFooter>\n    <div class="p-password-rules-divider" role="separator"></div>\n    <ul class="p-password-rules">\n' +
+      ['Минимум одна строчная буква', 'Минимум одна заглавная буква', 'Минимум одна цифра', 'Не менее 8 символов']
+        .map(
+          (label, i) =>
+            '      <li class="p-password-rule" [class.p-password-rule--success]="ruleMet(fieldControl.value, ' +
+            i +
+            ')" [class.p-password-rule--danger]="!!fieldControl.value && !ruleMet(fieldControl.value, ' +
+            i +
+            ')"><i [class]="ruleIcon(fieldControl.value, ' +
+            i +
+            ')" aria-hidden="true"></i><span>' +
+            label +
+            '</span></li>'
+        )
+        .join('\n') +
+      '\n    </ul>\n  </ng-template>\n';
+  return '<extra-password\n  ' + attrs.join('\n  ') + '\n>' + content + '</extra-password>';
+}
+const ruleMet = (value: string | null, index: number): boolean =>
+  [/[a-z]/.test(value ?? ''), /[A-Z]/.test(value ?? ''), /\d/.test(value ?? ''), (value ?? '').length >= 8][index];
+const meta: Meta<PasswordArgs> = {
   title: 'Components/Form/Password',
   component: ExtraPasswordComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'password'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraPasswordComponent,
-        FormsModule,
-        PasswordToggleComponent,
-        PasswordFeedbackComponent,
-        PasswordDisabledComponent,
-        PasswordInvalidComponent,
-        PasswordFloatLabelComponent,
-        PasswordTemplateComponent,
-        PasswordHeaderComponent
-      ]
-    }),
-    (story) => ({
-      ...story(),
-      template: `<div style="padding: 4px">${story().template}</div>`
+      imports: [ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFooterDirective, ReactiveFormsModule]
     })
   ],
   parameters: {
@@ -46,187 +103,187 @@ const meta: Meta<ExtraPasswordComponent> = {
 import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFooterDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
       },
-      story: { height: '280px' }
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_source: string, ctx: { args: PasswordArgs }) => template(ctx.args)
+      }
     }
   },
   argTypes: {
-    showFeedback: {
-      control: 'boolean',
-      description: 'Показывать индикатор надёжности пароля',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
-      }
-    },
-    showMaskToggle: {
-      control: 'boolean',
-      description: 'Возможность показать/скрыть пароль',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    placeholder: {
-      control: 'text',
-      description: 'Текст-подсказка',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' }
-      }
-    },
-    size: {
-      control: 'select',
-      options: ['small', 'base', 'large', 'xlarge'],
-      description: 'Размер поля',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'base' },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
-      }
-    },
-    fluid: {
-      control: 'boolean',
-      description: 'Растягивает поле на всю ширину контейнера',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
+    showFeedback: { control: 'boolean', description: 'Показывать индикатор надёжности пароля' },
+    showMaskToggle: { control: 'boolean', description: 'Возможность показать/скрыть пароль' },
+    placeholder: { control: 'text', description: 'Текст-подсказка' },
+    size: { control: 'select', options: ['small', 'base', 'large', 'xlarge'], description: 'Размер поля' },
+    variant: { control: 'select', options: ['filled', 'outlined'] },
+    fluid: { control: 'boolean', description: 'Растягивает поле на всю ширину контейнера' },
+    label: { control: 'text', description: 'Текст лейбла поля' },
     labelPosition: {
       control: 'select',
       options: ['top', 'left'],
-      description: 'Положение лейбла относительно поля (игнорируется при floatLabel=true)',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'top' },
-        type: { summary: "'top' | 'left'" }
-      }
+      description: 'Положение лейбла относительно поля (игнорируется при floatLabel=true)'
     },
-    floatLabel: {
-      control: 'boolean',
-      description: 'Плавающая метка внутри поля (перекрывает labelPosition)',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    label: {
-      control: 'text',
-      description: 'Текст лейбла поля',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "''" },
-        type: { summary: 'string' }
-      }
-    },
-    caption: {
-      control: 'text',
-      description: 'Текст пояснения под полем',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "''" },
-        type: { summary: 'string' }
-      }
-    },
-    info: {
-      control: 'text',
-      description: 'Текст доп. информации в тултипе иконки ti-info-circle',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "''" },
-        type: { summary: 'string' }
-      }
-    },
-    // Hidden props
-    variant: { table: { disable: true } },
-    promptLabel: { table: { disable: true } },
-    weakLabel: { table: { disable: true } },
-    mediumLabel: { table: { disable: true } },
-    strongLabel: { table: { disable: true } },
-    inputStyleClass: { table: { disable: true } },
-    ariaLabel: { table: { disable: true } },
-    ariaLabelledBy: { table: { disable: true } },
-    autofocus: { table: { disable: true } },
-    sizeClass: { table: { disable: true } },
-    computedInputStyleClass: { table: { disable: true } },
-
-    // События
-    onFocus: {
-      control: false,
-      description: 'Событие фокуса',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    },
-    onBlur: {
-      control: false,
-      description: 'Событие потери фокуса',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    }
+    floatLabel: { control: 'boolean', description: 'Плавающая метка внутри поля (перекрывает labelPosition)' },
+    caption: { control: 'text', description: 'Текст пояснения под полем' },
+    captionSeverity: { control: 'select', options: ['base', 'success', 'warning', 'danger', 'info'] },
+    requiredMark: { control: 'boolean' },
+    clearable: { control: 'boolean' },
+    info: { control: 'text', description: 'Текст доп. информации в тултипе иконки ti-info-circle' },
+    promptLabel: { control: 'text' },
+    weakLabel: { control: 'text' },
+    mediumLabel: { control: 'text' },
+    strongLabel: { control: 'text' },
+    inputStyleClass: { control: 'text' },
+    ariaLabel: { control: 'text' },
+    ariaLabelledBy: { control: 'text' },
+    appendTo: { control: 'select', options: ['body', 'self'] },
+    autofocus: { control: 'boolean' },
+    required: { control: 'boolean' },
+    name: { control: 'text' },
+    autocomplete: { control: 'text' },
+    maxLength: { control: 'number' },
+    tabindex: { control: 'number' },
+    readonly: { control: 'boolean' },
+    onFocus: { control: false, description: 'Событие фокуса' },
+    onBlur: { control: false, description: 'Событие потери фокуса' },
+    onClear: { control: false },
+    value: { control: 'text' },
+    disabled: { control: 'boolean' },
+    invalid: { control: 'boolean' },
+    templateMode: { control: 'select', options: ['none', 'rules', 'header'] }
   },
   args: {
     showFeedback: true,
-    showMaskToggle: false,
-    placeholder: 'Введите пароль',
+    showMaskToggle: true,
+    placeholder: 'Password',
     size: 'base',
+    variant: 'outlined',
     fluid: false,
+    label: 'Label',
     labelPosition: 'top',
     floatLabel: false,
-    label: '',
-    caption: '',
-    info: ''
+    caption: 'Caption',
+    captionSeverity: 'base',
+    requiredMark: true,
+    clearable: false,
+    info: 'Info',
+    promptLabel: 'Введите пароль',
+    weakLabel: 'Слабый',
+    mediumLabel: 'Средний',
+    strongLabel: 'Надёжный',
+    inputStyleClass: undefined,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    appendTo: 'body',
+    autofocus: false,
+    required: false,
+    name: undefined,
+    autocomplete: undefined,
+    maxLength: undefined,
+    tabindex: undefined,
+    readonly: false,
+    value: '',
+    disabled: false,
+    invalid: false,
+    templateMode: 'none',
+    onFocus: fn(),
+    onBlur: fn(),
+    onClear: fn()
+  },
+  render: (args) => {
+    const fieldControl = new FormControl<string | null>(
+      { value: args.value, disabled: args.disabled },
+      args.invalid ? () => ({ storyInvalid: true }) : []
+    );
+    if (args.invalid) fieldControl.markAsTouched();
+    return {
+      props: {
+        ...Object.fromEntries(INPUTS.map((k) => [k, args[k]])),
+        fieldControl,
+        onFocus: args.onFocus,
+        onBlur: args.onBlur,
+        onClear: args.onClear,
+        ruleMet,
+        ruleIcon: (value: string | null, index: number) =>
+          'ti ' + (ruleMet(value, index) ? 'ti-circle-check' : value ? 'ti-circle-x' : 'ti-point')
+      },
+      template: template(args)
+    };
   }
 };
-
 export default meta;
-type Story = StoryObj<ExtraPasswordComponent>;
-
-// ── Default ──────────────────────────────────────────────────────────────────
+type Story = StoryObj<PasswordArgs>;
 export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (!args.showFeedback) parts.push(`[showFeedback]="false"`);
-    if (args.showMaskToggle) parts.push(`[showMaskToggle]="true"`);
-    if (args.label) parts.push(`label="${args.label}"`);
-    if (args.floatLabel) {
-      parts.push(`[floatLabel]="true"`);
-    } else {
-      if (args.labelPosition && args.labelPosition !== 'top') parts.push(`labelPosition="${args.labelPosition}"`);
-      if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
+  args: {},
+  parameters: {
+    docs: {
+      description: { story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.' }
     }
-    if (args.caption) parts.push(`caption="${args.caption}"`);
-    if (args.info) parts.push(`info="${args.info}"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-
-    parts.push(`[(ngModel)]="value"`);
-
-    const template =
-      parts.length > 1
-        ? `<extra-password\n  ${parts.join('\n  ')}\n></extra-password>`
-        : `<extra-password ${parts.join(' ')}></extra-password>`;
-
-    return { props: { ...args, value: null }, template };
-  },
+  }
+};
+export const Error: Story = {
+  args: { invalid: true },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Поле ввода пароля в состоянии ошибки валидации. `invalid` не публичный `@Input()` — вычисляется автоматически из состояния привязанного `FormControl` (невалидные `Validators` + touched).'
       }
     }
   }
 };
-
-// ── Re-exports from example components ────────────────────────────────────
-export { ToggleMask, Feedback, Disabled, Invalid, FloatLabel, Template, Header };
+export const Disabled: Story = {
+  args: { disabled: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Поле ввода пароля в отключённом состоянии. `disabled` не публичный `@Input()`, отключается через форму (`disabled: true` в `FormControl`), см. `ControlValueAccessor.setDisabledState`.'
+      }
+    }
+  }
+};
+export const Readonly: Story = { args: { readonly: true } };
+export const FloatLabel: Story = {
+  args: { floatLabel: true, label: 'FloatLabel' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Интеграция с `floatLabel` — плавающая метка внутри поля. Кликните на поле чтобы увидеть анимацию.'
+      }
+    }
+  }
+};
+export const Clearable: Story = { args: { clearable: true, value: 'Password' } };
+export const Fluid: Story = { args: { fluid: true } };
+export const ToggleMask: Story = {
+  args: { showMaskToggle: true },
+  parameters: { docs: { description: { story: 'Возможность показать/скрыть введённый пароль по иконке.' } } }
+};
+export const Feedback: Story = {
+  args: { showFeedback: true, autofocus: true },
+  parameters: {
+    docs: { description: { story: 'Индикатор надёжности пароля с визуальной шкалой (слабый / средний / сильный).' } }
+  }
+};
+export const Template: Story = {
+  args: { showFeedback: true, autofocus: true, templateMode: 'rules' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Кастомный контент через `ng-template`: разделитель и список требований к паролю с tabler-иконками.'
+      }
+    }
+  }
+};
+export const Header: Story = {
+  args: { showFeedback: true, autofocus: true, templateMode: 'header' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Шапка панели через `extraPasswordHeader` (над правилами) и подвал через `extraPasswordFooter`.'
+      }
+    }
+  }
+};
+export const LabelLeft: Story = { args: { labelPosition: 'left' } };
