@@ -49,4 +49,8 @@ export const tieredmenuCss = ({ dt }: { dt: (token: string) => string }): string
     font-size: ${dt('fonts.fontSize.200')};
     color: ${dt('tieredmenu.extend.extItem.caption.color')};
   }
+/* ─── Нажатие пункта: pressedBackground из Figma ItemBase ─── */
+.p-tieredmenu .p-tieredmenu-item-content .p-tieredmenu-item-link:active {
+  background: ${dt('tieredmenu.extend.extItem.pressedBackground')};
+}
 `;

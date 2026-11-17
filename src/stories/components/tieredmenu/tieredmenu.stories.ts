@@ -1,23 +1,31 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraTieredMenuComponent } from '../../../lib/components/tieredmenu/tieredmenu.component';
-import { TieredMenuBasicComponent, Basic } from './examples/tieredmenu-basic.component';
-import { TieredMenuSelectedComponent, WithSelected } from './examples/tieredmenu-selected.component';
-import { TieredMenuCustomComponent, Custom } from './examples/tieredmenu-custom.component';
+import { basicItems } from './tieredmenu.data';
 
-const meta: Meta<ExtraTieredMenuComponent> = {
+const withSelectedItems = [
+  {
+    label: 'Отправления',
+    icon: 'ti ti-package',
+    expanded: true,
+    items: [
+      { label: 'Новые' },
+      { label: 'В обработке', styleClass: 'p-tieredmenu-item-active' },
+      { label: 'Доставленные' }
+    ]
+  },
+  { label: 'Маршруты', icon: 'ti ti-route' },
+  { label: 'Настройки', icon: 'ti ti-settings', disabled: true }
+];
+
+type TieredMenuArgs = Partial<ExtraTieredMenuComponent>;
+
+const plain = '<extra-tieredmenu [model]="model"></extra-tieredmenu>';
+
+const meta: Meta<TieredMenuArgs> = {
   title: 'Components/Menu/TieredMenu',
   component: ExtraTieredMenuComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraTieredMenuComponent,
-        TieredMenuBasicComponent,
-        TieredMenuSelectedComponent,
-        TieredMenuCustomComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'tieredmenu'],
+  decorators: [moduleMetadata({ imports: [ExtraTieredMenuComponent] })],
   parameters: {
     docs: {
       description: {
@@ -26,37 +34,36 @@ const meta: Meta<ExtraTieredMenuComponent> = {
 \`\`\`typescript
 import { ExtraTieredMenuComponent as TieredMenuComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
-      }
+      },
+      source: { language: 'html', type: 'code', transform: () => plain }
     },
     designTokens: { prefix: '--p-tieredmenu' }
   },
   argTypes: {
-    model: {
-      table: { disable: true }
-    },
-    autoDisplay: {
-      control: 'boolean',
-      description: 'Показывать подменю при наведении',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'true' },
-        type: { summary: 'boolean' }
-      }
-    },
-    tabindex: {
-      control: 'number',
-      description: 'Порядок фокуса при навигации клавиатурой',
-      table: {
-        category: 'Props',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'number' }
-      }
-    }
+    model: { control: 'object', description: 'Массив пунктов меню с вложенными items' },
+    autoDisplay: { control: 'boolean', description: 'Показывать подменю при наведении' },
+    tabindex: { control: 'number', description: 'Порядок фокуса при навигации клавиатурой' }
+  },
+  args: { model: basicItems }
+};
+export default meta;
+type Story = StoryObj<TieredMenuArgs>;
+
+export const Basic: Story = {
+  args: { model: basicItems },
+  render: (args) => ({ props: args, template: plain }),
+  parameters: {
+    docs: { description: { story: 'Базовое иерархическое меню с вложенными подменю.' } }
   }
 };
 
-export default meta;
-type Story = StoryObj<ExtraTieredMenuComponent>;
-
-// ── Re-exports from example components ────────────────────────────────────
-export { Basic, WithSelected, Custom };
+export const WithSelected: Story = {
+  args: { model: withSelectedItems },
+  render: (args) => ({ props: args, template: plain }),
+  parameters: {
+    docs: {
+      description: { story: 'При клике на пункт меню он визуально выделяется как активный.' },
+      source: { language: 'html', type: 'code', code: plain }
+    }
+  }
+};

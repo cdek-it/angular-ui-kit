@@ -4,9 +4,7 @@ import { ExtraMenuItem } from '../../../../lib/shared/public_api';
 import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/tieredmenu.component';
 
 const template = `
-<div class="bg-surface-ground" style="min-height: 280px">
-  <extra-tieredmenu [model]="items"></extra-tieredmenu>
-</div>
+<extra-tieredmenu [model]="items"></extra-tieredmenu>
 `;
 const styles = '';
 
@@ -15,19 +13,19 @@ const styles = '';
   standalone: true,
   imports: [ExtraTieredMenuComponent],
   template,
-  styles,
+  styles
 })
 export class TieredMenuSelectedComponent {
   items: ExtraMenuItem[] = [
     { label: 'Отправления', icon: 'ti ti-package' },
     { label: 'Маршруты', icon: 'ti ti-route' },
-    { label: 'Склады', icon: 'ti ti-building-warehouse' },
+    { label: 'Склады', icon: 'ti ti-building-warehouse' }
   ];
 }
 
 export const WithSelected: StoryObj = {
   render: () => ({
-    template: `<app-tieredmenu-selected></app-tieredmenu-selected>`,
+    template: `<app-tieredmenu-selected></app-tieredmenu-selected>`
   }),
   parameters: {
     docs: {
@@ -52,8 +50,8 @@ export class TieredMenuSelectedComponent {
     { label: 'Склады', icon: 'ti ti-building-warehouse' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };

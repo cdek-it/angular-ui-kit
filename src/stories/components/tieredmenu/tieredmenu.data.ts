@@ -10,9 +10,9 @@ export const basicItems: ExtraMenuItem[] = [
       { label: 'Доставленные' },
       {
         label: 'Возвраты',
-        items: [{ label: 'Ожидают' }, { label: 'Завершённые' }],
-      },
-    ],
+        items: [{ label: 'Ожидают' }, { label: 'Завершённые' }]
+      }
+    ]
   },
   { label: 'Маршруты' },
   {
@@ -23,17 +23,14 @@ export const basicItems: ExtraMenuItem[] = [
       { label: 'Екатеринбург' },
       {
         label: 'Регионы',
-        items: [{ label: 'Урал' }, { label: 'Сибирь' }],
-      },
-    ],
+        items: [{ label: 'Урал' }, { label: 'Сибирь' }]
+      }
+    ]
   },
   {
     icon: 'ti ti-settings',
     label: 'Настройки',
     disabled: true,
-    items: [
-      { label: 'Профиль' },
-      { label: 'Уведомления' },
-    ],
-  },
+    items: [{ label: 'Профиль' }, { label: 'Уведомления' }]
+  }
 ];

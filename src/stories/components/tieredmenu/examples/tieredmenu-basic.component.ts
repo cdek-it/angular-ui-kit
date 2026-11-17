@@ -5,9 +5,7 @@ import { ExtraTieredMenuComponent } from '../../../../lib/components/tieredmenu/
 import { basicItems } from '../tieredmenu.data';
 
 const template = `
-<div class="bg-surface-ground" style="min-height: 280px">
-  <extra-tieredmenu [model]="items"></extra-tieredmenu>
-</div>
+<extra-tieredmenu [model]="items"></extra-tieredmenu>
 `;
 const styles = '';
 
@@ -16,7 +14,7 @@ const styles = '';
   standalone: true,
   imports: [ExtraTieredMenuComponent],
   template,
-  styles,
+  styles
 })
 export class TieredMenuBasicComponent {
   items: ExtraMenuItem[] = basicItems;
@@ -24,7 +22,7 @@ export class TieredMenuBasicComponent {
 
 export const Basic: StoryObj = {
   render: () => ({
-    template: `<app-tieredmenu-basic></app-tieredmenu-basic>`,
+    template: `<app-tieredmenu-basic></app-tieredmenu-basic>`
   }),
   parameters: {
     docs: {
@@ -62,8 +60,8 @@ export class TieredMenuBasicComponent {
     { label: 'Настройки', icon: 'ti ti-settings', disabled: true },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
