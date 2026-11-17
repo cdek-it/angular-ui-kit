@@ -8,7 +8,7 @@ const template = `
   [rows]="rows"
   [totalRecords]="120"
   [showCurrentPageReport]="true"
-  currentPageReportTemplate="{currentPage} из {totalPages}"
+  [currentPageReportTemplate]="reportTemplate"
   (onPageChange)="onPageChange($event)"
 ></extra-paginator>
 `;
@@ -22,6 +22,7 @@ const styles = '';
   styles
 })
 export class PaginatorCurrentPageReportComponent {
+  reportTemplate = '{currentPage} из {totalPages}';
   first = 0;
   rows = 10;
 
@@ -55,12 +56,13 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit';
       [rows]="rows"
       [totalRecords]="120"
       [showCurrentPageReport]="true"
-      currentPageReportTemplate="{currentPage} из {totalPages}"
+      [currentPageReportTemplate]="reportTemplate"
       (onPageChange)="onPageChange($event)"
     ></extra-paginator>
   \`,
 })
 export class PaginatorCurrentPageReportComponent {
+  reportTemplate = '{currentPage} из {totalPages}';
   first = 0;
   rows = 10;
 

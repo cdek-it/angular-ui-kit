@@ -12,7 +12,10 @@ import {
 type PaginatorArgs = Pick<
   ExtraPaginatorComponent,
   | 'totalRecords'
+  | 'first'
   | 'rows'
+  | 'rowsPerPageOptions'
+  | 'currentPageReportTemplate'
   | 'pageLinkSize'
   | 'showFirstLastIcon'
   | 'showPageLinks'
@@ -33,6 +36,7 @@ const meta: Meta<PaginatorArgs> = {
     })
   ],
   parameters: {
+    designTokens: { prefix: '--p-paginator' },
     docs: {
       description: {
         component: `Отображает навигацию по страницам для больших наборов данных.
@@ -40,9 +44,25 @@ const meta: Meta<PaginatorArgs> = {
 \`\`\`typescript
 import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/paginator';
 \`\`\``
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () =>
+          `<extra-paginator
+  [totalRecords]="totalRecords"
+  [rows]="rows"
+  [pageLinkSize]="pageLinkSize"
+  [showFirstLastIcon]="showFirstLastIcon"
+  [showPageLinks]="showPageLinks"
+  [showCurrentPageReport]="showCurrentPageReport"
+  [showJumpToPage]="showJumpToPage"
+  [jumpToPagePlaceholder]="jumpToPagePlaceholder"
+  [showDropdown]="showDropdown"
+  [alwaysShow]="alwaysShow"
+></extra-paginator>`
       }
-    },
-    designTokens: { prefix: '--p-paginator' }
+    }
   },
   argTypes: {
     totalRecords: {
@@ -80,6 +100,15 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/pagi
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' }
       }
+    },
+    first: { control: 'number', description: 'Индекс первой записи текущей страницы' },
+    rowsPerPageOptions: {
+      control: 'object',
+      description: 'Варианты количества строк на странице для выпадающего списка'
+    },
+    currentPageReportTemplate: {
+      control: 'text',
+      description: 'Шаблон отчёта о текущей странице ({currentPage}, {totalPages}, {first}, {last}, {totalRecords})'
     },
     showPageLinks: {
       control: 'boolean',
@@ -138,6 +167,9 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/pagi
   },
   args: {
     totalRecords: 120,
+    first: 0,
+    rowsPerPageOptions: [10, 20, 30],
+    currentPageReportTemplate: '{currentPage} из {totalPages}',
     rows: 10,
     pageLinkSize: 5,
     showFirstLastIcon: true,
@@ -185,17 +217,36 @@ export const Default: Story = {
 
 // ── CurrentPageReport ─────────────────────────────────────────────────────────
 
-export const CurrentPageReport: Story = CurrentPageReportStory;
+export const CurrentPageReport: Story = {
+  ...CurrentPageReportStory,
+  parameters: {
+    ...CurrentPageReportStory.parameters,
+    docs: {
+      ...(CurrentPageReportStory.parameters?.['docs'] ?? {}),
+      description: { story: 'Пагинатор с отображением текущей страницы и общего числа страниц.' },
+      source: {
+        language: 'html',
+        code: '<extra-paginator [totalRecords]="120" [showCurrentPageReport]="true"></extra-paginator>'
+      }
+    }
+  }
+};
 
 // ── RowsPerPage ───────────────────────────────────────────────────────────────
 
 export const RowsPerPage: Story = {
   ...RowsPerPageStory,
+  args: { rowsPerPageOptions: [10, 20, 30] },
   parameters: {
     ...RowsPerPageStory.parameters,
+    story: { height: '200px' },
     docs: {
-      ...RowsPerPageStory.parameters?.docs,
-      story: { height: '200px' }
+      ...(RowsPerPageStory.parameters?.['docs'] ?? {}),
+      description: { story: 'Пагинатор с выбором количества строк на странице и переходом на конкретную страницу.' },
+      source: {
+        language: 'html',
+        code: '<extra-paginator [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" [showJumpToPage]="true"></extra-paginator>'
+      }
     }
   }
 };
