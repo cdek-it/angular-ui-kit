@@ -1,9 +1,11 @@
 import {
+  afterNextRender,
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  ElementRef,
   EventEmitter,
   forwardRef,
   inject,
@@ -59,15 +61,15 @@ export interface ExtraInputOtpChangeEvent {
       [length]="length"
       [mask]="mask"
       [integerOnly]="integerOnly"
-      [autofocus]="autofocus"
+      [autofocus]="autofocus && !disabled"
       [readonly]="readonly"
-      [tabindex]="tabindex ?? null"
+      [tabindex]="disabled ? -1 : (tabindex ?? null)"
       [pt]="inputOtpPt"
       [size]="primeSize"
-      [disabled]="disabled"
       [invalid]="invalid"
       [formControl]="control"
       (onChange)="onChangeHandler($event)"
+      (onBlur)="markTouched()"
     ></p-inputotp>
   `
 })
@@ -76,14 +78,24 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit, OnC
   private readonly _cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
+  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  constructor() {
+    afterNextRender(() => {
+      const host = this.element.nativeElement;
+      const paste = (event: ClipboardEvent) => this.handlePaste(event);
+      host.addEventListener('paste', paste, { capture: true });
+      this.destroyRef.onDestroy(() => host.removeEventListener('paste', paste, { capture: true }));
+    });
+  }
 
   readonly control = new FormControl<string | null>(null);
 
   @Input() length = 4;
-  @Input() mask = false;
-  @Input() integerOnly = false;
+  @Input({ transform: booleanAttribute }) mask = false;
+  @Input({ transform: booleanAttribute }) integerOnly = false;
   /** Автофокус на первой ячейке при инициализации. */
-  @Input() autofocus = false;
+  @Input({ transform: booleanAttribute }) autofocus = false;
   /** Размер ячейки. */
   @Input() size: ExtraInputOtpSize = 'base';
   @Input({ transform: booleanAttribute }) readonly = false;
@@ -108,7 +120,8 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit, OnC
           name: this.name || undefined,
           // PrimeNG типизирует autocomplete как union AutoFill; наш API принимает произвольную строку.
           autocomplete: (this.autocomplete || undefined) as never,
-          'aria-label': this.ariaLabel || undefined,
+          'aria-label': this.ariaLabel || 'Одноразовый код',
+          'aria-required': this.required || undefined,
           'aria-labelledby': this.ariaLabelledBy || undefined
         }
       }
@@ -126,6 +139,15 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit, OnC
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['required']) this._onValidatorChange();
+    if (changes['length']) {
+      afterNextRender(
+        () => {
+          this.control.setValue(this.control.value, { emitEvent: false });
+          this._cdr.markForCheck();
+        },
+        { injector: this._injector }
+      );
+    }
   }
 
   disabled = false;
@@ -156,7 +178,24 @@ export class ExtraInputOtpComponent implements ControlValueAccessor, OnInit, OnC
   }
 
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !!(this._ngControl?.invalid && (this._ngControl.touched || this._ngControl.dirty));
+  }
+
+  markTouched(): void {
+    this._onTouched();
+    this._cdr.markForCheck();
+  }
+
+  handlePaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.disabled || this.readonly) return;
+    const text = event.clipboardData?.getData('text') ?? '';
+    if (!text || (this.integerOnly && !/^\d+$/.test(text))) return;
+    const value = text.slice(0, this.length);
+    this.control.setValue(value);
+    this.onChange.emit({ value, originalEvent: event });
+    this._cdr.markForCheck();
   }
 
   onChangeHandler(event: InputOtpChangeEvent): void {

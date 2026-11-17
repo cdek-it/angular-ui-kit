@@ -5,10 +5,10 @@ import { ExtraInputOtpComponent } from '../../../../lib/components/inputotp/inpu
 export const IntegerOnly: StoryObj = {
   name: 'IntegerOnly',
   render: (args) => {
-    const control = new FormControl<string | null>(null);
+    const fieldControl = new FormControl<string | null>(null);
     return {
-      props: { ...args, control },
-      template: `<extra-input-otp [integerOnly]="true" [formControl]="control"></extra-input-otp>`
+      props: { ...args, fieldControl },
+      template: `<extra-input-otp [integerOnly]="true" [formControl]="fieldControl"></extra-input-otp>`
     };
   },
   decorators: [

@@ -5,10 +5,10 @@ import { ExtraInputOtpComponent } from '../../../../lib/components/inputotp/inpu
 export const Mask: StoryObj = {
   name: 'Mask',
   render: (args) => {
-    const control = new FormControl('1234');
+    const fieldControl = new FormControl('1234');
     return {
-      props: { ...args, control },
-      template: `<extra-input-otp [mask]="true" [formControl]="control"></extra-input-otp>`
+      props: { ...args, fieldControl },
+      template: `<extra-input-otp [mask]="true" [formControl]="fieldControl"></extra-input-otp>`
     };
   },
   decorators: [

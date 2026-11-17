@@ -1,23 +1,56 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { fn } from 'storybook/test';
 import { ExtraInputOtpComponent } from '../../../lib/components/inputotp/inputotp.component';
-import { Disabled } from './examples/inputotp-disabled.component';
-import { Invalid } from './examples/inputotp-invalid.component';
-import { Mask } from './examples/inputotp-mask.component';
-import { IntegerOnly } from './examples/inputotp-integeronly.component';
-import { Autofocus } from './examples/inputotp-autofocus.component';
-
-type InputOtpArgs = ExtraInputOtpComponent;
-
-const meta: Meta<InputOtpArgs> = {
+const INPUTS = [
+  'length',
+  'mask',
+  'integerOnly',
+  'autofocus',
+  'size',
+  'readonly',
+  'required',
+  'name',
+  'autocomplete',
+  'ariaLabel',
+  'ariaLabelledBy',
+  'tabindex'
+] as const;
+type OtpArgs = Pick<ExtraInputOtpComponent, (typeof INPUTS)[number] | 'onChange' | 'control'> & {
+  value: string | null;
+  disabled: boolean;
+  invalid: boolean;
+};
+type RenderArgs = Partial<Pick<OtpArgs, (typeof INPUTS)[number] | 'value' | 'disabled' | 'invalid'>>;
+function source(args: RenderArgs) {
+  const parts = ['[formControl]="fieldControl"'];
+  const escape = (s: string) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+  for (const key of INPUTS) {
+    const value = args[key];
+    if (value === undefined) continue;
+    parts.push(typeof value === 'string' ? key + '="' + escape(value) + '"' : '[' + key + ']="' + value + '"');
+  }
+  return '<extra-input-otp\n  ' + parts.join('\n  ') + '\n></extra-input-otp>';
+}
+const meta: Meta<OtpArgs> = {
   title: 'Components/Form/InputOtp',
   component: ExtraInputOtpComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [ExtraInputOtpComponent, ReactiveFormsModule]
-    })
-  ],
+  tags: ['autodocs', 'inputotp'],
+  decorators: [moduleMetadata({ imports: [ExtraInputOtpComponent, ReactiveFormsModule] })],
+  render: (args) => {
+    const fieldControl = new FormControl<string | null>(
+      { value: args.value ?? null, disabled: !!args.disabled },
+      args.invalid ? () => ({ storyInvalid: true }) : []
+    );
+    if (args.invalid) fieldControl.markAsTouched();
+    return {
+      props: { ...Object.fromEntries(INPUTS.map((k) => [k, args[k]])), fieldControl, onChange: args.onChange },
+      template:
+        '<extra-input-otp [formControl]="fieldControl" ' +
+        INPUTS.map((k) => '[' + k + ']="' + k + '"').join(' ') +
+        ' (onChange)="onChange($event)"></extra-input-otp>'
+    };
+  },
   parameters: {
     designTokens: { prefix: '--p-inputotp' },
     docs: {
@@ -31,6 +64,11 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
 
 Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
+      },
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_code: string, context: { args: RenderArgs }) => source(context.args)
       }
     }
   },
@@ -111,7 +149,15 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     // Hidden computed props
-    control: { table: { disable: true } }
+    control: { table: { disable: true } },
+    readonly: { control: 'boolean' },
+    required: { control: 'boolean' },
+    name: { control: 'text' },
+    autocomplete: { control: 'text' },
+    ariaLabel: { control: 'text' },
+    ariaLabelledBy: { control: 'text' },
+    tabindex: { control: 'number' },
+    value: { control: 'text' }
   },
   args: {
     length: 4,
@@ -119,33 +165,24 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
     integerOnly: false,
     autofocus: false,
     size: 'base',
+    readonly: false,
+    required: false,
+    name: undefined,
+    autocomplete: undefined,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    tabindex: undefined,
+    value: '0000',
     disabled: false,
-    invalid: false
+    invalid: false,
+    onChange: fn()
   }
 };
-
 export default meta;
-type Story = StoryObj<InputOtpArgs>;
-
-// ── Default (интерактивная) ────────────────────────────────────────────────
+type Story = StoryObj<OtpArgs>;
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.length !== 4) parts.push(`[length]="${args.length}"`);
-    if (args.mask) parts.push(`[mask]="true"`);
-    if (args.integerOnly) parts.push(`[integerOnly]="true"`);
-    if (args.autofocus) parts.push(`[autofocus]="true"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-
-    const validators = args.invalid ? [() => ({ invalid: true })] : [];
-    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
-
-    const template = `<extra-input-otp [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-otp>`;
-
-    return { props: { ...args, control }, template };
-  },
+  args: {},
   parameters: {
     docs: {
       description: {
@@ -155,6 +192,32 @@ export const Default: Story = {
     }
   }
 };
-
-// ── Комбинаторные истории ──────────────────────────────────────────────────
-export { Disabled, Invalid, Mask, IntegerOnly, Autofocus };
+export const Error: Story = {
+  name: 'Error',
+  args: { invalid: true },
+  parameters: {
+    docs: { description: { story: 'Невалидное состояние — определяется через валидаторы `FormControl`.' } }
+  }
+};
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: { disabled: true },
+  parameters: { docs: { description: { story: 'Заблокированное состояние — управляется через `FormControl`.' } } }
+};
+export const Readonly: Story = { name: 'Readonly', args: { readonly: true } };
+export const SixDigits: Story = { name: 'SixDigits', args: { length: 6, value: '000000' } };
+export const Mask: Story = {
+  name: 'Mask',
+  args: { mask: true },
+  parameters: { docs: { description: { story: 'Маскированный ввод — символы скрыты.' } } }
+};
+export const IntegerOnly: Story = {
+  name: 'IntegerOnly',
+  args: { integerOnly: true },
+  parameters: { docs: { description: { story: 'Ввод только цифр.' } } }
+};
+export const Autofocus: Story = {
+  name: 'Autofocus',
+  args: { autofocus: true },
+  parameters: { docs: { description: { story: 'Автофокус на первой ячейке при инициализации.' } } }
+};

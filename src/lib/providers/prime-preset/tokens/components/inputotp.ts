@@ -1,56 +1,49 @@
 export const inputotpCss = ({ dt }: { dt: (token: string) => string }): string => `
-/* Стили границы */
+.p-inputotp.p-component {
+  display: inline-flex;
+  gap: ${dt('inputotp.root.gap')};
+}
 .p-inputotp.p-component .p-inputtext {
-  border-width: ${dt('inputotp.extend.borderWidth')};
-  padding-inline: 0;
+  box-sizing: border-box;
+  height: ${dt('inputotp.extend.height')};
+  padding: 0;
+  border: 0;
+  outline: ${dt('inputotp.extend.borderWidth')} solid ${dt('inputotp.extend.field.borderColor')};
+  outline-offset: 0;
+  border-radius: ${dt('inputotp.extend.field.borderRadius')};
+  box-shadow: none;
+  background: ${dt('inputotp.extend.field.background')};
+  color: ${dt('inputotp.extend.field.color')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.200')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  line-height: ${dt('fonts.lineHeight.300')};
 }
-
-/* ─── Disabled ─── */
+.p-inputotp.p-component .p-inputtext:enabled:hover {
+  outline-color: ${dt('inputotp.extend.field.hoverBorderColor')};
+}
 .p-inputotp.p-component .p-inputtext:disabled {
-  background: ${dt('inputtext.root.disabledBackground')};
-  color: ${dt('inputtext.root.disabledColor')};
+  background: ${dt('inputotp.extend.field.disabledBackground')};
+  opacity: ${dt('inputotp.extend.field.disabledOpacity')};
 }
-
-/* ─── Readonly ─── */
 .p-inputotp.p-component .p-inputtext:enabled:read-only {
-  background: ${dt('inputtext.extend.readonlyBackground')};
-  color: ${dt('inputtext.root.color')};
+  background: ${dt('inputotp.extend.field.readonlyBackground')};
 }
-
-/* ─── Focus ─── */
+.p-inputotp.p-component .p-inputtext.p-invalid {
+  outline-color: ${dt('inputotp.extend.field.invalidBorderColor')};
+}
 .p-inputotp.p-component .p-inputtext:enabled:focus {
-  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
+  outline: none;
+  box-shadow: 0 0 0 ${dt('inputotp.extend.field.focusWidth')} ${dt('inputotp.extend.field.focusColor')};
 }
-
-/* ─── Invalid + Focus ─── */
-.p-inputotp.p-component .p-inputtext.p-invalid:focus {
-  border-color: ${dt('inputtext.root.invalidBorderColor')};
-  box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.border.status.danger.focus')};
+.p-inputotp.p-component .p-inputtext.p-invalid:enabled:focus {
+  box-shadow: 0 0 0 ${dt('inputotp.extend.field.focusWidth')} ${dt('inputotp.extend.field.dangerFocusColor')};
 }
-
-/* ─── Small ─── */
 .p-inputotp.p-component .p-inputtext.p-inputtext-sm {
   height: ${dt('inputotp.extend.extSm.height')};
-  /* радиус inputtext (14px) на ячейке 28px смыкается в круг — для sm свой */
   border-radius: ${dt('inputotp.extend.extSm.borderRadius')};
-  padding-block: ${dt('inputtext.root.sm.paddingY')};
 }
-
-/* ─── Base ─── */
-.p-inputotp.p-component .p-inputtext:not(.p-inputtext-sm):not(.p-inputtext-lg):not(.p-inputtext-xlg) {
-  height: ${dt('inputotp.extend.height')};
-  padding-block: ${dt('inputtext.root.paddingY')};
-}
-
-/* ─── Large ─── */
 .p-inputotp.p-component .p-inputtext.p-inputtext-lg {
   height: ${dt('inputotp.extend.extLg.height')};
-  padding-block: ${dt('inputtext.root.lg.paddingY')};
-}
-
-/* ─── Extra Large ─── */
-.p-inputotp.p-component.p-inputotp-xlg .p-inputtext {
-  font-size: ${dt('inputtext.extend.extXlg.fontSize')};
-  padding-block: ${dt('inputtext.extend.extXlg.paddingY')};
 }
 `;

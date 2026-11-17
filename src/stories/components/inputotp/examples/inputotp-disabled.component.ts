@@ -5,10 +5,10 @@ import { ExtraInputOtpComponent } from '../../../../lib/components/inputotp/inpu
 export const Disabled: StoryObj = {
   name: 'Disabled',
   render: (args) => {
-    const control = new FormControl({ value: '1234', disabled: true });
+    const fieldControl = new FormControl({ value: '1234', disabled: true });
     return {
-      props: { ...args, control },
-      template: `<extra-input-otp [formControl]="control"></extra-input-otp>`
+      props: { ...args, fieldControl },
+      template: `<extra-input-otp [formControl]="fieldControl"></extra-input-otp>`
     };
   },
   decorators: [
