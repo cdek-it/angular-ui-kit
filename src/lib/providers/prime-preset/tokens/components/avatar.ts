@@ -27,4 +27,15 @@ export const avatarCss = ({ dt }: { dt: (token: string) => string }): string => 
 .p-overlaybadge.p-overlaybadge {
   width: fit-content;
 }
+
+/* ─── Рамка и радиусы размеров из Figma ─── */
+.p-avatar {
+  border-color: ${dt('avatar.extend.borderColor')};
+}
+.p-avatar-lg {
+  border-radius: ${dt('avatar.extend.lg.borderRadius')};
+}
+.p-avatar-xl {
+  border-radius: ${dt('avatar.extend.xl.borderRadius')};
+}
 `;
