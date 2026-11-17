@@ -11,11 +11,18 @@ const meta: Meta<TabsDefaultComponent> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraTabsComponent, ExtraTabItemComponent, TabsDefaultComponent, TabsWithBadgeComponent, TabsWithDisabledComponent]
+      imports: [
+        ExtraTabsComponent,
+        ExtraTabItemComponent,
+        TabsDefaultComponent,
+        TabsWithBadgeComponent,
+        TabsWithDisabledComponent
+      ]
     })
   ],
   parameters: {
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-tabs value="Профиль"></extra-tabs>' },
       description: {
         component: `Организует контент по вкладкам с возможностью переключения между ними.
 
@@ -31,6 +38,7 @@ import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-k
     designTokens: { prefix: '--p-tabs' }
   },
   argTypes: {
+    value: { control: 'text', description: 'Активная вкладка (индекс или значение)' },
     scrollable: {
       control: 'boolean',
       description: 'Включает горизонтальную прокрутку списка вкладок',
@@ -69,27 +77,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример с тремя вкладками и иконками. Используйте Controls для `scrollable`/`lazy`.',
-      },
-      source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  standalone: true,
-  imports: [ExtraTabsComponent, ExtraTabItemComponent],
-  template: \`
-    <extra-tabs>
-      <extra-tab-item name="Профиль" icon="ti ti-user">Данные профиля</extra-tab-item>
-      <extra-tab-item name="Настройки" icon="ti ti-settings">Параметры аккаунта</extra-tab-item>
-      <extra-tab-item name="Уведомления" icon="ti ti-bell">Настройки уведомлений</extra-tab-item>
-    </extra-tabs>
-  \`,
-})
-export class ExampleComponent {}
-        `
+        story: 'Базовый пример с тремя вкладками и иконками. Используйте Controls для `scrollable`/`lazy`.'
       }
     }
   }

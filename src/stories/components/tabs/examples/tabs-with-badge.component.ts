@@ -25,24 +25,9 @@ export const WithBadge: StoryObj = {
     docs: {
       description: { story: 'Вкладки с бейджами — `badge`/`badgeSeverity` на `extra-tab-item`.' },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-tabs-with-badge',
-  standalone: true,
-  imports: [ExtraTabsComponent, ExtraTabItemComponent],
-  template: \`
-    <extra-tabs>
-      <extra-tab-item name="Входящие" badge="99+" badgeSeverity="danger">Список входящих</extra-tab-item>
-      <extra-tab-item name="Отправленные" badge="5">Отправленные сообщения</extra-tab-item>
-      <extra-tab-item name="Архив" badge="2">Архивные записи</extra-tab-item>
-    </extra-tabs>
-  \`,
-})
-export class TabsWithBadgeComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-tabs value="Входящие"></extra-tabs>'
       }
     }
   }

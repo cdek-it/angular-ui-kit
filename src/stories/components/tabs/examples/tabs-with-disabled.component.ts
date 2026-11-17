@@ -25,24 +25,9 @@ export const WithDisabled: StoryObj = {
     docs: {
       description: { story: 'Вкладки с заблокированной вкладкой — `[disabled]="true"` на `extra-tab-item`.' },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-tabs-with-disabled',
-  standalone: true,
-  imports: [ExtraTabsComponent, ExtraTabItemComponent],
-  template: \`
-    <extra-tabs>
-      <extra-tab-item name="Доступно">Активная вкладка</extra-tab-item>
-      <extra-tab-item name="Тоже доступно">Обычная вкладка</extra-tab-item>
-      <extra-tab-item name="Недоступно" [disabled]="true">Эта вкладка отключена</extra-tab-item>
-    </extra-tabs>
-  \`,
-})
-export class TabsWithDisabledComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-tabs value="Доступно"></extra-tabs>'
       }
     }
   }
