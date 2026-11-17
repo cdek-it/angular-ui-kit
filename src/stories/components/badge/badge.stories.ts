@@ -15,7 +15,7 @@ const meta: Meta<ExtraBadgeComponent> = {
   ],
   parameters: {
     docs: {
-      source: { language: 'html', type: 'code', transform: () => '<extra-badge></extra-badge>' },
+      source: { language: 'html', type: 'code', transform: () => '<extra-badge value="8"></extra-badge>' },
       description: {
         component: `Компактный индикатор статуса или числового значения. Используется для отображения счётчиков, меток и статусов.
 
