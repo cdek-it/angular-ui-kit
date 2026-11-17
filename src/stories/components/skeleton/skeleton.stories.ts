@@ -22,6 +22,7 @@ const meta: Meta<SkeletonComponent> = {
   ],
   parameters: {
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-skeleton></extra-skeleton>' },
       description: {
         component: `Заглушка для контента, пока данные загружаются. Поддерживает прямоугольную и круглую форму, а также волновую анимацию.
 
@@ -136,4 +137,3 @@ export const Default: Story = {
 };
 
 // ── Re-exports from example components ────────────────────────────────────
-export { Rectangles, Circle, CardPlaceholder, NoAnimation };
