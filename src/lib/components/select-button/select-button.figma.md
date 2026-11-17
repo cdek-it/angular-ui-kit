@@ -5,154 +5,40 @@ import:
   symbol: ExtraSelectButtonComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '317:1832'
   componentKey: '62afbf071ec53d216933d644c1e3041ff6a11dee'
   name: '<SelectButton>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
-## Overview
+# SelectButton
 
-`ExtraSelectButton` — segmented-группа кнопок для выбора одного или нескольких значений из небольшого набора взаимоисключающих опций (2–5). Кнопки слиты в единый контрол, выбор применяется немедленно. Оборачивает PrimeNG `p-selectbutton` и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`.
+Live Figma UI Kit DS v3.0: страница SelectButton 📱, набор `317:1832` (2 варианта: `state=default`, `state=disabled`).
+Внутри набора — слот `<Slot.Options>` из трёх инстансов `<🔒SelectButton.Item>`; сам элемент в Figma построен
+на компоненте ToggleButton, поэтому размерная лестница и disabled-цвета берутся из токенов `togglebutton.*`.
 
-Компонент соответствует Figma-компоненту `<SelectButton>` (nodeId `317:1832`). Figma-свойство `state` маппируется на Angular-инпут `disabled`, а набор сегментов (Figma-свойство `change-layout`) описывается массивом `options` с объектами `ExtraSelectButtonItem`.
+| Figma | API | Геометрия |
+|---|---|---|
+| `state=default` | значение через CVA | Группа: фон `color.bg.neutral.medium.default`, паддинги 4, радиус 12, зазор 4 |
+| `state=disabled` | `FormControl.disable()` | Сегмент: фон и рамка `disabledBackground`/`disabledBorderColor`, текст `disabledColor` (#85888e), без прозрачности |
+| `state=default`, выбранный сегмент | `value` | Фон и рамка `checkedBackground`/`checkedBorderColor`, текст `checkedColor` |
+| `<🔒SelectButton.Item>` | `options[]` | Паддинги 8×14, радиус 8, иконка 20, подпись Noto Sans 16/20, 600; высота сегмента 36, группы 44 |
+| `<Slot.Options>` | `options` / `multiple` / `allowEmpty` | Слот задаёт содержимое и количество сегментов; выбор — `ControlValueAccessor` |
 
-## Props mapping
+Ширина группы в Figma (472) задана плейсхолдерами слота, в коде группа тянется по содержимому.
+Размерная лестница small/base/large/xlarge — расширение кита (в наборе Figma размера нет): высоты 32/36/56/64,
+иконки 16/20/24/28, паддинги 4×14, 8×14, 14×24, 20×24. Значения закреплены матрицей API-TESTS.md.
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `options` | `ExtraSelectButtonItem[]` | `[]` | Массив сегментов; каждый сегмент задаётся объектом с `label`, `value`, опциональными `icon` и `disabled` — соответствует Figma-свойству `change-layout` |
-| `optionLabel` | `string` | `'label'` | Имя поля объекта опции, из которого берётся подпись сегмента |
-| `optionValue` | `string` | `'value'` | Имя поля объекта опции, из которого берётся значение модели |
-| `optionDisabled` | `string` | `'disabled'` | Имя поля объекта опции, отключающего отдельный сегмент |
-| `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер контрола |
-| `multiple` | `boolean` | `false` | Множественный выбор: модель — массив значений вместо одиночного значения |
-| `allowEmpty` | `boolean` | `true` | Разрешает снять выбор (пустое значение) повторным нажатием на активный сегмент |
-| `fluid` | `boolean` | `false` | Растягивает группу на всю доступную ширину контейнера; сегменты делят её поровну |
-| `disabled` | `boolean` | `false` | Отключённое состояние всего контрола — соответствует Figma-свойству `state=disabled`; управляется через `FormControl.disable()` / `enable()` |
-| `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
+## Отличия и ограничения
 
-Выбранное значение задаётся моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. В одиночном режиме модель — `string`, в режиме `multiple` — `string[]`. Событие изменения выбора — `(onChange)`.
+- Figma не содержит варианта `checked + disabled`: в коде выбранный сегмент сохраняет заливку выбора и получает muted-текст.
+- В наборе нет `hover`/`focus`: подсветка невыбранного сегмента и DS focus ring 2 px приходят из ToggleButton и общих токенов.
+- `invalidBorderColor` объявлен в переменных Figma, но в наборе нет `invalid`-варианта: внешний валидатор помечает `FormControl`
+  невалидным, рамка компонента при этом не подменяется (состояние не выдумывается).
+- Плейсхолдерная иконка слота — `ti-arrow-down-right`; она воспроизведена в story Default.
+- `tabindex` удалён из API: PrimeNG 20 принимает вход, но не передаёт его сегментам. `autofocus` реализован в обёртке.
 
-## Variants
-
-### Одиночный выбор (по умолчанию)
-
-Figma: `<SelectButton>`, state=default — single-режим
-
-```html
-<extra-select-button
-  [options]="viewOptions"
-  [(ngModel)]="selectedView"
-></extra-select-button>
-```
-
-В реактивных формах эквивалентно:
-
-```html
-<extra-select-button
-  [options]="viewOptions"
-  [formControl]="viewControl"
-></extra-select-button>
-```
-
-### Множественный выбор (multiple)
-
-Figma: `<SelectButton>`, state=default — multiple-режим, модель-массив
-
-```html
-<extra-select-button
-  [options]="filterOptions"
-  [multiple]="true"
-  [(ngModel)]="selectedFilters"
-></extra-select-button>
-```
-
-### Без возможности снять выбор (allowEmpty=false)
-
-Figma: `<SelectButton>`, state=default — обязателен один активный сегмент
-
-```html
-<extra-select-button
-  [options]="viewOptions"
-  [allowEmpty]="false"
-  [(ngModel)]="selectedView"
-></extra-select-button>
-```
-
-### С иконками в сегментах
-
-Figma: `<SelectButton>`, state=default — сегменты с иконкой; CSS-классы иконок — [icons.md](../../figma-code-connect/icons.md)
-
-```html
-<extra-select-button
-  [options]="alignOptions"
-  [(ngModel)]="selectedAlign"
-></extra-select-button>
-```
-
-### Disabled (отключён)
-
-Figma: `<SelectButton>`, state=disabled
-
-```html
-<extra-select-button
-  [options]="viewOptions"
-  [disabled]="true"
-  [(ngModel)]="selectedView"
-></extra-select-button>
-```
-
-### Отдельный отключённый сегмент
-
-Figma: `<SelectButton>`, state=default — один сегмент с `disabled: true`
-
-```html
-<extra-select-button
-  [options]="partlyDisabledOptions"
-  [(ngModel)]="selectedView"
-></extra-select-button>
-```
-
-### Во всю ширину контейнера (fluid)
-
-Figma: `<SelectButton>`, state=default — группа растянута по ширине родителя
-
-```html
-<extra-select-button
-  [options]="viewOptions"
-  [fluid]="true"
-  [(ngModel)]="selectedView"
-></extra-select-button>
-```
-
-## Slots
-
-Не используются. Содержимое сегментов задаётся через `@Input() options`: подпись берётся из поля `optionLabel`, иконка — из поля `icon` объекта опции.
-
-## Related
-
-- [ExtraButton](../button/button.figma.md) — одиночная кнопка действия (не выбор значения)
-- [ExtraToggleButton](../togglebutton/togglebutton.figma.md) — одиночный переключатель состояния
-- [ExtraCheckbox](../checkbox/checkbox.figma.md) — множественный выбор списком с похожим маппингом модели
-- [Иконки](../../figma-code-connect/icons.md) — доступные иконки сегментов (поле `icon`)
-- [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний контрола
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-
-## Do / Don't
-
-**Do:**
-- Используйте для 2–5 взаимоисключающих опций с мгновенным применением выбора (переключение вида, фильтр)
-- Передавайте значение через `[(ngModel)]` / `formControl`; не задавайте «выбран» отдельным атрибутом
-- Для режима «выбор нескольких» задавайте `[multiple]="true"` — модель станет массивом
-- Используйте `[allowEmpty]="false"`, когда хотя бы один сегмент должен оставаться активным
-- Для иконок в сегментах задавайте поле `icon` в объекте опции — классы берите из [icons.md](../../figma-code-connect/icons.md)
-- Используйте `[fluid]="true"` в формах на всю ширину и мобильных макетах
-
-**Don't:**
-- Не используйте для навигации по разделам — для этого предназначен компонент Tabs
-- Не используйте для длинных списков значений — выберите `ExtraSelect`
-- Не путайте с `ExtraToggleButton` — это одиночный переключатель, а не группа сегментов
-- Не инлайньте CSS-классы иконок вручную — используйте справочник [icons.md](../../figma-code-connect/icons.md)
+Пять исходных example-файлов сохранены, декоративные подложки `bg-surface-ground` сняты. Описания stories и Controls
+скопированы дословно из `origin/main`; новые Controls `optionValue`/`optionDisabled` добавлены без описаний.

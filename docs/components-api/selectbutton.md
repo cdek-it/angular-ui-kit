@@ -1,4 +1,4 @@
-[Открыть в Figma →](https://www.figma.com/design/Q1BWgZ7zoV5UzlBOnjW0cM/UI-Kit--DS--v2.1?node-id=24035-56&m=dev)
+[Открыть в Figma →](https://www.figma.com/design/Q1BWgZ7zoV5UzlBOnjW0cM/UI-Kit--DS--v3.0?node-id=317-1832)
 
 # ExtraSelectButton
 
@@ -10,14 +10,15 @@
 | ---------------- | ---------------------------------------------------- | ------------------------------------ | ------------ |
 | `options`        | список вариантов                                     | `ExtraSelectButtonOption[] \| any[]` | `[]`         |
 | `optionLabel`    | наименование поля, содержащего отображаемое значение | `string`                             | `'name'`     |
+| `optionValue`    | наименование поля со значением модели                | `string`                             | `'code'`     |
+| `optionDisabled` | наименование поля, отключающего сегмент              | `string`                             | `'disabled'` |
 | `multiple`       | множественный выбор                                  | `boolean`                            | `false`      |
 | `size`           | размер кнопок                                        | `small \| base \| large \| xlarge`   | `base`       |
 | `fluid`          | растягивает группу на всю ширину контейнера          | `boolean`                            | `false`      |
 | `required`       | поле обязательно для заполнения                      | `boolean`                            | `false`      |
 | `ariaLabel`      | метка для программ экранного доступа                 | `string`                             | —            |
 | `ariaLabelledBy` | `id` внешнего элемента-метки для доступности         | `string`                             | —            |
-| `autofocus`      | автофокус при монтировании компонента                | `boolean`                            | `false`      |
-| `tabindex`       | порядок перехода по Tab                              | `number`                             | —            |
+| `autofocus`      | автофокус на первый доступный сегмент                | `boolean`                            | `false`      |
 
 # Стекозависимые пропсы
 

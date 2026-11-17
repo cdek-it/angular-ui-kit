@@ -1,8 +1,11 @@
 import {
+  afterNextRender,
   booleanAttribute,
   Component,
+  ElementRef,
   EventEmitter,
   forwardRef,
+  inject,
   Input,
   OnChanges,
   Output,
@@ -76,7 +79,6 @@ export type ExtraSelectButtonSize = 'small' | 'base' | 'large' | 'xlarge';
       [fluid]="fluid"
       [ariaLabelledBy]="ariaLabelledBy"
       [autofocus]="autofocus"
-      [tabindex]="tabindex ?? 0"
       [pt]="selectButtonPt"
       [class.p-selectbutton-xlarge]="size === 'xlarge'"
     >
@@ -104,9 +106,20 @@ export class ExtraSelectButtonComponent implements ControlValueAccessor, OnChang
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input({ transform: booleanAttribute }) autofocus = false;
-  @Input() tabindex: number | undefined = undefined;
 
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private _onValidatorChange: () => void = () => {};
+
+  constructor() {
+    // PrimeNG 20 принимает autofocus, но не передаёт его сегментам — фокус ставим сами:
+    // первый доступный сегмент получает фокус после первого рендера.
+    afterNextRender(() => {
+      queueMicrotask(() => {
+        if (!this.autofocus || this.isDisabled) return;
+        this.host.nativeElement.querySelector<HTMLElement>('.p-togglebutton:not(.p-disabled)')?.focus();
+      });
+    });
+  }
 
   /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока значение не выбрано. */
   validate(control: AbstractControl): ValidationErrors | null {

@@ -10,15 +10,17 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   background: ${dt('selectbutton.colorScheme.light.extend.background')};
   padding: ${dt('selectbutton.extend.paddingY')} ${dt('selectbutton.extend.paddingX')};
   gap: ${dt('selectbutton.extend.gap')};
-  font-family: ${dt('fonts.fontFamily.heading')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-size: ${dt('fonts.fontSize.300')};
   font-weight: ${dt('fonts.fontWeight.demibold')};
 }
 
+/* Сегмент: подпись Noto Sans 16/20, паддинги 8×14, радиус 8, высота 36 — как <SelectButton.Item> в Figma. */
 .p-selectbutton.p-component .p-togglebutton.p-component {
-  font-family: ${dt('fonts.fontFamily.heading')};
+  font-family: ${dt('fonts.fontFamily.base')};
   font-weight: ${dt('fonts.fontWeight.demibold')};
-  line-height: ${dt('fonts.lineHeight.500')};
-  height: ${dt('togglebutton.extend.iconOnlyWidth')};
+  line-height: ${dt('fonts.lineHeight.400')};
+  height: ${dt('dimension.size.1000')};
   border-radius: ${dt('selectbutton.extend.ext.borderRadius')};
 }
 
@@ -35,9 +37,29 @@ export const selectbuttonCss = ({ dt }: { dt: (token: string) => string }): stri
   color: ${dt('selectbutton.extend.checkedColor')};
 }
 
-.p-selectbutton.p-component .p-togglebutton.p-component:not(:disabled):not(.p-togglebutton-checked):hover {
+.p-selectbutton.p-component .p-togglebutton.p-component:not(:disabled):not(.p-disabled):not(.p-togglebutton-checked):hover {
   border-radius: ${dt('selectbutton.extend.ext.borderRadius')};
   border-color: ${dt('togglebutton.extend.hoverBorderColor')};
+}
+
+/* Disabled: Figma задаёт явные цвета сегмента (фон, рамка, muted-текст), а не общую
+   прозрачность PrimeNG; выбранный сегмент сохраняет заливку выбора и гасит текст.
+   Значения — из вложенного <ToggleButton>, варианта checked+disabled в Figma нет. */
+.p-selectbutton.p-component .p-togglebutton.p-disabled {
+  opacity: ${dt('effects.opacity.100')};
+  background: ${dt('togglebutton.colorScheme.light.root.disabledBackground')};
+  border-color: ${dt('togglebutton.colorScheme.light.root.disabledBorderColor')};
+  color: ${dt('togglebutton.colorScheme.light.root.disabledColor')};
+  cursor: default;
+}
+.p-selectbutton.p-component .p-togglebutton.p-disabled i {
+  color: ${dt('togglebutton.colorScheme.light.icon.disabledColor')};
+}
+.p-selectbutton.p-component .p-togglebutton.p-togglebutton-checked.p-disabled {
+  background: ${dt('selectbutton.extend.checkedBackground')};
+  border-color: ${dt('selectbutton.extend.checkedBorderColor')};
+  color: ${dt('togglebutton.colorScheme.light.root.disabledColor')};
+  cursor: default;
 }
 
 /* Size: small — PrimeNG вешает .p-togglebutton-sm на дочерний p-togglebutton */

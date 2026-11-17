@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { StoryObj } from '@storybook/angular';
-import { ExtraSelectButtonComponent, ExtraSelectButtonOption } from '../../../../lib/components/select-button/select-button.component';
+import {
+  ExtraSelectButtonComponent,
+  ExtraSelectButtonOption
+} from '../../../../lib/components/select-button/select-button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <extra-select-button [formControl]="control" [options]="options"></extra-select-button>
-</div>
+<extra-select-button [formControl]="control" [options]="options"></extra-select-button>
 `;
 const styles = '';
 
@@ -15,21 +16,21 @@ const styles = '';
   standalone: true,
   imports: [ExtraSelectButtonComponent, ReactiveFormsModule],
   template,
-  styles,
+  styles
 })
 export class SelectButtonIconsComponent {
   control = new FormControl('left');
   options: ExtraSelectButtonOption[] = [
-    { name: 'Left',   code: 'left',   icon: 'ti ti-align-left' },
+    { name: 'Left', code: 'left', icon: 'ti ti-align-left' },
     { name: 'Center', code: 'center', icon: 'ti ti-align-center' },
-    { name: 'Right',  code: 'right',  icon: 'ti ti-align-right' },
+    { name: 'Right', code: 'right', icon: 'ti ti-align-right' }
   ];
 }
 
 export const WithIcons: StoryObj = {
   name: 'With Icons',
   render: () => ({
-    template: `<app-select-button-icons></app-select-button-icons>`,
+    template: `<app-select-button-icons></app-select-button-icons>`
   }),
   parameters: {
     controls: { disable: true },
@@ -58,8 +59,8 @@ export class SelectButtonIconsComponent {
     { name: 'Right',  code: 'right',  icon: 'ti ti-align-right' },
   ];
 }
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
