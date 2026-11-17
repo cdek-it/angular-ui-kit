@@ -1,31 +1,52 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
-import { ExtraInputGroupComponent } from '../../../lib/components/inputgroup/input-group.component';
-import { ExtraInputGroupAddonComponent } from '../../../lib/components/inputgroup/input-group-addon.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  ExtraInputGroupComponent,
+  ExtraInputGroupSize,
+  ExtraInputGroupAddonPosition
+} from '../../../lib/components/inputgroup/input-group.component';
+import {
+  ExtraInputGroupAddonComponent,
+  ExtraInputGroupPosition,
+  ExtraInputGroupAddonType
+} from '../../../lib/components/inputgroup/input-group-addon.component';
 import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { InputGroupWithTextComponent, WithText } from './examples/inputgroup-with-text.component';
-import { Disabled, InputGroupDisabledComponent } from './examples/inputgroup-disabled.component';
-import { InputGroupXlargeComponent, Sizes } from './examples/inputgroup-xlarge.component';
-import { AddonRight, InputGroupAddonRightComponent } from './examples/inputgroup-addon-right.component';
-import { AddonBoth, InputGroupAddonBothComponent } from './examples/inputgroup-addon-both.component';
 
-const meta: Meta<ExtraInputGroupComponent> = {
+type Args = {
+  size: ExtraInputGroupSize;
+  addonPosition: ExtraInputGroupAddonPosition;
+  position: ExtraInputGroupPosition;
+  type: ExtraInputGroupAddonType;
+  icon: string;
+  text: string;
+  disabled: boolean;
+  value: string;
+};
+
+const attribute = (value: string) =>
+  value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const template = (args: Args): string => {
+  const addon = (position: ExtraInputGroupPosition) =>
+    args.type === 'icon'
+      ? `  <extra-input-group-addon position="${position}" type="icon" icon="${attribute(args.icon)}"></extra-input-group-addon>`
+      : `  <extra-input-group-addon position="${position}" type="text">${attribute(args.text)}</extra-input-group-addon>`;
+  const parts = [`<extra-input-group size="${args.size}" addonPosition="${args.addonPosition}">`];
+  if (args.addonPosition !== 'right') parts.push(addon(args.position));
+  parts.push(
+    `  <extra-input-text size="${args.size}" placeholder="Placeholder" ariaLabel="Поле ввода" [fluid]="true" [formControl]="fieldControl"></extra-input-text>`
+  );
+  if (args.addonPosition !== 'left') parts.push(addon(args.addonPosition === 'both' ? 'right' : args.position));
+  parts.push('</extra-input-group>');
+  return parts.join('\n');
+};
+
+const meta: Meta<Args> = {
   title: 'Components/Form/InputGroup',
   component: ExtraInputGroupComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'inputgroup'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraInputGroupComponent,
-        ExtraInputGroupAddonComponent,
-        ExtraInputTextComponent,
-        FormsModule,
-        InputGroupWithTextComponent,
-        InputGroupDisabledComponent,
-        InputGroupXlargeComponent,
-        InputGroupAddonRightComponent,
-        InputGroupAddonBothComponent
-      ]
+      imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, ReactiveFormsModule]
     })
   ],
   parameters: {
@@ -36,6 +57,11 @@ const meta: Meta<ExtraInputGroupComponent> = {
 \`\`\`typescript
 import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
+      },
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_source: string, context: { args: Args }) => template(context.args)
       }
     },
     designTokens: { prefix: '--p-inputgroup' }
@@ -45,58 +71,91 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent } from '@cdek-i
       control: 'select',
       options: ['small', 'base', 'large', 'xlarge'],
       description: 'Размер группы (влияет на паддинги и шрифты аддонов)',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "'base'" },
-        type: { summary: "'small' | 'base' | 'large' | 'xlarge'" }
-      }
+      table: { category: 'Свойства', defaultValue: { summary: "'base'" } }
     },
     addonPosition: {
       control: 'select',
       options: ['left', 'right', 'both'],
       description: 'Расположение аддона(ов) относительно поля (CSS-класс-хук, не переставляет DOM)',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "'left'" },
-        type: { summary: "'left' | 'right' | 'both'" }
-      }
-    }
+      table: { category: 'Свойства', defaultValue: { summary: "'left'" } }
+    },
+    position: {
+      control: 'select',
+      options: ['left', 'right'],
+      table: { category: 'Аддон', defaultValue: { summary: "'left'" } }
+    },
+    type: {
+      control: 'select',
+      options: ['text', 'icon'],
+      table: { category: 'Аддон', defaultValue: { summary: "'text'" } }
+    },
+    icon: { control: 'text', table: { category: 'Аддон' } },
+    text: { control: 'text', table: { category: 'Содержимое' } },
+    disabled: { control: 'boolean', table: { category: 'FormControl' } },
+    value: { control: 'text', table: { category: 'FormControl' } }
   },
   args: {
     size: 'base',
-    addonPosition: 'left'
+    addonPosition: 'left',
+    position: 'left',
+    type: 'icon',
+    icon: 'ti ti-user',
+    text: 'text',
+    disabled: false,
+    value: ''
+  },
+  render: (args) => ({
+    props: { ...args, fieldControl: new FormControl({ value: args.value, disabled: args.disabled }) },
+    template: template(args)
+  })
+};
+export default meta;
+type Story = StoryObj<Args>;
+
+export const Default: Story = {
+  args: {},
+  parameters: {
+    docs: {
+      description: { story: 'Базовый пример группы ввода с иконкой. Используйте Controls для изменения размера.' }
+    }
   }
 };
 
-export default meta;
-type Story = StoryObj<ExtraInputGroupComponent>;
-
-export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const groupParts: string[] = [];
-    if (args.size && args.size !== 'base') groupParts.push(`size="${args.size}"`);
-    if (args.addonPosition && args.addonPosition !== 'left') groupParts.push(`addonPosition="${args.addonPosition}"`);
-
-    const groupOpen = groupParts.length ? `<extra-input-group ${groupParts.join(' ')}>` : `<extra-input-group>`;
-
-    const inputSize = args.size && args.size !== 'base' ? ` size="${args.size}"` : '';
-
-    const template = `
-${groupOpen}
-  <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
-  <extra-input-text placeholder="Введите данные..."${inputSize} [(ngModel)]="value" [fluid]="true"></extra-input-text>
-</extra-input-group>`;
-
-    return { props: { ...args, value: '' }, template };
-  },
+export const Disabled: Story = {
+  args: { disabled: true },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример группы ввода с иконкой. Используйте Controls для изменения размера.'
+        story:
+          'Отключённое состояние — управляется через FormControl; аддоны автоматически получают стили disabled вместе с полем ввода.'
       }
     }
   }
 };
 
-export { WithText, AddonRight, AddonBoth, Disabled, Sizes };
+export const WithText: Story = {
+  args: { type: 'text' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'В качестве наполнения аддона можно использовать обычный текст — например, символ валюты или префикс.'
+      }
+    }
+  }
+};
+
+export const AddonRight: Story = {
+  args: { addonPosition: 'right', position: 'right' },
+  parameters: {
+    docs: {
+      description: { story: 'Аддон расположен справа — используется для единиц измерения, валюты или суффиксов.' }
+    }
+  }
+};
+
+export const AddonBoth: Story = {
+  args: { addonPosition: 'both' },
+  parameters: {
+    docs: { description: { story: 'Аддоны расположены с обеих сторон — например, иконка-префикс и кнопка поиска.' } }
+  }
+};

@@ -22,6 +22,8 @@ export class ExtraInputGroupComponent {
 
   get groupClass(): Record<string, boolean> {
     return {
+      'p-inputgroup-sm': this.size === 'small',
+      'p-inputgroup-lg': this.size === 'large',
       'p-inputgroup-xlg': this.size === 'xlarge',
       [`extra-input-group--addon-${this.addonPosition}`]: true
     };

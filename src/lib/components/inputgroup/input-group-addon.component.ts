@@ -10,9 +10,12 @@ export type ExtraInputGroupAddonType = 'text' | 'icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputGroupAddon],
   template: `
-    <p-inputgroup-addon [class]="'extra-input-group-addon--' + position">
+    <p-inputgroup-addon
+      [class]="'extra-input-group-addon--' + position"
+      [class.extra-input-group-addon--icon]="type === 'icon'"
+    >
       @if (type === 'icon') {
-        <i [class]="icon"></i>
+        <i [class]="icon" aria-hidden="true"></i>
       } @else {
         <ng-content></ng-content>
       }

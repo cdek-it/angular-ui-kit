@@ -6,12 +6,10 @@ import { ExtraInputGroupAddonComponent } from '../../../../lib/components/inputg
 import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
   <extra-input-group>
     <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
-    <extra-input-text placeholder="Введите данные..." [formControl]="control"></extra-input-text>
+    <extra-input-text ariaLabel="Поле ввода" [fluid]="true" placeholder="Введите данные..." [formControl]="control"></extra-input-text>
   </extra-input-group>
-</div>
 `;
 const styles = '';
 
@@ -33,28 +31,15 @@ export const Disabled: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Отключённое состояние — управляется через FormControl; аддоны автоматически получают стили disabled вместе с полем ввода.'
+        story:
+          'Отключённое состояние — управляется через FormControl; аддоны автоматически получают стили disabled вместе с полем ввода.'
       },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-inputgroup-disabled',
-  standalone: true,
-  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, ReactiveFormsModule],
-  template: \`
-    <extra-input-group>
-      <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
-      <extra-input-text placeholder="Введите данные..." [formControl]="control"></extra-input-text>
-    </extra-input-group>
-  \`,
-})
-export class InputGroupDisabledComponent {
-  control = new FormControl({ value: '', disabled: true });
-}
-        `
+        language: 'html',
+        code: `<extra-input-group>
+    <extra-input-group-addon position="left" type="icon" icon="ti ti-user"></extra-input-group-addon>
+    <extra-input-text ariaLabel="Поле ввода" [fluid]="true" placeholder="Введите данные..." [formControl]="control"></extra-input-text>
+  </extra-input-group>`
       }
     }
   }

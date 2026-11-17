@@ -6,12 +6,10 @@ import { ExtraInputGroupAddonComponent } from '../../../../lib/components/inputg
 import { ExtraInputTextComponent } from '../../../../lib/components/inputtext/inputtext.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
   <extra-input-group addonPosition="right">
-    <extra-input-text placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
+    <extra-input-text ariaLabel="Поле ввода" [fluid]="true" placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
     <extra-input-group-addon position="right">руб.</extra-input-group-addon>
   </extra-input-group>
-</div>
 `;
 const styles = '';
 
@@ -34,25 +32,11 @@ export const AddonRight: StoryObj = {
     docs: {
       description: { story: 'Аддон расположен справа — используется для единиц измерения, валюты или суффиксов.' },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-inputgroup-addon-right',
-  standalone: true,
-  imports: [ExtraInputGroupComponent, ExtraInputGroupAddonComponent, ExtraInputTextComponent, FormsModule],
-  template: \`
-    <extra-input-group addonPosition="right">
-      <extra-input-text placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
-      <extra-input-group-addon position="right">руб.</extra-input-group-addon>
-    </extra-input-group>
-  \`,
-})
-export class InputGroupAddonRightComponent {
-  value = '';
-}
-        `
+        language: 'html',
+        code: `<extra-input-group addonPosition="right">
+    <extra-input-text ariaLabel="Поле ввода" [fluid]="true" placeholder="Сумма" [(ngModel)]="value"></extra-input-text>
+    <extra-input-group-addon position="right">руб.</extra-input-group-addon>
+  </extra-input-group>`
       }
     }
   }

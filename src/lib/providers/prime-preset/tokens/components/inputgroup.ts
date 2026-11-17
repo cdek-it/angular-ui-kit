@@ -1,100 +1,199 @@
 export const inputgroupCss = ({ dt }: { dt: (token: string) => string }): string => `
+extra-input-group {
+  display: block;
+  min-width: 0;
+}
 
-/* ─── Корректировка flex-layout через Angular-обёртки ─── */
+extra-input-group > .p-inputgroup {
+  align-items: stretch;
+  min-width: 0;
+  gap: ${dt('dimension.space.none')};
+}
 
-/*
- * display: contents делает враппер-элементы прозрачными в layout-дереве:
- * p-inputgroupaddon и input.p-inputtext становятся прямыми flex-элементами
- * p-inputgroup. Это позволяет:
- * - align-items: stretch работать напрямую → правильная высота аддона
- * - границам быть на одном уровне → нет удвоения top/bottom border
- * - flex: 1 1 auto; width: 1% на input работать нативно через PrimeNG
- * CSS-селекторы по-прежнему работают (DOM-дерево не меняется).
- */
-.p-inputgroup > input-group-addon {
+.p-inputgroup > extra-input-group-addon,
+.p-inputgroup > extra-input-text {
   display: contents;
 }
 
-.p-inputgroup > input-text {
-  display: contents;
-}
-
-/* ─── Корректировка border-radius и границ ─── */
-
-/*
- * p-inputgroupaddon является :first-child И :last-child своего прямого родителя
- * input-group-addon, поэтому PrimeNG добавляет ему оба inline-бордера.
- * Сбрасываем их и переназначаем по позиции аддона в группе.
- */
-.p-inputgroup > input-group-addon > .p-inputgroupaddon {
+.p-inputgroup > extra-input-group-addon > .p-inputgroupaddon {
+  position: relative;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  min-width: ${dt('inputgroup.addon.minWidth')};
+  padding: ${dt('inputgroup.addon.padding')};
+  border: 0;
   border-radius: 0;
-  border-inline-start: none;
-  border-inline-end: none;
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
+  font-size: ${dt('fonts.fontSize.300')};
+  line-height: ${dt('fonts.lineHeight.300')};
 }
 
-/* Первый элемент группы — аддон: левые углы + левая граница */
-.p-inputgroup > input-group-addon:first-child > .p-inputgroupaddon {
+.p-inputgroup > extra-input-group-addon > .extra-input-group-addon--icon {
+  width: ${dt('inputgroup.addon.minWidth')};
+}
+
+.p-inputgroup > extra-input-group-addon > .p-inputgroupaddon::before {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  inset: calc(-1 * ${dt('inputgroup.extend.borderWidth')});
+  border-block: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
+  border-radius: inherit;
+}
+
+.p-inputgroup > extra-input-group-addon:first-child > .p-inputgroupaddon {
   border-start-start-radius: ${dt('inputgroup.addon.borderRadius')};
   border-end-start-radius: ${dt('inputgroup.addon.borderRadius')};
+}
+
+.p-inputgroup > extra-input-group-addon:first-child > .p-inputgroupaddon::before,
+.p-inputgroup > extra-input-group-addon + extra-input-group-addon > .p-inputgroupaddon::before {
   border-inline-start: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
 }
 
-/* Последний элемент группы — аддон: правые углы + правая граница */
-.p-inputgroup > input-group-addon:last-child > .p-inputgroupaddon {
+.p-inputgroup > extra-input-group-addon:last-child > .p-inputgroupaddon {
   border-start-end-radius: ${dt('inputgroup.addon.borderRadius')};
   border-end-end-radius: ${dt('inputgroup.addon.borderRadius')};
+}
+
+.p-inputgroup > extra-input-group-addon:last-child > .p-inputgroupaddon::before {
   border-inline-end: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
 }
 
-/* Аддон сразу после другого аддона: левая граница как разделитель */
-.p-inputgroup > input-group-addon + input-group-addon > .p-inputgroupaddon {
-  border-inline-start: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
-}
-
-/* Сброс border-radius у input внутри input-text-обёртки */
-.p-inputgroup > input-text .p-inputtext {
-  border-radius: 0;
+.p-inputgroup > extra-input-text .p-inputtext {
+  min-width: 0;
   margin: 0;
+  border: 0;
+  border-radius: 0;
+  outline: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.extend.field.borderColor')};
+  outline-offset: 0;
+  box-shadow: none;
+  background: ${dt('inputgroup.extend.field.background')};
+  color: ${dt('inputgroup.extend.field.color')};
+  font-family: ${dt('fonts.fontFamily.base')};
+  font-weight: ${dt('fonts.fontWeight.regular')};
 }
 
-/* Аддон: только горизонтальные границы (top/bottom), inline-бордеры управляются позиционно */
-.p-inputgroup > input-group-addon > .p-inputgroupaddon {
-  border-block-start: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
-  border-block-end: ${dt('inputgroup.extend.borderWidth')} solid ${dt('inputgroup.addon.borderColor')};
+.p-inputgroup > extra-input-text .p-inputtext::placeholder {
+  color: ${dt('inputgroup.extend.field.placeholderColor')};
 }
 
-/* Первый элемент группы — input: левые углы */
-.p-inputgroup > input-text:first-child .p-inputtext {
+.p-inputgroup > extra-input-text:first-child .p-inputtext {
   border-start-start-radius: ${dt('inputgroup.addon.borderRadius')};
   border-end-start-radius: ${dt('inputgroup.addon.borderRadius')};
 }
 
-/* Последний элемент группы — input: правые углы */
-.p-inputgroup > input-text:last-child .p-inputtext {
+.p-inputgroup > extra-input-text:last-child .p-inputtext {
   border-start-end-radius: ${dt('inputgroup.addon.borderRadius')};
   border-end-end-radius: ${dt('inputgroup.addon.borderRadius')};
 }
 
-/* ─── Addon в disabled состоянии ─── */
-.p-inputgroup:has(input[disabled]) .p-inputgroupaddon,
-.p-inputgroup:has(.p-inputtext[disabled]) .p-inputgroupaddon,
-.p-inputgroup:has(.p-component[disabled]) .p-inputgroupaddon {
-  background: ${dt('inputtext.root.disabledBackground')};
-  color: ${dt('inputtext.root.disabledColor')};
+.p-inputgroup > extra-input-text .p-inputtext:enabled:hover,
+.p-inputgroup > extra-input-text .p-inputtext:enabled:focus {
+  outline-color: ${dt('inputgroup.extend.field.hoverBorderColor')};
 }
 
-/* ─── Иконка внутри addon ─── */
+.p-inputgroup > extra-input-text .p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 ${dt('inputgroup.extend.field.focusRingWidth')} ${dt('inputgroup.extend.field.focusRingColor')};
+}
+
+.p-inputgroup > extra-input-text .p-inputtext.p-invalid,
+.p-inputgroup > extra-input-text .p-inputtext.p-invalid:enabled:hover,
+.p-inputgroup > extra-input-text .p-inputtext.p-invalid:enabled:focus {
+  outline-color: ${dt('inputgroup.extend.field.invalidBorderColor')};
+}
+
+.p-inputgroup > extra-input-text .p-inputtext.p-invalid:focus {
+  box-shadow: 0 0 0 ${dt('inputgroup.extend.field.focusRingWidth')} ${dt('inputgroup.extend.field.invalidFocusRingColor')};
+}
+
+.p-inputgroup > extra-input-text .p-inputtext:enabled:read-only {
+  background: ${dt('inputgroup.extend.field.readonlyBackground')};
+}
+
+.p-inputgroup:has(input:disabled) > extra-input-group-addon > .p-inputgroupaddon,
+.p-inputgroup:has(textarea:disabled) > extra-input-group-addon > .p-inputgroupaddon,
+.p-inputgroup:has(.p-component[disabled]) > extra-input-group-addon > .p-inputgroupaddon,
+.p-inputgroup:has(.p-component.p-disabled) > extra-input-group-addon > .p-inputgroupaddon,
+.p-inputgroup > extra-input-text .p-inputtext:disabled {
+  background: ${dt('inputgroup.extend.disabledBackground')};
+  color: ${dt('inputgroup.extend.disabledColor')};
+  opacity: 1;
+}
+
 .p-inputgroup .p-inputgroupaddon i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
   font-size: ${dt('inputgroup.extend.iconSize')};
+  width: ${dt('inputgroup.extend.iconSize')};
+  height: ${dt('inputgroup.extend.iconSize')};
 }
 
-/* ─── Extra Large ─── */
-.p-inputgroup.p-inputgroup-xlg .p-inputgroupaddon {
-  font-size: ${dt('inputtext.extend.extXlg.fontSize')};
-  padding: ${dt('inputtext.extend.extXlg.paddingY')} ${dt('inputtext.extend.extXlg.paddingX')};
+extra-input-group > .p-inputgroup:not(.p-inputgroup-sm):not(.p-inputgroup-lg):not(.p-inputgroup-xlg) {
+  height: calc(${dt('inputgroup.extend.base.lineHeight')} + 2 * ${dt('inputgroup.extend.base.paddingY')});
+}
+
+.p-inputgroup:not(.p-inputgroup-sm):not(.p-inputgroup-lg):not(.p-inputgroup-xlg) > extra-input-text .p-inputtext {
+  padding: ${dt('inputgroup.extend.base.paddingY')} ${dt('inputgroup.extend.base.paddingX')};
+  font-size: ${dt('inputgroup.extend.base.fontSize')};
+  line-height: ${dt('inputgroup.extend.base.lineHeight')};
+}
+
+.p-inputgroup:not(.p-inputgroup-sm):not(.p-inputgroup-lg):not(.p-inputgroup-xlg) .p-inputgroupaddon i {
+  font-size: ${dt('inputgroup.extend.base.iconSize')};
+  width: ${dt('inputgroup.extend.base.iconSize')};
+  height: ${dt('inputgroup.extend.base.iconSize')};
+}
+
+extra-input-group > .p-inputgroup.p-inputgroup-sm {
+  height: calc(${dt('inputgroup.extend.small.lineHeight')} + 2 * ${dt('inputgroup.extend.small.paddingY')});
+}
+
+.p-inputgroup.p-inputgroup-sm > extra-input-text .p-inputtext {
+  padding: ${dt('inputgroup.extend.small.paddingY')} ${dt('inputgroup.extend.small.paddingX')};
+  font-size: ${dt('inputgroup.extend.small.fontSize')};
+  line-height: ${dt('inputgroup.extend.small.lineHeight')};
+}
+
+.p-inputgroup.p-inputgroup-sm .p-inputgroupaddon i {
+  font-size: ${dt('inputgroup.extend.small.iconSize')};
+  width: ${dt('inputgroup.extend.small.iconSize')};
+  height: ${dt('inputgroup.extend.small.iconSize')};
+}
+
+extra-input-group > .p-inputgroup.p-inputgroup-lg {
+  height: calc(${dt('inputgroup.extend.large.lineHeight')} + 2 * ${dt('inputgroup.extend.large.paddingY')});
+}
+
+.p-inputgroup.p-inputgroup-lg > extra-input-text .p-inputtext {
+  padding: ${dt('inputgroup.extend.large.paddingY')} ${dt('inputgroup.extend.large.paddingX')};
+  font-size: ${dt('inputgroup.extend.large.fontSize')};
+  line-height: ${dt('inputgroup.extend.large.lineHeight')};
+}
+
+.p-inputgroup.p-inputgroup-lg .p-inputgroupaddon i {
+  font-size: ${dt('inputgroup.extend.large.iconSize')};
+  width: ${dt('inputgroup.extend.large.iconSize')};
+  height: ${dt('inputgroup.extend.large.iconSize')};
+}
+
+extra-input-group > .p-inputgroup.p-inputgroup-xlg {
+  height: calc(${dt('inputgroup.extend.xlarge.lineHeight')} + 2 * ${dt('inputgroup.extend.xlarge.paddingY')});
+}
+
+.p-inputgroup.p-inputgroup-xlg > extra-input-text .p-inputtext {
+  padding: ${dt('inputgroup.extend.xlarge.paddingY')} ${dt('inputgroup.extend.xlarge.paddingX')};
+  font-size: ${dt('inputgroup.extend.xlarge.fontSize')};
+  line-height: ${dt('inputgroup.extend.xlarge.lineHeight')};
 }
 
 .p-inputgroup.p-inputgroup-xlg .p-inputgroupaddon i {
-  font-size: ${dt('inputtext.extend.extXlg.fontSize')};
+  font-size: ${dt('inputgroup.extend.xlarge.iconSize')};
+  width: ${dt('inputgroup.extend.xlarge.iconSize')};
+  height: ${dt('inputgroup.extend.xlarge.iconSize')};
 }
 `;
