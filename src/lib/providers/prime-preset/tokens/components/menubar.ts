@@ -1,6 +1,6 @@
 export const menubarCss = ({ dt }: { dt: (token: string) => string }): string => `
-  .p-menubar-submenu-icon,
-  .p-menubar-item-icon {
+  .p-menubar .p-menubar-item-content .p-menubar-submenu-icon,
+  .p-menubar .p-menubar-item-content .p-menubar-item-icon {
     font-size: ${dt('menubar.extend.iconSize')};
   }
 
@@ -36,4 +36,9 @@ export const menubarCss = ({ dt }: { dt: (token: string) => string }): string =>
   .p-menubar-mobile-button-icon {
     font-size: ${dt('menubar.extend.iconSize')};
   }
+
+/* ─── Нажатие пункта: pressedBackground из Figma ItemBase ─── */
+.p-menubar .p-menubar-item:not(.p-disabled) > .p-menubar-item-content > .p-menubar-item-link:active {
+  background: ${dt('menubar.extend.extItem.pressedBackground')};
+}
 `;

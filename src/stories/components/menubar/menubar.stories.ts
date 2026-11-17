@@ -1,18 +1,27 @@
-import { Meta, moduleMetadata } from '@storybook/angular';
-import { ExtraMenubarComponent } from '../../../lib/components/menubar/menubar.component';
-import { Basic, MenubarBasicComponent } from './examples/menubar-basic.component';
-import { MenubarWithIconComponent, WithIcon } from './examples/menubar-with-icon.component';
-import { Custom, MenubarCustomComponent } from './examples/menubar-custom.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { ExtraMenubarComponent, ExtraMenubarItemDirective } from '../../../lib/components/menubar/menubar.component';
+import { basicItems } from './menubar.data';
 
-const meta: Meta<ExtraMenubarComponent> = {
+const iconItems = [
+  { label: 'Файл', icon: 'ti ti-file' },
+  { label: 'Правка', icon: 'ti ti-pencil' },
+  { label: 'Вид', icon: 'ti ti-eye' }
+];
+
+const customItems = [
+  { label: 'Продукты', description: 'Компоненты и блоки', badge: 'New' },
+  { label: 'Решения', description: 'Готовые сценарии' }
+];
+
+type MenubarArgs = Partial<ExtraMenubarComponent>;
+
+const plain = '<extra-menubar [model]="model"></extra-menubar>';
+
+const meta: Meta<MenubarArgs> = {
   title: 'Components/Menu/Menubar',
   component: ExtraMenubarComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [ExtraMenubarComponent, MenubarBasicComponent, MenubarWithIconComponent, MenubarCustomComponent]
-    })
-  ],
+  tags: ['autodocs', 'menubar'],
+  decorators: [moduleMetadata({ imports: [ExtraMenubarComponent, ExtraMenubarItemDirective] })],
   parameters: {
     docs: {
       description: {
@@ -24,13 +33,57 @@ const meta: Meta<ExtraMenubarComponent> = {
 \`\`\`typescript
 import { ExtraMenubarComponent, ExtraMenubarItemDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () => plain
       }
     },
-    designTokens: { prefix: '--p-menubar' },
-    controls: { disable: true }
+    designTokens: { prefix: '--p-menubar' }
+  },
+  argTypes: {
+    model: { control: 'object', description: 'Массив пунктов меню' }
+  },
+  args: {
+    model: basicItems
+  }
+};
+export default meta;
+type Story = StoryObj<MenubarArgs>;
+
+export const Basic: Story = {
+  args: { model: basicItems },
+  render: (args) => ({ props: args, template: plain }),
+  parameters: {
+    docs: { description: { story: 'Горизонтальное меню с выпадающими подменю.' } }
   }
 };
 
-export default meta;
+export const WithIcon: Story = {
+  args: { model: iconItems },
+  render: (args) => ({ props: args, template: plain }),
+  parameters: {
+    docs: { description: { story: 'Menubar с иконками в пунктах меню и вложенных подменю.' } }
+  }
+};
 
-export { Basic, WithIcon, Custom };
+export const Custom: Story = {
+  args: { model: customItems },
+  render: (args) => ({
+    props: args,
+    template: `<extra-menubar [model]="model">
+  <ng-template extraMenubarItem let-item>{{ item.label }}</ng-template>
+</extra-menubar>`
+  }),
+  parameters: {
+    docs: {
+      description: { story: 'Кастомный шаблон пункта меню с описанием и бейджем.' },
+      source: {
+        language: 'html',
+        type: 'code',
+        code: '<extra-menubar [model]="model"><ng-template extraMenubarItem let-item>{{ item.label }}</ng-template></extra-menubar>'
+      }
+    }
+  }
+};
