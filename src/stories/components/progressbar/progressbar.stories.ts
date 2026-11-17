@@ -66,7 +66,7 @@ import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/pr
         type: { summary: 'string | undefined' }
       }
     },
-    ariaLabelledBy: { table: { disable: true } }
+    ariaLabelledBy: { control: 'text', description: 'id элемента, который подписывает прогресс-бар' }
   }
 };
 
@@ -136,9 +136,7 @@ import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/pr
   standalone: true,
   imports: [ExtraProgressBarComponent],
   template: \`
-    <div class="bg-surface-ground">
       <extra-progressbar mode="indeterminate"></extra-progressbar>
-    </div>
   \`,
 })
 export class ProgressBarIndeterminateComponent {}`
@@ -169,9 +167,7 @@ import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/pr
   standalone: true,
   imports: [ExtraProgressBarComponent],
   template: \`
-    <div class="bg-surface-ground">
-      <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
-    </div>
+    <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
   \`,
 })
 export class ProgressBarNoLabelComponent {}`

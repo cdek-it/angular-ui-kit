@@ -6,10 +6,6 @@ import { ExtraProgressBarComponent } from '../../../../lib/components/progressba
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraProgressBarComponent],
-  template: `
-    <div class="bg-surface-ground">
-      <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
-    </div>
-  `
+  template: ` <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar> `
 })
 export class ProgressBarNoLabelComponent {}

@@ -6,10 +6,6 @@ import { ExtraProgressBarComponent } from '../../../../lib/components/progressba
   standalone: true,
   imports: [ExtraProgressBarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="bg-surface-ground">
-      <extra-progressbar mode="indeterminate"></extra-progressbar>
-    </div>
-  `
+  template: ` <extra-progressbar mode="indeterminate"></extra-progressbar> `
 })
 export class ProgressBarIndeterminateComponent {}
