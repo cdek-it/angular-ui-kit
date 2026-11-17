@@ -1,7 +1,7 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraPanelMenuComponent } from '../../../lib/components/panelmenu/panelmenu.component';
-import { Basic, PanelMenuBasicComponent } from './examples/panelmenu-basic.component';
-import { Multiple, PanelMenuMultipleComponent } from './examples/panelmenu-multiple.component';
+import { PanelMenuBasicComponent } from './examples/panelmenu-basic.component';
+import { PanelMenuMultipleComponent } from './examples/panelmenu-multiple.component';
 
 const meta: Meta<ExtraPanelMenuComponent> = {
   title: 'Components/Menu/PanelMenu',
@@ -14,6 +14,11 @@ const meta: Meta<ExtraPanelMenuComponent> = {
   ],
   parameters: {
     docs: {
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () => '<extra-panelmenu [model]="model"></extra-panelmenu>'
+      },
       description: {
         component: `Аккордеон-меню с поддержкой вложенных подменю и раскрытием нескольких панелей.
 
@@ -96,5 +101,41 @@ export const Default: Story = {
   }
 };
 
-// ── Re-exports from example components ────────────────────────────────────
-export { Basic, Multiple };
+const menuModel = [
+  { label: 'Отправления', items: [{ label: 'Новые' }, { label: 'В пути' }, { label: 'Доставленные' }] },
+  { label: 'Маршруты' },
+  { label: 'Склады', items: [{ label: 'Москва' }, { label: 'Новосибирск' }] },
+  { label: 'Настройки', disabled: true }
+];
+
+export const Basic: Story = {
+  render: (args) => ({
+    props: { ...args, model: menuModel },
+    template: '<extra-panelmenu [model]="model"></extra-panelmenu>'
+  }),
+  args: { model: menuModel },
+  parameters: {
+    docs: {
+      description: { story: 'Базовое аккордеон-меню без иконок.' },
+      source: { language: 'html', type: 'code', code: '<extra-panelmenu [model]="model"></extra-panelmenu>' }
+    }
+  }
+};
+
+export const Multiple: Story = {
+  render: (args) => ({
+    props: { ...args, model: menuModel },
+    template: '<extra-panelmenu [model]="model" [multiple]="true"></extra-panelmenu>'
+  }),
+  args: { model: menuModel, multiple: true },
+  parameters: {
+    docs: {
+      description: { story: 'Несколько панелей могут быть раскрыты одновременно.' },
+      source: {
+        language: 'html',
+        type: 'code',
+        code: '<extra-panelmenu [model]="model" [multiple]="true"></extra-panelmenu>'
+      }
+    }
+  }
+};

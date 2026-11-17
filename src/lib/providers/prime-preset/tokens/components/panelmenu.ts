@@ -65,4 +65,13 @@ export const panelmenuCss = ({ dt }: { dt: (token: string) => string }): string 
     line-height: ${dt('fonts.lineHeight.500')};
     color: ${dt('panelmenu.extend.extItem.caption.color')};
   }
+
+/* ─── Нажатие пункта и радиус верхней панели — из Figma Panel/ItemBase ─── */
+.p-panelmenu .p-panelmenu-item-content .p-panelmenu-item-link:active {
+  background: ${dt('panelmenu.extend.extItem.pressedBackground')};
+}
+.p-panelmenu .p-panelmenu-panel:last-child {
+  border-top-left-radius: ${dt('panelmenu.panel.last.topBorderRadius')};
+  border-top-right-radius: ${dt('panelmenu.panel.last.topBorderRadius')};
+}
 `;
