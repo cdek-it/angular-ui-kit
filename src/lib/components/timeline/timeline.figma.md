@@ -5,112 +5,39 @@ import:
   symbol: ExtraTimelineComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '1090:3325'
-  componentKey: '333455156cc12cb69676f82e164038b8b1174f64'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
+  nodeId: '0:0'
   name: '<Timeline>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
-## Overview
+# Timeline
 
-`ExtraTimeline` — компонент для визуализации последовательности событий в хронологическом порядке: ось с маркерами-точками, коннекторами-линиями, основным и опциональным противоположным контентом (дата/время). Компонент data-driven: события передаются массивом через `@Input() value`, а отрисовка содержимого, противоположной стороны и маркера настраивается через контент-шаблоны. Оборачивает PrimeNG `p-timeline`.
+Live Figma UI Kit DS v3.0: четыре набора — `Timeline` (ось `layout` horizontal/vertical, слот `<Slot.Content>`),
+`Timeline.ItemHorizontal` (оси `align` opposite/top/bottom и `line` true/false, props `show-caption`),
+`Timeline.ItemVertical` (оси `align` opposite/left/right и `line`), `Timeline.Marker` (оси `color` и `icon`).
 
-Компонент соответствует Figma-компоненту `<Timeline>` (nodeId `1090:3325`) из библиотеки UI Kit (DS) v2.0. В отличие от `Stepper` (управление прохождением wizard) и `Steps` (прогресс по этапам задачи), `Timeline` отображает ленту уже произошедших или запланированных событий и не управляет процессом.
+| Figma                   | API                                              | Геометрия                                                                                    |
+| ----------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `Timeline.layout`       | `layout="vertical" \| "horizontal"`              | Вертикальная/горизонтальная раскладка, паддинги контента 0/20 и 20/0                         |
+| `Item*.align`           | `align`                                          | `left`/`right`/`top`/`bottom`/`opposite`; `opposite` показывает слот `extraTimelineOpposite` |
+| `Item*.line=true/false` | `line="solid" \| "dashed" \| "dotted" \| "none"` | Стиль коннектора через `data-line` на хосте                                                  |
+| `Item.show-caption`     | `showCaption`                                    | Подпись события (`<small>`)                                                                  |
+| `Marker.color`          | `markerColor`                                    | CSS-переменная `--timeline-marker-color`: цвет рамки и иконки                                |
+| `Marker.icon`           | `icon`                                           | Класс иконки Tabler в маркере                                                                |
+| слот маркера            | `extraTimelineMarker`                            | Полностью кастомный маркер                                                                   |
 
-## Props mapping
+## Отличия и ограничения
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `value` | `any[]` | `[]` | Массив событий для отображения; каждое событие доступно в контент-шаблонах через контекст `let-event` |
-| `align` | `'left' \| 'right' \| 'opposite' \| 'top' \| 'bottom'` | `'left'` | Положение контента относительно оси; для вертикального layout — `left`/`right`/`opposite`, для горизонтального — `top`/`bottom`/`opposite`. `opposite` (режим чередования) соответствует значению `alternate` PrimeNG |
-| `layout` | `'vertical' \| 'horizontal'` | `'vertical'` | Ориентация ленты — соответствует Figma-свойству `layout` (варианты `vertical`, `horizontal`) |
-| `showCaption` | `boolean` | `true` | Показывать ли противоположный (caption) контент; при `false` слот `extraTimelineOpposite` не отрисовывается |
-| `line` | `'solid' \| 'dashed' \| 'dotted' \| 'none'` | `'solid'` | Стиль коннектора-линии между маркерами |
-| `icon` | `string` | `''` | CSS-класс tabler icon маркера по умолчанию (например `'ti ti-check'`) |
-| `markerColor` | `string` | `''` | Цвет маркера; задаётся токеном, см. [tokens.md](../../figma-code-connect/tokens.md) |
+- В Figma `line` — булево (линия есть/нет); в ките расширено до `solid/dashed/dotted/none`.
+- `markerColor` красит рамку и иконку маркера, а не фон: фон задан токеном `timeline.eventMarker.background`.
+- Токены `timeline.horizontal/vertical.eventContent.padding` проверены — совпадают с Figma (только ссылки, значения те же).
 
-## Variants
+## Найденный дефект
 
-### Vertical (вертикальная ось, по умолчанию)
+CSS-правила стиля линии и кастомного цвета маркера были написаны селектором `timeline[...]`, тогда как селектор
+компонента — `extra-timeline`. Из-за этого `line="dashed"/"dotted"/"none"` и `markerColor` не применялись.
+Селекторы исправлены на `extra-timeline[...]`; проверено матрицей API-TESTS (dashed = пунктир, markerColor = цвет рамки).
 
-Figma: `<Timeline>`, layout=vertical — nodeId `1090:3317`
-
-```html
-<extra-timeline [value]="events">
-  <ng-template extraTimelineContent let-event>{{ event.value }}</ng-template>
-</extra-timeline>
-```
-
-### Horizontal (горизонтальная ось)
-
-Figma: `<Timeline>`, layout=horizontal — nodeId `1090:3318`
-
-```html
-<extra-timeline [value]="events" layout="horizontal" align="top">
-  <ng-template extraTimelineContent let-event>{{ event.value }}</ng-template>
-</extra-timeline>
-```
-
-### Opposite (контент по обе стороны оси)
-
-Figma: `<Timeline>` (общий компонент; чередование задаётся в коде через `align`)
-
-```html
-<extra-timeline [value]="events" align="opposite">
-  <ng-template extraTimelineContent let-event>{{ event.value }}</ng-template>
-</extra-timeline>
-```
-
-### С противоположным контентом (caption)
-
-Figma: `<Timeline>` (противоположная сторона — дата/время)
-
-```html
-<extra-timeline [value]="events">
-  <ng-template extraTimelineContent let-event>{{ event.value }}</ng-template>
-  <ng-template extraTimelineOpposite let-event>{{ event.caption }}</ng-template>
-</extra-timeline>
-```
-
-### С кастомным маркером
-
-Figma: `<Timeline>` (маркер задаётся в коде через шаблон или `icon`)
-
-```html
-<extra-timeline [value]="events" icon="ti ti-check">
-  <ng-template extraTimelineContent let-event>{{ event.value }}</ng-template>
-  <ng-template extraTimelineMarker let-event>
-    <span class="custom-marker"><i [class]="event.icon"></i></span>
-  </ng-template>
-</extra-timeline>
-```
-
-## Slots
-
-Содержимое проектируется через контент-директивы, применяемые к `<ng-template>` внутри компонента; каждый шаблон получает текущее событие через контекст `let-event`:
-
-- **`extraTimelineContent`** — основной контент события. Если не задан, выводится строковое значение события.
-- **`extraTimelineOpposite`** — контент с противоположной стороны оси (дата/время). Отрисовывается только при `showCaption=true`.
-- **`extraTimelineMarker`** — кастомный маркер события. Если не задан, используется маркер по умолчанию с иконкой из `@Input() icon`.
-
-## Related
-
-- [ExtraButton](../button/button.figma.md) — кнопки действий рядом с лентой событий
-- [Токены](../../figma-code-connect/tokens.md) — цветовые токены маркера и линии
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-
-## Do / Don't
-
-**Do:**
-- Используйте `layout="vertical"` для длинных хронологий и историй изменений; `layout="horizontal"` — для коротких этапов на широком экране
-- Передавайте дату/время через `extraTimelineOpposite` как вторичный контент
-- Задавайте `align="opposite"` для симметричного размещения контента по обе стороны оси
-- Используйте `extraTimelineMarker` или `icon` для персонализации маркера по типу события
-
-**Don't:**
-- Не используйте `Timeline` для управления прохождением процесса — для wizard применяйте `Stepper`, для прогресса по задаче — `Steps`
-- Не задавайте вертикальные значения `align` (`left`/`right`) при `layout="horizontal"` — используйте `top`/`bottom`
-- Не инлайньте цвет маркера напрямую — задавайте `markerColor` токеном из [tokens.md](../../figma-code-connect/tokens.md)
-- Не дублируйте основной контент в `extraTimelineOpposite` — противоположная сторона предназначена для вторичной информации
+Описания всех 7 story и Controls скопированы из `origin/main` дословно.
