@@ -128,16 +128,55 @@ export const Default: Story = {
 
 // ── WithIcon ──────────────────────────────────────────────────────────────────
 
-export const WithIcon: Story = WithIconStory;
+export const WithIcon: Story = {
+  ...(WithIconStory as Story),
+  parameters: {
+    ...(WithIconStory as Story).parameters,
+    docs: {
+      ...((WithIconStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Чип с иконкой.' }
+    }
+  }
+};
 
 // ── Removable ─────────────────────────────────────────────────────────────────
 
-export const Removable: Story = RemovableStory;
+export const Removable: Story = {
+  ...(RemovableStory as Story),
+  parameters: {
+    ...(RemovableStory as Story).parameters,
+    docs: {
+      ...((RemovableStory as Story).parameters?.['docs'] ?? {}),
+      description: {
+        story:
+          'Чип с кнопкой удаления. Чип не скрывает себя сам — удалением управляет родитель по событию `(onRemove)`.'
+      }
+    }
+  }
+};
 
 // ── RemovableWithIcon ─────────────────────────────────────────────────────────
 
-export const RemovableWithIcon: Story = RemovableWithIconStory;
+export const RemovableWithIcon: Story = {
+  ...(RemovableWithIconStory as Story),
+  parameters: {
+    ...(RemovableWithIconStory as Story).parameters,
+    docs: {
+      ...((RemovableWithIconStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Чип с иконкой и кнопкой удаления.' }
+    }
+  }
+};
 
 // ── Disabled ──────────────────────────────────────────────────────────────────
 
-export const Disabled: Story = DisabledStory;
+export const Disabled: Story = {
+  ...(DisabledStory as Story),
+  parameters: {
+    ...(DisabledStory as Story).parameters,
+    docs: {
+      ...((DisabledStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Отключённый чип: кнопка удаления не получает фокус и не эмитит `(onRemove)`.' }
+    }
+  }
+};
