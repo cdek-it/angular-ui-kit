@@ -1,30 +1,82 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { fn } from 'storybook/test';
 import { ExtraInputNumberComponent } from '../../../lib/components/inputnumber/inputnumber.component';
-import { InputNumberFloatLabelComponent, FloatLabelStory } from './examples/inputnumber-float-label.component';
-import { InputNumberLabelsComponent, Labels } from './examples/inputnumber-labels.component';
-import { InputNumberClearableComponent, Clearable } from './examples/inputnumber-clearable.component';
-import { Currency } from './examples/inputnumber-currency.component';
-import { Buttons } from './examples/inputnumber-buttons.component';
-import { Disabled } from './examples/inputnumber-disabled.component';
-
-type InputNumberArgs = ExtraInputNumberComponent & { disabled: boolean; invalid: boolean };
-
-const meta: Meta<InputNumberArgs> = {
+const INPUTS = [
+  'placeholder',
+  'label',
+  'labelPosition',
+  'floatLabel',
+  'clearable',
+  'caption',
+  'captionSeverity',
+  'info',
+  'size',
+  'showButtons',
+  'buttonLayout',
+  'mode',
+  'currency',
+  'locale',
+  'readonly',
+  'fluid',
+  'min',
+  'max',
+  'step',
+  'prefix',
+  'suffix',
+  'minFractionDigits',
+  'maxFractionDigits',
+  'useGrouping',
+  'incrementButtonIcon',
+  'decrementButtonIcon',
+  'required',
+  'name',
+  'autocomplete',
+  'ariaLabel',
+  'ariaLabelledBy',
+  'autofocus',
+  'tabindex'
+] as const;
+type NumberArgs = Pick<
+  ExtraInputNumberComponent,
+  (typeof INPUTS)[number] | 'onInput' | 'onClear' | 'modelValue' | 'inputSizeClass' | 'sizeClass' | 'inputId'
+> & { value: number | null; disabled: boolean; invalid: boolean };
+type RenderArgs = Partial<Pick<NumberArgs, (typeof INPUTS)[number] | 'value' | 'disabled' | 'invalid'>>;
+function source(args: RenderArgs) {
+  const parts = ['[formControl]="control"'];
+  const escape = (s: string) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+  for (const key of INPUTS) {
+    const value = args[key];
+    if (value === undefined) continue;
+    if (typeof value === 'string') parts.push(key + '="' + escape(value) + '"');
+    else parts.push('[' + key + ']="' + value + '"');
+  }
+  return '<extra-input-number\n  ' + parts.join('\n  ') + '\n></extra-input-number>';
+}
+const meta: Meta<NumberArgs> = {
   title: 'Components/Form/InputNumber',
   component: ExtraInputNumberComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraInputNumberComponent,
-        ReactiveFormsModule,
-        InputNumberFloatLabelComponent,
-        InputNumberLabelsComponent,
-        InputNumberClearableComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'inputnumber'],
+  decorators: [moduleMetadata({ imports: [ExtraInputNumberComponent, ReactiveFormsModule] })],
+  render: (args) => {
+    const control = new FormControl<number | null>(
+      { value: args.value ?? null, disabled: !!args.disabled },
+      args.invalid ? () => ({ storyInvalid: true }) : []
+    );
+    if (args.invalid) control.markAsTouched();
+    return {
+      props: {
+        ...Object.fromEntries(INPUTS.map((k) => [k, args[k]])),
+        control,
+        onInput: args.onInput,
+        onClear: args.onClear
+      },
+      template:
+        '<extra-input-number [formControl]="control" ' +
+        INPUTS.map((k) => '[' + k + ']="' + k + '"').join(' ') +
+        ' (onInput)="onInput($event)" (onClear)="onClear()"></extra-input-number>'
+    };
+  },
   parameters: {
     designTokens: { prefix: '--p-inputnumber' },
     docs: {
@@ -36,6 +88,11 @@ const meta: Meta<InputNumberArgs> = {
 \`\`\`typescript
 import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
+      },
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_code: string, context: { args: RenderArgs }) => source(context.args)
       }
     }
   },
@@ -348,100 +405,129 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
         category: 'События',
         type: { summary: 'EventEmitter<void>' }
       }
-    }
+    },
+    value: { control: 'number' }
   },
   args: {
-    placeholder: 'Введите число...',
-    label: '',
-    labelPosition: 'top',
-    floatLabel: false,
-    clearable: false,
-    caption: '',
-    captionSeverity: 'base',
-    required: false,
-    name: undefined,
-    autocomplete: undefined,
-    incrementButtonIcon: undefined,
-    decrementButtonIcon: undefined,
-    ariaLabel: undefined,
-    ariaLabelledBy: undefined,
-    autofocus: false,
-    tabindex: undefined,
-    info: '',
-    size: 'base',
-    showButtons: false,
-    buttonLayout: 'stacked',
-    mode: 'decimal',
-    disabled: false,
-    invalid: false,
-    readonly: false,
-    fluid: false,
-    step: 1,
-    useGrouping: true
+    ...{
+      placeholder: 'Введите число...',
+      label: '',
+      labelPosition: 'top',
+      floatLabel: false,
+      clearable: false,
+      caption: '',
+      captionSeverity: 'base',
+      required: false,
+      name: undefined,
+      autocomplete: undefined,
+      incrementButtonIcon: undefined,
+      decrementButtonIcon: undefined,
+      ariaLabel: undefined,
+      ariaLabelledBy: undefined,
+      autofocus: false,
+      tabindex: undefined,
+      info: '',
+      size: 'base',
+      showButtons: false,
+      buttonLayout: 'stacked',
+      mode: 'decimal',
+      disabled: false,
+      invalid: false,
+      readonly: false,
+      fluid: false,
+      step: 1,
+      useGrouping: true
+    },
+    placeholder: 'Placeholder',
+    label: 'Label',
+    caption: 'Caption',
+    info: 'Info',
+    size: 'small',
+    buttonLayout: 'horizontal',
+    value: null,
+    onInput: fn(),
+    onClear: fn()
   }
 };
-
 export default meta;
-type Story = StoryObj<InputNumberArgs>;
-
-// ── Default ──────────────────────────────────────────────────────────────────
+type Story = StoryObj<NumberArgs>;
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
-    if (args.label) parts.push(`label="${args.label}"`);
-    if (args.labelPosition && args.labelPosition !== 'top') parts.push(`labelPosition="${args.labelPosition}"`);
-    if (args.floatLabel) parts.push(`[floatLabel]="true"`);
-    if (args.clearable) parts.push(`[clearable]="true"`);
-    if (args.caption) parts.push(`caption="${args.caption}"`);
-    if (args.captionSeverity && args.captionSeverity !== 'base')
-      parts.push(`captionSeverity="${args.captionSeverity}"`);
-    if (args.required) parts.push('required');
-    if (args.name) parts.push(`name="${args.name}"`);
-    if (args.autocomplete) parts.push(`autocomplete="${args.autocomplete}"`);
-    if (args.incrementButtonIcon) parts.push(`incrementButtonIcon="${args.incrementButtonIcon}"`);
-    if (args.decrementButtonIcon) parts.push(`decrementButtonIcon="${args.decrementButtonIcon}"`);
-    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
-    if (args.ariaLabelledBy) parts.push(`ariaLabelledBy="${args.ariaLabelledBy}"`);
-    if (args.autofocus) parts.push('[autofocus]="true"');
-    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
-    if (args.info) parts.push(`info="${args.info}"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.showButtons) parts.push(`[showButtons]="true"`);
-    if (args.buttonLayout && args.buttonLayout !== 'stacked') parts.push(`buttonLayout="${args.buttonLayout}"`);
-    if (args.mode && args.mode !== 'decimal') parts.push(`mode="${args.mode}"`);
-    if (args.currency) parts.push(`currency="${args.currency}"`);
-    if (args.locale) parts.push(`locale="${args.locale}"`);
-    if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.min != null) parts.push(`[min]="${args.min}"`);
-    if (args.max != null) parts.push(`[max]="${args.max}"`);
-    if (args.step && args.step !== 1) parts.push(`[step]="${args.step}"`);
-    if (args.prefix) parts.push(`prefix="${args.prefix}"`);
-    if (args.suffix) parts.push(`suffix="${args.suffix}"`);
-    if (args.minFractionDigits != null) parts.push(`[minFractionDigits]="${args.minFractionDigits}"`);
-    if (args.maxFractionDigits != null) parts.push(`[maxFractionDigits]="${args.maxFractionDigits}"`);
-    if (!args.useGrouping) parts.push(`[useGrouping]="false"`);
-
-    const validators = [];
-    if (args.invalid) validators.push(Validators.required);
-
-    const control = new FormControl<number | null>({ value: null, disabled: args.disabled }, validators);
-
-    const template = `<extra-input-number [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-number>`;
-
-    return { props: { ...args, control }, template };
-  },
+  args: {},
+  parameters: {
+    docs: {
+      description: { story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.' }
+    }
+  }
+};
+export const Buttons: Story = {
+  name: 'Buttons',
+  args: { showButtons: true },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Числовое поле с кнопками увеличения/уменьшения в горизонтальной раскладке. Кастомные SVG-иконки +/− используются по умолчанию.'
       }
     }
   }
 };
-
-// ── Re-exports from example components ────────────────────────────────────
-export { Currency, Buttons, Disabled, FloatLabelStory as FloatLabel, Labels, Clearable };
+export const FloatLabel: Story = {
+  name: 'FloatLabel',
+  args: { floatLabel: true, label: 'FloatLabel' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Плавающая метка внутри поля через `[floatLabel]="true"` — обёртка сама рисует `p-floatlabel` и лейбл, ничего дополнительно оборачивать не нужно. Несовместимо с `showButtons` (кнопки будут скрыты).'
+      }
+    }
+  }
+};
+export const Clearable: Story = {
+  name: 'Clearable',
+  args: { clearable: true, value: 42 },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Поле с иконкой очистки (clearable) — соответствует PrimeNG `showClear`. Иконка появляется только при наличии значения.'
+      }
+    }
+  }
+};
+export const Currency: Story = {
+  name: 'Currency',
+  args: { mode: 'currency', currency: 'RUB', locale: 'ru-RU', value: 1234.5 },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Форматирование значения как валюты через `suffix`. Режим `mode="currency"` не используется из-за известного бага PrimeNG с кареткой.'
+      }
+    }
+  }
+};
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: { disabled: true },
+  parameters: {
+    docs: { description: { story: 'Отключённое состояние — поле и кнопки недоступны для взаимодействия.' } }
+  }
+};
+export const Error: Story = { name: 'Error', args: { invalid: true, captionSeverity: 'danger' } };
+export const Readonly: Story = { name: 'Readonly', args: { readonly: true, value: 42 } };
+export const LabelLeft: Story = {
+  name: 'LabelLeft',
+  args: { labelPosition: 'left' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Положения лейбла (labelPosition): top — сверху (по умолчанию), left — слева от поля; floatLabel — плавающий лейбл внутри поля (несовместим с showButtons). Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
+      }
+    }
+  }
+};
+export const WithoutLabel: Story = { name: 'WithoutLabel', args: { label: '', caption: '', info: '' } };
+export const Fluid: Story = { name: 'Fluid', args: { fluid: true } };
