@@ -7,23 +7,21 @@ import {
 import { ExtraAccordionPanelTemplateDirective } from '../../../../lib/components/accordion/accordion-panel-template.directive';
 
 const template = `
-<div class="bg-surface-ground">
-  <extra-accordion [multiple]="true">
-    <extra-accordion-panel icon="ti ti-package" [expanded]="true">
-      <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
-      Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»
-    </extra-accordion-panel>
-    <extra-accordion-panel icon="ti ti-map-pin">
-      <ng-template extraAccordionPanelTemplate="header">Маршрут доставки</ng-template>
-      Принят в Москве 14 апр 09:15 → Сортировочный центр 14 апр 14:30 → Передан перевозчику → Прибыл в Новосибирск 15
-      апр 08:00 → Доставлен 15 апр 14:20
-    </extra-accordion-panel>
-    <extra-accordion-panel icon="ti ti-receipt" [expanded]="true">
-      <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
-      Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321
-    </extra-accordion-panel>
-  </extra-accordion>
-</div>
+<extra-accordion [multiple]="true">
+  <extra-accordion-panel icon="ti ti-package" [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
+    Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»
+  </extra-accordion-panel>
+  <extra-accordion-panel icon="ti ti-map-pin">
+    <ng-template extraAccordionPanelTemplate="header">Маршрут доставки</ng-template>
+    Принят в Москве 14 апр 09:15 → Сортировочный центр 14 апр 14:30 → Передан перевозчику → Прибыл в Новосибирск 15
+    апр 08:00 → Доставлен 15 апр 14:20
+  </extra-accordion-panel>
+  <extra-accordion-panel icon="ti ti-receipt" [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
+    Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321
+  </extra-accordion-panel>
+</extra-accordion>
 `;
 
 @Component({

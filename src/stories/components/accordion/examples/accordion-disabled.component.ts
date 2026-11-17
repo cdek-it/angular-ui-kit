@@ -7,22 +7,20 @@ import {
 import { ExtraAccordionPanelTemplateDirective } from '../../../../lib/components/accordion/accordion-panel-template.directive';
 
 const template = `
-<div class="bg-surface-ground">
-  <extra-accordion>
-    <extra-accordion-panel icon="ti ti-package" [expanded]="true">
-      <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
-      Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»
-    </extra-accordion-panel>
-    <extra-accordion-panel icon="ti ti-file-description" [disabled]="true">
-      <ng-template extraAccordionPanelTemplate="header">Документы (недоступно)</ng-template>
-      Документация по отправлению временно недоступна.
-    </extra-accordion-panel>
-    <extra-accordion-panel icon="ti ti-receipt">
-      <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
-      Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321
-    </extra-accordion-panel>
-  </extra-accordion>
-</div>
+<extra-accordion>
+  <extra-accordion-panel icon="ti ti-package" [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
+    Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места · Отправитель: ООО «Логистика+»
+  </extra-accordion-panel>
+  <extra-accordion-panel icon="ti ti-file-description" [disabled]="true">
+    <ng-template extraAccordionPanelTemplate="header">Документы (недоступно)</ng-template>
+    Документация по отправлению временно недоступна.
+  </extra-accordion-panel>
+  <extra-accordion-panel icon="ti ti-receipt">
+    <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
+    Стоимость доставки: 450 ₽ · НДС: 75 ₽ · Итого: 525 ₽ · Оплачено: карта *4321
+  </extra-accordion-panel>
+</extra-accordion>
 `;
 
 @Component({

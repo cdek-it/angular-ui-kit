@@ -9,30 +9,28 @@ import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component'
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
-  <extra-accordion>
-    <extra-accordion-panel [expanded]="true">
-      <ng-template extraAccordionPanelTemplate="header">
-        <div class="flex items-center gap-2">
-          <i class="ti ti-package text-primary text-xl"></i>
-          <span class="font-semibold">Заказ №ЦД-00123456</span>
-          <extra-tag severity="warning" value="в пути"></extra-tag>
-        </div>
-      </ng-template>
-
-      <p>Слот content — основное содержимое панели: любые элементы, формы, списки.</p>
-      <div class="flex gap-2 mt-3">
-        <extra-button variant="text" label="Скачать накладную" icon="ti ti-download" size="small"></extra-button>
-        <extra-button label="Отследить" icon="ti ti-map-pin" size="small"></extra-button>
+<extra-accordion>
+  <extra-accordion-panel [expanded]="true">
+    <ng-template extraAccordionPanelTemplate="header">
+      <div class="flex items-center gap-2">
+        <i class="ti ti-package text-primary text-xl"></i>
+        <span class="font-semibold">Заказ №ЦД-00123456</span>
+        <extra-tag severity="warning" value="в пути"></extra-tag>
       </div>
-    </extra-accordion-panel>
+    </ng-template>
 
-    <extra-accordion-panel icon="ti ti-receipt">
-      <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
-      Итого: 525 ₽ · Оплачено: карта *4321
-    </extra-accordion-panel>
-  </extra-accordion>
-</div>
+    <p>Слот content — основное содержимое панели: любые элементы, формы, списки.</p>
+    <div class="flex gap-2 mt-3">
+      <extra-button variant="text" label="Скачать накладную" icon="ti ti-download" size="small"></extra-button>
+      <extra-button label="Отследить" icon="ti ti-map-pin" size="small"></extra-button>
+    </div>
+  </extra-accordion-panel>
+
+  <extra-accordion-panel icon="ti ti-receipt">
+    <ng-template extraAccordionPanelTemplate="header">Стоимость отправления</ng-template>
+    Итого: 525 ₽ · Оплачено: карта *4321
+  </extra-accordion-panel>
+</extra-accordion>
 `;
 
 @Component({

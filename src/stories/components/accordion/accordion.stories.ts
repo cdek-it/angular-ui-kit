@@ -41,6 +41,9 @@ import { ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPa
     }
   },
   argTypes: {
+    icon: { control: 'text', description: 'Класс иконки Tabler в заголовке панели' },
+    expanded: { control: 'boolean', description: 'Панель раскрыта изначально' },
+    disabled: { control: 'boolean', description: 'Панель недоступна для раскрытия' },
     // ── Свойства ─────────────────────────────────────────────
     multiple: {
       control: 'boolean',
