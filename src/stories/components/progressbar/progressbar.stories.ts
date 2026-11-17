@@ -16,6 +16,11 @@ const meta: Meta<ProgressBarArgs> = {
   ],
   parameters: {
     docs: {
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () => '<extra-progressbar [value]="50" ariaLabel="Загрузка данных"></extra-progressbar>'
+      },
       description: {
         component: `Информирует пользователя о статусе длительного процесса.
 
@@ -126,20 +131,9 @@ export const Indeterminate: Story = {
     docs: {
       description: { story: 'Анимированный режим без конкретного значения.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/progressbar';
-
-@Component({
-  selector: 'app-progressbar-indeterminate',
-  standalone: true,
-  imports: [ExtraProgressBarComponent],
-  template: \`
-      <extra-progressbar mode="indeterminate"></extra-progressbar>
-  \`,
-})
-export class ProgressBarIndeterminateComponent {}`
+        language: 'html',
+        type: 'code',
+        code: '<extra-progressbar mode="indeterminate" [showValue]="true" ariaLabel="Загрузка данных"></extra-progressbar>'
       }
     }
   }
@@ -157,20 +151,9 @@ export const NoLabel: Story = {
     docs: {
       description: { story: 'Полоса прогресса без числовой метки.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraProgressBarComponent } from '@cdek-it/angular-ui-kit/components/progressbar';
-
-@Component({
-  selector: 'app-progressbar-no-label',
-  standalone: true,
-  imports: [ExtraProgressBarComponent],
-  template: \`
-    <extra-progressbar [value]="60" [showValue]="false"></extra-progressbar>
-  \`,
-})
-export class ProgressBarNoLabelComponent {}`
+        language: 'html',
+        type: 'code',
+        code: '<extra-progressbar [value]="60" mode="determinate" [showValue]="false" ariaLabel="Загрузка данных"></extra-progressbar>'
       }
     }
   }
