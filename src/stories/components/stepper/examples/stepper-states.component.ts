@@ -8,13 +8,11 @@ import { ExtraStepperItemComponent } from '../../../../lib/components/stepper/st
   standalone: true,
   imports: [ExtraStepperComponent, ExtraStepperItemComponent],
   template: `
-    <div class="bg-surface-ground">
-      <extra-stepper [value]="2">
-        <extra-stepper-item name="Получатель" caption="готово" state="success">Шаг 1 — завершён</extra-stepper-item>
-        <extra-stepper-item name="Адрес" caption="ошибка" state="danger">Шаг 2 — ошибка в адресе</extra-stepper-item>
-        <extra-stepper-item name="Оплата" caption="недоступно" [disabled]="true">Шаг 3 — недоступен</extra-stepper-item>
-      </extra-stepper>
-    </div>
+    <extra-stepper [value]="2">
+      <extra-stepper-item name="Получатель" caption="готово" state="success">Шаг 1 — завершён</extra-stepper-item>
+      <extra-stepper-item name="Адрес" caption="ошибка" state="danger">Шаг 2 — ошибка в адресе</extra-stepper-item>
+      <extra-stepper-item name="Оплата" caption="недоступно" [disabled]="true">Шаг 3 — недоступен</extra-stepper-item>
+    </extra-stepper>
   `
 })
 export class StepperStatesComponent {}
@@ -27,27 +25,10 @@ export const States: StoryObj = {
   parameters: {
     controls: { disable: true },
     docs: {
-      description: { story: '`state="success"`/`state="danger"` — визуальные состояния шага; `[disabled]="true"` блокирует переход.' },
-      source: {
-        language: 'ts',
-        code: `
-import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-stepper-states',
-  standalone: true,
-  imports: [ExtraStepperComponent, ExtraStepperItemComponent],
-  template: \`
-    <extra-stepper [value]="2">
-      <extra-stepper-item name="Получатель" state="success">Шаг 1 — завершён</extra-stepper-item>
-      <extra-stepper-item name="Адрес" state="danger">Шаг 2 — ошибка в адресе</extra-stepper-item>
-      <extra-stepper-item name="Оплата" [disabled]="true">Шаг 3 — недоступен</extra-stepper-item>
-    </extra-stepper>
-  \`,
-})
-export class StepperStatesComponent {}
-        `
-      }
+      description: {
+        story: '`state="success"`/`state="danger"` — визуальные состояния шага; `[disabled]="true"` блокирует переход.'
+      },
+      source: { language: 'html', type: 'code', code: '<extra-stepper [value]="2"></extra-stepper>' }
     }
   }
 };

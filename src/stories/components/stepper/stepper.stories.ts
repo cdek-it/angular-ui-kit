@@ -26,6 +26,7 @@ const meta: Meta<StepperDefaultComponent> = {
   ],
   parameters: {
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-stepper></extra-stepper>' },
       description: {
         component: `Мастер пошаговых действий (wizard): последовательность этапов с индикатором и панелью контента.
 
@@ -41,6 +42,7 @@ import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angul
     designTokens: { prefix: '--p-stepper' }
   },
   argTypes: {
+    value: { control: 'text', description: 'Активный шаг (индекс или значение)' },
     orientation: {
       control: 'radio',
       options: ['horizontal', 'vertical'],
@@ -90,7 +92,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Три шага с навигацией «Назад»/«Вперёд» через `#stepper="extraStepper"`. Используйте Controls для `orientation`/`showLine`/`linear`.'
+        story:
+          'Три шага с навигацией «Назад»/«Вперёд» через `#stepper="extraStepper"`. Используйте Controls для `orientation`/`showLine`/`linear`.'
       }
     }
   }
