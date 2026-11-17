@@ -30,6 +30,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraInputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputMaskLabelPosition = 'top' | 'left';
@@ -40,7 +41,7 @@ let nextInputId = 0;
   selector: 'extra-input-mask',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMask, FloatLabel, NgTemplateOutlet, ReactiveFormsModule, ExtraTooltipDirective],
+  imports: [InputMask, FloatLabel, NgTemplateOutlet, ReactiveFormsModule, ExtraTooltipDirective, ExtraCaptionComponent],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -78,7 +79,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-inputmask-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -149,6 +150,7 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, On
   /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
   @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraInputMaskSize = 'base';
   @Input({ transform: booleanAttribute }) readonly = false;

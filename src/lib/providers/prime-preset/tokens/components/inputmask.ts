@@ -44,25 +44,37 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
   gap: ${dt('dimension.space.100')};
   color: ${dt('color.fg.default')};
   font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
+  font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.300')};
+  line-height: ${dt('fonts.lineHeight.200')};
   cursor: pointer;
 }
 
 .extra-inputmask-label-icon {
   color: ${dt('color.fg.subtle')};
-  font-size: ${dt('inputtext.extend.iconSize')};
+  font-size: ${dt('dimension.size.400')};
   cursor: help;
 }
 
-/* ─── Caption ─── */
-.extra-inputmask-caption {
-  color: ${dt('color.fg.subtle')};
-  font-family: ${dt('fonts.fontFamily.heading')};
+/* ─── FloatLabel: повторяем правила InputText для вложенного p-inputmask ───
+   В InputText поле лежит прямым потомком .p-floatlabel, у InputMask — внутри <p-inputmask>,
+   поэтому глобальные правила inputtext с :has(> .p-inputtext) сюда не попадают. */
+.p-floatlabel:has(> .p-inputmask) > .p-inputmask .p-inputtext {
+  height: ${dt('inputtext.extend.extXlg.height')};
+  border-radius: ${dt('dimension.borderRadius.400')};
+  padding-top: calc(${dt('floatlabel.in.input.paddingTop')} - ${dt('dimension.space.50')});
+}
+.p-floatlabel:has(> .p-inputmask .p-inputtext:not(:focus):not(.p-filled)) > label {
+  top: 50%;
+  margin-top: calc(${dt('fonts.lineHeight.400')} / -2);
   font-size: ${dt('fonts.fontSize.200')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.250')};
+  line-height: ${dt('fonts.lineHeight.400')};
+}
+.p-floatlabel:has(> .p-inputmask .p-inputtext:focus) > label,
+.p-floatlabel:has(> .p-inputmask .p-inputtext.p-filled) > label {
+  top: calc(${dt('floatlabel.in.active.top')} - ${dt('dimension.space.50')});
+  font-size: ${dt('floatlabel.root.active.fontSize')};
+  line-height: ${dt('fonts.lineHeight.150')};
 }
 
 /* Внутри p-floatlabel лейбл лежит поверх поля — курсор должен быть как у ввода */
