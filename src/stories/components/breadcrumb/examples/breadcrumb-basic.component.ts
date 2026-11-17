@@ -4,9 +4,7 @@ import { ExtraBreadcrumbComponent } from '../../../../lib/components/breadcrumb/
 import { commonHome, commonItems } from '../breadcrumb.data';
 
 const template = `
-<div class="bg-surface-ground">
-  <extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
-</div>
+<extra-breadcrumb [model]="model" [home]="home"></extra-breadcrumb>
 `;
 
 @Component({

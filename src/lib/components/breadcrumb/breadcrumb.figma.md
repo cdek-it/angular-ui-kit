@@ -5,106 +5,34 @@ import:
   symbol: ExtraBreadcrumbComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '735:7985'
-  componentKey: 'feb43c0120bf06c0eeed66ed8d01ee0626851d51'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
+  nodeId: '0:0'
   name: '<Breadcrumb>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
-## Overview
+# Breadcrumb
 
-`ExtraBreadcrumb` — навигационный компонент «хлебные крошки», показывающий путь текущей страницы в иерархии: ссылки на родительские уровни через разделитель, последний элемент — текущая страница. Оборачивает PrimeNG `p-breadcrumb` и управляется моделью пунктов.
+Live Figma UI Kit DS v3.0: наборы `Breadcrumb` (prop `home` true/false, слот `<Slot.Items>`) и `Breadcrumb.Item`
+(ось `state` default/hover/disabled/focus; props `show-separator`, `show-icon`, `change-icon`, `show-label`).
 
-Компонент соответствует Figma-компоненту `<Breadcrumb>` (nodeId `735:7985`) из библиотеки UI Kit (DS) v2.0. В отличие от `Tabs`/`Menubar` (переключение разделов одного уровня) и `Stepper` (линейный прогресс процесса), breadcrumb отражает положение страницы по уровням иерархии.
+| Figma | API | Геометрия |
+|---|---|---|
+| `home=true/false` | `home` | Иконка «Домой» перед крошками |
+| `<Slot.Items>` | `model: ExtraMenuItem[]` | Крошки: label, icon, url, disabled |
+| `Item.state=default/hover` | — | Ховер пункта — из PrimeNG Aura + токены `breadcrumb.item.*` |
+| `Item.state=focus` | `tabindex` | Кольцо фокуса 2 px: `breadcrumb.focusRing.shadow` = `0 0 0 {width} {color}` |
+| `Item.show-icon` | `icon` в элементе модели | Иконка Tabler перед текстом |
+| `Item.show-label=false` | элемент без `label` | Крошка только с иконкой (story IconsOnly) |
+| `show-separator` | — | Разделитель рисует PrimeNG, стиль из токенов |
 
-## Props mapping
+## Отличия и ограничения
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `model` | `ExtraMenuItem[]` | `[]` | Массив пунктов пути; последний пункт — текущая страница. Соответствует Figma-свойству `change-layout` (набор крошек) |
-| `home` | `ExtraMenuItem \| undefined` | `undefined` | Корневой пункт «домой» (обычно иконка). Соответствует Figma-свойству `home` (варианты `true`, `false`) |
+- В Figma нет оси «последняя крошка»: в PrimeNG последний элемент без `url` рендерится ссылкой без `href` — это
+  проверяется матрицей, отдельного API нет.
+- `disabled` берётся из `ExtraMenuItem.disabled` (PrimeNG), отдельного входа компонента нет.
+- Токены `breadcrumb.focusRing.width/style/color/offset` не используются CSS напрямую — кольцо задаётся
+  `breadcrumb.focusRing.shadow` (гейт помечает их WARN, это унаследованный резерв).
 
-Каждый элемент `model` и `home` описывается интерфейсом `ExtraMenuItem`. Часто используемые поля пункта:
-
-| Поле пункта | Тип | Описание |
-|-------------|-----|---------|
-| `label` | `string` | Текст крошки |
-| `icon` | `string` | CSS-класс иконки крошки; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `url` | `string` | Адрес ссылки крошки |
-| `routerLink` | `any` | Маршрут Angular Router для крошки |
-| `disabled` | `boolean` | Отключённый пункт |
-
-## Variants
-
-### Home + items (с корневой иконкой)
-
-Figma: `<Breadcrumb>`, home=true — nodeId `735:7983`
-
-```html
-<extra-breadcrumb [home]="home" [model]="model"></extra-breadcrumb>
-```
-
-```ts
-home: ExtraMenuItem = { icon: 'ti ti-home', url: '#' };
-model: ExtraMenuItem[] = [
-  { label: 'Электроника', icon: 'ti ti-device-laptop', url: '#' },
-  { label: 'Компьютеры', icon: 'ti ti-cpu', url: '#' },
-  { label: 'Ноутбуки' },
-];
-```
-
-### Без корневого пункта (только items)
-
-Figma: `<Breadcrumb>`, home=false — nodeId `735:7982`
-
-```html
-<extra-breadcrumb [model]="model"></extra-breadcrumb>
-```
-
-```ts
-model: ExtraMenuItem[] = [
-  { label: 'Электроника', url: '#' },
-  { label: 'Компьютеры', url: '#' },
-  { label: 'Ноутбуки' },
-];
-```
-
-### Только иконки (items без текста)
-
-Figma: `<Breadcrumb>`, home=true, крошки без `label`
-
-```html
-<extra-breadcrumb [home]="home" [model]="model"></extra-breadcrumb>
-```
-
-```ts
-home: ExtraMenuItem = { icon: 'ti ti-home', url: '#' };
-model: ExtraMenuItem[] = [
-  { icon: 'ti ti-device-laptop', url: '#' },
-  { icon: 'ti ti-cpu', url: '#' },
-  { icon: 'ti ti-book' },
-];
-```
-
-## Slots
-
-Не используются. Пункты пути передаются данными через `@Input() model` и `@Input() home` (массив объектов `ExtraMenuItem`), а не через проекцию содержимого.
-
-## Related
-
-- [Иконки](../../figma-code-connect/icons.md) — доступные иконки крошек (`ti ti-*`)
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-
-## Do / Don't
-
-**Do:**
-- Делайте последний пункт `model` текущей страницей без `url`/`routerLink` — он не должен быть ссылкой
-- Задавайте `home` для корневого уровня и используйте для него иконку из [icons.md](../../figma-code-connect/icons.md)
-- Применяйте breadcrumb, когда иерархия глубже двух уровней и пользователю важно понимать местоположение
-
-**Don't:**
-- Не используйте breadcrumb для переключения разделов одного уровня — для этого есть `Tabs`/`Menubar`
-- Не отображайте breadcrumb на главной странице или при дублирующей боковой навигации
-- Не инлайньте CSS-классы иконок вслепую — сверяйтесь со справочником [icons.md](../../figma-code-connect/icons.md)
+Описания Default, Basic, IconsOnly и Controls скопированы из `origin/main` дословно; сниппеты переведены на HTML.
