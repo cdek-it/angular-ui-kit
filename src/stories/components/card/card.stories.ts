@@ -30,6 +30,11 @@ const meta: Meta<CardArgs> = {
   ],
   parameters: {
     docs: {
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () => '<extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem"></extra-card>'
+      },
       description: {
         component: `Гибкий контейнер для группировки контента с заголовком, подзаголовком, основным содержимым и действиями. Слоты \`header\`/\`footer\` — через директиву \`extraCardTemplate\`, \`content\` — обычный \`<ng-content>\`.
 
@@ -93,8 +98,7 @@ export const Default: Story = {
     if (args.overlay) parts.push(`[overlay]="true"`);
 
     const attrs = parts.length ? `\n  ${parts.join('\n  ')}` : '';
-    const template = `<div class="bg-surface-ground">
-  <extra-card${attrs} style="width: 20rem">
+    const template = `<extra-card${attrs} style="width: 20rem">
     <ng-template extraCardTemplate="header">
       <img alt="Заголовок" src="assets/mascot.jpg" class="w-full" />
     </ng-template>
@@ -102,8 +106,7 @@ export const Default: Story = {
     <ng-template extraCardTemplate="footer">
       <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
     </ng-template>
-  </extra-card>
-</div>`;
+  </extra-card>`;
 
     return { props: args, template };
   },

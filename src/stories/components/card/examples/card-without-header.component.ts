@@ -5,14 +5,12 @@ import { ExtraCardTemplateDirective } from '../../../../lib/components/card/card
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 
 const template = `
-<div class="bg-surface-ground">
   <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
     <p class="text-sm">Карточка без изображения в шапке.</p>
     <ng-template extraCardTemplate="footer">
       <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
     </ng-template>
   </extra-card>
-</div>
 `;
 const styles = '';
 
@@ -33,26 +31,9 @@ export const WithoutHeader: StoryObj = {
     docs: {
       description: { story: 'Карточка без изображения в шапке.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraCardComponent, ExtraCardTemplateDirective, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-card-without-header',
-  standalone: true,
-  imports: [ExtraCardComponent, ExtraCardTemplateDirective, ExtraButtonComponent],
-  template: \`
-    <extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem">
-      <p class="text-sm">Карточка без изображения в шапке.</p>
-      <ng-template extraCardTemplate="footer">
-        <extra-button label="Действие" size="small" [fluid]="true"></extra-button>
-      </ng-template>
-    </extra-card>
-  \`,
-})
-export class CardWithoutHeaderComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-card title="Заголовок" subtitle="Подзаголовок" style="width: 20rem"> <p class="text-sm">Карточка без изображения в шапке.</p> <ng-template extraCardTemplate="footer"> <extra-button label="Действие" size="small" [fluid]="true"></extra-button> </ng-template> </extra-card>'
       }
     }
   }
