@@ -15,6 +15,7 @@ const meta: Meta<ExtraBadgeComponent> = {
   ],
   parameters: {
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-badge></extra-badge>' },
       description: {
         component: `Компактный индикатор статуса или числового значения. Используется для отображения счётчиков, меток и статусов.
 
@@ -111,7 +112,3 @@ export const Default: Story = {
 };
 
 // ── Витрины вариантов ────────────────────────────────────────────────────────
-
-export { Severity } from './examples/badge-severity.component';
-export { Sizes } from './examples/badge-sizes.component';
-export { Dot } from './examples/badge-dot.component';
