@@ -18,6 +18,7 @@ const meta: Meta<TagArgs> = {
   parameters: {
     designTokens: { prefix: '--p-tag' },
     docs: {
+      source: { language: 'html', type: 'code', transform: () => '<extra-tag value="Tag"></extra-tag>' },
       description: {
         component: `Маркер для элементов интерфейса.
 
@@ -104,5 +105,3 @@ export const Default: Story = {
     }
   }
 };
-
-export { Severity, WithIcon, Rounded };
