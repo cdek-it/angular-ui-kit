@@ -1,7 +1,10 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { InputTextReactiveFormsComponent, ReactiveForms } from './examples/inputtext-reactive-forms.component';
+import {
+  InputTextReactiveFormsComponent,
+  ReactiveForms as ReactiveFormsStory
+} from './examples/inputtext-reactive-forms.component';
 
 type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean; value: string };
 
@@ -16,7 +19,11 @@ const meta: Meta<InputTextArgs> = {
   ],
   parameters: {
     docs: {
-      source: { language: 'html', transform: (_code: string, context: { args: Partial<Omit<InputTextArgs, 'onClear'>> }) => renderInputText(context.args).template },
+      source: {
+        language: 'html',
+        transform: (_code: string, context: { args: Partial<Omit<InputTextArgs, 'onClear'>> }) =>
+          renderInputText(context.args).template
+      },
       description: {
         component: `Текстовое поле для ввода данных.
 
@@ -266,12 +273,14 @@ const renderInputText = (args: Partial<Omit<InputTextArgs, 'onClear'>>) => {
 
   if (args.placeholder) parts.push(`placeholder="${escape(args.placeholder)}"`);
   if (args.label) parts.push(`label="${escape(args.label)}"`);
-  if (args.labelPosition && args.labelPosition !== 'default') parts.push(`labelPosition="${escape(args.labelPosition)}"`);
+  if (args.labelPosition && args.labelPosition !== 'default')
+    parts.push(`labelPosition="${escape(args.labelPosition)}"`);
   if (args.requiredMark) parts.push(`[requiredMark]="true"`);
   if (args.clearable) parts.push(`[clearable]="true"`);
   if (args.readonly) parts.push(`[readonly]="true"`);
   if (args.caption) parts.push(`caption="${escape(args.caption)}"`);
-  if (args.captionSeverity && args.captionSeverity !== 'base') parts.push(`captionSeverity="${escape(args.captionSeverity)}"`);
+  if (args.captionSeverity && args.captionSeverity !== 'base')
+    parts.push(`captionSeverity="${escape(args.captionSeverity)}"`);
   if (args.info) parts.push(`info="${escape(args.info)}"`);
   if (args.size && args.size !== 'base') parts.push(`size="${escape(args.size)}"`);
   if (args.fluid) parts.push(`[fluid]="true"`);
@@ -301,7 +310,14 @@ const renderInputText = (args: Partial<Omit<InputTextArgs, 'onClear'>>) => {
 export const Default: Story = {
   name: 'Default',
   render: (args) => renderInputText(args),
-  parameters: { docs: { description: { story: 'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.' } } }
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
+      }
+    }
+  }
 };
 
 export const Error: Story = {
@@ -332,14 +348,40 @@ export const Clearable: Story = {
   name: 'Clearable',
   args: { clearable: true, value: 'InputText' },
   render: (args) => renderInputText(args),
-  parameters: { docs: { description: { story: 'Поле с иконкой очистки (clearable). Иконка × доступна с клавиатуры (Enter / Space) и появляется только при наличии значения.' } } }
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Поле с иконкой очистки (clearable). Иконка × доступна с клавиатуры (Enter / Space) и появляется только при наличии значения.'
+      }
+    }
+  }
 };
 
 export const Fluid: Story = {
   name: 'Fluid',
   args: { fluid: true },
   render: (args) => renderInputText(args),
-  parameters: { docs: { description: { story: 'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя вместо собственной ширины по умолчанию. Контейнер в примере — 600px и обведён пунктиром, чтобы было видно, что поле тянется ровно по его границам.' } } }
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя вместо собственной ширины по умолчанию. Контейнер в примере — 600px и обведён пунктиром, чтобы было видно, что поле тянется ровно по его границам.'
+      }
+    }
+  }
 };
 
-export { ReactiveForms };
+export const ReactiveForms: Story = {
+  ...(ReactiveFormsStory as Story),
+  parameters: {
+    ...ReactiveFormsStory.parameters,
+    docs: {
+      ...(ReactiveFormsStory.parameters?.['docs'] ?? {}),
+      description: {
+        story:
+          'Компонент реализует ControlValueAccessor, поэтому `[formControl]` работает в обе стороны. Ввод с клавиатуры и очистка иконкой × пишут значение в контрол (value, dirty), blur помечает его touched, а `setValue()`, `reset()`, `disable()` / `enable()` со стороны формы обновляют само поле. Состояние invalid берётся из NgControl — красная рамка появляется по Validators, без отдельного пропа.'
+      }
+    }
+  }
+};
