@@ -9,10 +9,8 @@ import { defaultValue } from '../metergroup.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
   template: `
-    <div class="bg-surface-ground">
-      <div style="height: 300px; display: flex">
-        <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="vertical"></extra-metergroup>
-      </div>
+    <div style="height: 300px; display: flex">
+      <extra-metergroup ariaLabel="Использование диска" [value]="value" orientation="vertical"></extra-metergroup>
     </div>
   `
 })

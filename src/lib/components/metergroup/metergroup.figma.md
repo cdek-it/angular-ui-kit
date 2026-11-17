@@ -3,99 +3,30 @@ component: ExtraMeterGroup
 selector: extra-metergroup
 import:
   symbol: ExtraMeterGroupComponent
-  from: '@cdek-it/angular-ui-kit'
+  from: '@cdek-it/angular-ui-kit/components/metergroup'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '222:1489'
-  componentKey: '5e667c21084e33270039bc3dfec1a77ef9ef63d2'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
+  nodeId: '0:0'
   name: '<MeterGroup>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-18'
 ---
 
-## Overview
+# MeterGroup
 
-`ExtraMeterGroup` — компонент шкалы измерения, отображающий несколько значений-сегментов на одной общей шкале (`role=meter`) в известном диапазоне. Каждый сегмент имеет своё значение, цвет, иконку и подпись; компонент показывает распределение или заполненность по категориям и неинтерактивен. Оборачивает PrimeNG `p-metergroup`.
+Live Figma UI Kit DS v3.0: наборы `MeterGroup`, `MeterGroup.Item`, `MeterGroup.LabelIcon`.
 
-Компонент соответствует Figma-компоненту `<MeterGroup>` (nodeId `222:1489`). Figma-свойства `label-position` и `label-orientation` маппируются на Angular-инпуты `labelPosition` и `labelOrientation`; ориентация самой шкалы задаётся инпутом `orientation`.
+| Figma | API | Геометрия |
+|---|---|---|
+| `MeterGroup` | `value` (массив элементов) | Общая полоса прогресса и метки |
+| `Item` | `{ label, color, value, icon? }` | Сегмент полосы |
+| `LabelIcon` | `icon` в элементе | Иконка в метке |
+| ориентация | `orientation` | `horizontal` / `vertical` |
+| метки | `labelPosition`, `labelOrientation` | `start`/`end`, `horizontal`/`vertical` |
+| доступность | `ariaLabel`, `ariaLabelledBy` | Подпись диаграммы |
 
-## Props mapping
+## Ограничения
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `value` | `ExtraMeterItem[]` | `[]` | Массив сегментов шкалы; каждый элемент задаёт `value`, `color`, `icon` и `label` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Ориентация шкалы — горизонтальная или вертикальная |
-| `labelPosition` | `'start' \| 'end'` | `'end'` | Позиция блока подписей относительно шкалы — соответствует Figma-свойству `label-position` |
-| `labelOrientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка списка подписей — соответствует Figma-свойству `label-orientation` |
+- Токены уже совпадали с Figma — правок не потребовалось (9/9, 3/3, 1/1 в обеих темах).
 
-Тип `ExtraMeterItem` — собственный интерфейс (поля `label`, `value`, `color`, `icon`, структурно
-совпадает с PrimeNG `MeterItem`, но не реэкспортирует его напрямую — публичное API не должно течь
-из PrimeNG, см. раздел «Общее направление проекта» в корневом `CLAUDE.md`). CSS-классы иконок
-берутся из справочника [icons.md](../../figma-code-connect/icons.md), цвета сегментов — из токенов
-[tokens.md](../../figma-code-connect/tokens.md).
-
-## Variants
-
-### Горизонтальная шкала (по умолчанию)
-
-Figma: `<MeterGroup>`, label-position=end, label-orientation=horizontal — nodeId `222:1489`
-
-```html
-<extra-metergroup [value]="meterItems"></extra-metergroup>
-```
-
-### Вертикальная шкала
-
-Figma: `<MeterGroup>` — orientation в коде; раскладка подписей задаётся отдельно
-
-```html
-<extra-metergroup orientation="vertical" [value]="meterItems"></extra-metergroup>
-```
-
-### Подписи перед шкалой (label-position=start)
-
-Figma: `<MeterGroup>`, label-position=start, label-orientation=horizontal
-
-```html
-<extra-metergroup labelPosition="start" [value]="meterItems"></extra-metergroup>
-```
-
-### Вертикальная раскладка подписей (label-orientation=vertical)
-
-Figma: `<MeterGroup>`, label-position=end, label-orientation=vertical
-
-```html
-<extra-metergroup labelOrientation="vertical" [value]="meterItems"></extra-metergroup>
-```
-
-### Несколько метрик (многосегментная шкала)
-
-Figma: `<MeterGroup>` с несколькими видимыми сегментами (`show-item-*`)
-
-```html
-<extra-metergroup [value]="storageBreakdown"></extra-metergroup>
-```
-
-## Slots
-
-Не используются. Сегменты и их подписи задаются данными через `@Input() value` (`ExtraMeterItem[]`).
-
-## Related
-
-- [Иконки](../../figma-code-connect/icons.md) — доступные иконки сегментов (`MeterItem.icon`)
-- [Токены](../../figma-code-connect/tokens.md) — цветовые токены сегментов (`MeterItem.color`)
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-- [ExtraButton](../button/button.figma.md) — пример контракта со строковыми вариантами
-
-## Do / Don't
-
-**Do:**
-- Передавайте данные сегментов через `[value]` массивом `ExtraMeterItem[]`
-- Используйте `orientation="vertical"` для компактных вертикальных макетов
-- Задавайте `labelPosition` и `labelOrientation` для управления раскладкой подписей
-- Для цветов сегментов используйте токены [tokens.md](../../figma-code-connect/tokens.md), для иконок — [icons.md](../../figma-code-connect/icons.md)
-
-**Don't:**
-- Не используйте `ExtraMeterGroup` для прогресса задачи во времени — для этого предназначен ProgressBar
-- Не применяйте компонент для интерактивного ввода значения — он только отображает данные
-- Не инлайньте цвета и CSS-классы иконок вручную — используйте справочники токенов и иконок
+Описания story и Controls скопированы из `origin/main` дословно.

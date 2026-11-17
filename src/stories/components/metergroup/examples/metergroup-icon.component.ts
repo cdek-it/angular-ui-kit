@@ -8,11 +8,7 @@ import { iconValue } from '../metergroup.data';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ExtraMeterGroupComponent],
-  template: `
-    <div class="bg-surface-ground">
-      <extra-metergroup ariaLabel="Использование диска" [value]="value"></extra-metergroup>
-    </div>
-  `
+  template: ` <extra-metergroup ariaLabel="Использование диска" [value]="value"></extra-metergroup> `
 })
 export class MeterGroupIconComponent {
   value: ExtraMeterItem[] = iconValue;
