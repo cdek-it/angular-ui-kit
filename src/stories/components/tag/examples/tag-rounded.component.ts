@@ -3,7 +3,6 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-3 items-center">
       @for (severity of severities; track severity) {
@@ -21,7 +20,6 @@ const template = `
       }
     </div>
   </div>
-</div>
 `;
 
 @Component({
