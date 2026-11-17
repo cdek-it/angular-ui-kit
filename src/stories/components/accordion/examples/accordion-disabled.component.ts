@@ -40,30 +40,9 @@ export const Disabled: StoryObj = {
     docs: {
       description: { story: 'Заблокированная панель (`[disabled]="true"`) — недоступна для раскрытия.' },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-accordion-disabled',
-  standalone: true,
-  imports: [ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective],
-  template: \`
-    <extra-accordion>
-      <extra-accordion-panel icon="ti ti-package" [expanded]="true">
-        <ng-template extraAccordionPanelTemplate="header">Данные отправления</ng-template>
-        Заказ №ЦД-00123456 · Москва → Новосибирск · 2.5 кг · 3 места
-      </extra-accordion-panel>
-      <extra-accordion-panel icon="ti ti-file-description" [disabled]="true">
-        <ng-template extraAccordionPanelTemplate="header">Документы (недоступно)</ng-template>
-        Документация по отправлению временно недоступна.
-      </extra-accordion-panel>
-    </extra-accordion>
-  \`,
-})
-export class AccordionDisabledComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-accordion><extra-accordion-panel icon="ti ti-package" [disabled]="true"><ng-template extraAccordionPanelTemplate="header">Документы</ng-template>Недоступно</extra-accordion-panel></extra-accordion>'
       }
     }
   }

@@ -59,36 +59,9 @@ export const Slots: StoryObj = {
           'Оба слота панели: header — именованный шаблон extraAccordionPanelTemplate="header" (иконка, текст, тег), content — основное содержимое панели: любой проецируемый контент без обёртки (текст, кнопки).'
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-accordion-slots',
-  standalone: true,
-  imports: [ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective],
-  template: \`
-    <extra-accordion>
-      <extra-accordion-panel [expanded]="true">
-        <!-- header: именованный шаблон — можно вставить что угодно, не только текст -->
-        <ng-template extraAccordionPanelTemplate="header">
-          <div class="flex items-center gap-2">
-            <i class="ti ti-package"></i>
-            <span class="font-semibold">Заказ №ЦД-00123456</span>
-            <extra-tag severity="warning" value="в пути"></extra-tag>
-          </div>
-        </ng-template>
-
-        <!-- content: основное содержимое панели, без директивы -->
-        <p>Слот content — основное содержимое панели.</p>
-        <extra-button label="Отследить" icon="ti ti-map-pin" size="small"></extra-button>
-      </extra-accordion-panel>
-    </extra-accordion>
-  \`,
-})
-export class AccordionSlotsComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-accordion><extra-accordion-panel icon="ti ti-package"><ng-template extraAccordionPanelTemplate="header">Заголовок</ng-template>Содержимое панели</extra-accordion-panel></extra-accordion>'
       }
     }
   }
