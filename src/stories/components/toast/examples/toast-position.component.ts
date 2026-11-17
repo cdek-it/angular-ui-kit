@@ -14,16 +14,14 @@ const POSITIONS = [
 ] as const;
 
 const template = `
-@for (p of positions; track p.key) {
-  <extra-toast [position]="p.position" [key]="p.key"></extra-toast>
-}
+<extra-toast [position]="currentPosition"></extra-toast>
 
 <div class="flex flex-col gap-2 items-center justify-center min-h-48">
   @for (p of positions; track p.key) {
     <extra-button
       [label]="p.label"
       variant="tertiary"
-      (click)="show(p.key, p.position)"
+      (click)="show(p.position)"
     ></extra-button>
   }
 </div>
@@ -39,18 +37,21 @@ const styles = '';
 })
 export class ToastPositionComponent {
   readonly positions = POSITIONS;
+  currentPosition = 'top-right';
 
   constructor(private readonly toastService: ExtraToastService) {}
 
-  show(key: string, position: string): void {
-    this.toastService.add({
-      key,
-      severity: 'info',
-      message: 'Сообщение',
-      caption: 'Позиция: ' + position,
-      life: 3000,
-      icon: 'ti ti-info-circle'
-    });
+  show(position: string): void {
+    this.currentPosition = position as ToastPositionComponent['currentPosition'];
+    setTimeout(() =>
+      this.toastService.add({
+        severity: 'info',
+        message: 'Сообщение',
+        caption: 'Позиция: ' + position,
+        life: 3000,
+        icon: 'ti ti-info-circle'
+      })
+    );
   }
 }
 

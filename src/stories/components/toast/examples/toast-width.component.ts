@@ -14,23 +14,7 @@ const SIZES = [
 const template = `
 <extra-toast key="width-preview" [style.--p-toast-width]="currentWidth"></extra-toast>
 
-<div class="flex flex-col gap-4">
-  @for (s of sizes; track s.key) {
-    <div
-      class="p-toast-message p-toast-message-info"
-      [style]="'width:' + s.width"
-    >
-      <div class="p-toast-message-content">
-        <div class="p-toast-accent-line"></div>
-        <i class="ti ti-info-circle p-toast-message-icon"></i>
-        <div class="p-toast-message-text">
-          <span class="p-toast-summary">Сообщение</span>
-          <div class="p-toast-detail">Ширина {{ s.key }}: {{ s.width }}</div>
-        </div>
-      </div>
-    </div>
-  }
-</div>
+<p>Нажмите кнопку, чтобы показать уведомление нужной ширины.</p>
 
 <div class="flex flex-wrap gap-2 mt-6">
   @for (s of sizes; track s.key) {

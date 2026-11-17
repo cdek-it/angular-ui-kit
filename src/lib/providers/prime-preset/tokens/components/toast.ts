@@ -25,13 +25,13 @@ export const toastCss = ({ dt }: { dt: (token: string) => string }): string => `
   /* Заголовок toast */
   .p-toast-summary {
     font-family: ${dt('fonts.fontFamily.base')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.400')};
   }
 
   /* Детальное описание toast */
   .p-toast-message .p-toast-detail {
     font-family: ${dt('fonts.fontFamily.base')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.300')};
   }
 
   /* Кнопка закрытия toast-сообщения */
@@ -39,6 +39,21 @@ export const toastCss = ({ dt }: { dt: (token: string) => string }): string => `
     margin: 0;
     padding: 0;
     right: 0;
+    border-radius: ${dt('toast.closeButton.borderRadius')};
+  }
+
+  /* Тень по типу сообщения: Figma задаёт elevation 300 для каждого severity */
+  .p-toast-message-info {
+    box-shadow: ${dt('toast.colorScheme.light.info.shadow')};
+  }
+  .p-toast-message-success {
+    box-shadow: ${dt('toast.colorScheme.light.success.shadow')};
+  }
+  .p-toast-message-warn {
+    box-shadow: ${dt('toast.colorScheme.light.warn.shadow')};
+  }
+  .p-toast-message-error {
+    box-shadow: ${dt('toast.colorScheme.light.error.shadow')};
   }
 
   /* Общие стили border для кнопки закрытия всех типов toast */

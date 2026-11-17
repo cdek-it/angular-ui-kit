@@ -84,11 +84,13 @@ export class AppComponent {
       }
     },
     key: {
-      table: { disable: true }
+      control: 'text',
+      description: 'Ключ группы уведомлений — сообщения приходят только в контейнер с тем же ключом'
     },
     life: {
       control: 'number',
-      description: 'Время (мс) до автоматического закрытия — общий дефолт контейнера, переопределяется полем `life` сообщения',
+      description:
+        'Время (мс) до автоматического закрытия — общий дефолт контейнера, переопределяется полем `life` сообщения',
       table: {
         category: 'Props',
         defaultValue: { summary: '5000' },

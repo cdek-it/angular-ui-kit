@@ -15,18 +15,7 @@ const template = `
 <extra-toast key="severities"></extra-toast>
 
 <div class="flex flex-col gap-4">
-  @for (s of severities; track s.severity) {
-    <div [class]="'p-toast-message p-toast-message-' + s.primeClass">
-      <div class="p-toast-message-content">
-        <div class="p-toast-accent-line"></div>
-        <i [class]="s.icon + ' p-toast-message-icon'"></i>
-        <div class="p-toast-message-text">
-          <span class="p-toast-summary">Сообщение</span>
-          <div class="p-toast-detail">Подпись</div>
-        </div>
-      </div>
-    </div>
-  }
+  <span>Нажмите кнопку, чтобы показать уведомление.</span>
 </div>
 
 <div class="flex flex-wrap gap-2 mt-6">
