@@ -1,27 +1,49 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { FormsModule } from '@angular/forms';
-import { ExtraRatingComponent } from '../../../lib/components/rating/rating.component';
-import { RatingReadonlyComponent, ReadOnly } from './examples/rating-readonly.component';
-import { Disabled, RatingDisabledComponent } from './examples/rating-disabled.component';
-import { Clearable, RatingClearableComponent } from './examples/rating-clearable.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { fn } from 'storybook/test';
+import { ExtraRatingComponent, ExtraRatingRateEvent } from '../../../lib/components/rating/rating.component';
 
-type RatingArgs = ExtraRatingComponent;
-
+type RatingArgs = Omit<Partial<ExtraRatingComponent>, 'onRate' | 'onClear' | 'onFocus' | 'onBlur'> & {
+  disabled: boolean;
+  value: number | null;
+  onRate: (event: ExtraRatingRateEvent) => void;
+  onClear: () => void;
+  onFocus: (event: FocusEvent) => void;
+  onBlur: (event: FocusEvent) => void;
+};
+const escapeAttribute = (value: unknown): string =>
+  String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;');
+const templateFor = (args: RatingArgs): string => {
+  const parts = ['[formControl]="fieldControl"', '[stars]="' + args.stars + '"'];
+  for (const name of ['readonly', 'clearable', 'autofocus', 'showLabels'] as const)
+    parts.push('[' + name + ']="' + !!args[name] + '"');
+  for (const name of [
+    'size',
+    'variant',
+    'clearAriaLabel',
+    'labelMin',
+    'labelMax',
+    'ariaLabel',
+    'ariaLabelledBy'
+  ] as const) {
+    if (args[name] != null) parts.push(name + '="' + escapeAttribute(args[name]) + '"');
+  }
+  parts.push(
+    '(onRate)="onRate($event)"',
+    '(onClear)="onClear()"',
+    '(onFocus)="onFocus($event)"',
+    '(onBlur)="onBlur($event)"'
+  );
+  return '<extra-rating\n  ' + parts.join('\n  ') + '\n></extra-rating>';
+};
 const meta: Meta<RatingArgs> = {
   title: 'Components/Form/Rating',
   component: ExtraRatingComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraRatingComponent,
-        FormsModule,
-        RatingReadonlyComponent,
-        RatingDisabledComponent,
-        RatingClearableComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'rating'],
+  decorators: [moduleMetadata({ imports: [ExtraRatingComponent, ReactiveFormsModule] })],
   parameters: {
     designTokens: { prefix: '--p-rating' },
     docs: {
@@ -31,105 +53,93 @@ const meta: Meta<RatingArgs> = {
 \`\`\`typescript
 import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit/components/rating';
 \`\`\``
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: (_code: string, context: { args: RatingArgs }) => templateFor(context.args)
       }
     }
   },
+  render: (args) => ({
+    props: { ...args, fieldControl: new FormControl<number | null>({ value: args.value, disabled: args.disabled }) },
+    template: templateFor(args)
+  }),
   argTypes: {
-    // ── Свойства ────────────────────────────────────────────────
-    stars: {
-      control: 'number',
-      description: 'Количество отображаемых звёзд',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: '5' },
-        type: { summary: 'number' }
-      }
-    },
-    readonly: {
-      control: 'boolean',
-      description: 'Режим только для чтения — значение нельзя изменить',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    clearable: {
-      control: 'boolean',
-      description: 'Показывать кнопку сброса оценки слева от звёзд',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    autofocus: { table: { disable: true } },
-    clearAriaLabel: { table: { disable: true } },
-
-    // ── События ───────────────────────────────────────────────
-    onRate: {
-      control: false,
-      description: 'Событие изменения оценки',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<ExtraRatingRateEvent>' }
-      }
-    },
-    onClear: {
-      control: false,
-      description: 'Событие сброса оценки кнопкой (clearable)',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<void>' }
-      }
-    },
-    onFocus: {
-      control: false,
-      description: 'Событие фокуса',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<FocusEvent>' }
-      }
-    },
-    onBlur: {
-      control: false,
-      description: 'Событие потери фокуса',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<FocusEvent>' }
-      }
-    }
+    stars: { control: 'number', description: 'Количество отображаемых звёзд' },
+    readonly: { control: 'boolean', description: 'Режим только для чтения — значение нельзя изменить' },
+    clearable: { control: 'boolean', description: 'Показывать кнопку сброса оценки слева от звёзд' },
+    autofocus: { control: 'boolean' },
+    clearAriaLabel: { control: 'text' },
+    size: { control: 'select', options: ['small', 'base', 'large'] },
+    variant: { control: 'select', options: ['display', 'interactive'] },
+    showLabels: { control: 'boolean' },
+    labelMin: { control: 'text' },
+    labelMax: { control: 'text' },
+    ariaLabel: { control: 'text' },
+    ariaLabelledBy: { control: 'text' },
+    disabled: { control: 'boolean' },
+    value: { control: 'number' },
+    onRate: { control: false, description: 'Событие изменения оценки' },
+    onClear: { control: false, description: 'Событие сброса оценки кнопкой (clearable)' },
+    onFocus: { control: false, description: 'Событие фокуса' },
+    onBlur: { control: false, description: 'Событие потери фокуса' }
   },
   args: {
     stars: 5,
     readonly: false,
-    clearable: false
+    clearable: false,
+    autofocus: false,
+    clearAriaLabel: 'Сбросить оценку',
+    size: 'small',
+    variant: 'display',
+    showLabels: false,
+    labelMin: 'Неудобно',
+    labelMax: 'Очень удобно',
+    ariaLabel: 'Оценка',
+    ariaLabelledBy: undefined,
+    disabled: false,
+    value: 3,
+    onRate: fn(),
+    onClear: fn(),
+    onFocus: fn(),
+    onBlur: fn()
   }
 };
-
 export default meta;
 type Story = StoryObj<RatingArgs>;
-
-// ── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts: string[] = [`[(ngModel)]="value"`];
-    if (args.stars !== 5) parts.push(`[stars]="${args.stars}"`);
-    if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.clearable) parts.push(`[clearable]="true"`);
-
-    const template = `<extra-rating\n  ${parts.join('\n  ')}\n></extra-rating>`;
-    return { props: { ...args, value: 3 }, template };
-  },
+  args: {},
+  parameters: {
+    docs: {
+      description: { story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.' }
+    }
+  }
+};
+export const Disabled: Story = {
+  args: { disabled: true },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Заблокированное состояние — компонент недоступен для взаимодействия. `disabled` не публичный `@Input()`, отключается через форму (`disabled: true` в `FormControl`), см. `ControlValueAccessor.setDisabledState`.'
       }
     }
   }
 };
-
-// ── Re-exports from example components ────────────────────────────────────
-export { ReadOnly, Disabled, Clearable };
+export const Readonly: Story = {
+  args: { readonly: true },
+  parameters: {
+    docs: { description: { story: 'Режим только для чтения — значение отображается, но не может быть изменено.' } }
+  }
+};
+export const Interactive: Story = { args: { variant: 'interactive' } };
+export const Clearable: Story = {
+  args: { clearable: true, variant: 'interactive' },
+  parameters: {
+    docs: {
+      description: { story: 'Кнопка сброса оценки (`clearable`) слева от звёзд — сбрасывает значение в `null`.' }
+    }
+  }
+};
+export const ShowLabels: Story = { args: { showLabels: true } };

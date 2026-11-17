@@ -3,109 +3,48 @@ component: ExtraRating
 selector: extra-rating
 import:
   symbol: ExtraRatingComponent
-  from: '@cdek-it/angular-ui-kit'
+  from: '@cdek-it/angular-ui-kit/components/rating'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '384:1881'
   componentKey: '6c441f5ded02d0e5b053fbdcee752221af0d6d3d'
   name: '<Rating>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
-## Overview
+# Rating
 
-`ExtraRating` — компонент оценки звёздами: ввод оценки кликом или отображение готового значения в режиме только для чтения. Оборачивает PrimeNG `p-rating` и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`.
+Live Figma UI Kit DS v3.0: page 24037:76, Rating 384:1881 (30 вариантов), Rating.Item 384:1735 (24 варианта). Обход только читает макет. Проверены light/dark, цвета дополнительно разрешены через resolveForConsumer у существующих инстансов обеих тем.
 
-Компонент соответствует Figma-компоненту `<Rating>` (nodeId `384:1881`). Значение оценки задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`. Figma-свойство `disabled` управляет отключённым состоянием, но на коде это не публичный `@Input()` — `disabled` всегда обычное поле класса, выставляемое только формой через `setDisabledState` (см. `docs/components-api/common-info.md` и чеклист в корневом `CLAUDE.md`, п.5), а не напрямую атрибутом в шаблоне.
+| Figma | API | Геометрия |
+|---|---|---|
+| variant=display | variant=display | Неинтерактивные звёзды, gap 8 px |
+| variant=interactive | variant=interactive | Padding каждой звезды 10 px, gap 0 |
+| size=small | size=small | Иконка 24 px, interactive 44 px |
+| size=medium | size=base | Иконка 28 px, interactive 48 px |
+| size=large | size=large | Иконка 42 px, interactive 62 px |
+| show-labels | showLabels | Подписи Noto Sans 12/14, отступ 8 px, ширина 152 px |
+| label-min / label-max | labelMin / labelMax | Неудобно / Очень удобно |
+| disabled | FormControl.disable() | Opacity звёзд 0.5; подписи остаются с полной непрозрачностью |
+| state=selected | value=3 через CVA | Три заполненных звезды |
+| state=hover | указатель над третьей звездой при пустом значении | Первые три контура подсвечиваются без изменения модели |
 
-## Props mapping
+Размеры, цвета, opacity и фокус приходят из токенов. Width display для пяти звёзд — 152/172/242 px, interactive — 220/240/310 px. У шкалы нет xlarge-варианта в Figma.
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `stars` | `number` | `5` | Количество звёзд (максимальная оценка) |
-| `readonly` | `boolean` | `false` | Режим только для чтения: отображение готовой оценки без возможности изменения |
-| `autofocus` | `boolean` | `false` | Автофокус при монтировании компонента |
-| `clearable` | `boolean` | `false` | Показывает кнопку сброса оценки слева от звёзд — соответствует Figma-саб-компоненту `<Rating.Clear>` (иконка `ti-ban`, instance `2119:4267`); в PrimeNG `p-rating` v20.4.0 своего аналога нет (убран из библиотеки), реализовано отдельной кнопкой в шаблоне `ExtraRatingComponent` |
+Старые пять входов и четыре выхода сохранены. Default API variant=interactive сохраняет ввод у существующих потребителей; Default story явно задаёт display по умолчанию Figma. readonly=true блокирует ввод независимо от геометрии variant. Boolean-входы поддерживают booleanAttribute. ariaLabel/ariaLabelledBy именуют radiogroup; readonly/display/disabled исключены из Tab. Внутренний ngModel standalone совместим с formControlName.
 
-Значение оценки (число выбранных звёзд) задаётся через модель: используйте `[(ngModel)]`, `formControl` или `formControlName`. Тип значения — `number | null` (`ExtraRatingValue`); `null` означает «оценка не выбрана». Клик по кнопке сброса (`clearable=true`) переводит значение в `null` через `ControlValueAccessor`, но не эмитит `(onRate)` — тип `ExtraRatingRateEvent.value` строго `number`, сброс к `null` событием не считается.
+Динамический stars пересоздаёт внутренний PrimeNG Rating: его starsArray инициализируется только в onInit и не реагирует на изменения входа. Внешняя модель при этом сохраняется. Arrow/Home/End/Space/Enter обрабатываются обёрткой, чтобы избежать нативного change радио вместе с повторным toggle PrimeNG.
 
-> ⚠️ В самой Figma саб-компонент называется `<🚧Rating.Clear>` — префикс 🚧 обычно означает незавершённый/нестабильный компонент библиотеки. Визуально и по составу (иконка `ti-ban`) реализация ниже ему соответствует, но при следующей ревизии дизайна стоит сверить с дизайнером, не поменялся ли вид кнопки сброса.
+onRate сохраняет числовой payload. Повторный выбор выставленной звезды, как и кнопка сброса, отправляет null через CVA и onClear; onRate(null) не отправляется. Touched выставляется на blur. Программная запись модели не эмитит пользовательские события.
 
-## Variants
+## Отличия и ограничения
 
-### Интерактивный (ввод оценки)
+- В Figma есть disabled=true + state=hover с жёлтым контуром. Это статически заданное, недостижимое интерактивное состояние: отключённый компонент не реагирует на указатель и сохраняет серый контур. Disabled selected остаётся жёлтым с opacity 0.5.
+- Предпросмотр hover привязан к реальному смещению указателя: после выбора с клавиатуры браузер повторно присылает `pointerover` под неподвижным курсором, и такой повтор не возвращает подсветку.
+- На текущей странице Rating не найден прежний саб-компонент Clear. Существующая функция clearable сохранена с ti-ban и системными токенами, отдельного актуального эталона кнопки сброса нет.
+- В макете нет отдельного focus-state. Для доступной клавиатурной навигации применён общий DS focus ring 2 px, solid, без дополнительной тени.
+- Подписи имеют Figma-цвет muted: light #85888e на белом даёт 3.55:1, ниже 4.5:1. Цвет не заменяется локально; это вопрос общего дизайна доступности. Длинный пользовательский текст переносится без обрезки.
+- Tabler отрисовывается системным webfont вместо векторов Figma; сглаживание глифов может отличаться при совпадающих размерах.
 
-Figma: `disabled=false` — оценка задаётся кликом по звёздам
-
-```html
-<extra-rating [(ngModel)]="rating"></extra-rating>
-```
-
-В реактивных формах эквивалентно:
-
-```html
-<extra-rating [formControl]="ratingControl"></extra-rating>
-```
-
-### Readonly (отображение готовой оценки)
-
-Figma: `disabled=false` — звёзды отражают значение модели без интерактивности
-
-```html
-<extra-rating [readonly]="true" [(ngModel)]="rating"></extra-rating>
-```
-
-### Disabled (отключён)
-
-Figma: `disabled=true`. Отключается не атрибутом, а формой — через `formControl`/`formControlName`
-(`disabled` не публичный `@Input()`, см. раздел Props mapping):
-
-```html
-<extra-rating [formControl]="ratingControl"></extra-rating>
-```
-
-```ts
-ratingControl = new FormControl({ value: 3, disabled: true });
-```
-
-### Со сбросом оценки (clearable)
-
-Figma: `<🚧Rating.Clear>` — кнопка `ti-ban` слева от звёзд, сбрасывает оценку в `null`
-
-```html
-<extra-rating [clearable]="true" [(ngModel)]="rating"></extra-rating>
-```
-
-### Произвольное количество звёзд
-
-Figma: `disabled=false` — изменён максимум шкалы
-
-```html
-<extra-rating [stars]="10" [(ngModel)]="rating"></extra-rating>
-```
-
-## Slots
-
-Не используются. Звёзды формируются компонентом по значению `stars`; подпись к шкале размещается рядом во внешнем шаблоне.
-
-## Related
-
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-- [ExtraCheckbox](../checkbox/checkbox.figma.md) — компонент формы с похожим маппингом состояний через `ControlValueAccessor`
-- [ExtraButton](../button/button.figma.md) — компонент с отключённым состоянием `disabled`
-
-## Do / Don't
-
-**Do:**
-- Используйте `[(ngModel)]`, `formControl` или `formControlName` для чтения и записи оценки
-- Для отображения готовой оценки задавайте `[readonly]="true"`
-- Меняйте размер шкалы через `[stars]` (например `[stars]="10"`)
-- Связывайте компонент с подписью во внешнем шаблоне для доступности
-- Используйте `[clearable]="true"`, когда пользователю нужно явно убрать уже выставленную оценку
-
-**Don't:**
-- Не задавайте оценку через отдельный атрибут — значение идёт только через модель (`[(ngModel)]` / `formControl`)
-- Не отключайте компонент атрибутом — `disabled` не публичный `@Input()`, используйте `formControl`/`formControlName` с `disabled: true`
-- Не комбинируйте отключённое состояние с интерактивными обработчиками `(onRate)` — события в этом состоянии не возникают
-- Не используйте компонент для непрерывной шкалы с произвольным числом — для этого предназначен Slider
+Три исходных example-файла сохранены, их декоративная подложка снята. Описания stories и Controls сохраняются дословно из origin/main.
