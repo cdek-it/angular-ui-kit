@@ -10,11 +10,23 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   TemplateRef
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { Password } from 'primeng/password';
 import { PrimeTemplate } from 'primeng/api';
@@ -41,6 +53,11 @@ export class ExtraPasswordFooterDirective {}
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraPasswordComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraPasswordComponent),
       multi: true
     }
@@ -107,6 +124,11 @@ export class ExtraPasswordFooterDirective {}
         [ariaLabelledBy]="ariaLabelledBy"
         [appendTo]="appendTo"
         [autofocus]="autofocus"
+        [name]="name ?? ''"
+        [autocomplete]="autocomplete"
+        [maxLength]="maxLength"
+        [tabindex]="tabindex"
+        [pt]="passwordPt"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="onBlur.emit($event)"
       >
@@ -124,7 +146,7 @@ export class ExtraPasswordFooterDirective {}
     </ng-template>
   `
 })
-export class ExtraPasswordComponent implements ControlValueAccessor, OnInit {
+export class ExtraPasswordComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
@@ -155,6 +177,34 @@ export class ExtraPasswordComponent implements ControlValueAccessor, OnInit {
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() appendTo: any = 'body';
   @Input() autofocus = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() name: string | undefined = undefined;
+  @Input() autocomplete: string | undefined = undefined;
+  @Input() maxLength: number | undefined = undefined;
+  @Input() tabindex: number | undefined = undefined;
+  /** Только для чтения; PrimeNG не пробрасывает readonly — ставим атрибут через passthrough. */
+  @Input({ transform: booleanAttribute }) readonly = false;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока поле пусто. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
+
+  /** `readonly` у p-password нет — атрибут на внутренний input через pt-секцию pcInputText.root. */
+  get passwordPt() {
+    return { pcInputText: { root: { readonly: this.readonly ? true : undefined } } };
+  }
 
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();

@@ -7,10 +7,21 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Textarea } from 'primeng/textarea';
 import { IconField } from 'primeng/iconfield';
@@ -33,6 +44,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraTextareaComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraTextareaComponent),
       multi: true
     }
@@ -95,6 +111,13 @@ let nextInputId = 0;
             [style.resize]="resizable ? 'vertical' : 'none'"
             [placeholder]="placeholder"
             [autofocus]="autofocus"
+            [attr.name]="name || null"
+            [attr.autocomplete]="autocomplete || null"
+            [attr.maxlength]="maxLength ?? null"
+            [attr.aria-label]="ariaLabel || null"
+            [attr.aria-labelledby]="ariaLabelledBy || null"
+            [attr.tabindex]="tabindex ?? null"
+            [attr.required]="required || null"
             [value]="modelValue"
             (input)="onInput($event)"
             (blur)="onTouched()"
@@ -125,6 +148,14 @@ let nextInputId = 0;
           [cols]="cols"
           [style.resize]="resizable ? 'vertical' : 'none'"
           [placeholder]="placeholder"
+          [autofocus]="autofocus"
+          [attr.name]="name || null"
+          [attr.autocomplete]="autocomplete || null"
+          [attr.maxlength]="maxLength ?? null"
+          [attr.aria-label]="ariaLabel || null"
+          [attr.aria-labelledby]="ariaLabelledBy || null"
+          [attr.tabindex]="tabindex ?? null"
+          [attr.required]="required || null"
           [value]="modelValue"
           (input)="onInput($event)"
           (blur)="onTouched()"
@@ -134,7 +165,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
+export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -157,6 +188,29 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit {
   @Input() rows = 3;
   @Input() cols?: number;
   @Input({ transform: booleanAttribute }) autofocus = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() name: string | undefined = undefined;
+  @Input() autocomplete: string | undefined = undefined;
+  @Input() maxLength: number | undefined = undefined;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока поле пусто. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   /** Уникальный id поля для связи label ↔ textarea. */
   readonly inputId = `extra-textarea-${nextInputId++}`;

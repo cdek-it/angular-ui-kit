@@ -17,19 +17,32 @@ updated: '2026-06-22'
 
 `ExtraInputTextComponent` — атомарное однострочное поле для ввода короткого свободного текста (имя, email, строка поиска). Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
-Компонент соответствует Figma-компоненту `<InputText>` (nodeId `15:13444`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Label, подсказка и сообщение об ошибке навешиваются снаружи — через `<extra-input-group>` или `<extra-form-field>`.
+Компонент соответствует Figma-компоненту `<InputText>` (nodeId `15:13444`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Лейбл, плавающий лейбл и подпись (caption) компонент рисует сам (`label` / `labelPosition` / `floatLabel` / `caption` / `info`); без них рендерится голое поле без обёртки.
 
 ## Props mapping
 
 | Свойство | Тип | По умолчанию | Описание |
 |----------|-----|--------------|---------|
 | `placeholder` | `string` | `''` | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
+| `label` | `string` | `''` | Текст лейбла; при пустых `label`/`caption` поле рендерится без обёртки |
+| `labelPosition` | `'top' \| 'left'` | `'top'` | Положение лейбла относительно поля; игнорируется при `floatLabel=true` |
+| `floatLabel` | `boolean` | `false` | Плавающий лейбл внутри поля (PrimeNG `p-floatlabel` variant="in"); перекрывает `labelPosition` — соответствует Figma-свойству `has-floatlabel` |
+| `caption` | `string` | `''` | Подпись под полем |
+| `info` | `string` | `''` | Текст всплывающей подсказки (иконка ℹ рядом с лейблом) |
 | `size` | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'` | Размер поля; `large` и `xlarge` маппируются на PrimeNG `pSize="large"` |
-| `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
-| `showClear` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
+| `readonly` | `boolean` | `false` | Только для чтения: ввод и очистка недоступны — соответствует Figma-состоянию `state=readonly` |
+| `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
+| `clearable` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
 | `fluid` | `boolean` | `false` | Растягивает поле на всю ширину контейнера |
+| `name` | `string \| undefined` | `undefined` | Имя внутреннего input для браузерного автозаполнения |
+| `autocomplete` | `string \| undefined` | `undefined` | Нативный атрибут autocomplete |
+| `maxLength` | `number \| undefined` | `undefined` | Максимальное количество символов |
+| `ariaLabel` | `string \| undefined` | `undefined` | Доступное имя поля |
+| `ariaLabelledBy` | `string \| undefined` | `undefined` | ID внешнего элемента-метки |
+| `autofocus` | `boolean` | `false` | Автофокус при монтировании поля |
+| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
 | `disabled` | `boolean` | `false` | Отключённое состояние — управляется через `FormControl.disable()` или `ControlValueAccessor.setDisabledState`; соответствует Figma-состоянию `state=disabled` |
-| `(onClear)` | `EventEmitter<void>` | — | Событие при нажатии на иконку очистки (только при `showClear=true`) |
+| `(onClear)` | `EventEmitter<void>` | — | Событие при нажатии на иконку очистки (только при `clearable=true`) |
 | `[(ngModel)]` / `[formControl]` | `string` | `''` | Значение поля через ControlValueAccessor — соответствует Figma-свойству `text-input` |
 
 > `invalid` — вычисляемое свойство: берётся автоматически из связанного `NgControl` (соответствует Figma-состоянию `state=danger`). Устанавливать вручную нельзя.
@@ -55,7 +68,7 @@ Figma: `<InputText>`, state=default, show-clear=true — nodeId `15:13443`
 ```html
 <extra-input-text
   placeholder="Поиск..."
-  [showClear]="true"
+  [clearable]="true"
   [(ngModel)]="searchQuery"
   name="search"
 ></extra-input-text>
@@ -133,7 +146,7 @@ Figma: `<InputText>`, state=readonly — nodeId `14978:17413`
 **Do:**
 - Используйте `[(ngModel)]` или `[formControl]` — компонент реализует `ControlValueAccessor` и именно через них передаётся значение.
 - Управляйте состоянием `disabled` через `FormControl.disable()` / `FormControl.enable()` — это сохраняет dirty/touched-флаги.
-- Для сброса поля через иконку × включайте `[showClear]="true"` и подписывайтесь на `(onClear)` при необходимости пост-обработки.
+- Для сброса поля через иконку × включайте `[clearable]="true"` и подписывайтесь на `(onClear)` при необходимости пост-обработки.
 - Используйте `[fluid]="true"` в формах на всю ширину и мобильных макетах.
 - Оберните поле в `<extra-form-field>` или `<extra-input-group>` для добавления label, подсказки и prefix/suffix.
 

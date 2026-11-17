@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,11 +8,23 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 import { Subscription } from 'rxjs';
@@ -34,6 +47,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraRadiobuttonComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraRadiobuttonComponent),
       multi: true
     }
@@ -63,6 +81,10 @@ let nextInputId = 0;
         [disabled]="disabled"
         [invalid]="invalid"
         [inputId]="inputId"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="tabindex"
         (onClick)="onClickHandler($event)"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="onBlur.emit($event)"
@@ -70,7 +92,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraRadiobuttonComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class ExtraRadiobuttonComponent implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, Validator {
   private readonly _injector = inject(Injector);
   private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
@@ -107,8 +129,29 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor, OnInit, 
   @Input() labelPosition: ExtraRadiobuttonLabelPosition = 'right';
   @Input() caption = '';
   @Input() value: any = null;
-  /** Имя группы; форм-обвязка, вне спеки — нужна для нативной семантики радио-группы. */
+  /** Имя группы радиокнопок (нативный атрибут `name`). */
   @Input() name: string | undefined = undefined;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока в группе нет выбора. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   @Output() onClick = new EventEmitter<ExtraRadioButtonClickEvent>();
   @Output() onFocus = new EventEmitter<Event>();

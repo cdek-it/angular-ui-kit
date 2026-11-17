@@ -27,6 +27,12 @@ updated: '2026-11-11'
 | `labelPosition` | `'right' \| 'left'` | `'right'` | Положение лейбла относительно бокса |
 | `caption` | `string` | `''` | Текст пояснения под лейблом |
 | `indeterminate` | `boolean` | `false` | Третье состояние «частично выбрано» — Figma `indeterminate=true` |
+| `readonly` | `boolean` | `false` | Режим только для чтения: значение не меняется по клику |
+| `required` | `boolean` | `false` | Поле обязательно: контрол невалиден, пока чекбокс не отмечен; работает как NG_VALIDATORS-валидатор |
+| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
+| `ariaLabelledBy` | `string \| undefined` | `undefined` | Идентификатор элемента с меткой для доступности |
+| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
+| `autofocus` | `boolean` | `false` | Автофокус при монтировании компонента |
 
 | Событие | Тип | Описание |
 |---------|-----|---------|
@@ -37,10 +43,6 @@ updated: '2026-11-11'
 `disabled` и `invalid` в спеке не описаны (форма/состояния стек-зависимы, см. `common-info.md`) — управляются через Angular-формы: `disabled` (Figma `state=disabled`) — `FormControl.disable()` или `[disabled]` при `ngModel`, `invalid` (Figma `state=danger`) — вычисляется из `NgControl` (`Validators`).
 
 `id` внутреннего `input` генерируется компонентом (`extra-checkbox-N`) и связан с `label`, задавать его не нужно.
-
-### Есть в спецификации, но ещё не реализовано
-
-`readonly`, `required`, `ariaLabel`, `ariaLabelledBy`, `autofocus`, `tabindex` описаны в [components-api/checkbox.md](../../../../docs/components-api/checkbox.md), но инпутов у `ExtraCheckboxComponent` пока нет — не используйте их в шаблонах.
 
 ## Variants
 

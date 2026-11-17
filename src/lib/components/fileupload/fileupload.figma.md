@@ -31,8 +31,11 @@ Organization/Enterprise-плане, необходимых для Code Connect A
 
 ## Props mapping
 
+Зона выбора файлов доступна по Tab; Enter и Space открывают диалог выбора. При отключении или достижении лимита файлов зона не активируется и исключается из Tab-порядка.
+
 | Свойство      | Тип                              | По умолчанию | Описание |
 |---------------|-----------------------------------|--------------|----------|
+| `required` | `boolean` | `false` | Поле обязательно: контрол невалиден, пока не выбран ни один файл; работает как NG_VALIDATORS-валидатор |
 | `mode`        | `'auto' \| 'manual' \| 'basic'`   | `'manual'`   | Композитное поле кода — в Figma нет единого variant-свойства `mode`; в макете это комбинация независимых булевых слоёв `show-header`/`show-body`/`show-message`/`show-progress-bar`/`show-button-send` из API-таблицы. `manual` показывает кнопку «Отправить» (`show-button-send=true`), `auto` — нет (отправка сразу после выбора), `basic` — только кнопка выбора, без зоны дропа/списка/прогресса (`show-body=false`) |
 | `dragAndDrop` | `boolean`                          | `true`       | Соответствует Figma-свойству `drag-and-drop`. `true` — зона дропа рисуется **внутри** `p-fileupload-content` (нативный `#content`-враппер PrimeNG), чтобы получить встроенную подсветку `.p-fileupload-highlight` на `dragenter`/`dragover`, без своих обработчиков. `false` — в шапке вместо зоны только кнопка «Выбрать файл», вне `#content`, поэтому drag-and-drop над ней не реагирует (осознанное отключение, а не баг) |
 | `labels`      | `Labels`                           | см. спеку    | Сгруппированные статические тексты (`dropzoneTitle`/`dropzoneCaption`/`chooseButton`/`uploadButton`/`cancelButton`); в Figma текстовые слои внутри `<🚧FileUpload.Drag-and-Drop>` и кнопок |

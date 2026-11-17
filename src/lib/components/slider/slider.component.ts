@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -12,7 +13,17 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import type { SliderChangeEvent } from 'primeng/slider';
 import { Slider } from 'primeng/slider';
 import { Subscription } from 'rxjs';
@@ -42,6 +53,11 @@ export interface ExtraSliderChangeEvent {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraSliderComponent),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ExtraSliderComponent),
+      multi: true
     }
   ],
   template: `
@@ -63,7 +79,7 @@ export interface ExtraSliderChangeEvent {
     ></p-slider>
   `
 })
-export class ExtraSliderComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+export class ExtraSliderComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
   @Input() min = 0;
   @Input() max = 100;
   @Input() step: number | undefined = undefined;
@@ -75,6 +91,21 @@ export class ExtraSliderComponent implements ControlValueAccessor, AfterViewInit
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() tabindex = 0;
   @Input() autofocus = false;
+  /**
+   * Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор.
+   * Проверяется значение внешнего FormControl до нормализации для отображения бегунка.
+   */
+  @Input({ transform: booleanAttribute }) required = false;
+
+  private _onValidatorChange: () => void = () => {};
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
 
   @Output() onChange = new EventEmitter<ExtraSliderChangeEvent>();
   @Output() onSlideEnd = new EventEmitter<void>();
@@ -99,6 +130,8 @@ export class ExtraSliderComponent implements ControlValueAccessor, AfterViewInit
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+
     if (changes['range']) {
       const current = this.control.value;
       if (this.range && !Array.isArray(current)) {

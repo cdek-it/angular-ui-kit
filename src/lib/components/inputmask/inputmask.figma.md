@@ -36,6 +36,7 @@ updated: '2026-09-30'
 | `info`                          | `string`                                   | `''`         | Текст доп. информации в тултипе иконки `ti-info-circle` рядом с лейблом                           |
 | `size`                          | `'small' \| 'base' \| 'large' \| 'xlarge'` | `'base'`     | Размер поля                                                                                       |
 | `readonly`                      | `boolean`                                  | `false`      | Только для чтения — соответствует Figma-состоянию `state=readonly`                                |
+| `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
 | `fluid`                         | `boolean`                                  | `false`      | Растягивает поле на всю ширину контейнера                                                         |
 | `characterPattern`              | `string`                                   | `'[A-Za-z]'` | RegExp-шаблон для буквенных позиций маски (`a`)                                                   |
 | `keepBuffer`                    | `boolean`                                  | `false`      | Сохранять буфер маски при удалении символов                                                       |

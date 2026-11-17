@@ -8,10 +8,23 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
@@ -32,6 +45,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraInputMaskComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraInputMaskComponent),
       multi: true
     }
@@ -94,6 +112,11 @@ let nextInputId = 0;
         [keepBuffer]="keepBuffer"
         [invalid]="invalid"
         [autocomplete]="autocomplete"
+        [name]="name ?? ''"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="tabindex?.toString()"
         [formControl]="control"
         (onComplete)="onComplete.emit($event)"
         (onFocus)="onFocus.emit($event)"
@@ -104,7 +127,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
+export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
@@ -134,6 +157,28 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit {
   @Input() characterPattern = '[A-Za-z]';
   @Input({ transform: booleanAttribute }) keepBuffer = false;
   @Input() autocomplete = '';
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() name: string | undefined = undefined;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока маска не заполнена. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
 
   @Output() onComplete = new EventEmitter<void>();
   @Output() onFocus = new EventEmitter<Event>();

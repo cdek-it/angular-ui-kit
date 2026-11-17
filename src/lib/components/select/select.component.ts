@@ -8,12 +8,24 @@ import {
   inject,
   Injector,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   TemplateRef
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
@@ -62,6 +74,11 @@ export class ExtraSelectOptionGroupDirective {}
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraSelectComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraSelectComponent),
       multi: true
     }
@@ -122,6 +139,10 @@ export class ExtraSelectOptionGroupDirective {}
         [showClear]="clearable"
         [editable]="editable"
         [readonly]="readonly"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="tabindex ?? 0"
         [loading]="loading"
         [inputId]="inputId"
         [appendTo]="appendTo"
@@ -166,7 +187,7 @@ export class ExtraSelectOptionGroupDirective {}
     </ng-template>
   `
 })
-export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
+export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -195,6 +216,27 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit {
   @Input({ transform: booleanAttribute }) showCheckbox = true;
   @Input({ transform: booleanAttribute }) editable = false;
   @Input({ transform: booleanAttribute }) readonly = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока значение не выбрано. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
   @Input({ transform: booleanAttribute }) loading = false;
   @Input() inputId: string | undefined = `extra-select-${nextInputId++}`;
   @Input() appendTo: any = 'body';

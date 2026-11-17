@@ -1,6 +1,28 @@
-import { Component, EventEmitter, forwardRef, inject, Injector, Input, OnInit, Output } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
 import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import { MultiSelect } from 'primeng/multiselect';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -45,6 +67,11 @@ let nextInputId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ExtraMultiSelectComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ExtraMultiSelectComponent),
       multi: true
     }
@@ -108,6 +135,10 @@ let nextInputId = 0;
         [display]="showChips ? 'chip' : 'comma'"
         [chipIcon]="chipIcon"
         [readonly]="readonly"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="tabindex"
         [loading]="loading"
         [fluid]="fluid"
         [inputId]="inputId"
@@ -127,7 +158,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit {
+export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
   private _ngControl: NgControl | null = null;
 
@@ -157,6 +188,27 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit {
   @Input() info = '';
   @Input() size: ExtraMultiSelectSize = 'base';
   @Input() readonly = false;
+  /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
+
+  private _onValidatorChange: () => void = () => {};
+
+  /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока не выбрано ни одного значения. */
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this._onValidatorChange = fn;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this._onValidatorChange();
+  }
   @Input() loading = false;
   @Input() fluid = false;
   @Input() appendTo: any = 'body';
