@@ -10,6 +10,7 @@ const meta: Meta<MeterArgs> = {
   tags: ['autodocs', 'metergroup'],
   decorators: [moduleMetadata({ imports: [ExtraMeterGroupComponent] })],
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-metergroup' },
     docs: {
       description: {
