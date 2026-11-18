@@ -50,7 +50,7 @@ const DEFAULTS = {
 const ICON_ONLY_FALLBACK = 'ti ti-arrow-down-right';
 
 /** Аргументы сторис с дефолтами; в icon-only подставляет иконку, если её не задали. */
-function resolveArgs(args: Partial<ToggleButtonArgs>): Record<string, unknown> {
+function resolveArgs(args: Record<string, unknown>): Record<string, unknown> {
   const resolved: Record<string, unknown> = {};
   for (const key of INPUTS) resolved[key] = args[key] ?? (DEFAULTS as Record<string, unknown>)[key];
   if (resolved['iconOnly'] && !resolved['icon']) resolved['icon'] = ICON_ONLY_FALLBACK;
@@ -59,7 +59,7 @@ function resolveArgs(args: Partial<ToggleButtonArgs>): Record<string, unknown> {
 
 function source(args: Partial<ToggleButtonArgs>): string {
   const fields = ['[formControl]="control"'];
-  const resolved = resolveArgs(args);
+  const resolved = resolveArgs(args as Record<string, unknown>);
   for (const key of INPUTS) {
     const value = resolved[key];
     if (value === undefined || value === (DEFAULTS as Record<string, unknown>)[key]) continue;
@@ -77,7 +77,7 @@ const meta: Meta<ToggleButtonArgs> = {
   tags: ['autodocs', 'togglebutton'],
   decorators: [moduleMetadata({ imports: [ExtraToggleButtonComponent, ReactiveFormsModule] })],
   render: (args) => {
-    const resolved = resolveArgs(args);
+    const resolved = resolveArgs(args as Record<string, unknown>);
     const inputs = Object.fromEntries(INPUTS.map((key) => [key, resolved[key]]));
     return {
       props: {
