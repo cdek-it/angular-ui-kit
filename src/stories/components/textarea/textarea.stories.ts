@@ -14,7 +14,6 @@ const meta: Meta<TextareaArgs> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-textarea' },
     docs: {
       source: {
