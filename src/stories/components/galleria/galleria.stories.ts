@@ -12,6 +12,7 @@ const meta: Meta<ExtraGalleriaComponent> = {
   component: ExtraGalleriaComponent,
   tags: ['autodocs'],
   parameters: {
+    controls: { expanded: true },
     docs: {
       description: {
         component: `Компонент для отображения галереи изображений с поддержкой миниатюр, индикаторов, автовоспроизведения и полноэкранного режима.
@@ -32,9 +33,8 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbn
     designTokens: { prefix: '--p-galleria' }
   },
   argTypes: {
-    responsiveOptions: { control: 'object' },
-    containerStyle: { control: 'object' },
-    containerClass: { control: 'text' },
+    responsiveOptions: { control: 'object', description: 'Настройки адаптивных брейкпоинтов для навигации и миниатюр' },
+    containerStyle: { control: 'object', description: 'Инлайн-стили контейнера оверлея' },
     value: {
       control: 'object',
       description: 'Массив изображений для галереи',
@@ -140,9 +140,12 @@ import { ExtraGalleriaComponent, ExtraGalleriaItemDirective, ExtraGalleriaThumbn
         type: { summary: 'EventEmitter<boolean>' }
       }
     },
-    containerClass: { control: 'text' },
-    showIndicatorsOnItem: { control: 'boolean' },
-    showItemNavigatorsOnHover: { control: 'boolean' },
+    containerClass: { control: 'text', description: 'CSS-класс контейнера оверлея' },
+    showIndicatorsOnItem: { control: 'boolean', description: 'Показывать индикаторы поверх слайда' },
+    showItemNavigatorsOnHover: {
+      control: 'boolean',
+      description: 'Показывать кнопки навигации при наведении на слайд'
+    },
     showThumbnailNavigators: { control: 'boolean' }
   }
 };
