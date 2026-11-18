@@ -12,7 +12,6 @@ const meta: Meta<ExtraGalleriaComponent> = {
   component: ExtraGalleriaComponent,
   tags: ['autodocs'],
   parameters: {
-    controls: { expanded: true },
     docs: {
       description: {
         component: `Компонент для отображения галереи изображений с поддержкой миниатюр, индикаторов, автовоспроизведения и полноэкранного режима.
