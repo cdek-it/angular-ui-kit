@@ -198,6 +198,7 @@ const meta: Meta<DatePickerArgs> = {
   ],
   render,
   parameters: {
+    controls: { expanded: true },
     docs: {
       description: {
         component: `Компонент выбора даты и времени. Реализует \`ControlValueAccessor\` — работает с реактивными формами и \`ngModel\`. [Figma Design](https://www.figma.com/design/4TYeki0MDLhfPGJstbIicf/UI-kit-PrimeFace-(DS)?node-id=484-5726).
@@ -340,33 +341,102 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
         defaultValue: { summary: 'false' }
       }
     },
-    iconDisplay: { control: 'select', options: ['input', 'button'], table: { category: 'Props' } },
-    hourFormat: { control: 'select', options: [24, 12], table: { category: 'Props' } },
-    minDate: { control: 'date', table: { category: 'Props' } },
-    maxDate: { control: 'date', table: { category: 'Props' } },
-    view: { control: 'select', options: ['day', 'month', 'year', 'time', 'date'], table: { category: 'Props' } },
-    showOtherMonths: { control: 'boolean', table: { category: 'Props' } },
-    selectOtherMonths: { control: 'boolean', table: { category: 'Props' } },
-    label: { control: 'text', table: { category: 'Props' } },
-    labelPosition: { control: 'select', options: ['top', 'left'], table: { category: 'Props' } },
-    floatLabel: { control: 'boolean', table: { category: 'Props' } },
-    caption: { control: 'text', table: { category: 'Props' } },
+    iconDisplay: {
+      control: 'select',
+      options: ['input', 'button'],
+      description: 'Где показывать иконку календаря: в поле ввода или отдельной кнопкой',
+      table: { category: 'Props' }
+    },
+    hourFormat: {
+      control: 'select',
+      options: [24, 12],
+      description: 'Формат времени: 24 или 12 часов',
+      table: { category: 'Props' }
+    },
+    minDate: { control: 'date', description: 'Минимальная доступная дата', table: { category: 'Props' } },
+    maxDate: { control: 'date', description: 'Максимальная доступная дата', table: { category: 'Props' } },
+    view: {
+      control: 'select',
+      options: ['day', 'month', 'year', 'time', 'date'],
+      description: 'Начальный вид панели: день, месяц, год или время',
+      table: { category: 'Props' }
+    },
+    showOtherMonths: {
+      control: 'boolean',
+      description: 'Показывать дни соседних месяцев в сетке',
+      table: { category: 'Props' }
+    },
+    selectOtherMonths: {
+      control: 'boolean',
+      description: 'Разрешает выбирать дни соседних месяцев',
+      table: { category: 'Props' }
+    },
+    label: { control: 'text', description: 'Подпись поля', table: { category: 'Props' } },
+    labelPosition: {
+      control: 'select',
+      options: ['top', 'left'],
+      description: 'Положение подписи: сверху или слева',
+      table: { category: 'Props' }
+    },
+    floatLabel: {
+      control: 'boolean',
+      description: 'Подпись внутри поля, всплывающая при вводе',
+      table: { category: 'Props' }
+    },
+    caption: {
+      control: 'text',
+      description: 'Подпись под полем — подсказка или сообщение',
+      table: { category: 'Props' }
+    },
     captionSeverity: {
       control: 'select',
       options: ['base', 'danger', 'success', 'warning', 'info'],
+      description: 'Тон подписи: обычный, ошибка, успех, предупреждение, информация',
       table: { category: 'Props' }
     },
-    info: { control: 'text', table: { category: 'Props' } },
-    required: { control: 'boolean', table: { category: 'Props' } },
-    fluid: { control: 'boolean', table: { category: 'Props' } },
-    inputId: { control: 'text', table: { category: 'Props' } },
-    name: { control: 'text', table: { category: 'Props' } },
-    autocomplete: { control: 'text', table: { category: 'Props' } },
-    ariaLabel: { control: 'text', table: { category: 'Props' } },
-    ariaLabelledBy: { control: 'text', table: { category: 'Props' } },
-    autofocus: { control: 'boolean', table: { category: 'Props' } },
-    tabindex: { control: 'number', table: { category: 'Props' } },
-    value: { control: 'date', table: { category: 'Props' } },
+    info: { control: 'text', description: 'Дополнительная подсказка под полем', table: { category: 'Props' } },
+    required: {
+      control: 'boolean',
+      description: 'Поле обязательное: невалидно, пока значение не выбрано',
+      table: { category: 'Props' }
+    },
+    fluid: {
+      control: 'boolean',
+      description: 'Растягивает поле на всю ширину контейнера',
+      table: { category: 'Props' }
+    },
+    inputId: {
+      control: 'text',
+      description: 'id нативного input — для связки с внешним <label>',
+      table: { category: 'Props' }
+    },
+    name: { control: 'text', description: 'Имя поля в HTML-форме', table: { category: 'Props' } },
+    autocomplete: {
+      control: 'text',
+      description: 'Значение атрибута autocomplete нативного input',
+      table: { category: 'Props' }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Текст для скринридеров, если нет видимой подписи',
+      table: { category: 'Props' }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'id элемента, текст которого подписывает поле',
+      table: { category: 'Props' }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Ставит фокус на поле после первого рендера',
+      table: { category: 'Props' }
+    },
+    tabindex: {
+      control: 'number',
+      description: 'Порядок фокуса при навигации клавиатурой',
+      table: { category: 'Props' }
+    },
+    value: { control: 'date', description: 'Текущее значение поля', table: { category: 'Props' } },
     onMonthChange: { control: false, table: { category: 'Events' } },
     onYearChange: { control: false, table: { category: 'Events' } },
     onClear: { control: false, table: { category: 'Events' } },
