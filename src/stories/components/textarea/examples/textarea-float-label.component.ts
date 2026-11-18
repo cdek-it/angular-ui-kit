@@ -7,8 +7,8 @@ export const FloatLabelStory: StoryObj = {
   render: (args) => {
     const control = new FormControl('');
     return {
-      props: { ...args, control },
-      template: `<extra-textarea [formControl]="control" label="Комментарий" [floatLabel]="true" [clearable]="clearable"></extra-textarea>`
+      props: { clearable: args['clearable'], control },
+      template: `<extra-textarea [formControl]="control" label="Комментарий" labelPosition="float" [clearable]="clearable"></extra-textarea>`
     };
   },
   args: {
@@ -48,7 +48,7 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
 @Component({
   standalone: true,
   imports: [ExtraTextareaComponent, ReactiveFormsModule],
-  template: \`<extra-textarea [formControl]="control" label="Комментарий" [floatLabel]="true"></extra-textarea>\`,
+  template: \`<extra-textarea [formControl]="control" label="Комментарий" labelPosition="float"></extra-textarea>\`,
 })
 export class FloatLabelExample {
   control = new FormControl('');

@@ -1,28 +1,25 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraTextareaComponent } from '../../../lib/components/textarea/textarea.component';
-import { Disabled } from './examples/textarea-disabled.component';
-import { Readonly } from './examples/textarea-readonly.component';
-import { Invalid } from './examples/textarea-invalid.component';
-import { AutoResize, TextareaAutoResizeComponent } from './examples/textarea-autoresize.component';
-import { Sizes } from './examples/textarea-sizes.component';
-import { FloatLabelStory } from './examples/textarea-float-label.component';
-import { Labels, TextareaLabelsComponent } from './examples/textarea-labels.component';
 
-type TextareaArgs = ExtraTextareaComponent & { disabled: boolean; invalid: boolean };
+type TextareaArgs = ExtraTextareaComponent & { disabled: boolean; invalid: boolean; value: string };
 
 const meta: Meta<TextareaArgs> = {
   title: 'Components/Form/Textarea',
   component: ExtraTextareaComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'textarea'],
   decorators: [
     moduleMetadata({
-      imports: [ExtraTextareaComponent, ReactiveFormsModule, TextareaAutoResizeComponent, TextareaLabelsComponent]
+      imports: [ExtraTextareaComponent, ReactiveFormsModule]
     })
   ],
   parameters: {
     designTokens: { prefix: '--p-textarea' },
     docs: {
+      source: {
+        language: 'html',
+        transform: (_code: string, context: { args: RenderArgs }) => renderTextarea(context.args).template
+      },
       description: {
         component: `Многострочное текстовое поле для ввода данных.
 
@@ -47,23 +44,23 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string' }
       }
     },
-    labelPosition: {
-      control: 'select',
-      options: ['top', 'left'],
-      description: 'Положение лейбла',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "'top'" },
-        type: { summary: "'top' | 'left'" }
-      }
-    },
-    floatLabel: {
+    requiredMark: {
       control: 'boolean',
-      description: 'Лейбл-плейсхолдер, всплывающий над полем при фокусе/значении',
+      description: 'Маркер «*» перед лейблом (только визуальный)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' }
+      }
+    },
+    labelPosition: {
+      control: 'select',
+      options: ['default', 'float', 'left'],
+      description: 'Положение лейбла',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'default'" },
+        type: { summary: "'default' | 'float' | 'left'" }
       }
     },
     caption: {
@@ -73,6 +70,16 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
         category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
+      }
+    },
+    captionSeverity: {
+      control: 'select',
+      options: ['base', 'success', 'warning', 'danger', 'info'],
+      description: 'Вариант подписи (цвет и иконка), Figma `_<Caption>` variant',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'base'" },
+        type: { summary: "'base' | 'success' | 'warning' | 'danger' | 'info'" }
       }
     },
     info: {
@@ -157,6 +164,41 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'number' }
       }
     },
+    required: {
+      control: 'boolean',
+      description: 'Пустое поле делает FormControl невалидным',
+      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
+    },
+    name: {
+      control: 'text',
+      description: 'Имя поля для браузерного автозаполнения',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    autocomplete: {
+      control: 'text',
+      description: 'Значение нативного атрибута autocomplete',
+      table: { category: 'Свойства', type: { summary: 'string' } }
+    },
+    maxLength: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Максимальное количество символов',
+      table: { category: 'Свойства', type: { summary: 'number' } }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Метка для программ экранного доступа',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'ID внешнего элемента-метки',
+      table: { category: 'Дополнительно', type: { summary: 'string' } }
+    },
+    tabindex: {
+      control: { type: 'number', step: 1 },
+      description: 'Порядок перехода по Tab',
+      table: { category: 'Дополнительно', type: { summary: 'number' } }
+    },
     autofocus: {
       control: 'boolean',
       description: 'Автофокус при монтировании компонента',
@@ -194,6 +236,15 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    value: {
+      control: 'text',
+      description: 'Значение FormControl',
+      table: {
+        category: 'Состояния',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
     // Hidden computed props
     modelValue: { table: { disable: true } },
     primeSize: { table: { disable: true } },
@@ -218,12 +269,12 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
     }
   },
   args: {
-    label: 'Комментарий',
-    labelPosition: 'top',
-    floatLabel: false,
-    caption: '',
-    info: '',
-    placeholder: 'Введите текст...',
+    label: 'Label',
+    labelPosition: 'default',
+    caption: 'Caption',
+    captionSeverity: 'base',
+    info: 'Info',
+    placeholder: 'Placeholder',
     size: 'base',
     clearable: false,
     resizable: true,
@@ -231,56 +282,160 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
     autoResize: false,
     rows: 3,
     autofocus: false,
+    required: false,
+    name: undefined,
+    autocomplete: undefined,
+    maxLength: undefined,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    tabindex: undefined,
     disabled: false,
     invalid: false,
-    readonly: false
+    requiredMark: true,
+    readonly: false,
+    value: ''
   }
 };
 
 export default meta;
 type Story = StoryObj<TextareaArgs>;
 
-// ── Default (интерактивная) ────────────────────────────────────────────────
+// ── Один рендер компонента: все свойства настраиваются в Controls ────────────
+interface RenderArgs {
+  label?: string;
+  requiredMark?: boolean;
+  labelPosition?: string;
+  caption?: string;
+  captionSeverity?: string;
+  info?: string;
+  placeholder?: string;
+  size?: string;
+  clearable?: boolean;
+  resizable?: boolean;
+  readonly?: boolean;
+  fluid?: boolean;
+  autoResize?: boolean;
+  rows?: number;
+  cols?: number;
+  autofocus?: boolean;
+  required?: boolean;
+  name?: string;
+  autocomplete?: string;
+  maxLength?: number;
+  ariaLabel?: string;
+  ariaLabelledBy?: string;
+  tabindex?: number;
+  invalid?: boolean;
+  disabled?: boolean;
+  value?: string;
+}
+
+const renderTextarea = (args: RenderArgs) => {
+  const a = args;
+  const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const parts: string[] = [];
+
+  if (a.label) parts.push(`label="${escape(a.label)}"`);
+  if (a.requiredMark) parts.push(`[requiredMark]="true"`);
+  if (a.labelPosition && a.labelPosition !== 'default') parts.push(`labelPosition="${escape(a.labelPosition)}"`);
+  if (a.caption) parts.push(`caption="${escape(a.caption)}"`);
+  if (a.captionSeverity && a.captionSeverity !== 'base') parts.push(`captionSeverity="${escape(a.captionSeverity)}"`);
+  if (a.info) parts.push(`info="${escape(a.info)}"`);
+  if (a.placeholder) parts.push(`placeholder="${escape(a.placeholder)}"`);
+  if (a.size && a.size !== 'base') parts.push(`size="${escape(a.size)}"`);
+  if (a.clearable) parts.push(`[clearable]="true"`);
+  if (!a.resizable) parts.push(`[resizable]="false"`);
+  if (a.readonly) parts.push(`[readonly]="true"`);
+  if (a.fluid) parts.push(`[fluid]="true"`);
+  if (a.autoResize) parts.push(`[autoResize]="true"`);
+  if (a.rows && a.rows !== 3) parts.push(`[rows]="${a.rows}"`);
+  if (a.cols) parts.push(`[cols]="${a.cols}"`);
+  if (a.autofocus) parts.push(`[autofocus]="true"`);
+  if (a.required) parts.push(`[required]="true"`);
+  if (a.name) parts.push(`name="${escape(a.name)}"`);
+  if (a.autocomplete) parts.push(`autocomplete="${escape(a.autocomplete)}"`);
+  if (a.maxLength != null) parts.push(`[maxLength]="${a.maxLength}"`);
+  if (a.ariaLabel) parts.push(`ariaLabel="${escape(a.ariaLabel)}"`);
+  if (a.ariaLabelledBy) parts.push(`ariaLabelledBy="${escape(a.ariaLabelledBy)}"`);
+  if (a.tabindex != null) parts.push(`[tabindex]="${a.tabindex}"`);
+
+  const validators = a.invalid ? [Validators.required] : [];
+  const control = new FormControl({ value: a.invalid ? '' : (a.value ?? ''), disabled: !!a.disabled }, validators);
+
+  const template = `<extra-textarea [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-textarea>`;
+
+  // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
+  // и Storybook на попытке его присвоить роняет ошибку в консоль
+  return { props: { control }, template };
+};
+
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.label) parts.push(`label="${args.label}"`);
-    if (args.labelPosition && args.labelPosition !== 'top') parts.push(`labelPosition="${args.labelPosition}"`);
-    if (args.floatLabel) parts.push(`[floatLabel]="true"`);
-    if (args.caption) parts.push(`caption="${args.caption}"`);
-    if (args.info) parts.push(`info="${args.info}"`);
-    if (args.placeholder) parts.push(`placeholder="${args.placeholder}"`);
-    if (args.size && args.size !== 'base') parts.push(`size="${args.size}"`);
-    if (args.clearable) parts.push(`[clearable]="true"`);
-    if (!args.resizable) parts.push(`[resizable]="false"`);
-    if (args.readonly) parts.push(`[readonly]="true"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.autoResize) parts.push(`[autoResize]="true"`);
-    if (args.rows && args.rows !== 3) parts.push(`[rows]="${args.rows}"`);
-    if (args.cols) parts.push(`[cols]="${args.cols}"`);
-    if (args.autofocus) parts.push(`[autofocus]="true"`);
-
-    const validators = args.invalid ? [Validators.required] : [];
-    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
-
-    const template = `<extra-textarea [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-textarea>`;
-
-    // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
-    // и Storybook на попытке его присвоить роняет ошибку в консоль
-    const { invalid, disabled, ...rest } = args;
-
-    return { props: { ...rest, control }, template };
-  },
+  render: (args) => renderTextarea(args),
   parameters: {
     docs: {
       description: {
-        story: 'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
+        story:
+          'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
       }
     }
   }
 };
 
-// ── Комбинаторные истории ──────────────────────────────────────────────────
-export { Labels, Disabled, Readonly, Invalid, AutoResize, Sizes, FloatLabelStory as FloatLabel };
+export const Error: Story = {
+  name: 'Error',
+  args: { invalid: true },
+  render: (args) => renderTextarea(args),
+  parameters: { docs: { description: { story: 'Невалидное состояние — управляется через FormControl + Validators.' } } }
+};
+
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: { disabled: true },
+  render: (args) => renderTextarea(args),
+  parameters: { docs: { description: { story: 'Отключённое состояние — управляется через FormControl.' } } }
+};
+
+export const Readonly: Story = {
+  name: 'Readonly',
+  args: { readonly: true },
+  render: (args) => renderTextarea(args),
+  parameters: {
+    docs: { description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется.' } }
+  }
+};
+
+export const Clearable: Story = {
+  name: 'Clearable',
+  args: { clearable: true, value: 'Textarea' },
+  render: (args) => renderTextarea(args)
+};
+
+export const Fluid: Story = {
+  name: 'Fluid',
+  args: { fluid: true },
+  render: (args) => renderTextarea(args)
+};
+
+export const FloatLabel: Story = {
+  name: 'FloatLabel',
+  argTypes: { clearable: { control: 'boolean', description: 'Показывает иконку очистки поверх float-лейбла' } },
+  args: { labelPosition: 'float', label: 'FloatLabel' },
+  render: (args) => renderTextarea(args),
+  parameters: {
+    docs: {
+      description: {
+        story: '`[floatLabel]="true"` — лейбл всплывает над полем при фокусе/значении, независимо от `labelPosition`.'
+      }
+    }
+  }
+};
+
+export const AutoResize: Story = {
+  name: 'AutoResize',
+  args: { autoResize: true, rows: 2 },
+  render: (args) => renderTextarea(args),
+  parameters: {
+    docs: { description: { story: 'Режим авторасширения — поле увеличивается по высоте по мере ввода текста.' } }
+  }
+};
