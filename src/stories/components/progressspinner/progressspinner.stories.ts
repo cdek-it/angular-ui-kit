@@ -13,7 +13,6 @@ const meta: Meta<ExtraProgressSpinnerComponent> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       source: {
         language: 'html',
