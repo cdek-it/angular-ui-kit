@@ -26,7 +26,6 @@ const meta: Meta<ChipArgs> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       source: { language: 'html', type: 'code', transform: () => '<extra-chip label="В пути"></extra-chip>' },
       description: {
