@@ -68,6 +68,9 @@ const preview: Preview = {
       globals: { theme: 'light' },
     },
     controls: {
+      // Полная таблица в панели Controls: имя, описание, тип, дефолт и группы категорий.
+      // В компактном режиме Storybook 10 описание пропса не отображается.
+      expanded: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i
