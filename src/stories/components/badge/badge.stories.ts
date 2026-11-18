@@ -14,6 +14,7 @@ const meta: Meta<ExtraBadgeComponent> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     docs: {
       source: { language: 'html', type: 'code', transform: () => '<extra-badge value="8"></extra-badge>' },
       description: {
