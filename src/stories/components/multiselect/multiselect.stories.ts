@@ -49,6 +49,7 @@ const meta: Meta<MultiSelectArgs> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-multiselect' },
     docs: {
       source: {
