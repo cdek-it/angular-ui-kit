@@ -14,7 +14,6 @@ const meta: Meta<ButtonArgs> = {
   decorators: [moduleMetadata({ imports: [ExtraButtonComponent] })],
   render: (args) => renderButton(args),
   parameters: {
-    controls: { expanded: true },
     docs: {
       source: {
         language: 'html',
