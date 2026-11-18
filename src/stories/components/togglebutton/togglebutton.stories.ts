@@ -92,7 +92,6 @@ const meta: Meta<ToggleButtonArgs> = {
     };
   },
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-togglebutton' },
     docs: {
       description: {
