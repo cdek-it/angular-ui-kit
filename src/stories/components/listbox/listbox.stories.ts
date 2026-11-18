@@ -121,6 +121,7 @@ const meta: Meta<ListboxArgs> = {
     };
   },
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-listbox' },
     docs: {
       description: {
@@ -141,9 +142,9 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
     }
   },
   argTypes: {
-    options: { control: 'object' },
-    optionGroupLabel: { control: 'text' },
-    optionGroupChildren: { control: 'text' },
+    options: { control: 'object', description: 'Список вариантов выбора' },
+    optionGroupLabel: { control: 'text', description: 'Поле элемента, по которому группируются варианты' },
+    optionGroupChildren: { control: 'text', description: 'Поле элемента с вложенными вариантами группы' },
     // ── Props ────────────────────────────────────────────────
     optionLabel: {
       control: 'text',
@@ -247,7 +248,7 @@ import { ExtraListboxComponent, ExtraListboxItemDirective } from '@cdek-it/angul
     striped: { control: 'boolean', description: 'Чередование фона строк' },
     disabled: { control: 'boolean', description: 'Отключение через FormControl' },
     invalid: { control: 'boolean', description: 'Ошибка FormControl' },
-    groupIcon: { control: 'boolean' },
+    groupIcon: { control: 'boolean', description: 'Иконка заголовка группы' },
     custom: { control: 'boolean', description: 'Шаблон пункта с иконкой и подписью' },
     value: { control: 'object', description: 'Значение FormControl' },
     onClose: { control: false, description: 'Запрос закрытия списка' },
