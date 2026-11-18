@@ -13,8 +13,13 @@ const meta: Meta<ExtraProgressSpinnerComponent> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     docs: {
-      source: { language: 'html', type: 'code', transform: () => '<extra-progressspinner ariaLabel="Загрузка"></extra-progressspinner>' },
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: () => '<extra-progressspinner ariaLabel="Загрузка"></extra-progressspinner>'
+      },
       description: {
         component: `Используется для отображения индикатора процесса/состояния загрузки неопределенного времени.
 
