@@ -1,37 +1,29 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtraInputTextComponent } from '../../../lib/components/inputtext/inputtext.component';
-import { InputTextClearableComponent, Clearable } from './examples/inputtext-clearable.component';
-import { InputTextLabelsComponent, Labels } from './examples/inputtext-labels.component';
-import { InputTextSizesComponent, Sizes } from './examples/inputtext-sizes.component';
-import { InputTextStatesComponent, States } from './examples/inputtext-states.component';
-import { InputTextTypesComponent, Types } from './examples/inputtext-types.component';
-import { InputTextFluidComponent, Fluid } from './examples/inputtext-fluid.component';
-import { InputTextReactiveFormsComponent, ReactiveForms } from './examples/inputtext-reactive-forms.component';
+import {
+  InputTextReactiveFormsComponent,
+  ReactiveForms as ReactiveFormsStory
+} from './examples/inputtext-reactive-forms.component';
 
-type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean };
+type InputTextArgs = ExtraInputTextComponent & { disabled: boolean; invalid: boolean; value: string };
 
 const meta: Meta<InputTextArgs> = {
   title: 'Components/Form/InputText',
   component: ExtraInputTextComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'inputtext'],
   decorators: [
     moduleMetadata({
-      imports: [
-        ExtraInputTextComponent,
-        ReactiveFormsModule,
-        InputTextLabelsComponent,
-        InputTextSizesComponent,
-        InputTextClearableComponent,
-        InputTextTypesComponent,
-        InputTextStatesComponent,
-        InputTextFluidComponent,
-        InputTextReactiveFormsComponent
-      ]
+      imports: [ExtraInputTextComponent, ReactiveFormsModule, InputTextReactiveFormsComponent]
     })
   ],
   parameters: {
     docs: {
+      source: {
+        language: 'html',
+        transform: (_code: string, context: { args: Partial<Omit<InputTextArgs, 'onClear'>> }) =>
+          renderInputText(context.args).template
+      },
       description: {
         component: `Текстовое поле для ввода данных.
 
@@ -67,17 +59,17 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     },
     labelPosition: {
       control: 'select',
-      options: ['top', 'left'],
+      options: ['default', 'float', 'left'],
       description: 'Положение лейбла',
       table: {
         category: 'Свойства',
-        defaultValue: { summary: 'top' },
-        type: { summary: "'top' | 'left'" }
+        defaultValue: { summary: 'default' },
+        type: { summary: "'default' | 'float' | 'left'" }
       }
     },
-    floatLabel: {
+    requiredMark: {
       control: 'boolean',
-      description: 'Плавающий лейбл внутри поля (перекрывает labelPosition)',
+      description: 'Маркер «*» перед лейблом (только визуальный)',
       table: {
         category: 'Свойства',
         defaultValue: { summary: 'false' },
@@ -93,6 +85,15 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    readonly: {
+      control: 'boolean',
+      description: 'Только чтение; очистка поля недоступна',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
     caption: {
       control: 'text',
       description: 'Текст пояснения под полем',
@@ -100,6 +101,16 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
         category: 'Свойства',
         defaultValue: { summary: "''" },
         type: { summary: 'string' }
+      }
+    },
+    captionSeverity: {
+      control: 'select',
+      options: ['base', 'success', 'warning', 'danger', 'info'],
+      description: 'Вариант подписи под полем: меняет цвет и иконку',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: "'base'" },
+        type: { summary: "'base' | 'success' | 'warning' | 'danger' | 'info'" }
       }
     },
     info: {
@@ -139,11 +150,6 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
         defaultValue: { summary: 'text' },
         type: { summary: "'text' | 'password'" }
       }
-    },
-    readonly: {
-      control: 'boolean',
-      description: 'Только чтение; очистка поля недоступна',
-      table: { category: 'Свойства', defaultValue: { summary: 'false' }, type: { summary: 'boolean' } }
     },
     required: {
       control: 'boolean',
@@ -204,6 +210,15 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    value: {
+      control: 'text',
+      description: 'Значение FormControl',
+      table: {
+        category: 'Состояния',
+        defaultValue: { summary: "''" },
+        type: { summary: 'string' }
+      }
+    },
     // ── События ───────────────────────────────────────────────────
     onClear: {
       control: false,
@@ -220,17 +235,18 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     inputId: { table: { disable: true } }
   },
   args: {
-    placeholder: 'Введите текст...',
-    label: '',
-    labelPosition: 'top',
-    floatLabel: false,
+    placeholder: 'Placeholder',
+    label: 'Label',
+    labelPosition: 'default',
+    requiredMark: true,
     clearable: false,
-    caption: '',
-    info: '',
+    readonly: false,
+    caption: 'Caption',
+    captionSeverity: 'base',
+    info: 'Info',
     size: 'base',
     fluid: false,
     type: 'text',
-    readonly: false,
     required: false,
     name: undefined,
     autocomplete: undefined,
@@ -240,49 +256,60 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     autofocus: false,
     tabindex: undefined,
     disabled: false,
-    invalid: false
+    invalid: false,
+    value: ''
   }
 };
 
 export default meta;
 type Story = StoryObj<InputTextArgs>;
 
-// ── Default (интерактивная) ──────────────────────────────────────────────────
+// ── Один рендер компонента ───────────────────────────────────────────────────
+// Каждая сторис — пресет варианта Figma (comp-json/FORM/InputText/STORIES.md): в args задана
+// только её ось, остальное равно варианту Figma по умолчанию и меняется в Controls.
+const renderInputText = (args: Partial<Omit<InputTextArgs, 'onClear'>>) => {
+  const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const parts: string[] = [];
+
+  if (args.placeholder) parts.push(`placeholder="${escape(args.placeholder)}"`);
+  if (args.label) parts.push(`label="${escape(args.label)}"`);
+  if (args.labelPosition && args.labelPosition !== 'default')
+    parts.push(`labelPosition="${escape(args.labelPosition)}"`);
+  if (args.requiredMark) parts.push(`[requiredMark]="true"`);
+  if (args.clearable) parts.push(`[clearable]="true"`);
+  if (args.readonly) parts.push(`[readonly]="true"`);
+  if (args.caption) parts.push(`caption="${escape(args.caption)}"`);
+  if (args.captionSeverity && args.captionSeverity !== 'base')
+    parts.push(`captionSeverity="${escape(args.captionSeverity)}"`);
+  if (args.info) parts.push(`info="${escape(args.info)}"`);
+  if (args.size && args.size !== 'base') parts.push(`size="${escape(args.size)}"`);
+  if (args.fluid) parts.push(`[fluid]="true"`);
+  if (args.type && args.type !== 'text') parts.push(`type="${escape(args.type)}"`);
+  if (args.required) parts.push(`[required]="true"`);
+  if (args.name) parts.push(`name="${escape(args.name)}"`);
+  if (args.autocomplete) parts.push(`autocomplete="${escape(args.autocomplete)}"`);
+  if (args.maxLength != null) parts.push(`[maxLength]="${args.maxLength}"`);
+  if (args.ariaLabel) parts.push(`ariaLabel="${escape(args.ariaLabel)}"`);
+  if (args.ariaLabelledBy) parts.push(`ariaLabelledBy="${escape(args.ariaLabelledBy)}"`);
+  if (args.autofocus) parts.push(`[autofocus]="true"`);
+  if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
+
+  const validators = args.invalid ? [Validators.required] : [];
+  const control = new FormControl(
+    { value: args.invalid ? '' : (args.value ?? ''), disabled: !!args.disabled },
+    validators
+  );
+
+  const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
+
+  // В props уходит только control: Storybook присваивает «не-@Input» пропсы прямо на инстанс,
+  // а invalid у компонента — геттер из NgControl, и присваивание роняет сторис с TypeError.
+  return { props: { control }, template };
+};
 
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.placeholder) parts.push('[placeholder]="placeholder"');
-    if (args.label) parts.push('[label]="label"');
-    if (args.labelPosition && args.labelPosition !== 'top') parts.push('[labelPosition]="labelPosition"');
-    if (args.floatLabel) parts.push('[floatLabel]="floatLabel"');
-    if (args.clearable) parts.push('[clearable]="clearable"');
-    if (args.caption) parts.push('[caption]="caption"');
-    if (args.info) parts.push('[info]="info"');
-    if (args.size && args.size !== 'base') parts.push('[size]="size"');
-    if (args.fluid) parts.push('[fluid]="fluid"');
-    if (args.type && args.type !== 'text') parts.push('[type]="type"');
-    if (args.readonly) parts.push('[readonly]="readonly"');
-    if (args.required) parts.push('[required]="required"');
-    if (args.name) parts.push('[name]="name"');
-    if (args.autocomplete) parts.push('[autocomplete]="autocomplete"');
-    if (args.maxLength != null) parts.push('[maxLength]="maxLength"');
-    if (args.ariaLabel) parts.push('[ariaLabel]="ariaLabel"');
-    if (args.ariaLabelledBy) parts.push('[ariaLabelledBy]="ariaLabelledBy"');
-    if (args.autofocus) parts.push('[autofocus]="autofocus"');
-    if (args.tabindex != null) parts.push('[tabindex]="tabindex"');
-
-    const validators = args.invalid ? [Validators.required] : [];
-    const control = new FormControl({ value: '', disabled: args.disabled }, validators);
-
-    const template = `<extra-input-text [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-input-text>`;
-
-    // invalid — геттер компонента, disabled меняется через CVA: передаём эти состояния только форме.
-    const { disabled, invalid, ...inputs } = args;
-    return { props: { ...inputs, control }, template };
-  },
+  render: (args) => renderInputText(args),
   parameters: {
     docs: {
       description: {
@@ -293,6 +320,68 @@ export const Default: Story = {
   }
 };
 
-// ── Комбинаторные истории ────────────────────────────────────────────────────
+export const Error: Story = {
+  name: 'Error',
+  args: { invalid: true },
+  render: (args) => renderInputText(args)
+};
 
-export { Labels, Sizes, Clearable, Types, States, Fluid, ReactiveForms };
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: { disabled: true },
+  render: (args) => renderInputText(args)
+};
+
+export const Readonly: Story = {
+  name: 'Readonly',
+  args: { readonly: true },
+  render: (args) => renderInputText(args)
+};
+
+export const FloatLabel: Story = {
+  name: 'FloatLabel',
+  args: { labelPosition: 'float', label: 'FloatLabel' },
+  render: (args) => renderInputText(args)
+};
+
+export const Clearable: Story = {
+  name: 'Clearable',
+  args: { clearable: true, value: 'InputText' },
+  render: (args) => renderInputText(args),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Поле с иконкой очистки (clearable). Иконка × доступна с клавиатуры (Enter / Space) и появляется только при наличии значения.'
+      }
+    }
+  }
+};
+
+export const Fluid: Story = {
+  name: 'Fluid',
+  args: { fluid: true },
+  render: (args) => renderInputText(args),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` поле занимает 100% ширины родителя вместо собственной ширины по умолчанию. Контейнер в примере — 600px и обведён пунктиром, чтобы было видно, что поле тянется ровно по его границам.'
+      }
+    }
+  }
+};
+
+export const ReactiveForms: Story = {
+  ...(ReactiveFormsStory as Story),
+  parameters: {
+    ...ReactiveFormsStory.parameters,
+    docs: {
+      ...(ReactiveFormsStory.parameters?.['docs'] ?? {}),
+      description: {
+        story:
+          'Компонент реализует ControlValueAccessor, поэтому `[formControl]` работает в обе стороны. Ввод с клавиатуры и очистка иконкой × пишут значение в контрол (value, dirty), blur помечает его touched, а `setValue()`, `reset()`, `disable()` / `enable()` со стороны формы обновляют само поле. Состояние invalid берётся из NgControl — красная рамка появляется по Validators, без отдельного пропа.'
+      }
+    }
+  }
+};
