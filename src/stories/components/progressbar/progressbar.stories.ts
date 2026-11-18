@@ -15,7 +15,6 @@ const meta: Meta<ProgressBarArgs> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       source: {
         language: 'html',
