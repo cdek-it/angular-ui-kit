@@ -16,6 +16,7 @@ const meta: Meta<TagArgs> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-tag' },
     docs: {
       source: { language: 'html', type: 'code', transform: () => '<extra-tag value="Tag"></extra-tag>' },
