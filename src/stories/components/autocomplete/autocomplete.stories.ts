@@ -56,6 +56,7 @@ const meta: Meta<AutoCompleteArgs> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-autocomplete' },
     docs: {
       source: {
