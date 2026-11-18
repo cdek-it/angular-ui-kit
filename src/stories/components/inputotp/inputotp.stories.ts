@@ -52,6 +52,7 @@ const meta: Meta<OtpArgs> = {
     };
   },
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-inputotp' },
     docs: {
       description: {
@@ -149,15 +150,18 @@ import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     // Hidden computed props
-    control: { table: { disable: true } },
-    readonly: { control: 'boolean' },
-    required: { control: 'boolean' },
-    name: { control: 'text' },
-    autocomplete: { control: 'text' },
-    ariaLabel: { control: 'text' },
-    ariaLabelledBy: { control: 'text' },
-    tabindex: { control: 'number' },
-    value: { control: 'text' }
+    control: {
+      table: { disable: true },
+      description: 'FormControl поля — используется в примерах с реактивной формой'
+    },
+    readonly: { control: 'boolean', description: 'Только для чтения: значение видно, но не редактируется' },
+    required: { control: 'boolean', description: 'Поле обязательное для заполнения' },
+    name: { control: 'text', description: 'Имя поля в HTML-форме' },
+    autocomplete: { control: 'text', description: 'Значение атрибута autocomplete нативного input' },
+    ariaLabel: { control: 'text', description: 'Текст для скринридеров, если нет видимой подписи' },
+    ariaLabelledBy: { control: 'text', description: 'id элемента, текст которого подписывает поле' },
+    tabindex: { control: 'number', description: 'Порядок фокуса при навигации клавиатурой' },
+    value: { control: 'text', description: 'Введённый код' }
   },
   args: {
     length: 4,
