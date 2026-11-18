@@ -18,7 +18,6 @@ const meta: Meta<InputTextArgs> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       source: {
         language: 'html',
