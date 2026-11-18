@@ -11,7 +11,6 @@ const meta: Meta<ExtraAvatarComponent> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       description: {
         component: `Аватар представляет пользователя или сущность. Может содержать текст, иконку или изображение, а также значок (\`badge\`).
