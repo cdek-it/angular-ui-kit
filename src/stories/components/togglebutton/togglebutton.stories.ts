@@ -178,13 +178,70 @@ import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit/components/t
         type: { summary: 'boolean' }
       }
     },
-    required: { control: 'boolean' },
-    checked: { control: 'boolean', table: { category: 'Состояния' } },
-    ariaLabel: { control: 'text' },
-    ariaLabelledBy: { control: 'text' },
-    inputId: { control: 'text' },
-    tabindex: { control: 'number' },
-    autofocus: { control: 'boolean' },
+    required: {
+      control: 'boolean',
+      description:
+        'Делает FormControl невалидным, пока кнопка не включена (реализует Validator через Validators.requiredTrue)',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    checked: {
+      control: 'boolean',
+      description: 'Начальное состояние кнопки: включена (true) или выключена (false)',
+      table: {
+        category: 'Состояния',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Текст для скринридеров, когда у кнопки нет видимой подписи (обязателен для icon-only)',
+      table: {
+        category: 'Доступность',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string' }
+      }
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      description: 'id элемента, текст которого подписывает кнопку',
+      table: {
+        category: 'Доступность',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string' }
+      }
+    },
+    inputId: {
+      control: 'text',
+      description: 'id нативной кнопки — для связки с внешним <label>',
+      table: {
+        category: 'Свойства',
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string' }
+      }
+    },
+    tabindex: {
+      control: 'number',
+      description: 'Порядок фокуса при навигации клавиатурой; для disabled всегда -1',
+      table: {
+        category: 'Доступность',
+        defaultValue: { summary: '0' },
+        type: { summary: 'number' }
+      }
+    },
+    autofocus: {
+      control: 'boolean',
+      description: 'Ставит фокус на кнопку после первого рендера; для disabled не срабатывает',
+      table: {
+        category: 'Доступность',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' }
+      }
+    },
 
     // ── События ──────────────────────────────────────────────────
     onChange: {
