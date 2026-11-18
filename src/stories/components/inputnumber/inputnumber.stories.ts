@@ -78,7 +78,6 @@ const meta: Meta<NumberArgs> = {
     };
   },
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-inputnumber' },
     docs: {
       description: {
