@@ -90,7 +90,6 @@ const meta: Meta<PasswordArgs> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-password' },
     docs: {
       description: {
