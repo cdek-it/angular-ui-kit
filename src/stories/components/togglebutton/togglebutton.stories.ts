@@ -46,10 +46,22 @@ const DEFAULTS = {
   autofocus: false,
   required: false
 } as const;
+/** Иконка-заглушка для режима icon-only: без неё кнопка рендерится пустой и состояние не видно. */
+const ICON_ONLY_FALLBACK = 'ti ti-arrow-down-right';
+
+/** Аргументы сторис с дефолтами; в icon-only подставляет иконку, если её не задали. */
+function resolveArgs(args: Partial<ToggleButtonArgs>): Record<string, unknown> {
+  const resolved: Record<string, unknown> = {};
+  for (const key of INPUTS) resolved[key] = args[key] ?? (DEFAULTS as Record<string, unknown>)[key];
+  if (resolved['iconOnly'] && !resolved['icon']) resolved['icon'] = ICON_ONLY_FALLBACK;
+  return resolved;
+}
+
 function source(args: Partial<ToggleButtonArgs>): string {
   const fields = ['[formControl]="control"'];
+  const resolved = resolveArgs(args);
   for (const key of INPUTS) {
-    const value = args[key];
+    const value = resolved[key];
     if (value === undefined || value === (DEFAULTS as Record<string, unknown>)[key]) continue;
     if (typeof value === 'boolean' || typeof value === 'number') fields.push('[' + key + ']="' + value + '"');
     else
@@ -65,9 +77,8 @@ const meta: Meta<ToggleButtonArgs> = {
   tags: ['autodocs', 'togglebutton'],
   decorators: [moduleMetadata({ imports: [ExtraToggleButtonComponent, ReactiveFormsModule] })],
   render: (args) => {
-    const inputs = Object.fromEntries(
-      INPUTS.map((key) => [key, args[key] ?? (DEFAULTS as Record<string, unknown>)[key]])
-    );
+    const resolved = resolveArgs(args);
+    const inputs = Object.fromEntries(INPUTS.map((key) => [key, resolved[key]]));
     return {
       props: {
         ...inputs,
