@@ -50,6 +50,7 @@ const meta: Meta<Args> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     docs: {
       description: {
         component: `Группа полей ввода для объединения с аддонами (иконками или текстом).
@@ -82,17 +83,25 @@ import { ExtraInputGroupComponent, ExtraInputGroupAddonComponent } from '@cdek-i
     position: {
       control: 'select',
       options: ['left', 'right'],
-      table: { category: 'Аддон', defaultValue: { summary: "'left'" } }
+      table: {
+        category: 'Аддон',
+        defaultValue: { summary: "'left'" },
+        description: 'Позиция аддона относительно поля: слева или справа'
+      }
     },
     type: {
       control: 'select',
       options: ['text', 'icon'],
-      table: { category: 'Аддон', defaultValue: { summary: "'text'" } }
+      table: {
+        category: 'Аддон',
+        defaultValue: { summary: "'text'" },
+        description: 'Тип аддона: текст, иконка или кнопка'
+      }
     },
-    icon: { control: 'text', table: { category: 'Аддон' } },
-    text: { control: 'text', table: { category: 'Содержимое' } },
-    disabled: { control: 'boolean', table: { category: 'FormControl' } },
-    value: { control: 'text', table: { category: 'FormControl' } }
+    icon: { control: 'text', table: { category: 'Аддон' }, description: 'CSS-класс иконки (tabler) для аддона-иконки' },
+    text: { control: 'text', table: { category: 'Содержимое' }, description: 'Текст аддона' },
+    disabled: { control: 'boolean', table: { category: 'FormControl' }, description: 'Отключённое состояние аддона' },
+    value: { control: 'text', table: { category: 'FormControl' }, description: 'Значение поля ввода' }
   },
   args: {
     size: 'base',
