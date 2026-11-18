@@ -16,7 +16,6 @@ const meta: Meta<ExtraFileUploadComponent> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-fileupload' },
     docs: {
       description: {
