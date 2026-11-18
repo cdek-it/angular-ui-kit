@@ -121,7 +121,6 @@ const meta: Meta<ListboxArgs> = {
     };
   },
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-listbox' },
     docs: {
       description: {
