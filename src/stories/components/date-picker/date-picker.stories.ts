@@ -198,7 +198,6 @@ const meta: Meta<DatePickerArgs> = {
   ],
   render,
   parameters: {
-    controls: { expanded: true },
     docs: {
       description: {
         component: `Компонент выбора даты и времени. Реализует \`ControlValueAccessor\` — работает с реактивными формами и \`ngModel\`. [Figma Design](https://www.figma.com/design/4TYeki0MDLhfPGJstbIicf/UI-kit-PrimeFace-(DS)?node-id=484-5726).
