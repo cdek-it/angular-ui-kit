@@ -52,7 +52,6 @@ const meta: Meta<OtpArgs> = {
     };
   },
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-inputotp' },
     docs: {
       description: {
