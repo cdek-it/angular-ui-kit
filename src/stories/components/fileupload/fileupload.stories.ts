@@ -16,6 +16,8 @@ const meta: Meta<ExtraFileUploadComponent> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
+    designTokens: { prefix: '--p-fileupload' },
     docs: {
       description: {
         component: `Компонент загрузки файлов с поддержкой drag-and-drop, прогресс-бара и предпросмотра файлов.
@@ -24,17 +26,14 @@ const meta: Meta<ExtraFileUploadComponent> = {
 import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
       }
-    },
-    designTokens: { prefix: '--p-fileupload' }
+    }
   },
   argTypes: {
-    chooseLabel: { control: 'text' },
-    customUpload: { control: 'boolean' },
-    required: { control: 'boolean' },
-    autofocus: { control: 'boolean' },
-    tabindex: { control: 'number' },
-    ariaLabel: { control: 'text' },
-    ariaLabelledBy: { control: 'text' },
+    required: { control: 'boolean', description: 'Поле обязательное: невалидно, пока значение не выбрано' },
+    autofocus: { control: 'boolean', description: 'Ставит фокус на поле после первого рендера' },
+    tabindex: { control: 'number', description: 'Порядок фокуса при навигации клавиатурой' },
+    ariaLabel: { control: 'text', description: 'Текст для скринридеров, если нет видимой подписи' },
+    ariaLabelledBy: { control: 'text', description: 'id элемента, текст которого подписывает поле' },
     mode: {
       control: 'select',
       options: ['auto', 'manual', 'basic'],
@@ -97,11 +96,11 @@ import { ExtraFileUploadComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'string | null' }
       }
     },
-    name: { control: 'text' },
-    url: { control: 'text' },
-    fileLimit: { control: 'number' },
-    labels: { control: 'object' },
-    messages: { control: 'object' },
+    name: { control: 'text', description: 'Имя поля в HTML-форме' },
+    url: { control: 'text', description: 'URL загрузки файлов на сервер' },
+    fileLimit: { control: 'number', description: 'Максимальное количество файлов' },
+    labels: { control: 'object', description: 'Подписи элементов интерфейса (выбрать, отменить, загрузить)' },
+    messages: { control: 'object', description: 'Тексты сообщений: лимит, тип файла, ошибки' },
     onSelect: { table: { disable: true } },
     onRemove: { table: { disable: true } },
     onClear: { table: { disable: true } },
