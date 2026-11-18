@@ -78,6 +78,7 @@ const meta: Meta<NumberArgs> = {
     };
   },
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-inputnumber' },
     docs: {
       description: {
@@ -384,10 +385,10 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     // Hidden computed props
-    modelValue: { table: { disable: true } },
-    inputSizeClass: { table: { disable: true } },
-    sizeClass: { table: { disable: true } },
-    inputId: { table: { disable: true } },
+    modelValue: { table: { disable: true }, description: 'Текущее значение поля (для formControl)' },
+    inputSizeClass: { table: { disable: true }, description: 'CSS-класс нативного input — под размер поля' },
+    sizeClass: { table: { disable: true }, description: 'CSS-класс корневого элемента — под размер поля' },
+    inputId: { table: { disable: true }, description: 'id нативного input — для связки с внешним <label>' },
 
     // ── События ────────────────────────────────────────────────
     onInput: {
@@ -406,7 +407,7 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'EventEmitter<void>' }
       }
     },
-    value: { control: 'number' }
+    value: { control: 'number', description: 'Значение поля ввода числа' }
   },
   args: {
     ...{
