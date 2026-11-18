@@ -45,7 +45,6 @@ const meta: Meta<RatingArgs> = {
   tags: ['autodocs', 'rating'],
   decorators: [moduleMetadata({ imports: [ExtraRatingComponent, ReactiveFormsModule] })],
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-rating' },
     docs: {
       description: {
