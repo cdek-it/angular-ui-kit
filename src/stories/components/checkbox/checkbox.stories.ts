@@ -51,7 +51,6 @@ const meta: Meta<CheckboxArgs> = {
     };
   },
   parameters: {
-    controls: { expanded: true },
     designTokens: { prefix: '--p-checkbox' },
     docs: {
       description: {
