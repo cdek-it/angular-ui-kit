@@ -21,7 +21,6 @@ const meta: Meta<SkeletonComponent> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       source: { language: 'html', type: 'code', transform: () => '<extra-skeleton></extra-skeleton>' },
       description: {
