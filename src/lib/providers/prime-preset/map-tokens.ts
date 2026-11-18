@@ -19,6 +19,7 @@ import { inputgroupCss } from './tokens/components/inputgroup';
 import { megamenuCss } from './tokens/components/megamenu';
 import { selectCss } from './tokens/components/select';
 import { messageCss } from './tokens/components/message';
+import { multiselectCss } from './tokens/components/multiselect';
 import { inputotpCss } from './tokens/components/inputotp';
 import { carouselCss } from './tokens/components/carousel';
 import { galleriaCss } from './tokens/components/galleria';
@@ -93,6 +94,10 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
     },
     inputmask: {
       css: inputmaskCss
+    },
+    multiselect: {
+      ...(tokens.components.multiselect as unknown as ComponentsDesignTokens['multiselect']),
+      css: multiselectCss
     },
     inputgroup: {
       ...(tokens.components.inputgroup as unknown as ComponentsDesignTokens['inputgroup']),
