@@ -14,9 +14,13 @@ const meta: Meta<TextareaArgs> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-textarea' },
     docs: {
-      source: { language: 'html', transform: (_code: string, context: { args: RenderArgs }) => renderTextarea(context.args).template },
+      source: {
+        language: 'html',
+        transform: (_code: string, context: { args: RenderArgs }) => renderTextarea(context.args).template
+      },
       description: {
         component: `Многострочное текстовое поле для ввода данных.
 
@@ -369,7 +373,14 @@ const renderTextarea = (args: RenderArgs) => {
 export const Default: Story = {
   name: 'Default',
   render: (args) => renderTextarea(args),
-  parameters: { docs: { description: { story: 'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.' } } }
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Интерактивное поле со всеми свойствами спецификации. Используйте Controls для изменения пропсов; disabled и invalid управляются через FormControl.'
+      }
+    }
+  }
 };
 
 export const Error: Story = {
@@ -390,7 +401,9 @@ export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true },
   render: (args) => renderTextarea(args),
-  parameters: { docs: { description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется.' } } }
+  parameters: {
+    docs: { description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется.' } }
+  }
 };
 
 export const Clearable: Story = {
@@ -410,12 +423,20 @@ export const FloatLabel: Story = {
   argTypes: { clearable: { control: 'boolean', description: 'Показывает иконку очистки поверх float-лейбла' } },
   args: { labelPosition: 'float', label: 'FloatLabel' },
   render: (args) => renderTextarea(args),
-  parameters: { docs: { description: { story: '`[floatLabel]="true"` — лейбл всплывает над полем при фокусе/значении, независимо от `labelPosition`.' } } }
+  parameters: {
+    docs: {
+      description: {
+        story: '`[floatLabel]="true"` — лейбл всплывает над полем при фокусе/значении, независимо от `labelPosition`.'
+      }
+    }
+  }
 };
 
 export const AutoResize: Story = {
   name: 'AutoResize',
   args: { autoResize: true, rows: 2 },
   render: (args) => renderTextarea(args),
-  parameters: { docs: { description: { story: 'Режим авторасширения — поле увеличивается по высоте по мере ввода текста.' } } }
+  parameters: {
+    docs: { description: { story: 'Режим авторасширения — поле увеличивается по высоте по мере ввода текста.' } }
+  }
 };
