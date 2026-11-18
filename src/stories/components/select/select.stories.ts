@@ -49,6 +49,7 @@ const meta: Meta<SelectArgs> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-select' },
     docs: {
       source: {
