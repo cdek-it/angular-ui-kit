@@ -5,7 +5,7 @@ import { ExtraDatePickerComponent } from '../../../../lib/components/date-picker
 const template = `
 <extra-date-picker
   [formControl]="dateControl"
-  [showClear]="true"
+  [clearable]="true"
   placeholder="Дата с очисткой"
 ></extra-date-picker>
 `;
@@ -14,7 +14,7 @@ const template = `
   selector: 'app-date-picker-clear-icon',
   standalone: true,
   imports: [ExtraDatePickerComponent, ReactiveFormsModule],
-  template,
+  template
 })
 export class DatePickerClearIconComponent {
   dateControl = new FormControl<Date | null>(null);
