@@ -51,6 +51,7 @@ const meta: Meta<CheckboxArgs> = {
     };
   },
   parameters: {
+    controls: { expanded: true },
     designTokens: { prefix: '--p-checkbox' },
     docs: {
       description: {
@@ -140,8 +141,8 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     // Hidden computed props
-    modelValue: { table: { disable: true } },
-    inputId: { table: { disable: true } },
+    modelValue: { table: { disable: true }, description: 'Значение чекбокса (true/false)' },
+    inputId: { table: { disable: true }, description: 'id нативного input — для связки с внешним <label>' },
     readonly: {
       control: 'boolean',
       description: 'Только чтение',
@@ -157,9 +158,21 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
       description: 'Автофокус при монтировании',
       table: { category: 'Дополнительно', defaultValue: { summary: 'false' } }
     },
-    ariaLabel: { control: 'text', table: { category: 'Дополнительно' } },
-    ariaLabelledBy: { control: 'text', table: { category: 'Дополнительно' } },
-    tabindex: { control: 'number', table: { category: 'Дополнительно' } }
+    ariaLabel: {
+      control: 'text',
+      table: { category: 'Дополнительно' },
+      description: 'Текст для скринридеров, если нет видимой подписи'
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      table: { category: 'Дополнительно' },
+      description: 'id элемента, текст которого подписывает чекбокс'
+    },
+    tabindex: {
+      control: 'number',
+      table: { category: 'Дополнительно' },
+      description: 'Порядок фокуса при навигации клавиатурой'
+    }
   },
   args: {
     label: 'label',
