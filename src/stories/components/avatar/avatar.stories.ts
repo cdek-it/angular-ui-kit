@@ -11,6 +11,7 @@ const meta: Meta<ExtraAvatarComponent> = {
     })
   ],
   parameters: {
+    controls: { expanded: true },
     docs: {
       description: {
         component: `Аватар представляет пользователя или сущность. Может содержать текст, иконку или изображение, а также значок (\`badge\`).
@@ -93,9 +94,12 @@ import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angula
       }
     },
     // Hidden computed props
-    hostClass: { table: { disable: true } },
-    primeSize: { table: { disable: true } },
-    primeSeverity: { table: { disable: true } }
+    hostClass: { table: { disable: true }, description: 'CSS-класс на корневом элементе аватара' },
+    primeSize: { table: { disable: true }, description: 'Размер, вычисленный для PrimeNG (производное от size)' },
+    primeSeverity: {
+      table: { disable: true },
+      description: 'Тон бейджа, приведённый к PrimeNG (производное от severity)'
+    }
   }
 };
 
