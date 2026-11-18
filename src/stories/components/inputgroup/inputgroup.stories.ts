@@ -50,7 +50,6 @@ const meta: Meta<Args> = {
     })
   ],
   parameters: {
-    controls: { expanded: true },
     docs: {
       description: {
         component: `Группа полей ввода для объединения с аддонами (иконками или текстом).
