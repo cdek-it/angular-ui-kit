@@ -53,12 +53,17 @@ import { autocompleteCss } from './tokens/components/autocomplete';
 import { popoverCss } from './tokens/components/popover';
 import { selectbuttonCss } from './tokens/components/selectbutton';
 import { fileuploadCss } from './tokens/components/fileupload';
+import { imageCss } from './tokens/components/image';
 
 const presetTokens: Preset<AuraBaseDesignTokens> = {
   primitive: tokens.primitive as unknown as AuraBaseDesignTokens['primitive'],
   semantic: tokens.semantic as unknown as AuraBaseDesignTokens['semantic'],
   components: {
     ...(tokens.components as unknown as ComponentsDesignTokens),
+    image: {
+      ...((tokens.components as unknown as Record<string, object>)['image'] ?? {}),
+      css: imageCss
+    },
     avatar: {
       ...(tokens.components.avatar as unknown as ComponentsDesignTokens['avatar']),
       css: avatarCss
