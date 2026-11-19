@@ -18,6 +18,10 @@ export const dialogCss = ({ dt }: { dt: (token: string) => string }): string => 
     font-size: ${dt('fonts.fontSize.300')};
     font-weight: ${dt('fonts.fontWeight.regular')};
     line-height: ${dt('fonts.lineHeight.500')};
+
+    /* Нижний отступ снаружи скролл-контейнера: padding прокручивался бы вместе с контентом. */
+    padding-bottom: 0;
+    margin-bottom: ${dt('dialog.content.padding')};
   }
 
   .p-dialog .p-dialog-header {

@@ -6,6 +6,7 @@ import { DialogSizesComponent, Sizes } from './examples/dialog-sizes.component';
 import { DialogHeaderComponent, Header } from './examples/dialog-header.component';
 import { DialogSlotsComponent, Slots } from './examples/dialog-slots.component';
 import { DialogDynamicComponent, Dynamic } from './examples/dialog-dynamic.component';
+import { DialogLongListComponent, LongList } from './examples/dialog-long-list.component';
 
 const meta: Meta<ExtraDialogComponent> = {
   title: 'Components/Overlay/Dialog',
@@ -20,7 +21,8 @@ const meta: Meta<ExtraDialogComponent> = {
         DialogSizesComponent,
         DialogHeaderComponent,
         DialogSlotsComponent,
-        DialogDynamicComponent
+        DialogDynamicComponent,
+        DialogLongListComponent
       ]
     })
   ],
@@ -183,4 +185,4 @@ type Story = StoryObj<ExtraDialogComponent>;
 
 // ── Комбинаторные истории ────────────────────────────────────────────────────
 
-export { Basic, Features, Sizes, Header, Slots, Dynamic };
+export { Basic, Features, Sizes, Header, Slots, Dynamic, LongList };
