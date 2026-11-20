@@ -26,7 +26,10 @@
     "generate:tailwind": "node tailwind/generate.mjs",
     "security:check": "npm audit --production --audit-level high",
     "copy:dist": "cpx 'src/lib/providers/prime-preset/**/*.{json,ts}' dist/ && cpx 'src-tokens/theme.preset.ts' dist/",
-    "validate:figma-cc": "node scripts/figma-code-connect/validate.mjs"
+    "validate:figma-cc": "node scripts/figma-code-connect/validate.mjs",
+    "test:component": "node e2e/check.mjs",
+    "test:e2e": "node e2e/all.mjs",
+    "test:e2e:builtin": "node e2e/builtin-all.mjs"
   },
   "repository": "github:cdek-it/angular-ui-kit",
   "devDependencies": {
@@ -59,6 +62,7 @@
     "@tailwindcss/postcss": "4.3.1",
     "@types/jasmine": "5.1.13",
     "@typescript-eslint/eslint-plugin": "7.18.0",
+    "axe-playwright": "2.2.2",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.2",
     "eslint-plugin-import": "2.32.0",
@@ -66,6 +70,7 @@
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "10.1.8",
     "jasmine-core": "5.13.0",
+    "jest-image-snapshot": "6.5.2",
     "js-yaml": "^4.1.0",
     "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
@@ -73,6 +78,7 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
     "ng-packagr": "20.3.2",
+    "playwright": "1.62.1",
     "prettier": "3.7.4",
     "primeng": "20.4.0",
     "rxjs": "7.8.2",
