@@ -332,6 +332,7 @@ const capturePixelSnapshot = async (page: Page, storyId: string): Promise<string
     customSnapshotsDir: PIXEL_BASELINE_DIR,
     customDiffDir: join(PIXEL_BASELINE_DIR, '__diff__'),
     customSnapshotIdentifier: storyId,
+    updateSnapshot: 'new',
     failureThreshold: 0.01,
     failureThresholdType: 'percent'
   });
