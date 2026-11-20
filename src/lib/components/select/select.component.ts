@@ -123,7 +123,7 @@ export class ExtraSelectOptionGroupDirective {}
     }
 
     <ng-template #labelTpl>
-      <label class="extra-select-label" [for]="inputId">
+      <label class="extra-select-label" [id]="inputId + '-label'" [for]="inputId">
         {{ label }}
         @if (info) {
           <i class="extra-select-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -145,11 +145,12 @@ export class ExtraSelectOptionGroupDirective {}
         [group]="group"
         [placeholder]="floatLabel ? '' : placeholder"
         [filter]="showFilter"
+        [resetFilterOnHide]="true"
         [showClear]="clearable"
         [editable]="editable"
         [readonly]="readonly"
         [ariaLabel]="ariaLabel"
-        [ariaLabelledBy]="ariaLabelledBy"
+        [ariaLabelledBy]="ariaLabelledBy || (label ? inputId + '-label' : null)"
         [autofocus]="autofocus"
         [tabindex]="tabindex ?? 0"
         [loading]="loading"
@@ -159,6 +160,7 @@ export class ExtraSelectOptionGroupDirective {}
         [fluid]="fluid"
         [checkmark]="showCheckmark"
         [panelStyle]="panelStyle"
+        [pt]="{ label: { 'aria-invalid': invalid ? 'true' : null } }"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
         (onChange)="onSelectChange($event)"
