@@ -1,0 +1,132 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Начало работы/Тестирование" />
+
+# Тестирование компонентов
+
+Как проверить компонент перед PR: одной командой.
+
+## Коротко
+
+```bash
+node e2e/check.mjs <component>
+```
+
+Команда сама поднимет Storybook (если он не запущен), прогонит встроенный Storybook test-runner и e2e-спеку компонента и запишет общий отчёт:
+
+- **куда** — `e2e/reports/<component>-check.json`;
+- **формат** — JSON со статусами `builtin` и `e2e`, exit-кодами и путями к детальным отчётам;
+- **что возвращает** — код завершения процесса: `0` — всё прошло, `1` — есть упавшие тесты, `2` — ошибка запуска (например, Storybook не поднялся или компонент не найден).
+
+Код `0/1` нужен не для чтения глазами, а для автоматики: терминал и IDE подсвечивают результат, CI останавливает пайплайн на `1` и не пропускает PR. Тестировщик при этом видит итог в терминале, а детали и скриншоты — в JSON-отчёте и `e2e/artifacts/`.
+
+## Два уровня проверок
+
+**Встроенный test-runner**
+
+- **Роль** — регрессионная сеть по всему каталогу stories компонента.
+- **Польза** — без написания тестов ловит упавший рендер, новые critical/serious a11y-нарушения и дрейф стилей после правок токенов.
+- **Что проверяет** — рендер каждой story, `play`, axe и вычисленные стили.
+- **Когда падает** — новая a11y-ошибка или расхождение с baseline.
+- **Отчёт** — вывод Jest и baseline.
+
+**E2E-раннер**
+
+- **Роль** — проверка пользовательских сценариев компонента.
+- **Польза** — ловит поломки клавиатуры, фокуса, оверлеев и состояний, которые не видны в статичной story.
+- **Что проверяет** — клики, ввод, клавиатуру, фокус, открытие/закрытие и выбранные значения.
+- **Когда падает** — сломанный сценарий или неверное состояние.
+- **Отчёт** — `e2e/reports/*.json` и скриншоты.
+
+## Быстрый старт
+
+```bash
+# Storybook нужен один раз; check.mjs поднимет его сам
+npm run storybook -- --port 6007
+
+# всё по одному компоненту
+node e2e/check.mjs <component>
+node e2e/check.mjs <component> --theme=light,dark
+
+# только один уровень
+node e2e/check.mjs <component> --no-e2e
+node e2e/check.mjs <component> --no-builtin
+
+# все компоненты
+node e2e/builtin-all.mjs
+node e2e/all.mjs
+```
+
+Storybook проекта — `http://localhost:6007`; этот адрес `check.mjs` использует по умолчанию. Если Storybook запущен на другом порту, передайте свой `--url`.
+
+## Что получилось
+
+- `e2e/reports/<component>-check.json` — общий статус: `builtin`, `e2e`, exit-коды и пути к деталям;
+- `e2e/reports/<component>-builtin-runner.json` — результаты встроенного раннера;
+- `e2e/reports/<spec>-e2e.json` — результаты e2e;
+- `e2e/artifacts/<component>/` — скриншоты упавших тестов.
+
+`knownIssue` — известный дефект: тест остаётся в отчёте, но не валит прогон. `failed` — блокирует PR.
+
+## Добавить e2e новому компоненту
+
+Спека лежит в `e2e/specs/<component>.e2e.mjs`:
+
+```js
+export default {
+  component: '<component>',
+  stories: {
+    default: 'components-<group>-<component>--default'
+  },
+  tests: [
+    {
+      name: 'Default: компонент отрендерен',
+      story: 'default',
+      run: async ({ page, expect }) => {
+        await page.waitForSelector('<component-selector>');
+        expect(await page.locator('<component-selector>').count(), 'компонент').toBe(1);
+      }
+    }
+  ]
+};
+```
+
+Правила:
+
+- story id берите из живого `index.json`, а не из `storybook-static` — он отстаёт;
+- селекторы — роли, `aria-*`, `data-pc-section`, а не сгенерированные `pn_id_*`;
+- оверлеи PrimeNG живут в `body`, вне `#storybook-root`;
+- один тест — один сценарий; общие шаги выносите в локальные хелперы;
+- найденный дефект фиксируйте через `knownIssue`, а не удаляйте проверку.
+
+## Baseline
+
+Встроенный раннер сравнивает вычисленные стили и axe с baseline:
+
+- рабочая матрица использует `e2e/baselines`, её не нужно трогать вручную;
+- для локального «чистого» прогона: `node e2e/check.mjs <component> --fresh-baselines`;
+- обновление baseline — осознанное действие: `UPDATE_STYLE_BASELINES=1` / `UPDATE_A11Y_BASELINE=1`.
+
+## CI
+
+```bash
+node e2e/builtin-all.mjs
+node e2e/all.mjs --theme=light
+```
+
+Оба шага должны быть зелёными; `e2e/reports` и `e2e/artifacts` складывайте в артефакты CI.
+
+## Частые ошибки
+
+- **Storybook не запущен** — уберите `--no-start-storybook` или поднимите Storybook вручную.
+- **Компонент не найден** — укажите title: `node e2e/check.mjs <Group>/<Component>`.
+- **Короткое имя неоднозначно** — используйте точный title `Components/<Component>`.
+- **Story id не найден** — story переименовали, обновите id из `index.json`.
+- **E2E-спека не подходит к ветке** — укажите другую через `--spec=<name>`.
+
+## Чек-лист перед PR
+
+- `node e2e/check.mjs <component>` — exit `0`;
+- `check-stories-source` и `check-stories-descriptions` — PASS;
+- сборка библиотеки проходит;
+- новые `knownIssue` описаны в отчёте и понятны ревьюеру.
