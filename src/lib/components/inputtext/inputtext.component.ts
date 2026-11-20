@@ -1,6 +1,7 @@
 import {
   booleanAttribute,
   Component,
+  ElementRef,
   EventEmitter,
   forwardRef,
   inject,
@@ -9,7 +10,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -109,6 +111,7 @@ let nextInputId = 0;
         <p-iconfield>
           <input
             pInputText
+            #inputRef
             [id]="inputId"
             [ngClass]="sizeClass"
             [pSize]="primeSize!"
@@ -124,6 +127,7 @@ let nextInputId = 0;
             [attr.maxlength]="maxLength ?? null"
             [attr.aria-label]="ariaLabel || null"
             [attr.aria-labelledby]="ariaLabelledBy || null"
+            [attr.aria-invalid]="invalid ? 'true' : null"
             [attr.tabindex]="tabindex ?? null"
             [attr.required]="required || null"
             [value]="modelValue"
@@ -145,6 +149,7 @@ let nextInputId = 0;
       } @else {
         <input
           pInputText
+          #inputRef
           [id]="inputId"
           [ngClass]="sizeClass"
           [pSize]="primeSize!"
@@ -160,6 +165,7 @@ let nextInputId = 0;
           [attr.maxlength]="maxLength ?? null"
           [attr.aria-label]="ariaLabel || null"
           [attr.aria-labelledby]="ariaLabelledBy || null"
+          [attr.aria-invalid]="invalid ? 'true' : null"
           [attr.tabindex]="tabindex ?? null"
           [attr.required]="required || null"
           [value]="modelValue"
@@ -172,6 +178,7 @@ let nextInputId = 0;
 })
 export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
+  @ViewChild('inputRef') private inputRef?: ElementRef<HTMLInputElement>;
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
@@ -255,6 +262,7 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, On
     this.modelValue = '';
     this._onChange('');
     this.onClear.emit();
+    this.inputRef?.nativeElement.focus();
   }
 
   writeValue(value: string): void {
