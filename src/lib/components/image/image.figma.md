@@ -22,8 +22,8 @@ PrimeNG `p-image` и **не сверяется** гейтом `check-figma-value
 | Токен | Значение (семантика) | Где применён |
 |---|---|---|
 | `root.borderRadius` | `dimension.borderRadius.300` | скругление изображения |
-| `previewMask.background` | `color.bg.neutral.medium.default` | маска предпросмотра |
-| `previewIcon.color` | `color.fg.on.brand.default` | иконка предпросмотра |
+| `preview.mask.background` | `color.bg.neutral.medium.default` | маска предпросмотра |
+| `preview.mask.color` | `color.fg.default` | иконка предпросмотра |
 | `mask.background` | `color.bg.surface.backdrop` | фон оверлея предпросмотра |
 | `toolbar.background` | `color.bg.surface.raised.default` | тулбар предпросмотра |
 | `toolbar.borderColor` | `color.border.neutral.default` | рамка тулбара |

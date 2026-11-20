@@ -5,11 +5,7 @@ export const imageCss = ({ dt }: { dt: (token: string) => string }): string => `
 }
 
 .p-image-preview-mask {
-  background: ${dt('image.previewMask.background')};
-}
-
-.p-image-preview-icon {
-  color: ${dt('image.previewIcon.color')};
+  background: ${dt('image.preview.mask.background')};
 }
 
 .p-image-mask {

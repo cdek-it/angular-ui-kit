@@ -111,23 +111,38 @@ import { ExtraImageComponent } from '@cdek-it/angular-ui-kit/components/image';
 export default meta;
 type Story = StoryObj<ImageArgs>;
 
-const sourceFromArgs = (args: ImageArgs): string => {
-  const attrs = [`src="${args.src ?? ''}"`, `alt="${args.alt ?? ''}"`];
+/** Значения Controls могут содержать кавычки: в HTML-snippet их нужно экранировать. */
+const escapeAttribute = (value: string): string =>
+  value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 
-  if (args.width) attrs.push(`width="${args.width}"`);
-  if (args.height) attrs.push(`height="${args.height}"`);
+const sourceFromArgs = (args: ImageArgs): string => {
+  const attrs = [`src="${escapeAttribute(args.src ?? '')}"`, `alt="${escapeAttribute(args.alt ?? '')}"`];
+
+  if (args.width) attrs.push(`width="${escapeAttribute(args.width)}"`);
+  if (args.height) attrs.push(`height="${escapeAttribute(args.height)}"`);
   if (args.preview) attrs.push('[preview]="true"');
-  if (args.imageClass) attrs.push(`imageClass="${args.imageClass}"`);
-  if (args.styleClass) attrs.push(`styleClass="${args.styleClass}"`);
+  if (args.imageClass) attrs.push(`imageClass="${escapeAttribute(args.imageClass)}"`);
+  if (args.styleClass) attrs.push(`styleClass="${escapeAttribute(args.styleClass)}"`);
 
   return `<extra-image ${attrs.join(' ')}></extra-image>`;
 };
+
+/** Живой шаблон работает через биндинги: кавычки в значениях Controls не ломают JIT. */
+const TEMPLATE = `<extra-image
+  [src]="src"
+  [alt]="alt"
+  [width]="width"
+  [height]="height"
+  [preview]="preview"
+  [imageClass]="imageClass"
+  [styleClass]="styleClass"
+></extra-image>`;
 
 export const Default: Story = {
   name: 'Default',
   render: (args) => ({
     props: args,
-    template: sourceFromArgs(args)
+    template: TEMPLATE
   }),
   parameters: {
     docs: {

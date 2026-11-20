@@ -5,10 +5,13 @@ import {
   Component,
   ContentChildren,
   Input,
-  QueryList
+  OnDestroy,
+  QueryList,
+  ViewChild
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Image } from 'primeng/image';
+import { unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
 import { ExtraImageTemplateDirective, ExtraImageTemplateName } from './image-template.directive';
 
@@ -31,6 +34,8 @@ import { ExtraImageTemplateDirective, ExtraImageTemplateName } from './image-tem
       [preview]="preview"
       [imageClass]="imageClass"
       [styleClass]="styleClass"
+      (onShow)="previewOpen = true"
+      (onHide)="previewOpen = false"
     >
       @if (rotateRightTpl) {
         <ng-template pTemplate="rotaterighticon">
@@ -60,7 +65,7 @@ import { ExtraImageTemplateDirective, ExtraImageTemplateName } from './image-tem
     </p-image>
   `
 })
-export class ExtraImageComponent implements AfterContentInit {
+export class ExtraImageComponent implements AfterContentInit, OnDestroy {
   /** URL изображения. */
   @Input({ required: true }) src = '';
   /** Альтернативный текст. */
@@ -78,6 +83,11 @@ export class ExtraImageComponent implements AfterContentInit {
 
   @ContentChildren(ExtraImageTemplateDirective) templates!: QueryList<ExtraImageTemplateDirective>;
 
+  @ViewChild(Image) private image?: Image;
+
+  /** Открыт ли предпросмотр: нужен, чтобы снять блокировку прокрутки при уничтожении. */
+  previewOpen = false;
+
   rotateRightTpl?: ExtraImageTemplateDirective;
   rotateLeftTpl?: ExtraImageTemplateDirective;
   zoomOutTpl?: ExtraImageTemplateDirective;
@@ -93,6 +103,14 @@ export class ExtraImageComponent implements AfterContentInit {
     this.zoomInTpl = this.findTemplate('zoomInIcon');
     this.closeTpl = this.findTemplate('closeIcon');
     this.cdr.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    // PrimeNG блокирует прокрутку body на открытом preview и снимает блокировку только
+    // в closePreview(). При уничтожении обёртки предпросмотр нужно закрыть самим.
+    if (!this.previewOpen && !this.image?.previewVisible) return;
+    this.image?.closePreview();
+    unblockBodyScroll();
   }
 
   private findTemplate(name: ExtraImageTemplateName): ExtraImageTemplateDirective | undefined {
