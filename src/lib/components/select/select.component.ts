@@ -160,14 +160,14 @@ export class ExtraSelectOptionGroupDirective {}
         [fluid]="fluid"
         [checkmark]="showCheckmark"
         [panelStyle]="panelStyle"
-        [pt]="{ label: { 'aria-invalid': invalid ? 'true' : null } }"
+        [pt]="selectPt"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
         (onChange)="onSelectChange($event)"
         (onClear)="onClear.emit()"
         (onFilter)="onFilterHandler($event)"
-        (onShow)="onShow.emit()"
-        (onHide)="onHide.emit()"
+        (onShow)="overlayOpen = true; onShow.emit()"
+        (onHide)="overlayOpen = false; onHide.emit()"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="handleBlur($event)"
       >
@@ -265,6 +265,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
 
   disabled = false;
   modelValue: any = null;
+  overlayOpen = false;
 
   @Output() onChange = new EventEmitter<ExtraSelectChangeEvent>();
   @Output() onClear = new EventEmitter<void>();
@@ -273,6 +274,17 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   @Output() onHide = new EventEmitter<void>();
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
+
+  /** aria для label-элемента и role заголовков групп. */
+  get selectPt(): Record<string, unknown> {
+    const label: Record<string, unknown> = { 'aria-invalid': this.invalid ? 'true' : null };
+    if (this.editable) {
+      label['role'] = 'combobox';
+      label['aria-haspopup'] = 'listbox';
+      label['aria-expanded'] = this.overlayOpen ? 'true' : 'false';
+    }
+    return { label, optionGroup: { role: 'presentation' } };
+  }
 
   get invalid(): boolean {
     return !!(this._ngControl?.invalid && this._ngControl?.touched);
