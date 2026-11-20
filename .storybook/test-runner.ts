@@ -328,11 +328,17 @@ const capturePixelSnapshot = async (page: Page, storyId: string): Promise<string
   const clip = await page.evaluate(snapshotClip, CLIP_PADDING);
   if (!clip || clip.width < 1 || clip.height < 1) return ['[pixel] нечего снимать: у story нулевая область'];
 
-  expect(await page.screenshot({ clip })).toMatchImageSnapshot({
+  const image = await page.screenshot({ clip });
+  const baselinePath = join(PIXEL_BASELINE_DIR, `${storyId}.png`);
+  if (!existsSync(baselinePath)) {
+    mkdirSync(PIXEL_BASELINE_DIR, { recursive: true });
+    writeFileSync(baselinePath, image);
+  }
+
+  expect(image).toMatchImageSnapshot({
     customSnapshotsDir: PIXEL_BASELINE_DIR,
     customDiffDir: join(PIXEL_BASELINE_DIR, '__diff__'),
     customSnapshotIdentifier: storyId,
-    updateSnapshot: 'new',
     failureThreshold: 0.01,
     failureThresholdType: 'percent'
   });
