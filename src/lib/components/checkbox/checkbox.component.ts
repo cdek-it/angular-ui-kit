@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   afterNextRender,
   booleanAttribute,
   ChangeDetectionStrategy,
@@ -86,16 +87,21 @@ let nextInputId = 0;
         [invalid]="invalid"
         [inputId]="inputId"
         [ariaLabel]="ariaLabel || (!label ? 'Выбор' : undefined)"
-        [pt]="{ input: { 'aria-describedby': caption ? inputId + '-caption' : undefined } }"
+        [pt]="{
+          input: {
+            'aria-describedby': caption ? inputId + '-caption' : undefined,
+            'aria-invalid': invalid ? 'true' : null
+          }
+        }"
         [ariaLabelledBy]="ariaLabelledBy"
-        [tabindex]="disabled ? -1 : tabindex"
+        [tabindex]="disabled ? -1 : (tabindex ?? 0)"
         (onChange)="onChangeHandler($event)"
         (onBlur)="markTouched()"
       ></p-checkbox>
     </ng-template>
   `
 })
-export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
+export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, Validator {
   private readonly _injector = inject(Injector);
   private readonly cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
@@ -136,6 +142,17 @@ export class ExtraCheckboxComponent implements ControlValueAccessor, OnInit, OnC
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['required']) this._onValidatorChange();
+    if (changes['indeterminate']) queueMicrotask(() => this.syncIndeterminate());
+  }
+
+  ngAfterViewInit(): void {
+    this.syncIndeterminate();
+  }
+
+  /** PrimeNG рисует минус, но не выставляет нативный indeterminate у input. */
+  private syncIndeterminate(): void {
+    const input = this._checkbox()?.inputViewChild?.nativeElement as HTMLInputElement | undefined;
+    if (input) input.indeterminate = this.indeterminate;
   }
 
   @Output() onChange = new EventEmitter<ExtraCheckboxChangeEvent>();
