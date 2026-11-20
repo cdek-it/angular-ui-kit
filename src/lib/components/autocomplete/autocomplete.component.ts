@@ -141,7 +141,13 @@ let nextInputId = 0;
         [group]="group"
         [multiple]="multiple"
         [dropdown]="dropdown"
-        [pt]="{ dropdown: { disabled: disabled || readonly, tabindex: readonly ? -1 : (tabindex ?? 0) } }"
+        [pt]="{
+          dropdown: {
+            'aria-label': 'Открыть список',
+            disabled: disabled || readonly,
+            tabindex: readonly ? -1 : (tabindex ?? 0)
+          }
+        }"
         [dropdownMode]="dropdownMode"
         [showClear]="clearable && !readonly"
         [forceSelection]="forceSelection"
