@@ -137,23 +137,25 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
         (ngModelChange)="onValueChange($event)"
         [dateFormat]="dateFormat"
         [selectionMode]="selectionMode"
-        [showIcon]="showIcon"
+        [showIcon]="showIcon && !disabled"
         [iconDisplay]="iconDisplay"
         [inline]="inline"
         [showButtonBar]="showButtonBar"
         [showTime]="showTime || view === 'time'"
         [timeOnly]="view === 'time'"
         [hourFormat]="hourFormat"
-        [showClear]="clearable"
+        [showClear]="clearable && !disabled"
         [placeholder]="placeholder"
         [disabled]="disabled"
-        [readonlyInput]="readonly"
-        [showOnFocus]="!readonly"
+        [class.p-disabled]="disabled"
+        [style.pointer-events]="disabled ? 'none' : null"
+        [readonlyInput]="readonly || disabled"
+        [showOnFocus]="!readonly && !disabled"
         [inputId]="inputId"
         [ariaLabel]="ariaLabel"
         [ariaLabelledBy]="ariaLabelledBy"
         [autofocus]="autofocus"
-        [tabindex]="tabindex ?? 0"
+        [tabindex]="disabled ? -1 : (tabindex ?? 0)"
         [styleClass]="pickerClass"
         [invalid]="invalid"
         [size]="primeSize"
@@ -163,7 +165,7 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
         [minDate]="minDate"
         [maxDate]="maxDate"
         [view]="primeView"
-        [hideOnDateTimeSelect]="false"
+        [hideOnDateTimeSelect]="!showTime && view !== 'time' && selectionMode !== 'range'"
         [showOtherMonths]="showOtherMonths"
         [selectOtherMonths]="selectOtherMonths"
         (onShow)="onPanelShow()"
@@ -413,6 +415,10 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
     if (!input) return;
     input.setAttribute('autocomplete', this.autocomplete);
     input.setAttribute('aria-required', String(this.required));
+    input.disabled = this.disabled;
+    input.setAttribute('aria-disabled', String(this.disabled));
+    if (this.invalid) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
     if (this.name) input.setAttribute('name', this.name);
     else input.removeAttribute('name');
   }
@@ -627,6 +633,10 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   private rangeStart: Date | null = null;
 
   onPanelShow(): void {
+    if (this.disabled) {
+      this.dpRef.hideOverlay();
+      return;
+    }
     this.syncCurrentDate();
     this.syncTimeInputs();
     this.attachSelectOverlayGuard();
