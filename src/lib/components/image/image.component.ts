@@ -34,6 +34,10 @@ import { ExtraImageTemplateDirective, ExtraImageTemplateName } from './image-tem
       [preview]="preview"
       [imageClass]="imageClass"
       [styleClass]="styleClass"
+      [pt]="{
+        mask: { 'aria-label': alt || 'Предпросмотр изображения' },
+        original: { alt: alt }
+      }"
       (onShow)="previewOpen = true"
       (onHide)="previewOpen = false"
     >
