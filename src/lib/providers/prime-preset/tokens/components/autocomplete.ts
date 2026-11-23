@@ -288,7 +288,7 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
 
   .p-floatlabel-in .p-autocomplete.p-component .p-inputtext.p-autocomplete-input,
   .p-floatlabel-in .p-autocomplete.p-component .p-autocomplete-input-multiple {
-    padding-block-start: calc(${dt('dimension.space.300')} + ${dt('fonts.lineHeight.200')} + ${dt('dimension.space.100')});
-    padding-block-end: ${dt('dimension.space.400')};
+    padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
+    padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
   }
 `;
