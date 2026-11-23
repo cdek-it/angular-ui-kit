@@ -30,8 +30,6 @@ const meta: Meta<ExtraToastComponent> = {
       description: {
         component: `Всплывающее уведомление поверх интерфейса — overlay-вариант \`ExtraMessage\`.
 
-Реализован по спецификации [toast.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/toast.md).
-
 \`\`\`typescript
 import { ExtraToastComponent, ExtraToastService } from '@cdek-it/angular-ui-kit';
 \`\`\`
