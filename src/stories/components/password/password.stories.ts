@@ -121,6 +121,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     labelPosition: {
       control: 'select',
       options: ['top', 'left'],
+      if: { arg: 'floatLabel', truthy: false },
       description: 'Положение лейбла относительно поля (игнорируется при floatLabel=true)'
     },
     floatLabel: { control: 'boolean', description: 'Плавающая метка внутри поля (перекрывает labelPosition)' },
