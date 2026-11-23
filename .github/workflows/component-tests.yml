@@ -1,0 +1,61 @@
+name: Component tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  component-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      E2E_STORAGE_ROOT: /tmp/e2e-storage
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      # Baseline создаётся первым прогоном и переиспользуется в следующих.
+      - uses: actions/cache@v4
+        with:
+          path: |
+            /tmp/e2e-storage/baselines/storybook
+          key: component-baselines-${{ runner.os }}-${{ github.ref_name }}
+          restore-keys: |
+            component-baselines-${{ runner.os }}-
+
+      - name: Storybook + тесты
+        run: |
+          npx ng run angular-ui-kit:storybook --port 6007 --no-open > /tmp/storybook.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:6007/iframe.html >/dev/null 2>&1; then break; fi
+            sleep 3
+          done
+          curl -fsS http://localhost:6007/iframe.html >/dev/null
+
+          node e2e/build-registry.mjs
+          node e2e/builtin-all.mjs
+          node e2e/all.mjs --theme=light
+
+      - name: Артефакты
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-tests
+          if-no-files-found: ignore
+          path: |
+            /tmp/e2e-storage/reports
+            /tmp/e2e-storage/artifacts
+            /tmp/storybook.log

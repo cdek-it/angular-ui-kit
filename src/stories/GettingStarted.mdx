@@ -54,7 +54,19 @@ export class DemoComponent {}
 
 Список компонентов и их API — в разделе **Components** слева.
 
-## 4. Tailwind v4 (опционально)
+## 4. Проверить компонент
+
+Перед PR компонент проверяется одной командой: встроенный Storybook test-runner и e2e-сценарии.
+
+```bash
+node e2e/check.mjs <component>
+```
+
+Команда сама поднимет Storybook, прогонит оба уровня и запишет отчёт в `~/.cache/angular-ui-kit/e2e/reports/<component>-check.json`.
+
+Подробнее — страница «Тестирование» в разделе «Начало работы».
+
+## 5. Tailwind v4 (опционально)
 
 Кит отдаёт готовую Tailwind v4 тему (`@theme`), сгенерированную из тех же дизайн-токенов.
 Чтобы получить утилиты кита (цвета, типографику, radius, тени, spacing), добавьте в `styles.scss`:
@@ -64,7 +76,7 @@ export class DemoComponent {}
 @use "@cdek-it/angular-ui-kit/tailwind";
 ```
 
-## 5. Иконки (опционально)
+## 6. Иконки (опционально)
 
 Компоненты используют [Tabler Icons](https://tabler.io/icons). Чтобы работали классы `ti ti-*`,
 установите пакет и подключите шрифт:

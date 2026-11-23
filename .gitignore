@@ -61,3 +61,12 @@ src/assets/components/themes
 .claude/*
 .qwen
 .worktrees/
+
+# e2e tooling artifacts and generated baselines
+/e2e/reports/
+/e2e/artifacts/
+/e2e/baselines/
+/e2e/registry.json
+/.storybook/style-baselines/
+/.storybook/a11y-baseline/
+/.storybook/pixel-baselines/
