@@ -185,7 +185,7 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete:has(input:disabled) :is(.p-inputtext.p-autocomplete-input, .p-autocomplete-input-multiple, .p-autocomplete-dropdown) {
-    border-color: ${dt('color.fg.muted')};
+    border-color: ${dt('autocomplete.root.borderColor')};
   }
 
   .p-autocomplete-clear-icon,
