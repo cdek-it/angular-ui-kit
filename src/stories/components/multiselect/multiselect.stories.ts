@@ -106,6 +106,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     chipClearable: {
       control: 'boolean',
+      if: { arg: 'showChips', truthy: true },
       description: 'Отображение иконки удаления chip (при showChips)',
       table: {
         category: 'Свойства',
@@ -142,6 +143,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     filterPlaceholder: {
       control: 'text',
+      if: { arg: 'showFilter', truthy: true },
       description: 'Подсказка в строке поиска (при showFilter)',
       table: {
         category: 'Свойства',
@@ -355,6 +357,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     // ── Внутренние (не контролируются) ─────────────────────────────────────
     chipIcon: {
       control: 'text',
+      if: { arg: 'showChips', truthy: true },
       description: 'Иконка chip (переопределяется шаблоном)',
       table: { category: 'Дополнительно', type: { summary: 'string' } }
     },
