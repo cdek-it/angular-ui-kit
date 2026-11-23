@@ -116,6 +116,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
+      if: { arg: 'readonly', truthy: false },
       description: 'Отображение иконки для очистки всего поля',
       table: {
         category: 'Свойства',
@@ -180,6 +181,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     },
     placeholder: {
       control: 'text',
+      if: { arg: 'floatLabel', truthy: false },
       description: 'Текст подсказки при пустом поле',
       table: {
         category: 'Свойства',
