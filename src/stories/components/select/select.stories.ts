@@ -57,7 +57,7 @@ const meta: Meta<SelectArgs> = {
         transform: (_source: string, context: { args: RenderArgs }) => selectSource(context.args)
       },
       description: {
-        component: `Single-select — выпадающий список для выбора одного значения из набора опций.
+        component: `Select — выпадающий список для выбора одного значения из набора опций.
 
 \`\`\`typescript
 import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
