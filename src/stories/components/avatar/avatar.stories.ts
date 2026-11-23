@@ -15,8 +15,6 @@ const meta: Meta<ExtraAvatarComponent> = {
       description: {
         component: `Аватар представляет пользователя или сущность. Может содержать текст, иконку или изображение, а также значок (\`badge\`).
 
-Реализован по спецификации \`docs/components-api/avatar.md\`.
-
 \`\`\`typescript
 import { ExtraAvatarComponent, ExtraAvatarGroupComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
