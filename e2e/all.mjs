@@ -17,10 +17,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const passThrough = process.argv.slice(2);
 
-const specs = readdirSync(join(__dirname, 'specs'))
-  .filter((file) => file.endsWith('.e2e.mjs'))
-  .map((file) => file.replace(/\.e2e\.mjs$/, ''))
-  .sort();
+let specs = [];
+try {
+  specs = readdirSync(join(__dirname, 'specs'))
+    .filter((file) => file.endsWith('.e2e.mjs'))
+    .map((file) => file.replace(/\.e2e\.mjs$/, ''))
+    .sort();
+} catch {
+  /* каталога спек нет: спеки приходят в компонентных PR */
+}
 
 if (specs.length === 0) {
   log('E2E-спек в e2e/specs нет: они приходят в компонентных PR.');
