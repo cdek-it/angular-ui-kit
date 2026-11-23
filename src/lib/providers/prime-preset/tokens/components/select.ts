@@ -174,7 +174,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
 
   .p-floatlabel-in:has(.p-select.p-inputwrapper-focus) label,
   .p-floatlabel-in:has(.p-select.p-inputwrapper-filled) label {
-    top: ${dt('select.extend.floatLabel.labelTop')};
+    top: ${dt('floatlabel.in.active.top')};
   }
 
   .p-floatlabel-in:has(.p-select.p-component) label .extra-select-label-icon {
@@ -188,9 +188,9 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
     line-height: ${dt('fonts.lineHeight.200')};
-    min-height: ${dt('select.extend.floatLabel.minHeight')};
-    padding-block-start: ${dt('select.extend.floatLabel.paddingTop')};
-    padding-block-end: ${dt('select.extend.floatLabel.paddingBottom')};
+    min-height: ${dt('floatlabel.extend.height')};
+    padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
+    padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
   }
 
   /* ─── Опции: отметка выбранных ─── */
