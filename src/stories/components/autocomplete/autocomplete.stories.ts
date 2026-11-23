@@ -88,6 +88,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     labelPosition: {
       control: 'select',
       options: ['top', 'left'],
+      if: { arg: 'floatLabel', truthy: false },
       description: 'Положение лейбла',
       table: {
         category: 'Свойства',

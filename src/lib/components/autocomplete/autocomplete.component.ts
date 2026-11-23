@@ -85,7 +85,7 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где input обязан быть прямым flex-элементом). -->
     @if (label || caption) {
-      <div class="extra-autocomplete" [class.extra-autocomplete--left]="labelPosition === 'left'">
+      <div class="extra-autocomplete" [class.extra-autocomplete--left]="labelPosition === 'left' && !floatLabel">
         @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
