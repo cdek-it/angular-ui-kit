@@ -132,7 +132,11 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
       description: 'Тон подписи под полем: обычный, ошибка, успех, предупреждение'
     },
     requiredMark: { control: 'boolean', description: 'Показывает отметку обязательного поля' },
-    clearable: { control: 'boolean', description: 'Показывает иконку очистки значения' },
+    clearable: {
+      control: 'boolean',
+      description: 'Показывает иконку очистки значения',
+      if: { arg: 'readonly', truthy: false }
+    },
     info: { control: 'text', description: 'Текст доп. информации в тултипе иконки ti-info-circle' },
     promptLabel: { control: 'text', description: 'Заголовок подсказки к паролю' },
     weakLabel: { control: 'text', description: 'Текст для слабого пароля' },
