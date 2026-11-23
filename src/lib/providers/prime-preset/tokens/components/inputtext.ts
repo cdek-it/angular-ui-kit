@@ -101,6 +101,11 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   color: ${dt('inputtext.root.color')};
 }
 
+/* Readonly не должен выглядеть редактируемым: hover-подсветка только у доступных полей. */
+.p-inputtext:enabled:read-only:hover {
+  border-color: ${dt('inputtext.root.borderColor')};
+}
+
 /* ─── Focus ─── */
 .p-inputtext:enabled:focus {
   box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
