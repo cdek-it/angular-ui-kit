@@ -68,7 +68,7 @@ import { ExtraRatingComponent } from '@cdek-it/angular-ui-kit/components/rating'
   argTypes: {
     stars: { control: 'number', description: 'Количество отображаемых звёзд' },
     readonly: { control: 'boolean', description: 'Режим только для чтения — значение нельзя изменить' },
-    clearable: { control: 'boolean', description: 'Показывать кнопку сброса оценки слева от звёзд' },
+    clearable: { control: 'boolean', if: { arg: 'readonly', truthy: false }, description: 'Показывать кнопку сброса оценки слева от звёзд' },
     autofocus: { control: 'boolean', description: 'Ставит фокус на рейтинг после первого рендера' },
     clearAriaLabel: { control: 'text', description: 'Текст для скринридеров у кнопки очистки' },
     size: { control: 'select', options: ['small', 'base', 'large'], description: 'Размер звёзд: small, base, large' },
