@@ -57,8 +57,6 @@ const meta: Meta<OtpArgs> = {
       description: {
         component: `Компонент для ввода одноразовых паролей (OTP).
 
-Реализовано по спецификации [inputotp.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/inputotp.md).
-
 \`\`\`typescript
 import { ExtraInputOtpComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
