@@ -22,6 +22,11 @@ const specs = readdirSync(join(__dirname, 'specs'))
   .map((file) => file.replace(/\.e2e\.mjs$/, ''))
   .sort();
 
+if (specs.length === 0) {
+  log('E2E-спек в e2e/specs нет: они приходят в компонентных PR.');
+  process.exit(0);
+}
+
 const results = [];
 
 for (const spec of specs) {
