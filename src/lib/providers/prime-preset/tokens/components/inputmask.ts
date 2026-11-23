@@ -62,7 +62,6 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 .p-floatlabel:has(> .p-inputmask) > .p-inputmask .p-inputtext {
   height: ${dt('inputtext.extend.extXlg.height')};
   border-radius: ${dt('dimension.borderRadius.400')};
-  padding-top: calc(${dt('floatlabel.in.input.paddingTop')} - ${dt('dimension.space.50')});
 }
 .p-floatlabel:has(> .p-inputmask .p-inputtext:not(:focus):not(.p-filled)) > label {
   top: 50%;
@@ -72,7 +71,6 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 }
 .p-floatlabel:has(> .p-inputmask .p-inputtext:focus) > label,
 .p-floatlabel:has(> .p-inputmask .p-inputtext.p-filled) > label {
-  top: calc(${dt('floatlabel.in.active.top')} - ${dt('dimension.space.50')});
   font-size: ${dt('floatlabel.root.active.fontSize')};
   line-height: ${dt('fonts.lineHeight.150')};
 }
