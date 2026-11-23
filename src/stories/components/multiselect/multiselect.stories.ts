@@ -565,7 +565,15 @@ export const Disabled: Story = {
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true, value: [OPTIONS[0], OPTIONS[1]] },
-  render: (args) => renderMultiSelect(args)
+  render: (args) => renderMultiSelect(args),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
+      }
+    }
+  }
 };
 
 export const Chips: Story = {
