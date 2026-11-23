@@ -228,6 +228,7 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
     showButtons: {
       control: 'boolean',
+      if: { arg: 'floatLabel', truthy: false },
       description: 'Отображает кнопки увеличения/уменьшения; недоступно при `floatLabel: true`',
       table: {
         category: 'Свойства',
@@ -237,6 +238,7 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
     },
     buttonLayout: {
       control: 'select',
+      if: { arg: 'showButtons', truthy: true },
       options: ['stacked', 'horizontal', 'vertical'],
       description: 'Расположение кнопок',
       table: {
