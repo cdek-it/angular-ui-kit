@@ -213,7 +213,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 .extra-date-picker-body > .p-floatlabel:has(input:focus) > label,
 .extra-date-picker-body > .p-floatlabel:has(input:-webkit-autofill) > label,
 .extra-date-picker-body > .p-floatlabel:has(.p-inputwrapper-filled) > label {
-  top: ${dt('dimension.space.300')};
+  top: ${dt('floatlabel.in.active.top')};
   font-size: ${dt('fonts.fontSize.100')};
   line-height: ${dt('fonts.lineHeight.200')};
   transform: none;
@@ -264,10 +264,8 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 
 .extra-date-picker-field--float.p-datepicker .p-datepicker-input.p-inputtext {
   height: ${dt('datepicker.extend.extField.floatHeight')};
-  padding-block-start: calc(
-    ${dt('dimension.space.300')} + ${dt('fonts.lineHeight.200')} + ${dt('dimension.space.100')}
-  );
-  padding-block-end: ${dt('dimension.space.400')};
+  padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
+  padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
 }
 
 .p-datepicker-panel.p-datepicker-panel {
