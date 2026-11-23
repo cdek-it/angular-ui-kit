@@ -130,6 +130,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/pagi
     },
     showJumpToPage: {
       control: 'boolean',
+      if: { arg: 'showDropdown', truthy: false },
       description: 'Показывать поле ввода для перехода на конкретную страницу',
       table: {
         category: 'Свойства',
@@ -139,6 +140,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/pagi
     },
     jumpToPagePlaceholder: {
       control: 'text',
+      if: { arg: 'showJumpToPage', truthy: true },
       description: 'Плейсхолдер поля ввода номера страницы (видим только при showJumpToPage=true)',
       table: {
         category: 'Свойства',
@@ -148,6 +150,7 @@ import { ExtraPaginatorComponent } from '@cdek-it/angular-ui-kit/components/pagi
     },
     showDropdown: {
       control: 'boolean',
+      if: { arg: 'showJumpToPage', truthy: false },
       description: 'Показывать селект для перехода на конкретную страницу',
       table: {
         category: 'Свойства',
