@@ -134,6 +134,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     dropdown: {
       control: 'boolean',
+      if: { arg: 'multiple', truthy: false },
       description: 'Показывать кнопку выпадающего списка',
       table: {
         category: 'Свойства',
@@ -143,6 +144,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
+      if: { arg: 'readonly', truthy: false },
       description: 'Показывать иконку очистки поля',
       table: {
         category: 'Свойства',
@@ -278,6 +280,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     },
     dropdownMode: {
       control: 'select',
+      if: { arg: 'multiple', truthy: false },
       options: ['blank', 'current'],
       description: 'Режим кнопки dropdown: подсказки с нуля или от текущего значения',
       table: {
