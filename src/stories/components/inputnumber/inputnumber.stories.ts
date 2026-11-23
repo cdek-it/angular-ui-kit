@@ -83,8 +83,6 @@ const meta: Meta<NumberArgs> = {
       description: {
         component: `Числовое поле ввода с поддержкой форматирования, валюты, кнопок увеличения/уменьшения и встроенных label/caption/info.
 
-Реализован по спецификации \`docs/components-api/inputnumber.md\`.
-
 \`\`\`typescript
 import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
