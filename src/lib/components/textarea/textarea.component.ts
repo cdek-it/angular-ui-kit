@@ -70,7 +70,7 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где textarea обязана быть прямым flex-элементом). -->
     @if (label || caption) {
-      <div class="extra-textarea" [class.extra-textarea--left]="labelPosition === 'left'">
+      <div class="extra-textarea" [class.extra-textarea--left]="labelPosition === 'left' && !floatLabel">
         @if (label && labelPosition === 'left') {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
