@@ -241,8 +241,14 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-autocomplete-option .p-checkbox {
+    flex: 0 0 ${dt('autocomplete.extend.checkmarkSize')};
     width: ${dt('autocomplete.extend.checkmarkSize')};
     height: ${dt('autocomplete.extend.checkmarkSize')};
+  }
+
+  .p-autocomplete-option .p-checkbox .p-checkbox-box {
+    width: 100%;
+    height: 100%;
   }
 
   /* FloatLabel uses the same interaction as the other form fields. */
