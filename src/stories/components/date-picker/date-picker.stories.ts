@@ -237,6 +237,7 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
     },
     showIcon: {
       control: 'boolean',
+      if: { arg: 'inline', truthy: false },
       description: 'Отображает иконку календаря',
       table: {
         category: 'Props',
@@ -334,6 +335,7 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
+      if: { arg: 'readonly', truthy: false },
       description: 'Отображает иконку очистки содержимого поля',
       table: {
         category: 'Props',
