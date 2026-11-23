@@ -5,48 +5,55 @@ import:
   symbol: ExtraDatePickerComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
-  nodeId: '431:3069'
-  componentKey: '186776f4f5b0f28244809844575073296ec8c383'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
+  nodeId: '25178:78127'
   name: '<DatePicker>'
 status: stable
-updated: '2026-10-06'
+updated: '2026-11-17'
 ---
 
 ## Overview
 
 `ExtraDatePickerComponent` — поле выбора даты с раскрывающимся календарём: выбор одной даты, диапазона или нескольких значений, ввод даты со временем и inline-режим. Оборачивает PrimeNG `p-datepicker`, добавляя кастомную шапку с выпадающими списками месяца и года, предпросмотр диапазона при наведении и поля ручного ввода времени. Реализует `ControlValueAccessor` и работает с `[(ngModel)]` и `[formControl]` «из коробки».
 
-Компонент соответствует Figma-компоненту `<DatePicker>` (component set, nodeId `431:3069`, fileKey `Khh7arsuXss3ncqy1Dz3OZ`, библиотека «UI Kit (DS) v2.0»). Варианты поля задаются Figma-свойствами `state` (`default | hover | focus | danger | disabled | readonly`), `has-placeholder` и `has-floatlabel`. Раскрывающаяся панель календаря описана отдельным Figma-узлом `<Calendar.DatePicker>` / `<DatePicker.Panel>` и в коде рендерится PrimeNG автоматически.
+Компонент соответствует Figma-компоненту `<DatePicker>` (component set, nodeId `25178:78127`, fileKey `Q1BWgZ7zoV5UzlBOnjW0cM`, библиотека «UI Kit (DS) v3.0»). Варианты поля задаются Figma-свойствами `state` (`default | hover | focus | danger | disabled | readonly`), `has-placeholder` и `has-float-label`. Раскрывающаяся панель календаря описана отдельным Figma-узлом `<Calendar.DatePicker>` / `<DatePicker.Panel>` и в коде рендерится PrimeNG автоматически.
 
 ## Props mapping
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `selectionMode` | `'single' \| 'multiple' \| 'range'` | `'single'` | Режим выбора: одна дата, несколько дат или диапазон |
-| `dateFormat` | `string` | `'dd.mm.yy'` | Маска формата отображаемой даты |
-| `size` | `'small' \| 'medium' \| 'large' \| 'xlarge'` | `'medium'` | Размер поля; `large` и `xlarge` маппируются на PrimeNG `size="large"` |
-| `showIcon` | `boolean` | `true` | Показывать иконку календаря в поле |
-| `iconDisplay` | `'input' \| 'button'` | `'input'` | Расположение иконки: внутри поля или отдельной кнопкой |
-| `inline` | `boolean` | `false` | Встроенный календарь без раскрывающейся панели |
-| `showButtonBar` | `boolean` | `false` | Показывать панель кнопок «Сегодня» / «Очистить» |
-| `showTime` | `boolean` | `false` | Включает выбор времени (часы и минуты) |
-| `hourFormat` | `string` | `'24'` | Формат часов при `showTime=true` (`'24'` или `'12'`) |
-| `showClear` | `boolean` | `false` | Показывает иконку очистки (×) — соответствует Figma-свойству `show-clear` |
-| `placeholder` | `string \| undefined` | `undefined` | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
-| `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
-| `minDate` | `Date \| undefined` | `undefined` | Минимальная доступная для выбора дата |
-| `maxDate` | `Date \| undefined` | `undefined` | Максимальная доступная для выбора дата |
-| `view` | `'date' \| 'month' \| 'year'` | `'date'` | Начальный режим панели: дни, месяцы или годы |
-| `showOtherMonths` | `boolean` | `true` | Показывать даты соседних месяцев в сетке |
-| `selectOtherMonths` | `boolean` | `false` | Разрешить выбор дат соседних месяцев |
-| `hourLabel` | `string` | `'Часы'` | Подпись поля часов в блоке времени (при `showTime=true`) |
-| `minuteLabel` | `string` | `'Минуты'` | Подпись поля минут в блоке времени (при `showTime=true`) |
-| `(onSelect)` | `EventEmitter<Date>` | — | Событие выбора даты в сетке |
-| `(onMonthChange)` | `EventEmitter<any>` | — | Событие смены отображаемого месяца |
-| `(onYearChange)` | `EventEmitter<any>` | — | Событие смены отображаемого года |
-| `(onClear)` | `EventEmitter<any>` | — | Событие очистки значения (при `showClear=true`) |
-| `[(ngModel)]` / `[formControl]` | `Date \| Date[] \| null` | `null` | Выбранное значение через ControlValueAccessor |
+| Свойство                        | Тип                                              | По умолчанию | Описание                                                                                        |
+| ------------------------------- | ------------------------------------------------ | ------------ | ----------------------------------------------------------------------------------------------- |
+| `label`                         | `string`                                         | `''`         | Текст метки                                                                                     |
+| `labelPosition`                 | `'top' \| 'left'`                                | `'top'`      | Положение метки                                                                                 |
+| `floatLabel`                    | `boolean`                                        | `false`      | Плавающая метка, перекрывает labelPosition                                                      |
+| `caption`                       | `string`                                         | `''`         | Подпись через общий ExtraCaptionComponent                                                       |
+| `captionSeverity`               | `ExtraCaptionSeverity`                           | `'base'`     | Цвет и иконка подписи                                                                           |
+| `info`                          | `string`                                         | `''`         | Подсказка у метки                                                                               |
+| `required`                      | `boolean`                                        | `false`      | Обязательность через NG_VALIDATORS                                                              |
+| `fluid`                         | `boolean`                                        | `false`      | Растяжение до ширины контейнера                                                                 |
+| `selectionMode`                 | `'single' \| 'multiple' \| 'range'`              | `'single'`   | Режим выбора: одна дата, несколько дат или диапазон                                             |
+| `dateFormat`                    | `string`                                         | `'dd.mm.yy'` | Маска формата отображаемой даты                                                                 |
+| `size`                          | `'small' \| 'base' \| 'large' \| 'xlarge'`       | `'base'`     | Размер поля; `large` и `xlarge` маппируются на PrimeNG `size="large"`                           |
+| `showIcon`                      | `boolean`                                        | `true`       | Показывать иконку календаря в поле                                                              |
+| `iconDisplay`                   | `'input' \| 'button'`                            | `'input'`    | Расположение иконки: внутри поля или отдельной кнопкой                                          |
+| `inline`                        | `boolean`                                        | `false`      | Встроенный календарь без раскрывающейся панели                                                  |
+| `showButtonBar`                 | `boolean`                                        | `false`      | Показывать панель кнопок «Сегодня» / «Очистить»                                                 |
+| `showTime`                      | `boolean`                                        | `false`      | Включает выбор времени (часы и минуты)                                                          |
+| `hourFormat`                    | `string`                                         | `'24'`       | Формат часов при `showTime=true` (`'24'` или `'12'`)                                            |
+| `clearable`                     | `boolean`                                        | `false`      | Показывает иконку очистки (×) — соответствует Figma-свойству `show-clear`                       |
+| `placeholder`                   | `string \| undefined`                            | `undefined`  | Подсказка при пустом поле — соответствует Figma-свойству `text-placeholder` / `has-placeholder` |
+| `readonly`                      | `boolean`                                        | `false`      | Только для чтения — соответствует Figma-состоянию `state=readonly`                              |
+| `minDate`                       | `Date \| undefined`                              | `undefined`  | Минимальная доступная для выбора дата                                                           |
+| `maxDate`                       | `Date \| undefined`                              | `undefined`  | Максимальная доступная для выбора дата                                                          |
+| `view`                          | `'day' \| 'month' \| 'year' \| 'time' \| 'date'` | `'day'`      | Начальный режим панели: дни, месяцы или годы                                                    |
+| `showOtherMonths`               | `boolean`                                        | `true`       | Показывать даты соседних месяцев в сетке                                                        |
+| `selectOtherMonths`             | `boolean`                                        | `false`      | Разрешить выбор дат соседних месяцев                                                            |
+| `hourLabel`                     | `string`                                         | `'Часы'`     | Подпись поля часов в блоке времени (при `showTime=true`)                                        |
+| `minuteLabel`                   | `string`                                         | `'Минуты'`   | Подпись поля минут в блоке времени (при `showTime=true`)                                        |
+| `(onSelect)`                    | `EventEmitter<Date>`                             | —            | Событие выбора даты в сетке                                                                     |
+| `(onMonthChange)`               | `EventEmitter<any>`                              | —            | Событие смены отображаемого месяца                                                              |
+| `(onYearChange)`                | `EventEmitter<any>`                              | —            | Событие смены отображаемого года                                                                |
+| `(onClear)`                     | `EventEmitter<any>`                              | —            | Событие очистки значения (при `clearable=true`)                                                 |
+| `[(ngModel)]` / `[formControl]` | `Date \| Date[] \| null`                         | `null`       | Выбранное значение через ControlValueAccessor                                                   |
 
 > `invalid` — управляется через связанный `NgControl` (соответствует Figma-состоянию `state=danger`). При работе с реактивными формами невалидное состояние подтягивается из валидаторов автоматически.
 
@@ -56,19 +63,15 @@ updated: '2026-10-06'
 
 ### Single / Default (одна дата)
 
-Figma: `<DatePicker>`, state=default, has-placeholder=true, has-floatlabel=false — nodeId `431:3111`
+Figma: `<DatePicker>`, state=default, has-placeholder=true, has-float-label=false — nodeId `431:3111`
 
 ```html
-<extra-date-picker
-  placeholder="дд.мм.гггг"
-  [(ngModel)]="selectedDate"
-  name="date"
-></extra-date-picker>
+<extra-date-picker placeholder="дд.мм.гггг" [(ngModel)]="selectedDate" name="date"></extra-date-picker>
 ```
 
 ### Range (выбор диапазона)
 
-Figma: `<DatePicker>`, state=default, has-placeholder=true, has-floatlabel=false — nodeId `431:3111`
+Figma: `<DatePicker>`, state=default, has-placeholder=true, has-float-label=false — nodeId `431:3111`
 
 ```html
 <extra-date-picker
@@ -85,7 +88,7 @@ dateRange: Date[] | null = null;
 
 ### Multiple (несколько дат)
 
-Figma: `<DatePicker>`, state=default, has-placeholder=true, has-floatlabel=false — nodeId `431:3111`
+Figma: `<DatePicker>`, state=default, has-placeholder=true, has-float-label=false — nodeId `431:3111`
 
 ```html
 <extra-date-picker
@@ -119,11 +122,7 @@ Figma: `<DatePicker>`, show-time=true — раскрывающаяся пане�
 Figma: `<Calendar.DatePicker>` — раскрытая панель календаря
 
 ```html
-<extra-date-picker
-  [inline]="true"
-  [(ngModel)]="selectedDate"
-  name="inlineDate"
-></extra-date-picker>
+<extra-date-picker [inline]="true" [(ngModel)]="selectedDate" name="inlineDate"></extra-date-picker>
 ```
 
 ### С границами min/max
@@ -151,7 +150,7 @@ Figma: `<DatePicker>`, show-clear=true
 
 ```html
 <extra-date-picker
-  [showClear]="true"
+  [clearable]="true"
   placeholder="Можно очистить"
   [(ngModel)]="selectedDate"
   name="dateClearable"
@@ -160,19 +159,15 @@ Figma: `<DatePicker>`, show-clear=true
 
 ### Readonly (только для чтения)
 
-Figma: `<DatePicker>`, state=readonly, has-placeholder=true, has-floatlabel=false — nodeId `14980:36452`
+Figma: `<DatePicker>`, state=readonly, has-placeholder=true, has-float-label=false — nodeId `14980:36452`
 
 ```html
-<extra-date-picker
-  [readonly]="true"
-  [(ngModel)]="selectedDate"
-  name="dateReadonly"
-></extra-date-picker>
+<extra-date-picker [readonly]="true" [(ngModel)]="selectedDate" name="dateReadonly"></extra-date-picker>
 ```
 
 ### Disabled (отключённое поле)
 
-Figma: `<DatePicker>`, state=disabled, has-placeholder=true, has-floatlabel=false — nodeId `431:3070`
+Figma: `<DatePicker>`, state=disabled, has-placeholder=true, has-float-label=false — nodeId `431:3070`
 
 ```html
 <extra-date-picker [formControl]="disabledControl"></extra-date-picker>
@@ -185,17 +180,14 @@ disabledControl = new FormControl({ value: null, disabled: true });
 
 ### Невалидное состояние (formControl + валидация)
 
-Figma: `<DatePicker>`, state=danger, has-placeholder=true, has-floatlabel=false — nodeId `431:3080` (невалидное состояние определяется через NgControl автоматически)
+Figma: `<DatePicker>`, state=danger, has-placeholder=true, has-float-label=false — nodeId `431:3080` (невалидное состояние определяется через NgControl автоматически)
 
 ```ts
 dateControl = new FormControl<Date | null>(null, [Validators.required]);
 ```
 
 ```html
-<extra-date-picker
-  placeholder="Обязательное поле"
-  [formControl]="dateControl"
-></extra-date-picker>
+<extra-date-picker placeholder="Обязательное поле" [formControl]="dateControl"></extra-date-picker>
 ```
 
 ## Slots
@@ -214,6 +206,7 @@ dateControl = new FormControl<Date | null>(null, [Validators.required]);
 ## Do / Don't
 
 **Do:**
+
 - Используйте `[(ngModel)]` или `[formControl]` — компонент реализует `ControlValueAccessor` и именно через них передаётся выбранное значение.
 - Для диапазона и нескольких дат задавайте `selectionMode="range"` / `selectionMode="multiple"` и храните значение как `Date[]`.
 - Ограничивайте доступные даты через `minDate` / `maxDate` для бронирований и дедлайнов.
@@ -221,7 +214,14 @@ dateControl = new FormControl<Date | null>(null, [Validators.required]);
 - Включайте `[showTime]="true"`, когда нужно выбрать дату вместе со временем.
 
 **Don't:**
+
 - Не задавайте `[disabled]="true"` как Input-атрибут напрямую — компонент не объявляет `@Input() disabled`; передавайте через `FormControl` или `ControlValueAccessor`.
 - Не используйте поле без `[(ngModel)]` / `[formControl]` — без привязки выбранное значение не синхронизируется с моделью.
 - Не задавайте `invalid` вручную — невалидное состояние вычисляется из связанного `NgControl`.
 - Не применяйте date-picker для свободного текста или приблизительной даты — используйте [InputText](../inputtext/inputtext.figma.md).
+
+## Migration (2026-11-17)
+
+**BREAKING:** `size="medium"` → `size="base"`; `[showClear]` → `[clearable]`.
+Новые возможности: обёртка label/caption/info, required, fluid, FloatLabel, `view="time"` и события onInput/onFocus/onBlur/onShow/onHide/onTodayClick/onClearClick. Существующее `view="date"` поддерживается как прежнее имя режима дней; каноническое значение — `day`.
+Актуальная таблица входов и событий: [datepicker.md](../../../../docs/components-api/datepicker.md).

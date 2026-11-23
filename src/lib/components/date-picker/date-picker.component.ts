@@ -1,5 +1,10 @@
 import {
   AfterViewInit,
+  afterEveryRender,
+  booleanAttribute,
+  Injector,
+  OnChanges,
+  SimpleChanges,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -12,15 +17,30 @@ import {
   ViewChild
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  FormsModule,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  NgControl,
+  AbstractControl,
+  ValidationErrors,
+  Validator,
+  Validators
+} from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { FloatLabel } from 'primeng/floatlabel';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
+import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit/components/select';
 import { DatePicker, DatePickerMonthChangeEvent } from 'primeng/datepicker';
 import { InputText } from 'primeng/inputtext';
 import { PrimeTemplate, Translation, TranslationKeys } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
-import { Select } from 'primeng/select';
 import { Button } from 'primeng/button';
 
-export type ExtraDatePickerMonthChangeEvent = DatePickerMonthChangeEvent;
+export type ExtraDatePickerViewChangeEvent = DatePickerMonthChangeEvent;
+export type ExtraDatePickerMonthChangeEvent = ExtraDatePickerViewChangeEvent;
 
 const YEARS = (() => {
   const result = [];
@@ -40,13 +60,14 @@ const NAV_LABEL_KEYS = {
   year: { prev: 'prevDecade', next: 'nextDecade' }
 } satisfies Record<'date' | 'month' | 'year', Record<'prev' | 'next', keyof Translation>>;
 
-export type ExtraDatePickerSize = 'small' | 'medium' | 'large' | 'xlarge';
+export type ExtraDatePickerSize = 'small' | 'base' | 'large' | 'xlarge';
+export type ExtraDatePickerView = 'day' | 'date' | 'month' | 'year' | 'time';
 export type ExtraDatePickerSelectionMode = 'single' | 'multiple' | 'range';
 export type ExtraDatePickerIconDisplay = 'input' | 'button';
 
 @Component({
   selector: 'extra-date-picker',
-  host: { style: 'display: inline-flex' },
+  host: { style: 'display: contents' },
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -54,147 +75,239 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ExtraDatePickerComponent),
       multi: true
-    }
+    },
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => ExtraDatePickerComponent), multi: true }
   ],
-  imports: [DatePicker, InputText, PrimeTemplate, FormsModule, Select, Button],
+  imports: [
+    DatePicker,
+    InputText,
+    PrimeTemplate,
+    FormsModule,
+    ExtraSelectComponent,
+    Button,
+    NgTemplateOutlet,
+    FloatLabel,
+    ExtraCaptionComponent,
+    ExtraTooltipDirective
+  ],
   template: `
-    <p-datepicker
-      #dpRef
-      [ngModel]="modelValue"
-      (ngModelChange)="onValueChange($event)"
-      [dateFormat]="dateFormat"
-      [selectionMode]="selectionMode"
-      [showIcon]="showIcon"
-      [iconDisplay]="iconDisplay"
-      [inline]="inline"
-      [showButtonBar]="showButtonBar"
-      [showTime]="showTime"
-      [hourFormat]="hourFormat"
-      [showClear]="showClear"
-      [placeholder]="placeholder"
-      [disabled]="disabled"
-      [readonlyInput]="readonly"
-      [invalid]="invalid"
-      [size]="primeSize"
-      [inputStyleClass]="size === 'xlarge' ? 'p-inputtext-xlg' : ''"
-      [panelStyle]="{ minWidth: 'fit-content' }"
-      [appendTo]="inline ? undefined : 'body'"
-      [minDate]="minDate"
-      [maxDate]="maxDate"
-      [view]="view"
-      [hideOnDateTimeSelect]="false"
-      [showOtherMonths]="showOtherMonths"
-      [selectOtherMonths]="selectOtherMonths"
-      (onShow)="onPanelShow()"
-      (onClose)="onPanelClose()"
-      (onMonthChange)="onMonthChangeHandler($event)"
-      (onYearChange)="onYearChangeHandler($event)"
-      (onSelect)="onDateSelected($event)"
-      (onClear)="onClear.emit($event)"
-    >
-      <ng-template pTemplate="header">
-        <div class="p-datepicker-header p-datepicker-custom-header">
-          <p-button
-            severity="secondary"
-            [rounded]="true"
-            [text]="true"
-            [ariaLabel]="navAriaLabel('prev')"
-            (onClick)="navPrev($event)"
-          >
-            <ng-template pTemplate="icon">
-              <i class="ti ti-chevron-left" aria-hidden="true"></i>
-            </ng-template>
-          </p-button>
-          <div class="p-datepicker-title">
-            <p-select
-              appendTo="body"
-              [options]="months"
-              optionLabel="name"
-              optionValue="value"
-              [ngModel]="dpCurrentMonth"
-              (ngModelChange)="onMonthSelect($event)"
-              class="p-datepicker-month-select"
-            ></p-select>
-            <p-select
-              appendTo="body"
-              [options]="years"
-              optionLabel="name"
-              optionValue="value"
-              [ngModel]="dpCurrentYear"
-              (ngModelChange)="onYearSelect($event)"
-              class="p-datepicker-year-select"
-            ></p-select>
-          </div>
-          <p-button
-            severity="secondary"
-            [rounded]="true"
-            [text]="true"
-            [ariaLabel]="navAriaLabel('next')"
-            (onClick)="navNext($event)"
-          >
-            <ng-template pTemplate="icon">
-              <i class="ti ti-chevron-right" aria-hidden="true"></i>
-            </ng-template>
-          </p-button>
+    @if (!inline && (label || caption)) {
+      <div
+        class="extra-date-picker"
+        [class.extra-date-picker--left]="labelPosition === 'left' && !floatLabel"
+        [class.extra-date-picker--fluid]="fluid"
+      >
+        @if (label && labelPosition === 'left' && !floatLabel) {
+          <ng-container [ngTemplateOutlet]="labelTpl" />
+        }
+        <div class="extra-date-picker-body">
+          @if (label && labelPosition === 'top' && !floatLabel) {
+            <ng-container [ngTemplateOutlet]="labelTpl" />
+          }
+          @if (floatLabel) {
+            <p-floatlabel variant="in"
+              ><ng-container [ngTemplateOutlet]="pickerTpl" /><ng-container [ngTemplateOutlet]="labelTpl"
+            /></p-floatlabel>
+          } @else {
+            <ng-container [ngTemplateOutlet]="pickerTpl" />
+          }
+          @if (caption) {
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
+          }
         </div>
-      </ng-template>
-
-      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-        <i class="ti ti-calendar-month p-datepicker-input-icon cursor-pointer" (click)="clickCallBack($event)"></i>
-      </ng-template>
-      <ng-template pTemplate="triggericon">
-        <i class="ti ti-calendar-month"></i>
-      </ng-template>
-      @if (showClear) {
-        <ng-template pTemplate="clearicon">
-          <i class="ti ti-x"></i>
-        </ng-template>
-      }
-      @if (showTime) {
-        <ng-template pTemplate="footer">
-          <div class="p-datepicker-time-picker p-datepicker-time-picker-custom" (keydown)="$event.stopPropagation()">
-            <div class="p-datepicker-time-field">
-              <label class="p-datepicker-time-label" [attr.for]="hourInputId">{{ hourLabel }}</label>
-              <input
-                [id]="hourInputId"
-                type="text"
-                inputmode="numeric"
-                maxlength="2"
-                pattern="[0-9]{2}"
-                pInputText
-                class="p-datepicker-time-input"
-                [value]="hourInput"
-                (input)="onHourFieldInput($event)"
-                (blur)="onHourFieldBlur()"
-              />
+      </div>
+    } @else {
+      <ng-container [ngTemplateOutlet]="pickerTpl" />
+    }
+    <ng-template #labelTpl>
+      <label class="extra-date-picker-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-date-picker-required">*</span>
+        }
+        {{ label }}
+        @if (info && !floatLabel) {
+          <i class="ti ti-info-circle" [extra-tooltip]="info"></i>
+        }
+      </label>
+    </ng-template>
+    <ng-template #pickerTpl>
+      <p-datepicker
+        #dpRef
+        [ngModel]="modelValue"
+        (ngModelChange)="onValueChange($event)"
+        [dateFormat]="dateFormat"
+        [selectionMode]="selectionMode"
+        [showIcon]="showIcon && !disabled"
+        [iconDisplay]="iconDisplay"
+        [inline]="inline"
+        [showButtonBar]="showButtonBar"
+        [showTime]="showTime || view === 'time'"
+        [timeOnly]="view === 'time'"
+        [hourFormat]="hourFormat"
+        [showClear]="clearable && !disabled"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        [class.p-disabled]="disabled"
+        [style.pointer-events]="disabled ? 'none' : null"
+        [readonlyInput]="readonly || disabled"
+        [showOnFocus]="!readonly && !disabled"
+        [inputId]="inputId"
+        [ariaLabel]="ariaLabel"
+        [ariaLabelledBy]="ariaLabelledBy"
+        [autofocus]="autofocus"
+        [tabindex]="disabled ? -1 : (tabindex ?? 0)"
+        [styleClass]="pickerClass"
+        [invalid]="invalid"
+        [size]="primeSize"
+        [inputStyleClass]="size === 'xlarge' ? 'p-inputtext-xlg' : ''"
+        [panelStyleClass]="'extra-date-picker-panel'"
+        [appendTo]="inline ? undefined : 'body'"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        [view]="primeView"
+        [hideOnDateTimeSelect]="!showTime && view !== 'time' && selectionMode !== 'range'"
+        [showOtherMonths]="showOtherMonths"
+        [selectOtherMonths]="selectOtherMonths"
+        (onShow)="onPanelShow()"
+        (onClose)="onPanelClose()"
+        (onMonthChange)="onMonthChangeHandler($event)"
+        (onYearChange)="onYearChangeHandler($event)"
+        (onSelect)="onDateSelected($event)"
+        (onClear)="onClear.emit($event)"
+        (onInput)="onInput.emit($event)"
+        (onFocus)="onFocus.emit($event)"
+        (onBlur)="onInputBlur($event)"
+        (onTodayClick)="onTodayClick.emit($event)"
+        (onClearClick)="onClearClick.emit($event)"
+      >
+        <ng-template pTemplate="header">
+          <div class="p-datepicker-header p-datepicker-custom-header">
+            <p-button
+              severity="secondary"
+              [rounded]="true"
+              [text]="true"
+              [ariaLabel]="navAriaLabel('prev')"
+              [disabled]="disabled || readonly"
+              (onClick)="navPrev($event)"
+            >
+              <ng-template pTemplate="icon">
+                <i class="ti ti-chevron-left" aria-hidden="true"></i>
+              </ng-template>
+            </p-button>
+            <div class="p-datepicker-title">
+              <extra-select
+                appendTo="body"
+                size="small"
+                [showCheckmark]="false"
+                [options]="months"
+                [disabled]="disabled || readonly"
+                optionLabel="name"
+                optionValue="value"
+                [ngModel]="dpCurrentMonth"
+                (ngModelChange)="onMonthSelect($event)"
+                class="p-datepicker-month-select"
+              ></extra-select>
+              <extra-select
+                appendTo="body"
+                size="small"
+                [showCheckmark]="false"
+                [options]="years"
+                [disabled]="disabled || readonly"
+                optionLabel="name"
+                optionValue="value"
+                [ngModel]="dpCurrentYear"
+                (ngModelChange)="onYearSelect($event)"
+                class="p-datepicker-year-select"
+              ></extra-select>
             </div>
-            <div class="p-datepicker-separator">
-              <span>:</span>
-            </div>
-            <div class="p-datepicker-time-field">
-              <label class="p-datepicker-time-label" [attr.for]="minuteInputId">{{ minuteLabel }}</label>
-              <input
-                [id]="minuteInputId"
-                type="text"
-                inputmode="numeric"
-                maxlength="2"
-                pattern="[0-9]{2}"
-                pInputText
-                class="p-datepicker-time-input"
-                [value]="minuteInput"
-                (input)="onMinuteFieldInput($event)"
-                (blur)="onMinuteFieldBlur()"
-              />
-            </div>
+            <p-button
+              severity="secondary"
+              [rounded]="true"
+              [text]="true"
+              [ariaLabel]="navAriaLabel('next')"
+              [disabled]="disabled || readonly"
+              (onClick)="navNext($event)"
+            >
+              <ng-template pTemplate="icon">
+                <i class="ti ti-chevron-right" aria-hidden="true"></i>
+              </ng-template>
+            </p-button>
           </div>
         </ng-template>
-      }
-    </p-datepicker>
+
+        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+          <i class="ti ti-calendar-month p-datepicker-input-icon cursor-pointer" (click)="clickCallBack($event)"></i>
+        </ng-template>
+        <ng-template pTemplate="triggericon">
+          <i class="ti ti-calendar-month"></i>
+        </ng-template>
+        @if (clearable) {
+          <ng-template pTemplate="clearicon">
+            <i class="ti ti-x"></i>
+          </ng-template>
+        }
+        @if (showTime || view === 'time') {
+          <ng-template pTemplate="footer">
+            <div class="p-datepicker-time-picker p-datepicker-time-picker-custom" (keydown)="$event.stopPropagation()">
+              <div class="p-datepicker-time-field">
+                <label class="p-datepicker-time-label" [attr.for]="hourInputId">{{ hourLabel }}</label>
+                <input
+                  [id]="hourInputId"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="2"
+                  pattern="[0-9]{2}"
+                  pInputText
+                  class="p-datepicker-time-input"
+                  [disabled]="disabled || readonly"
+                  [value]="hourInput"
+                  (input)="onHourFieldInput($event)"
+                  (blur)="onHourFieldBlur()"
+                />
+              </div>
+              <div class="p-datepicker-separator">
+                <span>:</span>
+              </div>
+              <div class="p-datepicker-time-field">
+                <label class="p-datepicker-time-label" [attr.for]="minuteInputId">{{ minuteLabel }}</label>
+                <input
+                  [id]="minuteInputId"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="2"
+                  pattern="[0-9]{2}"
+                  pInputText
+                  class="p-datepicker-time-input"
+                  [disabled]="disabled || readonly"
+                  [value]="minuteInput"
+                  (input)="onMinuteFieldInput($event)"
+                  (blur)="onMinuteFieldBlur()"
+                />
+              </div>
+              @if (hourFormat === '12') {
+                <button
+                  type="button"
+                  class="p-datepicker-ampm-toggle"
+                  [disabled]="disabled || readonly"
+                  (click)="toggleMeridiem($event)"
+                  aria-label="AM/PM"
+                >
+                  {{ dpRef.pm ? 'PM' : 'AM' }}
+                </button>
+              }
+            </div>
+          </ng-template>
+        }
+      </p-datepicker>
+    </ng-template>
   `
 })
-export class ExtraDatePickerComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
+export class ExtraDatePickerComponent implements ControlValueAccessor, AfterViewInit, OnDestroy, OnChanges, Validator {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly primeng = inject(PrimeNG);
+  private readonly injector = inject(Injector);
+  private onValidatorChange: () => void = () => {};
+  private explicitInvalid = false;
 
   @ViewChild('dpRef') dpRef!: DatePicker;
 
@@ -216,22 +329,43 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
 
   @Input() dateFormat = 'dd.mm.yy';
   @Input() selectionMode: ExtraDatePickerSelectionMode = 'single';
-  @Input() size: ExtraDatePickerSize = 'medium';
-  @Input() showIcon = true;
+  @Input() size: ExtraDatePickerSize = 'base';
+  @Input({ transform: booleanAttribute }) showIcon = true;
   @Input() iconDisplay: ExtraDatePickerIconDisplay = 'input';
-  @Input() inline = false;
-  @Input() showButtonBar = false;
-  @Input() showTime = false;
-  @Input() hourFormat = '24';
-  @Input() showClear = false;
+  @Input({ transform: booleanAttribute }) inline = false;
+  @Input({ transform: booleanAttribute }) showButtonBar = false;
+  @Input({ transform: booleanAttribute }) showTime = false;
+  @Input({ transform: (value: string | number) => String(value) }) hourFormat = '24';
+  @Input({ transform: booleanAttribute }) clearable = false;
   @Input() placeholder: string | undefined = undefined;
-  @Input() readonly = false;
-  @Input() invalid = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  @Input({ transform: booleanAttribute }) set invalid(value: boolean) {
+    this.explicitInvalid = value;
+  }
+  get invalid(): boolean {
+    const control = this.injector.get(NgControl, null, { self: true, optional: true });
+    return this.explicitInvalid || !!(control?.invalid && (control.touched || control.dirty));
+  }
+  @Input() label = '';
+  @Input() labelPosition: 'top' | 'left' = 'top';
+  @Input({ transform: booleanAttribute }) floatLabel = false;
+  @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
+  @Input() info = '';
+  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) fluid = false;
+  @Input() inputId = `extra-date-picker-${this.instanceId}`;
+  @Input() name: string | undefined = undefined;
+  @Input() autocomplete = 'off';
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledBy: string | undefined = undefined;
+  @Input({ transform: booleanAttribute }) autofocus = false;
+  @Input() tabindex: number | undefined = undefined;
   @Input() minDate: Date | undefined = undefined;
   @Input() maxDate: Date | undefined = undefined;
-  @Input() view: 'date' | 'month' | 'year' = 'date';
-  @Input() showOtherMonths = true;
-  @Input() selectOtherMonths = false;
+  @Input() view: ExtraDatePickerView = 'day';
+  @Input({ transform: booleanAttribute }) showOtherMonths = true;
+  @Input({ transform: booleanAttribute }) selectOtherMonths = false;
   @Input() hourLabel = 'Часы';
   @Input() minuteLabel = 'Минуты';
 
@@ -240,7 +374,62 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   @Output() onYearChange = new EventEmitter<any>();
   @Output() onClear = new EventEmitter<any>();
 
+  @Output() onInput = new EventEmitter<Event>();
+  @Output() onFocus = new EventEmitter<Event>();
+  @Output() onBlur = new EventEmitter<Event>();
+  @Output() onShow = new EventEmitter<void>();
+  @Output() onHide = new EventEmitter<void>();
+  @Output() onTodayClick = new EventEmitter<Date>();
+  @Output() onClearClick = new EventEmitter<void>();
+
+  get primeView(): 'date' | 'month' | 'year' {
+    return this.view === 'month' || this.view === 'year' ? this.view : 'date';
+  }
+
+  get pickerClass(): string {
+    return [
+      'extra-date-picker-field',
+      `extra-date-picker-field--${this.size}`,
+      this.inline ? 'extra-date-picker-field--inline' : '',
+      this.fluid ? 'extra-date-picker-field--fluid' : '',
+      this.readonly ? 'extra-date-picker-field--readonly' : '',
+      this.floatLabel ? 'extra-date-picker-field--float' : ''
+    ]
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.required ? Validators.required(control) : null;
+  }
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['required']) this.onValidatorChange();
+    this.syncInputAttributes();
+    if (this.dpRef && this.inline) this.syncTimeInputs();
+  }
+  private syncInputAttributes(): void {
+    const input = this.dpRef?.inputfieldViewChild?.nativeElement;
+    if (!input) return;
+    input.setAttribute('autocomplete', this.autocomplete);
+    input.setAttribute('aria-required', String(this.required));
+    input.disabled = this.disabled;
+    input.setAttribute('aria-disabled', String(this.disabled));
+    if (this.invalid) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+    if (this.name) input.setAttribute('name', this.name);
+    else input.removeAttribute('name');
+  }
+
+  onInputBlur(event: Event): void {
+    this._onTouched();
+    this.onBlur.emit(event);
+  }
+
   constructor() {
+    afterEveryRender(() => this.syncInputAttributes());
     // Month names come from the PrimeNG translation; rebuild them when it changes at runtime.
     // markForCheck also refreshes the nav button labels, which read the translation in the template
     this.primeng.translationObserver.pipe(takeUntilDestroyed()).subscribe(() => {
@@ -256,9 +445,13 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   }
 
   ngAfterViewInit(): void {
+    this.syncInputAttributes();
     // Sync initial month/year for inline mode (panel renders immediately)
     if (this.inline) {
-      this.syncCurrentDate();
+      queueMicrotask(() => {
+        this.syncCurrentDate();
+        this.syncTimeInputs();
+      });
     }
   }
 
@@ -268,8 +461,8 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   }
 
   navAriaLabel(direction: 'prev' | 'next'): string {
-    const view = (this.dpRef?.currentView ?? this.view) as keyof typeof NAV_LABEL_KEYS;
-    return this.primeng.getTranslation(NAV_LABEL_KEYS[view][direction]);
+    const view = (this.dpRef?.currentView ?? this.primeView) as keyof typeof NAV_LABEL_KEYS;
+    return this.primeng.getTranslation((NAV_LABEL_KEYS[view] ?? NAV_LABEL_KEYS.date)[direction]);
   }
 
   syncCurrentDate(): void {
@@ -294,19 +487,32 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   onMonthSelect(month: number): void {
     this.dpCurrentMonth = month;
     this.dpRef?.createMonths(month, this.dpCurrentYear);
+    if (this.dpRef) this.dpRef.currentMonth = month;
+    this.onMonthChange.emit({ month: month + 1, year: this.dpCurrentYear });
   }
 
   onYearSelect(year: number): void {
     this.dpCurrentYear = year;
     this.dpRef?.createMonths(this.dpCurrentMonth, year);
+    if (this.dpRef) this.dpRef.currentYear = year;
+    this.onYearChange.emit({ month: this.dpCurrentMonth + 1, year });
   }
 
   navPrev(event: MouseEvent): void {
     this.dpRef?.navBackward(event);
+    this.syncYearNavigation();
   }
 
   navNext(event: MouseEvent): void {
     this.dpRef?.navForward(event);
+    this.syncYearNavigation();
+  }
+
+  private syncYearNavigation(): void {
+    if (this.dpRef && this.dpRef.currentView !== 'date' && !this.disabled) {
+      this.syncCurrentDate();
+      this.onYearChange.emit({ month: this.dpCurrentMonth + 1, year: this.dpCurrentYear });
+    }
   }
 
   onValueChange(val: Date | Date[] | null): void {
@@ -337,17 +543,21 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
     if (cleaned.length === 2) {
       const parsed = parseInt(cleaned, 10);
       if (!isNaN(parsed)) {
-        this.dpRef.currentHour = Math.min(23, Math.max(0, parsed));
+        this.dpRef.currentHour = Math.min(
+          this.hourFormat === '12' ? 12 : 23,
+          Math.max(this.hourFormat === '12' ? 1 : 0, parsed)
+        );
       }
     }
   }
 
   onHourFieldBlur(): void {
     const parsed = parseInt(this.hourInput, 10);
-    const clamped = isNaN(parsed) ? 0 : Math.min(23, Math.max(0, parsed));
+    const min = this.hourFormat === '12' ? 1 : 0;
+    const clamped = isNaN(parsed) ? min : Math.min(this.hourFormat === '12' ? 12 : 23, Math.max(min, parsed));
     this.dpRef.currentHour = clamped;
     this.hourInput = String(clamped).padStart(2, '0');
-    (this.dpRef as any).updateTime();
+    this.commitTime();
     this.cdr.markForCheck();
   }
 
@@ -371,8 +581,21 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
     const clamped = isNaN(parsed) ? 0 : Math.min(59, Math.max(0, parsed));
     this.dpRef.currentMinute = clamped;
     this.minuteInput = String(clamped).padStart(2, '0');
-    (this.dpRef as any).updateTime();
+    this.commitTime();
     this.cdr.markForCheck();
+  }
+
+  private commitTime(): void {
+    if (this.selectionMode !== 'single' && (!Array.isArray(this.dpRef.value) || !this.dpRef.value.length)) return;
+    this.dpRef.updateTime();
+  }
+
+  toggleMeridiem(event: Event): void {
+    if (this.selectionMode !== 'single' && (!Array.isArray(this.dpRef.value) || !this.dpRef.value.length)) {
+      this.dpRef.pm = !this.dpRef.pm;
+      event.preventDefault();
+    } else this.dpRef.toggleAMPM(event);
+    this.syncTimeInputs();
   }
 
   private syncTimeInputs(): void {
@@ -410,15 +633,21 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   private rangeStart: Date | null = null;
 
   onPanelShow(): void {
+    if (this.disabled) {
+      this.dpRef.hideOverlay();
+      return;
+    }
     this.syncCurrentDate();
     this.syncTimeInputs();
     this.attachSelectOverlayGuard();
+    this.onShow.emit();
     if (this.selectionMode === 'range') {
       this.attachRangePreview();
     }
   }
 
   onPanelClose(): void {
+    this.onHide.emit();
     this.detachSelectOverlayGuard();
     this.detachRangePreview();
     this._onTouched();
@@ -435,6 +664,7 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
 
   writeValue(value: Date | Date[] | null): void {
     this.modelValue = value ?? null;
+    if (this.inline) queueMicrotask(() => this.syncTimeInputs());
     this.cdr.markForCheck();
   }
 
