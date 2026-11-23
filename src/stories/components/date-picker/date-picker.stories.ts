@@ -254,7 +254,7 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
     },
     showTime: {
       control: 'boolean',
-      description: 'Включает выбор времени',
+      description: 'Включает выбор времени; при view=\'time\' всегда включён',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' }
