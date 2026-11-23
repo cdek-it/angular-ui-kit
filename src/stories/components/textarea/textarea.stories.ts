@@ -111,6 +111,7 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
+      if: { arg: 'readonly', truthy: false },
       description: 'Показывает иконку очистки при наличии значения',
       table: {
         category: 'Свойства',
