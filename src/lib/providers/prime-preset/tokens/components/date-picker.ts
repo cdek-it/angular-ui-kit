@@ -193,10 +193,8 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   line-height: ${dt('fonts.lineHeight.550')};
 }
 .extra-date-picker-field--float .p-datepicker-input.p-inputtext {
-  padding-block-start: calc(
-    ${dt('dimension.space.300')} + ${dt('fonts.lineHeight.200')} + ${dt('dimension.space.100')}
-  );
-  padding-block-end: ${dt('dimension.space.400')};
+  padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
+  padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
 }
 .extra-date-picker-body > .p-floatlabel > label {
   left: ${dt('datepicker.extend.extField.paddingX')};
