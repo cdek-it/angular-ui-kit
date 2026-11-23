@@ -130,7 +130,7 @@ export const Disabled: Story = {
 export const Readonly: Story = {
   args: { readonly: true },
   parameters: {
-    docs: { description: { story: 'Режим только для чтения — значение отображается, но не может быть изменено.' } }
+    docs: { description: { story: 'Режим только для чтения — значение отображается, но не может быть изменено. Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).' } }
   }
 };
 export const Interactive: Story = { args: { variant: 'interactive' } };
