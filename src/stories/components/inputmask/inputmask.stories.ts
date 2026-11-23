@@ -137,7 +137,11 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
       options: ['small', 'base', 'large', 'xlarge'] satisfies ExtraInputMaskSize[],
       description: 'Размер поля'
     },
-    clearable: { control: 'boolean', description: 'Отображение иконки для очистки поля' },
+    clearable: {
+      control: 'boolean',
+      description: 'Отображение иконки для очистки поля',
+      if: { arg: 'readonly', truthy: false }
+    },
     fluid: { control: 'boolean', description: 'Растягивает поле на всю ширину контейнера' },
     readonly: { control: 'boolean', description: 'Только для чтения' },
     autocomplete: { control: 'text', description: 'Значение атрибута autocomplete для input' },
