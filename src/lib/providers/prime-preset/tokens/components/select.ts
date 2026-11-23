@@ -188,7 +188,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
     line-height: ${dt('fonts.lineHeight.200')};
-    min-height: ${dt('floatlabel.extend.height')};
+    min-height: 3.375rem;
     padding-block-start: ${dt('floatlabel.in.input.paddingTop')};
     padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
   }
