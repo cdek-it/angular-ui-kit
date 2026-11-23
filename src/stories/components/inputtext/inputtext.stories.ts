@@ -77,6 +77,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     },
     clearable: {
       control: 'boolean',
+      if: { arg: 'readonly', truthy: false },
       description: 'Отображение иконки для очистки поля',
       table: {
         category: 'Свойства',
