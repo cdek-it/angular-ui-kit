@@ -184,7 +184,6 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 .p-floatlabel:has(> .p-inputtext) > .p-inputtext {
   height: ${dt('inputtext.extend.extXlg.height')};
   border-radius: ${dt('dimension.borderRadius.400')};
-  padding-top: calc(${dt('floatlabel.in.input.paddingTop')} - ${dt('dimension.space.50')});
 }
 /* В покое лейбл остаётся «лейблом» и при заданном placeholder (Figma: has-placeholder=true);
    PrimeNG в этом случае поднимает его правилом :has(input[placeholder]), поэтому селектор усилен :not() */
@@ -200,7 +199,6 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 .p-floatlabel:has(> .p-inputtext:focus) > label,
 .p-floatlabel:has(> .p-inputtext.p-filled) > label,
 .p-floatlabel:has(> .p-inputtext:-webkit-autofill) > label {
-  top: calc(${dt('floatlabel.in.active.top')} - ${dt('dimension.space.50')});
   font-size: ${dt('floatlabel.root.active.fontSize')};
   line-height: ${dt('fonts.lineHeight.150')};
 }
