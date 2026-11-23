@@ -8,7 +8,7 @@
  *   node e2e/check.mjs button --spec=button-demo --fresh-baselines
  *   node e2e/check.mjs button --no-builtin
  *
- * Отчёт: e2e/reports/<component>-check.json. Exit code 1 — есть падения.
+ * Отчёт: ~/.cache/angular-ui-kit/e2e/reports/<component>-check.json. Exit code 1 — есть падения.
  */
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';

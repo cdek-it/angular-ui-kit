@@ -3,7 +3,7 @@
  * Прогон встроенного Storybook test-runner по каждому компоненту из реестра.
  *
  * На компонент: обёртка e2e/storybook-runner.mjs (фильтрация index.json) + JSON-отчёт
- * в e2e/reports/builtin/<component>.json. Сводка — e2e/reports/builtin-summary.json.
+ * в <storage>/reports/builtin/<component>.json. Сводка — <storage>/reports/builtin-summary.json.
  *
  * Запуск: node e2e/builtin-all.mjs [--only=select,button] [--limit=3] [--url=...]
  */
@@ -101,7 +101,7 @@ const payload = {
   results
 };
 
-writeFileSync(join(__dirname, 'reports/builtin-summary.json'), `${JSON.stringify(payload, null, 2)}\n`);
+writeFileSync(join(storageReportsDir, 'builtin-summary.json'), `${JSON.stringify(payload, null, 2)}\n`);
 
 log(`\nКомпонентов: ${results.length}, успешно: ${results.length - failed.length}, с падениями: ${failed.length}`);
 if (failed.length > 0) {

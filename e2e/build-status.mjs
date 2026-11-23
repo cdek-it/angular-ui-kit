@@ -9,6 +9,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { log } from './lib/log.mjs';
+import { reportsDir as storageReportsDir } from './lib/storage.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -44,8 +45,8 @@ const commitFor = (component) => {
 
 const rows = registry.components.map((item) => {
   const spec = existsSync(join(__dirname, 'specs', `${item.component}.e2e.mjs`));
-  const e2e = readJson(join(__dirname, 'reports', `${item.component}-e2e.json`));
-  const builtin = readJson(join(__dirname, 'reports', 'builtin', `${item.component}.json`));
+  const e2e = readJson(join(storageReportsDir, `${item.component}-e2e.json`));
+  const builtin = readJson(join(storageReportsDir, 'builtin', `${item.component}.json`));
 
   const e2eSummary = e2e ? `${e2e.summary.passed}/${e2e.summary.total}${e2e.summary.failed ? ` ✗${e2e.summary.failed}` : ''}` : '—';
   const builtinSummary = builtin ? `${builtin.numPassedTests}/${builtin.numTotalTests}${builtin.numFailedTests ? ` ✗${builtin.numFailedTests}` : ''}` : '—';
