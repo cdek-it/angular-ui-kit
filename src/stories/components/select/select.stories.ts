@@ -163,6 +163,7 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
     },
     clearable: {
       control: 'boolean',
+      if: { arg: 'readonly', truthy: false },
       description: 'Отображение иконки для очистки поля',
       table: {
         category: 'Свойства',
@@ -181,6 +182,7 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
     },
     showFilter: {
       control: 'boolean',
+      if: { arg: 'editable', truthy: false },
       description: 'Включает строку поиска в выпадающем списке',
       table: {
         category: 'Свойства',
