@@ -38,8 +38,6 @@ const meta: Meta<AccordionArgs> = {
       description: {
         component: `Группирует контент в раскрывающиеся панели. Панели передаются декларативно как дочерние \`<extra-accordion-panel>\`, заголовок — через именованный шаблон \`extraAccordionPanelTemplate="header"\`.
 
-Реализован по спецификации \`docs/components-api/accordion.md\`.
-
 \`\`\`typescript
 import { ExtraAccordionComponent, ExtraAccordionPanelComponent, ExtraAccordionPanelTemplateDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
