@@ -172,14 +172,25 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     color: ${dt('color.fg.muted')};
   }
 
+  .p-floatlabel-in:has(.p-select.p-inputwrapper-focus) label,
+  .p-floatlabel-in:has(.p-select.p-inputwrapper-filled) label {
+    top: ${dt('select.extend.floatLabel.labelTop')};
+  }
+
   .p-floatlabel-in:has(.p-select.p-component) label .extra-select-label-icon {
     display: none;
   }
 
   .p-floatlabel-in .p-select.p-component .p-select-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-family: ${dt('fonts.fontFamily.base')};
-    padding-block-start: calc(${dt('dimension.space.300')} + ${dt('fonts.lineHeight.200')} + ${dt('dimension.space.100')});
-    padding-block-end: ${dt('dimension.space.400')};
+    font-size: ${dt('fonts.fontSize.200')};
+    line-height: ${dt('fonts.lineHeight.200')};
+    min-height: ${dt('select.extend.floatLabel.minHeight')};
+    padding-block-start: ${dt('select.extend.floatLabel.paddingTop')};
+    padding-block-end: ${dt('select.extend.floatLabel.paddingBottom')};
   }
 
   /* ─── Опции: отметка выбранных ─── */
