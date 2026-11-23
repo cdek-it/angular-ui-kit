@@ -251,6 +251,18 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
     height: 100%;
   }
 
+  /* Чекбокс в опции readonly, поэтому PrimeNG не применяет hover-цвет.
+     Красим его от состояния строки, как в Figma. */
+  .p-autocomplete-option:hover .p-checkbox:not(.p-checkbox-checked) .p-checkbox-box,
+  .p-autocomplete-option.p-focus .p-checkbox:not(.p-checkbox-checked) .p-checkbox-box {
+    border-color: ${dt('checkbox.root.hoverBorderColor')};
+  }
+
+  .p-autocomplete-option:hover .p-checkbox.p-checkbox-checked .p-checkbox-box,
+  .p-autocomplete-option.p-focus .p-checkbox.p-checkbox-checked .p-checkbox-box {
+    border-color: ${dt('checkbox.root.checkedHoverBorderColor')};
+  }
+
   /* FloatLabel uses the same interaction as the other form fields. */
   .p-floatlabel-in:has(.p-autocomplete.p-component) label {
     font-family: ${dt('fonts.fontFamily.base')};
