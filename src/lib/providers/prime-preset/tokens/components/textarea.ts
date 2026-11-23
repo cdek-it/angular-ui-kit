@@ -149,7 +149,6 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 /* --- Float label (Figma: has-float-label=true) ---
    Лейбл 12/14 стоит в верхнем паддинге 10, текст начинается сразу под ним (10 + 14). */
 .p-floatlabel:has(> .p-textarea) > .p-textarea {
-  padding-top: calc(${dt('dimension.space.300')} + ${dt('fonts.lineHeight.200')});
 }
 /* В покое лейбл остаётся «лейблом» и при заданном placeholder (Figma: has-placeholder=true);
    PrimeNG в этом случае поднимает его правилом :has(textarea[placeholder]), поэтому селектор усилен :not() */
