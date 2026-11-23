@@ -251,7 +251,16 @@ export const Disabled: Story = {
     }
   }
 };
-export const Readonly: Story = { args: { readonly: true } };
+export const Readonly: Story = { args: { readonly: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
+      }
+    }
+  }
+};
 export const FloatLabel: Story = {
   args: { floatLabel: true, label: 'FloatLabel' },
   parameters: {
