@@ -97,8 +97,6 @@ const meta: Meta<ToggleButtonArgs> = {
       description: {
         component: `Кнопка-переключатель для выбора булевого значения.
 
-Реализовано по спецификации [togglebutton.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/togglebutton.md).
-
 \`\`\`typescript
 import { ExtraToggleButtonComponent } from '@cdek-it/angular-ui-kit/components/togglebutton';
 \`\`\`
