@@ -35,6 +35,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     // ── Props ────────────────────────────────────────────────
     label: {
       control: 'text',
+      if: { arg: 'iconOnly', truthy: false },
       description: 'Текст кнопки',
       table: {
         category: 'Props',
@@ -83,6 +84,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     },
     iconPosition: {
       control: 'select',
+      if: { arg: 'iconOnly', truthy: false },
       options: ['left', 'right'],
       description: 'Позиция иконки относительно текста',
       table: {
