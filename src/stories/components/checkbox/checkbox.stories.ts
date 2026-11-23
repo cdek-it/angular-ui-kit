@@ -56,8 +56,6 @@ const meta: Meta<CheckboxArgs> = {
       description: {
         component: `Компонент флажка для выбора одного варианта (да/нет).
 
-Реализовано по спецификации [checkbox.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/checkbox.md).
-
 \`\`\`typescript
 import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
