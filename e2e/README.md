@@ -22,7 +22,8 @@ node e2e/storybook-runner.mjs inputtext -- --maxWorkers=2
 ```
 
 - Спеки: `e2e/specs/<component>.e2e.mjs`.
-- Отчёты: `e2e/reports/`, скриншоты падений: `e2e/artifacts/`.
+- Отчёты и снимки — вне репозитория: `~/.cache/angular-ui-kit/e2e/` (`reports/`, `artifacts/`, `baselines/`).
+- Переопределить место: `E2E_STORAGE_ROOT=/path node e2e/check.mjs <component>`.
 - Baseline создаётся первым прогоном; обновление — `UPDATE_STYLE_BASELINES=1`.
 - В `main` 52 спеки: `image` добавляется после мержа PR #200.
 - CI: `.github/workflows/component-tests.yml`.

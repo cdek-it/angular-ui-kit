@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { getViolations, injectAxe } from 'axe-playwright';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
@@ -34,9 +35,13 @@ type StyleSnapshot = Record<string, Record<string, string>>;
  * Корень baseline можно вынести наружу (например, для матричного прогона e2e),
  * чтобы не перезаписывать рабочие снимки и не ловить их дрейф.
  */
+const DEFAULT_STORAGE_ROOT = join(homedir(), '.cache', 'angular-ui-kit', 'e2e');
+const STORAGE_ROOT = process.env['E2E_STORAGE_ROOT']
+  ? resolve(process.cwd(), process.env['E2E_STORAGE_ROOT'])
+  : DEFAULT_STORAGE_ROOT;
 const BASELINE_ROOT = process.env['STORYBOOK_BASELINE_ROOT']
   ? resolve(process.cwd(), process.env['STORYBOOK_BASELINE_ROOT'])
-  : join(process.cwd(), '.storybook');
+  : join(STORAGE_ROOT, 'storybook');
 const BASELINE_DIR = join(BASELINE_ROOT, 'style-baselines');
 const UPDATE = process.env['UPDATE_STYLE_BASELINES'] === '1';
 

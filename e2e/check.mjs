@@ -11,11 +11,12 @@
  * Отчёт: e2e/reports/<component>-check.json. Exit code 1 — есть падения.
  */
 import { spawn, spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { log } from './lib/log.mjs';
+import { reportsDir, storybookBaselinesDir } from './lib/storage.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -60,7 +61,8 @@ const skipE2e = has('no-e2e');
 const noStart = has('no-start-storybook');
 const freshBaselines = has('fresh-baselines');
 
-const reportsDir = join(__dirname, 'reports');
+mkdirSync(reportsDir, { recursive: true });
+
 const builtinReport = join(reportsDir, `${component}-builtin-runner.json`);
 const e2eReport = join(reportsDir, `${spec}-e2e.json`);
 const checkReport = join(reportsDir, `${component}-check.json`);
@@ -150,7 +152,7 @@ const run = async () => {
 
     if (!skipBuiltin) {
       log('\n── Storybook test-runner ─────────────────────────');
-      const baselineRoot = freshBaselines ? mkdtempSync(join(tmpdir(), 'e2e-baselines-')) : join(__dirname, 'baselines');
+      const baselineRoot = freshBaselines ? mkdtempSync(join(tmpdir(), 'e2e-baselines-')) : storybookBaselinesDir;
       const runArgs = [
         join(__dirname, 'storybook-runner.mjs'),
         title,

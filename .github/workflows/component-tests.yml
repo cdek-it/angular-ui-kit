@@ -12,6 +12,8 @@ jobs:
   component-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      E2E_STORAGE_ROOT: ${{ runner.temp }}/e2e-storage
 
     steps:
       - uses: actions/checkout@v4
@@ -29,10 +31,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: |
-            .storybook/style-baselines
-            .storybook/a11y-baseline
-            .storybook/pixel-baselines
-            e2e/baselines
+            ${{ runner.temp }}/e2e-storage/baselines/storybook
           key: component-baselines-${{ runner.os }}-${{ github.ref_name }}
           restore-keys: |
             component-baselines-${{ runner.os }}-
@@ -57,6 +56,6 @@ jobs:
           name: component-tests
           if-no-files-found: ignore
           path: |
-            e2e/reports
-            e2e/artifacts
+            ${{ runner.temp }}/e2e-storage/reports
+            ${{ runner.temp }}/e2e-storage/artifacts
             /tmp/storybook.log

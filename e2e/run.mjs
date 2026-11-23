@@ -25,6 +25,7 @@ import { poll } from './lib/poll.mjs';
 import { DEFAULT_STORYBOOK_URL, normalizeBaseUrl, openStory, storyUrl } from './lib/storybook.mjs';
 import { focused } from './lib/dom.mjs';
 import { log } from './lib/log.mjs';
+import { artifactsDir as artifactsRoot, reportsDir } from './lib/storage.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -83,8 +84,7 @@ const slug = (value) =>
     .replace(/^-+|-+$/g, '')
     .slice(0, 80);
 
-const reportsDir = join(__dirname, 'reports');
-const artifactsDir = join(__dirname, 'artifacts', component);
+const artifactsDir = join(artifactsRoot, component);
 mkdirSync(reportsDir, { recursive: true });
 mkdirSync(artifactsDir, { recursive: true });
 

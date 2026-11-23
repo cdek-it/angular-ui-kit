@@ -12,6 +12,7 @@ import { spawnSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { log } from './lib/log.mjs';
+import { reportsDir as storageReportsDir, storybookBaselinesDir } from './lib/storage.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -29,7 +30,7 @@ if (!existsSync(registryPath)) {
   if (build.status !== 0) process.exit(build.status ?? 1);
 }
 const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
-const reportsDir = join(__dirname, 'reports/builtin');
+const reportsDir = join(storageReportsDir, 'builtin');
 mkdirSync(reportsDir, { recursive: true });
 
 let components = registry.components;
@@ -60,7 +61,7 @@ for (const item of components) {
       encoding: 'utf8',
       maxBuffer: 20 * 1024 * 1024,
       // Свежие baseline в отдельном каталоге: не трогаем рабочие снимки и их дрейф.
-      env: { ...process.env, STORYBOOK_BASELINE_ROOT: 'e2e/baselines' }
+      env: { ...process.env, STORYBOOK_BASELINE_ROOT: storybookBaselinesDir }
     }
   );
 
