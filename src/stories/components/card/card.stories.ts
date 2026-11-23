@@ -38,8 +38,6 @@ const meta: Meta<CardArgs> = {
       description: {
         component: `Гибкий контейнер для группировки контента с заголовком, подзаголовком, основным содержимым и действиями. Слоты \`header\`/\`footer\` — через директиву \`extraCardTemplate\`, \`content\` — обычный \`<ng-content>\`.
 
-Реализован по спецификации \`docs/components-api/card.md\`.
-
 \`\`\`typescript
 import { ExtraCardComponent, ExtraCardTemplateDirective } from '@cdek-it/angular-ui-kit';
 \`\`\``
