@@ -58,6 +58,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     labelPosition: {
       control: 'select',
       options: ['default', 'float', 'left'],
+      if: { arg: 'floatLabel', truthy: false },
       description: 'Положение лейбла',
       table: {
         category: 'Свойства',
