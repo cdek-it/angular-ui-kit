@@ -205,7 +205,16 @@ export const Disabled: Story = {
   args: { disabled: true },
   parameters: { docs: { description: { story: 'Заблокированное состояние — управляется через `FormControl`.' } } }
 };
-export const Readonly: Story = { name: 'Readonly', args: { readonly: true } };
+export const Readonly: Story = { name: 'Readonly', args: { readonly: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
+      }
+    }
+  }
+};
 export const SixDigits: Story = { name: 'SixDigits', args: { length: 6, value: '000000' } };
 export const Mask: Story = {
   name: 'Mask',
