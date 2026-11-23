@@ -508,6 +508,7 @@ const autoCompleteSource = (args: Partial<AutoCompleteArgs>): string => {
       const input = meta.argTypes?.[key as keyof AutoCompleteArgs];
       return (
         !['invalid', 'disabled', 'suggestions'].includes(key) &&
+        !(args.multiple && ['dropdown', 'dropdownMode'].includes(key)) &&
         !!input?.control &&
         value !== undefined &&
         value !== defaults[key as keyof AutoCompleteArgs]
@@ -527,7 +528,9 @@ const autoCompleteSource = (args: Partial<AutoCompleteArgs>): string => {
 const renderAutoComplete = (args: RenderArgs) => {
   const inputs = Object.keys(meta.argTypes ?? {}).filter(
     (key) =>
-      !['invalid', 'disabled', 'suggestions'].includes(key) && !!meta.argTypes?.[key as keyof AutoCompleteArgs]?.control
+      !['invalid', 'disabled', 'suggestions'].includes(key) &&
+      !(args.multiple && ['dropdown', 'dropdownMode'].includes(key)) &&
+      !!meta.argTypes?.[key as keyof AutoCompleteArgs]?.control
   );
   const bindings = inputs.map((key) => `[${key}]="${key}"`).join('\n  ');
   const field = `<extra-auto-complete
