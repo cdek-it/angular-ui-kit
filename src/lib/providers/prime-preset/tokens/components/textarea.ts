@@ -104,6 +104,11 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
   color: ${dt('textarea.root.color')};
 }
 
+/* Readonly не должен выглядеть редактируемым: hover-подсветка только у доступных полей. */
+.p-textarea:enabled:read-only:hover {
+  border-color: ${dt('textarea.root.borderColor')};
+}
+
 .p-textarea:disabled {
   background: ${dt('textarea.root.disabledBackground')};
   color: ${dt('textarea.root.disabledColor')};
