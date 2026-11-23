@@ -125,6 +125,7 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
     labelPosition: {
       control: 'select',
       options: ['top', 'left'] satisfies ExtraInputMaskLabelPosition[],
+      if: { arg: 'floatLabel', truthy: false },
       description: 'Положение лейбла'
     },
     floatLabel: { control: 'boolean', description: 'Плавающий лейбл внутри поля' },
