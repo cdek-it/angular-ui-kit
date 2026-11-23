@@ -30,8 +30,6 @@ const meta: Meta<StepperDefaultComponent> = {
       description: {
         component: `Мастер пошаговых действий (wizard): последовательность этапов с индикатором и панелью контента.
 
-Реализовано по спецификации [stepper.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/stepper.md).
-
 \`\`\`typescript
 import { ExtraStepperComponent, ExtraStepperItemComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
