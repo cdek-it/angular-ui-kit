@@ -26,8 +26,6 @@ const meta: Meta<TabsDefaultComponent> = {
       description: {
         component: `Организует контент по вкладкам с возможностью переключения между ними.
 
-Реализовано по спецификации [tabs.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/tabs.md).
-
 \`\`\`typescript
 import { ExtraTabsComponent, ExtraTabItemComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
