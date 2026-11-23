@@ -78,7 +78,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     labelPosition: {
       control: 'select',
       options: ['top', 'left'],
-      description: 'Положение лейбла',
+      description: 'Положение лейбла; игнорируется при floatLabel=true',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'top'" },
@@ -599,10 +599,11 @@ export const FloatLabel: Story = {
   args: { floatLabel: true, label: 'FloatLabel' },
   render: (args) => renderMultiSelect(args),
   parameters: {
+    controls: { exclude: ['labelPosition'] },
     docs: {
       description: {
         story:
-          'Положения лейбла (labelPosition): top — сверху (по умолчанию), left — слева от поля; floatLabel — плавающий лейбл внутри поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
+          'Плавающий лейбл внутри поля. labelPosition здесь не применяется: при floatLabel=true лейбл всегда внутри поля, поэтому контрол скрыт. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
       }
     }
   }
