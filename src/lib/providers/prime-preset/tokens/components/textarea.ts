@@ -86,9 +86,13 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 }
 
 .p-floatlabel-in:has(.p-textarea) label .extra-textarea-label-icon {
-  font-size: ${dt('fonts.fontSize.100')};
+  font-size: ${dt('dimension.size.400')};
   pointer-events: auto;
 }
+.p-floatlabel:has(:is(textarea:focus, textarea.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) label .extra-textarea-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 
 /* --- Sizes ---
    Межстрочный интервал по размерам (Figma: form.lineHeight в модах small / large / xlarge) */
