@@ -124,6 +124,9 @@ export class ExtraSelectOptionGroupDirective {}
 
     <ng-template #labelTpl>
       <label class="extra-select-label" [id]="inputId + '-label'" [for]="inputId">
+        @if (required) {
+          <span class="extra-select-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-select-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -277,7 +280,10 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
 
   /** aria для label-элемента и role заголовков групп. */
   get selectPt(): Record<string, unknown> {
-    const label: Record<string, unknown> = { 'aria-invalid': this.invalid ? 'true' : null };
+    const label: Record<string, unknown> = {
+      'aria-invalid': this.invalid ? 'true' : null,
+      'aria-required': this.required ? 'true' : null
+    };
     if (this.editable) {
       label['role'] = 'combobox';
       label['aria-haspopup'] = 'listbox';

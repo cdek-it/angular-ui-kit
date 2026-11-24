@@ -57,6 +57,10 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     cursor: pointer;
   }
 
+  .extra-select-required {
+    color: ${dt('color.fg.status.danger.default')};
+  }
+
   .extra-select-label-icon {
     color: ${dt('color.fg.subtle')};
     font-size: ${dt('select.extend.iconSize')};
