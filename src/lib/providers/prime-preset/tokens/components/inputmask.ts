@@ -76,9 +76,13 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 }
 
 .p-floatlabel-in:has(.p-inputmask) label .extra-inputmask-label-icon {
-  font-size: ${dt('fonts.fontSize.100')};
+  font-size: ${dt('dimension.size.400')};
   pointer-events: auto;
 }
+.p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) label .extra-inputmask-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 .p-floatlabel:has(> .p-inputmask .p-inputtext:focus) > label,
 .p-floatlabel:has(> .p-inputmask .p-inputtext.p-filled) > label {
   font-size: ${dt('floatlabel.root.active.fontSize')};
