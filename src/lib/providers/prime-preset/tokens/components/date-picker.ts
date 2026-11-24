@@ -198,7 +198,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 .extra-date-picker-body > .p-floatlabel > label {
   left: ${dt('datepicker.extend.extField.paddingX')};
-  color: ${dt('color.fg.muted')};
+  color: ${dt('floatlabel.color')};
   font-family: ${dt('fonts.fontFamily.base')};
 }
 
