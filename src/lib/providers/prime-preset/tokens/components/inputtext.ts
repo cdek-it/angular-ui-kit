@@ -27,7 +27,7 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   /* без flex-start поле растягивается на всю ширину обёртки и игнорирует [fluid]="false";
      при fluid ширина задана самим инпутом (width: 100%) и flex-start ей не мешает */
   align-items: flex-start;
-  gap: ${dt('dimension.space.100')};
+  gap: ${dt('dimension.space.50')};
 }
 
 /* Обёртки поля (clearable → p-iconfield, label-position="float" → p-floatlabel) собственной
