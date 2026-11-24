@@ -7,7 +7,7 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 .extra-inputnumber-body { display: flex; flex-direction: column; align-items: flex-start; gap: ${dt('dimension.space.100')}; min-width: 0; }
 .extra-inputnumber--fluid, .extra-inputnumber--fluid > .extra-inputnumber-body, .extra-inputnumber--fluid .p-floatlabel { width: 100%; }
 .extra-inputnumber--left > .extra-inputnumber-body { flex: 1 1 auto; }
-.extra-inputnumber-label { display: inline-flex; align-items: center; gap: ${dt('dimension.space.100')}; color: ${dt('color.fg.default')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; line-height: ${dt('fonts.lineHeight.200')}; cursor: pointer; }
+.extra-inputnumber-label { display: inline-flex; align-items: center; gap: ${dt('dimension.space.50')}; color: ${dt('color.fg.default')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; line-height: ${dt('fonts.lineHeight.200')}; cursor: pointer; }
 .extra-inputnumber-label-icon { font-size: ${dt('fonts.fontSize.200')}; line-height: 1; color: ${dt('color.fg.muted')}; cursor: help; }
 .extra-inputnumber-required { color: ${dt('color.fg.status.danger.default')}; font-size: ${dt('fonts.fontSize.100')}; }
 .p-inputnumber { width: ${dt('inputnumber.extend.field.width')}; }
