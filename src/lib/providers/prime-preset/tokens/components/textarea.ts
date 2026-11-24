@@ -48,7 +48,7 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 .extra-textarea-label {
   display: inline-flex;
   align-items: center;
-  gap: ${dt('dimension.space.100')};
+  gap: ${dt('dimension.space.50')};
   color: ${dt('color.fg.default')};
   font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.200')};
