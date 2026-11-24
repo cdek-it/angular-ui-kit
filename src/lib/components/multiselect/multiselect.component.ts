@@ -118,6 +118,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-multiselect-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-multiselect-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-multiselect-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -127,6 +130,7 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-multiSelect
+        [attr.aria-required]="required ? 'true' : null"
         [ngClass]="multiselectClasses"
         [ngModel]="modelValue"
         [disabled]="disabled"
@@ -201,7 +205,7 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   @Input() size: ExtraMultiSelectSize = 'base';
   @Input() readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input({ transform: booleanAttribute }) autofocus = false;

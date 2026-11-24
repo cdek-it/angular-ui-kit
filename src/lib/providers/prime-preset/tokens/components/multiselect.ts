@@ -44,6 +44,10 @@ export const multiselectCss = ({ dt }: { dt: (token: string) => string }): strin
   }
 
   /* ─── Label ─── */
+  .extra-multiselect-required {
+    color: ${dt('color.fg.status.danger.default')};
+  }
+
   .extra-multiselect-label {
     display: inline-flex;
     align-items: center;
