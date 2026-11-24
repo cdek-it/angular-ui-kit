@@ -86,7 +86,7 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 
 .p-floatlabel:has(.p-inputtext) label {
   font-family: ${dt('fonts.fontFamily.base')};
-  color: ${dt('color.fg.default')};
+  color: ${dt('color.fg.muted')};
 }
 
 .p-floatlabel-in:has(.p-inputtext) label .extra-inputtext-label-icon {
