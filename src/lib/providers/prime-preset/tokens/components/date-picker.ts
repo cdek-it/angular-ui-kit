@@ -197,6 +197,11 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
   padding-block-end: ${dt('floatlabel.in.input.paddingBottom')};
 }
 .extra-date-picker-body > .p-floatlabel > label {
+
+.extra-date-picker-body > .p-floatlabel > label .extra-date-picker-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+  pointer-events: auto;
+}
   left: ${dt('datepicker.extend.extField.paddingX')};
   color: ${dt('datepicker.extend.extField.placeholderColor')};
   font-family: ${dt('fonts.fontFamily.base')};

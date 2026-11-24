@@ -125,8 +125,8 @@ export type ExtraDatePickerIconDisplay = 'input' | 'button';
           <span class="extra-date-picker-required">*</span>
         }
         {{ label }}
-        @if (info && !floatLabel) {
-          <i class="ti ti-info-circle" [extra-tooltip]="info"></i>
+        @if (info) {
+          <i class="extra-date-picker-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
         }
       </label>
     </ng-template>
