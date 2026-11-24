@@ -189,7 +189,7 @@ import { ExtraPasswordComponent, ExtraPasswordHeaderDirective, ExtraPasswordFoot
     ariaLabelledBy: undefined,
     appendTo: 'body',
     autofocus: false,
-    required: false,
+    required: true,
     name: undefined,
     autocomplete: undefined,
     maxLength: undefined,

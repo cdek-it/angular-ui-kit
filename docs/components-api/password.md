@@ -29,7 +29,7 @@
 | `ariaLabelledBy`  | `string \| undefined`        | —                  | ID внешнего элемента, задающего доступное имя.                             |
 | `appendTo`        | `any`                        | `"body"`           | Место панели: body, self или HTMLElement.                                  |
 | `autofocus`       | `boolean`                    | `false`            | Фокус при монтировании включённого поля.                                   |
-| `required`        | `boolean`                    | `false`            | Validators.required и нативный required.                                   |
+| `required`        | `boolean`                    | `true`            | Validators.required и нативный required.                                   |
 | `name`            | `string \| undefined`        | —                  | Нативное имя input.                                                        |
 | `autocomplete`    | `string \| undefined`        | —                  | Нативная подсказка автозаполнения.                                         |
 | `maxLength`       | `number \| undefined`        | —                  | Нативное максимальное число символов.                                      |
