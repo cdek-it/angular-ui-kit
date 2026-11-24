@@ -239,7 +239,7 @@ export class ExtraPasswordComponent implements ControlValueAccessor, OnInit, OnC
   @Input() appendTo: any = 'body';
   @Input({ transform: booleanAttribute }) autofocus = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() maxLength: number | undefined = undefined;
