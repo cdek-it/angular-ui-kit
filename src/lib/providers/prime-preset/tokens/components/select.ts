@@ -187,6 +187,11 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     pointer-events: auto;
   }
 
+  .p-floatlabel-in:has(.p-select.p-inputwrapper-focus) label .extra-select-label-icon,
+  .p-floatlabel-in:has(.p-select.p-inputwrapper-filled) label .extra-select-label-icon {
+    font-size: ${dt('fonts.fontSize.100')};
+  }
+
   .p-floatlabel-in .p-select.p-component .p-select-label {
     display: flex;
     flex-direction: column;
