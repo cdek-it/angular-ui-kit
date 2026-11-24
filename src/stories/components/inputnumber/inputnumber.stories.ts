@@ -418,7 +418,7 @@ import { ExtraInputNumberComponent } from '@cdek-it/angular-ui-kit';
       clearable: false,
       caption: '',
       captionSeverity: 'base',
-      required: false,
+      required: true,
       name: undefined,
       autocomplete: undefined,
       incrementButtonIcon: undefined,
