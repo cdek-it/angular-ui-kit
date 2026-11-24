@@ -89,6 +89,11 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   color: ${dt('color.fg.default')};
 }
 
+.p-floatlabel-in:has(.p-inputtext) label .extra-inputtext-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+  pointer-events: auto;
+}
+
 /* ─── Disabled ─── */
 .p-inputtext:disabled {
   background: ${dt('inputtext.root.disabledBackground')};
