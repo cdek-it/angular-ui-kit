@@ -293,7 +293,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   }
 
   get invalid(): boolean {
-    return !!(this._ngControl?.invalid && this._ngControl?.touched);
+    return !this.overlayOpen && !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   get primeSize(): 'small' | 'large' | undefined {
