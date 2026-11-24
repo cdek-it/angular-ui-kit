@@ -211,12 +211,12 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-select-option:has(.p-select-option-check-icon, .p-select-option-blank-icon) {
-    padding-inline-start: calc(${dt('dimension.size.1300')} - ${dt('dimension.borderWidth.100')});
+    padding-inline-start: calc(${dt('dimension.size.750')} + ${dt('dimension.borderWidth.100')});
   }
 
   .p-select-option[aria-selected='true']:has(.p-select-option-check-icon)::before {
     position: absolute;
-    inset-inline-start: calc(${dt('dimension.size.450')} - ${dt('dimension.borderWidth.100')});
+    inset-inline-start: calc(${dt('dimension.size.150')} + ${dt('dimension.borderWidth.100')});
     top: 50%;
     transform: translateY(-50%);
     font-family: 'tabler-icons';
