@@ -164,8 +164,8 @@ let nextInputId = 0;
         (onChange)="handleChange($event)"
         (onClear)="handleClear()"
         (onFilter)="onFilter.emit($event)"
-        (onPanelShow)="onShow.emit($event)"
-        (onPanelHide)="onHide.emit($event)"
+        (onPanelShow)="overlayOpen = true; onShow.emit($event)"
+        (onPanelHide)="overlayOpen = false; onHide.emit($event)"
         (onRemove)="handleRemove($event)"
         (onFocus)="handleFocus($event)"
         (onBlur)="handleBlur($event)"
@@ -246,8 +246,10 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
+  overlayOpen = false;
+
   get invalid(): boolean {
-    return !!(this._ngControl?.invalid && this._ngControl?.touched);
+    return !this.overlayOpen && !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   get primeSize(): 'small' | 'large' | undefined {
