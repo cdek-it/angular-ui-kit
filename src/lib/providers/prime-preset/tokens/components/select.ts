@@ -173,7 +173,7 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
     font-family: ${dt('fonts.fontFamily.base')};
     font-weight: ${dt('fonts.fontWeight.regular')};
     line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('color.fg.muted')};
+    color: ${dt('floatlabel.color')};
   }
 
   .p-floatlabel-in:has(.p-select.p-inputwrapper-focus) label,
