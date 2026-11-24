@@ -282,7 +282,7 @@ import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
     autoResize: false,
     rows: 3,
     autofocus: false,
-    required: false,
+    required: true,
     name: undefined,
     autocomplete: undefined,
     maxLength: undefined,

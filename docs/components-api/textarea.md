@@ -21,7 +21,7 @@
 | `cols`            | ширина поля в символах                                                                  | `number`                           | —            |
 | `autofocus`       | автофокус при монтировании компонента                                                   | `boolean`                          | `false`      |
 | `readonly`        | только для чтения                                                                       | `boolean`                          | `false`      |
-| `required`        | поле обязательно для заполнения                                                         | `boolean`                          | `false`      |
+| `required`        | поле обязательно для заполнения                                                         | `boolean`                          | `true`      |
 | `name`            | имя поля (нативный атрибут `name`); используется браузером для автозаполнения           | `string`                           | —            |
 | `autocomplete`    | значение нативного атрибута `autocomplete`                                              | `string`                           | —            |
 | `maxLength`       | максимальное количество символов                                                        | `number`                           | —            |
