@@ -352,7 +352,7 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   @Input() caption = '';
   @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input({ transform: booleanAttribute }) fluid = false;
   @Input() inputId = `extra-date-picker-${this.instanceId}`;
   @Input() name: string | undefined = undefined;
