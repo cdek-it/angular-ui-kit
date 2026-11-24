@@ -24,7 +24,7 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 .extra-date-picker-label {
   display: inline-flex;
   align-items: center;
-  gap: ${dt('dimension.space.100')};
+  gap: ${dt('dimension.space.50')};
   font-size: ${dt('fonts.fontSize.200')};
   line-height: ${dt('fonts.lineHeight.200')};
   color: ${dt('color.fg.default')};
