@@ -103,7 +103,7 @@ let nextInputId = 0;
           <span class="extra-textarea-required" aria-hidden="true">*</span>
         }
         {{ label }}
-        @if (info && labelPosition !== 'float') {
+        @if (info) {
           <i class="extra-textarea-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
         }
       </label>
