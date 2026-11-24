@@ -90,7 +90,11 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 .extra-inputnumber .p-floatlabel .p-inputnumber-input { height: ${dt('dimension.size.1300')}; padding-block: ${dt('floatlabel.in.input.paddingTop')} ${dt('floatlabel.in.input.paddingBottom')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; }
 .extra-inputnumber .p-floatlabel > .extra-inputnumber-label { position: absolute; inset-inline-start: calc(${dt('inputnumber.extend.field.paddingX')} + ${dt('inputnumber.extend.borderWidth')}); top: ${dt('dimension.space.350')}; transform: none; margin: 0; font-size: ${dt('fonts.fontSize.100')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('floatlabel.color')}; gap: ${dt('dimension.space.50')}; pointer-events: none; }
 .extra-inputnumber .p-floatlabel > .extra-inputnumber-label .extra-inputnumber-required { font-size: inherit; }
-.extra-inputnumber .p-floatlabel > .extra-inputnumber-label .extra-inputnumber-label-icon { font-size: ${dt('fonts.fontSize.100')}; pointer-events: auto; }
+.extra-inputnumber .p-floatlabel > .extra-inputnumber-label .extra-inputnumber-label-icon { font-size: ${dt('fonts.fontSize.200')}; pointer-events: auto; }
+.extra-inputnumber .p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) > .extra-inputnumber-label .extra-inputnumber-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 .extra-inputnumber .p-floatlabel:has(input:not(.p-filled)) > .extra-inputnumber-label { top: ${dt('dimension.size.450')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.400')}; }
 .extra-inputnumber .p-floatlabel:has(input:not(.p-filled)) input::placeholder { color: transparent; }
 .extra-inputnumber .p-floatlabel:has(.p-invalid) > .extra-inputnumber-label { color: ${dt('color.fg.status.danger.hover')}; }
