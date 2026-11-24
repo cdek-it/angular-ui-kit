@@ -38,8 +38,6 @@ const meta: Meta<MultiSelectArgs> = {
       description: {
         component: `Выпадающий список для выбора нескольких значений из набора опций. Поддерживает чекбоксы у опций, отображение выбранных значений как chips, группировку и фильтрацию.
 
-Реализован по спецификации \`docs/components-api/multiselect.md\`.
-
 \`\`\`typescript
 import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
