@@ -5,7 +5,7 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
 .extra-password-body { display: flex; flex-direction: column; align-items: flex-start; gap: ${dt('dimension.space.100')}; min-width: 0; }
 .extra-password--fluid > .extra-password-body { flex: 1 1 auto; width: 100%; }
 .extra-password--fluid .p-floatlabel { width: 100%; }
-.extra-password-label { display: inline-flex; align-items: center; gap: ${dt('dimension.space.100')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('password.extend.field.color')}; cursor: pointer; }
+.extra-password-label { display: inline-flex; align-items: center; gap: ${dt('dimension.space.50')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('password.extend.field.color')}; cursor: pointer; }
 .extra-password-required { font-size: ${dt('fonts.fontSize.100')}; line-height: ${dt('fonts.lineHeight.200')}; color: ${dt('color.fg.status.danger.default')}; }
 .extra-password-label-icon { font-size: ${dt('dimension.size.400')}; color: ${dt('color.fg.muted')}; }
 .p-password.extra-password-field { width: ${dt('password.extend.field.width')}; max-width: 100%; border-radius: ${dt('password.extend.field.borderRadius')}; box-shadow: none; }
