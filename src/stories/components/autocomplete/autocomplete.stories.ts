@@ -453,7 +453,7 @@ import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
     size: 'base',
     readonly: false,
     fluid: false,
-    required: false,
+    required: true,
     group: false,
     suggestions: [],
     optionLabel: undefined,
