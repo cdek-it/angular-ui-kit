@@ -90,9 +90,13 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
 }
 
 .p-floatlabel-in:has(.p-inputtext) label .extra-inputtext-label-icon {
-  font-size: ${dt('fonts.fontSize.100')};
+  font-size: ${dt('dimension.size.400')};
   pointer-events: auto;
 }
+.p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) label .extra-inputtext-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 
 /* ─── Disabled ─── */
 .p-inputtext:disabled {
