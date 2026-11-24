@@ -22,7 +22,7 @@ Single-select: выбор одного значения из списка. У о
 | `showFilter`         | показывает строку поиска в выпадающем списке                                    | `boolean`                                            | `false`                               |
 | `editable`           | разрешает ручной ввод произвольного значения в поле                             | `boolean`                                            | `false`                               |
 | `readonly`           | только для чтения                                                               | `boolean`                                            | `false`                               |
-| `required`           | поле обязательно для заполнения                                                 | `boolean`                                            | `false`                               |
+| `required`           | поле обязательно для заполнения                                                 | `boolean`                                            | `true`                                |
 | `loading`            | состояние загрузки опций                                                        | `boolean`                                            | `false`                               |
 | `caption`            | текст пояснения под полем                                                       | `string`                                             | `''`                                  |
 | `captionSeverity`    | вариант подписи (цвет и иконка): `base`, `success`, `warning`, `danger`, `info` | `ExtraCaptionSeverity`                               | `base`                                |

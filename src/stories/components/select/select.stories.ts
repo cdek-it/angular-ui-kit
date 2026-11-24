@@ -399,7 +399,7 @@ import { ExtraSelectOptionDirective, ExtraSelectSelectedItemDirective, ExtraSele
     readonly: false,
     loading: false,
     fluid: false,
-    required: false,
+    required: true,
     group: false,
     options: OPTIONS,
     optionLabel: 'name',

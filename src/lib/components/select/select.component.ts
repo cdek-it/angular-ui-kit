@@ -234,7 +234,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   @Input({ transform: booleanAttribute }) editable = false;
   @Input({ transform: booleanAttribute }) readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input({ transform: booleanAttribute }) autofocus = false;
