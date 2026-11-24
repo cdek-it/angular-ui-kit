@@ -68,6 +68,7 @@ export const multiselectCss = ({ dt }: { dt: (token: string) => string }): strin
 
   .extra-multiselect-body > .p-floatlabel > .extra-multiselect-label {
     cursor: pointer;
+    color: ${dt('color.fg.muted')};
   }
 
   /* ─── Поле ─── */
