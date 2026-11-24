@@ -152,7 +152,7 @@ const DEFAULTS: Record<string, unknown> = {
   caption: '',
   captionSeverity: 'base',
   info: '',
-  required: false,
+  required: true,
   fluid: false,
   autocomplete: 'off',
   autofocus: false
