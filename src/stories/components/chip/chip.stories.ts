@@ -30,8 +30,6 @@ const meta: Meta<ChipArgs> = {
       description: {
         component: `Чип — небольшой интерактивный элемент с текстом, иконкой и опциональной кнопкой удаления.
 
-Реализован по спецификации \`docs/components-api/chip.md\`.
-
 \`\`\`typescript
 import { ExtraChipComponent } from '@cdek-it/angular-ui-kit/components/chip';
 \`\`\``
