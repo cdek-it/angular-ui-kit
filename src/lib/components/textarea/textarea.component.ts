@@ -99,7 +99,7 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-textarea-label" [for]="inputId">
-        @if (requiredMark) {
+        @if (required || requiredMark) {
           <span class="extra-textarea-required" aria-hidden="true">*</span>
         }
         {{ label }}
@@ -136,6 +136,7 @@ let nextInputId = 0;
             [attr.aria-invalid]="invalid ? 'true' : null"
             [attr.tabindex]="tabindex ?? null"
             [attr.required]="required || null"
+            [attr.aria-required]="required ? 'true' : null"
             [value]="modelValue"
             (input)="onInput($event)"
             (blur)="onTouched()"
@@ -218,7 +219,7 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnC
   @Input() cols?: number;
   @Input({ transform: booleanAttribute }) autofocus = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() maxLength: number | undefined = undefined;
