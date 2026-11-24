@@ -65,7 +65,11 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
 .extra-password .p-floatlabel .p-password-input { height: ${dt('dimension.size.1300')}; padding-block: ${dt('floatlabel.in.input.paddingTop')} ${dt('floatlabel.in.input.paddingBottom')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; }
 .extra-password .p-floatlabel > .extra-password-label { position: absolute; inset-inline-start: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.borderWidth')}); top: ${dt('dimension.space.350')}; transform: none; margin: 0; font-family: ${dt('fonts.fontFamily.heading')}; font-size: ${dt('fonts.fontSize.100')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('floatlabel.color')}; gap: ${dt('dimension.space.50')}; pointer-events: none; }
 .extra-password .p-floatlabel .extra-password-required { font-size: inherit; }
-.extra-password .p-floatlabel .extra-password-label-icon { font-size: ${dt('fonts.fontSize.100')}; pointer-events: auto; }
+.extra-password .p-floatlabel .extra-password-label-icon { font-size: ${dt('dimension.size.400')}; pointer-events: auto; }
+.extra-password .p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) .extra-password-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 .extra-password .p-floatlabel:has(input:not(.p-filled)) > .extra-password-label { top: ${dt('dimension.size.450')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.400')}; }
 .extra-password .p-floatlabel:has(input:not(.p-filled)) input::placeholder { color: transparent; }
 .extra-password .p-floatlabel:has(.p-invalid) > .extra-password-label { color: ${dt('color.fg.status.danger.hover')}; }
