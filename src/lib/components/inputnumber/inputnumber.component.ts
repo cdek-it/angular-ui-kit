@@ -224,7 +224,7 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   @Input() incrementButtonIcon: string | undefined;
   @Input() decrementButtonIcon: string | undefined;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
