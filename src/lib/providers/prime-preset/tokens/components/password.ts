@@ -7,15 +7,15 @@ export const passwordCss = ({ dt }: { dt: (token: string) => string }): string =
 .extra-password--fluid .p-floatlabel { width: 100%; }
 .extra-password-label { display: inline-flex; align-items: center; gap: ${dt('dimension.space.100')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('password.extend.field.color')}; cursor: pointer; }
 .extra-password-required { font-size: ${dt('fonts.fontSize.100')}; line-height: ${dt('fonts.lineHeight.200')}; color: ${dt('color.fg.status.danger.default')}; }
-.extra-password-label-icon { font-size: ${dt('dimension.size.400')}; color: ${dt('floatlabel.color')}; }
+.extra-password-label-icon { font-size: ${dt('dimension.size.400')}; color: ${dt('color.fg.muted')}; }
 .p-password.extra-password-field { width: ${dt('password.extend.field.width')}; max-width: 100%; border-radius: ${dt('password.extend.field.borderRadius')}; box-shadow: none; }
 .p-password.extra-password-field.p-password-fluid { width: 100%; }
 .p-password.extra-password-field .p-password-input { box-sizing: border-box; width: 100%; min-width: 0; border: ${dt('password.extend.borderWidth')} solid ${dt('password.extend.field.borderColor')}; border-radius: ${dt('password.extend.field.borderRadius')}; outline: none; box-shadow: none; padding-inline: ${dt('password.extend.field.paddingX')}; font-family: ${dt('fonts.fontFamily.base')}; font-weight: ${dt('fonts.fontWeight.regular')}; background: ${dt('password.extend.field.background')}; color: ${dt('password.extend.field.color')}; }
-.p-password.extra-password-field .p-password-input::placeholder { color: ${dt('floatlabel.color')}; }
+.p-password.extra-password-field .p-password-input::placeholder { color: ${dt('color.fg.muted')}; }
 .p-password.extra-password-field .p-password-input:enabled:hover, .p-password.extra-password-field .p-password-input:enabled:focus { border-color: ${dt('password.extend.field.hoverBorderColor')}; }
 .p-password.extra-password-field .p-password-input:enabled:focus { box-shadow: 0 0 0 ${dt('password.extend.field.focusRingWidth')} ${dt('password.extend.field.focusRingColor')}; }
 .p-password.extra-password-field .p-password-input.p-invalid, .p-password.extra-password-field .p-password-input.p-invalid:enabled:hover, .p-password.extra-password-field .p-password-input.p-invalid:enabled:focus { border-color: ${dt('password.extend.field.invalidBorderColor')}; box-shadow: 0 0 0 ${dt('password.extend.field.focusRingWidth')} ${dt('password.extend.field.invalidFocusRingColor')}; }
-.p-password.extra-password-field .p-password-input:disabled { opacity: 1; background: ${dt('password.extend.field.disabledBackground')}; color: ${dt('floatlabel.color')}; }
+.p-password.extra-password-field .p-password-input:disabled { opacity: 1; background: ${dt('password.extend.field.disabledBackground')}; color: ${dt('color.fg.muted')}; }
 .p-password.extra-password-field .p-password-input:enabled:read-only { background: ${dt('password.extend.field.readonlyBackground')}; }
 .p-password.extra-password-field .p-password-toggle-mask-icon, .p-password.extra-password-field .p-password-clear-icon { display: flex; align-items: center; justify-content: center; top: 50%; transform: translateY(-50%); margin: 0; color: ${dt('password.icon.color')}; inset-inline-end: ${dt('password.extend.field.paddingX')}; }
 .extra-password-mask-toggle, .extra-password-clear { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
