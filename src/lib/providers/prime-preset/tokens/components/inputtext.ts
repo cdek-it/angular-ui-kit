@@ -181,24 +181,24 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
    Поле выше обычного (min-height 56) и с радиусом 14; контент центрируется внутри min-height,
    поэтому поднятый лейбл стоит на 2px выше значения floatlabel.in.active.top, а текст ввода — на 2px
    выше paddingTop (Figma: лейбл y=12, ввод y=26 при paddingTop 10 и контенте 28 в поле 56). */
-.p-floatlabel:has(> .p-inputtext) > .p-inputtext {
+.p-floatlabel:has(.p-inputtext) .p-inputtext {
   height: ${dt('inputtext.extend.extXlg.height')};
   border-radius: ${dt('dimension.borderRadius.400')};
 }
 /* В покое лейбл остаётся «лейблом» и при заданном placeholder (Figma: has-placeholder=true);
    PrimeNG в этом случае поднимает его правилом :has(input[placeholder]), поэтому селектор усилен :not() */
-.p-floatlabel:has(> .p-inputtext:not(:focus):not(.p-filled):not(:-webkit-autofill)) > label {
+.p-floatlabel:has(.p-inputtext:not(:focus):not(.p-filled):not(:-webkit-autofill)) > label {
   top: 50%;
   margin-top: calc(${dt('fonts.lineHeight.400')} / -2);
   font-size: ${dt('fonts.fontSize.200')};
   line-height: ${dt('fonts.lineHeight.400')};
 }
-.p-floatlabel:has(> .p-inputtext:not(:focus)) > .p-inputtext::placeholder {
+.p-floatlabel:has(.p-inputtext:not(:focus)) .p-inputtext::placeholder {
   color: transparent;
 }
-.p-floatlabel:has(> .p-inputtext:focus) > label,
-.p-floatlabel:has(> .p-inputtext.p-filled) > label,
-.p-floatlabel:has(> .p-inputtext:-webkit-autofill) > label {
+.p-floatlabel:has(.p-inputtext:focus) > label,
+.p-floatlabel:has(.p-inputtext.p-filled) > label,
+.p-floatlabel:has(.p-inputtext:-webkit-autofill) > label {
   font-size: ${dt('floatlabel.root.active.fontSize')};
   line-height: ${dt('fonts.lineHeight.150')};
 }
