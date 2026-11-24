@@ -18,7 +18,7 @@
 | `fluid`           | растягивает поле на всю ширину контейнера                                       | `boolean`                          | `false`      |
 | `type`            | тип поля input                                                                  | `text \| password`                 | `text`       |
 | `readonly`        | только для чтения                                                               | `boolean`                          | `false`      |
-| `required`        | поле обязательно для заполнения                                                 | `boolean`                          | `false`      |
+| `required`        | поле обязательно для заполнения                                                 | `boolean`                          | `true`      |
 | `name`            | имя поля (нативный атрибут `name`); используется браузером для автозаполнения   | `string`                           | —            |
 | `autocomplete`    | значение нативного атрибута `autocomplete`                                      | `string`                           | —            |
 | `maxLength`       | максимальное количество символов                                                | `number`                           | —            |

@@ -247,7 +247,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
     size: 'base',
     fluid: false,
     type: 'text',
-    required: false,
+    required: true,
     name: undefined,
     autocomplete: undefined,
     maxLength: undefined,
