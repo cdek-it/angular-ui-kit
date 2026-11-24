@@ -66,6 +66,7 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
 /* Внутри p-floatlabel лейбл лежит поверх поля — курсор как у ввода */
 .extra-textarea-body > .p-floatlabel > .extra-textarea-label {
   cursor: text;
+  color: ${dt('color.fg.muted')};
 }
 
 /* --- Base --- */
