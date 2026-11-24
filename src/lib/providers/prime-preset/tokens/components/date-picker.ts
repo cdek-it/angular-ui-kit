@@ -203,9 +203,14 @@ export const datePickerCss = ({ dt }: { dt: (token: string) => string }): string
 }
 
 .extra-date-picker-body > .p-floatlabel > label .extra-date-picker-label-icon {
-  font-size: ${dt('fonts.fontSize.100')};
+  font-size: ${dt('dimension.size.450')};
+  line-height: 1;
   pointer-events: auto;
 }
+.extra-date-picker-body > .p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) > label .extra-date-picker-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 .extra-date-picker-body > .p-floatlabel:has(input:not(:focus):not(.p-filled):not(:-webkit-autofill)):not(:has(.p-inputwrapper-filled)) > label {
   top: 50%;
   font-size: ${dt('fonts.fontSize.200')};
