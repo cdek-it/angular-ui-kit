@@ -29,7 +29,7 @@
 | `info`                | текст с доп. информацией (показывается в тултипе иконки ti-info-circle)         | `string`                                                       | `''`                      |
 | `size`                | размер поля                                                                     | `small \| base \| large \| xlarge`                             | `base`                    |
 | `readonly`            | только для чтения                                                               | `boolean`                                                      | `false`                   |
-| `required`            | поле обязательно для заполнения                                                 | `boolean`                                                      | `false`                   |
+| `required`            | поле обязательно для заполнения                                                 | `boolean`                                                      | `true`                   |
 | `loading`             | состояние загрузки опций                                                        | `boolean`                                                      | `false`                   |
 | `fluid`               | растягивает поле на всю ширину контейнера                                       | `boolean`                                                      | `false`                   |
 | `appendTo`            | контейнер для отрисовки выпадающей панели                                       | `any`                                                          | `'body'`                  |

@@ -430,7 +430,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
     readonly: false,
     loading: false,
     fluid: false,
-    required: false,
+    required: true,
     group: false,
     options: OPTIONS,
     optionLabel: 'name',
