@@ -21,8 +21,6 @@ const meta: Meta<TagArgs> = {
       description: {
         component: `Маркер для элементов интерфейса.
 
-Реализован по спецификации \`docs/components-api/tag.md\`.
-
 \`\`\`typescript
 import { ExtraTagComponent } from '@cdek-it/angular-ui-kit';
 \`\`\``
