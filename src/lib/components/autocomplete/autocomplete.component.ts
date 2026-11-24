@@ -176,8 +176,8 @@ let nextInputId = 0;
         (onSelect)="onSelect.emit($event)"
         (onUnselect)="onUnselect.emit($event)"
         (onDropdownClick)="onDropdownClick.emit($event)"
-        (onShow)="onShow.emit($event)"
-        (onHide)="onHide.emit($event)"
+        (onShow)="overlayOpen = true; onShow.emit($event)"
+        (onHide)="overlayOpen = false; onHide.emit($event)"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="handleBlur($event)"
         (onClear)="handleClear()"
@@ -277,8 +277,10 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
 
   disabled = false;
 
+  overlayOpen = false;
+
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !this.overlayOpen && !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   @Output() completeMethod = new EventEmitter<ExtraAutoCompleteCompleteEvent>();
