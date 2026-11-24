@@ -34,7 +34,7 @@ export const textareaCss = ({ dt }: { dt: (token: string) => string }): string =
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${dt('dimension.space.100')};
+  gap: ${dt('dimension.space.50')};
 }
 
 /* Обёртки поля (clearable → p-iconfield, labelPosition="float" → p-floatlabel) собственной ширины не имеют,
