@@ -89,6 +89,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-inputmask-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-inputmask-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-inputmask-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -98,6 +101,7 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-inputmask
+        [attr.aria-required]="required ? 'true' : null"
         [inputId]="inputId"
         [styleClass]="fieldClass"
         [size]="primeSize"
@@ -160,7 +164,7 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, On
   @Input({ transform: booleanAttribute }) keepBuffer = false;
   @Input() autocomplete = '';
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
