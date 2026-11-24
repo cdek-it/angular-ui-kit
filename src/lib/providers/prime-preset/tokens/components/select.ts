@@ -182,7 +182,8 @@ export const selectCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   .p-floatlabel-in:has(.p-select.p-component) label .extra-select-label-icon {
-    font-size: ${dt('fonts.fontSize.100')};
+    font-size: ${dt('select.extend.iconSize')};
+    line-height: 1;
     pointer-events: auto;
   }
 
