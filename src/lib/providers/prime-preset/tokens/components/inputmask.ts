@@ -84,7 +84,7 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 /* Внутри p-floatlabel лейбл лежит поверх поля — курсор должен быть как у ввода */
 .extra-inputmask-body > .p-floatlabel > .extra-inputmask-label {
   cursor: text;
-  color: ${dt('color.fg.muted')};
+  color: ${dt('floatlabel.color')};
 }
 
 /* ─── Clear icon ───
