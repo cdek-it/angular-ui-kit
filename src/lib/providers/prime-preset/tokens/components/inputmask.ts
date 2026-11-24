@@ -29,7 +29,7 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
      при fluid ширину задаёт сам p-inputmask (:has(.p-inputtext-fluid) → width: 100%),
      и flex-start ей не мешает */
   align-items: flex-start;
-  gap: ${dt('dimension.space.100')};
+  gap: ${dt('dimension.space.50')};
 }
 
 /* В режиме left body забирает остаток строки — иначе [fluid] некуда растягиваться */
