@@ -18,6 +18,10 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 
 /* Лейбл слева выравниваем по высоте поля, а не по центру всего body с caption */
 .extra-inputmask--left > .extra-inputmask-required { color: ${dt('color.fg.status.danger.default')}; }
+.p-inputmask .p-inputtext::placeholder {
+  color: ${dt('color.fg.muted')};
+}
+
 .extra-inputmask-label {
   padding-block: calc(${dt('inputtext.root.paddingY')} + ${dt('inputtext.extend.borderWidth')});
 }
