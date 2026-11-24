@@ -278,7 +278,8 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
   }
 
   .p-floatlabel-in:has(.p-autocomplete.p-component) label .extra-autocomplete-label-icon {
-    display: none;
+    font-size: ${dt('fonts.fontSize.100')};
+    pointer-events: auto;
   }
 
   .p-floatlabel-in .p-autocomplete.p-component {
