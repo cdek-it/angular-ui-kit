@@ -342,9 +342,11 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   @Input({ transform: booleanAttribute }) set invalid(value: boolean) {
     this.explicitInvalid = value;
   }
+  overlayOpen = false;
+
   get invalid(): boolean {
     const control = this.injector.get(NgControl, null, { self: true, optional: true });
-    return this.explicitInvalid || !!(control?.invalid && (control.touched || control.dirty));
+    return !this.overlayOpen && (this.explicitInvalid || !!(control?.invalid && (control.touched || control.dirty)));
   }
   @Input() label = '';
   @Input() labelPosition: 'top' | 'left' = 'top';
@@ -633,6 +635,7 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   private rangeStart: Date | null = null;
 
   onPanelShow(): void {
+    this.overlayOpen = true;
     if (this.disabled) {
       this.dpRef.hideOverlay();
       return;
@@ -647,6 +650,7 @@ export class ExtraDatePickerComponent implements ControlValueAccessor, AfterView
   }
 
   onPanelClose(): void {
+    this.overlayOpen = false;
     this.onHide.emit();
     this.detachSelectOverlayGuard();
     this.detachRangePreview();
