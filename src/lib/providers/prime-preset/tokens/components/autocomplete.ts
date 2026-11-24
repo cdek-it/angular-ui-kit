@@ -269,7 +269,7 @@ export const autocompleteCss = ({ dt }: { dt: (token: string) => string }): stri
     font-size: ${dt('fonts.fontSize.300')};
     font-weight: ${dt('fonts.fontWeight.regular')};
     line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('color.fg.muted')};
+    color: ${dt('floatlabel.color')};
   }
 
   .p-floatlabel-in:has(.p-autocomplete:is(.p-inputwrapper-focus, .p-inputwrapper-filled)) label {
