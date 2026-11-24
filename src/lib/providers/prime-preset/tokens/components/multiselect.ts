@@ -169,9 +169,13 @@ export const multiselectCss = ({ dt }: { dt: (token: string) => string }): strin
   }
 
   .p-floatlabel-in:has(.p-multiselect.p-component) label .extra-multiselect-label-icon {
-    font-size: ${dt('fonts.fontSize.100')};
+    font-size: ${dt('multiselect.extend.iconSize')};
     pointer-events: auto;
   }
+  .p-floatlabel:has(:is(.p-inputwrapper-focus, .p-inputwrapper-filled)) label .extra-multiselect-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
 
   .p-floatlabel-in .p-multiselect.p-component .p-multiselect-label {
     font-family: ${dt('fonts.fontFamily.base')};
