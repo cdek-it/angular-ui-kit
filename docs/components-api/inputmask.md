@@ -20,7 +20,7 @@
 | `info`             | текст с доп. информацией (показывается в тултипе иконки ti-info-circle)         | `string`                           | `''`         |
 | `size`             | размер поля                                                                     | `small \| base \| large \| xlarge` | `base`       |
 | `readonly`         | только для чтения                                                               | `boolean`                          | `false`      |
-| `required`         | поле обязательно для заполнения                                                 | `boolean`                          | `false`      |
+| `required`         | поле обязательно для заполнения                                                 | `boolean`                          | `true`      |
 | `fluid`            | растягивает поле на всю ширину контейнера                                       | `boolean`                          | `false`      |
 | `characterPattern` | RegExp-шаблон для буквенных позиций маски (`a`)                                 | `string`                           | `'[A-Za-z]'` |
 | `keepBuffer`       | сохранять буфер маски при удалении символов                                     | `boolean`                          | `false`      |

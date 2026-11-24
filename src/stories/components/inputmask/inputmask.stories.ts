@@ -179,7 +179,7 @@ import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
     fluid: false,
     readonly: false,
     autocomplete: 'off',
-    required: false,
+    required: true,
     name: undefined,
     ariaLabel: undefined,
     ariaLabelledBy: undefined,
