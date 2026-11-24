@@ -25,7 +25,7 @@ export const multiselectCss = ({ dt }: { dt: (token: string) => string }): strin
     flex-direction: column;
     /* без flex-start поле растягивается на всю ширину обёртки и игнорирует [fluid]="false" */
     align-items: flex-start;
-    gap: ${dt('dimension.space.100')};
+    gap: ${dt('dimension.space.50')};
     min-width: 0;
   }
 
