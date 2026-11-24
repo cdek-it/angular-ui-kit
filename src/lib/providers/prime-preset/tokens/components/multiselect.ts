@@ -164,7 +164,8 @@ export const multiselectCss = ({ dt }: { dt: (token: string) => string }): strin
   }
 
   .p-floatlabel-in:has(.p-multiselect.p-component) label .extra-multiselect-label-icon {
-    display: none;
+    font-size: ${dt('fonts.fontSize.100')};
+    pointer-events: auto;
   }
 
   .p-floatlabel-in .p-multiselect.p-component .p-multiselect-label {
