@@ -106,8 +106,6 @@ const meta: Meta<SelectArgs> = {
       description: {
         component: `Single-select — выпадающий список для выбора одного значения из набора опций.
 
-Реализован по спецификации [select.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/select.md).
-
 \`\`\`typescript
 import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
