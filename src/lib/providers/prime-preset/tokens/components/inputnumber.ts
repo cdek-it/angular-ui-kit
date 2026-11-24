@@ -12,7 +12,7 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 .extra-inputnumber-required { color: ${dt('color.fg.status.danger.default')}; font-size: ${dt('fonts.fontSize.100')}; }
 .p-inputnumber { width: ${dt('inputnumber.extend.field.width')}; }
 .p-inputnumber .p-inputnumber-input { width: 100%; min-width: 0; font-family: ${dt('fonts.fontFamily.base')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('inputnumber.extend.field.color')}; background: ${dt('inputnumber.extend.field.background')}; border: ${dt('inputnumber.extend.borderWidth')} solid ${dt('inputnumber.extend.field.borderColor')}; border-radius: ${dt('inputnumber.extend.field.borderRadius')}; padding-inline: ${dt('inputnumber.extend.field.paddingX')}; }
-.p-inputnumber .p-inputnumber-input::placeholder { color: ${dt('floatlabel.color')}; opacity: 1; }
+.p-inputnumber .p-inputnumber-input::placeholder { color: ${dt('color.fg.muted')}; opacity: 1; }
 .p-inputnumber .p-inputnumber-input:enabled:hover { border-color: ${dt('inputnumber.extend.field.hoverBorderColor')}; }
 .p-inputnumber .p-inputnumber-input:enabled:focus { border-color: ${dt('inputnumber.extend.field.hoverBorderColor')}; box-shadow: 0 0 0 ${dt('inputnumber.extend.field.focusWidth')} ${dt('inputnumber.extend.field.focusColor')}; }
 .p-inputnumber .p-inputnumber-input:disabled { color: ${dt('floatlabel.color')}; background: ${dt('inputnumber.extend.field.disabledBackground')}; }
@@ -29,9 +29,9 @@ export const inputnumberCss = ({ dt }: { dt: (token: string) => string }): strin
 .p-inputnumber-horizontal .p-inputnumber-input { border-radius: 0; }
 .p-inputnumber-vertical .p-inputnumber-input { border-radius: 0; }
 .p-inputnumber-button .ti { font-size: ${dt('inputnumber.extend.extButton.iconSize')}; width: ${dt('inputnumber.extend.extButton.iconSize')}; height: ${dt('inputnumber.extend.extButton.iconSize')}; line-height: 1; }
-.p-inputnumber-button:disabled, .p-inputnumber:has(input[readonly]) .p-inputnumber-button { background: ${dt('inputnumber.extend.field.disabledBackground')}; color: ${dt('floatlabel.color')}; cursor: default; }
+.p-inputnumber-button:disabled, .p-inputnumber:has(input[readonly]) .p-inputnumber-button { background: ${dt('inputnumber.extend.field.disabledBackground')}; color: ${dt('color.fg.muted')}; cursor: default; }
 .p-inputnumber-horizontal .p-inputnumber-input:disabled, .p-inputnumber-horizontal .p-inputnumber-input[readonly] { border-radius: 0; }
-.p-inputnumber-clear-icon { display: flex; align-items: center; justify-content: center; top: 50%; transform: translateY(-50%); margin-top: 0; color: ${dt('floatlabel.color')}; }
+.p-inputnumber-clear-icon { display: flex; align-items: center; justify-content: center; top: 50%; transform: translateY(-50%); margin-top: 0; color: ${dt('color.fg.muted')}; }
 .p-inputnumber-clear-icon .ti { font-size: inherit; line-height: 1; }
 
 .p-inputnumber.p-inputnumber-sm .p-inputnumber-input { height: calc(${dt('inputnumber.extend.field.small.lineHeight')} + ${dt('inputnumber.extend.field.small.paddingY')} * 2 + ${dt('inputnumber.extend.borderWidth')} * 2); font-size: ${dt('inputnumber.extend.field.small.fontSize')}; line-height: ${dt('inputnumber.extend.field.small.lineHeight')}; padding-block: ${dt('inputnumber.extend.field.small.paddingY')}; }
