@@ -1,7 +1,10 @@
 import {
+  AfterViewInit,
   booleanAttribute,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   forwardRef,
   inject,
@@ -28,9 +31,10 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraTextareaSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraTextareaLabelPosition = 'top' | 'left';
+export type ExtraTextareaLabelPosition = 'default' | 'float' | 'left';
 export type ExtraTextareaResizeEvent = Event | Record<string, unknown>;
 
 let nextInputId = 0;
@@ -39,7 +43,16 @@ let nextInputId = 0;
   selector: 'extra-textarea',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Textarea, IconField, InputIcon, FloatLabel, NgClass, NgTemplateOutlet, ExtraTooltipDirective],
+  imports: [
+    Textarea,
+    IconField,
+    InputIcon,
+    FloatLabel,
+    NgClass,
+    NgTemplateOutlet,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -58,11 +71,11 @@ let nextInputId = 0;
          (важно для p-inputgroup, где textarea обязана быть прямым flex-элементом). -->
     @if (label || caption) {
       <div class="extra-textarea" [class.extra-textarea--left]="labelPosition === 'left' && !floatLabel">
-        @if (label && labelPosition === 'left' && !floatLabel) {
+        @if (label && labelPosition === 'left') {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
         <div class="extra-textarea-body">
-          @if (floatLabel) {
+          @if (labelPosition === 'float') {
             <p-floatlabel variant="in">
               <ng-container [ngTemplateOutlet]="fieldTpl" />
               @if (label) {
@@ -70,13 +83,13 @@ let nextInputId = 0;
               }
             </p-floatlabel>
           } @else {
-            @if (label && labelPosition === 'top') {
+            @if (label && labelPosition === 'default') {
               <ng-container [ngTemplateOutlet]="labelTpl" />
             }
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-textarea-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -86,6 +99,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-textarea-label" [for]="inputId">
+        @if (required || requiredMark) {
+          <span class="extra-textarea-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-textarea-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -102,6 +118,7 @@ let nextInputId = 0;
             [ngClass]="sizeClass"
             [pSize]="primeSize"
             [disabled]="disabled"
+            [attr.disabled]="disabled ? '' : null"
             [readOnly]="readonly"
             [invalid]="invalid"
             [fluid]="fluid"
@@ -116,8 +133,10 @@ let nextInputId = 0;
             [attr.maxlength]="maxLength ?? null"
             [attr.aria-label]="ariaLabel || null"
             [attr.aria-labelledby]="ariaLabelledBy || null"
+            [attr.aria-invalid]="invalid ? 'true' : null"
             [attr.tabindex]="tabindex ?? null"
             [attr.required]="required || null"
+            [attr.aria-required]="required ? 'true' : null"
             [value]="modelValue"
             (input)="onInput($event)"
             (blur)="onTouched()"
@@ -140,6 +159,7 @@ let nextInputId = 0;
           [ngClass]="sizeClass"
           [pSize]="primeSize"
           [disabled]="disabled"
+          [attr.disabled]="disabled ? '' : null"
           [readOnly]="readonly"
           [invalid]="invalid"
           [fluid]="fluid"
@@ -154,6 +174,7 @@ let nextInputId = 0;
           [attr.maxlength]="maxLength ?? null"
           [attr.aria-label]="ariaLabel || null"
           [attr.aria-labelledby]="ariaLabelledBy || null"
+          [attr.aria-invalid]="invalid ? 'true' : null"
           [attr.tabindex]="tabindex ?? null"
           [attr.required]="required || null"
           [value]="modelValue"
@@ -165,19 +186,28 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
+export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnChanges, Validator, AfterViewInit {
   private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
+  private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef);
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
   }
 
+  // Атрибут autofocus на элементе, созданном Angular после загрузки страницы, браузер игнорирует
+  ngAfterViewInit(): void {
+    if (this.autofocus) this._host.nativeElement.querySelector('textarea')?.focus();
+  }
+
   @Input() placeholder = '';
   @Input() label = '';
-  @Input() labelPosition: ExtraTextareaLabelPosition = 'top';
-  @Input({ transform: booleanAttribute }) floatLabel = false;
+  /** Показывает маркер «*» перед лейблом (визуальный, валидацию не включает). */
+  @Input() requiredMark = false;
+  @Input() labelPosition: ExtraTextareaLabelPosition = 'default';
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input({ transform: booleanAttribute }) clearable = false;
   @Input({ transform: booleanAttribute }) resizable = true;
@@ -189,7 +219,7 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnC
   @Input() cols?: number;
   @Input({ transform: booleanAttribute }) autofocus = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() maxLength: number | undefined = undefined;
@@ -254,6 +284,7 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnC
 
   writeValue(value: string): void {
     this.modelValue = value ?? '';
+    this._cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -266,5 +297,6 @@ export class ExtraTextareaComponent implements ControlValueAccessor, OnInit, OnC
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this._cdr.markForCheck();
   }
 }
