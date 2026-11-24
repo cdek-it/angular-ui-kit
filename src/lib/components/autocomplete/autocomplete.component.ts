@@ -126,6 +126,7 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-autocomplete
+        [attr.aria-required]="required ? 'true' : null"
         [class.extra-autocomplete-chips-locked]="!chipClearable"
         [class.extra-autocomplete-sm]="size === 'small'"
         [class.extra-autocomplete-lg]="size === 'large'"
@@ -251,7 +252,7 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() autofocus = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() tabindex: number | undefined = undefined;
