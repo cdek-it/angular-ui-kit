@@ -14,8 +14,6 @@ const meta: Meta<ExtraMenuComponent> = {
   parameters: {
     docs: {
       description: {
-        component: `Реализован по спецификации \`docs/components-api/menu.md\`. Поддерживает режим popup (по нажатию на триггер) и inline-отображение, группировку пунктов (\`MenuGroup\`) и пункты с описанием (\`caption\`).
-
 Слоты (передаются через директиву \`extraMenuTemplate\`):
 - \`item\` — кастомный рендер пункта меню (контекст \`let-item\`)
 - \`submenuHeader\` — кастомный рендер заголовка группы (контекст \`let-group\`)
