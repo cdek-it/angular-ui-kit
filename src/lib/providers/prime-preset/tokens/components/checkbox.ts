@@ -3,9 +3,13 @@
  * Подключается в map-tokens.ts: `import { checkboxCss } from './tokens/components/checkbox'`
  *
  * Размеры бокса и цвета приходят токенами пресета (checkbox.root.*): их применяет сам PrimeNG.
- * Здесь — типографика подписей, толщина рамки, indeterminate, иконки tabler и кольцо фокуса: этого
+ * Здесь — типографика подписей, толщина рамки, indeterminate, иконки Tabler и кольцо фокуса: этого
  * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px, иконки — свои svg).
  */
+
+// PrimeNG добавляет data-pc-section через Pass Through к своим SVG, включая шапку MultiSelect.
+const primeIcon = ".p-checkbox-box > svg.p-checkbox-icon[data-pc-section='icon']";
+
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* ─── Раскладка: бокс и текст в строку, по центру ─── */
 .extra-checkbox {
@@ -67,41 +71,48 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   border-color: ${dt('checkbox.root.checkedBorderColor')};
 }
 
-/* ─── Иконка: глифы tabler вместо svg PrimeNG ───
-   По DS в боксе ti-check (checked) и ti-minus (indeterminate), а PrimeNG рисует свои
-   CheckIcon/MinusIcon. Прячем svg и рисуем глиф через ::before бокса — тем же приёмом,
-   что галочка в select. Глиф выбираем по самой svg, а не по классам состояния: так правило
-   работает и для p-checkbox внутри multiselect/listbox, где класса indeterminate нет.
-
-   Цвет — color.fg.inverse.default, а не checkbox.icon.checkedColor: тот ссылается на
-   color.fg.on.fill.default, а эта ветка не инвертируется (#ffffff в обеих темах). Фон бокса
-   при этом инвертируется (color.bg.neutral.strong.default), и в тёмной теме белая иконка
-   пропадала на светлом боксе. Инверсный алиас меняется вместе с фоном, на hover — тоже. */
-.p-checkbox-box > svg.p-checkbox-icon {
-  display: none;
-}
-
-.p-checkbox-box:has(> svg.p-checkbox-icon)::before {
-  font-family: 'tabler-icons';
-  font-style: normal;
-  font-weight: normal;
-  font-size: ${dt('checkbox.icon.size')};
-  line-height: 1;
+/* Инверсный цвет следует за цветом залитого бокса в светлой и тёмной теме,
+   в том числе на hover. Эти правила применяются и к пользовательским иконкам. */
+.p-checkbox-checked .p-checkbox-icon,
+.p-checkbox-indeterminate .p-checkbox-icon {
   color: ${dt('color.fg.inverse.default')};
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-.p-checkbox-box:has(> svg[data-p-icon='check'])::before {
-  content: '\\ea5e';
+.p-checkbox-checked:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon,
+.p-checkbox-indeterminate:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon {
+  color: ${dt('color.fg.inverse.default')};
 }
 
-.p-checkbox-box:has(> svg[data-p-icon='minus'])::before {
-  content: '\\eaf2';
-}
+/* Контуры Tabler Icons 3.35.0 (MIT), Copyright (c) 2020-2025 Paweł Kuna.
+   https://github.com/tabler/tabler-icons/tree/v3.35.0/icons/outline
+   Координаты обводки 2px в viewBox 24×24 переведены в проценты от размера SVG.
+   clip-path использует размеры и цвет PrimeNG без загрузки ресурсов (в том числе при CSP img-src 'self').
+   В forced colors сохраняем путь PrimeNG: браузер может перекрасить фон SVG. */
+@supports (clip-path: polygon(0 0, 100% 0, 0 100%)) {
+  @media (forced-colors: none) {
+    ${primeIcon}[data-p-icon='check'] {
+      clip-path: polygon(
+        23.780% 47.054%, 41.667% 64.941%,
+        80.387% 26.220%, 81.739% 25.317%, 83.333% 25%, 84.928% 25.317%, 86.280% 26.220%,
+        87.183% 27.572%, 87.500% 29.167%, 87.183% 30.761%, 86.280% 32.113%,
+        44.613% 73.780%, 43.261% 74.683%, 41.667% 75%, 40.072% 74.683%, 38.720% 73.780%,
+        17.887% 52.946%, 16.984% 51.595%, 16.667% 50%, 16.984% 48.405%, 17.887% 47.054%,
+        19.239% 46.151%, 20.833% 45.833%, 22.428% 46.151%
+      );
+    }
 
-.p-checkbox.p-disabled .p-checkbox-box::before {
-  color: ${dt('checkbox.icon.disabledColor')};
+    ${primeIcon}[data-p-icon='minus'] {
+      clip-path: inset(45.833% 16.667% round 1em);
+    }
+
+    ${primeIcon}:is([data-p-icon='check'], [data-p-icon='minus']) {
+      background-color: currentColor;
+    }
+
+    ${primeIcon}:is([data-p-icon='check'], [data-p-icon='minus']) > path {
+      visibility: hidden;
+    }
+  }
 }
 
 /* Состояние hover для indeterminate */
