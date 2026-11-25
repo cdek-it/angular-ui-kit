@@ -1,6 +1,7 @@
 import {
   booleanAttribute,
   Component,
+  ElementRef,
   EventEmitter,
   forwardRef,
   inject,
@@ -9,7 +10,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -27,6 +29,7 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputTextLabelPosition = 'top' | 'left';
@@ -37,7 +40,16 @@ let nextInputId = 0;
 @Component({
   selector: 'extra-input-text',
   standalone: true,
-  imports: [InputText, IconField, InputIcon, FloatLabel, NgClass, NgTemplateOutlet, ExtraTooltipDirective],
+  imports: [
+    InputText,
+    IconField,
+    InputIcon,
+    FloatLabel,
+    NgClass,
+    NgTemplateOutlet,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -55,7 +67,6 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где input обязан быть прямым flex-элементом). -->
     @if (label || caption) {
-      <!-- floatLabel перекрывает labelPosition: лейбл уезжает внутрь поля, строчной раскладки нет -->
       <div class="extra-inputtext" [class.extra-inputtext--left]="labelPosition === 'left' && !floatLabel">
         @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
@@ -75,7 +86,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-inputtext-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -85,6 +96,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-inputtext-label" [for]="inputId">
+        @if (required || requiredMark) {
+          <span class="extra-inputtext-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-inputtext-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -97,14 +111,15 @@ let nextInputId = 0;
         <p-iconfield>
           <input
             pInputText
+            #inputRef
             [id]="inputId"
             [ngClass]="sizeClass"
             [pSize]="primeSize!"
             [fluid]="fluid"
             [type]="type"
             [disabled]="disabled"
-            [invalid]="invalid"
             [readOnly]="readonly"
+            [invalid]="invalid"
             [autofocus]="autofocus"
             [attr.placeholder]="placeholder || null"
             [attr.name]="name || null"
@@ -112,35 +127,38 @@ let nextInputId = 0;
             [attr.maxlength]="maxLength ?? null"
             [attr.aria-label]="ariaLabel || null"
             [attr.aria-labelledby]="ariaLabelledBy || null"
+            [attr.aria-invalid]="invalid ? 'true' : null"
             [attr.tabindex]="tabindex ?? null"
             [attr.required]="required || null"
+            [attr.aria-required]="required ? 'true' : null"
             [value]="modelValue"
             (input)="onInput($event)"
             (blur)="onTouched()"
           />
-          @if (modelValue && !readonly && !disabled) {
-            <p-inputicon
-              class="ti ti-x"
-              role="button"
-              aria-label="Очистить поле"
-              tabindex="0"
-              (click)="clearValue()"
-              (keydown.enter)="clearValue()"
-              (keydown.space)="$event.preventDefault(); clearValue()"
-            ></p-inputicon>
-          }
+          <p-inputicon
+            class="ti ti-x"
+            role="button"
+            aria-label="Очистить поле"
+            tabindex="0"
+            [style.visibility]="modelValue && !readonly && !disabled ? 'visible' : 'hidden'"
+            [style.pointerEvents]="modelValue && !readonly && !disabled ? 'auto' : 'none'"
+            (click)="clearValue()"
+            (keydown.enter)="clearValue()"
+            (keydown.space)="$event.preventDefault(); clearValue()"
+          ></p-inputicon>
         </p-iconfield>
       } @else {
         <input
           pInputText
+          #inputRef
           [id]="inputId"
           [ngClass]="sizeClass"
           [pSize]="primeSize!"
           [fluid]="fluid"
           [type]="type"
           [disabled]="disabled"
-          [invalid]="invalid"
           [readOnly]="readonly"
+          [invalid]="invalid"
           [autofocus]="autofocus"
           [attr.placeholder]="placeholder || null"
           [attr.name]="name || null"
@@ -148,6 +166,7 @@ let nextInputId = 0;
           [attr.maxlength]="maxLength ?? null"
           [attr.aria-label]="ariaLabel || null"
           [attr.aria-labelledby]="ariaLabelledBy || null"
+          [attr.aria-invalid]="invalid ? 'true' : null"
           [attr.tabindex]="tabindex ?? null"
           [attr.required]="required || null"
           [value]="modelValue"
@@ -160,6 +179,7 @@ let nextInputId = 0;
 })
 export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
+  @ViewChild('inputRef') private inputRef?: ElementRef<HTMLInputElement>;
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
@@ -168,17 +188,20 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, On
 
   @Input() placeholder = '';
   @Input() label = '';
+  /** Показывает маркер «*» перед лейблом (визуальный, валидацию не включает). */
+  @Input() requiredMark = false;
   @Input() labelPosition: ExtraInputTextLabelPosition = 'top';
   /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
   @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input({ transform: booleanAttribute }) clearable = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraInputTextSize = 'base';
   /** Растягивает поле на всю ширину контейнера. */
   @Input({ transform: booleanAttribute }) fluid = false;
   @Input() type: ExtraInputTextType = 'text';
-  @Input({ transform: booleanAttribute }) readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
   @Input({ transform: booleanAttribute }) required = false;
   @Input() name: string | undefined = undefined;
@@ -195,7 +218,7 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, On
   disabled = false;
 
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   @Output() onClear = new EventEmitter<void>();
@@ -242,6 +265,7 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, On
     this.modelValue = '';
     this._onChange('');
     this.onClear.emit();
+    this.inputRef?.nativeElement.focus();
   }
 
   writeValue(value: string): void {
