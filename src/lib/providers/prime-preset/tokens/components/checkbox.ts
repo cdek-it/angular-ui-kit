@@ -3,9 +3,13 @@
  * Подключается в map-tokens.ts: `import { checkboxCss } from './tokens/components/checkbox'`
  *
  * Размеры бокса и цвета приходят токенами пресета (checkbox.root.*): их применяет сам PrimeNG.
- * Здесь — типографика подписей, толщина рамки, indeterminate и кольцо фокуса: ни того, ни другого
- * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px).
+ * Здесь — типографика подписей, толщина рамки, indeterminate, иконки Tabler и кольцо фокуса: этого
+ * у Aura нет (indeterminate не покрашен, толщина рамки зашита сырым 1px, иконки — свои svg).
  */
+
+// PrimeNG добавляет data-pc-section через Pass Through к своим SVG, включая шапку MultiSelect.
+const primeIcon = ".p-checkbox-box > svg.p-checkbox-icon[data-pc-section='icon']";
+
 export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string => `
 /* ─── Раскладка: бокс и текст в строку, по центру ─── */
 .extra-checkbox {
@@ -67,21 +71,48 @@ export const checkboxCss = ({ dt }: { dt: (token: string) => string }): string =
   border-color: ${dt('checkbox.root.checkedBorderColor')};
 }
 
-/* ─── Цвет иконки на залитом боксе ───
-   checkbox.icon.checkedColor ссылается на color.fg.on.fill.default, а эта ветка не
-   инвертируется: и в light, и в dark она #ffffff. Фон бокса при этом инвертируется
-   (color.bg.neutral.strong.default: тёмный в light, светлый в dark), поэтому в тёмной теме
-   белая галочка пропадала на светлом фоне. Берём инверсный алиас — он меняется вместе с фоном. */
+/* Инверсный цвет следует за цветом залитого бокса в светлой и тёмной теме,
+   в том числе на hover. Эти правила применяются и к пользовательским иконкам. */
 .p-checkbox-checked .p-checkbox-icon,
 .p-checkbox-indeterminate .p-checkbox-icon {
   color: ${dt('color.fg.inverse.default')};
 }
 
-/* То же на hover: PrimeNG подставляет icon.checkedHoverColor (color.fg.on.fill.hover),
-   а эта ветка не инвертируется — в тёмной теме белая иконка пропадала на светлом боксе */
 .p-checkbox-checked:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon,
 .p-checkbox-indeterminate:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-icon {
   color: ${dt('color.fg.inverse.default')};
+}
+
+/* Контуры Tabler Icons 3.35.0 (MIT), Copyright (c) 2020-2025 Paweł Kuna.
+   https://github.com/tabler/tabler-icons/tree/v3.35.0/icons/outline
+   Координаты обводки 2px в viewBox 24×24 переведены в проценты от размера SVG.
+   clip-path использует размеры и цвет PrimeNG без загрузки ресурсов (в том числе при CSP img-src 'self').
+   В forced colors сохраняем путь PrimeNG: браузер может перекрасить фон SVG. */
+@supports (clip-path: polygon(0 0, 100% 0, 0 100%)) {
+  @media (forced-colors: none) {
+    ${primeIcon}[data-p-icon='check'] {
+      clip-path: polygon(
+        23.780% 47.054%, 41.667% 64.941%,
+        80.387% 26.220%, 81.739% 25.317%, 83.333% 25%, 84.928% 25.317%, 86.280% 26.220%,
+        87.183% 27.572%, 87.500% 29.167%, 87.183% 30.761%, 86.280% 32.113%,
+        44.613% 73.780%, 43.261% 74.683%, 41.667% 75%, 40.072% 74.683%, 38.720% 73.780%,
+        17.887% 52.946%, 16.984% 51.595%, 16.667% 50%, 16.984% 48.405%, 17.887% 47.054%,
+        19.239% 46.151%, 20.833% 45.833%, 22.428% 46.151%
+      );
+    }
+
+    ${primeIcon}[data-p-icon='minus'] {
+      clip-path: inset(45.833% 16.667% round 1em);
+    }
+
+    ${primeIcon}:is([data-p-icon='check'], [data-p-icon='minus']) {
+      background-color: currentColor;
+    }
+
+    ${primeIcon}:is([data-p-icon='check'], [data-p-icon='minus']) > path {
+      visibility: hidden;
+    }
+  }
 }
 
 /* Состояние hover для indeterminate */
