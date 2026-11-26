@@ -1,164 +1,120 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraToggleSwitchComponent } from '../../../lib/components/toggleswitch/toggleswitch.component';
-import { ToggleSwitchStatesComponent, States } from './examples/toggleswitch-states.component';
-import { ToggleSwitchPositionsComponent, Positions } from './examples/toggleswitch-positions.component';
-import { ToggleSwitchBareComponent, Bare } from './examples/toggleswitch-bare.component';
+import { fn } from 'storybook/test';
+import {
+  ExtraToggleSwitchComponent,
+  ExtraToggleSwitchChangeEvent
+} from '../../../lib/components/toggleswitch/toggleswitch.component';
 
-type ToggleSwitchArgs = ExtraToggleSwitchComponent & { disabled: boolean; invalid: boolean };
+type ToggleSwitchArgs = Omit<Partial<ExtraToggleSwitchComponent>, 'onChange' | 'onFocus' | 'onBlur'> & {
+  disabled: boolean;
+  invalid: boolean;
+  value: boolean;
+  onChange: (event: ExtraToggleSwitchChangeEvent) => void;
+  onFocus: (event: Event) => void;
+  onBlur: (event: Event) => void;
+};
+
+const escapeAttribute = (value: unknown): string =>
+  String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;');
+
+const templateFor = (args: ToggleSwitchArgs): string => {
+  const parts = ['[formControl]="switchControl"'];
+  for (const name of ['label', 'caption', 'ariaLabel', 'ariaLabelledBy'] as const) {
+    if (args[name]) parts.push(name + '="' + escapeAttribute(args[name]) + '"');
+  }
+  if (args.labelPosition && args.labelPosition !== 'right') parts.push('labelPosition="' + args.labelPosition + '"');
+  // disabled и invalid живут в FormControl: invalid — геттер без сеттера, disabled — состояние CVA
+  for (const name of ['autofocus', 'readonly', 'required'] as const) {
+    if (args[name]) parts.push('[' + name + ']="' + args[name] + '"');
+  }
+  if (args.tabindex != null) parts.push('[tabindex]="' + args.tabindex + '"');
+  parts.push('(onChange)="onChange($event)"', '(onFocus)="onFocus($event)"', '(onBlur)="onBlur($event)"');
+  return '<extra-toggleswitch\n  ' + parts.join('\n  ') + '\n></extra-toggleswitch>';
+};
 
 const meta: Meta<ToggleSwitchArgs> = {
   title: 'Components/Form/ToggleSwitch',
   component: ExtraToggleSwitchComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraToggleSwitchComponent,
-        ReactiveFormsModule,
-        ToggleSwitchStatesComponent,
-        ToggleSwitchPositionsComponent,
-        ToggleSwitchBareComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'toggleswitch'],
+  decorators: [moduleMetadata({ imports: [ExtraToggleSwitchComponent, ReactiveFormsModule] })],
   parameters: {
     designTokens: { prefix: '--p-toggleswitch' },
     docs: {
       description: {
         component: `Переключатель-свитч для мгновенного включения/выключения одной бинарной настройки.
 
-Реализовано по спецификации [toggleswitch.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/toggleswitch.md).
-
 \`\`\`typescript
 import { ExtraToggleSwitchComponent } from '@cdek-it/angular-ui-kit/components/toggleswitch';
 \`\`\`
 
 Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
+      },
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: (_code: string, context: { args: ToggleSwitchArgs }) => templateFor(context.args)
       }
     }
   },
+  render: (args) => {
+    // disabled и invalid — состояние FormControl, а не входы: invalid у компонента геттер без сеттера
+    const { disabled, invalid, ...inputs } = args;
+    return {
+      props: {
+        ...inputs,
+        switchControl: new FormControl({ value: args.value, disabled }, invalid ? [Validators.requiredTrue] : [])
+      },
+      template: templateFor(args)
+    };
+  },
   argTypes: {
-    // ── Свойства (docs/components-api/toggleswitch.md) ────────────
-    label: {
-      control: 'text',
-      description: 'Текст названия рядом с переключателем',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "''" },
-        type: { summary: 'string' }
-      }
-    },
+    label: { control: 'text', description: 'Текст названия рядом с переключателем' },
     labelPosition: {
       control: 'select',
       options: ['right', 'left'],
-      description: 'Положение лейбла',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'right' },
-        type: { summary: "'right' | 'left'" }
-      }
+      description: 'Положение лейбла'
     },
-    caption: {
-      control: 'text',
-      description: 'Текст пояснения под лейблом',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: "''" },
-        type: { summary: 'string' }
-      }
-    },
-    ariaLabel: {
-      control: 'text',
-      description: 'Доступное имя; обязателен, когда свитч используется без label',
-      table: {
-        category: 'Свойства',
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'string | undefined' }
-      }
-    },
-    ariaLabelledBy: { table: { disable: true } },
-    // ── Состояния (управляются через FormControl) ─────────────────
-    disabled: {
-      control: 'boolean',
-      description: 'Отключённое состояние — управляется через FormControl',
-      table: {
-        category: 'Состояния',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    invalid: {
-      control: 'boolean',
-      description: 'Невалидное состояние — вычисляется из NgControl (Validators)',
-      table: {
-        category: 'Состояния',
-        defaultValue: { summary: 'false' },
-        type: { summary: 'boolean' }
-      }
-    },
-    // ── События ──────────────────────────────────────────────────
-    onChange: {
-      control: false,
-      description: 'Событие изменения состояния',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<ExtraToggleSwitchChangeEvent>' }
-      }
-    },
-    onFocus: {
-      control: false,
-      description: 'Событие фокуса',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    },
-    onBlur: {
-      control: false,
-      description: 'Событие потери фокуса',
-      table: {
-        category: 'События',
-        type: { summary: 'EventEmitter<Event>' }
-      }
-    },
-    // Hidden computed props
-    modelValue: { table: { disable: true } },
-    inputId: { table: { disable: true } }
+    caption: { control: 'text', description: 'Текст пояснения под лейблом' },
+    ariaLabel: { control: 'text', description: 'Доступное имя; обязателен, когда свитч используется без label' },
+    ariaLabelledBy: { control: 'text' },
+    autofocus: { control: 'boolean' },
+    tabindex: { control: 'number' },
+    readonly: { control: 'boolean' },
+    required: { control: 'boolean' },
+    disabled: { control: 'boolean', description: 'Отключённое состояние — управляется через FormControl' },
+    invalid: { control: 'boolean', description: 'Невалидное состояние — вычисляется из NgControl (Validators)' },
+    value: { control: 'boolean' },
+    onChange: { control: false, description: 'Событие изменения состояния' },
+    onFocus: { control: false, description: 'Событие фокуса' },
+    onBlur: { control: false, description: 'Событие потери фокуса' }
   },
   args: {
-    label: 'Тёмная тема',
+    label: 'Label',
     labelPosition: 'right',
-    caption: '',
+    caption: 'Caption',
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
+    autofocus: false,
+    tabindex: undefined,
+    readonly: false,
+    required: false,
     disabled: false,
-    invalid: false
+    invalid: false,
+    value: false,
+    onChange: fn(),
+    onFocus: fn(),
+    onBlur: fn()
   }
 };
-
 export default meta;
 type Story = StoryObj<ToggleSwitchArgs>;
 
-// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.label) parts.push(`label="${args.label}"`);
-    if (args.labelPosition && args.labelPosition !== 'right') parts.push(`labelPosition="${args.labelPosition}"`);
-    if (args.caption) parts.push(`caption="${args.caption}"`);
-
-    const validators = args.invalid ? [Validators.requiredTrue] : [];
-    const control = new FormControl({ value: false, disabled: args.disabled }, validators);
-
-    const template = `<extra-toggleswitch [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-toggleswitch>`;
-
-    // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
-    // и Storybook на попытке его присвоить роняет ошибку в консоль
-    const { invalid, disabled, ...rest } = args;
-
-    return { props: { ...rest, control }, template };
-  },
+  args: {},
   parameters: {
     docs: {
       description: {
@@ -169,5 +125,18 @@ export const Default: Story = {
   }
 };
 
-// ── Комбинаторные истории ──────────────────────────────────────────────────
-export { States, Positions, Bare };
+export const Checked: Story = {
+  args: { value: true }
+};
+
+export const Danger: Story = {
+  args: { invalid: true, caption: 'Обязательное поле' }
+};
+
+export const Disabled: Story = {
+  args: { disabled: true }
+};
+
+export const LabelLeft: Story = {
+  args: { labelPosition: 'left', caption: 'Подпись слева от свитча' }
+};

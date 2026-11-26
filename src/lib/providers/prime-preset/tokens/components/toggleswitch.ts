@@ -17,9 +17,9 @@ export const toggleswitchCss = ({ dt }: { dt: (token: string) => string }): stri
     align-items: center;
     color: ${dt('color.fg.default')};
     font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.300')};
+    font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.300')};
+    line-height: ${dt('fonts.lineHeight.400')};
     cursor: pointer;
   }
 
@@ -30,11 +30,12 @@ export const toggleswitchCss = ({ dt }: { dt: (token: string) => string }): stri
 
   /* ─── Caption типографика ─── */
   .toggleswitch-caption {
-    color: ${dt('color.fg.subtle')};
-    font-family: ${dt('fonts.fontFamily.heading')};
+    color: ${dt('color.fg.muted')};
+    font-family: ${dt('fonts.fontFamily.base')};
     font-size: ${dt('fonts.fontSize.200')};
     font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
+    line-height: ${dt('fonts.lineHeight.300')};
+    letter-spacing: ${dt('fonts.letterSpacing.200')};
   }
 
   .toggleswitch-caption--disabled {
