@@ -28,6 +28,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 import { Subscription } from 'rxjs';
+import { ExtraCaptionComponent } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraRadiobuttonLabelPosition = 'right' | 'left';
 
@@ -41,7 +42,7 @@ let nextInputId = 0;
 @Component({
   selector: 'extra-radiobutton',
   standalone: true,
-  imports: [RadioButton, FormsModule, NgTemplateOutlet],
+  imports: [RadioButton, FormsModule, NgTemplateOutlet, ExtraCaptionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   providers: [
@@ -65,7 +66,7 @@ let nextInputId = 0;
             <label class="radio-label" [class.radio-label--disabled]="disabled" [for]="inputId">{{ label }}</label>
           }
           @if (caption) {
-            <div class="radio-caption" [class.radio-caption--disabled]="disabled">{{ caption }}</div>
+            <extra-caption class="radio-caption" [id]="inputId + '-caption'">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -81,13 +82,14 @@ let nextInputId = 0;
         [disabled]="disabled"
         [invalid]="invalid"
         [inputId]="inputId"
-        [ariaLabel]="ariaLabel"
+        [ariaLabel]="ariaLabel || (!label ? 'Выбор' : undefined)"
+        [pt]="{ input: { 'aria-describedby': caption ? inputId + '-caption' : undefined } }"
         [ariaLabelledBy]="ariaLabelledBy"
-        [autofocus]="autofocus"
-        [tabindex]="tabindex"
+        [autofocus]="autofocus && !disabled"
+        [tabindex]="disabled ? -1 : tabindex"
         (onClick)="onClickHandler($event)"
         (onFocus)="onFocus.emit($event)"
-        (onBlur)="onBlur.emit($event)"
+        (onBlur)="onBlurHandler($event)"
       ></p-radiobutton>
     </ng-template>
   `
@@ -164,7 +166,7 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor, OnInit, 
   modelValue: any = null;
 
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !!(this._ngControl?.invalid && (this._ngControl.touched || this._ngControl.dirty));
   }
 
   private _onChange: (value: any) => void = () => {};
@@ -174,6 +176,11 @@ export class ExtraRadiobuttonComponent implements ControlValueAccessor, OnInit, 
     this._onChange(event.value);
     this._onTouched();
     this.onClick.emit({ value: event.value, originalEvent: event.originalEvent as Event });
+  }
+
+  onBlurHandler(event: Event): void {
+    this._onTouched();
+    this.onBlur.emit(event);
   }
 
   writeValue(value: any): void {

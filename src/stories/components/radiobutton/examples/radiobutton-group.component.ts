@@ -4,7 +4,7 @@ import { StoryObj } from '@storybook/angular';
 import { ExtraRadiobuttonComponent } from '../../../../lib/components/radiobutton/radiobutton.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-6">
+<div class="p-4 flex flex-col gap-6">
   <div class="flex flex-col gap-3">
     <extra-radiobutton [formControl]="delivery" name="delivery-group" value="pickup" label="Самовывоз"></extra-radiobutton>
     <extra-radiobutton [formControl]="delivery" name="delivery-group" value="courier" label="Курьером"></extra-radiobutton>

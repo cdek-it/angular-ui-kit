@@ -27,6 +27,10 @@ export class RadiobuttonInvalidComponent implements OnChanges {
   /** Один FormControl на всю группу; ошибка форсирована, чтобы invalid не зависел от выбора. */
   control = new FormControl('pickup', this.invalid ? [alwaysInvalid] : []);
 
+  constructor() {
+    this.control.markAsTouched();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['invalid']) {
       this.control.setValidators(this.invalid ? [alwaysInvalid] : []);
@@ -83,6 +87,10 @@ export class RadiobuttonInvalidComponent implements OnChanges {
   @Input() invalid = true;
 
   control = new FormControl('pickup', this.invalid ? [alwaysInvalid] : []);
+
+  constructor() {
+    this.control.markAsTouched();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['invalid']) {

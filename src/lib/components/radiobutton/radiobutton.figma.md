@@ -5,133 +5,49 @@ import:
   symbol: ExtraRadiobuttonComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '17:13535'
-  componentKey: 'b2f1d57bdcaefad98286b9316272c0b64bb268d8'
   name: '<RadioButton>'
 status: stable
-updated: '2026-09-04'
+updated: '2026-11-17'
 ---
 
-## Overview
+## Модель и состояния
 
-`ExtraRadiobutton` — радиокнопка для выбора ровно одного варианта из взаимоисключающей группы. Внутри группы радиокнопки объединяются общим `name` и одной моделью, выбор одиночный, снять выбор нельзя. Компонент сам рендерит подпись (`label`) и пояснение (`caption`) рядом с контролом — не требует внешней обёртки `<label>`. Оборачивает PrimeNG `p-radiobutton` и реализует `ControlValueAccessor`, поэтому работает с `[(ngModel)]` и реактивными формами (`formControl` / `formControlName`).
+`ExtraRadiobuttonComponent` оборачивает PrimeNG RadioButton и реализует ControlValueAccessor. Значение опции задаётся через `value`; выбранное значение группы — через `[(ngModel)]`, `formControl` или `formControlName`. Несколько радиокнопок используют общее значение формы и одинаковый `name`. Разные группы используют разные имена и модели.
 
-Компонент соответствует Figma-компоненту `<RadioButton>` (nodeId `17:13535`) с VARIANT-свойствами `state` (default, focus, hover, danger, disabled) и `checked` (false, true). У самого radio-индикатора нет вариантов размера/оформления — `label`/`caption`/`label-position` берутся из композитного шаблона подписи поля.
+| Figma                      | Angular                                     |
+| -------------------------- | ------------------------------------------- |
+| `checked`                  | Значение формы совпадает с `value`          |
+| `state=disabled`           | Отключённый FormControl                     |
+| `state=danger`             | Невалидный контрол после touched или dirty  |
+| `state=hover/focus`        | Наведение / клавиатурный фокус              |
+| `text-label`, `show-label` | `label`; пустая строка скрывает подпись     |
+| `show-caption`             | `caption`; пустая строка скрывает пояснение |
 
-## Props mapping
-
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `required` | `boolean` | `false` | Поле обязательно: контрол невалиден, пока в группе нет выбора; работает как NG_VALIDATORS-валидатор |
-| `label` | `string` | `''` | Текст названия; без `label` и `caption` рендерится голый индикатор без обёртки |
-| `labelPosition` | `'right' \| 'left'` | `'right'` | Положение лейбла относительно индикатора |
-| `caption` | `string` | `''` | Текст пояснения под лейблом |
-| `value` | `any` | `null` | Значение, которое получит модель при выборе этой радиокнопки |
-| `name` | `string \| undefined` | `undefined` | Имя группы; вне спеки (форм-обвязка). Не влияет на взаимоисключение — оно обеспечивается общим `[formControl]`/`[(ngModel)]` (компонент подписывается на `NgControl.valueChanges`, чтобы синхронизировать соседние радиокнопки при выборе одной). Рекомендуется задавать: одинаковый `name` внутри одной группы — для нативной клавиатурной навигации между `<input type="radio">`, и уникальный между независимыми группами на одной странице — иначе браузер сгруппирует их нативно по `name` в обход Angular |
-
-`disabled` и `invalid` в спеке не описаны (форма/состояния стек-зависимы, см. `common-info.md`) — управляются через Angular-формы: `disabled` — `FormControl.disable()`, `invalid` — вычисляется из `NgControl` (`Validators`), как у `ExtraCheckbox`.
-
-## Variants
-
-### Default (невыбранная)
-
-Figma: `<RadioButton>`, state=default, checked=false — nodeId `17:13535`
-
-```html
-<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="control"></extra-radiobutton>
-```
-
-### Checked (выбранная)
-
-Figma: `<RadioButton>`, state=default, checked=true
-
-Выбранное состояние задаётся равенством `value` и значения модели (`control.value === 'option1'`).
-
-### Группа вариантов
-
-Figma: `<RadioButton>`, общий `name`, одиночный выбор внутри группы
-
-```html
-<extra-radiobutton value="pickup" name="delivery" label="Самовывоз" [formControl]="control"></extra-radiobutton>
-<extra-radiobutton value="courier" name="delivery" label="Курьером" [formControl]="control"></extra-radiobutton>
-<extra-radiobutton value="post" name="delivery" label="Почтой" [formControl]="control"></extra-radiobutton>
-```
-
-### Disabled (отключённая)
-
-Figma: `<RadioButton>`, state=disabled
-
-```html
-<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="disabledControl"></extra-radiobutton>
-```
-
-```typescript
-disabledControl = new FormControl({ value: null, disabled: true });
-```
-
-### Invalid / Danger (невалидная)
-
-Figma: `<RadioButton>`, state=danger
-
-```html
-<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="requiredControl"></extra-radiobutton>
-```
-
-```typescript
-requiredControl = new FormControl(null, Validators.required);
-```
-
-### Caption (пояснение под лейблом)
+Все десять входов и три события перечислены в [API](../../../../docs/components-api/radiobutton.md). `disabled` и `invalid` определяются формой. Размер и readonly не входят в API обёртки.
 
 ```html
 <extra-radiobutton
-  value="option1"
+  [formControl]="delivery"
   name="delivery"
-  label="Курьером"
-  caption="Доставим за 1-2 дня"
-  [formControl]="control"
+  value="pickup"
+  label="Самовывоз"
+  caption="Заберите заказ в пункте выдачи"
+  (onClick)="onDeliveryClick($event)"
 ></extra-radiobutton>
 ```
 
-### Label справа / слева (label-position=right|left)
+`required` проверяет наличие выбранного значения через `Validators.required`. Внешние изменения формы обновляют OnPush-представление; `valueChanges` синхронизирует соседние элементы общего контрола. Blur отмечает контрол touched и вызывает `onBlur`; выбор вызывает `onClick` с `{ value, originalEvent }`, фокус — `onFocus`.
 
-`right` — значение по умолчанию, лейбл справа от индикатора; `left` — лейбл слева.
+## Геометрия и токены
 
-```html
-<extra-radiobutton value="option1" name="delivery" label="Курьером" [formControl]="control"></extra-radiobutton>
+Проверены десять вариантов (default, hover, focus, disabled, danger × checked false/true) в светлой и тёмной темах. Индикатор 24×24, точка 12×12, gap 10, верхний отступ текстового блока 2. Label Noto Sans Regular 14/20, общий Caption 14/14. Focus и danger используют единственное внешнее кольцо 2 без рамки; скрытая внутренняя тень из Figma не воспроизводится.
 
-<extra-radiobutton
-  value="option1"
-  name="delivery"
-  label="Курьером"
-  labelPosition="left"
-  [formControl]="control"
-></extra-radiobutton>
-```
+Дубли `root.focusRing`/`focusRing` и `root.sm`/`sm`, `root.lg`/`lg` устранены в пользу единственного пути под root. Размер sm сохранён 16 по прежней реализации; значение 8 из конфликтующего токена не применяется. В API обёртки size отсутствует. Выбранная точка инвертирует цвет в тёмной теме, hover использует active-токены из live Figma.
 
-## Slots
+С подписью `label` и Caption общая ширина браузера около 98,7 px против 100 в Figma из-за метрик шрифта и иконки общего Caption. Размеры индикатора, отступы и высота совпадают; ширина остаётся по содержимому.
 
-Не используются. `label`/`caption` — обычные `@Input()`, не content projection.
+## Доступность
 
-## Related
-
-- [ExtraCheckbox](../checkbox/checkbox.figma.md) — тот же паттерн label/caption + FormControl, множественный выбор вместо одиночного
-- [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний (danger, disabled)
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-- [ExtraInputText](../inputtext/inputtext.figma.md) — текстовое поле формы
-- [ExtraButton](../button/button.figma.md) — кнопка действия
-
-## Do / Don't
-
-**Do:**
-- Объединяйте радиокнопки одной группы общим `name` и связывайте с одной моделью через `[(ngModel)]` или `[formControl]`
-- Используйте радиокнопки, когда нужно выбрать ровно один из взаимоисключающих вариантов
-- Передавайте `label` — радиокнопка без видимой подписи не соответствует спеке
-- Управляйте `disabled`/`invalid` через `FormControl`, а не отдельными `@Input()`
-
-**Don't:**
-- Не используйте радиокнопки для множественного выбора — для этого есть Checkbox
-- Не оставляйте радиокнопку без `label` и `caption` одновременно без причины — подпись обязательна
-- Не пытайтесь снять выбор у радиокнопки повторным кликом: одиночный выбор в группе снять нельзя
-- Не переиспользуйте один и тот же `name` для разных независимых групп на одной странице — браузер группирует `<input type="radio">` по `name` нативно, в обход Angular, и это может визуально «переключить» несвязанную группу
+Уникальный input id связывает label и поле, `aria-describedby` связывает Caption. Без label доступное имя по умолчанию — «Выбор»; `ariaLabel` и `ariaLabelledBy` позволяют заменить его. Disabled исключает поле из Tab-порядка и не получает autofocus. Доступное поле поддерживает autofocus и tabindex.
