@@ -35,7 +35,7 @@ const meta: Meta<DividerArgs> = {
         component: `Разделитель для визуального разделения контента. Поддерживает горизонтальную и вертикальную ориентацию, различные стили линии и выравнивание.
 
 \`\`\`typescript
-import { DividerModule } from 'primeng/divider';
+import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit/components/divider';
 \`\`\``
       }
     },
