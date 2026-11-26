@@ -5,137 +5,51 @@ import:
   symbol: ExtraCheckboxComponent
   from: '@cdek-it/angular-ui-kit'
 figma:
-  fileKey: 'Khh7arsuXss3ncqy1Dz3OZ'
+  fileKey: 'Q1BWgZ7zoV5UzlBOnjW0cM'
   nodeId: '16:13529'
-  componentKey: 'ce267dfcda08b2861c4aa2aea4af70194735c9f0'
   name: '<Checkbox>'
 status: stable
-updated: '2026-06-22'
+updated: '2026-11-17'
 ---
 
-## Overview
+## Модель и состояния
 
-`ExtraCheckbox` — компонент флажка для выбора одного или нескольких вариантов. Оборачивает PrimeNG `p-checkbox` и реализует `ControlValueAccessor`, поэтому интегрируется с `[(ngModel)]` и реактивными формами через `formControl` / `formControlName`.
+`ExtraCheckboxComponent` оборачивает бинарный PrimeNG Checkbox. Значение — `boolean`, передаётся через `[(ngModel)]`, `formControl` или `formControlName`. Изменение пользователем вызывает `onChange` с `{ checked, originalEvent }`.
 
-Компонент соответствует Figma-компоненту `<Checkbox>` (nodeId `16:13529`). Figma-свойства `state`, `checked` и `indeterminate` маппируются на Angular-инпуты и модель значения (см. раздел Props mapping).
+| Figma                      | Angular                                     |
+| -------------------------- | ------------------------------------------- |
+| `checked`                  | Значение формы                              |
+| `indeterminate`            | `[indeterminate]`                           |
+| `state=disabled`           | Отключённый FormControl                     |
+| `state=danger`             | Невалидный контрол после touched или dirty  |
+| `state=hover/focus`        | Наведение / клавиатурный фокус              |
+| `show-label`, `label-text` | `label`; пустая строка скрывает подпись     |
+| `show-caption`             | `caption`; пустая строка скрывает пояснение |
 
-## Props mapping
+Все десять входов перечислены в [API](../../../../docs/components-api/checkbox.md). `disabled` и `invalid` определяются формой; `binary`, `value`, `size`, `variant` и `checkboxIcon` не входят в API обёртки.
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|---------|
-| `value` | `any` | `null` | Значение, добавляемое в массив-модель в небинарном режиме (группа чекбоксов) |
-| `binary` | `boolean` | `false` | Бинарный режим: модель — `true`/`false` вместо массива значений |
-| `disabled` | `boolean` | `false` | Отключённое состояние — соответствует Figma-свойству `state=disabled`; передаётся через `[disabled]` |
-| `readonly` | `boolean` | `false` | Режим только для чтения без изменения значения |
-| `required` | `boolean` | `false` | Поле обязательно: контрол невалиден, пока чекбокс не отмечен; работает как NG_VALIDATORS-валидатор |
-| `indeterminate` | `boolean` | `false` | Неопределённое состояние — соответствует Figma-свойству `indeterminate=true` |
-| `invalid` | `boolean` | `false` | Подсветка как невалидного поля — соответствует Figma-свойству `state=danger` |
-| `size` | `'small' \| 'base' \| 'large'` | `'base'` | Размер флажка |
-| `variant` | `'outlined' \| 'filled'` | `'outlined'` | Вариант отображения |
-| `checkboxIcon` | `string \| undefined` | `undefined` | CSS-класс иконки галочки; доступные иконки — [icons.md](../../figma-code-connect/icons.md) |
-| `ariaLabel` | `string \| undefined` | `undefined` | Метка для программ экранного доступа |
-| `ariaLabelledBy` | `string \| undefined` | `undefined` | Идентификатор элемента с меткой для доступности |
-| `tabindex` | `number \| undefined` | `undefined` | Порядок перехода по Tab |
-| `inputId` | `string \| undefined` | `undefined` | Идентификатор внутреннего `input`; используется для связки с `<label for>` |
-| `trueValue` | `any` | `true` | Значение модели во «включённом» состоянии (бинарный режим) |
-| `falseValue` | `any` | `false` | Значение модели в «выключенном» состоянии (бинарный режим) |
-| `autofocus` | `boolean` | `false` | Автофокус при монтировании компонента |
-
-Состояние «отмечен» (Figma-свойство `checked`) задаётся не отдельным инпутом, а моделью через `ControlValueAccessor`: используйте `[(ngModel)]`, `formControl` или `formControlName`. Значение `true`/`false` (или `trueValue`/`falseValue`) соответствует `checked=true` / `checked=false` в Figma.
-
-## Variants
-
-### Default (по умолчанию, не отмечен)
-
-Figma: state=default, checked=false, indeterminate=false
-
-```html
-<extra-checkbox [binary]="true" [(ngModel)]="isChecked"></extra-checkbox>
-```
-
-### Checked (отмечен)
-
-Figma: state=default, checked=true, indeterminate=false
-
-```html
-<extra-checkbox [binary]="true" [(ngModel)]="isChecked"></extra-checkbox>
-```
-
-В реактивных формах эквивалентно:
-
-```html
-<extra-checkbox [binary]="true" [formControl]="acceptControl"></extra-checkbox>
-```
-
-### Indeterminate (неопределённое состояние)
-
-Figma: state=default, checked=false, indeterminate=true
+## Пример
 
 ```html
 <extra-checkbox
-  [binary]="true"
-  [indeterminate]="true"
-  [(ngModel)]="isChecked"
+  [formControl]="acceptControl"
+  label="Согласен с условиями"
+  caption="Подтвердите согласие"
+  [required]="true"
+  (onChange)="onAcceptChange($event)"
 ></extra-checkbox>
 ```
 
-### Disabled (отключён)
+`required` использует `Validators.requiredTrue`. Отключение задаётся при создании контрола или через `control.disable()`. `readonly` оставляет элемент доступным для фокуса, запрещая изменение значения. Blur отмечает контрол touched. `autofocus` применяется после рендера к доступному полю.
 
-Figma: state=disabled, checked=false, indeterminate=false
+## Геометрия и иконки
 
-```html
-<extra-checkbox
-  [binary]="true"
-  [disabled]="true"
-  [(ngModel)]="isChecked"
-></extra-checkbox>
-```
+Проверены 15 вариантов в каждой теме: default, hover, focus, disabled, danger для пустого, отмеченного и неопределённого состояния. Квадрат 24×24, радиус 8, расстояние до подписи 12, верхний отступ текста 2, label 14/20. Caption использует общий `ExtraCaptionComponent` с типографикой 14/14. При фокусе и ошибке рамка заменяется внешним кольцом 2.
 
-### Danger / invalid (невалидное состояние)
+Галочка и минус — glyphs Tabler Icons размером 16. Сохранено решение [PR #190](https://github.com/cdek-it/angular-ui-kit/pull/190): встроенный SVG скрывается, glyph выбирается по фактической SVG-иконке PrimeNG. Это также работает для вложенных PrimeNG Checkbox. Пользовательские шаблоны иконок не заменяются.
 
-Figma: state=danger, checked=false, indeterminate=false
+Общая ширина при `label="label"`, `caption="Caption"` около 100,7 px против 102 в Figma: разница возникает в метриках текста и шрифтовой иконки общего Caption. Ширина остаётся по содержимому, чтобы поддерживать произвольные подписи.
 
-```html
-<extra-checkbox
-  [binary]="true"
-  [invalid]="true"
-  [(ngModel)]="isChecked"
-></extra-checkbox>
-```
+## Доступность
 
-### Группа чекбоксов (небинарный режим)
-
-Figma: state=default — несколько `<Checkbox>` с общей моделью-массивом
-
-```html
-<extra-checkbox value="email" [(ngModel)]="selected"></extra-checkbox>
-<extra-checkbox value="sms" [(ngModel)]="selected"></extra-checkbox>
-<extra-checkbox value="push" [(ngModel)]="selected"></extra-checkbox>
-```
-
-## Slots
-
-Не используются. Подпись к флажку размещается рядом во внешнем шаблоне через `<label [for]="inputId">`.
-
-## Related
-
-- [Иконки](../../figma-code-connect/icons.md) — доступные иконки галочки (`checkboxIcon`)
-- [Токены](../../figma-code-connect/tokens.md) — цветовые токены состояний и `invalid`
-- [Conventions](../../figma-code-connect/conventions.md) — соглашения маппинга Figma → Angular
-- [ExtraInputText](../inputtext/inputtext.figma.md) — текстовое поле формы с похожим маппингом состояний
-- [ExtraDialog](../dialog/dialog.figma.md) — пример компонента с двусторонней привязкой
-
-## Do / Don't
-
-**Do:**
-- Используйте `[binary]="true"` с `[(ngModel)]` или `formControl` для одиночного флажка
-- В группе чекбоксов задавайте уникальный `value` каждому элементу и общую модель-массив
-- Для невалидного состояния задавайте `[invalid]="true"` (Figma `state=danger`)
-- Для доступности связывайте `inputId` с внешним `<label [for]>` или задавайте `ariaLabel`
-- Используйте `[indeterminate]="true"` только для «частично выбранного» родительского флажка
-
-**Don't:**
-- Не задавайте «отмечен» через отдельный атрибут — состояние идёт только через модель (`[(ngModel)]` / `formControl`)
-- Не комбинируйте `[disabled]="true"` с интерактивными обработчиками — события в этом состоянии не возникают
-- Не используйте `value` в бинарном режиме (`[binary]="true"`) — там модель хранит `true`/`false`
-- Не инлайньте CSS-классы иконок вручную — используйте справочник [icons.md](../../figma-code-connect/icons.md)
+Label связан с внутренним input уникальным id. Caption подключён через `aria-describedby`. Без label используется доступное имя «Выбор», которое можно заменить через `ariaLabel` или `ariaLabelledBy`. Отключённое поле исключается из Tab-порядка; `tabindex` применяется к доступному полю.

@@ -1,40 +1,71 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { fn } from 'storybook/test';
 import { ExtraCheckboxComponent } from '../../../lib/components/checkbox/checkbox.component';
-import { CheckboxLabelsComponent, Labels } from './examples/checkbox-labels.component';
-import { CheckboxStatesComponent, States } from './examples/checkbox-states.component';
-import { CheckboxIndeterminateComponent, Indeterminate } from './examples/checkbox-indeterminate.component';
-
-type CheckboxArgs = ExtraCheckboxComponent & { disabled: boolean; invalid: boolean };
-
+const INPUTS = [
+  'label',
+  'labelPosition',
+  'caption',
+  'indeterminate',
+  'readonly',
+  'required',
+  'ariaLabel',
+  'ariaLabelledBy',
+  'autofocus',
+  'tabindex'
+] as const;
+type CheckboxArgs = Pick<ExtraCheckboxComponent, (typeof INPUTS)[number] | 'onChange' | 'modelValue' | 'inputId'> & {
+  checked: boolean;
+  disabled: boolean;
+  invalid: boolean;
+};
+type RenderArgs = Partial<Pick<CheckboxArgs, (typeof INPUTS)[number] | 'checked' | 'disabled' | 'invalid'>>;
+function source(args: RenderArgs) {
+  const parts = ['[formControl]="control"'];
+  const escape = (value: string) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+  for (const key of INPUTS) {
+    const value = args[key];
+    if (value === undefined) continue;
+    if (typeof value === 'string') parts.push(key + '="' + escape(value) + '"');
+    else parts.push('[' + key + ']="' + value + '"');
+  }
+  return '<extra-checkbox\n  ' + parts.join('\n  ') + '\n></extra-checkbox>';
+}
 const meta: Meta<CheckboxArgs> = {
   title: 'Components/Form/Checkbox',
   component: ExtraCheckboxComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraCheckboxComponent,
-        ReactiveFormsModule,
-        CheckboxLabelsComponent,
-        CheckboxStatesComponent,
-        CheckboxIndeterminateComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'checkbox'],
+  decorators: [moduleMetadata({ imports: [ExtraCheckboxComponent, ReactiveFormsModule] })],
+  render: (args) => {
+    const control = new FormControl(
+      { value: !!args.checked, disabled: !!args.disabled },
+      { nonNullable: true, validators: args.invalid ? () => ({ storyInvalid: true }) : [] }
+    );
+    if (args.invalid) control.markAsTouched();
+    return {
+      props: { ...Object.fromEntries(INPUTS.map((key) => [key, args[key]])), control, onChange: args.onChange },
+      template:
+        '<extra-checkbox [formControl]="control" ' +
+        INPUTS.map((key) => '[' + key + ']="' + key + '"').join(' ') +
+        ' (onChange)="onChange($event)"></extra-checkbox>'
+    };
+  },
   parameters: {
     designTokens: { prefix: '--p-checkbox' },
     docs: {
       description: {
         component: `Компонент флажка для выбора одного варианта (да/нет).
 
-Реализовано по спецификации [checkbox.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/checkbox.md).
-
 \`\`\`typescript
 import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
 \`\`\`
 
 Значение подключается через \`[(ngModel)]\` или \`[formControl]\` (ControlValueAccessor). Состояния disabled и invalid управляются через FormControl.`
+      },
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_code: string, context: { args: RenderArgs }) => source(context.args)
       }
     }
   },
@@ -96,6 +127,7 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
         type: { summary: 'boolean' }
       }
     },
+    checked: { control: 'boolean', description: 'Значение FormControl' },
     // ── События ──────────────────────────────────────────────────
     onChange: {
       control: false,
@@ -106,8 +138,8 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
       }
     },
     // Hidden computed props
-    modelValue: { table: { disable: true } },
-    inputId: { table: { disable: true } },
+    modelValue: { table: { disable: true }, description: 'Значение чекбокса (true/false)' },
+    inputId: { table: { disable: true }, description: 'id нативного input — для связки с внешним <label>' },
     readonly: {
       control: 'boolean',
       description: 'Только чтение',
@@ -123,54 +155,44 @@ import { ExtraCheckboxComponent } from '@cdek-it/angular-ui-kit';
       description: 'Автофокус при монтировании',
       table: { category: 'Дополнительно', defaultValue: { summary: 'false' } }
     },
-    ariaLabel: { control: 'text', table: { category: 'Дополнительно' } },
-    ariaLabelledBy: { control: 'text', table: { category: 'Дополнительно' } },
-    tabindex: { control: 'number', table: { category: 'Дополнительно' } }
+    ariaLabel: {
+      control: 'text',
+      table: { category: 'Дополнительно' },
+      description: 'Текст для скринридеров, если нет видимой подписи'
+    },
+    ariaLabelledBy: {
+      control: 'text',
+      table: { category: 'Дополнительно' },
+      description: 'id элемента, текст которого подписывает чекбокс'
+    },
+    tabindex: {
+      control: 'number',
+      table: { category: 'Дополнительно' },
+      description: 'Порядок фокуса при навигации клавиатурой'
+    }
   },
   args: {
-    label: 'Checkbox',
+    label: 'label',
     labelPosition: 'right',
-    caption: '',
+    caption: 'Caption',
     indeterminate: false,
     readonly: false,
     required: false,
+    ariaLabel: undefined,
+    ariaLabelledBy: undefined,
     autofocus: false,
+    tabindex: undefined,
+    checked: false,
     disabled: false,
-    invalid: false
+    invalid: false,
+    onChange: fn()
   }
 };
-
 export default meta;
 type Story = StoryObj<CheckboxArgs>;
 
-// ── Default (интерактивная) ────────────────────────────────────────────────
 export const Default: Story = {
   name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
-
-    if (args.label) parts.push(`label="${args.label}"`);
-    if (args.labelPosition && args.labelPosition !== 'right') parts.push(`labelPosition="${args.labelPosition}"`);
-    if (args.caption) parts.push(`caption="${args.caption}"`);
-    if (args.indeterminate) parts.push(`[indeterminate]="true"`);
-    if (args.readonly) parts.push('[readonly]="readonly"');
-    if (args.required) parts.push('[required]="required"');
-    if (args.autofocus) parts.push('[autofocus]="autofocus"');
-    if (args.ariaLabel) parts.push('[ariaLabel]="ariaLabel"');
-    if (args.ariaLabelledBy) parts.push('[ariaLabelledBy]="ariaLabelledBy"');
-    if (args.tabindex != null) parts.push('[tabindex]="tabindex"');
-
-    const validators = args.invalid ? [Validators.requiredTrue] : [];
-    const control = new FormControl({ value: false, disabled: args.disabled }, validators);
-
-    const template = `<extra-checkbox [formControl]="control"\n  ${parts.join('\n  ')}\n></extra-checkbox>`;
-
-    // invalid и disabled живут во FormControl: у компонента invalid — геттер без сеттера,
-    // и Storybook на попытке его присвоить роняет ошибку в консоль
-    const { invalid, disabled, ...rest } = args;
-
-    return { props: { ...rest, control }, template };
-  },
   parameters: {
     docs: {
       description: {
@@ -181,5 +203,35 @@ export const Default: Story = {
   }
 };
 
-// ── Комбинаторные истории ──────────────────────────────────────────────────
-export { Labels, States, Indeterminate };
+export const Error: Story = { name: 'Error', args: { invalid: true } };
+
+export const Disabled: Story = { name: 'Disabled', args: { disabled: true } };
+
+export const Readonly: Story = { name: 'Readonly', args: { readonly: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
+      }
+    }
+  }
+};
+
+export const Indeterminate: Story = {
+  name: 'Indeterminate',
+  args: { indeterminate: true },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Indeterminate — неопределённое состояние родительского чекбокса при частичном выборе дочерних.'
+      }
+    }
+  }
+};
+
+export const WithoutLabel: Story = { name: 'WithoutLabel', args: { label: '', caption: '' } };
+
+export const WithoutCaption: Story = { name: 'WithoutCaption', args: { caption: '' } };
+
+export const LabelLeft: Story = { name: 'LabelLeft', args: { labelPosition: 'left' } };
