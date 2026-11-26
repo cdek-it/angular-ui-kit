@@ -58,23 +58,9 @@ export const AlignBottom = {
     docs: {
       description: { story: 'Контент вертикального разделителя выровнен по нижнему краю.' },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-divider-align-bottom',
-  standalone: true,
-  imports: [ExtraDividerComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <extra-divider layout="vertical" align="bottom">
-      <span>Отправитель</span>
-    </extra-divider>
-  \`,
-})
-export class DividerAlignBottomComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-divider layout="vertical" align="bottom">Отправитель</extra-divider>'
       }
     }
   }

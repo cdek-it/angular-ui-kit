@@ -4,11 +4,11 @@ export const dividerCss = ({ dt }: { dt: (token: string) => string }): string =>
   align-items: center;
   gap: ${dt('divider.extend.content.gap')};
   background: ${dt('color.bg.surface.default.default')};
-  color: ${dt('color.fg.default')};
-  font-family: ${dt('fonts.fontFamily.heading')};
+  color: ${dt('color.fg.muted')};
+  font-family: ${dt('fonts.fontFamily.base')};
   font-size: ${dt('fonts.fontSize.200')};
-  font-weight: ${dt('fonts.fontWeight.demibold')};
-  line-height: ${dt('fonts.lineHeight.350')};
+  font-weight: ${dt('fonts.fontWeight.medium')};
+  line-height: ${dt('fonts.lineHeight.200')};
   letter-spacing: ${dt('fonts.letterSpacing.500')};
   text-transform: uppercase;
 }
