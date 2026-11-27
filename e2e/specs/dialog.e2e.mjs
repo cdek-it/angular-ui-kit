@@ -253,6 +253,20 @@ export default {
         expect(log, 'visibleChange false').toContain('visibleChange:false');
       }
     },
+    {
+      name: 'Basic: showMaximize из Controls',
+      story: 'components-overlay-dialog--basic',
+      run: async ({ page, expect, url }) => {
+        await page.goto(`${url}&args=showMaximize:true`, { waitUntil: 'networkidle' });
+        await page.getByRole('button', { name: 'Открыть окно' }).click();
+        await page.waitForSelector('.p-dialog');
+        const maximize = page.locator('.p-dialog-maximize-button');
+        expect(await maximize.count(), 'кнопка разворота').toBe(1);
+        await maximize.click();
+        await page.waitForTimeout(300);
+        expect((await page.locator('.p-dialog').getAttribute('class')) ?? '', 'maximized').toContain('p-dialog-maximized');
+      }
+    },
     ...STORIES.map(smoke),
     { ...smoke(STORIES[0]), name: `Smoke: ${STORIES[0].name} (тёмная тема)`, theme: 'dark' }
   ]

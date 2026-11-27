@@ -9,7 +9,14 @@ const template = `
   <extra-button (click)="visible = true" label="Открыть окно"></extra-button>
 
   <extra-dialog
-    header="Подтверждение заявки"
+    [header]="header"
+    [showOverlay]="showOverlay"
+    [showMaximize]="showMaximize"
+    [showClose]="showClose"
+    [dismissableMask]="dismissableMask"
+    [closeOnEscape]="closeOnEscape"
+    [focusOnShow]="focusOnShow"
+    [appendTo]="appendTo"
     [size]="size"
     [visible]="visible"
     (visibleChange)="visible = $event"
@@ -35,7 +42,14 @@ const template = `
   template
 })
 export class DialogBasicComponent {
-  /** Прокидывается из контрола size в панели Controls. */
+  @Input() header = 'Подтверждение заявки';
+  @Input() showOverlay = true;
+  @Input() showMaximize = false;
+  @Input() showClose = true;
+  @Input() dismissableMask = false;
+  @Input() closeOnEscape = true;
+  @Input() focusOnShow = false;
+  @Input() appendTo = 'body';
   @Input() size: ExtraDialogSize = 'default';
 
   visible = false;
@@ -48,11 +62,29 @@ export class DialogBasicComponent {
 
 export const Basic: StoryObj = {
   args: {
+    header: 'Подтверждение заявки',
+    showOverlay: true,
+    showMaximize: false,
+    showClose: true,
+    dismissableMask: false,
+    closeOnEscape: true,
+    focusOnShow: false,
+    appendTo: 'body',
     size: 'default'
   },
   render: (args) => ({
     props: args,
-    template: `<app-dialog-basic [size]="size"></app-dialog-basic>`
+    template: `<app-dialog-basic
+  [header]="header"
+  [showOverlay]="showOverlay"
+  [showMaximize]="showMaximize"
+  [showClose]="showClose"
+  [dismissableMask]="dismissableMask"
+  [closeOnEscape]="closeOnEscape"
+  [focusOnShow]="focusOnShow"
+  [appendTo]="appendTo"
+  [size]="size"
+></app-dialog-basic>`
   }),
   parameters: {
     docs: {
