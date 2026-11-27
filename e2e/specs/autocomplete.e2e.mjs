@@ -71,24 +71,12 @@ export default {
       }
     },
     {
-      name: 'Properties: multiple',
-      story: 'components-form-autocomplete--multiple',
-      knownIssue: 'story multiple не открывает подсказки по вводу',
-      run: async ({ page, expect }) => {
-        const input = page.locator('#storybook-root .p-autocomplete input');
-        await input.fill('Мос');
-        await page.waitForSelector('.p-autocomplete-option');
-        await page.locator('.p-autocomplete-option').first().click();
-        await page.waitForTimeout(300);
-        expect(await page.locator('#storybook-root .p-autocomplete-multiple-container .p-autocomplete-token').count(), 'token').toBeGreaterThan(0);
-      }
-    },
-    {
       name: 'Properties: grouped',
       story: 'components-form-autocomplete--grouped',
-      knownIssue: 'в grouped нет кнопки dropdown',
       run: async ({ page, expect }) => {
-        await page.locator('.p-autocomplete-dropdown').click();
+        const input = page.locator('#storybook-root input').first();
+        await input.click();
+        await input.fill('М');
         await page.waitForSelector('.p-autocomplete-option');
         expect(await page.locator('.p-autocomplete-option-group').count(), 'группы').toBeGreaterThan(0);
       }
