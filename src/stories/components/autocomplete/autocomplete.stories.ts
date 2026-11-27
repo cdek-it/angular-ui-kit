@@ -619,6 +619,9 @@ export const Dropdown: Story = {
   name: 'Dropdown',
   args: { dropdown: true },
   render: (args) => renderAutoComplete(args),
+  argTypes: {
+    suggestions: { control: false, table: { disable: true } }
+  },
   play: async ({ canvasElement, args }) => {
     if (args.disabled || args.readonly || !args.dropdown || args.multiple || args.group || args.suggestions?.length)
       return;
@@ -646,6 +649,9 @@ export const Multiple: Story = {
   name: 'Multiple',
   args: { multiple: true, showCheckbox: true },
   render: (args) => renderAutoComplete(args),
+  argTypes: {
+    suggestions: { control: false, table: { disable: true } }
+  },
   play: async ({ canvasElement, args }) => {
     if (args.disabled || args.readonly || !args.multiple || args.group || args.suggestions?.length) return;
     const canvas = within(canvasElement);
