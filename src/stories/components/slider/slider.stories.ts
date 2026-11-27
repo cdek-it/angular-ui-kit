@@ -29,7 +29,6 @@ const meta: Meta<SliderArgs> = {
       description: {
         component: `Слайдер позволяет выбрать числовое значение или диапазон путём перемещения ползунка.
 
-Реализовано по спецификации [slider.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/slider.md).
 
 \`\`\`typescript
 import { ExtraSliderComponent } from '@cdek-it/angular-ui-kit/components/slider';
