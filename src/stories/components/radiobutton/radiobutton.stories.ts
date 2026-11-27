@@ -32,7 +32,6 @@ const meta: Meta<RadiobuttonArgs> = {
       description: {
         component: `Радиокнопка для выбора одного варианта из взаимоисключающей группы.
 
-Реализовано по спецификации [radiobutton.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/radiobutton.md).
 
 \`\`\`typescript
 import { ExtraRadiobuttonComponent } from '@cdek-it/angular-ui-kit';
