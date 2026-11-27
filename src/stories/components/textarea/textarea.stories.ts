@@ -26,7 +26,6 @@ const meta: Meta<TextareaArgs> = {
       description: {
         component: `Многострочное текстовое поле для ввода данных.
 
-Реализовано по спецификации [textarea.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/textarea.md).
 
 \`\`\`typescript
 import { ExtraTextareaComponent } from '@cdek-it/angular-ui-kit';
