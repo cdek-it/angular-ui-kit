@@ -22,10 +22,118 @@ const smoke = (story) => ({
   }
 });
 
+
+const openRadio = async (page, url, args) => {
+  await page.goto(`${url}&args=${args}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+};
+
 export default {
   component: 'radiobutton',
   stories: Object.fromEntries(STORIES.map((story) => [story.id, story.id])),
   tests: [
+    {
+      name: 'Properties: label и labelPosition',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'label:Custom;labelPosition:left');
+        expect((await page.locator('label.radio-label').innerText()).trim(), 'label').toBe('Custom');
+        expect((await page.locator('.extra-radiobutton').getAttribute('class')) ?? '', 'left').toContain('extra-radiobutton--left');
+      }
+    },
+    {
+      name: 'Properties: caption и aria-describedby',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'caption:CustomCaption');
+        const caption = page.locator('.radio-caption');
+        expect((await caption.innerText()).trim(), 'caption').toBe('CustomCaption');
+        const captionId = await caption.getAttribute('id');
+        expect(await page.locator('.p-radiobutton-input').getAttribute('aria-describedby'), 'aria-describedby').toBe(captionId);
+      }
+    },
+    {
+      name: 'Properties: value передаётся в onClick',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'value:pickup');
+        const event = await page.evaluate(() => new Promise((resolve) => {
+          const instance = globalThis.ng?.getComponent(document.querySelector('extra-radiobutton'));
+          instance?.onClick.subscribe((value) => resolve(value));
+          document.querySelector('.p-radiobutton-input').click();
+        }));
+        expect(event?.value, 'value').toBe('pickup');
+      }
+    },
+    {
+      name: 'Properties: name',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'name:group');
+        expect(await page.locator('.p-radiobutton-input').getAttribute('name'), 'name').toBe('group');
+      }
+    },
+    {
+      name: 'Properties: required валидирует',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'required:true');
+        const error = await page.evaluate(() => {
+          const instance = globalThis.ng?.getComponent(document.querySelector('extra-radiobutton'));
+          return instance?.validate({ value: null });
+        });
+        expect(Boolean(error), 'required error').toBe(true);
+      }
+    },
+    {
+      name: 'Properties: ariaLabel',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'ariaLabel:Check');
+        expect(await page.locator('.p-radiobutton-input').getAttribute('aria-label'), 'aria-label').toBe('Check');
+      }
+    },
+    {
+      name: 'Properties: ariaLabelledBy',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'ariaLabelledBy:some-label');
+        expect(await page.locator('.p-radiobutton-input').getAttribute('aria-labelledby'), 'aria-labelledby').toBe('some-label');
+      }
+    },
+    {
+      name: 'Properties: autofocus',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'autofocus:true');
+        expect(await page.evaluate(() => document.activeElement?.classList.contains('p-radiobutton-input')), 'фокус').toBe(true);
+      }
+    },
+    {
+      name: 'Properties: tabindex',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect, url }) => {
+        await openRadio(page, url, 'tabindex:3');
+        expect(await page.locator('.p-radiobutton-input').getAttribute('tabindex'), 'tabindex').toBe('3');
+      }
+    },
+    {
+      name: 'Properties: onFocus и onBlur',
+      story: 'components-form-radiobutton--default',
+      run: async ({ page, expect }) => {
+        await page.evaluate(() => {
+          const instance = globalThis.ng?.getComponent(document.querySelector('extra-radiobutton'));
+          window.__radioEvents = [];
+          instance?.onFocus.subscribe(() => window.__radioEvents.push('focus'));
+          instance?.onBlur.subscribe(() => window.__radioEvents.push('blur'));
+        });
+        const input = page.locator('.p-radiobutton-input');
+        await input.focus();
+        await input.blur();
+        await page.waitForTimeout(200);
+        expect(await page.evaluate(() => window.__radioEvents), 'события').toEqual(['focus', 'blur']);
+      }
+    },
     ...STORIES.map(smoke),
     {
       name: 'Default: клик выбирает радиокнопку',
