@@ -1,13 +1,5 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../lib/components/button/button.component';
-import { ButtonSizesComponent, Sizes } from './examples/button-sizes.component';
-import { ButtonVariantsComponent, Variants } from './examples/button-variants.component';
-import { ButtonIconsComponent, Icons } from './examples/button-icons.component';
-import { ButtonStatesComponent, States } from './examples/button-states.component';
-import { ButtonRoundedComponent, Rounded } from './examples/button-rounded.component';
-import { Badge, ButtonBadgeComponent } from './examples/button-badge.component';
-import { ButtonFluidComponent, Fluid } from './examples/button-fluid.component';
-import { ButtonEventsComponent, Events } from './examples/button-events.component';
 
 type ButtonArgs = ExtraButtonComponent & {
   onClick?: (event: MouseEvent) => void;
@@ -18,24 +10,16 @@ type ButtonArgs = ExtraButtonComponent & {
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
   component: ExtraButtonComponent,
-  tags: ['autodocs'],
-  decorators: [
-    moduleMetadata({
-      imports: [
-        ExtraButtonComponent,
-        ButtonSizesComponent,
-        ButtonVariantsComponent,
-        ButtonIconsComponent,
-        ButtonStatesComponent,
-        ButtonRoundedComponent,
-        ButtonBadgeComponent,
-        ButtonFluidComponent,
-        ButtonEventsComponent
-      ]
-    })
-  ],
+  tags: ['autodocs', 'button'],
+  decorators: [moduleMetadata({ imports: [ExtraButtonComponent] })],
+  render: (args) => renderButton(args),
   parameters: {
     docs: {
+      source: {
+        language: 'html',
+        type: 'dynamic',
+        transform: (_code: string, context: { args: ButtonRenderArgs }) => buttonSource(context.args)
+      },
       description: {
         component: `Интерактивный элемент интерфейса. Используется для инициации действий, отправки форм и навигации.
 
@@ -51,6 +35,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     // ── Props ────────────────────────────────────────────────
     label: {
       control: 'text',
+      if: { arg: 'iconOnly', truthy: false },
       description: 'Текст кнопки',
       table: {
         category: 'Props',
@@ -99,6 +84,7 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     },
     iconPosition: {
       control: 'select',
+      if: { arg: 'iconOnly', truthy: false },
       options: ['left', 'right'],
       description: 'Позиция иконки относительно текста',
       table: {
@@ -237,12 +223,20 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
     }
   },
   args: {
-    iconPosition: 'left',
+    label: 'Button',
+    variant: 'primary',
     severity: 'base',
+    size: 'base',
+    icon: '',
+    iconPosition: 'left',
+    iconOnly: false,
+    rounded: false,
+    disabled: false,
+    loading: false,
+    fluid: false,
     showBadge: false,
     badge: '',
     badgeSeverity: null,
-    fluid: false,
     autofocus: false
   }
 };
@@ -250,47 +244,111 @@ import { ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
 export default meta;
 type Story = StoryObj<ButtonArgs>;
 
-// ── Default ──────────────────────────────────────────────────────────────────
+const BUTTON_INPUTS = [
+  'label',
+  'severity',
+  'variant',
+  'size',
+  'icon',
+  'iconPosition',
+  'iconOnly',
+  'rounded',
+  'fluid',
+  'disabled',
+  'loading',
+  'showBadge',
+  'badge',
+  'badgeSeverity',
+  'ariaLabel',
+  'autofocus',
+  'tabindex'
+] as const;
+type ButtonRenderArgs = Partial<Pick<ButtonArgs, (typeof BUTTON_INPUTS)[number]>>;
+const BUTTON_DEFAULTS: ButtonRenderArgs = {
+  label: '',
+  severity: 'base',
+  variant: 'primary',
+  size: 'base',
+  icon: '',
+  iconPosition: 'left',
+  iconOnly: false,
+  rounded: false,
+  fluid: false,
+  disabled: false,
+  loading: false,
+  showBadge: false,
+  badge: '',
+  badgeSeverity: null,
+  autofocus: false
+};
+const buttonSource = (args: ButtonRenderArgs): string => {
+  const parts: string[] = [];
+  for (const key of BUTTON_INPUTS) {
+    const value = args[key] ?? BUTTON_DEFAULTS[key];
+    if (value === undefined || value === BUTTON_DEFAULTS[key]) continue;
+    if (typeof value === 'boolean' || typeof value === 'number') parts.push('[' + key + ']="' + value + '"');
+    else
+      parts.push(
+        key + '="' + String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;') + '"'
+      );
+  }
+  return '<extra-button' + (parts.length ? '\n  ' + parts.join('\n  ') : '') + '\n></extra-button>';
+};
+const renderButton = (args: ButtonRenderArgs) => ({
+  props: { ...args, ...Object.fromEntries(BUTTON_INPUTS.map((key) => [key, args[key] ?? BUTTON_DEFAULTS[key]])) },
+  template: '<extra-button ' + BUTTON_INPUTS.map((key) => '[' + key + ']="' + key + '"').join(' ') + '></extra-button>'
+});
 
 export const Default: Story = {
-  name: 'Default',
-  render: (args) => {
-    const parts: string[] = [];
+  args: {},
+  parameters: {
+    docs: {
+      description: { story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.' }
+    }
+  }
+};
 
-    if (args.label != null && args.label !== '') parts.push(`label="${args.label}"`);
-    if (args.severity != null && args.severity !== 'base') parts.push(`severity="${args.severity}"`);
-    if (args.variant != null) parts.push(`variant="${args.variant}"`);
-    if (args.size != null) parts.push(`size="${args.size}"`);
-    if (args.icon != null && (args.icon as string) !== '') parts.push(`icon="${args.icon}"`);
-    if (args.iconPosition != null && args.iconPosition !== 'left') parts.push(`iconPosition="${args.iconPosition}"`);
-    if (args.iconOnly) parts.push(`[iconOnly]="true"`);
-    if (args.rounded) parts.push(`[rounded]="true"`);
-    if (args.fluid) parts.push(`[fluid]="true"`);
-    if (args.disabled) parts.push(`[disabled]="true"`);
-    if (args.loading) parts.push(`[loading]="true"`);
-    if (args.showBadge) parts.push(`[showBadge]="true"`);
-    if (args.badge) parts.push(`badge="${args.badge}"`);
-    if (args.badgeSeverity != null) parts.push(`badgeSeverity="${args.badgeSeverity}"`);
-    if (args.ariaLabel) parts.push(`ariaLabel="${args.ariaLabel}"`);
-    if (args.autofocus) parts.push(`[autofocus]="true"`);
-    if (args.tabindex != null) parts.push(`[tabindex]="${args.tabindex}"`);
+export const Disabled: Story = { args: { disabled: true } };
 
-    const template = parts.length
-      ? `<extra-button\n  ${parts.join('\n  ')}\n></extra-button>`
-      : `<extra-button></extra-button>`;
+export const Loading: Story = { args: { loading: true } };
 
-    return { props: args, template };
-  },
-  args: {
-    label: 'Button'
-  },
+export const Rounded: Story = {
+  args: { rounded: true },
   parameters: {
     docs: {
       description: {
-        story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+        story:
+          'Скруглённая форма (rounded): варианты отображения при severity="base", семантические состояния (severity, variant="primary") и variant="outlined" × severity (контурная скруглённая кнопка).'
       }
     }
   }
 };
 
-export { Sizes, Variants, Icons, States, Rounded, Badge, Fluid, Events };
+export const Icon: Story = { args: { icon: 'ti ti-check' } };
+
+export const IconRight: Story = { args: { icon: 'ti ti-check', iconPosition: 'right' } };
+
+export const IconOnly: Story = { args: { icon: 'ti ti-check', iconOnly: true, ariaLabel: 'Button' } };
+
+export const Badge: Story = {
+  args: { showBadge: true, badge: '2' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Бейдж поверх кнопки (`showBadge` + `badge` + `badgeSeverity`) — например, для счётчиков уведомлений.'
+      }
+    }
+  }
+};
+
+export const Fluid: Story = {
+  args: { fluid: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Растягивание на всю ширину контейнера (fluid). При `[fluid]="true"` кнопка занимает 100% ширины родителя — удобно для форм и мобильных раскладок. Контейнер в примере ограничен шириной 320px, чтобы эффект был нагляден.'
+      }
+    }
+  }
+};

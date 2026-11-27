@@ -194,6 +194,23 @@ Figma: `<Button.Base>`, rounded=true
 <extra-button [fluid]="true" label="Во всю ширину"></extra-button>
 ```
 
+## Геометрия и состояния (Figma 1:1)
+
+Размеры в px, число Figma равно px в коде. Проверено в Storybook по `Button.Base`.
+
+| `size` | Высота | Шрифт / межстрочный | padding Y / X | gap | Радиус | Ширина icon-only | Иконка |
+|---|---|---|---|---|---|---|---|
+| `small` | 36 | 14 / 18 | 8 / 14 | 8 | 10 | 36 | 16 |
+| `base` | 42 | 16 / 24 | 8 / 14 | 8 | 10 | 42 | 20 |
+| `large` | 50 | 18 / 24 | 12 / 24 | 10 | 14 | 50 | 24 |
+| `xlarge` | 56 | 18 / 26 | 14 / 24 | 10 | 14 | 56 | 24 |
+
+- `rounded` — полностью круглая форма. `link`: отступ по вертикали 4, по горизонтали 0, у icon-only сторона 16 / 24 / 28 / 32 (small / base / large / xlarge).
+- Кольцо фокуса. У `primary` и всех severity — одно внешнее кольцо 2px (`border.focus`, `border.status.*.focus`). У `secondary`, `tertiary`, `text` и `link` два кольца: внутреннее 1px (`border.neutral.strong`) и внешнее 2px (`border.neutral.focus`). Во всех темах кольцо берётся из токенов темы.
+- Фон `text` и `link` в фокусе — `bg.neutral.translucent.faint`, у severity — `bg.status.*.translucent.faint`. У `link` в фокусе радиус 4.
+- Внутреннее кольцо у `primary` и severity в Figma скрыто, токены `extFocusRing.*BorderColor` оставлены для соответствия макету и в стилях не используются.
+- Оси Figma `variant=basic` у `Button.Danger` и аналогов соответствуют `variant="primary"` с нужным `severity`.
+
 ## Slots
 
 Не используются. Содержимое кнопки передаётся через `@Input() label` и `@Input() icon`.

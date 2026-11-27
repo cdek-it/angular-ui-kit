@@ -63,6 +63,7 @@ export const Events: StoryObj = {
     template: `<app-button-events></app-button-events>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:

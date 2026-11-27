@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
-import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
+import {
+  ExtraButtonComponent,
+  ExtraButtonSeverity,
+  ExtraButtonVariant
+} from '../../../../lib/components/button/button.component';
 
 const template = `
 <div class="p-4">
@@ -39,8 +43,8 @@ const template = `
   template
 })
 export class ButtonStatesComponent {
-  variants = ['secondary', 'tertiary', 'text', 'link'];
-  severities = ['danger', 'warning', 'success', 'info'];
+  variants: ExtraButtonVariant[] = ['secondary', 'tertiary', 'text', 'link'];
+  severities: ExtraButtonSeverity[] = ['danger', 'warning', 'success', 'info'];
 
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
@@ -52,6 +56,7 @@ export const States: StoryObj = {
     template: `<app-button-states></app-button-states>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
