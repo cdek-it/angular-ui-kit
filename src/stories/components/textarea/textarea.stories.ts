@@ -401,7 +401,105 @@ export const Readonly: Story = {
   args: { readonly: true },
   render: (args) => renderTextarea(args),
   parameters: {
-    docs: { description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется. Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).' } }
+    docs: { description: { story: 'Режим только для чтения — содержимое отображается, но не редактируется.' } }
+  }
+};
+
+export const Properties: Story = {
+  name: 'Properties',
+  args: {
+    placeholder: 'Введите текст...',
+    label: 'Comment',
+    requiredMark: true,
+    labelPosition: 'default',
+    caption: 'Caption',
+    captionSeverity: 'base',
+    info: 'Info',
+    clearable: true,
+    resizable: true,
+    size: 'base',
+    readonly: false,
+    fluid: false,
+    autoResize: false,
+    rows: 3,
+    cols: 20,
+    autofocus: false,
+    name: 'field',
+    autocomplete: 'off',
+    maxLength: 100,
+    ariaLabel: 'Label',
+    ariaLabelledBy: undefined,
+    tabindex: 0
+  },
+  render: (args) => ({
+    props: { ...args, control: new FormControl('Text') },
+    template: `<extra-textarea
+  [formControl]="control"
+  [label]="label"
+  [requiredMark]="requiredMark"
+  [labelPosition]="labelPosition"
+  [caption]="caption"
+  [captionSeverity]="captionSeverity"
+  [info]="info"
+  [clearable]="clearable"
+  [resizable]="resizable"
+  [size]="size"
+  [readonly]="readonly"
+  [fluid]="fluid"
+  [autoResize]="autoResize"
+  [rows]="rows"
+  [cols]="cols"
+  [autofocus]="autofocus"
+  [placeholder]="placeholder"
+  name="field"
+  [required]="false"
+  [autocomplete]="autocomplete"
+  [maxLength]="maxLength"
+  [ariaLabel]="ariaLabel"
+  [ariaLabelledBy]="ariaLabelledBy"
+  [tabindex]="tabindex"
+></extra-textarea>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        language: 'html',
+        code: `<extra-textarea
+  [formControl]="control"
+  label="Comment"
+  [requiredMark]="true"
+  caption="Caption"
+  info="Info"
+  [clearable]="true"
+  [rows]="3"
+  [cols]="20"
+  [placeholder]="placeholder"
+  name="field"
+  [required]="false"
+  autocomplete="off"
+  [maxLength]="100"
+  ariaLabel="Label"
+  [tabindex]="0"
+></extra-textarea>`
+      }
+    }
+  }
+};
+
+export const Required: Story = {
+  name: 'Required',
+  args: { required: true },
+  render: () => ({
+    props: { control: new FormControl('') },
+    template: `<extra-textarea [formControl]="control" [required]="true"></extra-textarea>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        language: 'html',
+        code: `<extra-textarea [formControl]="control" [required]="true"></extra-textarea>`
+      }
+    }
   }
 };
 
