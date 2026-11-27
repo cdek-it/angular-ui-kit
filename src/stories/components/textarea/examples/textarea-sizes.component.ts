@@ -32,6 +32,7 @@ export const Sizes: StoryObj = {
     })
   ],
   parameters: {
+    controls: { exclude: ['label', 'labelPosition', 'floatLabel', 'caption', 'info', 'resizable', 'fluid', 'autoResize', 'rows', 'autofocus', 'readonly', 'cols'] },
     docs: {
       description: {
         story: 'Все доступные размеры компонента: small, base, large, xlarge. Выберите размер через Controls.'
