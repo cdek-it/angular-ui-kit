@@ -6,6 +6,12 @@ const STORIES = [
   ['fluid','components-form-select--fluid'],
   ['float-label','components-form-select--float-label']
 ];
+
+const openSelect = async (page, url, args) => {
+  await page.goto(`${url}&args=${args}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+};
+
 export default {
   component: 'select',
   stories: Object.fromEntries(STORIES),
@@ -39,6 +45,83 @@ export default {
         expect(result.errors, 'inputs').toEqual([]);
         expect(result.inputs.length, 'inputs count').toBeGreaterThan(0);
         expect(result.outputsOk, 'outputs').toBe(true);
+      }
+    },
+    {
+      name: 'Properties: выбор опции',
+      story: 'components-form-select--default',
+      run: async ({ page, expect }) => {
+        await page.locator('#storybook-root .p-select').click();
+        await page.waitForSelector('.p-select-option');
+        const first = (await page.locator('.p-select-option').first().innerText()).trim();
+        await page.locator('.p-select-option').first().click();
+        expect((await page.locator('#storybook-root .p-select-label').innerText()).trim(), 'выбрано').toBe(first);
+      }
+    },
+    {
+      name: 'Properties: placeholder',
+      story: 'components-form-select--default',
+      run: async ({ page, expect, url }) => {
+        await openSelect(page, url, 'placeholder:Pick');
+        const label = page.locator('#storybook-root .p-select-label');
+        expect((await label.innerText()).trim(), 'placeholder').toBe('Pick');
+      }
+    },
+    {
+      name: 'Properties: clearable',
+      story: 'components-form-select--default',
+      run: async ({ page, expect, url }) => {
+        await openSelect(page, url, 'clearable:true');
+        await page.locator('#storybook-root .p-select').click();
+        await page.waitForSelector('.p-select-option');
+        await page.locator('.p-select-option').first().click();
+        await page.waitForTimeout(200);
+        const clear = page.locator('.p-select-clear-icon');
+        expect(await clear.count(), 'clear icon').toBe(1);
+        await clear.click();
+        await page.waitForTimeout(200);
+        expect((await page.locator('#storybook-root .p-select-label').innerText()).trim() === 'Новосибирск', 'очищено').toBe(false);
+      }
+    },
+    {
+      name: 'Properties: showFilter',
+      story: 'components-form-select--default',
+      run: async ({ page, expect, url }) => {
+        await openSelect(page, url, 'showFilter:true');
+        await page.locator('#storybook-root .p-select').click();
+        await page.waitForSelector('.p-select-filter');
+        await page.locator('.p-select-filter').fill('Мос');
+        await page.waitForTimeout(300);
+        const options = await page.locator('.p-select-option').allInnerTexts();
+        expect(options.length, 'отфильтровано').toBeLessThan(5);
+        expect(options.join(' '), 'Москва').toContain('Москва');
+      }
+    },
+    {
+      name: 'Properties: label и floatLabel',
+      story: 'components-form-select--float-label',
+      run: async ({ page, expect }) => {
+        expect(await page.locator('.p-floatlabel').count(), 'floatlabel').toBe(1);
+        expect((await page.locator('label').innerText()).trim(), 'label').toBeTruthy();
+      }
+    },
+    {
+      name: 'Properties: size и fluid',
+      story: 'components-form-select--default',
+      run: async ({ page, expect, url }) => {
+        await openSelect(page, url, 'size:large;fluid:true');
+        const root = page.locator('#storybook-root .p-select');
+        const cls = (await root.getAttribute('class')) ?? '';
+        expect(cls, 'size').toContain('p-select-lg');
+        expect(cls, 'fluid').toContain('p-select-fluid');
+      }
+    },
+    {
+      name: 'Properties: ariaLabel',
+      story: 'components-form-select--default',
+      run: async ({ page, expect, url }) => {
+        await openSelect(page, url, 'ariaLabel:SelectLabel');
+        expect(await page.locator('#storybook-root [role=combobox]').getAttribute('aria-label'), 'aria-label').toBe('SelectLabel');
       }
     },
     ...STORIES.map(([name,id])=>({name:`Smoke: ${name}`,story:id,run:async({page,expect,errors})=>{
