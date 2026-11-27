@@ -79,7 +79,7 @@ import { ExtraMultiSelectComponent } from '@cdek-it/angular-ui-kit';
       control: 'select',
       options: ['top', 'left'],
       if: { arg: 'floatLabel', truthy: false },
-      description: 'Положение лейбла; игнорируется при floatLabel=true',
+      description: 'Положение лейбла',
       table: {
         category: 'Свойства',
         defaultValue: { summary: "'top'" },
@@ -569,15 +569,7 @@ export const Disabled: Story = {
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true, value: [OPTIONS[0], OPTIONS[1]] },
-  render: (args) => renderMultiSelect(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
-      }
-    }
-  }
+  render: (args) => renderMultiSelect(args)
 };
 
 export const Chips: Story = {
@@ -609,7 +601,7 @@ export const FloatLabel: Story = {
     docs: {
       description: {
         story:
-          'Плавающий лейбл внутри поля. labelPosition здесь не применяется: при floatLabel=true лейбл всегда внутри поля, поэтому контрол скрыт. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
+          'Положения лейбла (labelPosition): top — сверху (по умолчанию), left — слева от поля; floatLabel — плавающий лейбл внутри поля. Info показывается иконкой ti-info-circle с тултипом, caption — пояснение под полем.'
       }
     }
   }
