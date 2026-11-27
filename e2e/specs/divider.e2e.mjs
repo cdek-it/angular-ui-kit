@@ -23,6 +23,12 @@ const smoke = (story) => ({
   }
 });
 
+
+const openDivider = async (page, url, args) => {
+  await page.goto(`${url}&args=${args}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+};
+
 export default {
   component: 'divider',
   stories: Object.fromEntries(STORIES.map((story) => [story.id, story.id])),
@@ -94,6 +100,70 @@ export default {
         });
         expect(icon.color, 'цвет иконки').toBe('rgb(133, 136, 142)');
         expect(icon.fontSize, 'размер иконки').toBe('16px');
+      }
+    },
+    {
+      name: 'Properties: layout=horizontal',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'layout:horizontal');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'horizontal').toContain('p-divider-horizontal');
+      }
+    },
+    {
+      name: 'Properties: layout=vertical',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'layout:vertical');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'vertical').toContain('p-divider-vertical');
+      }
+    },
+    {
+      name: 'Properties: type=solid',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'type:solid');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'solid').toContain('p-divider-solid');
+      }
+    },
+    {
+      name: 'Properties: type=dash',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'type:dash');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'dash').toContain('p-divider-dashed');
+      }
+    },
+    {
+      name: 'Properties: horizontalAlign=left',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'layout:horizontal;horizontalAlign:left');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'left').toContain('p-divider-left');
+      }
+    },
+    {
+      name: 'Properties: horizontalAlign=right',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'layout:horizontal;horizontalAlign:right');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'right').toContain('p-divider-right');
+      }
+    },
+    {
+      name: 'Properties: verticalAlign=top',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'layout:vertical;verticalAlign:top');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'top').toContain('p-divider-top');
+      }
+    },
+    {
+      name: 'Properties: verticalAlign=bottom',
+      story: 'components-panel-divider--default',
+      run: async ({ page, expect, url }) => {
+        await openDivider(page, url, 'layout:vertical;verticalAlign:bottom');
+        expect((await page.locator('.p-divider').getAttribute('class')) ?? '', 'bottom').toContain('p-divider-bottom');
       }
     },
     ...STORIES.map(smoke),
