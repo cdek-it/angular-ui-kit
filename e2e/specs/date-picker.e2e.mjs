@@ -98,19 +98,17 @@ export default {
     {
       name: 'Properties: showTime',
       story: 'components-form-datepicker--time',
-      knownIssue: 'story time не рендерит time panel',
       run: async ({ page, expect }) => {
-        await page.locator('#storybook-root input').click();
-        await page.waitForSelector('.p-datepicker-day');
-        expect(await page.locator('.p-datepicker-time-panel').count(), 'time panel').toBeGreaterThan(0);
+        await page.locator('#storybook-root .p-datepicker-input-icon').click();
+        await page.waitForTimeout(800);
+        expect(await page.locator('.p-datepicker-time-picker').count(), 'time panel').toBeGreaterThan(0);
       }
     },
     {
       name: 'Properties: inline',
       story: 'components-form-datepicker--inline',
-      knownIssue: 'story inline не рендерит p-datepicker-inline',
       run: async ({ page, expect }) => {
-        expect(await page.locator('.p-datepicker-inline').count(), 'inline').toBeGreaterThan(0);
+        expect(await page.locator('.p-datepicker-panel-inline').count(), 'inline').toBeGreaterThan(0);
       }
     },
     {
