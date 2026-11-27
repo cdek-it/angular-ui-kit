@@ -73,6 +73,7 @@ export const Grouped = {
     template: `<app-multiselect-grouped [size]="size" [showFilter]="showFilter" [disabled]="disabled" [invalid]="invalid"></app-multiselect-grouped>`
   }),
   parameters: {
+    controls: { exclude: ['placeholder', 'label', 'labelPosition', 'floatLabel', 'showChips', 'chipClearable', 'clearable', 'showCheckbox', 'caption', 'info', 'readonly', 'loading', 'fluid'] },
     docs: {
       description: {
         story:
