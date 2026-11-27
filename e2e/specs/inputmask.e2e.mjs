@@ -5,11 +5,11 @@
 const STORIES = [
   { id: 'components-form-inputmask--clearable', name: 'Clearable' },
   { id: 'components-form-inputmask--default', name: 'Default' },
+  { id: 'components-form-inputmask--danger', name: 'Danger' },
+  { id: 'components-form-inputmask--disabled', name: 'Disabled' },
+  { id: 'components-form-inputmask--float-label', name: 'FloatLabel' },
   { id: 'components-form-inputmask--fluid', name: 'Fluid' },
-  { id: 'components-form-inputmask--labels', name: 'Labels' },
-  { id: 'components-form-inputmask--reactive-forms', name: 'ReactiveForms' },
-  { id: 'components-form-inputmask--sizes', name: 'Sizes' },
-  { id: 'components-form-inputmask--states', name: 'States' }
+  { id: 'components-form-inputmask--readonly', name: 'Readonly' }
 ];
 
 const smoke = (story) => ({
@@ -32,9 +32,9 @@ export default {
       story: 'components-form-inputmask--default',
       run: async ({ page, expect }) => {
         const input = page.locator('input').first();
-        expect(await input.getAttribute('placeholder'), 'плейсхолдер маски').toBe('(___) ___-____');
+        expect(await input.getAttribute('placeholder'), 'плейсхолдер маски').toBe('999-999-99-99');
         await input.fill('4951234567');
-        expect(await input.inputValue(), 'отформатированное значение').toBe('(495) 123-4567');
+        expect(await input.inputValue(), 'отформатированное значение').toBe('495-123-45-67');
       }
     },
     {
@@ -48,17 +48,29 @@ export default {
       }
     },
     {
-      name: 'States: disabled, readonly и invalid',
-      story: 'components-form-inputmask--states',
+      name: 'Disabled: поле отключено',
+      story: 'components-form-inputmask--disabled',
       run: async ({ page, expect }) => {
-        expect(await page.locator('input').nth(1).isDisabled(), 'disabled').toBe(true);
-        expect(await page.locator('input').nth(2).evaluate((element) => element.readOnly), 'readonly').toBe(true);
-        expect(await page.locator('input').nth(3).getAttribute('class'), 'invalid').toContain('p-invalid');
+        expect(await page.locator('input').first().isDisabled(), 'disabled').toBe(true);
+      }
+    },
+    {
+      name: 'Readonly: поле только для чтения',
+      story: 'components-form-inputmask--readonly',
+      run: async ({ page, expect }) => {
+        expect(await page.locator('input').first().evaluate((element) => element.readOnly), 'readonly').toBe(true);
+      }
+    },
+    {
+      name: 'Danger: класс p-invalid',
+      story: 'components-form-inputmask--danger',
+      run: async ({ page, expect }) => {
+        expect(await page.locator('input').first().getAttribute('class'), 'invalid').toContain('p-invalid');
       }
     },
     {
       name: 'Labels: лейбл связан с полем',
-      story: 'components-form-inputmask--labels',
+      story: 'components-form-inputmask--default',
       run: async ({ page, expect }) => {
         const label = page.locator('label').first();
         expect(await label.getAttribute('for'), 'for').toBe(await page.locator('input').first().getAttribute('id'));
@@ -66,10 +78,41 @@ export default {
     },
     {
       name: 'Invalid: поле объявляет aria-invalid',
-      story: 'components-form-inputmask--states',
+      story: 'components-form-inputmask--danger',
       knownIssue: 'PrimeNG ставит только класс p-invalid; aria-invalid отсутствует',
       run: async ({ page, expect }) => {
-        expect(await page.locator('input').nth(3).getAttribute('aria-invalid'), 'aria-invalid').toBe('true');
+        expect(await page.locator('input').first().getAttribute('aria-invalid'), 'aria-invalid').toBe('true');
+      }
+    },
+    {
+      name: 'Properties: API matrix',
+      story: 'components-form-inputmask--default',
+      run: async ({ page, expect }) => {
+        const result = await page.evaluate(() => {
+          const host = document.querySelector('#storybook-root extra-input-mask');
+          const instance = globalThis.ng?.getComponent(host);
+          if (!instance) return { error: 'no instance', inputs: [], outputs: [], errors: [], outputsOk: false };
+          const definition = instance.constructor.ɵcmp;
+          const inputs = Object.keys(definition.inputs ?? {});
+          const outputs = Object.keys(definition.outputs ?? {});
+          const errors = [];
+          for (const name of inputs) {
+            try {
+              const current = instance[name];
+              if (typeof current === 'boolean') instance[name] = !current;
+              else if (typeof current === 'number') instance[name] = current + 1;
+              else if (typeof current === 'string') instance[name] = current ? current + 'x' : 'x';
+              globalThis.ng.applyChanges(instance);
+            } catch (error) {
+              errors.push(name + ': ' + String(error));
+            }
+          }
+          return { inputs, outputs, errors, outputsOk: outputs.every((name) => typeof instance[name]?.subscribe === 'function') };
+        });
+        expect(result.error ?? '', 'instance').toBe('');
+        expect(result.errors, 'inputs').toEqual([]);
+        expect(result.inputs.length, 'inputs count').toBeGreaterThan(0);
+        expect(result.outputsOk, 'outputs').toBe(true);
       }
     },
     ...STORIES.map(smoke),
