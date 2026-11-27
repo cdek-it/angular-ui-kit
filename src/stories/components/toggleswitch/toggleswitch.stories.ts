@@ -28,7 +28,6 @@ const meta: Meta<ToggleSwitchArgs> = {
       description: {
         component: `Переключатель-свитч для мгновенного включения/выключения одной бинарной настройки.
 
-Реализовано по спецификации [toggleswitch.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/toggleswitch.md).
 
 \`\`\`typescript
 import { ExtraToggleSwitchComponent } from '@cdek-it/angular-ui-kit/components/toggleswitch';
