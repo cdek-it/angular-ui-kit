@@ -39,7 +39,6 @@ const templateFor = (args: InputMaskArgs): string => {
     'info',
     'slotChar',
     'characterPattern',
-    'autocomplete',
     'name',
     'ariaLabel',
     'ariaLabelledBy'
@@ -201,6 +200,7 @@ type Story = StoryObj<InputMaskArgs>;
 export const Default: Story = {
   args: {},
   parameters: {
+    controls: { exclude: ['characterPattern', 'keepBuffer', 'autocomplete'] },
     docs: {
       description: {
         story:
