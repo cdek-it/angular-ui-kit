@@ -1,97 +1,76 @@
-/**
- * Кастомная CSS-стилизация для компонента p-password.
- * Подключается в map-tokens.ts: `import { passwordCss } from './components/password'`
- */
 export const passwordCss = ({ dt }: { dt: (token: string) => string }): string => `
-  /* ─── Иконки управления ─── */
-  .p-password-toggle-mask-icon,
-  .p-icon.p-password-toggle-mask-icon.p-password-unmask-icon {
-    cursor: pointer;
-    color: ${dt('password.icon.color')};
-  }
+.extra-password { display: inline-flex; vertical-align: top; flex-direction: column; gap: ${dt('dimension.space.100')}; max-width: 100%; }
+.extra-password--left { flex-direction: row; align-items: flex-start; gap: ${dt('dimension.space.200')}; }
+.extra-password--fluid { display: flex; width: 100%; }
+.extra-password-body { display: flex; flex-direction: column; align-items: flex-start; gap: ${dt('dimension.space.100')}; min-width: 0; }
+.extra-password--fluid > .extra-password-body { flex: 1 1 auto; width: 100%; }
+.extra-password--fluid .p-floatlabel { width: 100%; }
+.extra-password-label { display: inline-flex; align-items: center; gap: ${dt('dimension.space.50')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('password.extend.field.color')}; cursor: pointer; }
+.extra-password-required { font-size: ${dt('fonts.fontSize.100')}; line-height: ${dt('fonts.lineHeight.200')}; color: ${dt('color.fg.status.danger.default')}; }
+.extra-password-label-icon { font-size: ${dt('dimension.size.400')}; color: ${dt('color.fg.muted')}; }
+.p-password.extra-password-field { width: ${dt('password.extend.field.width')}; max-width: 100%; border-radius: ${dt('password.extend.field.borderRadius')}; box-shadow: none; }
+.p-password.extra-password-field.p-password-fluid { width: 100%; }
+.p-password.extra-password-field .p-password-input { box-sizing: border-box; width: 100%; min-width: 0; border: ${dt('password.extend.borderWidth')} solid ${dt('password.extend.field.borderColor')}; border-radius: ${dt('password.extend.field.borderRadius')}; outline: none; box-shadow: none; padding-inline: ${dt('password.extend.field.paddingX')}; font-family: ${dt('fonts.fontFamily.base')}; font-weight: ${dt('fonts.fontWeight.regular')}; background: ${dt('password.extend.field.background')}; color: ${dt('password.extend.field.color')}; }
+.p-password.extra-password-field .p-password-input::placeholder { color: ${dt('color.fg.muted')}; }
+.p-password.extra-password-field .p-password-input:enabled:hover, .p-password.extra-password-field .p-password-input:enabled:focus { border-color: ${dt('password.extend.field.hoverBorderColor')}; }
+.p-password.extra-password-field .p-password-input:enabled:focus { box-shadow: 0 0 0 ${dt('password.extend.field.focusRingWidth')} ${dt('password.extend.field.focusRingColor')}; }
+.p-password.extra-password-field .p-password-input.p-invalid, .p-password.extra-password-field .p-password-input.p-invalid:enabled:hover, .p-password.extra-password-field .p-password-input.p-invalid:enabled:focus { border-color: ${dt('password.extend.field.invalidBorderColor')}; box-shadow: 0 0 0 ${dt('password.extend.field.focusRingWidth')} ${dt('password.extend.field.invalidFocusRingColor')}; }
+.p-password.extra-password-field .p-password-input:disabled { opacity: 1; background: ${dt('password.extend.field.disabledBackground')}; color: ${dt('color.fg.muted')}; }
+.p-password.extra-password-field .p-password-input:enabled:read-only { background: ${dt('password.extend.field.readonlyBackground')}; }
+.p-password.extra-password-field .p-password-toggle-mask-icon, .p-password.extra-password-field .p-password-clear-icon { display: flex; align-items: center; justify-content: center; top: 50%; transform: translateY(-50%); margin: 0; color: ${dt('password.icon.color')}; inset-inline-end: ${dt('password.extend.field.paddingX')}; }
+.extra-password-mask-toggle, .extra-password-clear { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.extra-password-mask-toggle:disabled { cursor: default; }
+.extra-password-mask-toggle:focus-visible, .extra-password-clear:focus-visible { outline: ${dt('password.extend.field.focusRingWidth')} solid ${dt('password.extend.field.hoverBorderColor')}; outline-offset: ${dt('dimension.space.50')}; border-radius: ${dt('dimension.borderRadius.100')}; }
+.extra-password-mask-toggle i, .extra-password-clear i { font-size: inherit; line-height: 1; }
+.p-password-overlay { width: 0; box-sizing: border-box; border: 0; outline: ${dt('password.extend.borderWidth')} solid ${dt('password.overlay.borderColor')}; font-family: ${dt('fonts.fontFamily.base')}; }
+.p-password-overlay > small { font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.300')}; }
+.p-password-meter-text { font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; line-height: ${dt('fonts.lineHeight.300')}; color: ${dt('password.overlay.color')}; }
+.p-password-rules-divider { display: flex; align-items: center; height: calc(2 * ${dt('dimension.space.200')}); }
+.p-password-rules-divider::before { content: ''; width: 100%; border-top: ${dt('password.extend.borderWidth')} solid ${dt('color.border.neutral.default')}; }
+.p-password-rules { display: flex; flex-direction: column; gap: ${dt('password.content.gap')}; margin: 0; padding: 0; list-style: none; }
+.p-password-rule { display: flex; align-items: center; gap: ${dt('password.content.gap')}; padding-block: ${dt('dimension.space.100')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; line-height: ${dt('fonts.lineHeight.300')}; color: ${dt('password.extend.rule.defaultColor')}; }
+.p-password-rule--success { color: ${dt('password.extend.rule.successColor')}; }
+.p-password-rule--danger { color: ${dt('password.extend.rule.dangerColor')}; }
+.p-password-rule i { font-size: ${dt('dimension.size.400')}; flex: 0 0 auto; }
 
-  /* ─── Оверлей и индикатор ─── */
-  .p-password-overlay {
-    border-width: ${dt('password.extend.borderWidth')};
-  }
+.p-password.extra-password-field--small .p-password-input { height: calc(${dt('password.extend.field.small.lineHeight')} + 2 * ${dt('password.extend.field.small.paddingY')} + 2 * ${dt('password.extend.borderWidth')}); padding-block: ${dt('password.extend.field.small.paddingY')}; font-size: ${dt('password.extend.field.small.fontSize')}; line-height: ${dt('password.extend.field.small.lineHeight')}; }
+.extra-password--left:has(.extra-password-field--small) > .extra-password-label { margin-top: calc((${dt('password.extend.field.small.lineHeight')} + 2 * ${dt('password.extend.field.small.paddingY')} + 2 * ${dt('password.extend.borderWidth')} - ${dt('fonts.lineHeight.200')}) / 2); }
+.p-password.extra-password-field--small .p-password-toggle-mask-icon, .p-password.extra-password-field--small .p-password-clear-icon { width: ${dt('password.extend.field.small.iconSize')}; height: ${dt('password.extend.field.small.iconSize')}; font-size: ${dt('password.extend.field.small.iconSize')}; }
+.p-password.extra-password-field--small:has(.p-password-toggle-mask-icon) .p-password-input, .p-password.extra-password-field--small:has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.small.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--small:has(.p-password-toggle-mask-icon) .p-password-clear-icon { inset-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.small.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--small:has(.p-password-toggle-mask-icon):has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + 2 * ${dt('password.extend.field.small.iconSize')} + 2 * ${dt('dimension.space.100')}); }
 
-  .p-password-meter-text {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('password.overlay.color')};
-  }
+.p-password.extra-password-field--base .p-password-input { height: calc(${dt('password.extend.field.base.lineHeight')} + 2 * ${dt('password.extend.field.base.paddingY')} + 2 * ${dt('password.extend.borderWidth')}); padding-block: ${dt('password.extend.field.base.paddingY')}; font-size: ${dt('password.extend.field.base.fontSize')}; line-height: ${dt('password.extend.field.base.lineHeight')}; }
+.extra-password--left:has(.extra-password-field--base) > .extra-password-label { margin-top: calc((${dt('password.extend.field.base.lineHeight')} + 2 * ${dt('password.extend.field.base.paddingY')} + 2 * ${dt('password.extend.borderWidth')} - ${dt('fonts.lineHeight.200')}) / 2); }
+.p-password.extra-password-field--base .p-password-toggle-mask-icon, .p-password.extra-password-field--base .p-password-clear-icon { width: ${dt('password.extend.field.base.iconSize')}; height: ${dt('password.extend.field.base.iconSize')}; font-size: ${dt('password.extend.field.base.iconSize')}; }
+.p-password.extra-password-field--base:has(.p-password-toggle-mask-icon) .p-password-input, .p-password.extra-password-field--base:has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.base.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--base:has(.p-password-toggle-mask-icon) .p-password-clear-icon { inset-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.base.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--base:has(.p-password-toggle-mask-icon):has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + 2 * ${dt('password.extend.field.base.iconSize')} + 2 * ${dt('dimension.space.100')}); }
 
-  /* ─── Focus ─── */
-  .p-password:has(.p-inputtext:enabled:focus) {
-    box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('inputtext.root.focusRing.color')};
-    border-radius: ${dt('inputtext.root.borderRadius')};
-  }
+.p-password.extra-password-field--large .p-password-input { height: calc(${dt('password.extend.field.large.lineHeight')} + 2 * ${dt('password.extend.field.large.paddingY')} + 2 * ${dt('password.extend.borderWidth')}); padding-block: ${dt('password.extend.field.large.paddingY')}; font-size: ${dt('password.extend.field.large.fontSize')}; line-height: ${dt('password.extend.field.large.lineHeight')}; }
+.extra-password--left:has(.extra-password-field--large) > .extra-password-label { margin-top: calc((${dt('password.extend.field.large.lineHeight')} + 2 * ${dt('password.extend.field.large.paddingY')} + 2 * ${dt('password.extend.borderWidth')} - ${dt('fonts.lineHeight.200')}) / 2); }
+.p-password.extra-password-field--large .p-password-toggle-mask-icon, .p-password.extra-password-field--large .p-password-clear-icon { width: ${dt('password.extend.field.large.iconSize')}; height: ${dt('password.extend.field.large.iconSize')}; font-size: ${dt('password.extend.field.large.iconSize')}; }
+.p-password.extra-password-field--large:has(.p-password-toggle-mask-icon) .p-password-input, .p-password.extra-password-field--large:has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.large.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--large:has(.p-password-toggle-mask-icon) .p-password-clear-icon { inset-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.large.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--large:has(.p-password-toggle-mask-icon):has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + 2 * ${dt('password.extend.field.large.iconSize')} + 2 * ${dt('dimension.space.100')}); }
 
-  /* ─── Invalid + Focus ─── */
-  .p-password:has(.p-inputtext.p-invalid:focus) {
-    box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.bg.status.danger.weak.active')};
-    border-radius: ${dt('inputtext.root.borderRadius')};
-  }
+.p-password.extra-password-field--xlarge .p-password-input { height: calc(${dt('password.extend.field.xlarge.lineHeight')} + 2 * ${dt('password.extend.field.xlarge.paddingY')} + 2 * ${dt('password.extend.borderWidth')}); padding-block: ${dt('password.extend.field.xlarge.paddingY')}; font-size: ${dt('password.extend.field.xlarge.fontSize')}; line-height: ${dt('password.extend.field.xlarge.lineHeight')}; }
+.extra-password--left:has(.extra-password-field--xlarge) > .extra-password-label { margin-top: calc((${dt('password.extend.field.xlarge.lineHeight')} + 2 * ${dt('password.extend.field.xlarge.paddingY')} + 2 * ${dt('password.extend.borderWidth')} - ${dt('fonts.lineHeight.200')}) / 2); }
+.p-password.extra-password-field--xlarge .p-password-toggle-mask-icon, .p-password.extra-password-field--xlarge .p-password-clear-icon { width: ${dt('password.extend.field.xlarge.iconSize')}; height: ${dt('password.extend.field.xlarge.iconSize')}; font-size: ${dt('password.extend.field.xlarge.iconSize')}; }
+.p-password.extra-password-field--xlarge:has(.p-password-toggle-mask-icon) .p-password-input, .p-password.extra-password-field--xlarge:has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.xlarge.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--xlarge:has(.p-password-toggle-mask-icon) .p-password-clear-icon { inset-inline-end: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.field.xlarge.iconSize')} + ${dt('dimension.space.100')}); }
+.p-password.extra-password-field--xlarge:has(.p-password-toggle-mask-icon):has(.p-password-clear-icon) .p-password-input { padding-inline-end: calc(${dt('password.extend.field.paddingX')} + 2 * ${dt('password.extend.field.xlarge.iconSize')} + 2 * ${dt('dimension.space.100')}); }
 
-  .p-password:has(.p-inputtext.p-invalid:focus) .p-inputtext {
-    border-color: ${dt('inputtext.root.invalidBorderColor')};
-  }
+.extra-password .p-floatlabel { display: block; }
+.extra-password .p-floatlabel .p-password-input { height: ${dt('dimension.size.1300')}; padding-block: ${dt('floatlabel.in.input.paddingTop')} ${dt('floatlabel.in.input.paddingBottom')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.200')}; }
+.extra-password .p-floatlabel > .extra-password-label { position: absolute; inset-inline-start: calc(${dt('password.extend.field.paddingX')} + ${dt('password.extend.borderWidth')}); top: ${dt('dimension.space.350')}; transform: none; margin: 0; font-family: ${dt('fonts.fontFamily.heading')}; font-size: ${dt('fonts.fontSize.100')}; line-height: ${dt('fonts.lineHeight.200')}; font-weight: ${dt('fonts.fontWeight.regular')}; color: ${dt('floatlabel.color')}; gap: ${dt('dimension.space.50')}; pointer-events: none; }
+.extra-password .p-floatlabel .extra-password-required { font-size: inherit; }
+.extra-password .p-floatlabel .extra-password-label-icon { font-size: ${dt('dimension.size.400')}; pointer-events: auto; }
+.extra-password .p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) .extra-password-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
 
-  /* ─── FloatLabel ─── */
-  .p-floatlabel:has(.p-password) label {
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('color.bg.neutral.medium.strong')};
-  }
-
-  .p-floatlabel:has(.p-password) .p-floatlabel-active label {
-    font-weight: ${dt('fonts.fontWeight.regular')};
-  }
-
-  .p-floatlabel-in .p-password .p-inputtext {
-    font-family: ${dt('fonts.fontFamily.base')};
-    padding-block-start: ${dt('dimension.space.700')};
-    padding-block-end: ${dt('dimension.space.300')};
-  }
-
-  /* ─── Кастомный контент (правила пароля) ─── */
-  .p-password-rules {
-    display: flex;
-    flex-direction: column;
-    gap: ${dt('password.content.gap')};
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .p-password-rule {
-    display: flex;
-    align-items: center;
-    gap: ${dt('password.content.gap')};
-    font-family: ${dt('fonts.fontFamily.base')};
-    font-size: ${dt('fonts.fontSize.200')};
-    font-weight: ${dt('fonts.fontWeight.regular')};
-    line-height: ${dt('fonts.lineHeight.250')};
-    color: ${dt('password.overlay.color')};
-  }
-
-  /* ─── Состояния иконок правил ─── */
-  .p-password-rule i {
-    font-size: ${dt('fonts.fontSize.200')};
-  }
-
-  .p-password-rule .ti-circle {
-    color: ${dt('color.fg.subtle')};
-  }
-
-  .p-password-rule .ti-circle-check {
-    color: ${dt('password.colorScheme.light.strength.strongBackground')};
-  }
-
-  .p-password-rule .ti-circle-x {
-    color: ${dt('password.colorScheme.light.strength.weakBackground')};
-  }
+.extra-password .p-floatlabel:has(input:not(.p-filled)) > .extra-password-label { top: ${dt('dimension.size.450')}; font-family: ${dt('fonts.fontFamily.base')}; font-size: ${dt('fonts.fontSize.200')}; line-height: ${dt('fonts.lineHeight.400')}; }
+.extra-password .p-floatlabel:has(input:not(.p-filled)) input::placeholder { color: transparent; }
+.extra-password .p-floatlabel:has(.p-invalid) > .extra-password-label { color: ${dt('color.fg.status.danger.hover')}; }
 `;

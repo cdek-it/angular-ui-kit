@@ -118,7 +118,7 @@ const presetTokens: Preset<AuraBaseDesignTokens> = {
       ...(tokens.components.select as unknown as ComponentsDesignTokens['select']),
       css: selectCss
     },
-    passwordCss: {
+    password: {
       ...(tokens.components.password as unknown as ComponentsDesignTokens['password']),
       css: passwordCss
     },
