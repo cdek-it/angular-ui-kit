@@ -35,6 +35,7 @@ export const Badge: StoryObj = {
     template: `<app-button-badge></app-button-badge>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Бейдж поверх кнопки (`showBadge` + `badge` + `badgeSeverity`) — например, для счётчиков уведомлений.'

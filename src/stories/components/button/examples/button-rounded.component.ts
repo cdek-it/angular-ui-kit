@@ -41,6 +41,7 @@ export const Rounded: StoryObj = {
     template: `<app-button-rounded></app-button-rounded>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:

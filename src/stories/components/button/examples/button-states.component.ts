@@ -56,6 +56,7 @@ export const States: StoryObj = {
     template: `<app-button-states></app-button-states>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:

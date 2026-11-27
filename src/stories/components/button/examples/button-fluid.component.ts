@@ -27,6 +27,7 @@ export const Fluid: StoryObj = {
     template: `<app-button-fluid></app-button-fluid>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:

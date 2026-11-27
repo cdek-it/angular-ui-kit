@@ -56,6 +56,7 @@ export const Icons: StoryObj = {
     template: `<app-button-icons></app-button-icons>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:

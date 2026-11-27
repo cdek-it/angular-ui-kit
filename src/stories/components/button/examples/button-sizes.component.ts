@@ -30,6 +30,7 @@ export const Sizes: StoryObj = {
     template: `<app-button-sizes></app-button-sizes>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Кнопки разных размеров'

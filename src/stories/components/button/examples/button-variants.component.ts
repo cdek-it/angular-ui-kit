@@ -42,6 +42,7 @@ export const Variants: StoryObj = {
     template: `<app-button-variants></app-button-variants>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
