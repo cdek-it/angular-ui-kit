@@ -517,16 +517,7 @@ export const Disabled: Story = {
   }
 };
 export const Error: Story = { name: 'Error', args: { invalid: true, captionSeverity: 'danger' } };
-export const Readonly: Story = { name: 'Readonly', args: { readonly: true, value: 42 },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
-      }
-    }
-  }
-};
+export const Readonly: Story = { name: 'Readonly', args: { readonly: true, value: 42 } };
 export const LabelLeft: Story = {
   name: 'LabelLeft',
   args: { labelPosition: 'left' },
