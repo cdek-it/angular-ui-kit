@@ -27,9 +27,10 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraInputTextSize = 'small' | 'base' | 'large' | 'xlarge';
-export type ExtraInputTextLabelPosition = 'top' | 'left';
+export type ExtraInputTextLabelPosition = 'default' | 'float' | 'left';
 export type ExtraInputTextType = 'text' | 'password';
 
 let nextInputId = 0;
@@ -37,7 +38,16 @@ let nextInputId = 0;
 @Component({
   selector: 'extra-input-text',
   standalone: true,
-  imports: [InputText, IconField, InputIcon, FloatLabel, NgClass, NgTemplateOutlet, ExtraTooltipDirective],
+  imports: [
+    InputText,
+    IconField,
+    InputIcon,
+    FloatLabel,
+    NgClass,
+    NgTemplateOutlet,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -55,13 +65,12 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где input обязан быть прямым flex-элементом). -->
     @if (label || caption) {
-      <!-- floatLabel перекрывает labelPosition: лейбл уезжает внутрь поля, строчной раскладки нет -->
-      <div class="extra-inputtext" [class.extra-inputtext--left]="labelPosition === 'left' && !floatLabel">
-        @if (label && labelPosition === 'left' && !floatLabel) {
+      <div class="extra-inputtext" [class.extra-inputtext--left]="labelPosition === 'left'">
+        @if (label && labelPosition === 'left') {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
         <div class="extra-inputtext-body">
-          @if (floatLabel) {
+          @if (labelPosition === 'float') {
             <p-floatlabel variant="in">
               <ng-container [ngTemplateOutlet]="fieldTpl" />
               @if (label) {
@@ -69,13 +78,13 @@ let nextInputId = 0;
               }
             </p-floatlabel>
           } @else {
-            @if (label && labelPosition === 'top') {
+            @if (label && labelPosition === 'default') {
               <ng-container [ngTemplateOutlet]="labelTpl" />
             }
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-inputtext-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -85,8 +94,11 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-inputtext-label" [for]="inputId">
+        @if (requiredMark) {
+          <span class="extra-inputtext-required" aria-hidden="true">*</span>
+        }
         {{ label }}
-        @if (info) {
+        @if (info && labelPosition !== 'float') {
           <i class="extra-inputtext-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
         }
       </label>
@@ -103,8 +115,8 @@ let nextInputId = 0;
             [fluid]="fluid"
             [type]="type"
             [disabled]="disabled"
-            [invalid]="invalid"
             [readOnly]="readonly"
+            [invalid]="invalid"
             [autofocus]="autofocus"
             [attr.placeholder]="placeholder || null"
             [attr.name]="name || null"
@@ -118,17 +130,17 @@ let nextInputId = 0;
             (input)="onInput($event)"
             (blur)="onTouched()"
           />
-          @if (modelValue && !readonly && !disabled) {
-            <p-inputicon
-              class="ti ti-x"
-              role="button"
-              aria-label="Очистить поле"
-              tabindex="0"
-              (click)="clearValue()"
-              (keydown.enter)="clearValue()"
-              (keydown.space)="$event.preventDefault(); clearValue()"
-            ></p-inputicon>
-          }
+          <p-inputicon
+            class="ti ti-x"
+            role="button"
+            aria-label="Очистить поле"
+            tabindex="0"
+            [style.visibility]="modelValue && !readonly && !disabled ? 'visible' : 'hidden'"
+            [style.pointerEvents]="modelValue && !readonly && !disabled ? 'auto' : 'none'"
+            (click)="clearValue()"
+            (keydown.enter)="clearValue()"
+            (keydown.space)="$event.preventDefault(); clearValue()"
+          ></p-inputicon>
         </p-iconfield>
       } @else {
         <input
@@ -139,8 +151,8 @@ let nextInputId = 0;
           [fluid]="fluid"
           [type]="type"
           [disabled]="disabled"
-          [invalid]="invalid"
           [readOnly]="readonly"
+          [invalid]="invalid"
           [autofocus]="autofocus"
           [attr.placeholder]="placeholder || null"
           [attr.name]="name || null"
@@ -168,17 +180,18 @@ export class ExtraInputTextComponent implements ControlValueAccessor, OnInit, On
 
   @Input() placeholder = '';
   @Input() label = '';
-  @Input() labelPosition: ExtraInputTextLabelPosition = 'top';
-  /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
-  @Input({ transform: booleanAttribute }) floatLabel = false;
+  /** Показывает маркер «*» перед лейблом (визуальный, валидацию не включает). */
+  @Input() requiredMark = false;
+  @Input() labelPosition: ExtraInputTextLabelPosition = 'default';
   @Input({ transform: booleanAttribute }) clearable = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraInputTextSize = 'base';
   /** Растягивает поле на всю ширину контейнера. */
   @Input({ transform: booleanAttribute }) fluid = false;
   @Input() type: ExtraInputTextType = 'text';
-  @Input({ transform: booleanAttribute }) readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
   @Input({ transform: booleanAttribute }) required = false;
   @Input() name: string | undefined = undefined;

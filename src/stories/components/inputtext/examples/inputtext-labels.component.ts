@@ -14,7 +14,7 @@ const template = `
   ></extra-input-text>
   <extra-input-text
     [formControl]="floatControl"
-    [floatLabel]="true"
+    labelPosition="float"
     label="Плавающий лейбл"
     caption="Пояснение под полем"
   ></extra-input-text>
@@ -76,7 +76,7 @@ import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
 
     <extra-input-text
       [formControl]="floatControl"
-      [floatLabel]="true"
+      labelPosition="float"
       label="Плавающий лейбл"
       caption="Пояснение под полем"
     ></extra-input-text>

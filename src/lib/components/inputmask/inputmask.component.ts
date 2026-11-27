@@ -1,8 +1,10 @@
 import {
+  AfterViewChecked,
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
   EventEmitter,
   forwardRef,
   inject,
@@ -11,7 +13,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -30,6 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InputMask } from 'primeng/inputmask';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraInputMaskSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputMaskLabelPosition = 'top' | 'left';
@@ -40,7 +44,7 @@ let nextInputId = 0;
   selector: 'extra-input-mask',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputMask, FloatLabel, NgTemplateOutlet, ReactiveFormsModule, ExtraTooltipDirective],
+  imports: [InputMask, FloatLabel, NgTemplateOutlet, ReactiveFormsModule, ExtraTooltipDirective, ExtraCaptionComponent],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -78,7 +82,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-inputmask-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -88,6 +92,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-inputmask-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-inputmask-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-inputmask-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -97,6 +104,8 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-inputmask
+        #inputMask
+        [attr.aria-required]="required ? 'true' : null"
         [inputId]="inputId"
         [styleClass]="fieldClass"
         [size]="primeSize"
@@ -127,7 +136,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
+export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, OnChanges, Validator, AfterViewChecked {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
@@ -149,6 +158,7 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, On
   /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
   @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraInputMaskSize = 'base';
   @Input({ transform: booleanAttribute }) readonly = false;
@@ -158,7 +168,7 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, On
   @Input({ transform: booleanAttribute }) keepBuffer = false;
   @Input() autocomplete = '';
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
@@ -166,6 +176,15 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, On
   @Input() tabindex: number | undefined = undefined;
 
   private _onValidatorChange: () => void = () => {};
+
+  @ViewChild('inputMask', { read: ElementRef }) private inputMaskRef?: ElementRef<HTMLElement>;
+
+  ngAfterViewChecked(): void {
+    const input = this.inputMaskRef?.nativeElement.querySelector('input');
+    if (!input) return;
+    if (this.invalid) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+  }
 
   /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока маска не заполнена. */
   validate(control: AbstractControl): ValidationErrors | null {

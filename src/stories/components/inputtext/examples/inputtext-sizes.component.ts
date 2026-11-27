@@ -19,7 +19,7 @@ const template = `
   template
 })
 export class InputTextSizesComponent {
-  sizes = ['small', 'base', 'large', 'xlarge'];
+  sizes = ['small', 'base', 'large', 'xlarge'] as const;
   control = new FormControl('');
 }
 

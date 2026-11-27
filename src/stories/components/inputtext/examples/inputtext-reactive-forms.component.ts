@@ -55,7 +55,7 @@ const styles = `
   margin: 0;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background: var(--p-surface-100);
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.8125rem;
 }
@@ -98,43 +98,15 @@ export const ReactiveForms: StoryObj = {
           'Компонент реализует ControlValueAccessor, поэтому `[formControl]` работает в обе стороны. Ввод с клавиатуры и очистка иконкой × пишут значение в контрол (value, dirty), blur помечает его touched, а `setValue()`, `reset()`, `disable()` / `enable()` со стороны формы обновляют само поле. Состояние invalid берётся из NgControl — красная рамка появляется по Validators, без отдельного пропа.'
       },
       source: {
-        language: 'ts',
-        code: `
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExtraInputTextComponent, ExtraButtonComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-inputtext-reactive-forms',
-  standalone: true,
-  imports: [ExtraInputTextComponent, ExtraButtonComponent, ReactiveFormsModule],
-  template: \`
-    <extra-input-text
-      [fluid]="true"
-      [formControl]="email"
-      clearable
-      label="Email"
-      placeholder="name@cdek.ru"
-      caption="Обязательное поле, формат email"
-    ></extra-input-text>
-
-    <!-- управление контролом со стороны формы -->
-    <extra-button label="setValue()" (click)="email.setValue('name@cdek.ru')"></extra-button>
-    <extra-button label="reset()" (click)="email.reset()"></extra-button>
-    <extra-button [label]="email.disabled ? 'enable()' : 'disable()'" (click)="toggleDisabled()"></extra-button>
-
-    <p>value: {{ email.value }} / status: {{ email.status }} / touched: {{ email.touched }}</p>
-  \`,
-})
-export class InputTextReactiveFormsComponent {
-  email = new FormControl('', [Validators.required, Validators.email]);
-
-  toggleDisabled(): void {
-    if (this.email.disabled) this.email.enable();
-    else this.email.disable();
-  }
-}
-        `
+        language: 'html',
+        transform: () => `<extra-input-text
+  [fluid]="true"
+  [formControl]="email"
+  [clearable]="true"
+  label="Email"
+  placeholder="name@cdek.ru"
+  caption="Обязательное поле, формат email"
+></extra-input-text>`
       }
     }
   }

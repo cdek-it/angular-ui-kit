@@ -17,7 +17,12 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 }
 
 /* Лейбл слева выравниваем по высоте поля, а не по центру всего body с caption */
-.extra-inputmask--left > .extra-inputmask-label {
+.extra-inputmask--left > .extra-inputmask-required { color: ${dt('color.fg.status.danger.default')}; }
+.p-inputmask .p-inputtext::placeholder {
+  color: ${dt('color.fg.muted')};
+}
+
+.extra-inputmask-label {
   padding-block: calc(${dt('inputtext.root.paddingY')} + ${dt('inputtext.extend.borderWidth')});
 }
 
@@ -41,33 +46,53 @@ export const inputmaskCss = ({ dt }: { dt: (token: string) => string }): string 
 .extra-inputmask-label {
   display: inline-flex;
   align-items: center;
-  gap: ${dt('dimension.space.100')};
+  gap: ${dt('dimension.space.50')};
   color: ${dt('color.fg.default')};
   font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
+  font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.300')};
+  line-height: ${dt('fonts.lineHeight.200')};
   cursor: pointer;
 }
 
 .extra-inputmask-label-icon {
   color: ${dt('color.fg.subtle')};
-  font-size: ${dt('inputtext.extend.iconSize')};
+  font-size: ${dt('dimension.size.400')};
   cursor: help;
 }
 
-/* ─── Caption ─── */
-.extra-inputmask-caption {
-  color: ${dt('color.fg.subtle')};
-  font-family: ${dt('fonts.fontFamily.heading')};
+/* ─── FloatLabel: повторяем правила InputText для вложенного p-inputmask ───
+   В InputText поле лежит прямым потомком .p-floatlabel, у InputMask — внутри <p-inputmask>,
+   поэтому глобальные правила inputtext с :has(> .p-inputtext) сюда не попадают. */
+.p-floatlabel:has(> .p-inputmask) > .p-inputmask .p-inputtext {
+  height: ${dt('inputtext.extend.extXlg.height')};
+  border-radius: ${dt('dimension.borderRadius.400')};
+}
+.p-floatlabel:has(> .p-inputmask .p-inputtext:not(:focus):not(.p-filled)) > label {
+  top: 50%;
+  margin-top: calc(${dt('fonts.lineHeight.400')} / -2);
   font-size: ${dt('fonts.fontSize.200')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.250')};
+  line-height: ${dt('fonts.lineHeight.400')};
+}
+
+.p-floatlabel-in:has(.p-inputmask) label .extra-inputmask-label-icon {
+  font-size: ${dt('dimension.size.400')};
+  pointer-events: auto;
+}
+.p-floatlabel:has(:is(input:focus, input.p-filled, .p-inputwrapper-focus, .p-inputwrapper-filled)) label .extra-inputmask-label-icon {
+  font-size: ${dt('fonts.fontSize.100')};
+}
+
+.p-floatlabel:has(> .p-inputmask .p-inputtext:focus) > label,
+.p-floatlabel:has(> .p-inputmask .p-inputtext.p-filled) > label {
+  font-size: ${dt('floatlabel.root.active.fontSize')};
+  line-height: ${dt('fonts.lineHeight.150')};
 }
 
 /* Внутри p-floatlabel лейбл лежит поверх поля — курсор должен быть как у ввода */
 .extra-inputmask-body > .p-floatlabel > .extra-inputmask-label {
   cursor: text;
+  color: ${dt('floatlabel.color')};
 }
 
 /* ─── Clear icon ───

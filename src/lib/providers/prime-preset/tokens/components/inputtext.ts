@@ -52,25 +52,21 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   gap: ${dt('dimension.space.100')};
   color: ${dt('color.fg.default')};
   font-family: ${dt('fonts.fontFamily.base')};
-  font-size: ${dt('fonts.fontSize.300')};
+  font-size: ${dt('fonts.fontSize.200')};
   font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.300')};
+  line-height: ${dt('fonts.lineHeight.200')};
   cursor: pointer;
 }
 
 .extra-inputtext-label-icon {
   color: ${dt('color.fg.subtle')};
-  font-size: ${dt('inputtext.extend.iconSize')};
+  font-size: ${dt('dimension.size.400')};
   cursor: help;
 }
 
-/* ─── Caption ─── */
-.extra-inputtext-caption {
-  color: ${dt('color.fg.subtle')};
-  font-family: ${dt('fonts.fontFamily.heading')};
-  font-size: ${dt('fonts.fontSize.200')};
-  font-weight: ${dt('fonts.fontWeight.regular')};
-  line-height: ${dt('fonts.lineHeight.250')};
+/* ─── Маркер обязательности ─── */
+.extra-inputtext-required {
+  color: ${dt('color.fg.status.danger.default')};
 }
 
 /* Внутри p-floatlabel лейбл лежит поверх поля — курсор должен быть как у ввода */
@@ -115,9 +111,34 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   box-shadow: 0 0 0 ${dt('inputtext.root.focusRing.width')} ${dt('color.border.status.danger.focus')};
 }
 
+/* ─── Высота по размерам ───
+   Chrome не даёт текстовому input стать ниже собственной высоты строки (normal ≈ 1.36 от шрифта),
+   поэтому line-height 14 и 16 высоту не задают: 36 и 42 из макета держим явно. */
+.p-inputtext {
+  height: ${dt('inputtext.extend.height')};
+}
+.p-inputtext.p-inputtext-sm {
+  height: ${dt('inputtext.extend.extSm.height')};
+}
+.p-inputtext.p-inputtext-lg {
+  height: ${dt('inputtext.extend.extLg.height')};
+}
+.p-inputtext.p-inputtext-xlg {
+  height: ${dt('inputtext.extend.extXlg.height')};
+}
+
+/* ─── Межстрочный интервал по размерам (Figma: form.lineHeight в модах small / large / xlarge) ─── */
+.p-inputtext.p-inputtext-sm {
+  line-height: ${dt('fonts.lineHeight.200')};
+}
+.p-inputtext.p-inputtext-lg {
+  line-height: ${dt('fonts.lineHeight.400')};
+}
+
 /* ─── Extra Large ─── */
 .p-inputtext.p-inputtext-xlg {
   font-size: ${dt('inputtext.extend.extXlg.fontSize')};
+  line-height: ${dt('fonts.lineHeight.550')};
   padding: ${dt('inputtext.extend.extXlg.paddingY')} ${dt('inputtext.extend.extXlg.paddingX')};
 }
 
@@ -131,5 +152,50 @@ export const inputtextCss = ({ dt }: { dt: (token: string) => string }): string 
   width: ${dt('inputtext.extend.iconSize')};
   height: ${dt('inputtext.extend.iconSize')};
   cursor: pointer;
+}
+
+/* Размер иконки в поле зависит от размера поля (Figma: form.iconSize в модах sizing) */
+.p-iconfield:has(.p-inputtext-sm) .p-inputicon {
+  font-size: ${dt('inputtext.extend.extSm.iconSize')};
+  width: ${dt('inputtext.extend.extSm.iconSize')};
+  height: ${dt('inputtext.extend.extSm.iconSize')};
+}
+.p-iconfield:has(.p-inputtext-lg) .p-inputicon {
+  font-size: ${dt('inputtext.extend.extLg.iconSize')};
+  width: ${dt('inputtext.extend.extLg.iconSize')};
+  height: ${dt('inputtext.extend.extLg.iconSize')};
+}
+.p-iconfield:has(.p-inputtext-xlg) .p-inputicon {
+  font-size: ${dt('inputtext.extend.extXlg.iconSize')};
+  width: ${dt('inputtext.extend.extXlg.iconSize')};
+  height: ${dt('inputtext.extend.extXlg.iconSize')};
+}
+
+/* ─── Float label (Figma: has-float-label=true) ───
+   Поле выше обычного (min-height 56) и с радиусом 14; контент центрируется внутри min-height,
+   поэтому поднятый лейбл стоит на 2px выше значения floatlabel.in.active.top, а текст ввода — на 2px
+   выше paddingTop (Figma: лейбл y=12, ввод y=26 при paddingTop 10 и контенте 28 в поле 56). */
+.p-floatlabel:has(> .p-inputtext) > .p-inputtext {
+  height: ${dt('inputtext.extend.extXlg.height')};
+  border-radius: ${dt('dimension.borderRadius.400')};
+  padding-top: calc(${dt('floatlabel.in.input.paddingTop')} - ${dt('dimension.space.50')});
+}
+/* В покое лейбл остаётся «лейблом» и при заданном placeholder (Figma: has-placeholder=true);
+   PrimeNG в этом случае поднимает его правилом :has(input[placeholder]), поэтому селектор усилен :not() */
+.p-floatlabel:has(> .p-inputtext:not(:focus):not(.p-filled):not(:-webkit-autofill)) > label {
+  top: 50%;
+  margin-top: calc(${dt('fonts.lineHeight.400')} / -2);
+  font-size: ${dt('fonts.fontSize.200')};
+  line-height: ${dt('fonts.lineHeight.400')};
+}
+.p-floatlabel:has(> .p-inputtext:not(:focus)) > .p-inputtext::placeholder {
+  color: transparent;
+}
+.p-floatlabel:has(> .p-inputtext:focus) > label,
+.p-floatlabel:has(> .p-inputtext.p-filled) > label,
+.p-floatlabel:has(> .p-inputtext:-webkit-autofill) > label {
+  top: calc(${dt('floatlabel.in.active.top')} - ${dt('dimension.space.50')});
+  font-size: ${dt('floatlabel.root.active.fontSize')};
+  line-height: ${dt('fonts.lineHeight.150')};
 }
 `;
