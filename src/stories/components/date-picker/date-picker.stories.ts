@@ -254,7 +254,7 @@ import { ExtraDatePickerComponent } from '@cdek-it/angular-ui-kit';
     },
     showTime: {
       control: 'boolean',
-      description: 'Включает выбор времени; при view=\'time\' всегда включён',
+      description: 'Включает выбор времени',
       table: {
         category: 'Props',
         defaultValue: { summary: 'false' }
@@ -505,16 +505,7 @@ export const Disabled: Story = {
   parameters: { docs: { description: { story: 'Заблокированное поле выбора даты (через FormControl).' } } }
 };
 
-export const Readonly: Story = { args: { readonly: true, value: SAMPLE_DATE },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
-      }
-    }
-  }
-};
+export const Readonly: Story = { args: { readonly: true, value: SAMPLE_DATE } };
 
 export const FloatLabel: Story = { args: { floatLabel: true } };
 
