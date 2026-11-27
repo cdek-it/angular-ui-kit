@@ -48,7 +48,6 @@ const meta: Meta<AutoCompleteArgs> = {
       description: {
         component: `Поле ввода с автодополнением, поддерживающее одиночный и множественный выбор, объекты, кнопку выпадающего списка, группировку и фильтрацию. Поддерживает встроенные label/caption/info.
 
-Реализован по спецификации \`docs/components-api/autocomplete.md\`.
 
 \`\`\`typescript
 import { ExtraAutoCompleteComponent } from '@cdek-it/angular-ui-kit';
