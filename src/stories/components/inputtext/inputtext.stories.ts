@@ -332,6 +332,12 @@ export const Default: Story = {
   }
 };
 
+export const Properties: Story = {
+  name: 'Properties',
+  args: { type: 'email', size: 'large' },
+  render: (args) => renderInputText(args)
+};
+
 export const Error: Story = {
   name: 'Error',
   args: { invalid: true },
