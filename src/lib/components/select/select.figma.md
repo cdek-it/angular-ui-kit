@@ -33,11 +33,11 @@ updated: '2026-09-30'
 | `optionDisabled` | `string \| undefined` | `undefined` | Имя булева поля опции, отключающего её выбор |
 | `group` | `boolean` | `false` | Включает группировку опций (данные — `ExtraSelectGroup[]`) |
 | `clearable` | `boolean` | `false` | Показывает иконку очистки (×) при наличии значения — соответствует Figma-свойству `show-clear` |
-| `showCheckbox` | `boolean` | `true` | Показывает отметку (галочку) у выбранного пункта в списке |
+| `showCheckmark` | `boolean` | `true` | Показывает галочку у выбранного пункта в списке — соответствует Figma-оси `checkmark` в `_<Select.Option>` |
 | `showFilter` | `boolean` | `false` | Показывает строку поиска в выпадающем списке |
 | `editable` | `boolean` | `false` | Разрешает ручной ввод произвольного значения в поле |
 | `readonly` | `boolean` | `false` | Только для чтения — соответствует Figma-состоянию `state=readonly` |
-| `required` | `boolean` | `false` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
+| `required` | `boolean` | `true` | Поле обязательно для заполнения: контрол невалиден, пока значение не введено/не выбрано; работает как NG_VALIDATORS-валидатор |
 | `loading` | `boolean` | `false` | Состояние загрузки опций — соответствует Figma-свойству `show-loader` |
 | `caption` | `string` | `''` | Текст пояснения под полем |
 | `info` | `string` | `''` | Текст доп. информации — показывается в тултипе иконки `ti-info-circle` рядом с лейблом |
@@ -46,7 +46,7 @@ updated: '2026-09-30'
 | `emptyFilterMessage` | `string` | `'Результаты не найдены'` | Сообщение при отсутствии результатов фильтрации |
 | `inputId` | `string \| undefined` | автогенерируется | `id` нативного инпута для связи с внутренним/внешним `<label>` |
 | `appendTo` | `any` | `'body'` | Контейнер для отрисовки выпадающей панели |
-| `checkmarkIcon` | `string` | `'ea5e'` | Код символа иконки отметки выбранного пункта (используется при `showCheckbox=true`) |
+| `checkmarkIcon` | `string` | `'ea5e'` | Код символа иконки отметки выбранного пункта (используется при `showCheckmark=true`) |
 | `(onFilter)` | `EventEmitter<ExtraSelectFilterEvent>` | — | Событие ввода в строку поиска (при `showFilter=true`) |
 | `(onFocus)` | `EventEmitter<Event>` | — | Событие получения фокуса |
 | `(onBlur)` | `EventEmitter<Event>` | — | Событие потери фокуса |

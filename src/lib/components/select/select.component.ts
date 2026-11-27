@@ -31,6 +31,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { PrimeTemplate } from 'primeng/api';
 import type { SelectChangeEvent, SelectFilterEvent } from 'primeng/types/select';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraSelectSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraSelectLabelPosition = 'top' | 'left';
@@ -69,7 +70,15 @@ export class ExtraSelectOptionGroupDirective {}
 @Component({
   selector: 'extra-select',
   standalone: true,
-  imports: [Select, NgTemplateOutlet, PrimeTemplate, FormsModule, FloatLabel, ExtraTooltipDirective],
+  imports: [
+    Select,
+    NgTemplateOutlet,
+    PrimeTemplate,
+    FormsModule,
+    FloatLabel,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -105,7 +114,7 @@ export class ExtraSelectOptionGroupDirective {}
             <ng-container [ngTemplateOutlet]="selectTpl" />
           }
           @if (caption) {
-            <div class="extra-select-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -114,7 +123,10 @@ export class ExtraSelectOptionGroupDirective {}
     }
 
     <ng-template #labelTpl>
-      <label class="extra-select-label" [for]="inputId">
+      <label class="extra-select-label" [id]="inputId + '-label'" [for]="inputId">
+        @if (required) {
+          <span class="extra-select-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-select-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -134,28 +146,31 @@ export class ExtraSelectOptionGroupDirective {}
         [optionGroupLabel]="optionGroupLabel"
         [optionGroupChildren]="optionGroupChildren"
         [group]="group"
-        [placeholder]="placeholder"
+        [placeholder]="floatLabel ? '' : placeholder"
         [filter]="showFilter"
+        [resetFilterOnHide]="true"
         [showClear]="clearable"
         [editable]="editable"
         [readonly]="readonly"
         [ariaLabel]="ariaLabel"
-        [ariaLabelledBy]="ariaLabelledBy"
+        [ariaLabelledBy]="ariaLabelledBy || (label ? inputId + '-label' : null)"
         [autofocus]="autofocus"
         [tabindex]="tabindex ?? 0"
         [loading]="loading"
         [inputId]="inputId"
         [appendTo]="appendTo"
         [size]="primeSize"
-        [checkmark]="showCheckbox"
+        [fluid]="fluid"
+        [checkmark]="showCheckmark"
         [panelStyle]="panelStyle"
+        [pt]="selectPt"
         [emptyMessage]="emptyMessage"
         [emptyFilterMessage]="emptyFilterMessage"
         (onChange)="onSelectChange($event)"
         (onClear)="onClear.emit()"
         (onFilter)="onFilterHandler($event)"
-        (onShow)="onShow.emit()"
-        (onHide)="onHide.emit()"
+        (onShow)="overlayOpen = true; onShow.emit()"
+        (onHide)="overlayOpen = false; onHide.emit()"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="handleBlur($event)"
       >
@@ -208,16 +223,18 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   /** Плавающий лейбл внутри поля (PrimeNG `p-floatlabel`); перекрывает `labelPosition`. */
   @Input({ transform: booleanAttribute }) floatLabel = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraSelectSize = 'base';
+  @Input({ transform: booleanAttribute }) fluid = false;
   @Input({ transform: booleanAttribute }) showFilter = false;
   /** Отображение иконки очистки поля при наличии значения. */
   @Input({ transform: booleanAttribute }) clearable = false;
-  @Input({ transform: booleanAttribute }) showCheckbox = true;
+  @Input({ transform: booleanAttribute }) showCheckmark = true;
   @Input({ transform: booleanAttribute }) editable = false;
   @Input({ transform: booleanAttribute }) readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input({ transform: booleanAttribute }) autofocus = false;
@@ -251,6 +268,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
 
   disabled = false;
   modelValue: any = null;
+  overlayOpen = false;
 
   @Output() onChange = new EventEmitter<ExtraSelectChangeEvent>();
   @Output() onClear = new EventEmitter<void>();
@@ -260,8 +278,22 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
+  /** aria для label-элемента и role заголовков групп. */
+  get selectPt(): Record<string, unknown> {
+    const label: Record<string, unknown> = {
+      'aria-invalid': this.invalid ? 'true' : null,
+      'aria-required': this.required ? 'true' : null
+    };
+    if (this.editable) {
+      label['role'] = 'combobox';
+      label['aria-haspopup'] = 'listbox';
+      label['aria-expanded'] = this.overlayOpen ? 'true' : 'false';
+    }
+    return { label, optionGroup: { role: 'presentation' } };
+  }
+
   get invalid(): boolean {
-    return !!(this._ngControl?.invalid && this._ngControl?.touched);
+    return !this.overlayOpen && !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   get primeSize(): 'small' | 'large' | undefined {
@@ -272,7 +304,7 @@ export class ExtraSelectComponent implements ControlValueAccessor, OnInit, OnCha
 
   get panelStyle(): Record<string, string> {
     const char = String.fromCodePoint(parseInt(this.checkmarkIcon, 16));
-    return { '--p-select-checkmark-content': `"${char}"` };
+    return { '--extra-select-checkmark-content': `"${char}"` };
   }
 
   /**

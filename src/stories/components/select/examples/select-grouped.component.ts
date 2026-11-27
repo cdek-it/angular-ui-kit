@@ -87,6 +87,7 @@ export const Grouped = {
     template: `<app-select-grouped [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-grouped>`
   }),
   parameters: {
+    controls: { exclude: ['placeholder', 'label', 'labelPosition', 'floatLabel', 'caption', 'info', 'showFilter', 'showCheckbox'] },
     docs: {
       description: { story: 'Опции, сгруппированные по категориям с кастомным заголовком группы.' },
       source: {

@@ -61,6 +61,7 @@ export const Editable = {
     template: `<app-select-editable [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-editable>`
   }),
   parameters: {
+    controls: { exclude: ['placeholder', 'label', 'labelPosition', 'floatLabel', 'caption', 'info', 'showFilter', 'showCheckbox'] },
     docs: {
       description: { story: 'Редактируемый режим — позволяет вводить произвольное значение.' },
       source: {

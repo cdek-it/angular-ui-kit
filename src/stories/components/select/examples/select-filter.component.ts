@@ -56,6 +56,7 @@ export const Filter = {
     template: `<app-select-filter [size]="size" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-filter>`
   }),
   parameters: {
+    controls: { exclude: ['placeholder', 'label', 'labelPosition', 'floatLabel', 'caption', 'info', 'clearable', 'showCheckbox'] },
     docs: {
       description: { story: 'Выпадающий список с поиском по опциям.' },
       source: {
