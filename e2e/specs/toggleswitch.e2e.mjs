@@ -21,10 +21,111 @@ const smoke = (story) => ({
   }
 });
 
+
+const openSwitch = async (page, url, args) => {
+  await page.goto(`${url}&args=${args}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+};
+
 export default {
   component: 'toggleswitch',
   stories: Object.fromEntries(STORIES.map((story) => [story.id, story.id])),
   tests: [
+    {
+      name: 'Properties: label и labelPosition',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'label:Custom;labelPosition:left');
+        expect((await page.locator('label').innerText()).trim(), 'label').toBe('Custom');
+        expect((await page.locator('.extra-toggleswitch').getAttribute('class')) ?? '', 'left').toContain('extra-toggleswitch--left');
+      }
+    },
+    {
+      name: 'Properties: caption',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'caption:CustomCaption');
+        expect((await page.locator('.toggleswitch-caption').innerText()).trim(), 'caption').toBe('CustomCaption');
+      }
+    },
+    {
+      name: 'Properties: ariaLabel',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'ariaLabel:Check');
+        expect(await page.locator('.p-toggleswitch-input').getAttribute('aria-label'), 'aria-label').toBe('Check');
+      }
+    },
+    {
+      name: 'Properties: ariaLabelledBy',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'ariaLabelledBy:some-label');
+        expect(await page.locator('.p-toggleswitch-input').getAttribute('aria-labelledby'), 'aria-labelledby').toBe('some-label');
+      }
+    },
+    {
+      name: 'Properties: autofocus',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'autofocus:true');
+        expect(await page.evaluate(() => document.activeElement?.classList.contains('p-toggleswitch-input')), 'фокус').toBe(true);
+      }
+    },
+    {
+      name: 'Properties: tabindex',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'tabindex:3');
+        expect(await page.locator('.p-toggleswitch-input').getAttribute('tabindex'), 'tabindex').toBe('3');
+      }
+    },
+    {
+      name: 'Properties: readonly',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'readonly:true');
+        const input = page.locator('.p-toggleswitch-input');
+        await input.click({ force: true });
+        await page.keyboard.press('Space');
+        await page.waitForTimeout(200);
+        expect(await input.isChecked(), 'не изменился').toBe(false);
+      }
+    },
+    {
+      name: 'Properties: required валидирует',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect, url }) => {
+        await openSwitch(page, url, 'required:true');
+        const error = await page.evaluate(() => {
+          const instance = globalThis.ng?.getComponent(document.querySelector('extra-toggleswitch'));
+          return instance?.validate({ value: false });
+        });
+        expect(Boolean(error), 'required error').toBe(true);
+      }
+    },
+    {
+      name: 'Properties: onChange, onFocus и onBlur',
+      story: 'components-form-toggleswitch--default',
+      run: async ({ page, expect }) => {
+        await page.evaluate(() => {
+          const instance = globalThis.ng?.getComponent(document.querySelector('extra-toggleswitch'));
+          window.__switchEvents = [];
+          instance?.onChange.subscribe(() => window.__switchEvents.push('change'));
+          instance?.onFocus.subscribe(() => window.__switchEvents.push('focus'));
+          instance?.onBlur.subscribe(() => window.__switchEvents.push('blur'));
+        });
+        const input = page.locator('.p-toggleswitch-input');
+        await input.focus();
+        await input.blur();
+        await input.click({ force: true });
+        await page.waitForTimeout(200);
+        const events = await page.evaluate(() => window.__switchEvents);
+        expect(events.includes('focus'), 'onFocus').toBe(true);
+        expect(events.includes('blur'), 'onBlur').toBe(true);
+        expect(events.includes('change'), 'onChange').toBe(true);
+      }
+    },
     ...STORIES.map(smoke),
     {
       name: 'Default: role=switch, клик и aria-checked',
