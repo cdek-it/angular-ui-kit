@@ -57,7 +57,7 @@ const meta: Meta<SelectArgs> = {
         transform: (_source: string, context: { args: RenderArgs }) => selectSource(context.args)
       },
       description: {
-        component: `Select — выпадающий список для выбора одного значения из набора опций.
+        component: `Single-select — выпадающий список для выбора одного значения из набора опций.
 
 \`\`\`typescript
 import { ExtraSelectComponent } from '@cdek-it/angular-ui-kit';
@@ -529,15 +529,7 @@ export const Disabled: Story = {
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true, value: OPTIONS[0] },
-  render: (args) => renderSelect(args),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Readonly не подсвечивается при наведении, но остаётся фокусируемым: значение можно выделить и скопировать, а клавиатурный пользователь видит, где находится. Поэтому focus-ring сохраняется (WCAG 2.4.7).'
-      }
-    }
-  }
+  render: (args) => renderSelect(args)
 };
 
 export const Fluid: Story = {
