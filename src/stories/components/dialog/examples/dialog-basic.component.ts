@@ -51,8 +51,7 @@ export class DialogBasicComponent {
   @Input() focusOnShow = false;
   @Input() appendTo = 'body';
   @Input() size: ExtraDialogSize = 'default';
-
-  visible = false;
+  @Input() visible = false;
   logEntries = signal<string[]>([]);
 
   log(entry: string): void {
@@ -70,11 +69,13 @@ export const Basic: StoryObj = {
     closeOnEscape: true,
     focusOnShow: false,
     appendTo: 'body',
-    size: 'default'
+    size: 'default',
+    visible: false
   },
   render: (args) => ({
     props: args,
     template: `<app-dialog-basic
+  [visible]="visible"
   [header]="header"
   [showOverlay]="showOverlay"
   [showMaximize]="showMaximize"

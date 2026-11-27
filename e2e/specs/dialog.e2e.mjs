@@ -297,6 +297,18 @@ export default {
         expect(await page.locator('.p-dialog-maximize-button').count(), 'max').toBe(1);
       }
     },
+    {
+      name: 'Basic: visible из Controls',
+      story: 'components-overlay-dialog--basic',
+      run: async ({ page, expect, url }) => {
+        await page.goto(`${url}&args=visible:true`, { waitUntil: 'networkidle' });
+        await page.waitForTimeout(500);
+        expect(await page.locator('.p-dialog').count(), 'visible=true').toBe(1);
+        await page.goto(`${url}&args=visible:false`, { waitUntil: 'networkidle' });
+        await page.waitForTimeout(500);
+        expect(await page.locator('.p-dialog').count(), 'visible=false').toBe(0);
+      }
+    },
     ...STORIES.map(smoke),
     { ...smoke(STORIES[0]), name: `Smoke: ${STORIES[0].name} (тёмная тема)`, theme: 'dark' }
   ]
