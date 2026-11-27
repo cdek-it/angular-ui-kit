@@ -1,4 +1,5 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import type { StoryContext } from '@storybook/angular';
 import { ExtraDividerComponent as DividerComponent } from '../../../lib/components/divider/divider.component';
 import {
   DividerWithContentComponent,
@@ -11,7 +12,7 @@ import {
   DividerAlignBottomComponent
 } from './examples/divider-align-bottom.component';
 
-type DividerArgs = DividerComponent & { horizontalAlign: string; verticalAlign: string; content: string };
+type DividerArgs = DividerComponent & { horizontalAlign: string; verticalAlign: string; content: string; icon?: string };
 
 const meta: Meta<DividerArgs> = {
   title: 'Components/Panel/Divider',
@@ -34,7 +35,7 @@ const meta: Meta<DividerArgs> = {
         component: `Разделитель для визуального разделения контента. Поддерживает горизонтальную и вертикальную ориентацию, различные стили линии и выравнивание.
 
 \`\`\`typescript
-import { DividerModule } from 'primeng/divider';
+import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit/components/divider';
 \`\`\``
       }
     },
@@ -61,7 +62,11 @@ import { DividerModule } from 'primeng/divider';
         type: { summary: "'solid' | 'dash'" }
       }
     },
-    align: { table: { disable: true } },
+    align: {
+      control: 'select',
+      options: ['left', 'center', 'right', 'top', 'bottom'],
+      description: 'Выравнивание контента разделителя'
+    },
     horizontalAlign: {
       name: 'align',
       control: 'select',
@@ -105,6 +110,22 @@ const commonTemplate = `
 ></extra-divider>
 `;
 
+const dividerHtml = (args: Record<string, unknown>, content = ''): string => {
+  const layout = (args['layout'] as string | undefined) ?? 'horizontal';
+  const type = (args['type'] as string | undefined) ?? 'solid';
+  const align =
+    (layout === 'vertical'
+      ? (args['verticalAlign'] as string | undefined)
+      : (args['horizontalAlign'] as string | undefined)) ?? 'center';
+  const attrs = [
+    layout !== 'horizontal' ? `layout="${layout}"` : '',
+    type !== 'solid' ? `type="${type}"` : '',
+    align !== 'center' ? `align="${align}"` : ''
+  ].filter(Boolean);
+
+  return `<extra-divider${attrs.length ? ` ${attrs.join(' ')}` : ''}>${content ? `\n  ${content}\n` : ''}</extra-divider>`;
+};
+
 export default meta;
 type Story = StoryObj<DividerArgs>;
 
@@ -143,6 +164,14 @@ export const Default: Story = {
     docs: {
       description: {
         story: 'Базовый пример компонента. Используйте Controls для интерактивного изменения пропсов.'
+      },
+      source: {
+        language: 'html',
+        transform: (_code: string, context: StoryContext) => {
+          const args = context.args as Record<string, unknown>;
+          const content = args['content'] ? `<span>${args['content']}</span>` : '';
+          return dividerHtml(args, content);
+        }
       }
     }
   }
@@ -150,11 +179,44 @@ export const Default: Story = {
 
 // ── WithContent ───────────────────────────────────────────────────────────────
 
-export const WithContent: Story = WithContentStory;
+export const WithContent: Story = {
+  ...(WithContentStory as Story),
+  parameters: {
+    ...(WithContentStory as Story).parameters,
+    docs: {
+      ...((WithContentStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Разделитель с текстовым контентом по центру.' },
+      source: {
+        language: 'html',
+        transform: (_code: string, context: StoryContext) => {
+          const args = context.args as Record<string, unknown>;
+          return dividerHtml(args, `<span>${args['content'] ?? 'Москва → Новосибирск'}</span>`);
+        }
+      }
+    }
+  }
+};
 
 // ── WithIcon ──────────────────────────────────────────────────────────────────
 
-export const WithIcon: Story = WithIconStory;
+export const WithIcon: Story = {
+  ...(WithIconStory as Story),
+  argTypes: { icon: { control: 'text', description: 'Класс иконки tabler icon' } },
+  parameters: {
+    ...(WithIconStory as Story).parameters,
+    docs: {
+      ...((WithIconStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Разделитель с иконкой.' },
+      source: {
+        language: 'html',
+        transform: (_code: string, context: StoryContext) => {
+          const args = context.args as Record<string, unknown>;
+          return dividerHtml(args, `<i class="${args['icon'] ?? 'ti ti-map-pin'}"></i>`);
+        }
+      }
+    }
+  }
+};
 
 // ── Vertical ──────────────────────────────────────────────────────────────────
 
@@ -179,17 +241,29 @@ export const Vertical: Story = {
 
 export const TypeDashed: Story = {
   name: 'Dashed',
-  render: (args) => ({ props: args, template: commonTemplate }),
+  render: (args) => ({
+    props: args,
+    template: `<extra-divider [layout]="layout" [type]="type" [align]="align">
+  <span>{{ content }}</span>
+</extra-divider>`
+  }),
   args: {
     layout: 'horizontal',
     type: 'dash',
-    align: 'center'
+    align: 'center',
+    horizontalAlign: 'center',
+    verticalAlign: 'center',
+    content: 'Раздел'
   },
   parameters: {
     docs: {
       description: { story: 'Разделитель с пунктирной линией.' },
       source: {
-        code: `<extra-divider type="dash"></extra-divider>`
+        language: 'html',
+        transform: (_code: string, context: StoryContext) => {
+          const args = context.args as Record<string, unknown>;
+          return dividerHtml(args, `<span>${args['content'] ?? 'Раздел'}</span>`);
+        }
       }
     }
   }
@@ -197,6 +271,24 @@ export const TypeDashed: Story = {
 
 // ── Align ─────────────────────────────────────────────────────────────────────
 
-export const AlignLeft: Story = AlignLeftStory;
+export const AlignLeft: Story = {
+  ...(AlignLeftStory as Story),
+  parameters: {
+    ...(AlignLeftStory as Story).parameters,
+    docs: {
+      ...((AlignLeftStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Контент разделителя выровнен по левому краю.' }
+    }
+  }
+};
 
-export const AlignBottom: Story = AlignBottomStory;
+export const AlignBottom: Story = {
+  ...(AlignBottomStory as Story),
+  parameters: {
+    ...(AlignBottomStory as Story).parameters,
+    docs: {
+      ...((AlignBottomStory as Story).parameters?.['docs'] ?? {}),
+      description: { story: 'Контент вертикального разделителя выровнен по нижнему краю.' }
+    }
+  }
+};

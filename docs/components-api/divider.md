@@ -2,7 +2,7 @@
 
 # ExtraDivider
 
-> ✅ **Реализован**: `ExtraDividerComponent` (`@cdek-it/angular-ui-kit`) соответствует спецификации.
+> ✅ **Реализован**: `ExtraDividerComponent` (`@cdek-it/angular-ui-kit/components/divider`) соответствует спецификации.
 
 Визуальный разделитель контента.
 

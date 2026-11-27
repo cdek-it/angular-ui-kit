@@ -58,23 +58,9 @@ export const AlignLeft = {
     docs: {
       description: { story: 'Контент разделителя выровнен по левому краю.' },
       source: {
-        language: 'ts',
-        code: `
-import { ExtraDividerComponent } from '@cdek-it/angular-ui-kit';
-
-@Component({
-  selector: 'app-divider-align-left',
-  standalone: true,
-  imports: [ExtraDividerComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: \`
-    <extra-divider align="left">
-      <span>Отправитель</span>
-    </extra-divider>
-  \`,
-})
-export class DividerAlignLeftComponent {}
-        `
+        language: 'html',
+        type: 'code',
+        code: '<extra-divider layout="horizontal" align="left">Отправитель</extra-divider>'
       }
     }
   }

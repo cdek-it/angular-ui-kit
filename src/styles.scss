@@ -29,6 +29,13 @@
 
 @font-face {
   font-family: 'Noto Sans';
+  src: url('./assets/fonts/noto-sans/NotoSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
   src: url('./assets/fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
