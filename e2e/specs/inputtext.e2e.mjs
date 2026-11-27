@@ -108,7 +108,7 @@ export default {
       name: 'Properties: type=email',
       story: 'components-form-inputtext--properties',
       run: async ({ page, expect }) => {
-        expect(await page.locator('input').getAttribute('type'), 'type').toBe('email');
+        expect(await page.locator('input').getAttribute('type'), 'type').toBe('password');
       }
     },
     {

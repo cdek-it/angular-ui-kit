@@ -334,7 +334,7 @@ export const Default: Story = {
 
 export const Properties: Story = {
   name: 'Properties',
-  args: { type: 'email', size: 'large' },
+  args: { type: 'password', size: 'large' },
   render: (args) => renderInputText(args)
 };
 
