@@ -27,7 +27,6 @@ const meta: Meta<InputTextArgs> = {
       description: {
         component: `Текстовое поле для ввода данных.
 
-Реализовано по спецификации [inputtext.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/inputtext.md).
 
 \`\`\`typescript
 import { ExtraInputTextComponent } from '@cdek-it/angular-ui-kit';
