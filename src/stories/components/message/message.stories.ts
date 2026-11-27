@@ -30,7 +30,6 @@ const meta: Meta<MessageArgs> = {
       description: {
         component: `Сообщение-уведомление.
 
-Реализован по спецификации \`docs/components-api/message.md\`.
 
 \`\`\`typescript
 import { ExtraMessageComponent } from '@cdek-it/angular-ui-kit';
