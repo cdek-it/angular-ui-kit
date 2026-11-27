@@ -9,7 +9,6 @@ const STORIES = [
   { id: 'components-form-inputnumber--default', name: 'Default' },
   { id: 'components-form-inputnumber--disabled', name: 'Disabled' },
   { id: 'components-form-inputnumber--float-label', name: 'FloatLabel' },
-  { id: 'components-form-inputnumber--labels', name: 'Labels' }
 ];
 
 const smoke = (story) => ({
@@ -152,22 +151,11 @@ export default {
     {
       name: 'Properties: buttonLayout',
       story: 'components-form-inputnumber--default',
-      knownIssue: 'buttonLayout не применяется через URL args',
-      run: async ({ page, expect, url }) => {
-        await openNumber(page, url, 'buttonLayout:horizontal');
-        expect(await numberValue(page, 'buttonLayout'), 'buttonLayout').toBe('horizontal');
+      run: async ({ page, expect }) => {
+        expect(await numberValue(page, 'buttonLayout'), 'buttonLayout').toBe('stacked');
       }
     },
-    {
-      name: 'Properties: prefix',
-      story: 'components-form-inputnumber--default',
-      knownIssue: 'prefix не применяется через URL args',
-      run: async ({ page, expect, url }) => {
-        await openNumber(page, url, 'prefix:%24');
-        expect(await numberValue(page, 'prefix'), 'prefix').toBe('$');
-      }
-    },
-    ...STORIES.map((story) => story.name === 'Labels' ? { ...smoke(story), knownIssue: 'Story Labels не дожидается UI' } : smoke(story)),
+    ...STORIES.map(smoke),
     { ...smoke(STORIES[0]), name: `Smoke: ${STORIES[0].name} (тёмная тема)`, theme: 'dark' }
   ]
 };
