@@ -59,6 +59,7 @@ export const Invalid: StoryObj<{ label: string; invalid: boolean }> = {
     template: `<app-radiobutton-invalid [label]="label" [invalid]="invalid"></app-radiobutton-invalid>`
   }),
   parameters: {
+    controls: { exclude: ['labelPosition', 'caption'] },
     docs: {
       description: {
         story:

@@ -52,6 +52,7 @@ export const Disabled: StoryObj<{ label: string; disabled: boolean }> = {
     template: `<app-radiobutton-disabled [label]="label" [disabled]="disabled"></app-radiobutton-disabled>`
   }),
   parameters: {
+    controls: { exclude: ['labelPosition', 'caption'] },
     docs: {
       description: {
         story:
