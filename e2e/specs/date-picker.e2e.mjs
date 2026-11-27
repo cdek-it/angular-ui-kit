@@ -16,6 +16,37 @@ export default {
   component: 'date-picker',
   stories: Object.fromEntries(STORIES),
   tests: [
+    {
+      name: 'Properties: API matrix',
+      story: 'components-form-datepicker--default',
+      run: async ({ page, expect }) => {
+        const result = await page.evaluate(() => {
+          const host = document.querySelector('#storybook-root extra-date-picker');
+          const instance = globalThis.ng?.getComponent(host);
+          if (!instance) return { error: 'no instance', inputs: [], outputs: [], errors: [], outputsOk: false };
+          const definition = instance.constructor.ɵcmp;
+          const inputs = Object.keys(definition.inputs ?? {});
+          const outputs = Object.keys(definition.outputs ?? {});
+          const errors = [];
+          for (const name of inputs) {
+            try {
+              const current = instance[name];
+              if (typeof current === 'boolean') instance[name] = !current;
+              else if (typeof current === 'number') instance[name] = current + 1;
+              else if (typeof current === 'string') instance[name] = current ? current + 'x' : 'x';
+              globalThis.ng.applyChanges(instance);
+            } catch (error) {
+              errors.push(name + ': ' + String(error));
+            }
+          }
+          return { inputs, outputs, errors, outputsOk: outputs.every((name) => typeof instance[name]?.subscribe === 'function') };
+        });
+        expect(result.error ?? '', 'instance').toBe('');
+        expect(result.errors, 'inputs').toEqual([]);
+        expect(result.inputs.length, 'inputs count').toBeGreaterThan(0);
+        expect(result.outputsOk, 'outputs').toBe(true);
+      }
+    },
     ...STORIES.map(([name,id])=>({name:`Smoke: ${name}`,story:id,run:async({page,expect,errors})=>{
       await page.waitForSelector('extra-date-picker');
       expect(errors.filter(e=>e.type==='pageerror').map(e=>e.text),'ошибки').toEqual([]);
