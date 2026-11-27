@@ -74,6 +74,7 @@ export const Custom = {
     template: `<app-select-custom [size]="size" [clearable]="clearable" [readonly]="readonly" [disabled]="disabled" [invalid]="invalid"></app-select-custom>`
   }),
   parameters: {
+    controls: { exclude: ['placeholder', 'label', 'labelPosition', 'floatLabel', 'caption', 'info', 'showFilter', 'showCheckbox'] },
     docs: {
       description: { story: 'Кастомный шаблон опции с иконкой и описанием.' },
       source: {
