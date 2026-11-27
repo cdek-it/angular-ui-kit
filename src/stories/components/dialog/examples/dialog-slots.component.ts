@@ -12,8 +12,14 @@ const template = `
   <extra-dialog
     [visible]="visible"
     (visibleChange)="visible = $event"
-    [showMaximize]="true"
+    [showMaximize]="showMaximize"
     [size]="size"
+    [showOverlay]="showOverlay"
+    [showClose]="showClose"
+    [dismissableMask]="dismissableMask"
+    [closeOnEscape]="closeOnEscape"
+    [focusOnShow]="focusOnShow"
+    [appendTo]="appendTo"
   >
     <ng-template extraDialogTemplate="header">
       <div class="flex items-center gap-2">
@@ -42,13 +48,20 @@ const template = `
 })
 export class DialogSlotsComponent {
   @Input() size: ExtraDialogSize = 'default';
+  @Input() showOverlay = true;
+  @Input() showMaximize = false;
+  @Input() showClose = true;
+  @Input() dismissableMask = false;
+  @Input() closeOnEscape = true;
+  @Input() focusOnShow = false;
+  @Input() appendTo = 'body';
   visible = false;
 }
 
 export const Slots: StoryObj = {
   render: (args) => ({
     props: args,
-    template: `<app-dialog-slots [size]="size"></app-dialog-slots>`
+    template: `<app-dialog-slots [size]="size" [showOverlay]="showOverlay" [showMaximize]="showMaximize" [showClose]="showClose" [dismissableMask]="dismissableMask" [closeOnEscape]="closeOnEscape" [focusOnShow]="focusOnShow" [appendTo]="appendTo"></app-dialog-slots>`
   }),
   parameters: {
     docs: {
@@ -67,7 +80,7 @@ import { ExtraDialogComponent, ExtraDialogTemplateDirective, ExtraDialogSize } f
   standalone: true,
   imports: [ExtraDialogComponent, ExtraDialogTemplateDirective],
   template: \`
-    <extra-dialog [visible]="visible" (visibleChange)="visible = $event" [size]="size">
+    <extra-dialog [visible]="visible" (visibleChange)="visible = $event" [size]="size" [showOverlay]="showOverlay" [showMaximize]="showMaximize" [showClose]="showClose" [dismissableMask]="dismissableMask" [closeOnEscape]="closeOnEscape" [focusOnShow]="focusOnShow" [appendTo]="appendTo">
       <ng-template extraDialogTemplate="header">
         <span class="font-semibold">Заголовок</span>
       </ng-template>
@@ -83,6 +96,13 @@ import { ExtraDialogComponent, ExtraDialogTemplateDirective, ExtraDialogSize } f
 })
 export class DialogSlotsComponent {
   @Input() size: ExtraDialogSize = 'default';
+  @Input() showOverlay = true;
+  @Input() showMaximize = false;
+  @Input() showClose = true;
+  @Input() dismissableMask = false;
+  @Input() closeOnEscape = true;
+  @Input() focusOnShow = false;
+  @Input() appendTo = 'body';
   visible = false;
 }
         `

@@ -42,12 +42,25 @@ const template = `
 })
 export class DialogDynamicComponent {
   @Input() size: ExtraDialogSize = 'default';
+  @Input() showOverlay = true;
+  @Input() showMaximize = false;
+  @Input() showClose = true;
+  @Input() dismissableMask = false;
+  @Input() closeOnEscape = true;
+  @Input() focusOnShow = false;
+  @Input() appendTo = 'body';
   constructor(private readonly dialogService: ExtraDialogService) {}
 
   open(): void {
     this.dialogService.open(DialogDynamicContentComponent, {
       header: 'Подтверждение заявки',
-      modal: true,
+      modal: this.showOverlay,
+      maximizable: this.showMaximize,
+      closable: this.showClose,
+      dismissableMask: this.dismissableMask,
+      closeOnEscape: this.closeOnEscape,
+      focusOnShow: this.focusOnShow,
+      appendTo: this.appendTo,
       size: this.size
     });
   }
@@ -56,7 +69,7 @@ export class DialogDynamicComponent {
 export const Dynamic: StoryObj = {
   render: (args) => ({
     props: args,
-    template: `<app-dialog-dynamic [size]="size"></app-dialog-dynamic>`
+    template: `<app-dialog-dynamic [size]="size" [showOverlay]="showOverlay" [showMaximize]="showMaximize" [showClose]="showClose" [dismissableMask]="dismissableMask" [closeOnEscape]="closeOnEscape" [focusOnShow]="focusOnShow" [appendTo]="appendTo"></app-dialog-dynamic>`
   }),
   parameters: {
     docs: {
@@ -97,12 +110,25 @@ export class DialogDynamicContentComponent {
 })
 export class DialogDynamicComponent {
   @Input() size: ExtraDialogSize = 'default';
+  @Input() showOverlay = true;
+  @Input() showMaximize = false;
+  @Input() showClose = true;
+  @Input() dismissableMask = false;
+  @Input() closeOnEscape = true;
+  @Input() focusOnShow = false;
+  @Input() appendTo = 'body';
   constructor(private readonly dialogService: ExtraDialogService) {}
 
   open(): void {
     this.dialogService.open(DialogDynamicContentComponent, {
       header: 'Подтверждение заявки',
-      modal: true,
+      modal: this.showOverlay,
+      maximizable: this.showMaximize,
+      closable: this.showClose,
+      dismissableMask: this.dismissableMask,
+      closeOnEscape: this.closeOnEscape,
+      focusOnShow: this.focusOnShow,
+      appendTo: this.appendTo,
       size: this.size
     });
   }

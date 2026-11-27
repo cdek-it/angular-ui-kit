@@ -267,6 +267,36 @@ export default {
         expect((await page.locator('.p-dialog').getAttribute('class')) ?? '', 'maximized').toContain('p-dialog-maximized');
       }
     },
+    {
+      name: 'Header: showMaximize из Controls',
+      story: 'components-overlay-dialog--header',
+      run: async ({ page, expect, url }) => {
+        await page.goto(`${url}&args=showMaximize:true`, { waitUntil: 'networkidle' });
+        await page.getByRole('button', { name: 'Кастомный заголовок' }).click();
+        await page.waitForSelector('.p-dialog');
+        expect(await page.locator('.p-dialog-maximize-button').count(), 'max').toBe(1);
+      }
+    },
+    {
+      name: 'Slots: showMaximize из Controls',
+      story: 'components-overlay-dialog--slots',
+      run: async ({ page, expect, url }) => {
+        await page.goto(`${url}&args=showMaximize:true`, { waitUntil: 'networkidle' });
+        await page.getByRole('button', { name: 'Все слоты' }).click();
+        await page.waitForSelector('.p-dialog');
+        expect(await page.locator('.p-dialog-maximize-button').count(), 'max').toBe(1);
+      }
+    },
+    {
+      name: 'Dynamic: showMaximize из Controls',
+      story: 'components-overlay-dialog--dynamic',
+      run: async ({ page, expect, url }) => {
+        await page.goto(`${url}&args=showMaximize:true`, { waitUntil: 'networkidle' });
+        await page.getByRole('button', { name: 'Создать заявку' }).click();
+        await page.waitForSelector('.p-dialog');
+        expect(await page.locator('.p-dialog-maximize-button').count(), 'max').toBe(1);
+      }
+    },
     ...STORIES.map(smoke),
     { ...smoke(STORIES[0]), name: `Smoke: ${STORIES[0].name} (тёмная тема)`, theme: 'dark' }
   ]
