@@ -67,6 +67,8 @@ const meta: Meta<NumberArgs> = {
     return {
       props: {
         ...Object.fromEntries(INPUTS.map((k) => [k, args[k]])),
+        labelPosition: args.labelPosition ?? 'top',
+        buttonLayout: args.buttonLayout ?? 'stacked',
         control,
         onInput: args.onInput,
         onClear: args.onClear
