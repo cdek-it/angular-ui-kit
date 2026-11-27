@@ -34,7 +34,6 @@ const meta: Meta<InputMaskArgs> = {
       description: {
         component: `Поле ввода по маске. Используется для данных в фиксированном формате: дата, телефон, серийный номер и т.д.
 
-Реализовано по спецификации [inputmask.md](https://github.com/cdek-it/angular-ui-kit/blob/main/docs/components-api/inputmask.md).
 
 \`\`\`typescript
 import { ExtraInputMaskComponent } from '@cdek-it/angular-ui-kit';
