@@ -5,6 +5,7 @@ import { DialogFeaturesComponent, Features } from './examples/dialog-features.co
 import { DialogSizesComponent, Sizes } from './examples/dialog-sizes.component';
 import { DialogHeaderComponent, Header } from './examples/dialog-header.component';
 import { DialogSlotsComponent, Slots } from './examples/dialog-slots.component';
+import { DialogPropertiesComponent, Properties } from './examples/dialog-properties.component';
 import { DialogDynamicComponent, Dynamic } from './examples/dialog-dynamic.component';
 
 const meta: Meta<ExtraDialogComponent> = {
@@ -20,6 +21,7 @@ const meta: Meta<ExtraDialogComponent> = {
         DialogSizesComponent,
         DialogHeaderComponent,
         DialogSlotsComponent,
+        DialogPropertiesComponent,
         DialogDynamicComponent
       ]
     })
@@ -173,7 +175,8 @@ import { ExtraDialogComponent, ExtraDialogTemplateDirective } from '@cdek-it/ang
   args: {
     showOverlay: true,
     showMaximize: false,
-    showClose: true
+    showClose: true,
+    size: 'default'
   }
 };
 
@@ -182,4 +185,4 @@ type Story = StoryObj<ExtraDialogComponent>;
 
 // ── Комбинаторные истории ────────────────────────────────────────────────────
 
-export { Basic, Features, Sizes, Header, Slots, Dynamic };
+export { Basic, Features, Sizes, Header, Slots, Dynamic, Properties };

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
 import { DynamicDialogRef, ExtraDialogService } from '../../../../lib/components/dialog/dialog-open.service';
+import { ExtraDialogSize } from '../../../../lib/components/dialog/dialog.component';
 
 // ── Содержимое диалога ────────────────────────────────────────────────────────
 
@@ -27,7 +28,7 @@ export class DialogDynamicContentComponent {
 // ── Компонент-триггер ─────────────────────────────────────────────────────────
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <extra-button (click)="open()" label="Создать заявку"></extra-button>
 </div>
 `;
@@ -40,19 +41,22 @@ const template = `
   template
 })
 export class DialogDynamicComponent {
+  @Input() size: ExtraDialogSize = 'default';
   constructor(private readonly dialogService: ExtraDialogService) {}
 
   open(): void {
     this.dialogService.open(DialogDynamicContentComponent, {
       header: 'Подтверждение заявки',
-      modal: true
+      modal: true,
+      size: this.size
     });
   }
 }
 
 export const Dynamic: StoryObj = {
-  render: () => ({
-    template: `<app-dialog-dynamic></app-dialog-dynamic>`
+  render: (args) => ({
+    props: args,
+    template: `<app-dialog-dynamic [size]="size"></app-dialog-dynamic>`
   }),
   parameters: {
     docs: {
@@ -63,8 +67,8 @@ export const Dynamic: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraButtonComponent, ExtraDialogService, DynamicDialogRef } from '@cdek-it/angular-ui-kit';
+import { Component, Input } from '@angular/core';
+import { ExtraButtonComponent, ExtraDialogService, DynamicDialogRef, ExtraDialogSize } from '@cdek-it/angular-ui-kit';
 
 // Содержимое диалога
 @Component({
@@ -92,12 +96,14 @@ export class DialogDynamicContentComponent {
   template: '<extra-button (click)="open()" label="Создать заявку"></extra-button>',
 })
 export class DialogDynamicComponent {
+  @Input() size: ExtraDialogSize = 'default';
   constructor(private readonly dialogService: ExtraDialogService) {}
 
   open(): void {
     this.dialogService.open(DialogDynamicContentComponent, {
       header: 'Подтверждение заявки',
-      modal: true
+      modal: true,
+      size: this.size
     });
   }
 }

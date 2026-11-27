@@ -5,7 +5,7 @@ import { ExtraDialogComponent, ExtraDialogSize } from '../../../../lib/component
 import { ExtraDialogTemplateDirective } from '../../../../lib/components/dialog/dialog-template.directive';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <extra-button (click)="visible = true" label="Открыть окно"></extra-button>
 
   <extra-dialog

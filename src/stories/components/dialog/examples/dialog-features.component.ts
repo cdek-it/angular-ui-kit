@@ -5,12 +5,12 @@ import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.c
 import { ExtraDialogTemplateDirective } from '../../../../lib/components/dialog/dialog-template.directive';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-4">
+<div class="p-4 flex flex-col gap-4">
   <div class="flex gap-3 flex-wrap">
     <extra-button label="Обычное окно" (click)="open('basic')"></extra-button>
-    <extra-button label="Без маски (showOverlay=false)" variant="secondary" (click)="open('noOverlay')"></extra-button>
-    <extra-button label="С разворотом (showMaximize)" variant="secondary" (click)="open('maximize')"></extra-button>
-    <extra-button label="Без закрытия (showClose=false)" variant="tertiary" (click)="open('noClose')"></extra-button>
+    <extra-button label="Без маски (showOverlay=false)" (click)="open('noOverlay')"></extra-button>
+    <extra-button label="С разворотом (showMaximize)" (click)="open('maximize')"></extra-button>
+    <extra-button label="Без закрытия (showClose=false)" (click)="open('noClose')"></extra-button>
   </div>
   <div class="text-sm">Лог событий: {{ log().length ? log().join(' → ') : '—' }}</div>
 

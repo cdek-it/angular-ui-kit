@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
-import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { ExtraDialogComponent, ExtraDialogSize } from '../../../../lib/components/dialog/dialog.component';
 import { ExtraDialogTemplateDirective } from '../../../../lib/components/dialog/dialog-template.directive';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <extra-button (click)="visible = true" label="Кастомный заголовок"></extra-button>
 
-  <extra-dialog [visible]="visible" (visibleChange)="visible = $event">
+  <extra-dialog [visible]="visible" (visibleChange)="visible = $event" [size]="size">
     <ng-template extraDialogTemplate="header">
       <div class="flex items-center gap-2">
         <i class="ti ti-truck-delivery text-primary text-xl"></i>
@@ -30,12 +30,14 @@ const template = `
   template
 })
 export class DialogHeaderComponent {
+  @Input() size: ExtraDialogSize = 'default';
   visible = false;
 }
 
 export const Header: StoryObj = {
-  render: () => ({
-    template: `<app-dialog-header></app-dialog-header>`
+  render: (args) => ({
+    props: args,
+    template: `<app-dialog-header [size]="size"></app-dialog-header>`
   }),
   parameters: {
     docs: {
@@ -46,15 +48,15 @@ export const Header: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraDialogTemplateDirective } from '@cdek-it/angular-ui-kit';
+import { Component, Input } from '@angular/core';
+import { ExtraDialogComponent, ExtraDialogTemplateDirective, ExtraDialogSize } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-header',
   standalone: true,
   imports: [ExtraDialogComponent, ExtraDialogTemplateDirective],
   template: \`
-    <extra-dialog [visible]="visible" (visibleChange)="visible = $event">
+    <extra-dialog [visible]="visible" (visibleChange)="visible = $event" [size]="size">
       <ng-template extraDialogTemplate="header">
         <div class="flex items-center gap-2">
           <i class="ti ti-truck-delivery text-primary text-xl"></i>
@@ -67,6 +69,7 @@ import { ExtraDialogComponent, ExtraDialogTemplateDirective } from '@cdek-it/ang
   \`,
 })
 export class DialogHeaderComponent {
+  @Input() size: ExtraDialogSize = 'default';
   visible = false;
 }
         `

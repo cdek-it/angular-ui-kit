@@ -4,19 +4,14 @@ import { ExtraButtonComponent } from '../../../../lib/components/button/button.c
 import { ExtraDialogComponent, ExtraDialogSize } from '../../../../lib/components/dialog/dialog.component';
 
 const template = `
-<div class="bg-surface-ground p-4 flex flex-col gap-3">
+<div class="p-4 flex flex-col gap-3">
   <div class="flex gap-3 flex-wrap items-center">
     @for (s of sizes; track s) {
       <extra-button
         [label]="s.toUpperCase()"
-        [variant]="s === size ? 'primary' : 'secondary'"
-        (click)="size = s"
+        (click)="open(s)"
       ></extra-button>
     }
-  </div>
-
-  <div>
-    <extra-button [label]="'Открыть окно (' + size + ')'" (click)="visible = true"></extra-button>
   </div>
 
   <extra-dialog
@@ -41,6 +36,11 @@ export class DialogSizesComponent {
   sizes: ExtraDialogSize[] = ['sm', 'default', 'lg', 'xlg'];
   size: ExtraDialogSize = 'default';
   visible = false;
+
+  open(size: ExtraDialogSize): void {
+    this.size = size;
+    this.visible = true;
+  }
 }
 
 export const Sizes: StoryObj = {
@@ -51,7 +51,7 @@ export const Sizes: StoryObj = {
     docs: {
       description: {
         story:
-          'Размеры окна: sm (280px), default (350px), lg (420px), xlg (630px) — ширина задаётся дизайн-токенами. Размер выбирается до открытия: отметьте нужный и нажмите «Открыть окно». Чтобы посмотреть другой размер, закройте окно и выберите заново.'
+          'Размеры окна: sm (280px), default (350px), lg (420px), xlg (630px) — ширина задаётся дизайн-токенами. Нажмите кнопку размера — окно откроется сразу. Чтобы посмотреть другой размер, закройте окно и нажмите другую кнопку.'
       },
       source: {
         language: 'ts',

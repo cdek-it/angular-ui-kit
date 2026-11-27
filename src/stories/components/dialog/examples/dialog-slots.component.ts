@@ -1,18 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { StoryObj } from '@storybook/angular';
 import { ExtraButtonComponent } from '../../../../lib/components/button/button.component';
-import { ExtraDialogComponent } from '../../../../lib/components/dialog/dialog.component';
+import { ExtraDialogComponent, ExtraDialogSize } from '../../../../lib/components/dialog/dialog.component';
 import { ExtraDialogTemplateDirective } from '../../../../lib/components/dialog/dialog-template.directive';
 import { ExtraTagComponent } from '../../../../lib/components/tag/tag.component';
 
 const template = `
-<div class="bg-surface-ground p-4">
+<div class="p-4">
   <extra-button (click)="visible = true" label="Все слоты"></extra-button>
 
   <extra-dialog
     [visible]="visible"
     (visibleChange)="visible = $event"
     [showMaximize]="true"
+    [size]="size"
   >
     <ng-template extraDialogTemplate="header">
       <div class="flex items-center gap-2">
@@ -40,12 +41,14 @@ const template = `
   template
 })
 export class DialogSlotsComponent {
+  @Input() size: ExtraDialogSize = 'default';
   visible = false;
 }
 
 export const Slots: StoryObj = {
-  render: () => ({
-    template: `<app-dialog-slots></app-dialog-slots>`
+  render: (args) => ({
+    props: args,
+    template: `<app-dialog-slots [size]="size"></app-dialog-slots>`
   }),
   parameters: {
     docs: {
@@ -56,15 +59,15 @@ export const Slots: StoryObj = {
       source: {
         language: 'ts',
         code: `
-import { Component } from '@angular/core';
-import { ExtraDialogComponent, ExtraDialogTemplateDirective } from '@cdek-it/angular-ui-kit';
+import { Component, Input } from '@angular/core';
+import { ExtraDialogComponent, ExtraDialogTemplateDirective, ExtraDialogSize } from '@cdek-it/angular-ui-kit';
 
 @Component({
   selector: 'app-dialog-slots',
   standalone: true,
   imports: [ExtraDialogComponent, ExtraDialogTemplateDirective],
   template: \`
-    <extra-dialog [visible]="visible" (visibleChange)="visible = $event">
+    <extra-dialog [visible]="visible" (visibleChange)="visible = $event" [size]="size">
       <ng-template extraDialogTemplate="header">
         <span class="font-semibold">Заголовок</span>
       </ng-template>
@@ -79,6 +82,7 @@ import { ExtraDialogComponent, ExtraDialogTemplateDirective } from '@cdek-it/ang
   \`,
 })
 export class DialogSlotsComponent {
+  @Input() size: ExtraDialogSize = 'default';
   visible = false;
 }
         `
