@@ -35,6 +35,7 @@ export const Multiple: StoryObj = {
     template: `<app-autocomplete-multiple></app-autocomplete-multiple>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:

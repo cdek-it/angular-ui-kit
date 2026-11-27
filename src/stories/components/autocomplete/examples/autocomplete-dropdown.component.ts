@@ -69,6 +69,7 @@ export const Dropdown: StoryObj<ExtraAutoCompleteComponent> = {
     fluid: false
   },
   parameters: {
+    controls: { exclude: ['placeholder', 'label', 'labelPosition', 'floatLabel', 'multiple', 'showCheckbox', 'chipClearable', 'clearable', 'forceSelection', 'caption', 'info', 'readonly'] },
     docs: {
       description: { story: 'Автодополнение с кнопкой выпадающего списка для отображения всех вариантов.' },
       source: {

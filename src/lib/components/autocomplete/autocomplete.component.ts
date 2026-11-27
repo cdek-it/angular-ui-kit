@@ -1,6 +1,7 @@
 import {
   booleanAttribute,
   Component,
+  ChangeDetectorRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -24,9 +25,9 @@ import {
   Validators
 } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
-import { PrimeTemplate } from 'primeng/api';
 import { Checkbox } from 'primeng/checkbox';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 import {
   AutoComplete,
   AutoCompleteCompleteEvent,
@@ -59,7 +60,15 @@ let nextInputId = 0;
   selector: 'extra-auto-complete',
   standalone: true,
   host: { style: 'display: contents' },
-  imports: [AutoComplete, FormsModule, FloatLabel, PrimeTemplate, NgTemplateOutlet, ExtraTooltipDirective, Checkbox],
+  imports: [
+    AutoComplete,
+    FormsModule,
+    FloatLabel,
+    NgTemplateOutlet,
+    ExtraTooltipDirective,
+    Checkbox,
+    ExtraCaptionComponent
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -76,7 +85,7 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где input обязан быть прямым flex-элементом). -->
     @if (label || caption) {
-      <div class="extra-autocomplete" [class.extra-autocomplete--left]="labelPosition === 'left'">
+      <div class="extra-autocomplete" [class.extra-autocomplete--left]="labelPosition === 'left' && !floatLabel">
         @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
@@ -95,7 +104,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-autocomplete-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -105,6 +114,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-autocomplete-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-autocomplete-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-autocomplete-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -114,7 +126,11 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-autocomplete
+        [attr.aria-required]="required ? 'true' : null"
         [class.extra-autocomplete-chips-locked]="!chipClearable"
+        [class.extra-autocomplete-sm]="size === 'small'"
+        [class.extra-autocomplete-lg]="size === 'large'"
+        [class.extra-autocomplete-xlg]="size === 'xlarge'"
         [ngModel]="modelValue"
         (ngModelChange)="handleChange($event)"
         [suggestions]="suggestions"
@@ -126,11 +142,18 @@ let nextInputId = 0;
         [group]="group"
         [multiple]="multiple"
         [dropdown]="dropdown"
+        [pt]="{
+          dropdown: {
+            'aria-label': 'Открыть список',
+            disabled: disabled || readonly,
+            tabindex: readonly ? -1 : (tabindex ?? 0)
+          }
+        }"
         [dropdownMode]="dropdownMode"
-        [showClear]="clearable"
+        [showClear]="clearable && !readonly"
         [forceSelection]="forceSelection"
         [completeOnFocus]="completeOnFocus"
-        [placeholder]="placeholder"
+        [placeholder]="floatLabel ? undefined : placeholder"
         [minLength]="minLength"
         [delay]="delay"
         [scrollHeight]="scrollHeight"
@@ -148,28 +171,35 @@ let nextInputId = 0;
         [autofocus]="autofocus"
         [name]="name ?? ''"
         [autocomplete]="autocomplete ?? ''"
-        [tabindex]="tabindex"
+        [tabindex]="tabindex ?? 0"
         (completeMethod)="completeMethod.emit($event)"
         (onSelect)="onSelect.emit($event)"
         (onUnselect)="onUnselect.emit($event)"
         (onDropdownClick)="onDropdownClick.emit($event)"
-        (onShow)="onShow.emit($event)"
-        (onHide)="onHide.emit($event)"
+        (onShow)="overlayOpen = true; onShow.emit($event)"
+        (onHide)="overlayOpen = false; onHide.emit($event)"
         (onFocus)="onFocus.emit($event)"
         (onBlur)="handleBlur($event)"
         (onClear)="handleClear()"
       >
         @if (showCheckbox) {
-          <ng-template pTemplate="item" let-item>
+          <ng-template #item let-item>
             <div class="flex items-center gap-2">
-              <p-checkbox [ngModel]="isOptionSelected(item)" [binary]="true" [readonly]="true" [tabindex]="-1" />
+              <p-checkbox
+                [ngModel]="isOptionSelected(item)"
+                [binary]="true"
+                [readonly]="true"
+                [tabindex]="-1"
+                [ariaLabel]="getOptionLabel(item)"
+                [ngModelOptions]="{ standalone: true }"
+              />
               <span>{{ getOptionLabel(item) }}</span>
             </div>
           </ng-template>
         }
         @if (chipIcon) {
-          <ng-template pTemplate="removetokenicon">
-            <i [class]="chipIcon"></i>
+          <ng-template #removeicon let-removeCallback="removeCallback" let-index="index">
+            <i [class]="chipIcon" (click)="!readonly && !disabled && removeCallback($event, index)"></i>
           </ng-template>
         }
       </p-autocomplete>
@@ -178,6 +208,7 @@ let nextInputId = 0;
 })
 export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
   private readonly _injector = inject(Injector);
+  private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
 
   ngOnInit(): void {
@@ -196,6 +227,7 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
   @Input() showCheckbox = false;
   @Input() clearable = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraAutoCompleteSize = 'base';
 
@@ -220,7 +252,7 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input() autofocus = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() tabindex: number | undefined = undefined;
@@ -245,8 +277,10 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
 
   disabled = false;
 
+  overlayOpen = false;
+
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !this.overlayOpen && !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   @Output() completeMethod = new EventEmitter<ExtraAutoCompleteCompleteEvent>();
@@ -280,7 +314,9 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
   }
 
   private equalsValue(a: any, b: any): boolean {
-    if (this.dataKey) return a?.[this.dataKey] === b?.[this.dataKey];
+    if (this.dataKey && a !== null && b !== null && typeof a === 'object' && typeof b === 'object') {
+      return a[this.dataKey] === b[this.dataKey];
+    }
     return a === b;
   }
 
@@ -310,6 +346,7 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
 
   writeValue(value: any): void {
     this.modelValue = value;
+    this._cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -322,5 +359,6 @@ export class ExtraAutoCompleteComponent implements ControlValueAccessor, OnInit,
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this._cdr.markForCheck();
   }
 }
