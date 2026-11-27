@@ -159,4 +159,27 @@ export const Default: Story = {
   }
 };
 
+export const Properties: Story = {
+  name: 'Properties',
+  args: {
+    src: 'assets/images/galleria/01.png',
+    alt: 'Matrix',
+    width: '120',
+    height: '80',
+    preview: false,
+    imageClass: 'matrix-img',
+    styleClass: 'matrix-wrap'
+  },
+  render: (args) => ({ props: args, template: TEMPLATE }),
+  parameters: {
+    docs: {
+      source: {
+        language: 'html',
+        type: 'code',
+        transform: (_code: string, context: { args: ImageArgs }) => sourceFromArgs(context.args ?? {})
+      }
+    }
+  }
+};
+
 export { Preview, Width, Crop, Frame };

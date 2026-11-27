@@ -149,6 +149,51 @@ export default {
         expect(violations, `нарушения axe: ${formatViolations(violations)}`).toEqual([]);
       }
     },
+    {
+      name: 'Properties: src и alt',
+      story: 'components-media-image--properties',
+      run: async ({ page, expect }) => {
+        const img = page.locator('#storybook-root img');
+        expect(await img.getAttribute('src'), 'src').toBe('assets/images/galleria/01.png');
+        expect(await img.getAttribute('alt'), 'alt').toBe('Matrix');
+      }
+    },
+    {
+      name: 'Properties: width и height',
+      story: 'components-media-image--properties',
+      run: async ({ page, expect }) => {
+        const img = page.locator('#storybook-root img');
+        expect(await img.getAttribute('width'), 'width').toBe('120');
+        expect(await img.getAttribute('height'), 'height').toBe('80');
+      }
+    },
+    {
+      name: 'Properties: imageClass и styleClass',
+      story: 'components-media-image--properties',
+      run: async ({ page, expect }) => {
+        const img = page.locator('#storybook-root img');
+        expect((await img.getAttribute('class')) ?? '', 'imageClass').toContain('matrix-img');
+        expect((await img.evaluate((element) => element.parentElement?.getAttribute('class'))) ?? '', 'styleClass').toContain('matrix-wrap');
+      }
+    },
+    {
+      name: 'Properties: preview=false не открывает просмотр',
+      story: 'components-media-image--properties',
+      run: async ({ page, expect }) => {
+        await page.locator('#storybook-root img').click();
+        await page.waitForTimeout(300);
+        expect(await page.locator('.p-image-mask').count(), 'маска').toBe(0);
+      }
+    },
+    {
+      name: 'Properties: preview=true открывает просмотр',
+      story: 'components-media-image--preview',
+      run: async ({ page, expect }) => {
+        await previewMaskButton(page).click();
+        await page.waitForSelector('.p-image-mask', { state: 'visible' });
+        expect(await page.locator('.p-image-mask').count(), 'маска').toBe(1);
+      }
+    },
     ...STORIES.map(smoke),
     { ...smoke(STORIES[0]), name: `Smoke: ${STORIES[0].name} (тёмная тема)`, theme: 'dark' }
   ]
