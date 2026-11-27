@@ -7,6 +7,12 @@ const STORIES = [
   ['grouped','components-form-autocomplete--grouped'],
   ['fluid','components-form-autocomplete--fluid']
 ];
+
+const openAuto = async (page, url, args) => {
+  await page.goto(`${url}&args=${args}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+};
+
 export default {
   component: 'autocomplete',
   stories: Object.fromEntries(STORIES),
@@ -40,6 +46,80 @@ export default {
         expect(result.errors, 'inputs').toEqual([]);
         expect(result.inputs.length, 'inputs count').toBeGreaterThan(0);
         expect(result.outputsOk, 'outputs').toBe(true);
+      }
+    },
+    {
+      name: 'Properties: ввод и выбор подсказки',
+      story: 'components-form-autocomplete--default',
+      run: async ({ page, expect }) => {
+        const input = page.locator('#storybook-root .p-autocomplete input');
+        await input.fill('Мос');
+        await page.waitForSelector('.p-autocomplete-option');
+        expect((await page.locator('.p-autocomplete-option').first().innerText()).trim(), 'подсказка').toBe('Москва');
+        await page.locator('.p-autocomplete-option').first().click();
+        await page.waitForTimeout(200);
+        expect(await input.inputValue(), 'значение').toBe('Москва');
+      }
+    },
+    {
+      name: 'Properties: dropdown',
+      story: 'components-form-autocomplete--dropdown',
+      run: async ({ page, expect }) => {
+        await page.locator('.p-autocomplete-dropdown').click();
+        await page.waitForSelector('.p-autocomplete-option');
+        expect(await page.locator('.p-autocomplete-option').count(), 'варианты').toBeGreaterThan(0);
+      }
+    },
+    {
+      name: 'Properties: multiple',
+      story: 'components-form-autocomplete--multiple',
+      knownIssue: 'story multiple не открывает подсказки по вводу',
+      run: async ({ page, expect }) => {
+        const input = page.locator('#storybook-root .p-autocomplete input');
+        await input.fill('Мос');
+        await page.waitForSelector('.p-autocomplete-option');
+        await page.locator('.p-autocomplete-option').first().click();
+        await page.waitForTimeout(300);
+        expect(await page.locator('#storybook-root .p-autocomplete-multiple-container .p-autocomplete-token').count(), 'token').toBeGreaterThan(0);
+      }
+    },
+    {
+      name: 'Properties: grouped',
+      story: 'components-form-autocomplete--grouped',
+      knownIssue: 'в grouped нет кнопки dropdown',
+      run: async ({ page, expect }) => {
+        await page.locator('.p-autocomplete-dropdown').click();
+        await page.waitForSelector('.p-autocomplete-option');
+        expect(await page.locator('.p-autocomplete-option-group').count(), 'группы').toBeGreaterThan(0);
+      }
+    },
+    {
+      name: 'Properties: clearable',
+      story: 'components-form-autocomplete--default',
+      run: async ({ page, expect, url }) => {
+        await openAuto(page, url, 'clearable:true');
+        const input = page.locator('#storybook-root .p-autocomplete input');
+        await input.fill('Мос');
+        await page.waitForSelector('.p-autocomplete-option');
+        await page.locator('.p-autocomplete-option').first().click();
+        await page.waitForTimeout(200);
+        const clear = page.locator('.p-autocomplete-clear-icon');
+        expect(await clear.count(), 'clear').toBe(1);
+        await clear.click();
+        await page.waitForTimeout(200);
+        expect(await input.inputValue(), 'очищено').toBe('');
+      }
+    },
+    {
+      name: 'Properties: label, size, fluid и ariaLabel',
+      story: 'components-form-autocomplete--default',
+      run: async ({ page, expect, url }) => {
+        await openAuto(page, url, 'label:Auto;size:large;fluid:true;ariaLabel:AutoLabel');
+        const root = page.locator('#storybook-root .p-autocomplete');
+        const cls = (await root.getAttribute('class')) ?? '';
+        expect(cls, 'size').toContain('extra-autocomplete-lg');
+        expect(cls, 'fluid').toContain('p-autocomplete-fluid');
+        expect(await page.locator('#storybook-root [role=combobox]').getAttribute('aria-label'), 'aria-label').toBe('AutoLabel');
       }
     },
     ...STORIES.map(([name,id])=>({name:`Smoke: ${name}`,story:id,run:async({page,expect,errors})=>{
