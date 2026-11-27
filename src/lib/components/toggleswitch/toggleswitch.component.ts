@@ -89,7 +89,7 @@ let nextInputId = 0;
         [ariaLabel]="ariaLabel"
         [ariaLabelledBy]="ariaLabelledBy"
         [autofocus]="autofocus"
-        [tabindex]="tabindex"
+        [tabindex]="tabindex ?? 0"
         (onChange)="onChangeHandler($event)"
       ></p-toggleswitch>
     </ng-template>
