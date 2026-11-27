@@ -11,7 +11,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  viewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -29,6 +30,7 @@ import { InputNumber } from 'primeng/inputnumber';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SharedModule } from 'primeng/api';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 
 export type ExtraInputNumberSize = 'small' | 'base' | 'large' | 'xlarge';
 export type ExtraInputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
@@ -47,7 +49,16 @@ let nextInputId = 0;
   selector: 'extra-input-number',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InputNumber, SharedModule, FormsModule, NgClass, NgTemplateOutlet, FloatLabel, ExtraTooltipDirective],
+  imports: [
+    InputNumber,
+    SharedModule,
+    FormsModule,
+    NgClass,
+    NgTemplateOutlet,
+    FloatLabel,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -65,7 +76,11 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где input обязан быть прямым flex-элементом). -->
     @if (label || caption) {
-      <div class="extra-inputnumber" [class.extra-inputnumber--left]="labelPosition === 'left'">
+      <div
+        class="extra-inputnumber"
+        [class.extra-inputnumber--left]="labelPosition === 'left' && !floatLabel"
+        [class.extra-inputnumber--fluid]="fluid"
+      >
         @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
@@ -84,7 +99,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-inputnumber-caption">{{ caption }}</div>
+            <extra-caption [id]="inputId + '-caption'" [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -94,6 +109,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-inputnumber-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-inputnumber-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-inputnumber-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -102,11 +120,30 @@ let nextInputId = 0;
     </ng-template>
 
     <ng-template #fieldTpl>
+      @if (clearable) {
+        <span class="extra-inputnumber-field" [class.extra-inputnumber-field--fluid]="fluid">
+          <ng-container [ngTemplateOutlet]="numberTpl" />
+          @if (modelValue !== null && !disabled && !readonly) {
+            <button
+              type="button"
+              class="p-inputnumber-clear-icon extra-inputnumber-clear"
+              aria-label="Очистить поле"
+              (click)="clearValue()"
+            >
+              <i class="ti ti-x" aria-hidden="true"></i>
+            </button>
+          }
+        </span>
+      } @else {
+        <ng-container [ngTemplateOutlet]="numberTpl" />
+      }
+    </ng-template>
+    <ng-template #numberTpl>
       <p-inputNumber
         [ngClass]="sizeClass"
         [inputStyleClass]="inputSizeClass"
         [inputId]="inputId"
-        [showButtons]="showButtons && !floatLabel"
+        [showButtons]="showButtons"
         [buttonLayout]="buttonLayout"
         [mode]="mode"
         [currency]="currency"
@@ -117,60 +154,34 @@ let nextInputId = 0;
         [readonly]="readonly"
         [name]="name ?? ''"
         [autocomplete]="autocomplete"
-        [ariaLabel]="ariaLabel"
+        [ariaLabel]="ariaLabel || (!label ? 'Число' : undefined)"
+        [ariaDescribedBy]="caption ? inputId + '-caption' : undefined"
+        [ariaRequired]="required"
         [ariaLabelledBy]="ariaLabelledBy"
-        [autofocus]="autofocus"
-        [tabindex]="tabindex"
+        [autofocus]="autofocus && !disabled"
+        [tabindex]="disabled ? -1 : tabindex"
         [fluid]="fluid"
         [min]="min"
         [max]="max"
         [step]="step"
         [prefix]="prefix"
         [suffix]="suffix"
-        [showClear]="clearable"
         [minFractionDigits]="minFractionDigits"
         [maxFractionDigits]="maxFractionDigits"
         [useGrouping]="useGrouping"
         [incrementButtonIcon]="incrementButtonIcon"
         [decrementButtonIcon]="decrementButtonIcon"
         [ngModel]="modelValue"
+        (ngModelChange)="handleModelChange($event)"
         (onInput)="handleInput($event)"
         (onClear)="handleClear()"
         (onBlur)="onTouched()"
       >
         @if (!incrementButtonIcon) {
-          <ng-template pTemplate="incrementbuttonicon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-          </ng-template>
+          <ng-template pTemplate="incrementbuttonicon"><i class="ti ti-plus" aria-hidden="true"></i></ng-template>
         }
         @if (!decrementButtonIcon) {
-          <ng-template pTemplate="decrementbuttonicon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 12h14" />
-            </svg>
-          </ng-template>
+          <ng-template pTemplate="decrementbuttonicon"><i class="ti ti-minus" aria-hidden="true"></i></ng-template>
         }
       </p-inputNumber>
     </ng-template>
@@ -180,6 +191,7 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   private readonly _injector = inject(Injector);
   private readonly _cdr = inject(ChangeDetectorRef);
   private _ngControl: NgControl | null = null;
+  private readonly number = viewChild(InputNumber);
 
   ngOnInit(): void {
     this._ngControl = this._injector.get(NgControl, null, { self: true, optional: true });
@@ -188,18 +200,19 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   @Input() placeholder = '';
   @Input() label = '';
   @Input() labelPosition: ExtraInputNumberLabelPosition = 'top';
-  @Input() floatLabel = false;
-  @Input() clearable = false;
+  @Input({ transform: booleanAttribute }) floatLabel = false;
+  @Input({ transform: booleanAttribute }) clearable = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraInputNumberSize = 'base';
-  @Input() showButtons = false;
+  @Input({ transform: booleanAttribute }) showButtons = false;
   @Input() buttonLayout: ExtraInputNumberButtonLayout = 'stacked';
   @Input() mode: ExtraInputNumberMode = 'decimal';
   @Input() currency: string | undefined;
   @Input() locale: string | undefined;
-  @Input() readonly = false;
-  @Input() fluid = false;
+  @Input({ transform: booleanAttribute }) readonly = false;
+  @Input({ transform: booleanAttribute }) fluid = false;
   @Input() min: number | undefined;
   @Input() max: number | undefined;
   @Input() step = 1;
@@ -207,11 +220,11 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   @Input() suffix: string | undefined;
   @Input() minFractionDigits: number | undefined;
   @Input() maxFractionDigits: number | undefined;
-  @Input() useGrouping = true;
+  @Input({ transform: booleanAttribute }) useGrouping = true;
   @Input() incrementButtonIcon: string | undefined;
   @Input() decrementButtonIcon: string | undefined;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() name: string | undefined = undefined;
   @Input() autocomplete: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
@@ -240,7 +253,7 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   disabled = false;
 
   get invalid(): boolean {
-    return this._ngControl?.invalid ?? false;
+    return !!(this._ngControl?.invalid && (this._ngControl.touched || this._ngControl.dirty));
   }
 
   get inputSizeClass(): string {
@@ -250,7 +263,12 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   }
 
   get sizeClass(): Record<string, boolean> {
-    return { 'p-inputnumber-xlg': this.size === 'xlarge' };
+    return {
+      'p-inputnumber-sm': this.size === 'small',
+      'p-inputnumber-base': this.size === 'base',
+      'p-inputnumber-lg': this.size === 'large',
+      'p-inputnumber-xlg': this.size === 'xlarge'
+    };
   }
 
   @Output() onInput = new EventEmitter<ExtraInputNumberInputEvent>();
@@ -262,14 +280,22 @@ export class ExtraInputNumberComponent implements ControlValueAccessor, OnInit, 
   onTouched: () => void = () => {};
 
   handleInput(event: ExtraInputNumberInputEvent): void {
-    this.modelValue = event.value;
-    this._onChange(event.value);
-    this.onInput.emit(event);
+    this.handleModelChange(event.value);
+    this.onInput.emit({ ...event, formattedValue: this.number()?.input?.nativeElement.value ?? event.formattedValue });
+  }
+
+  handleModelChange(value: number | null): void {
+    if (this.modelValue === value) return;
+    this.modelValue = value;
+    this._onChange(value);
+  }
+
+  clearValue(): void {
+    if (!this.disabled && !this.readonly) this.number()?.clear();
   }
 
   handleClear(): void {
-    this.modelValue = null;
-    this._onChange(null);
+    this.handleModelChange(null);
     this.onClear.emit();
   }
 

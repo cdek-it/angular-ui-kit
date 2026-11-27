@@ -32,7 +32,6 @@ const meta: Meta<ExtraDialogComponent> = {
       description: {
         component: `Универсальное окно (модальное или немодальное) для отображения произвольного содержимого.
 
-Реализовано по спецификации \`docs/components-api/dialog.md\`.
 
 Слоты: content — основной содержимое (обычная проекция); header и footer — через директиву \`extraDialogTemplate\`.
 
