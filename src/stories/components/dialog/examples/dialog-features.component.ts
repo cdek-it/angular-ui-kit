@@ -100,6 +100,7 @@ export const Features: StoryObj = {
     visible: { control: false, table: { disable: true } },
   },
   parameters: {
+    controls: { exclude: ['showOverlay', 'showMaximize', 'showClose', 'size', 'header', 'dismissableMask', 'closeOnEscape', 'focusOnShow', 'appendTo', 'visible'] },
     docs: {
       description: {
         story:

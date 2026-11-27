@@ -48,6 +48,7 @@ const template = `
 })
 export class DialogSlotsComponent {
   @Input() size: ExtraDialogSize = 'default';
+  @Input() visible = false;
   @Input() showOverlay = true;
   @Input() showMaximize = false;
   @Input() showClose = true;
@@ -55,15 +56,16 @@ export class DialogSlotsComponent {
   @Input() closeOnEscape = true;
   @Input() focusOnShow = false;
   @Input() appendTo = 'body';
-  visible = false;
 }
 
 export const Slots: StoryObj = {
+  args: { visible: false },
   render: (args) => ({
     props: args,
-    template: `<app-dialog-slots [size]="size" [showOverlay]="showOverlay" [showMaximize]="showMaximize" [showClose]="showClose" [dismissableMask]="dismissableMask" [closeOnEscape]="closeOnEscape" [focusOnShow]="focusOnShow" [appendTo]="appendTo"></app-dialog-slots>`
+    template: `<app-dialog-slots [visible]="visible" [size]="size" [showOverlay]="showOverlay" [showMaximize]="showMaximize" [showClose]="showClose" [dismissableMask]="dismissableMask" [closeOnEscape]="closeOnEscape" [focusOnShow]="focusOnShow" [appendTo]="appendTo"></app-dialog-slots>`
   }),
   parameters: {
+    controls: { exclude: ['header'] },
     docs: {
       description: {
         story:
@@ -96,6 +98,7 @@ import { ExtraDialogComponent, ExtraDialogTemplateDirective, ExtraDialogSize } f
 })
 export class DialogSlotsComponent {
   @Input() size: ExtraDialogSize = 'default';
+  @Input() visible = false;
   @Input() showOverlay = true;
   @Input() showMaximize = false;
   @Input() showClose = true;
@@ -103,7 +106,6 @@ export class DialogSlotsComponent {
   @Input() closeOnEscape = true;
   @Input() focusOnShow = false;
   @Input() appendTo = 'body';
-  visible = false;
 }
         `
       }
