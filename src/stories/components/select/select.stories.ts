@@ -529,7 +529,8 @@ export const Disabled: Story = {
 export const Readonly: Story = {
   name: 'Readonly',
   args: { readonly: true, value: OPTIONS[0] },
-  render: (args) => renderSelect(args)
+  render: (args) => renderSelect(args),
+  parameters: { controls: { exclude: ['clearable'] } }
 };
 
 export const Fluid: Story = {
