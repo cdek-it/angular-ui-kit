@@ -73,14 +73,13 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
 
   /* ─── Нейтральное кольцо фокуса ───
      В Figma (Button.Base) у secondary, tertiary (contrast), text и link в фокусе два кольца:
-     1px extFocusRing.borderColor внутри и focusRing.width цвета border.neutral.focus снаружи.
-     У text/link без severity-класса своего focusRing в PrimeNG нет, они наследовали бы зелёное
-     кольцо primary. У primary и severity внутреннее кольцо скрыто, остаётся только внешнее. */
+     1px borderColor внутри и 2px neutralColor снаружи. У text/link без severity-класса
+     своего focusRing в PrimeNG нет — они наследовали бы зелёное кольцо primary. */
   .p-button.p-button-secondary:focus-visible,
   .p-button.p-button-contrast:focus-visible,
   .p-button-text:not(.p-button-danger):not(.p-button-warn):not(.p-button-info):not(.p-button-help):not(.p-button-success):focus-visible,
   .p-button-link:not(.p-button-danger):not(.p-button-warn):not(.p-button-info):not(.p-button-help):not(.p-button-success):focus-visible {
-    box-shadow: 0 0 0 ${dt('button.extend.extFocusRing.width')} ${dt('button.extend.extFocusRing.borderColor')}, 0 0 0 ${dt('button.extend.extFocusRing.ringWidth')} ${dt('button.extend.extFocusRing.neutralColor')};
+    box-shadow: 0 0 0 ${dt('dimension.borderWidth.100')} ${dt('button.extend.extFocusRing.borderColor')}, 0 0 0 ${dt('button.root.focusRing.width')} ${dt('button.extend.extFocusRing.neutralColor')};
   }
 
   /* ─── Text без severity: фон и рамка в покое и фон в фокусе ───
@@ -100,13 +99,12 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
   .p-button-link.p-button {
     width: min-content;
     height: auto;
-    background: ${dt('button.extend.extLink.background')};
   }
   .p-button-link.p-button.p-button-xlg {
     font-size: ${dt('fonts.fontSize.400')};
   }
   .p-button.p-button-link:not(:disabled):hover {
-    color: ${dt('button.extend.extLink.colorHover')};
+    color: ${dt('color.fg.hover')};
   }
   .p-button.p-button-link:not(:disabled):hover .p-button-label {
     text-decoration: none;
@@ -146,12 +144,6 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   /* ─── Border-radius / gap для sm / lg / xlg ─── */
-  .p-button.p-button-sm:not(.p-button-rounded) {
-    border-radius: ${dt('button.extend.extSm.borderRadius')};
-  }
-  .p-button.p-button-sm {
-    gap: ${dt('button.extend.extSm.gap')};
-  }
   .p-button:is(.p-button-lg, .p-button-xlg):not(.p-button-rounded) {
     border-radius: ${dt('button.extend.extLg.borderRadius')};
   }
@@ -166,25 +158,17 @@ export const buttonCss = ({ dt }: { dt: (token: string) => string }): string => 
   }
 
   /* ─── Высота по размерам (base/sm задаются токенами дизайна) ─── */
-  .p-button:not(.p-button-link) {
-    height: ${dt('button.root.height')};
-  }
-  .p-button.p-button-sm:not(.p-button-link) {
-    height: ${dt('button.extend.extSm.height')};
-  }
 
   /* ─── Padding / font-size / height для lg ─── */
   .p-button-lg.p-button:not(.p-button-icon-only):not(.p-button-link) {
     padding: ${dt('button.root.lg.paddingY')} ${dt('button.root.lg.paddingX')};
     font-size: ${dt('button.root.lg.fontSize')};
-    height: ${dt('button.extend.extLg.height')};
   }
 
   /* ─── Padding / font-size / height для xlg ─── */
   .p-button-xlg.p-button:not(.p-button-icon-only):not(.p-button-link) {
     padding: ${dt('button.extend.extXlg.paddingY')} ${dt('button.extend.extXlg.paddingX')};
     font-size: ${dt('fonts.fontSize.400')};
-    height: ${dt('button.extend.extXlg.height')};
   }
 
   /* ─── Icon-only размеры ─── */
