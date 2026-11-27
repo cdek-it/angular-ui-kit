@@ -87,6 +87,18 @@ export const Features: StoryObj = {
   render: () => ({
     template: `<app-dialog-features></app-dialog-features>`
   }),
+  argTypes: {
+    showOverlay: { control: false, table: { disable: true } },
+    showMaximize: { control: false, table: { disable: true } },
+    showClose: { control: false, table: { disable: true } },
+    size: { control: false, table: { disable: true } },
+    header: { control: false, table: { disable: true } },
+    dismissableMask: { control: false, table: { disable: true } },
+    closeOnEscape: { control: false, table: { disable: true } },
+    focusOnShow: { control: false, table: { disable: true } },
+    appendTo: { control: false, table: { disable: true } },
+    visible: { control: false, table: { disable: true } },
+  },
   parameters: {
     docs: {
       description: {
