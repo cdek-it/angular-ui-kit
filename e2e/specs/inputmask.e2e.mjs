@@ -79,7 +79,6 @@ export default {
     {
       name: 'Invalid: поле объявляет aria-invalid',
       story: 'components-form-inputmask--danger',
-      knownIssue: 'PrimeNG ставит только класс p-invalid; aria-invalid отсутствует',
       run: async ({ page, expect }) => {
         expect(await page.locator('input').first().getAttribute('aria-invalid'), 'aria-invalid').toBe('true');
       }

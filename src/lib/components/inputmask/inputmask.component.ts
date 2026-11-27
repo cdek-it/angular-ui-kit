@@ -1,8 +1,10 @@
 import {
+  AfterViewChecked,
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
   EventEmitter,
   forwardRef,
   inject,
@@ -11,7 +13,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -101,6 +104,7 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-inputmask
+        #inputMask
         [attr.aria-required]="required ? 'true' : null"
         [inputId]="inputId"
         [styleClass]="fieldClass"
@@ -132,7 +136,7 @@ let nextInputId = 0;
     </ng-template>
   `
 })
-export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, OnChanges, Validator {
+export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, OnChanges, Validator, AfterViewChecked {
   private readonly _injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
   private _ngControl: NgControl | null = null;
@@ -172,6 +176,15 @@ export class ExtraInputMaskComponent implements ControlValueAccessor, OnInit, On
   @Input() tabindex: number | undefined = undefined;
 
   private _onValidatorChange: () => void = () => {};
+
+  @ViewChild('inputMask', { read: ElementRef }) private inputMaskRef?: ElementRef<HTMLElement>;
+
+  ngAfterViewChecked(): void {
+    const input = this.inputMaskRef?.nativeElement.querySelector('input');
+    if (!input) return;
+    if (this.invalid) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+  }
 
   /** NG_VALIDATORS: `[required]="true"` делает контрол невалидным, пока маска не заполнена. */
   validate(control: AbstractControl): ValidationErrors | null {
