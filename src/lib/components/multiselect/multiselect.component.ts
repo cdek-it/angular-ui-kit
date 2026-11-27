@@ -27,6 +27,7 @@ import { AnimationEvent as NativeAnimationEvent } from '@angular/animations';
 import { MultiSelect } from 'primeng/multiselect';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ExtraTooltipDirective } from '@cdek-it/angular-ui-kit/components/tooltip';
+import { ExtraCaptionComponent, ExtraCaptionSeverity } from '@cdek-it/angular-ui-kit/components/caption';
 import type {
   MultiSelectBlurEvent,
   MultiSelectChangeEvent,
@@ -62,7 +63,15 @@ let nextInputId = 0;
 @Component({
   selector: 'extra-multi-select',
   standalone: true,
-  imports: [MultiSelect, NgClass, NgTemplateOutlet, FormsModule, FloatLabel, ExtraTooltipDirective],
+  imports: [
+    MultiSelect,
+    NgClass,
+    NgTemplateOutlet,
+    FormsModule,
+    FloatLabel,
+    ExtraTooltipDirective,
+    ExtraCaptionComponent
+  ],
   host: { style: 'display: contents' },
   providers: [
     {
@@ -80,7 +89,7 @@ let nextInputId = 0;
     <!-- Без label/caption поле не оборачиваем — сохраняем прежнюю DOM-структуру
          (важно для p-inputgroup, где input обязан быть прямым flex-элементом). -->
     @if (label || caption) {
-      <div class="extra-multiselect" [class.extra-multiselect--left]="labelPosition === 'left'">
+      <div class="extra-multiselect" [class.extra-multiselect--left]="labelPosition === 'left' && !floatLabel">
         @if (label && labelPosition === 'left' && !floatLabel) {
           <ng-container [ngTemplateOutlet]="labelTpl" />
         }
@@ -99,7 +108,7 @@ let nextInputId = 0;
             <ng-container [ngTemplateOutlet]="fieldTpl" />
           }
           @if (caption) {
-            <div class="extra-multiselect-caption">{{ caption }}</div>
+            <extra-caption [severity]="captionSeverity">{{ caption }}</extra-caption>
           }
         </div>
       </div>
@@ -109,6 +118,9 @@ let nextInputId = 0;
 
     <ng-template #labelTpl>
       <label class="extra-multiselect-label" [for]="inputId">
+        @if (required) {
+          <span class="extra-multiselect-required" aria-hidden="true">*</span>
+        }
         {{ label }}
         @if (info) {
           <i class="extra-multiselect-label-icon ti ti-info-circle" [extra-tooltip]="info"></i>
@@ -118,6 +130,7 @@ let nextInputId = 0;
 
     <ng-template #fieldTpl>
       <p-multiSelect
+        [attr.aria-required]="required ? 'true' : null"
         [ngClass]="multiselectClasses"
         [ngModel]="modelValue"
         [disabled]="disabled"
@@ -128,9 +141,11 @@ let nextInputId = 0;
         [optionGroupLabel]="optionGroupLabel"
         [optionGroupChildren]="optionGroupChildren"
         [group]="group"
-        [placeholder]="placeholder"
+        [placeholder]="floatLabel ? '' : placeholder"
         [filter]="showFilter"
         [filterPlaceHolder]="filterPlaceholder"
+        [showHeader]="showFilter"
+        [showToggleAll]="false"
         [showClear]="clearable"
         [display]="showChips ? 'chip' : 'comma'"
         [chipIcon]="chipIcon"
@@ -149,8 +164,8 @@ let nextInputId = 0;
         (onChange)="handleChange($event)"
         (onClear)="handleClear()"
         (onFilter)="onFilter.emit($event)"
-        (onPanelShow)="onShow.emit($event)"
-        (onPanelHide)="onHide.emit($event)"
+        (onPanelShow)="overlayOpen = true; onShow.emit($event)"
+        (onPanelHide)="overlayOpen = false; onHide.emit($event)"
         (onRemove)="handleRemove($event)"
         (onFocus)="handleFocus($event)"
         (onBlur)="handleBlur($event)"
@@ -185,11 +200,12 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   @Input() optionGroupChildren = 'items';
   @Input() group = false;
   @Input() caption = '';
+  @Input() captionSeverity: ExtraCaptionSeverity = 'base';
   @Input() info = '';
   @Input() size: ExtraMultiSelectSize = 'base';
   @Input() readonly = false;
   /** Поле обязательно для заполнения; в Angular работает как NG_VALIDATORS-валидатор. */
-  @Input({ transform: booleanAttribute }) required = false;
+  @Input({ transform: booleanAttribute }) required = true;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() ariaLabelledBy: string | undefined = undefined;
   @Input({ transform: booleanAttribute }) autofocus = false;
@@ -230,8 +246,10 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   @Output() onFocus = new EventEmitter<Event>();
   @Output() onBlur = new EventEmitter<Event>();
 
+  overlayOpen = false;
+
   get invalid(): boolean {
-    return !!(this._ngControl?.invalid && this._ngControl?.touched);
+    return !this.overlayOpen && !!(this._ngControl?.invalid && this._ngControl?.touched);
   }
 
   get primeSize(): 'small' | 'large' | undefined {
@@ -243,6 +261,7 @@ export class ExtraMultiSelectComponent implements ControlValueAccessor, OnInit, 
   get multiselectClasses(): Record<string, boolean> {
     return {
       'p-multiselect-xlg': this.size === 'xlarge',
+      'p-multiselect-readonly': this.readonly,
       'p-invalid': this.invalid,
       'extra-multiselect-no-checkbox': !this.showCheckbox,
       'extra-multiselect-chips-locked': !this.chipClearable
