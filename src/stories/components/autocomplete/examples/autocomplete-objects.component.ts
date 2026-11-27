@@ -46,6 +46,7 @@ export const Objects: StoryObj = {
     template: `<app-autocomplete-objects></app-autocomplete-objects>`
   }),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Работа с объектами через `optionLabel` и `forceSelection` для строгого выбора из списка.'
