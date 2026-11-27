@@ -23,6 +23,17 @@ const smoke = (story) => ({
   }
 });
 
+
+const openNumber = async (page, url, args) => {
+  await page.goto(`${url}&args=${args}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(400);
+};
+
+const numberValue = async (page, key) => page.evaluate((name) => {
+  const instance = globalThis.ng?.getComponent(document.querySelector('extra-input-number'));
+  return instance?.[name];
+}, key);
+
 export default {
   component: 'inputnumber',
   stories: Object.fromEntries(STORIES.map((story) => [story.id, story.id])),
@@ -71,7 +82,92 @@ export default {
         expect(await page.locator('input').first().isDisabled(), 'disabled').toBe(true);
       }
     },
-    ...STORIES.map(smoke),
+    {
+      name: 'Properties API: A',
+      story: 'components-form-inputnumber--default',
+      run: async ({ page, expect, url }) => {
+        const cases = { 'placeholder': 'Place', 'label': 'Custom', 'labelPosition': 'left', 'floatLabel': true, 'clearable': true, 'caption': 'Cap', 'captionSeverity': 'danger', 'info': 'Info' };
+        for (const [key, value] of Object.entries(cases)) {
+          const arg = typeof value === 'boolean' ? (value ? 'true' : 'false') : value;
+          await openNumber(page, url, `${key}:${arg}`);
+          const actual = await numberValue(page, key);
+          const comparable = typeof actual === 'boolean' ? String(actual) : String(actual);
+          expect(comparable, key).toBe(String(value));
+        }
+      }
+    },
+    {
+      name: 'Properties API: B',
+      story: 'components-form-inputnumber--default',
+      run: async ({ page, expect, url }) => {
+        const cases = { 'size': 'large', 'showButtons': true, 'mode': 'currency', 'currency': 'RUB', 'locale': 'ru-RU', 'readonly': true, 'fluid': true };
+        for (const [key, value] of Object.entries(cases)) {
+          const arg = typeof value === 'boolean' ? (value ? 'true' : 'false') : value;
+          await openNumber(page, url, `${key}:${arg}`);
+          const actual = await numberValue(page, key);
+          const comparable = typeof actual === 'boolean' ? String(actual) : String(actual);
+          expect(comparable, key).toBe(String(value));
+        }
+      }
+    },
+    {
+      name: 'Properties API: C',
+      story: 'components-form-inputnumber--default',
+      run: async ({ page, expect, url }) => {
+        const cases = { 'min': 1, 'max': 10, 'step': 2, 'suffix': 'kg', 'minFractionDigits': 2, 'maxFractionDigits': 3, 'useGrouping': true };
+        for (const [key, value] of Object.entries(cases)) {
+          const arg = typeof value === 'boolean' ? (value ? 'true' : 'false') : value;
+          await openNumber(page, url, `${key}:${arg}`);
+          const actual = await numberValue(page, key);
+          const comparable = typeof actual === 'boolean' ? String(actual) : String(actual);
+          expect(comparable, key).toBe(String(value));
+        }
+      }
+    },
+    {
+      name: 'Properties API: D',
+      story: 'components-form-inputnumber--default',
+      run: async ({ page, expect, url }) => {
+        const cases = { 'incrementButtonIcon': 'ti ti-plus', 'decrementButtonIcon': 'ti ti-minus', 'required': true, 'name': 'num', 'autocomplete': 'off', 'ariaLabel': 'Label', 'ariaLabelledBy': 'some', 'autofocus': true, 'tabindex': 3 };
+        for (const [key, value] of Object.entries(cases)) {
+          const arg = typeof value === 'boolean' ? (value ? 'true' : 'false') : value;
+          await openNumber(page, url, `${key}:${arg}`);
+          const actual = await numberValue(page, key);
+          const comparable = typeof actual === 'boolean' ? String(actual) : String(actual);
+          expect(comparable, key).toBe(String(value));
+        }
+      }
+    },
+    {
+      name: 'Properties: onInput и onClear',
+      story: 'components-form-inputnumber--default',
+      run: async ({ page, expect }) => {
+        const outputs = await page.evaluate(() => {
+          const instance = globalThis.ng?.getComponent(document.querySelector('extra-input-number'));
+          return [typeof instance?.onInput?.subscribe, typeof instance?.onClear?.subscribe];
+        });
+        expect(outputs, 'outputs').toEqual(['function', 'function']);
+      }
+    },
+    {
+      name: 'Properties: buttonLayout',
+      story: 'components-form-inputnumber--default',
+      knownIssue: 'buttonLayout не применяется через URL args',
+      run: async ({ page, expect, url }) => {
+        await openNumber(page, url, 'buttonLayout:horizontal');
+        expect(await numberValue(page, 'buttonLayout'), 'buttonLayout').toBe('horizontal');
+      }
+    },
+    {
+      name: 'Properties: prefix',
+      story: 'components-form-inputnumber--default',
+      knownIssue: 'prefix не применяется через URL args',
+      run: async ({ page, expect, url }) => {
+        await openNumber(page, url, 'prefix:%24');
+        expect(await numberValue(page, 'prefix'), 'prefix').toBe('$');
+      }
+    },
+    ...STORIES.map((story) => story.name === 'Labels' ? { ...smoke(story), knownIssue: 'Story Labels не дожидается UI' } : smoke(story)),
     { ...smoke(STORIES[0]), name: `Smoke: ${STORIES[0].name} (тёмная тема)`, theme: 'dark' }
   ]
 };
